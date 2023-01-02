@@ -33,7 +33,6 @@ public class UserController {
 	@PostMapping("/login.do")
 	public String Login(@ModelAttribute("user") UserVO user, Model model, HttpServletRequest req) throws Exception {
 		List<UserVO> list = service.login(user);
-		System.out.println("list:::"+list);
 		if(list == null || list.isEmpty()) {
 			return "login/login";
 		} else {

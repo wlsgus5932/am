@@ -13,9 +13,9 @@
 	<select id="login" resultMap="UserResult">
 			SELECT
 			user_id, user_password, user_name, user_authority, user_enabled
-			FROM TEST.TB_USER
-			WHERE USER_ID = #{user_id}
-			AND USER_PASSWORD = #{user_password}
+			FROM tb_user
+			WHERE user_id = #{user_id}
+			AND user_password = #{user_password}
 	</select>
 	
 </mapper>

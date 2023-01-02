@@ -22,7 +22,7 @@
 		<filter-class>org.egovframe.rte.ptl.mvc.filter.HTMLTagFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>HTMLTagFilter</filter-name>
+		<filter-name>HTMLTagFilter</filter-name> 
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
     

@@ -15,15 +15,11 @@ public class AuthInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("인터셉터");
         HttpSession session = request.getSession(false);
         
         if(session.getAttribute("userSession") != null) {
-			System.out.println(session.getAttribute("userSession")+ "있음");
 			return true;
 		} else {
-			System.out.println("없음");
-			
 			response.sendRedirect("/login.do");
 			return false;
 		}
