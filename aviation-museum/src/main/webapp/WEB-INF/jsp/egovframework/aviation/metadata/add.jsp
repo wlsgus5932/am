@@ -24,10 +24,60 @@
     <link href="<c:url value='/assets/css/custom.css'/>" rel="stylesheet" type="text/css" />
     <!--  -->
     <link rel="stylesheet" href="<c:url value='/assets/libs/swiper/swiper-bundle.min.css'/>" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   
+     <script type="text/javascript">
+   	 
+     /* $(document).ready(function() {
+     }); */
+     
+     const changeCountry = async(val) => {
+    	 $('#era-select').children('option:not(:first)').remove();
+    	 const res = await fetch('/metadata/getEraData.do?country=' + val);
+    	 
+    	 if (res.status === 200) {
+    	     const { eraList } = await res.json();
+    	     eraList.forEach(e => {
+    	    	 $('#era-select').append("<option value="+e.era_code_idx+">"+e.era_nm+"</option>");	
+    	     })
+    	 }
+     }
+     
+     const changeMaterial = async(val) => {
+    	 $('#material2-select').children('option:not(:first)').remove();
+    	 const res = await fetch('/metadata/getMaterialData.do?material=' + val);
+    	 
+    	 if (res.status === 200) {
+    	     const { material2List } = await res.json();
+    	     material2List.forEach(e => {
+    	    	 $('#material2-select').append("<option value="+e.material2_code_idx+">"+e.material2_nm+"</option>");	
+    	     })
+    	 }
+     }
+     
+     const addClassTd = () => {
+    	 const table = document.getElementById('class-table');
+    	 console.log(table);
+    	 let row = table.insertRow(table.rows.length);
+    	 console.log(row);
+    	 let cell1 = row.insertCell(0);
+    	 let cell2 = row.insertCell(1);
+    	 let cell3 = row.insertCell(2);
+    	 let cell4 = row.insertCell(3);
+    	 let cell5 = row.insertCell(4);
+    	 cell1.innerHTML = '<td>' + '<select class="+"form-select st_select">' +
+         '<option selected>선택</option>' + 
+         '<c:forEach var="list" items="${class1List}" varStatus="status">' +
+             '<option value="${list.class1_code_idx}">${list.class1_nm}</option>' +
+         '</c:forEach></select></td>'
+     }
+     
+     
+    </script>
     
   </head>
 
-  <body data-sidebar="dark">
+  <body data-sidebar="dark" onload="msg();">
     <!-- <body data-layout="horizontal"> -->
 
     <!-- Begin page -->
@@ -387,30 +437,6 @@
                   <li><a href="dashboard-crypto.html" data-key="t-crypto">My페이지</a></li>
                 </ul>
               </li>
-
-              <!-- <li class="menu-title" data-key="t-applications">Applications</li> -->
-
-              <!-- <li>
-                <a href="apps-calendar.html">
-                  <i class="icon nav-icon" data-eva="calendar-outline"></i>
-                  <span class="menu-item" data-key="t-calendar">Calendar</span>
-                </a>
-              </li> -->
-
-              <!-- <li>
-                <a href="apps-chat.html">
-                  <i class="icon nav-icon" data-eva="message-circle-outline"></i>
-                  <span class="menu-item" data-key="t-chat">Chat</span>
-                  <span class="badge rounded-pill badge-soft-danger" data-key="t-hot">Hot</span>
-                </a>
-              </li>
-
-              <li>
-                <a href="apps-file-manager.html">
-                  <i class="icon nav-icon" data-eva="archive-outline"></i>
-                  <span class="menu-item" data-key="t-filemanager">File Manager</span>
-                </a>
-              </li> -->
 
               <li>
                 <a href="javascript: void(0);" class="has-arrow">
@@ -1134,16 +1160,13 @@
               <label class="col-md-2 col-form-label">자료 구분</label>
               <div class="col-md-10">
                   <select class="form-select">
-                      <option disabled selected>선택</option>
-                      <option>더미1</option>
-                      <option>더미2</option>
-                      <option>더미3</option>
+                      <option selected>선택</option>
+                      		<c:forEach var="list" items="${posSessionList}" varStatus="status">
+		                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
+		                     </c:forEach>
                   </select>
                 <select class="form-select">
-                    <option disabled selected>국립항공박물관</option>
-                    <option>더미1</option>
-                    <option>더미2</option>
-                    <option>더미3</option>
+                    <option selected>국립항공박물관</option>
                 </select>
             </div>
           </div>
@@ -1248,7 +1271,7 @@
             <button class="btn btn-secondary waves-effect waves-light btn_ml">인쇄</button>
             <div class="col-md-10">
               <select class="form-select fls kor_sl">
-                <option disabled selected>한글</option>
+                <option selected>한글</option>
                 <option>더미1</option>
                 <option>더미2</option>
                 <option>더미3</option>
@@ -1366,21 +1389,21 @@
                                   <td>
                                     <input class="form-control st_input pri" list="datalistOptions" id="exampleDataList" placeholder="수량을 입력해 주세요.">
                                     <select class="form-select st_select pri">
-                                      <option disabled selected>단위선택</option>
-                                      <option>더미1</option>
-                                      <option>더미2</option>
-                                      <option>더미3</option>
-                                    </select>
+                                      <option selected>단위선택</option>
+                                      	<c:forEach var="list" items="${qtyUnitList}" varStatus="status">
+		                                    <option value="${list.qty_unit_code_idx}">${list.qty_unit_nm}</option>
+		                                </c:forEach>
+                                    </select>	
                                   </td>
                                   <td>
                                      ICAO
                                   </td>
                                   <td>
                                     <select class="form-select st_select">
-                                      <option disabled selected>선택안함</option>
-                                      <option>더미1</option>
-                                      <option>더미2</option>
-                                      <option>더미3</option>
+                                      <option selected>선택안함</option>
+                                      <c:forEach var="list" items="${IcaoList}" varStatus="status">
+		                                    <option value="${list.icao_code_idx}">${list.icao_nm}</option>
+		                                </c:forEach>
                                     </select>
                                   </td>
                               </tr>
@@ -1391,10 +1414,10 @@
                                 </td>
                                   <td>
                                     <select class="form-select st_select">
-                                      <option disabled selected>선택</option>
-                                      <option>더미1</option>
-                                      <option>더미2</option>
-                                      <option>더미3</option>
+                                      <option selected>선택</option>
+                                      <c:forEach var="list" items="${existenceList}" varStatus="status">
+		                                    <option value="${list.existence_code_idx}">${list.existence_nm}</option>
+		                               </c:forEach>
                                     </select>
                                   </td>
                                   <td>
@@ -1411,10 +1434,8 @@
                                 </td>
                                   <td>
                                     <select class="form-select st_select">
-                                      <option disabled selected>선택 안함</option>
-                                      <option>더미1</option>
-                                      <option>더미2</option>
-                                      <option>더미3</option>
+                                      <option selected>불필요</option>
+                                      <option>필요</option>
                                     </select>
                                   </td>
                                   <td>
@@ -1434,11 +1455,11 @@
                     <label class="col-md-2 col-form-label st_title">분류체계</label>
                     <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">간편입력</button>
                     <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">선택삭제</button>
-                    <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">추가</button>
+                    <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="addClassTd()">추가</button>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table mb-0">
+                        <table class="table mb-0" id="class-table">
                             <thead>
                                 <tr class="tr_bgc">
                                     <th>#</th>
@@ -1454,26 +1475,26 @@
                                     <th scope="row">1</th>
                                     <td>
                                       <select class="form-select st_select">
-                                        <option disabled selected>선택</option>
-                                        <option>더미1</option>
-                                        <option>더미2</option>
-                                        <option>더미3</option>
+                                        <option selected>선택</option>
+                                        <c:forEach var="list" items="${class1List}" varStatus="status">
+		                                    <option value="${list.class1_code_idx}">${list.class1_nm}</option>
+		                                </c:forEach>
                                       </select>
                                     </td>
                                     <td>
                                       <select class="form-select st_select">
-                                        <option disabled selected>선택</option>
-                                        <option>더미1</option>
-                                        <option>더미2</option>
-                                        <option>더미3</option>
+                                        <option selected>선택</option>
+                                        <c:forEach var="list" items="${class2List}" varStatus="status">
+		                                    <option value="${list.class2_code_idx}">${list.class2_nm}</option>
+		                                </c:forEach>
                                       </select>
                                     </td>
                                     <td>
                                       <select class="form-select st_select">
-                                        <option disabled selected>선택</option>
-                                        <option>더미1</option>
-                                        <option>더미2</option>
-                                        <option>더미3</option>
+                                        <option selected>선택</option>
+                                        <c:forEach var="list" items="${class3List}" varStatus="status">
+		                                    <option value="${list.class3_code_idx}">${list.class3_nm}</option>
+		                                </c:forEach>
                                       </select>
                                     </td>
                                 </tr>
@@ -1512,6 +1533,7 @@
               </div>
               <!-- 기본 사항 - 분류체계 끝 -->
               <!-- 기본사항 - 국적 시작 -->
+             
               <div class="mb-0">
                 <div class="st_wrap">
                   <label class="col-md-2 col-form-label st_title">국적</label>
@@ -1536,19 +1558,16 @@
                                 <td><input type="checkbox" name="" id=""></td>
                                   <th scope="row">1</th>
                                   <td>
-                                    <select class="form-select st_select">
-                                      <option disabled selected>선택</option>
-                                      <option>더미1</option>
-                                      <option>더미2</option>
-                                      <option>더미3</option>
+                                    <select class="form-select st_select" id="country-select" onchange="changeCountry(this.value)">
+                                      <option selected>선택</option>
+		                               <c:forEach var="list" items="${countryList}" varStatus="status">
+		                                    <option value="${list.country_code_idx}">${list.country_nm}</option>
+		                                </c:forEach>
                                     </select>
                                   </td>
                                   <td>
-                                    <select class="form-select st_select">
-                                      <option disabled selected>선택</option>
-                                      <option>더미1</option>
-                                      <option>더미2</option>
-                                      <option>더미3</option>
+                                    <select class="form-select st_select" id="era-select">
+                                      <option selected>선택</option>
                                     </select>
                                   </td>
                                   <td>
@@ -1582,22 +1601,19 @@
                         </thead>
                         <tbody>
                             <tr>
-                              <td><input type="checkbox" name="" id=""></td>
+                              <td><input type="checkbox" name="" id="material1-select"></td>
                                 <th scope="row">1</th>
                                 <td>
-                                  <select class="form-select st_select">
-                                    <option disabled selected>선택</option>
-                                    <option>더미1</option>
-                                    <option>더미2</option>
-                                    <option>더미3</option>
+                                  <select class="form-select st_select" onchange="changeMaterial(this.value)">
+                                    <option selected>선택</option>
+                                    <c:forEach var="list" items="${material1List}" varStatus="status">
+		                                    <option value="${list.material1_code_idx}">${list.material1_nm}</option>
+		                                </c:forEach>
                                   </select>
                                 </td>
                                 <td>
-                                  <select class="form-select st_select">
-                                    <option disabled selected>선택</option>
-                                    <option>더미1</option>
-                                    <option>더미2</option>
-                                    <option>더미3</option>
+                                  <select class="form-select st_select" id="material2-select">
+                                    <option selected>선택</option>
                                   </select>
                                 </td>
                                 <td>
@@ -1639,20 +1655,20 @@
                                 </td>
                                 <td>
                                   <select class="form-select st_select">
-                                    <option disabled selected>선택</option>
-                                    <option>더미1</option>
-                                    <option>더미2</option>
-                                    <option>더미3</option>
+                                    <option selected>선택</option>
+                                    	<c:forEach var="list" items="${measurementList}" varStatus="status">
+		                                    <option value="${list.measurement_code_idx}">${list.measurement_nm}</option>
+		                                </c:forEach>
                                   </select>
                                 </td>
                                 <td>
                                   <input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="실측치를 입력해 주세요.">
                                 <td>
                                   <select class="form-select st_select">
-                                    <option disabled selected>선택</option>
-                                    <option>더미1</option>
-                                    <option>더미2</option>
-                                    <option>더미3</option>
+                                    <option selected>선택</option>
+                                   	 	<c:forEach var="list" items="${measurementUnitList}" varStatus="status">
+		                                    <option value="${list.measurement_unit_code_idx}">${list.measurement_unit_nm}</option>
+		                                </c:forEach>
                                   </select>
                                 </td>
                             </tr>
@@ -1681,10 +1697,10 @@
                                 입수연유
                               <td>
                                 <select class="form-select st_select">
-                                  <option disabled selected>선택</option>
-                                  <option>더미1</option>
-                                  <option>더미2</option>
-                                  <option>더미3</option>
+                                  <option selected>선택</option>
+                                  		<c:forEach var="list" items="${obtainmentList}" varStatus="status">
+		                                    <option value="${list.obtainment_code_idx}">${list.obtainment_nm}</option>
+		                                </c:forEach>
                                 </select>
                               </td>
                           </tr>
@@ -1694,20 +1710,20 @@
                               구입구분1
                               <td>
                                 <select class="form-select st_select">
-                                  <option disabled selected>선택</option>
-                                  <option>더미1</option>
-                                  <option>더미2</option>
-                                  <option>더미3</option>
+                                  <option selected>선택</option>
+                                  		<c:forEach var="list" items="${purchase1List}" varStatus="status">
+		                                    <option value="${list.purchase1_code_idx}">${list.purchase1_nm}</option>
+		                                </c:forEach>
                                 </select>
                               </td>
                               <td>
                                 구입구분2
                               <td>
                                 <select class="form-select st_select">
-                                  <option disabled selected>선택</option>
-                                  <option>더미1</option>
-                                  <option>더미2</option>
-                                  <option>더미3</option>
+                                  <option selected>선택</option>
+                                 		 <c:forEach var="list" items="${purchase2List}" varStatus="status">
+		                                    <option value="${list.purchase2_code_idx}">${list.purchase2_nm}</option>
+		                                </c:forEach>
                                 </select>
                               </td>
                           </tr>
@@ -1718,10 +1734,10 @@
                               <td>
                                 <input class="form-control st_input pri" list="datalistOptions" id="exampleDataList" placeholder="가격을 입력해 주세요.">
                                 <select class="form-select st_select pri">
-                                  <option disabled selected>선택</option>
-                                  <option>더미1</option>
-                                  <option>더미2</option>
-                                  <option>더미3</option>
+                                  <option selected>선택</option>
+                                  		<c:forEach var="list" items="${priceUnitList}" varStatus="status">
+		                                    <option value="${list.price_unit_code_idx}">${list.price_unit_nm}</option>
+		                                </c:forEach>
                                 </select>
                               </td>
                               <td>
@@ -1743,12 +1759,7 @@
                                 입수처
                               </td>
                               <td>
-                                <select class="form-select st_select">
-                                  <option disabled selected>선택</option>
-                                  <option>더미1</option>
-                                  <option>더미2</option>
-                                  <option>더미3</option>
-                                </select>
+                                <input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="입수처를 입력해 주세요.">
                               </td>
                           </tr>
                           <!-- 5 -->
@@ -1772,12 +1783,7 @@
                               등록일자
                             </td>
                               <td>
-                                <select class="form-select st_select">
-                                  <option disabled selected>선택</option>
-                                  <option>더미1</option>
-                                  <option>더미2</option>
-                                  <option>더미3</option>
-                                </select>
+                                <input class="form-control in_date" type="date">
                               </td>
                               <td>
                                 문화재 지정
@@ -1801,10 +1807,10 @@
                               </td>
                               <td>
                                 <select class="form-select st_select">
-                                  <option disabled selected>선택</option>
-                                  <option>더미1</option>
-                                  <option>더미2</option>
-                                  <option>더미3</option>
+                                  <option selected>선택</option>
+                                  		<c:forEach var="list" items="${countryList}" varStatus="status">
+		                                    <option value="${list.country_code_idx}">${list.country_nm}</option>
+		                                </c:forEach>
                                 </select>
                               </td>
                           </tr>
@@ -1816,10 +1822,10 @@
                               <td>
                                 <input class="form-control st_input pri" list="datalistOptions" id="exampleDataList" placeholder="환수 경로를 입력해 주세요.">
                                 <select class="form-select st_select pri">
-                                  <option disabled selected>문화재 환수 단위</option>
-                                  <option>더미1</option>
-                                  <option>더미2</option>
-                                  <option>더미3</option>
+                                  <option selected>문화재 환수 단위</option>
+                                  		<c:forEach var="list" items="${qtyUnitList}" varStatus="status">
+		                                    <option value="${list.qty_unit_code_idx}">${list.qty_unit_nm}</option>
+		                                </c:forEach>
                                 </select>
                               </td>
                               <td>
@@ -1858,20 +1864,20 @@
                               자료상태
                               <td>
                                 <select class="form-select st_select">
-                                  <option disabled selected>선택</option>
-                                  <option>더미1</option>
-                                  <option>더미2</option>
-                                  <option>더미3</option>
+                                  <option selected>선택</option>
+                                  		<c:forEach var="list" items="${conditionList}" varStatus="status">
+		                                    <option value="${list.condition_code_idx}">${list.condition_nm}</option>
+		                                </c:forEach>
                                 </select>
                               </td>
                               <td>
                                 전시순위
                               <td>
                                 <select class="form-select st_select">
-                                  <option disabled selected>선택</option>
-                                  <option>더미1</option>
-                                  <option>더미2</option>
-                                  <option>더미3</option>
+                                  <option selected>선택</option>
+                                  		<c:forEach var="list" items="${rankingList}" varStatus="status">
+		                                    <option value="${list.ranking_code_idx}">${list.ranking_nm}</option>
+		                                </c:forEach>
                                 </select>
                               </td>
                           </tr>
@@ -1932,10 +1938,10 @@
                               <th scope="row">1</th>
                               <td>
                                 <select class="form-select st_select">
-                                  <option disabled selected>선택</option>
-                                  <option>더미1</option>
-                                  <option>더미2</option>
-                                  <option>더미3</option>
+                                  <option selected>선택</option>
+                                  		<c:forEach var="list" items="${posSessionList}" varStatus="status">
+		                                    <option value="${list.possession_code_idx}">${list.possession_nm}</option>
+		                                </c:forEach>
                                 </select>
                               </td>
                               <td>
@@ -1983,10 +1989,10 @@
                             </td>
                             <td>
                               <select class="form-select st_select">
-                                <option disabled selected>선택</option>
-                                <option>더미1</option>
-                                <option>더미2</option>
-                                <option>더미3</option>
+                                <option selected>선택</option>
+                                		<c:forEach var="list" items="${priceUnitList}" varStatus="status">
+		                                    <option value="${list.price_unit_code_idx}">${list.price_unit_nm}</option>
+		                                </c:forEach>
                               </select>
                             </td>
                             <td>
@@ -2033,7 +2039,7 @@
                             <th>저작권 소유자</th>
                             <th>저작권만료일자</th>
                             <th>이용허락 여부</th>
-                            <th>저각권 양도 여부</th>
+                            <th>저작권 양도 여부</th>
                             <th>비고</th>
                         </tr>
                     </thead>
@@ -2043,10 +2049,9 @@
                             <th scope="row">1</th>
                             <td>
                               <select class="form-select st_select">
-                                <option disabled selected>선택</option>
-                                <option>더미1</option>
-                                <option>더미2</option>
-                                <option>더미3</option>
+                                <option selected>선택</option>
+                                <option>유</option>
+                                <option>무</option>
                               </select>
                             </td>
                             <td>
@@ -2058,18 +2063,16 @@
                             </td>
                             <td>
                               <select class="form-select st_select">
-                                <option disabled selected>선택</option>
-                                <option>더미1</option>
-                                <option>더미2</option>
-                                <option>더미3</option>
+                                <option selected>선택</option>
+                                <option>Y</option>
+                                <option>N</option>
                               </select>
                             </td>
                             <td>
                               <select class="form-select st_select">
-                                <option disabled selected>선택</option>
-                                <option>더미1</option>
-                                <option>더미2</option>
-                                <option>더미3</option>
+                                <option selected>선택</option>
+                                <option>Y</option>
+                                <option>N</option>
                               </select>
                             </td>
                             <td>
@@ -2088,10 +2091,9 @@
           <div class="st_wrap">
             <label class="col-md-2 col-form-label st_title">대국민 서비스</label>
             <select class="form-select st_select ser_sel">
-              <option disabled selected>선택</option>
-              <option>더미1</option>
-              <option>더미2</option>
-              <option>더미3</option>
+              <optio selected>선택</option>
+              <option>Y</option>
+              <option>N</option>
             </select>
           </div>
           <div class="card-body">
@@ -2110,10 +2112,10 @@
                             </td>
                             <td>
                               <select class="form-select st_select">
-                                <option disabled selected>선택</option>
-                                <option>더미1</option>
-                                <option>더미2</option>
-                                <option>더미3</option>
+                                <option selected>선택</option>
+                                		<c:forEach var="list" items="${ggnuriList}" varStatus="status">
+		                                    <option value="${list.ggnuri_code_idx}">${list.ggnuri_nm}</option>
+		                                </c:forEach>
                               </select>
                             </td>
                         </tr>

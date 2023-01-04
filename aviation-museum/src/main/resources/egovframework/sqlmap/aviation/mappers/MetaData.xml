@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.aviation.metadata.service.impl.MetaDataMapper">
+
+	<select id="getCountry" resultMap="CountryResult">
+			SELECT * FROM nam_country_code
+	</select>
+	
+	<select id="getEra" resultMap="EraResult" parameterType="int">
+			SELECT * FROM nam_era_code where country_code_idx = #{country}
+	</select>
+	
+	<select id="getMaterial1" resultMap="Material1Result">
+			SELECT * FROM nam_material1_code
+	</select>
+	
+	<select id="getMaterial2" resultMap="Material2Result" parameterType="int">
+			SELECT * FROM nam_material2_code where material1_code_idx = #{material}
+	</select>
+	
+	<select id="getIcao" resultMap="IcaoResult">
+			SELECT * FROM nam_icao_code
+	</select>
+	
+	<select id="getExistence" resultMap="existenceResult">
+			SELECT * FROM nam_existence_code
+	</select>
+	
+	<select id="getMeasurement" resultMap="measurementResult">
+			SELECT * FROM nam_measurement_code
+	</select>
+	
+	<select id="getMeasurementUnit" resultMap="measurementUnitResult">
+			SELECT * FROM nam_measurement_unit_code
+	</select>
+	
+	<select id="getClass1" resultMap="class1Result">
+			SELECT * FROM nam_class1_code
+	</select>
+	
+	<select id="getClass2" resultMap="class2Result">
+			SELECT * FROM nam_class2_code
+	</select>
+	
+	<select id="getClass3" resultMap="class3Result">
+			SELECT * FROM nam_class3_code
+	</select>
+	
+	<select id="getObtainment" resultMap="obtainmentResult">
+			SELECT * FROM nam_obtainment_code
+	</select>
+	
+	<select id="getPurchase1" resultMap="purchase1Result">
+			SELECT * FROM nam_purchase1_code
+	</select>
+	
+	<select id="getPurchase2" resultMap="purchase2Result">
+			SELECT * FROM nam_purchase2_code
+	</select>
+	
+	<select id="getPriceUnit" resultMap="priceUnitResult">
+			SELECT * FROM nam_price_unit_code
+	</select>
+	
+	<select id="getQtyUnit" resultMap="qtyUnitResult">
+			SELECT * FROM nam_qty_unit_code
+	</select>
+	
+	<select id="getCondition" resultMap="conditionResult">
+			SELECT * FROM nam_condition_code
+	</select>
+	
+	<select id="getRanking" resultMap="rankingResult">
+			SELECT * FROM nam_ranking_code
+	</select>
+	
+	<select id="getPosSession" resultMap="posSessionResult">
+			SELECT * FROM nam_possession_code
+	</select>
+	
+	<select id="getGgnuri" resultMap="ggnuriResult">
+			SELECT * FROM nam_ggnuri_code
+	</select>
+
+	<resultMap id="CountryResult" type="egovframework.aviation.metadata.vo.CountryVO">
+		<result property="country_code_idx" column="country_code_idx"/>
+		<result property="country_nm" column="country_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="EraResult" type="egovframework.aviation.metadata.vo.EraVO">
+		<result property="era_code_idx" column="era_code_idx"/>
+		<result property="country_code_idx" column="country_code_idx"/>
+		<result property="era_nm" column="era_nm"/>
+		<result property="start_year" column="start_year"/>
+		<result property="end_year" column="end_year"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="Material1Result" type="egovframework.aviation.metadata.vo.Material1VO">
+		<result property="material1_code_idx" column="material1_code_idx"/>
+		<result property="material1_nm" column="material1_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="Material2Result" type="egovframework.aviation.metadata.vo.Material2VO">
+		<result property="material1_code_idx" column="material1_code_idx"/>
+		<result property="material2_code_idx" column="material2_code_idx"/>
+		<result property="material2_nm" column="material2_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="IcaoResult" type="egovframework.aviation.metadata.vo.IcaoVO">
+		<result property="icao_code_idx" column="icao_code_idx"/>
+		<result property="icao_nm" column="icao_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="existenceResult" type="egovframework.aviation.metadata.vo.ExistenceVO">
+		<result property="existence_code_idx" column="existence_code_idx"/>
+		<result property="existence_nm" column="existence_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="measurementResult" type="egovframework.aviation.metadata.vo.MeasurementVO">
+		<result property="measurement_code_idx" column="measurement_code_idx"/>
+		<result property="measurement_nm" column="measurement_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="measurementUnitResult" type="egovframework.aviation.metadata.vo.MeasurementUnitVO">
+		<result property="measurement_unit_code_idx" column="measurement_unit_code_idx"/>
+		<result property="measurement_unit_nm" column="measurement_unit_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="class1Result" type="egovframework.aviation.metadata.vo.Class1VO">
+		<result property="class1_code_idx" column="class1_code_idx"/>
+		<result property="class1_nm" column="class1_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="class2Result" type="egovframework.aviation.metadata.vo.Class2VO">
+		<result property="class2_code_idx" column="class2_code_idx"/>
+		<result property="class2_nm" column="class2_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="class3Result" type="egovframework.aviation.metadata.vo.Class3VO">
+		<result property="class3_code_idx" column="class3_code_idx"/>
+		<result property="class3_nm" column="class3_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="obtainmentResult" type="egovframework.aviation.metadata.vo.ObtainmentVO">
+		<result property="obtainment_code_idx" column="obtainment_code_idx"/>
+		<result property="obtainment_nm" column="obtainment_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="purchase1Result" type="egovframework.aviation.metadata.vo.Purchase1VO">
+		<result property="purchase1_code_idx" column="purchase1_code_idx"/>
+		<result property="purchase1_nm" column="purchase1_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="purchase2Result" type="egovframework.aviation.metadata.vo.Purchase2VO">
+		<result property="purchase2_code_idx" column="purchase2_code_idx"/>
+		<result property="purchase2_nm" column="purchase2_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="priceUnitResult" type="egovframework.aviation.metadata.vo.PriceUnitVO">
+		<result property="price_unit_code_idx" column="price_unit_code_idx"/>
+		<result property="price_unit_nm" column="price_unit_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="qtyUnitResult" type="egovframework.aviation.metadata.vo.QtyUnitVO">
+		<result property="qty_unit_code_idx" column="qty_unit_code_idx"/>
+		<result property="qty_unit_nm" column="qty_unit_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="conditionResult" type="egovframework.aviation.metadata.vo.ConditionVO">
+		<result property="condition_code_idx" column="condition_code_idx"/>
+		<result property="condition_nm" column="condition_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="rankingResult" type="egovframework.aviation.metadata.vo.RankingVO">
+		<result property="ranking_code_idx" column="ranking_code_idx"/>
+		<result property="ranking_nm" column="ranking_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="posSessionResult" type="egovframework.aviation.metadata.vo.PosSessionVO">
+		<result property="possession_code_idx" column="possession_code_idx"/>
+		<result property="org_code_idx" column="org_code_idx"/>
+		<result property="possession_nm" column="possession_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="ggnuriResult" type="egovframework.aviation.metadata.vo.GgnuriVO">
+		<result property="ggnuri_code_idx" column="ggnuri_code_idx"/>
+		<result property="ggnuri_nm" column="ggnuri_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	
+	
+</mapper>
