@@ -3,19 +3,42 @@
 <mapper namespace="egovframework.aviation.user.service.impl.UserMapper">
 
 	<resultMap id="UserResult" type="egovframework.aviation.user.vo.UserVO">
-		<result property="user_id" column="user_id"/>
-		<result property="user_password" column="user_password"/>
-		<result property="user_name" column="user_name"/>
-		<result property="user_authority" column="user_authority"/>
-		<result property="user_enabled" column="user_enabled"/>
+		<result property="member_idx" column="MEMBER_IDX"/>
+		<result property="member_id" column="MEMBER_ID"/>
+		<result property="org_code_idx" column="ORG_CODE_IDX"/>
+		<result property="group_idx" column="GROUP_IDX"/>
+		<result property="member_pw" column="MEMBER_PW"/>
+		<result property="member_nm" column="MEMBER_NM"/>
+		<result property="remark" column="REMARK"/>
+		<result property="reg_user" column="REG_USER"/>
+		<result property="reg_date" column="REG_DATE"/>
+		<result property="mod_user" column="MOD_USER"/>
+		<result property="mod_date" column="MOD_DATE"/>
 	</resultMap>
+	
+<!-- 	<select id="login" resultMap="UserResult"> -->
+<!-- 			SELECT -->
+<!-- 			user_id, user_password, user_name, user_authority, user_enabled -->
+<!-- 			FROM tb_user -->
+<!-- 			WHERE user_id = #{user_id} -->
+<!-- 			AND user_password = #{user_password} -->
+<!-- 	</select> -->
 	
 	<select id="login" resultMap="UserResult">
 			SELECT
-			user_id, user_password, user_name, user_authority, user_enabled
-			FROM tb_user
-			WHERE user_id = #{user_id}
-			AND user_password = #{user_password}
+				 member_idx
+				,member_id
+				,org_code_idx
+				,group_idx
+				,member_pw
+				,member_nm
+				,remark
+				,reg_user
+				,reg_date
+				,mod_user
+				,mod_date
+			FROM nam_member
+			WHERE member_id = #{member_id}
+			AND member_pw = #{member_pw}
 	</select>
-	
 </mapper>
