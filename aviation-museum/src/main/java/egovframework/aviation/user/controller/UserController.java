@@ -51,4 +51,20 @@ public class UserController {
 		return "login/login";
 	}
 
+	@GetMapping("/usermgr.do")
+	public String UserMgr(HttpServletRequest req) throws Exception {
+		HttpSession session = req.getSession();
+		session.invalidate();
+		return "userMgr/userMgr_main";
+	}
+	
+	@RequestMapping("/usermgr/userListAjax.do")
+	public String userAjax(@ModelAttribute("user") UserVO user, Model model, HttpServletRequest req) throws Exception {
+		System.out.println("userListAjax");
+		List<UserVO> list = service.login(user);
+
+		model.addAttribute("list", list);
+		
+		return "userMgr/userMgr_main";
+	}
 }

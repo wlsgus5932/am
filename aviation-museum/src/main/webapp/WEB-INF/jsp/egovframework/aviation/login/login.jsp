@@ -15,8 +15,8 @@ const submitLogin = () => {
 </script>
 <body>
 <form action="/login.do" method="post" name="form">
-	id: <input type="text" name="user_id"/> <br/>
-	pw: <input type="text" name="user_password"/> <br/>
+	id: <input type="text" name="member_id"/> <br/>
+	pw: <input type="text" name="member_pw"/> <br/>
 	<button type="button" onClick="submitLogin()">login</button>
 </form>
 

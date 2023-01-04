@@ -59,4 +59,35 @@
              WHERE GROUP_IDX=#{group_idx}
         
     </delete>
+    	
+	<select id="getMenuCodeList" parameterType="egovframework.aviation.group.vo.GroupVO" resultMap="GroupResult">
+          
+         	SELECT 
+         		*
+			from nam_menu_code
+            
+	</select>
+	
+   	<select id="getGroupUserList" parameterType="egovframework.aviation.group.vo.GroupVO" resultMap="GroupResult">
+          
+           	SELECT  
+		         nm.MEMBER_ID
+				,nm.MEMBER_NM 
+			FROM nam_group ng 
+			left join nam_member nm 
+			on ng.GROUP_IDX = nm.GROUP_IDX
+			WHERE ng.GROUP_IDX =#{group_idx}
+            
+	</select>
+    
+    <select id="getGroupMenuList" parameterType="egovframework.aviation.group.vo.GroupVO" resultMap="GroupResult">
+          
+         	SELECT 
+				 na.MENU_CODE_IDX 
+			FROM nam_group ng 
+			left join nam_authority na 
+			on ng.GROUP_IDX = na.GROUP_IDX
+			WHERE ng.GROUP_IDX =#{group_idx}
+            
+	</select>
 </mapper>
