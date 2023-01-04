@@ -1,2 +1,3 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<jsp:forward page="/login.do"/>
+<%@ taglib prefix="c"         uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:forward page="/metadata/add.do"/>

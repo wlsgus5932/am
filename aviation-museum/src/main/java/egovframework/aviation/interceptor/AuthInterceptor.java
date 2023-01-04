@@ -17,12 +17,13 @@ public class AuthInterceptor implements HandlerInterceptor {
 			throws Exception {
         HttpSession session = request.getSession(false);
         
-        if(session.getAttribute("userSession") != null) {
-			return true;
-		} else {
-			response.sendRedirect("/login.do");
-			return false;
-		}
+//        if(session.getAttribute("userSession") != null) {
+//			return true;
+//		} else {
+//			response.sendRedirect("/login.do");
+//			return false;
+//		}
+        return true;
 	}
 	
 	@Override
