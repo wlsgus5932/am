@@ -27,33 +27,61 @@ public class GroupController {
 		 * @return String
 		 * @exception Exception
 		 */
-		@RequestMapping(value = "/grouplistview.do")
-	    public String GroupListView(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
+		@RequestMapping(value = "/groupListAjax.do")
+	    public String GroupListAjax(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
 			List<GroupVO> groupList = groupService.getGroupList(groupVO);
 	    	model.addAttribute("groupList", groupList);
-	        return "group/group";
+	        return "group/groupList";
 	    }    
-
+		
+		@RequestMapping(value = "/groupModPopupAjax.do")
+	    public String groupModPopupAjax(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
+			List<GroupVO> groupListView = groupService.getGroupList(groupVO);
+			if(groupListView.size() >0) {
+				groupVO.setGroup_idx(groupListView.get(0).getGroup_idx());	
+				groupVO.setGroup_nm(groupListView.get(0).getGroup_nm());
+				groupVO.setRemark(groupListView.get(0).getRemark());
+				groupVO.setAdmin(groupListView.get(0).getAdmin());
+			}
+//	    	model.addAttribute("groupListView", groupListView);
+	    	
+	        return "jsonView";
+	    }    
+		
 		@RequestMapping(value = "/groupinsert.do")
 	    public String GroupInsert(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
-
-//			groupVO.setGroup_nm("다-4");
-//			groupVO.setAdmin("Y");
 			
 			int result = groupService.insertGroup(groupVO);
-			System.out.println("result"+result);
-	        return "group/group";
+			String success = "";
+			
+			if(result > 0) {
+				 success = "success";
+			}
+	        return "jsonView";
 	    }   
 	
 		@RequestMapping(value = "/groupupdate.do")
-	    public String Groupupdate(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
-
-//			groupVO.setGroup_idx("3");
-//			groupVO.setGroup_nm("다-44");
-//			groupVO.setAdmin("N");
+	    public String GroupUpdate(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
 			
 			int result = groupService.updateGroup(groupVO);
-			System.out.println("result"+result);
-	        return "group/group";
+			String success = "";
+			
+			if(result > 0) {
+				 success = "success";
+			}
+	        return "jsonView";
+	    } 
+		
+		@RequestMapping(value = "/groupdelete.do")
+	    public String GroupDelete(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
+			int result = groupService.updateUserGroup(groupVO);
+			int result2 = groupService.deleteAuthority(groupVO);
+			int result3 = groupService.deleteGroup(groupVO);
+			String success = "";
+			
+			if(result > 0 && result2 > 0 && result3 > 0) {
+				 success = "success";
+			}
+	        return "jsonView";
 	    } 
 }

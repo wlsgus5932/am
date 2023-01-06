@@ -1,9 +1,8 @@
 package egovframework.aviation.user.vo;
 
 import java.util.Date;
-import java.util.List;
 
-public class UserVO {
+public class UserJoinVO {
 	private String member_idx;
 	private String member_id;
 	private int org_code_idx;
@@ -16,7 +15,9 @@ public class UserVO {
 	private String mod_user;
 	private Date mod_date;
 	private String enabled;
-	private List<String> user_seqList = null;
+	private String group_nm;
+	private String admin;
+	private String result;
 	public String getMember_idx() {
 		return member_idx;
 	}
@@ -89,18 +90,32 @@ public class UserVO {
 	public void setEnabled(String enabled) {
 		this.enabled = enabled;
 	}
-	public List<String> getUser_seqList() {
-		return user_seqList;
+	public String getGroup_nm() {
+		return group_nm;
 	}
-	public void setUser_seqList(List<String> user_seqList) {
-		this.user_seqList = user_seqList;
+	public void setGroup_nm(String group_nm) {
+		this.group_nm = group_nm;
+	}
+	public String getAdmin() {
+		return admin;
+	}
+	public void setAdmin(String admin) {
+		this.admin = admin;
+	}
+	
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
 	}
 	@Override
 	public String toString() {
-		return "UserVO [member_idx=" + member_idx + ", member_id=" + member_id + ", org_code_idx=" + org_code_idx
+		return "UserJoinVO [member_idx=" + member_idx + ", member_id=" + member_id + ", org_code_idx=" + org_code_idx
 				+ ", group_idx=" + group_idx + ", member_pw=" + member_pw + ", member_nm=" + member_nm + ", remark="
 				+ remark + ", reg_user=" + reg_user + ", reg_date=" + reg_date + ", mod_user=" + mod_user
-				+ ", mod_date=" + mod_date + ", enabled=" + enabled + ", user_seqList=" + user_seqList + "]";
+				+ ", mod_date=" + mod_date + ", enabled=" + enabled + ", group_nm=" + group_nm + ", admin=" + admin
+				+ ", result=" + result + "]";
 	}
-	
+
 }

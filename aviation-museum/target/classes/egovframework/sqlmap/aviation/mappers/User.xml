@@ -41,4 +41,114 @@
 			WHERE member_id = #{member_id}
 			AND member_pw = #{member_pw}
 	</select>
+	
+	<select id="getUserList" resultType="egovframework.aviation.user.vo.UserJoinVO">
+			SELECT
+				 nm.member_idx
+				,nm.member_id
+				,nm.org_code_idx
+				,nm.group_idx
+				,nm.member_pw
+				,nm.member_nm
+				,nm.remark
+				,nm.reg_user
+				,nm.reg_date
+				,nm.mod_user
+				,nm.mod_date
+				,nm.enabled
+				,ng.group_nm
+				,ng.admin
+			FROM nam_member nm
+			left join nam_group ng 
+			on nm.GROUP_IDX =ng.GROUP_IDX
+			WHERE 1=1 
+            <if test="member_idx != null">AND
+                MEMBER_IDX = #{member_idx}
+            </if>
+<!--             <if test="searchCondition == 1">AND -->
+<!--                 AUTHOR_NM LIKE CONCAT('%' , #{searchKeyword}, '%') -->
+<!--             </if> -->
+            ORDER BY REG_DATE DESC
+<!--             LIMIT #{recordCountPerPage} OFFSET #{firstIndex}       -->
+	</select>
+		
+	<select id="getDuplicateCheck" resultType="egovframework.aviation.user.vo.UserJoinVO">
+			SELECT
+				 nm.member_idx
+				,nm.member_id
+				,nm.org_code_idx
+				,nm.group_idx
+				,nm.member_pw
+				,nm.member_nm
+				,nm.remark
+				,nm.reg_user
+				,nm.reg_date
+				,nm.mod_user
+				,nm.mod_date
+				,nm.enabled
+				,ng.group_nm
+				,ng.admin
+			FROM nam_member nm
+			left join nam_group ng 
+			on nm.GROUP_IDX =ng.GROUP_IDX
+			WHERE 1=1 
+            <if test="member_id != null">AND
+                MEMBER_ID = #{member_id}
+            </if>
+<!--             <if test="searchCondition == 1">AND -->
+<!--                 AUTHOR_NM LIKE CONCAT('%' , #{searchKeyword}, '%') -->
+<!--             </if> -->
+            ORDER BY REG_DATE DESC
+<!--             LIMIT #{recordCountPerPage} OFFSET #{firstIndex}       -->
+	</select>
+	
+	<insert id="insertUser" parameterType="egovframework.aviation.user.vo.UserVO">
+        
+            INSERT INTO nam_member 
+                  ( MEMBER_ID
+                  , ORG_CODE_IDX
+                  , GROUP_IDX
+                  , MEMBER_PW
+                  , MEMBER_NM
+                  , REMARK
+                  , REG_USER
+                  , REG_DATE
+                  , ENABLED)
+           VALUES ( #{member_id}
+                  , '1'
+                  , #{group_idx}
+                  , #{member_pw}
+                  , #{member_nm}
+                  , #{remark}
+                  , #{reg_user}
+                  , now()
+                  , 'Y')
+         
+    </insert>
+    
+    <update id="updateUser" parameterType="egovframework.aviation.user.vo.UserVO">
+        
+            UPDATE nam_member 
+               SET MEMBER_ID=#{member_id}
+                 , ORG_CODE_IDX='1'
+                 , GROUP_IDX=#{group_idx}
+                 , MEMBER_NM=#{member_nm}
+                 , REMARK=#{remark}
+                 , MOD_USER=#{mod_user}
+                 , MOD_DATE=#{mod_date}
+                 , ENABLED=#{enabled}
+             WHERE MEMBER_IDX=#{member_idx}
+        
+    </update>
+    
+    <update id="updateUserListEnabled" parameterType="egovframework.aviation.user.vo.UserVO">
+        
+            UPDATE nam_member 
+             	SET ENABLED='N'
+             WHERE 
+             	MEMBER_IDX IN
+			<foreach collection="user_seqList" item="user_seq" open="(" close=")" separator=",">
+				#{user_seq}
+			</foreach>
+    </update>
 </mapper>

@@ -26,4 +26,16 @@ public class GroupServiceImpl implements GroupService {
 	public int updateGroup(GroupVO groupVO) {
 		return groupMapper.updateGroup(groupVO);
 	}
+	
+	public int updateUserGroup(GroupVO groupVO) {
+		return groupMapper.updateUserGroup(groupVO);
+	}
+	
+	public int deleteAuthority(GroupVO groupVO) {
+		return groupMapper.deleteAuthority(groupVO);
+	}
+	
+	public int deleteGroup(GroupVO groupVO) {
+		return groupMapper.deleteGroup(groupVO);
+	}
 }

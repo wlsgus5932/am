@@ -10,5 +10,11 @@ public interface GroupService {
 	public int insertGroup(GroupVO groupVO);
 
 	public int updateGroup(GroupVO groupVO);
+	
+	public int updateUserGroup(GroupVO groupVO);
+	
+	public int deleteAuthority(GroupVO groupVO);
+	
+	public int deleteGroup(GroupVO groupVO);
 
 }
