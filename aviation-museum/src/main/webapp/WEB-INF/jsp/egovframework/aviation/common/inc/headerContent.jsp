@@ -436,7 +436,7 @@
                   <span class="menu-item" data-key="t-ecommerce">사용자 관리</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
-                  <li><a href="ecommerce-products.html" data-key="t-products">사용자 등록</a></li>
+                  <li><a href="/usermgr.do" data-key="t-products">사용자 등록</a></li>
                   <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">사용자 권한관리</a></li>
                 </ul>
               </li>
