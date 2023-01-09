@@ -11,26 +11,65 @@
     </resultMap>
     
 	<select id="getGroupList" parameterType="egovframework.aviation.group.vo.GroupVO" resultMap="GroupResult">
-            SELECT 
-            	  GROUP_IDX
-            	, GROUP_NM
-            	, REMARK 
-            	, ADMIN
-	           	, REG_DATE 
-            FROM nam_group 
-            WHERE 1=1 
-            <if test="group_idx != null">AND
-                GROUP_IDX = #{group_idx}
-            </if>
-            <if test="org_code_idx != null">AND
-                ORG_CODE_IDX = #{org_code_idx}
-            </if>
-<!--             <if test="searchCondition == 1">AND -->
-<!--                 AUTHOR_NM LIKE CONCAT('%' , #{searchKeyword}, '%') -->
-<!--             </if> -->
-            ORDER BY REG_DATE DESC
-<!--             LIMIT #{recordCountPerPage} OFFSET #{firstIndex}       -->
-            
+           SELECT R1.* FROM( 
+	            SELECT 
+	          		  row_number() over(order by GROUP_IDX desc) as rnum
+	            	, GROUP_IDX
+	            	, GROUP_NM
+	            	, REMARK 
+	            	, ADMIN
+		           	, REG_DATE 
+	            FROM nam_group 
+	            WHERE 1=1 
+	            <if test="group_idx != null">AND
+	                GROUP_IDX = #{group_idx}
+	            </if>
+	            <if test="org_code_idx != null">AND
+	                ORG_CODE_IDX = #{org_code_idx}
+	            </if>
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'group_nm'">
+						AND (group_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'remark'">
+						AND (remark LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'admin'">
+						AND (admin LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (group_nm LIKE CONCAT('%', #{search_word}, '%') OR remark LIKE CONCAT('%', #{search_word}, '%') OR admin LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+            ) R1
+            LIMIT #{perPageNum} OFFSET #{pageStart}  
+	</select>
+	
+	<select id="getGroupListCnt" resultType="Integer">
+	            SELECT 
+	            	count(*)
+	            FROM nam_group 
+	            WHERE 1=1 
+	            <if test="group_idx != null">AND
+	                GROUP_IDX = #{group_idx}
+	            </if>
+	            <if test="org_code_idx != null">AND
+	                ORG_CODE_IDX = #{org_code_idx}
+	            </if>
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'group_nm'">
+						AND (group_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'remark'">
+						AND (remark LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'admin'">
+						AND (admin LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (group_nm LIKE CONCAT('%', #{search_word}, '%') OR remark LIKE CONCAT('%', #{search_word}, '%') OR admin LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
 	</select>
 	
 	<insert id="insertGroup" parameterType="egovframework.aviation.group.vo.GroupVO">

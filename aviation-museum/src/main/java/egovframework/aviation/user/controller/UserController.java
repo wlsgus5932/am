@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import egovframework.aviation.group.service.GroupService;
 import egovframework.aviation.group.vo.GroupVO;
+import egovframework.aviation.paging.Criteria;
+import egovframework.aviation.paging.PageMaker;
 import egovframework.aviation.user.service.UserService;
 import egovframework.aviation.user.vo.UserJoinVO;
 import egovframework.aviation.user.vo.UserVO;
@@ -64,13 +66,26 @@ public class UserController {
 	}
 	
 	@RequestMapping("/usermgr/userListAjax.do")
-	public String UserListAjax(@ModelAttribute("userJoinVO") UserJoinVO userJoinVO, @ModelAttribute("groupVO") GroupVO groupVO, Model model, HttpServletRequest req) throws Exception {
-		System.out.println("userListAjax");
+	public String UserListAjax(@ModelAttribute("userJoinVO") UserJoinVO userJoinVO, @ModelAttribute("groupVO") GroupVO groupVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
+		
+		int perPageNum = userService.getUserListCnt(userJoinVO);		
+		int groupPerPageNum = groupService.getGroupListCnt(groupVO);	
+		
+		PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    pageMaker.setTotalCount(perPageNum);
+		    
+	    userJoinVO.setPageStart(cri.getPageStart());
+	    userJoinVO.setPerPageNum(cri.getPerPageNum());
+	    groupVO.setPerPageNum(groupPerPageNum);
+	    
 		List<UserJoinVO> userList = userService.getUserList(userJoinVO);
 		List<GroupVO> groupList = groupService.getGroupList(groupVO);
-		
+
 		model.addAttribute("userList", userList);
+		model.addAttribute("perPageNum", perPageNum);		
 		model.addAttribute("groupList", groupList);
+		model.addAttribute("pageMaker", pageMaker);
 		
 		return "userMgr/userMgr_List";
 	}
@@ -89,7 +104,9 @@ public class UserController {
 	
 	@RequestMapping(value = "/userModPopupAjax.do")
     public String UserModPopupAjax(HttpServletRequest req, @ModelAttribute("userJoinVO") UserJoinVO userJoinVO, Model model) throws Exception {
+		userJoinVO.setPerPageNum(1);
 		List<UserJoinVO> userListView = userService.getUserList(userJoinVO);
+		System.out.println("userListView"+userListView);
 		if(userListView.size() >0) {
 			userJoinVO.setMember_idx(userListView.get(0).getMember_idx());	
 			userJoinVO.setMember_id(userListView.get(0).getMember_id());	
@@ -98,6 +115,7 @@ public class UserController {
 			userJoinVO.setGroup_nm(userListView.get(0).getGroup_nm());
 			userJoinVO.setRemark(userListView.get(0).getRemark());
 			userJoinVO.setEnabled(userListView.get(0).getEnabled());
+			
 		}
 //    	model.addAttribute("groupListView", groupListView);
     	

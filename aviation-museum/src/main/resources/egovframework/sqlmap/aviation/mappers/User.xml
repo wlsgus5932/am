@@ -43,35 +43,85 @@
 	</select>
 	
 	<select id="getUserList" resultType="egovframework.aviation.user.vo.UserJoinVO">
-			SELECT
-				 nm.member_idx
-				,nm.member_id
-				,nm.org_code_idx
-				,nm.group_idx
-				,nm.member_pw
-				,nm.member_nm
-				,nm.remark
-				,nm.reg_user
-				,nm.reg_date
-				,nm.mod_user
-				,nm.mod_date
-				,nm.enabled
-				,ng.group_nm
-				,ng.admin
-			FROM nam_member nm
-			left join nam_group ng 
-			on nm.GROUP_IDX =ng.GROUP_IDX
-			WHERE 1=1 
-            <if test="member_idx != null">AND
-                MEMBER_IDX = #{member_idx}
-            </if>
-<!--             <if test="searchCondition == 1">AND -->
-<!--                 AUTHOR_NM LIKE CONCAT('%' , #{searchKeyword}, '%') -->
-<!--             </if> -->
-            ORDER BY REG_DATE DESC
-<!--             LIMIT #{recordCountPerPage} OFFSET #{firstIndex}       -->
+			SELECT R1.* FROM(
+				SELECT
+					 row_number() over(order by member_idx desc) as rnum
+					,nm.member_idx
+					,nm.member_id
+					,nm.org_code_idx
+					,nm.group_idx
+					,nm.member_pw
+					,nm.member_nm
+					,nm.remark
+					,nm.reg_user
+					,nm.reg_date
+					,nm.mod_user
+					,nm.mod_date
+					,nm.enabled
+					,ng.group_nm
+					,ng.admin
+				FROM nam_member nm
+				left join nam_group ng 
+				on nm.GROUP_IDX =ng.GROUP_IDX
+				WHERE 1=1 
+	            <if test="member_idx != null">AND
+	                MEMBER_IDX = #{member_idx}
+	            </if>
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'member_id'">
+						AND (nm.member_id LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+					<if test="search_type == 'member_nm'">
+						AND (nm.member_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'group_nm'">
+						AND (ng.group_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'remark'">
+						AND (nm.remark LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'enabled'">
+						AND (nm.enabled LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (nm.member_id LIKE CONCAT('%', #{search_word}, '%') OR nm.member_nm LIKE CONCAT('%', #{search_word}, '%') OR ng.group_nm LIKE CONCAT('%', #{search_word}, '%') OR nm.remark LIKE CONCAT('%', #{search_word}, '%') OR nm.enabled LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+			) R1
+            	LIMIT #{perPageNum} OFFSET #{pageStart}
 	</select>
-		
+	
+	<select id="getUserListCnt" resultType="Integer">
+				SELECT
+					count(*)
+				FROM nam_member nm
+				left join nam_group ng 
+				on nm.GROUP_IDX =ng.GROUP_IDX
+				WHERE 1=1 
+	            <if test="member_idx != null">AND
+	                MEMBER_IDX = #{member_idx}
+	            </if>
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'member_id'">
+						AND (nm.member_id LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+					<if test="search_type == 'member_nm'">
+						AND (nm.member_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'group_nm'">
+						AND (ng.group_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'remark'">
+						AND (nm.remark LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'enabled'">
+						AND (nm.enabled LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (nm.member_id LIKE CONCAT('%', #{search_word}, '%') OR nm.member_nm LIKE CONCAT('%', #{search_word}, '%') OR ng.group_nm LIKE CONCAT('%', #{search_word}, '%') OR nm.remark LIKE CONCAT('%', #{search_word}, '%') OR nm.enabled LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+	</select>
 	<select id="getDuplicateCheck" resultType="egovframework.aviation.user.vo.UserJoinVO">
 			SELECT
 				 nm.member_idx

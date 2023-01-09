@@ -26,6 +26,10 @@ public class UserServiceImpl implements UserService {
 		return dao.getUserList(userJoinVO);
 	}
 	
+	public int getUserListCnt(UserJoinVO userJoinVO) {
+		return dao.getUserListCnt(userJoinVO);
+	}
+	
 	public List<UserJoinVO> getDuplicateCheck(UserJoinVO userJoinVO) {
 		return dao.getDuplicateCheck(userJoinVO);
 	}
@@ -41,4 +45,6 @@ public class UserServiceImpl implements UserService {
 	public int updateUserListEnabled(UserVO userVO) {
 		return dao.updateUserListEnabled(userVO);
 	}
+
+
 }

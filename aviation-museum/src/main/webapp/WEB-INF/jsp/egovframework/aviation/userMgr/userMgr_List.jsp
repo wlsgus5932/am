@@ -3,6 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
      <div class="tab-pane" id="profile" role="tabpanel" style="display:block;">
+     <form id="userSearchForm" name="userSearchForm" method="post" class="form-horizontal">
+	      <div class="user_top_wrap">
+	          <span>검색</span>
+	          <select class="form-select st_select" id="search_type" name="search_type">
+	            <option value="">전체</option>
+	            <option value="member_id">사용자 ID</option>
+		        <option value="member_nm">사용자명</option>
+		        <option value="group_nm">그룹명</option>
+		        <option value="remark">비고</option>
+		        <option value="enabled">사용여부</option>
+	          </select>
+	            <input type="text" id="search_word" name="search_word" >
+	            <button type="button" onClick="userSearchList();">조회</button>
+	      </div>
+      </form>
       <div class="st_wrap st_mv_wrap">
         <div class="st_title_wrap">
           <button class="btn btn-secondary waves-effect waves-light btn_ml" id="userListEnabledBtn">선택 미사용</button>
@@ -174,7 +189,7 @@
 	                            <input type="checkbox" name="user_seqList" id="" class="check_temp" value="${userList.member_idx}">
 	                          </td>
 	                          <td>
-	                          	${userList.member_idx}
+	                          	${perPageNum + 1 - userList.rnum}
 	                          </td>
 	                          <td>
 	                            ${userList.member_id}
@@ -204,12 +219,29 @@
 					</c:forEach>
                   </tbody>
               </table>
+              <ul class="btn-group pagination">
+			    <c:if test="${pageMaker.prev }">
+			    <li>
+			        <a href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+			    </li>
+			    </c:if>
+			    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+			    <li>
+			        <a href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+			    </li>
+			    </c:forEach>
+			    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+			    <li>
+			        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+			    </li>
+			    </c:if>
+			</ul>            
           </div>
       </div>
     </div>
     </div>
 	<script>	
-		<%-- 유저등록 유효성체크 --%>
+		<%-- 사용자 등록 유효성체크 --%>
 		var userInsValidation = function() {
 			var insUserId = $("#insUserId").val();
 			var insUserPw = $("#insUserPw").val();
@@ -239,7 +271,7 @@
 			return true;
 		}
 		
-		<%-- 유저수정 유효성체크 --%>
+		<%-- 사용자 수정 유효성체크 --%>
 		var userModValidation = function() {
 			var modUserId = $("#modUserId").val();
 			var modUserNm = $("#modUserNm").val();
@@ -261,7 +293,7 @@
 			return true;
 		}
 		
-		<%-- 유저수정 사용 여부 체크박스 단일선택 --%>
+		<%-- 사용자 수정 사용 여부 체크박스 단일선택 --%>
 		$('input[type="checkbox"][name="enabled"]').click(function(){
 			  if($(this).prop('checked')){
 			 
@@ -272,4 +304,50 @@
 			    }
 			  
 		});
+		
+		<%-- 사용자 조건 검색 --%>
+		function userSearchList(){
+			// 사용자 조건 검색			
+			var queryString = $("form[name=userSearchForm]").serialize();
+
+				$.ajax({
+					type : 'post',
+					url : '/usermgr/userListAjax.do',
+					data : queryString,
+					dataType : 'html',
+					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+					error: function(xhr, status, error){
+						alert(error);
+					},
+					success : function(data){
+						$('#tab-content').empty().append(data);
+					}
+				});
+		}
+		
+		$('input[type="text"]').keydown(function() {
+			  if (event.keyCode === 13) {
+			    event.preventDefault();
+			  };
+		});
+		
+		<%-- 사용자 페이지 이동 --%>
+		function goPage(value) {
+			var page = value;
+			$.ajax({
+				type : 'POST',                 
+				url : '/usermgr/userListAjax.do',   
+				data:{
+					page : page
+				},
+				dataType : "html",           
+				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+				error : function() {        
+					alert('통신실패!');
+				},
+				success : function(data) {  
+					$('#tab-content').empty().append(data);
+				}
+			});
+	}
 	</script>

@@ -14,6 +14,8 @@ public interface UserMapper {
 	
 	public List<UserJoinVO> getUserList(UserJoinVO userJoinVO);
 
+	public int getUserListCnt(UserJoinVO userJoinVO);
+	
 	public List<UserJoinVO> getDuplicateCheck(UserJoinVO userJoinVO);
 	
 	public int insertUser(UserVO userVO);

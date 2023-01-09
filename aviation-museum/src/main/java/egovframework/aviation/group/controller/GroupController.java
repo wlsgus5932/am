@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import egovframework.aviation.group.service.GroupService;
 import egovframework.aviation.group.vo.GroupVO;
+import egovframework.aviation.paging.Criteria;
+import egovframework.aviation.paging.PageMaker;
 
 @Controller
 public class GroupController {
@@ -28,20 +30,34 @@ public class GroupController {
 		 * @exception Exception
 		 */
 		@RequestMapping(value = "/groupListAjax.do")
-	    public String GroupListAjax(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
+	    public String GroupListAjax(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model, @ModelAttribute("criteria") Criteria cri) throws Exception {
+			
+			int perPageNum = groupService.getGroupListCnt(groupVO);		
+
+			PageMaker pageMaker = new PageMaker();
+		    pageMaker.setCri(cri);
+		    pageMaker.setTotalCount(perPageNum);
+			    
+		    groupVO.setPageStart(cri.getPageStart());
+		    groupVO.setPerPageNum(cri.getPerPageNum());
+
 			List<GroupVO> groupList = groupService.getGroupList(groupVO);
 	    	model.addAttribute("groupList", groupList);
+	    	model.addAttribute("perPageNum", perPageNum);
+	    	model.addAttribute("pageMaker", pageMaker);
+	    	
 	        return "group/groupList";
 	    }    
 		
 		@RequestMapping(value = "/groupModPopupAjax.do")
 	    public String groupModPopupAjax(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
+			groupVO.setPerPageNum(1);
 			List<GroupVO> groupListView = groupService.getGroupList(groupVO);
 			if(groupListView.size() >0) {
 				groupVO.setGroup_idx(groupListView.get(0).getGroup_idx());	
 				groupVO.setGroup_nm(groupListView.get(0).getGroup_nm());
 				groupVO.setRemark(groupListView.get(0).getRemark());
-				groupVO.setAdmin(groupListView.get(0).getAdmin());
+				groupVO.setAdmin(groupListView.get(0).getAdmin());				
 			}
 //	    	model.addAttribute("groupListView", groupListView);
 	    	

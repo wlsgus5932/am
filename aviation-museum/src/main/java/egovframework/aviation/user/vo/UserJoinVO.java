@@ -3,6 +3,7 @@ package egovframework.aviation.user.vo;
 import java.util.Date;
 
 public class UserJoinVO {
+	private String rnum;
 	private String member_idx;
 	private String member_id;
 	private int org_code_idx;
@@ -18,6 +19,21 @@ public class UserJoinVO {
 	private String group_nm;
 	private String admin;
 	private String result;
+	
+	/* 검색필드 */
+	private String search_word;
+	private String search_type;
+	
+	/* 페이징   */
+	private int perPageNum;
+	private int pageStart;
+	
+	public String getRnum() {
+		return rnum;
+	}
+	public void setRnum(String rnum) {
+		this.rnum = rnum;
+	}
 	public String getMember_idx() {
 		return member_idx;
 	}
@@ -109,13 +125,38 @@ public class UserJoinVO {
 	public void setResult(String result) {
 		this.result = result;
 	}
+	public String getSearch_word() {
+		return search_word;
+	}
+	public void setSearch_word(String search_word) {
+		this.search_word = search_word;
+	}
+	public String getSearch_type() {
+		return search_type;
+	}
+	public void setSearch_type(String search_type) {
+		this.search_type = search_type;
+	}
+	public int getPerPageNum() {
+		return perPageNum;
+	}
+	public void setPerPageNum(int perPageNum) {
+		this.perPageNum = perPageNum;
+	}
+	public int getPageStart() {
+		return pageStart;
+	}
+	public void setPageStart(int pageStart) {
+		this.pageStart = pageStart;
+	}
 	@Override
 	public String toString() {
-		return "UserJoinVO [member_idx=" + member_idx + ", member_id=" + member_id + ", org_code_idx=" + org_code_idx
-				+ ", group_idx=" + group_idx + ", member_pw=" + member_pw + ", member_nm=" + member_nm + ", remark="
-				+ remark + ", reg_user=" + reg_user + ", reg_date=" + reg_date + ", mod_user=" + mod_user
-				+ ", mod_date=" + mod_date + ", enabled=" + enabled + ", group_nm=" + group_nm + ", admin=" + admin
-				+ ", result=" + result + "]";
+		return "UserJoinVO [rnum=" + rnum + ", member_idx=" + member_idx + ", member_id=" + member_id
+				+ ", org_code_idx=" + org_code_idx + ", group_idx=" + group_idx + ", member_pw=" + member_pw
+				+ ", member_nm=" + member_nm + ", remark=" + remark + ", reg_user=" + reg_user + ", reg_date="
+				+ reg_date + ", mod_user=" + mod_user + ", mod_date=" + mod_date + ", enabled=" + enabled
+				+ ", group_nm=" + group_nm + ", admin=" + admin + ", result=" + result + ", search_word=" + search_word
+				+ ", search_type=" + search_type + ", perPageNum=" + perPageNum + ", pageStart=" + pageStart + "]";
 	}
 
 }
