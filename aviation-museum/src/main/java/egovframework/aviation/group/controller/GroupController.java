@@ -46,7 +46,7 @@ public class GroupController {
 	    	model.addAttribute("perPageNum", perPageNum);
 	    	model.addAttribute("pageMaker", pageMaker);
 	    	
-	        return "group/groupList";
+	        return "groupMgr/groupMgr_List";
 	    }    
 		
 		@RequestMapping(value = "/groupModPopupAjax.do")
