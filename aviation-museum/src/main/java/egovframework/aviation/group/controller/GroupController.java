@@ -48,7 +48,7 @@ public class GroupController {
 	    	
 	        return "groupMgr/groupMgr_List";
 	    }    
-		
+		/** 그룹 수정 팝업 */
 		@RequestMapping(value = "/groupModPopupAjax.do")
 	    public String groupModPopupAjax(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
 			groupVO.setPerPageNum(1);
@@ -63,7 +63,7 @@ public class GroupController {
 	    	
 	        return "jsonView";
 	    }    
-		
+		/** 그룹 등록 */
 		@RequestMapping(value = "/groupinsert.do")
 	    public String GroupInsert(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
 			
@@ -75,7 +75,7 @@ public class GroupController {
 			}
 	        return "jsonView";
 	    }   
-	
+		/** 그룹 수정 */
 		@RequestMapping(value = "/groupupdate.do")
 	    public String GroupUpdate(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
 			
@@ -87,7 +87,7 @@ public class GroupController {
 			}
 	        return "jsonView";
 	    } 
-		
+		/** 그룹 삭제 */
 		@RequestMapping(value = "/groupdelete.do")
 	    public String GroupDelete(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
 			int result = groupService.updateUserGroup(groupVO);

@@ -57,14 +57,14 @@ public class UserController {
 		session.invalidate();
 		return "login/login";
 	}
-
+	/** 사용자 관리 메인 */
 	@GetMapping("/usermgr.do")
 	public String UserMgr(HttpServletRequest req) throws Exception {
 		HttpSession session = req.getSession();
 		session.invalidate();
 		return "userMgr/userMgr_main";
 	}
-	
+	/** 사용자 목록 조회 */
 	@RequestMapping("/usermgr/userListAjax.do")
 	public String UserListAjax(@ModelAttribute("userJoinVO") UserJoinVO userJoinVO, @ModelAttribute("groupVO") GroupVO groupVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
 		
@@ -89,7 +89,7 @@ public class UserController {
 		
 		return "userMgr/userMgr_List";
 	}
-	
+	/** 사용자 등록 */
 	@RequestMapping(value = "/userinsert.do")
     public String UserInsert(HttpServletRequest req, @ModelAttribute("UserVO") UserVO userVO, Model model) throws Exception {
 		
@@ -101,7 +101,7 @@ public class UserController {
 		}
         return "jsonView";
     }   
-	
+	/** 사용자 수정 팝업 */
 	@RequestMapping(value = "/userModPopupAjax.do")
     public String UserModPopupAjax(HttpServletRequest req, @ModelAttribute("userJoinVO") UserJoinVO userJoinVO, Model model) throws Exception {
 		userJoinVO.setPerPageNum(1);
@@ -121,7 +121,7 @@ public class UserController {
     	
         return "jsonView";
     }   
-	
+	/** 사용자 수정 */
 	@RequestMapping(value = "/userupdate.do")
     public String UserUpdate(HttpServletRequest req, @ModelAttribute("userVO") UserVO userVO, Model model) throws Exception {
 		
@@ -133,7 +133,7 @@ public class UserController {
 		}
         return "jsonView";
     } 
-	
+	/** 사용자 사용여부 */
 	@RequestMapping(value = "/userListEnabled.do")
     public String UserListEnabled(HttpServletRequest req, @ModelAttribute("userVO") UserVO userVO, Model model) throws Exception {
 	
@@ -145,7 +145,7 @@ public class UserController {
 		}	
         return "jsonView";
     } 
-	
+	/** 사용자 등록 중복체크 */
 	@RequestMapping(value = "/duplicateCheck.do")
     public String DuplicateCheck(HttpServletRequest req, @ModelAttribute("userJoinVO") UserJoinVO userJoinVO, Model model) throws Exception {
 		System.out.println("userJoinVO"+userJoinVO);
