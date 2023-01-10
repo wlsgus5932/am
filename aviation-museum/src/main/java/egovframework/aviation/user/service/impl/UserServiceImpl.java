@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import egovframework.aviation.group.vo.GroupVO;
+import egovframework.aviation.group.vo.MenuCodeVO;
 import egovframework.aviation.user.service.UserService;
 import egovframework.aviation.user.vo.UserJoinVO;
 import egovframework.aviation.user.vo.UserVO;
@@ -45,6 +46,16 @@ public class UserServiceImpl implements UserService {
 	public int updateUserListEnabled(UserVO userVO) {
 		return dao.updateUserListEnabled(userVO);
 	}
-
-
+//	사용자 관리권한
+	public List<MenuCodeVO> getMenuCodeList(MenuCodeVO menuCodeVO) {
+		return dao.getMenuCodeList(menuCodeVO);
+	}
+	
+	public List<UserVO> getGroupUserList(GroupVO groupVO) {
+		return dao.getGroupUserList(groupVO);
+	}
+	
+	public List<MenuCodeVO> getGroupMenuList(GroupVO groupVO) {
+		return dao.getGroupMenuList(groupVO);
+	}
 }

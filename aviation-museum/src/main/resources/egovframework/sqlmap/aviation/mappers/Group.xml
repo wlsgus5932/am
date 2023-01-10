@@ -144,45 +144,4 @@
         
     </delete>
     
-<!--      -->
-	<select id="getMenuCodeList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.group.vo.MenuCodeVO">
-          
-         	SELECT 
-         		*
-			from nam_menu_code
-            
-	</select>
-	
-   	<select id="getGroupUserList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.user.vo.UserVO">
-          
-           	SELECT  
-		         nm.MEMBER_ID
-				,nm.MEMBER_NM 
-			FROM nam_group ng 
-			left join nam_member nm 
-			on ng.GROUP_IDX = nm.GROUP_IDX
-			WHERE 1=1
-			<if test="org_code_idx != null">AND
-                ng.ORG_CODE_IDX = #{org_code_idx}
-            </if>
-			AND
-				ng.GROUP_IDX =#{group_idx}
-            
-	</select>
-    
-    <select id="getGroupMenuList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.group.vo.MenuCodeVO">
-          
-            SELECT 
-	  			 nmc.MENU_CODE_IDX 
-			FROM nam_menu_code nmc 
-			left join nam_authority na 
-			on na.MENU_CODE_IDX = nmc.MENU_CODE_IDX 
-			WHERE 1=1
-<!-- 			<if test="org_code_idx != null">AND -->
-<!--                 ORG_CODE_IDX = #{org_code_idx} -->
-<!--             </if> -->
-			AND
-				ng.GROUP_IDX =#{group_idx}
-            
-	</select>
 </mapper>

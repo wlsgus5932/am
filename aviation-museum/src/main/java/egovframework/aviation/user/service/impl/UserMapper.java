@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import egovframework.aviation.group.vo.GroupVO;
+import egovframework.aviation.group.vo.MenuCodeVO;
 import egovframework.aviation.user.vo.UserJoinVO;
 import egovframework.aviation.user.vo.UserVO;
 
@@ -23,4 +25,11 @@ public interface UserMapper {
 	public int updateUser(UserVO userVO);
 	
 	public int updateUserListEnabled(UserVO userVO);
+	
+//	사용자 관리권한
+	public List<MenuCodeVO> getMenuCodeList(MenuCodeVO menuCodeVO);
+	
+	public List<UserVO> getGroupUserList(GroupVO groupVO);
+	
+	public List<MenuCodeVO> getGroupMenuList(GroupVO groupVO);
 }

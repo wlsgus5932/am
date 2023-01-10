@@ -437,7 +437,7 @@
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
                   <li><a href="/usermgr.do" data-key="t-products">사용자 등록</a></li>
-                  <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">사용자 권한관리</a></li>
+                  <li><a href="/userauthmgr.do" data-key="t-product-detail">사용자 권한관리</a></li>
                 </ul>
               </li>
 

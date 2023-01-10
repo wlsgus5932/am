@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import egovframework.aviation.group.service.GroupService;
 import egovframework.aviation.group.vo.GroupVO;
+import egovframework.aviation.group.vo.MenuCodeVO;
 import egovframework.aviation.paging.Criteria;
 import egovframework.aviation.paging.PageMaker;
 import egovframework.aviation.user.service.UserService;
@@ -158,4 +159,52 @@ public class UserController {
 		}
         return "jsonView";
     } 
+	
+	//////////////////////////////사용자 권한 관리
+	
+	/** 사용자 관리권한 메인 */
+	@GetMapping("/userauthmgr.do")
+	public String UserAuthMgr(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
+		HttpSession session = req.getSession();
+		session.invalidate();
+		
+		int groupPerPageNum = groupService.getGroupListCnt(groupVO);			
+	    groupVO.setPerPageNum(groupPerPageNum);
+	    
+		List<GroupVO> groupList = groupService.getGroupList(groupVO);
+
+		model.addAttribute("groupList", groupList);
+		
+		return "userAuthMgr/userAuthMgr_main";
+	}
+	
+	/** 사용자 관리권한 그룹 관리권한 조회 */
+	@RequestMapping("/userAuthGroupAjax.do")
+	public String UserAuthGroupAjax(@ModelAttribute("userJoinVO") UserJoinVO userJoinVO, @ModelAttribute("groupVO") GroupVO groupVO, @ModelAttribute("menuCodeVO") MenuCodeVO menuCodeVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
+		groupVO.setGroup_idx("2");
+		
+		List<MenuCodeVO> menuCodeList = userService.getMenuCodeList(menuCodeVO);
+		List<UserVO> groupUserList = userService.getGroupUserList(groupVO);
+		List<MenuCodeVO> groupMenuList = userService.getGroupMenuList(groupVO);
+		
+		model.addAttribute("menuCodeList", menuCodeList);
+		model.addAttribute("groupUserList", groupUserList);
+		model.addAttribute("groupMenuList", groupMenuList);
+		
+		return "userAuthMgr/userAuthMgr_Group";
+	}
+	/** 사용자 관리권한 가등록 자료관리 권한 조회 */
+	@RequestMapping("/userPreRegisterGroupAjax.do")
+	public String UserPreRegisterGroupAjax(@ModelAttribute("userJoinVO") UserJoinVO userJoinVO, @ModelAttribute("groupVO") GroupVO groupVO, @ModelAttribute("menuCodeVO") MenuCodeVO menuCodeVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
+		
+		List<MenuCodeVO> menuCodeList = userService.getMenuCodeList(menuCodeVO);
+		List<UserVO> groupUserList = userService.getGroupUserList(groupVO);
+		List<MenuCodeVO> groupMenuList = userService.getGroupMenuList(groupVO);
+		
+		model.addAttribute("menuCodeList", menuCodeList);
+		model.addAttribute("groupUserList", groupUserList);
+		model.addAttribute("groupMenuList", groupMenuList);
+
+		return "userAuthMgr/userAuthMgr_PreRegister";
+	}
 }
