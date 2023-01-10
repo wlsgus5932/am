@@ -20,19 +20,22 @@ import egovframework.aviation.metadata.vo.Material2VO;
 import egovframework.aviation.metadata.vo.MeasurementUnitVO;
 import egovframework.aviation.metadata.vo.MeasurementVO;
 import egovframework.aviation.metadata.vo.ObtainmentVO;
+import egovframework.aviation.metadata.vo.OrgVO;
 import egovframework.aviation.metadata.vo.PosSessionVO;
 import egovframework.aviation.metadata.vo.PriceUnitVO;
 import egovframework.aviation.metadata.vo.Purchase1VO;
 import egovframework.aviation.metadata.vo.Purchase2VO;
 import egovframework.aviation.metadata.vo.QtyUnitVO;
 import egovframework.aviation.metadata.vo.RankingVO;
+import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
 
 @Service
 public class MetaDataServiceImpl implements MetaDataService {
 	
 	@Autowired
 	private MetaDataMapper dao;
-
+	
+	//add.do 첫 로딩시
 	@Override
 	public List<CountryVO> getCountry() {
 		return dao.getCountry();
@@ -131,6 +134,68 @@ public class MetaDataServiceImpl implements MetaDataService {
 	@Override
 	public List<GgnuriVO> getGgnuri() {
 		return dao.getGgnuri();
+	}
+
+	@Override
+	public List<OrgVO> getOrg() {
+		return dao.getOrg();
+	}
+	
+	//자료등록
+	@Override
+	public int setItemBase(MetaDataParamVO param) {
+		int x = dao.setItemBase(param);
+		return x;
+	}
+
+	@Override
+	public void setTaxonomy(MetaDataParamVO param) {
+		dao.setTaxonomy(param);
+	}
+
+	@Override
+	public void setCountry(MetaDataParamVO param) {
+		dao.setCountry(param);
+	}
+
+	@Override
+	public void setMaterial(MetaDataParamVO param) {
+		dao.setMaterial(param);
+	}
+
+	@Override
+	public void setMeasurement(MetaDataParamVO param) {
+		dao.setMeasurement(param);
+	}
+
+	@Override
+	public void setObtainment(MetaDataParamVO param) {
+		dao.setObtainment(param);
+	}
+
+	@Override
+	public void setInvolvement(MetaDataParamVO param) {
+		dao.setInvolvement(param);
+	}
+
+	@Override
+	public void setInsurance(MetaDataParamVO param) {
+		dao.setInsurance(param);
+	}
+
+	@Override
+	public void setCopyright(MetaDataParamVO param) {
+		dao.setCopyright(param);
+	}
+
+	@Override
+	public void setGgnuri(MetaDataParamVO param) {
+		dao.setGgnuri(param);
+	}
+
+	@Override
+	public void setKeyword(MetaDataParamVO param) {
+		dao.setKeyword(param);
 	}
 	
 	

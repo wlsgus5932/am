@@ -16,12 +16,14 @@ import egovframework.aviation.metadata.vo.Material2VO;
 import egovframework.aviation.metadata.vo.MeasurementUnitVO;
 import egovframework.aviation.metadata.vo.MeasurementVO;
 import egovframework.aviation.metadata.vo.ObtainmentVO;
+import egovframework.aviation.metadata.vo.OrgVO;
 import egovframework.aviation.metadata.vo.PosSessionVO;
 import egovframework.aviation.metadata.vo.PriceUnitVO;
 import egovframework.aviation.metadata.vo.Purchase1VO;
 import egovframework.aviation.metadata.vo.Purchase2VO;
 import egovframework.aviation.metadata.vo.QtyUnitVO;
 import egovframework.aviation.metadata.vo.RankingVO;
+import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
 
 public interface MetaDataService {
 
@@ -64,5 +66,29 @@ public interface MetaDataService {
 	List<PosSessionVO> getPosSession();
 
 	List<GgnuriVO> getGgnuri();
+
+	List<OrgVO> getOrg();
+
+	int setItemBase(MetaDataParamVO param);
+
+	void setTaxonomy(MetaDataParamVO param);
+
+	void setCountry(MetaDataParamVO param);
+
+	void setMaterial(MetaDataParamVO param);
+
+	void setMeasurement(MetaDataParamVO param);
+
+	void setObtainment(MetaDataParamVO param);
+
+	void setInvolvement(MetaDataParamVO param);
+
+	void setInsurance(MetaDataParamVO param);
+
+	void setCopyright(MetaDataParamVO param);
+
+	void setGgnuri(MetaDataParamVO param);
+
+	void setKeyword(MetaDataParamVO param);
 
 }
