@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import egovframework.aviation.group.service.GroupService;
 import egovframework.aviation.group.vo.GroupVO;
+import egovframework.aviation.user.vo.UserJoinVO;
 
 
 @Service
@@ -19,11 +20,27 @@ public class GroupServiceImpl implements GroupService {
 		return groupMapper.getGroupList(groupVO);
 	}
 	
+	public int getGroupListCnt(GroupVO groupVO) {
+		return groupMapper.getGroupListCnt(groupVO);
+	}
+	
 	public int insertGroup(GroupVO groupVO) {
 		return groupMapper.insertGroup(groupVO);
 	}
 	
 	public int updateGroup(GroupVO groupVO) {
 		return groupMapper.updateGroup(groupVO);
+	}
+	
+	public int updateUserGroup(GroupVO groupVO) {
+		return groupMapper.updateUserGroup(groupVO);
+	}
+	
+	public int deleteAuthority(GroupVO groupVO) {
+		return groupMapper.deleteAuthority(groupVO);
+	}
+	
+	public int deleteGroup(GroupVO groupVO) {
+		return groupMapper.deleteGroup(groupVO);
 	}
 }

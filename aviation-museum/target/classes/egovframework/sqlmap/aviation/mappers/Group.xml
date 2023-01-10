@@ -7,24 +7,69 @@
         <result property="group_nm" column="GROUP_NM"/>
         <result property="remark" column="REMARK"/>
         <result property="admin" column="ADMIN"/>
-        <result property="reg_dt" column="REG_DATE"/>
+        <result property="reg_date" column="REG_DATE"/>
     </resultMap>
     
 	<select id="getGroupList" parameterType="egovframework.aviation.group.vo.GroupVO" resultMap="GroupResult">
-            SELECT 
-            	  GROUP_IDX
-            	, GROUP_NM
-            	, REMARK 
-            	, ADMIN
-	           	, REG_DATE 
-            FROM nam_group 
-            WHERE 1=1 
-<!--             <if test="searchCondition == 1">AND -->
-<!--                 AUTHOR_NM LIKE CONCAT('%' , #{searchKeyword}, '%') -->
-<!--             </if> -->
-            ORDER BY REG_DATE DESC
-<!--             LIMIT #{recordCountPerPage} OFFSET #{firstIndex}       -->
-            
+           SELECT R1.* FROM( 
+	            SELECT 
+	          		  row_number() over(order by GROUP_IDX desc) as rnum
+	            	, GROUP_IDX
+	            	, GROUP_NM
+	            	, REMARK 
+	            	, ADMIN
+		           	, REG_DATE 
+	            FROM nam_group 
+	            WHERE 1=1 
+	            <if test="group_idx != null">AND
+	                GROUP_IDX = #{group_idx}
+	            </if>
+	            <if test="org_code_idx != null">AND
+	                ORG_CODE_IDX = #{org_code_idx}
+	            </if>
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'group_nm'">
+						AND (group_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'remark'">
+						AND (remark LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'admin'">
+						AND (admin LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (group_nm LIKE CONCAT('%', #{search_word}, '%') OR remark LIKE CONCAT('%', #{search_word}, '%') OR admin LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+            ) R1
+            LIMIT #{perPageNum} OFFSET #{pageStart}  
+	</select>
+	
+	<select id="getGroupListCnt" resultType="Integer">
+	            SELECT 
+	            	count(*)
+	            FROM nam_group 
+	            WHERE 1=1 
+	            <if test="group_idx != null">AND
+	                GROUP_IDX = #{group_idx}
+	            </if>
+	            <if test="org_code_idx != null">AND
+	                ORG_CODE_IDX = #{org_code_idx}
+	            </if>
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'group_nm'">
+						AND (group_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'remark'">
+						AND (remark LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'admin'">
+						AND (admin LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (group_nm LIKE CONCAT('%', #{search_word}, '%') OR remark LIKE CONCAT('%', #{search_word}, '%') OR admin LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
 	</select>
 	
 	<insert id="insertGroup" parameterType="egovframework.aviation.group.vo.GroupVO">
@@ -50,17 +95,57 @@
                  , REMARK=#{remark}
                  , ADMIN=#{admin}
              WHERE GROUP_IDX=#{group_idx}
-        
+            <if test="org_code_idx != null">AND
+                ORG_CODE_IDX = #{org_code_idx}
+            </if>
     </update>
+     
+<!-- 그룹삭제 -->
+<!-- 기본 그룹 idx = 2 -->
+    <delete id="deleteAuthority">
+           
+            DELETE FROM nam_authority
+	        WHERE
+	   			GROUP_IDX IN
+			<foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
+				#{group_seq}
+			</foreach>
+			
+    </delete>
     
+    <update id="updateUserGroup" parameterType="egovframework.aviation.group.vo.GroupVO">
+          
+           UPDATE nam_member
+			SET GROUP_IDX = '2'
+	        WHERE 1=1
+	        <if test="org_code_idx != null">AND
+                ORG_CODE_IDX = #{org_code_idx}
+            </if> 
+	   		AND
+	   			GROUP_IDX IN
+			<foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
+				#{group_seq}
+			</foreach>
+			
+    </update>
+   
     <delete id="deleteGroup">
-        
+
             DELETE FROM nam_group 
-             WHERE GROUP_IDX=#{group_idx}
+	        WHERE 1=1
+	        <if test="org_code_idx != null">AND
+                ORG_CODE_IDX = #{org_code_idx}
+            </if>
+            AND
+	   			GROUP_IDX IN
+			<foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
+				#{group_seq}
+			</foreach>
         
     </delete>
-    	
-	<select id="getMenuCodeList" parameterType="egovframework.aviation.group.vo.GroupVO" resultMap="GroupResult">
+    
+<!--      -->
+	<select id="getMenuCodeList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.group.vo.MenuCodeVO">
           
          	SELECT 
          		*
@@ -68,7 +153,7 @@
             
 	</select>
 	
-   	<select id="getGroupUserList" parameterType="egovframework.aviation.group.vo.GroupVO" resultMap="GroupResult">
+   	<select id="getGroupUserList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.user.vo.UserVO">
           
            	SELECT  
 		         nm.MEMBER_ID
@@ -76,18 +161,28 @@
 			FROM nam_group ng 
 			left join nam_member nm 
 			on ng.GROUP_IDX = nm.GROUP_IDX
-			WHERE ng.GROUP_IDX =#{group_idx}
+			WHERE 1=1
+			<if test="org_code_idx != null">AND
+                ng.ORG_CODE_IDX = #{org_code_idx}
+            </if>
+			AND
+				ng.GROUP_IDX =#{group_idx}
             
 	</select>
     
-    <select id="getGroupMenuList" parameterType="egovframework.aviation.group.vo.GroupVO" resultMap="GroupResult">
+    <select id="getGroupMenuList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.group.vo.MenuCodeVO">
           
-         	SELECT 
-				 na.MENU_CODE_IDX 
-			FROM nam_group ng 
+            SELECT 
+	  			 nmc.MENU_CODE_IDX 
+			FROM nam_menu_code nmc 
 			left join nam_authority na 
-			on ng.GROUP_IDX = na.GROUP_IDX
-			WHERE ng.GROUP_IDX =#{group_idx}
+			on na.MENU_CODE_IDX = nmc.MENU_CODE_IDX 
+			WHERE 1=1
+<!-- 			<if test="org_code_idx != null">AND -->
+<!--                 ORG_CODE_IDX = #{org_code_idx} -->
+<!--             </if> -->
+			AND
+				ng.GROUP_IDX =#{group_idx}
             
 	</select>
 </mapper>
