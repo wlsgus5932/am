@@ -2,6 +2,116 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.aviation.metadata.service.impl.MetaDataMapper">
 
+	
+	<insert id="setItemBase" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+			insert into nam_item_base (
+				<include refid="metadata_columns1"><property name="alias" value=""/></include>
+			)
+			values (
+				<include refid="metadata_columns2"><property name="alias" value=""/></include>
+			);
+			<selectKey keyProperty="item_idx" order="AFTER" resultType="int"> 
+				 SELECT max(item_idx) from nam_item_base 
+			</selectKey>
+	</insert>
+	
+	<insert id="setTaxonomy" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+			insert into nam_taxonomy (
+				item_idx, class1_code_idx, class2_code_idx, class3_code_idx, reg_user
+			) 
+			values (
+				#{item_idx}, #{class1_code_idx}, #{class2_code_idx}, #{class3_code_idx}, #{reg_user}
+			)
+	</insert>
+	
+	<insert id="setCountry" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+			insert into nam_material (
+				item_idx, material1_code_idx, material2_code_idx, material_detail, reg_user
+			) 
+			values (
+				#{item_idx}, #{material1_code_idx}, #{material2_code_idx}, #{material_detail}, #{reg_user}
+			)
+	</insert>
+	
+	<insert id="setMaterial" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+			insert into nam_country_era (
+				item_idx, country_code_idx, era_code_idx, detail_year, reg_user
+			) 
+			values (
+				#{item_idx}, #{country_code_idx}, #{era_code_idx}, #{detail_year}, #{reg_user}
+			)
+	</insert>
+	
+	<insert id="setMeasurement" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+			insert into nam_measurement (
+				item_idx, measurement_code_idx, measurement_unit_code_idx, measurement_value, item_type, reg_user
+			) 
+			values (
+				#{item_idx}, #{measurement_code_idx}, #{measurement_unit_code_idx}, #{measurement_value}, #{measurement_item_type}, #{reg_user}
+			)
+	</insert>
+	
+	<insert id="setObtainment" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+			insert into nam_obtainment (
+				item_idx, obtainment_date, obtainment_code_idx, purchase1_code_idx, purchase2_code_idx, 
+				obtainment_price, price_unit_code_idx, won_exchange, obtainment_no, obtainment_place,
+				obtainment_addr, obtainment_detail, record_date, designation, redemption, country_code_idx,
+				qty, qty_unit_code_idx, redemption_date
+			) 
+			values (
+				#{item_idx}, #{obt_obtainment_date}, #{obt_obtainment_code_idx}, #{obt_purchase1_code_idx}, #{obt_purchase2_code_idx}, 
+				#{obt_obtainment_price}, #{obt_price_unit_code_idx}, #{obt_won_exchange}, #{obt_obtainment_no}, #{obt_obtainment_place},
+				#{obt_obtainment_addr}, #{obt_obtainment_detail}, #{obt_record_date}, #{obt_designation}, #{obt_redemption}, #{obt_country_code_idx},
+				#{obt_qty}, #{obt_qty_unit_code_idx}, #{obt_redemption_date}
+			)
+	</insert>
+	
+	<insert id="setInvolvement" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+			insert into nam_involvement (
+				item_idx, org_code_idx, possession_code_idx, item_no, remark, reg_user
+			) 
+			values (
+				#{item_idx}, #{invol_org_code_idx}, #{invol_possession_code_idx}, #{invol_item_no}, #{invol_remark}, #{reg_user}
+			)
+	</insert>
+	
+	<insert id="setInsurance" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+			insert into nam_insurance (
+				item_idx, agreed_value, price_unit_code_idx, start_date, end_date, rental_org, remark, reg_user
+			) 
+			values (
+				#{item_idx}, #{insu_agreed_value}, #{insu_price_unit_code_idx}, #{insu_start_date}, #{insu_end_date}, #{insu_rental_org}, #{insu_remark}, #{reg_user}
+			)
+	</insert>
+	
+	<insert id="setCopyright" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+			insert into nam_copyright (
+				item_idx, copyright, owner, expiry_date, usage_permission, copyright_transfer, remark, reg_user
+			) 
+			values (
+				#{item_idx}, #{copy_copyright}, #{copy_owner}, #{copy_expiry_date}, #{copy_usage_permission}, #{copy_copyright_transfer}, #{copy_remark}, #{reg_user}
+			)
+	</insert>
+	
+	<insert id="setGgnuri" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+			insert into nam_public_service (
+				item_idx, public_service, reason, ggnuri_code_idx
+			) 
+			values (
+				#{item_idx}, #{public_service}, #{reason}, #{ggnuri_code_idx}
+			)
+	</insert>
+	
+	<insert id="setKeyword" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+			insert into nam_keyword (
+				item_idx, keyword, reg_user
+			) 
+			values (
+				#{item_idx}, #{keyword}, #{reg_user}
+			)
+	</insert>
+	
+	<!-- add.do 로드 시 select -->
 	<select id="getCountry" resultMap="CountryResult">
 			SELECT * FROM nam_country_code
 	</select>
@@ -81,6 +191,60 @@
 	<select id="getGgnuri" resultMap="ggnuriResult">
 			SELECT * FROM nam_ggnuri_code
 	</select>
+	
+	<select id="getOrg" resultMap="OrgResult">
+			SELECT * FROM nam_org_code
+	</select>
+	
+	<sql id="metadata_columns1">
+		org_code_idx, 
+		possession_code_idx, 
+		item_no, 
+		item_detail_no, 
+		item_nm, 
+		item_se_nm, 
+		item_eng_nm,
+		author, 
+		qty, 
+		qty_unit_code_idx, 
+		icao_code_idx, 
+		existence_code_idx, 
+		management_no, 
+		preservation_need,
+		feature, 
+		condition_code_idx, 
+		ranking_code_idx, 
+		remark, 
+		reg_state, 
+		reg_user, 
+		mod_user, 
+		mod_date
+	</sql>
+	
+	<sql id="metadata_columns2">
+	    #{org_code_idx}, 
+	    #{possession_code_idx}, 
+	    #{item_no}, 
+	    #{item_detail_no},
+		#{item_nm}, 
+		#{item_se_nm}, 
+		#{item_eng_nm},
+		#{author}, 
+		#{qty}, 
+		#{qty_unit_code_idx}, 
+		#{icao_code_idx}, 
+		#{existence_code_idx}, 
+		#{management_no}, 
+		#{preservation_need},
+		#{feature}, 
+		#{condition_code_idx}, 
+		#{ranking_code_idx}, 
+		#{remark}, 
+		#{reg_state}, 
+		#{reg_user}, 
+		#{mod_user}, 
+		#{mod_date}
+	</sql>
 
 	<resultMap id="CountryResult" type="egovframework.aviation.metadata.vo.CountryVO">
 		<result property="country_code_idx" column="country_code_idx"/>
@@ -299,6 +463,17 @@
 	<resultMap id="ggnuriResult" type="egovframework.aviation.metadata.vo.GgnuriVO">
 		<result property="ggnuri_code_idx" column="ggnuri_code_idx"/>
 		<result property="ggnuri_nm" column="ggnuri_nm"/>
+		<result property="seq" column="seq"/>
+		<result property="enabled" column="enabled"/>
+		<result property="reg_user" column="reg_user"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="mod_user" column="mod_user"/>
+		<result property="mod_date" column="mod_date"/>
+	</resultMap>
+	
+	<resultMap id="OrgResult" type="egovframework.aviation.metadata.vo.OrgVO">
+		<result property="org_code_idx" column="org_code_idx"/>
+		<result property="org_nm" column="org_nm"/>
 		<result property="seq" column="seq"/>
 		<result property="enabled" column="enabled"/>
 		<result property="reg_user" column="reg_user"/>
