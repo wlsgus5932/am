@@ -51,6 +51,10 @@ public class UserServiceImpl implements UserService {
 		return dao.getMenuCodeList(menuCodeVO);
 	}
 	
+	public List<MenuCodeVO> getMenuCodeListLarge(MenuCodeVO menuCodeVO) {
+		return dao.getMenuCodeListLarge(menuCodeVO);
+	}
+	
 	public List<UserVO> getGroupUserList(GroupVO groupVO) {
 		return dao.getGroupUserList(groupVO);
 	}
@@ -58,4 +62,5 @@ public class UserServiceImpl implements UserService {
 	public List<MenuCodeVO> getGroupMenuList(GroupVO groupVO) {
 		return dao.getGroupMenuList(groupVO);
 	}
+	
 }

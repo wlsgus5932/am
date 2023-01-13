@@ -1,12 +1,16 @@
 package egovframework.aviation.group.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import egovframework.aviation.group.service.GroupService;
 import egovframework.aviation.group.vo.GroupVO;
+import egovframework.aviation.group.vo.MenuAuthorityVO;
 import egovframework.aviation.user.vo.UserJoinVO;
 
 
@@ -43,4 +47,9 @@ public class GroupServiceImpl implements GroupService {
 	public int deleteGroup(GroupVO groupVO) {
 		return groupMapper.deleteGroup(groupVO);
 	}
+
+	public int insertMenuAuthority(MenuAuthorityVO menuAuthorityVO) {
+		return groupMapper.insertMenuAuthority(menuAuthorityVO);
+	}
+	
 }

@@ -210,14 +210,23 @@
 			from nam_menu_code
             
 	</select>
+	    <!--   사용자 세부메뉴 관리권한 대분류   -->
+	<select id="getMenuCodeListLarge" parameterType="egovframework.aviation.group.vo.MenuCodeVO" resultType="egovframework.aviation.group.vo.MenuCodeVO">
+          
+         	SELECT 
+         		*
+			FROM nam_menu_code
+			WHERE parent_menu is null
+            
+	</select>
 	
    	<select id="getGroupUserList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.user.vo.UserVO">
           
            	SELECT  
 		         nm.MEMBER_ID
 				,nm.MEMBER_NM 
-			FROM nam_group ng 
-			left join nam_member nm 
+			FROM nam_member nm 
+			left join nam_group ng
 			on ng.GROUP_IDX = nm.GROUP_IDX
 			WHERE 1=1
 			<if test="org_code_idx != null">AND
@@ -244,4 +253,5 @@
             
 	</select>
 	<!--     -->
+
 </mapper>

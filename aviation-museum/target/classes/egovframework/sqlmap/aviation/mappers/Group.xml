@@ -10,6 +10,12 @@
         <result property="reg_date" column="REG_DATE"/>
     </resultMap>
     
+    <resultMap id="MenuAuthorityResult" type="egovframework.aviation.group.vo.MenuAuthorityVO">
+        <result property="group_idx" column="GROUP_IDX"/>
+        <result property="menu_code_idx" column="MENU_CODE_IDX"/>
+        <result property="reg_date" column="REG_DATE"/>
+    </resultMap>
+    
 	<select id="getGroupList" parameterType="egovframework.aviation.group.vo.GroupVO" resultMap="GroupResult">
            SELECT R1.* FROM( 
 	            SELECT 
@@ -100,8 +106,6 @@
             </if>
     </update>
      
-<!-- 그룹삭제 -->
-<!-- 기본 그룹 idx = 2 -->
     <delete id="deleteAuthority">
            
             DELETE FROM nam_authority
@@ -112,6 +116,20 @@
 			</foreach>
 			
     </delete>
+    
+   	<insert id="insertMenuAuthority" parameterType="egovframework.aviation.group.vo.MenuAuthorityVO">
+        
+           INSERT INTO nam_authority 
+                  (
+                 	GROUP_IDX
+                  , MENU_CODE_IDX
+                  , REG_DATE)
+           VALUES
+			 	 (  #{group_idx}       		 
+                  , #{menu_code_idx}
+                  , now()
+                 )
+    </insert>
     
     <update id="updateUserGroup" parameterType="egovframework.aviation.group.vo.GroupVO">
           
@@ -143,5 +161,5 @@
 			</foreach>
         
     </delete>
-    
+    	
 </mapper>

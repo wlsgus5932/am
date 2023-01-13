@@ -23,7 +23,6 @@
           <button class="btn btn-secondary waves-effect waves-light btn_ml" id="userListEnabledBtn">선택 미사용</button>
         </div>
         <div class="user_btn">
-          <button class="btn btn-secondary waves-effect waves-light btn_ml">통합그룹별 권한보기</button>
           <button type="button" class="btn btn-primary waves-effect waves-light btn_ml btn_wh btn_ex" data-bs-toggle="modal" data-bs-target="#myModal">사용자등록</button>
         </div>
       </div>

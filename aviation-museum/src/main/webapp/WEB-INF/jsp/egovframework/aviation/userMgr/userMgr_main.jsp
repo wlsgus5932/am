@@ -99,6 +99,7 @@
 		$(document).on('click', '#userInsBtn', function(){
 
 			var queryString = $("form[name=userinsertform]").serialize();
+			console.log(queryString);
 			var check_submit = confirm('사용자를 등록하시겠습니까?');
 
 			if (userInsValidation()) {
@@ -426,7 +427,7 @@
 
 			var queryString = $("form[name=groupupdateform]").serialize();
 			var check_submit = confirm('그룹을 수정하시겠습니까?');
-
+			console.log(queryString);
 			if (groupModValidation()) {
 				if(check_submit){
 					$.ajax({
@@ -483,84 +484,6 @@
 
           </div>
           <!--  -->
-          <!-- 퀵메뉴 -->
-          <div class="accordion" id="accordionExample">
-
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button
-                  class="accordion-button fw-medium"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
-                >
-                  퀵메뉴
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="text-muted">
-                    <strong class="text-dark">
-                      <ul>
-                        <li><a href="#">저장</a></li>
-                        <li><a href="#">자료 등록하기</a></li>
-                        <li><a href="#">자료 정보 가져오기</a></li>
-                        <li><a href="#">자료 정보 일괄 변경</a></li>
-                        <li><a href="#">자료 정보 삭제 신청</a></li>
-                        <li><a href="#">자료 번호 삽입</a></li>
-                      </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingTwo">
-                <button
-                  class="accordion-button fw-medium collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseTwo"
-                  aria-expanded="false"
-                  aria-controls="collapseTwo"
-                >
-                  고정메뉴
-                </button>
-              </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="text-muted">
-                    <strong class="text-dark">
-                      <ul>
-                        <li><a href="#">연표</a></li>
-                        <li><a href="#">연호</a></li>
-                        <li><a href="#">용어</a></li>
-                        <li><a href="#">분류체계</a></li>
-                      </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingThree">
-                <button
-                  class="accordion-button fw-medium collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseThree"
-                  aria-expanded="false"
-                  aria-controls="collapseThree"
-                >
-                  등록메뉴얼
-                </button>
-              </h2>
-              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                </div>
-              </div>
-            </div>
-          </xdiv>
-            <!--  -->
           </div>
           <!-- 내용물 -->
           <ul class="nav nav-tabs" role="tablist">

@@ -1,7 +1,10 @@
 package egovframework.aviation.user.controller;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,15 +16,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import egovframework.aviation.group.service.GroupService;
 import egovframework.aviation.group.vo.GroupVO;
+import egovframework.aviation.group.vo.MenuAuthorityVO;
 import egovframework.aviation.group.vo.MenuCodeVO;
+import egovframework.aviation.metadata.service.MetaDataService;
+import egovframework.aviation.metadata.vo.PosSessionVO;
 import egovframework.aviation.paging.Criteria;
 import egovframework.aviation.paging.PageMaker;
 import egovframework.aviation.user.service.UserService;
 import egovframework.aviation.user.vo.UserJoinVO;
 import egovframework.aviation.user.vo.UserVO;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @Controller
 public class UserController {
@@ -30,6 +39,8 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private GroupService groupService;
+	@Autowired
+	private MetaDataService metaDataService;
 	
 	@GetMapping("/login.do")
 	public String Login(HttpServletRequest req) throws Exception {
@@ -168,43 +179,126 @@ public class UserController {
 		HttpSession session = req.getSession();
 		session.invalidate();
 		
-		int groupPerPageNum = groupService.getGroupListCnt(groupVO);			
-	    groupVO.setPerPageNum(groupPerPageNum);
-	    
-		List<GroupVO> groupList = groupService.getGroupList(groupVO);
-
-		model.addAttribute("groupList", groupList);
+		String group_idx = groupVO.getGroup_idx();
+		  
+		groupVO.setGroup_idx(null);
 		
+	    int groupPerPageNum = groupService.getGroupListCnt(groupVO);			
+	    groupVO.setPerPageNum(groupPerPageNum);    
+		List<GroupVO> groupList = groupService.getGroupList(groupVO);
+		String groupListFirst = groupList.get(0).getGroup_idx();
+
+		if(group_idx != null) {
+			groupVO.setGroup_idx(group_idx);
+		}else {
+			groupVO.setGroup_idx(groupListFirst);
+		}
+		
+		model.addAttribute("getGroup_idx", groupVO.getGroup_idx());
 		return "userAuthMgr/userAuthMgr_main";
 	}
 	
 	/** 사용자 관리권한 그룹 관리권한 조회 */
 	@RequestMapping("/userAuthGroupAjax.do")
 	public String UserAuthGroupAjax(@ModelAttribute("userJoinVO") UserJoinVO userJoinVO, @ModelAttribute("groupVO") GroupVO groupVO, @ModelAttribute("menuCodeVO") MenuCodeVO menuCodeVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
-		groupVO.setGroup_idx("2");
+		String group_idx = groupVO.getGroup_idx();
+	  
+		groupVO.setGroup_idx(null);
 		
+	    int groupPerPageNum = groupService.getGroupListCnt(groupVO);			
+	    groupVO.setPerPageNum(groupPerPageNum);    
+		List<GroupVO> groupList = groupService.getGroupList(groupVO);
+		String groupListFirst = groupList.get(0).getGroup_idx();
+
+		if(group_idx != null) {
+			groupVO.setGroup_idx(group_idx);
+		}else {
+			groupVO.setGroup_idx(groupListFirst);
+		}
 		List<MenuCodeVO> menuCodeList = userService.getMenuCodeList(menuCodeVO);
+		List<MenuCodeVO> menuCodeListLarge = userService.getMenuCodeListLarge(menuCodeVO);
 		List<UserVO> groupUserList = userService.getGroupUserList(groupVO);
-		List<MenuCodeVO> groupMenuList = userService.getGroupMenuList(groupVO);
+		List<MenuCodeVO> groupMenuList = userService.getGroupMenuList(groupVO);	
 		
+		model.addAttribute("getGroup_idx", groupVO.getGroup_idx());
+		model.addAttribute("groupList", groupList);
 		model.addAttribute("menuCodeList", menuCodeList);
+		model.addAttribute("menuCodeListLarge", menuCodeListLarge);
 		model.addAttribute("groupUserList", groupUserList);
 		model.addAttribute("groupMenuList", groupMenuList);
 		
 		return "userAuthMgr/userAuthMgr_Group";
 	}
+	
+	/** 사용자 관리권한 > 그룹 관리권한 > 권한수정 */
+	@RequestMapping(value = "/menuAuthUpdate.do")
+    public String MenuAuthUpdate(HttpServletRequest req, @ModelAttribute("menuAuthorityVO") MenuAuthorityVO menuAuthorityVO, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();		
+		
+		String group_idx = req.getParameter("group_idx");
+		String[] arrStr = req.getParameterValues("menuAuth_List");
+		
+		int result = groupService.deleteAuthority(groupVO);
+		int result2 = 0;
+		 try {
+		       if(arrStr !=null && arrStr.length > 0) {
+		            for(int i=0; i<arrStr.length; i++) {
+		               System.out.println("ajax traditional result : " + i +" : "+ group_idx);
+		               System.out.println("ajax traditional result : " + i +" : "+ arrStr[i]);
+
+		               menuAuthorityVO.setGroup_idx(group_idx);
+		               menuAuthorityVO.setMenu_code_idx(arrStr[i]);
+		               result2 = groupService.insertMenuAuthority(menuAuthorityVO);
+		       	    }
+		       	   
+		       	} else {
+		      	    resultMap.put("result", "false");
+		      	}
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		   }	  
+		
+		String success = "";
+		String success2 = "";
+		
+		if(result > 0 && result2 > 0) {
+			 success = "success";
+		}
+        return "jsonView";
+    } 
+	
 	/** 사용자 관리권한 가등록 자료관리 권한 조회 */
 	@RequestMapping("/userPreRegisterGroupAjax.do")
-	public String UserPreRegisterGroupAjax(@ModelAttribute("userJoinVO") UserJoinVO userJoinVO, @ModelAttribute("groupVO") GroupVO groupVO, @ModelAttribute("menuCodeVO") MenuCodeVO menuCodeVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
+	public String UserPreRegisterGroupAjax(@ModelAttribute("userJoinVO") UserJoinVO userJoinVO, @ModelAttribute("groupVO") GroupVO groupVO, @ModelAttribute("menuCodeVO") MenuCodeVO menuCodeVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {		
+		String group_idx = groupVO.getGroup_idx();
+		  
+		groupVO.setGroup_idx(null);
 		
+	    int groupPerPageNum = groupService.getGroupListCnt(groupVO);			
+	    groupVO.setPerPageNum(groupPerPageNum);    
+		List<GroupVO> groupList = groupService.getGroupList(groupVO);
+		String groupListFirst = groupList.get(0).getGroup_idx();
+
+		if(group_idx != null) {
+			groupVO.setGroup_idx(group_idx);
+		}else {
+			groupVO.setGroup_idx(groupListFirst);
+		}
 		List<MenuCodeVO> menuCodeList = userService.getMenuCodeList(menuCodeVO);
+		List<MenuCodeVO> menuCodeListLarge = userService.getMenuCodeListLarge(menuCodeVO);
 		List<UserVO> groupUserList = userService.getGroupUserList(groupVO);
-		List<MenuCodeVO> groupMenuList = userService.getGroupMenuList(groupVO);
-		
+		List<MenuCodeVO> groupMenuList = userService.getGroupMenuList(groupVO);	
+		List<PosSessionVO> possessionList = metaDataService.getPosSession();
+
+		model.addAttribute("groupList", groupList);
 		model.addAttribute("menuCodeList", menuCodeList);
+		model.addAttribute("menuCodeListLarge", menuCodeListLarge);
 		model.addAttribute("groupUserList", groupUserList);
 		model.addAttribute("groupMenuList", groupMenuList);
-
+		model.addAttribute("possessionList", possessionList);
+		
 		return "userAuthMgr/userAuthMgr_PreRegister";
 	}
+	
 }

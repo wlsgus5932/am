@@ -25,7 +25,9 @@ public interface UserService {
 //	사용자 관리권한
 	public List<MenuCodeVO> getMenuCodeList(MenuCodeVO menuCodeVO);
 	
+	public List<MenuCodeVO> getMenuCodeListLarge(MenuCodeVO menuCodeVO);
+
 	public List<UserVO> getGroupUserList(GroupVO groupVO);
 	
 	public List<MenuCodeVO> getGroupMenuList(GroupVO groupVO);
-}
+	}
