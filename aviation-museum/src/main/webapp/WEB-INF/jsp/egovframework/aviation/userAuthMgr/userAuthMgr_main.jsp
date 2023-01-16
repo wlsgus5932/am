@@ -132,7 +132,61 @@
 				}
 		});
 
+	   	// 가등록 자료 관리 권한 소장구분 선택변경
+	    $(document).on('click', '#preRegisterModBtn', function(){
+			var group_seqList = [];
+			var possession_Code_List = [];
+			var group_idx = $('#pGroup_idx').val();
+				group_seqList.push(group_idx);
+				console.log('group_idx='+group_idx);				
+				$('input[type="checkbox"][name="possession_code_idx"]:checked').each(function(i){
+					possession_Code_List.push($(this).val());
 
+				});
+				$('#pMenu_code_idx').val(possession_Code_List);
+				$('#pGroup_idx').val(group_idx);				
+				
+			var check_submit = confirm('권한을 수정하시겠습니까?');
+		
+				if(check_submit){
+					$.ajax({
+						type : 'post',
+						url : '/possessionAuthUpdate.do',
+						traditional : true,
+						data:
+						{   
+							group_idx 	  : group_idx,
+							group_seqList : group_seqList,
+							possession_Code_List : possession_Code_List
+						},
+						dataType : 'json',
+						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+						error: function(xhr, status, error){
+							alert(error);
+						},
+						success : function(success){
+							alert('권한이 수정되었습니다.'); 
+							
+							$.ajax({
+			    				type : 'POST',                
+			    				url : '/userPreRegisterGroupAjax.do',    
+			    				data:{
+			    					group_idx : group_idx
+								},
+								dataType : "html",           
+			    				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+			    				error : function() {          
+			    					alert('통신실패!');
+			    				},
+			    				success : function(data) {  
+			    					$('#tab-content').empty().append(data);
+			    					$('#group_select').val(group_idx);	   
+			    				}
+			    			});
+						}
+					});
+				}
+		});
     </script>
 </head>
   <body data-sidebar="dark">

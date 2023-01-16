@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import egovframework.aviation.group.service.GroupService;
 import egovframework.aviation.group.vo.GroupVO;
 import egovframework.aviation.group.vo.MenuAuthorityVO;
+import egovframework.aviation.group.vo.PossessionAuthorityVO;
+import egovframework.aviation.metadata.vo.PosSessionVO;
 import egovframework.aviation.user.vo.UserJoinVO;
 
 
@@ -50,6 +52,16 @@ public class GroupServiceImpl implements GroupService {
 
 	public int insertMenuAuthority(MenuAuthorityVO menuAuthorityVO) {
 		return groupMapper.insertMenuAuthority(menuAuthorityVO);
+	}
+
+	@Override
+	public int deletePossessionAuthority(GroupVO groupVO) {
+		return groupMapper.deletePossessionAuthority(groupVO);
+	}
+
+	@Override
+	public int insertPossessionAuthority(PossessionAuthorityVO possessionAuthorityVO) {
+		return groupMapper.insertPossessionAuthority(possessionAuthorityVO);
 	}
 	
 }

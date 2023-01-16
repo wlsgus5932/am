@@ -4,6 +4,7 @@ import java.util.List;
 
 import egovframework.aviation.group.vo.GroupVO;
 import egovframework.aviation.group.vo.MenuCodeVO;
+import egovframework.aviation.metadata.vo.PosSessionVO;
 import egovframework.aviation.user.vo.UserJoinVO;
 import egovframework.aviation.user.vo.UserVO;
 
@@ -30,4 +31,6 @@ public interface UserService {
 	public List<UserVO> getGroupUserList(GroupVO groupVO);
 	
 	public List<MenuCodeVO> getGroupMenuList(GroupVO groupVO);
+	
+	public List<PosSessionVO> getGroupPossessionList(GroupVO groupVO);
 	}

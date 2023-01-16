@@ -22,6 +22,7 @@ import egovframework.aviation.group.service.GroupService;
 import egovframework.aviation.group.vo.GroupVO;
 import egovframework.aviation.group.vo.MenuAuthorityVO;
 import egovframework.aviation.group.vo.MenuCodeVO;
+import egovframework.aviation.group.vo.PossessionAuthorityVO;
 import egovframework.aviation.metadata.service.MetaDataService;
 import egovframework.aviation.metadata.vo.PosSessionVO;
 import egovframework.aviation.paging.Criteria;
@@ -285,20 +286,54 @@ public class UserController {
 		}else {
 			groupVO.setGroup_idx(groupListFirst);
 		}
-		List<MenuCodeVO> menuCodeList = userService.getMenuCodeList(menuCodeVO);
-		List<MenuCodeVO> menuCodeListLarge = userService.getMenuCodeListLarge(menuCodeVO);
 		List<UserVO> groupUserList = userService.getGroupUserList(groupVO);
-		List<MenuCodeVO> groupMenuList = userService.getGroupMenuList(groupVO);	
+		List<PosSessionVO> groupPossessionList = userService.getGroupPossessionList(groupVO);	
 		List<PosSessionVO> possessionList = metaDataService.getPosSession();
-
+		
+		model.addAttribute("getGroup_idx", groupVO.getGroup_idx());
 		model.addAttribute("groupList", groupList);
-		model.addAttribute("menuCodeList", menuCodeList);
-		model.addAttribute("menuCodeListLarge", menuCodeListLarge);
 		model.addAttribute("groupUserList", groupUserList);
-		model.addAttribute("groupMenuList", groupMenuList);
+		model.addAttribute("groupPossessionList", groupPossessionList);
 		model.addAttribute("possessionList", possessionList);
 		
 		return "userAuthMgr/userAuthMgr_PreRegister";
 	}
 	
+	/** 사용자 관리권한 > 가등록 자료 관리권한 > 권한수정 */
+	@RequestMapping(value = "/possessionAuthUpdate.do")
+    public String PossessionAuthUpdate(HttpServletRequest req, @ModelAttribute("possessionAuthorityVO") PossessionAuthorityVO possessionAuthorityVO, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
+		possessionAuthorityVO.setOrg_code_idx("1");
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();		
+		
+		String group_idx = req.getParameter("group_idx");
+		String[] arrStr = req.getParameterValues("possession_Code_List");
+		
+		int result = groupService.deletePossessionAuthority(groupVO);
+		int result2 = 0;
+		 try {
+		       if(arrStr !=null && arrStr.length > 0) {
+		            for(int i=0; i<arrStr.length; i++) {
+		               System.out.println("ajax traditional result : " + i +" : "+ group_idx);
+		               System.out.println("ajax traditional result : " + i +" : "+ arrStr[i]);
+
+		               possessionAuthorityVO.setGroup_idx(group_idx);
+		               possessionAuthorityVO.setPossession_code_idx(arrStr[i]);
+		               result2 = groupService.insertPossessionAuthority(possessionAuthorityVO);
+		       	    }
+		       	   
+		       	} else {
+		      	    resultMap.put("result", "false");
+		      	}
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		   }	  
+		
+		String success = "";
+		String success2 = "";
+		
+		if(result > 0 && result2 > 0) {
+			 success = "success";
+		}
+        return "jsonView";
+    } 
 }

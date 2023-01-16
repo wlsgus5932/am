@@ -85,11 +85,13 @@
                   , GROUP_NM
                   , REMARK
                   , ADMIN
+                  , ORG_CODE_IDX
                   , REG_DATE )
            VALUES ( #{group_idx}
                   , #{group_nm}
                   , #{remark}
                   , #{admin}
+                  , #{org_code_idx}
                   , now())
          
     </insert>
@@ -109,7 +111,11 @@
     <delete id="deleteAuthority">
            
             DELETE FROM nam_authority
-	        WHERE
+	        WHERE 1=1
+	        <if test="org_code_idx != null">AND
+                ORG_CODE_IDX = #{org_code_idx}
+            </if>
+	        AND
 	   			GROUP_IDX IN
 			<foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
 				#{group_seq}
@@ -161,5 +167,31 @@
 			</foreach>
         
     </delete>
-    	
+    
+    <delete id="deletePossessionAuthority">
+           
+            DELETE FROM nam_possession_authority
+	        WHERE
+	   			GROUP_IDX IN
+			<foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
+				#{group_seq}
+			</foreach>
+			
+    </delete>
+    
+   	<insert id="insertPossessionAuthority" parameterType="egovframework.aviation.group.vo.PossessionAuthorityVO">
+        
+           INSERT INTO nam_possession_authority 
+                  (
+                    GROUP_IDX
+                  , POSSESSION_CODE_IDX
+                  , ORG_CODE_IDX
+                  , REG_DATE)
+           VALUES
+			 	 (  #{group_idx}   
+			 	  , #{possession_code_idx}    		 
+                  , #{org_code_idx}
+                  , now()
+                 )
+    </insert>
 </mapper>

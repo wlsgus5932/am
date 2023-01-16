@@ -61,7 +61,7 @@
                 <div class="user_control_right col-xl-6">
                   <h5 class="user_control_text">권한설정 
                   <button type="button" id="allCheck">전체선택</button>
-               	  <form action="/menuAuthUpdate.do" method="post" name="menuAuthModform" id="menuAuthModform"> 
+               	  <form action="/possessionAuthUpdate.do" method="post" name="possessionAuthModform" id="possessionAuthModform"> 
 				  	<input type="hidden" id="mGroup_idx" name="group_idx"/>   
 				  	<input type="hidden" id="mMenu_code_idx" name="menu_code_idx"/>  
 				  	<button type="button" id="menuAuthModBtn">선택변경</button>

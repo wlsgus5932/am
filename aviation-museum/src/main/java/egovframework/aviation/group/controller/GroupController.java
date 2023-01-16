@@ -66,7 +66,7 @@ public class GroupController {
 		/** 그룹 등록 */
 		@RequestMapping(value = "/groupinsert.do")
 	    public String GroupInsert(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
-			
+			groupVO.setOrg_code_idx("1");
 			int result = groupService.insertGroup(groupVO);
 			String success = "";
 			

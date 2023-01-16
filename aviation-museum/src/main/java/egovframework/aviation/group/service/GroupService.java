@@ -7,6 +7,8 @@ import java.util.Map;
 
 import egovframework.aviation.group.vo.GroupVO;
 import egovframework.aviation.group.vo.MenuAuthorityVO;
+import egovframework.aviation.group.vo.PossessionAuthorityVO;
+import egovframework.aviation.metadata.vo.PosSessionVO;
 
 public interface GroupService {
 	public List<GroupVO> getGroupList(GroupVO groupVO);
@@ -24,5 +26,8 @@ public interface GroupService {
 	public int deleteGroup(GroupVO groupVO);
 
 	public int insertMenuAuthority(MenuAuthorityVO menuAuthorityVO);
-
+  
+	public int deletePossessionAuthority(GroupVO groupVO);
+    
+    public int insertPossessionAuthority(PossessionAuthorityVO possessionAuthorityVO);
 }

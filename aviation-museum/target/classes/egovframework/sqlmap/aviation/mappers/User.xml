@@ -253,5 +253,20 @@
             
 	</select>
 	<!--     -->
-
+    
+    <select id="getGroupPossessionList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.metadata.vo.PosSessionVO">
+          
+		 	SELECT 
+	  				npc.POSSESSION_CODE_IDX 
+			FROM nam_possession_code npc 
+			left join nam_possession_authority npa 
+			on npc.POSSESSION_CODE_IDX = npa.POSSESSION_CODE_IDX 
+			WHERE 1=1
+<!-- 			<if test="org_code_idx != null">AND -->
+<!--                 ORG_CODE_IDX = #{org_code_idx} -->
+<!--             </if> -->
+			AND
+				npa.GROUP_IDX =#{group_idx}
+            
+	</select>
 </mapper>

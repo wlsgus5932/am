@@ -59,7 +59,13 @@
                 </div>
                 <!--  -->
                 <div class="user_control_right col-xl-6">
-                  <h5 class="user_control_text">권한설정 <button type="button" id="allCheck">전체선택</button></h5>
+                  <h5 class="user_control_text">권한설정 <button type="button" id="allCheck">전체선택</button>
+                   <form action="/menuAuthUpdate.do" method="post" name="menuAuthModform" id="menuAuthModform"> 
+				  	<input type="hidden" id="pGroup_idx" name="group_idx"/>   
+				  	<input type="hidden" id="pMenu_code_idx" name="possession_code_idx"/>  
+				  	<button type="button" id="preRegisterModBtn">선택변경</button>     
+				  </form>	                     	    
+                  </h5>
                   <div class="user_control_card_wrap card">
                     <div class="table-responsive">
                       <table class="table mb-0">
@@ -87,7 +93,22 @@
               </div>
             </div>
             <script>
-	      		
+            
+        	$(function() {
+        		// 소장구분 전체갯수와 선택된 소장구분 갯수가 같으면 전체선택버튼에 checked 
+        		if(${possessionList.size() == groupPossessionList.size()}){
+        			$('#allCheck').addClass("checked");
+        		}
+        		
+        		$('#pGroup_idx').val(${getGroup_idx});
+    		    var chk = $('input:checkbox[name=possession_code_idx]');
+
+	        	<c:forEach items="${groupPossessionList}" var="item">
+		      		  chk.filter('[value=' + ${item.possession_code_idx} + ']').prop('checked', true).addClass('checked');
+    			</c:forEach>
+
+        	});
+        	
             function groupChange(e) {
 	
 	        		  	const group_idx = e.value;
@@ -110,9 +131,22 @@
 		    			});
 	         	}      
             
+       		// 가등록 자료 관리 권한 소장구분 전체선택, 취소
  			$('#allCheck').click(function() {
- 				$(':checkbox').each(function() {
- 		            this.click();
+ 				var val = true;
+ 				
+ 				$('#allCheck').toggleClass("checked");
+ 				
+ 				if(!$('#allCheck').attr('class')){
+ 					val = false;
+ 				}
+ 				 $(':checkbox').each(function() {
+ 		            this.checked = val;
+ 		            if(val == true){
+ 		           	 	$(':checkbox').addClass('checked');
+ 		            }else{
+ 		            	$(':checkbox').removeClass('checked');
+ 		            }
  		        });
 		    });
        		 

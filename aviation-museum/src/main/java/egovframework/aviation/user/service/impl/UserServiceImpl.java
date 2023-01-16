@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import egovframework.aviation.group.vo.GroupVO;
 import egovframework.aviation.group.vo.MenuCodeVO;
+import egovframework.aviation.metadata.vo.PosSessionVO;
 import egovframework.aviation.user.service.UserService;
 import egovframework.aviation.user.vo.UserJoinVO;
 import egovframework.aviation.user.vo.UserVO;
@@ -61,6 +62,10 @@ public class UserServiceImpl implements UserService {
 	
 	public List<MenuCodeVO> getGroupMenuList(GroupVO groupVO) {
 		return dao.getGroupMenuList(groupVO);
+	}
+
+	public List<PosSessionVO> getGroupPossessionList(GroupVO groupVO) {
+		return dao.getGroupPossessionList(groupVO);
 	}
 	
 }
