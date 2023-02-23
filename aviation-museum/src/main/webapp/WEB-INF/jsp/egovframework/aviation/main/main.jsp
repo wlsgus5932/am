@@ -17,6 +17,6 @@ main
     	<button onclick="location.href='<c:url value='/logout.do' />' ">logout</button>
     </c:otherwise>
 </c:choose>
-		<button onclick="location.href='<c:url value='/metadata/add.do' />' ">add</button>
+		<button onclick="location.href='<c:url value='/add.do' />' ">add</button>
 </body>
 </html>

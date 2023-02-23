@@ -433,7 +433,7 @@ th {
 }
 
 .img-row {
-  justify-content: space-between;
+   justify-content: left;
 }
 
 .img-col {
@@ -576,4 +576,38 @@ th {
 .bg_wrap {
   /* background: url('../custom_img/intro_video_2.mp4') !important; */
   width: 100%;
+}
+
+.input-file-button{
+  background-color:#FF6600;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.filebox .upload-name {
+    display: inline-block;
+    height: 30px;
+    border: 1px solid #dddddd;
+    width: 50%;
+    color: #999999;
+}
+
+.filebox label {
+    display: inline-block;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
 }

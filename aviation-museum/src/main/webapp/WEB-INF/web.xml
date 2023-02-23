@@ -25,6 +25,15 @@
 		<filter-name>HTMLTagFilter</filter-name> 
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
+	
+	<filter>
+	  <filter-name>extensionUploadFilter</filter-name>
+	  <filter-class>devpia.dextuploadnj.support.common.ExtensionFileUploadFilter</filter-class>
+	  <init-param>
+	    <param-name>licenseAuthKey</param-name>
+	    <param-value>9fCzoEDYq+/V2uvNo1GELNyuQCkL2w+JmRVHxSzE1HN7BdYBBSy78KKiumnyXuIuOvt2ausAnqQeZ6dLm3ch27Uhr/0RQ4X9MJ0MqRFGDtfj+Lbzx2oJiWW1yqF4j0aM</param-value>
+	  </init-param>
+	</filter>
     
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
