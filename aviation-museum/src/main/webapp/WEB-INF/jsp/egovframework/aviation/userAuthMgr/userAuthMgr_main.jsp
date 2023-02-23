@@ -82,7 +82,6 @@
 			var menuAuth_List = [];
 			var group_idx = $('#mGroup_idx').val();
 				group_seqList.push(group_idx);
-				console.log('group_idx='+group_idx);				
 				$('input[type="checkbox"][name="menu_code_idx"]:checked').each(function(i){
 					menuAuth_List.push($(this).val());
 
@@ -138,7 +137,6 @@
 			var possession_Code_List = [];
 			var group_idx = $('#pGroup_idx').val();
 				group_seqList.push(group_idx);
-				console.log('group_idx='+group_idx);				
 				$('input[type="checkbox"][name="possession_code_idx"]:checked').each(function(i){
 					possession_Code_List.push($(this).val());
 

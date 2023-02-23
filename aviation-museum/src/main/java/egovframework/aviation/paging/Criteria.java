@@ -26,8 +26,9 @@ public class Criteria {
         return perPageNum;
     }
     public void setPerPageNum(int pageCount) {
+    	System.out.println("pageCount"+pageCount);
         int cnt = this.perPageNum;
-        if(pageCount != cnt) {
+        if(pageCount == cnt) {
             this.perPageNum = cnt;
         } else {
             this.perPageNum = pageCount;

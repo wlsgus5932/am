@@ -188,7 +188,16 @@
                  , MOD_DATE=#{mod_date}
                  , ENABLED=#{enabled}
              WHERE MEMBER_IDX=#{member_idx}
+    </update>
+    
+    <update id="updateUserPassWord" parameterType="egovframework.aviation.user.vo.UserVO">
         
+            UPDATE nam_member 
+               SET
+               	   MEMBER_PW = #{member_pw}
+               	 , MOD_USER= #{mod_user}
+                 , MOD_DATE= now()
+             WHERE MEMBER_IDX=#{member_idx}
     </update>
     
     <update id="updateUserListEnabled" parameterType="egovframework.aviation.user.vo.UserVO">
@@ -242,12 +251,9 @@
             SELECT 
 	  			 nmc.MENU_CODE_IDX 
 			FROM nam_menu_code nmc 
-			left join nam_authority na 
+			left join nam_menu_authority na 
 			on na.MENU_CODE_IDX = nmc.MENU_CODE_IDX 
 			WHERE 1=1
-<!-- 			<if test="org_code_idx != null">AND -->
-<!--                 ORG_CODE_IDX = #{org_code_idx} -->
-<!--             </if> -->
 			AND
 				na.GROUP_IDX =#{group_idx}
             
@@ -262,11 +268,18 @@
 			left join nam_possession_authority npa 
 			on npc.POSSESSION_CODE_IDX = npa.POSSESSION_CODE_IDX 
 			WHERE 1=1
-<!-- 			<if test="org_code_idx != null">AND -->
-<!--                 ORG_CODE_IDX = #{org_code_idx} -->
-<!--             </if> -->
+			<if test="org_code_idx != null">AND
+                npa.ORG_CODE_IDX = #{org_code_idx}
+            </if>
 			AND
 				npa.GROUP_IDX =#{group_idx}
             
 	</select>
+	
+	<select id="getPosSession2"  parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.metadata.vo.PosSessionVO">
+			SELECT * FROM nam_possession_code
+			WHERE
+				ORG_CODE_IDX = #{org_code_idx}
+	</select>
+	
 </mapper>

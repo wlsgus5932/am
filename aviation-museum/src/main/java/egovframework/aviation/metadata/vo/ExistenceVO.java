@@ -9,6 +9,7 @@ public class ExistenceVO {
 	private String reg_date;
 	private String mod_user;
 	private String mod_date;
+	private String updateType;
 	
 	public String getExistence_code_idx() {
 		return existence_code_idx;
@@ -58,12 +59,17 @@ public class ExistenceVO {
 	public void setMod_date(String mod_date) {
 		this.mod_date = mod_date;
 	}
-	
+	public String getUpdateType() {
+		return updateType;
+	}
+	public void setUpdateType(String updateType) {
+		this.updateType = updateType;
+	}
 	@Override
 	public String toString() {
 		return "ExistenceVO [existence_code_idx=" + existence_code_idx + ", existence_nm=" + existence_nm + ", seq="
 				+ seq + ", enabled=" + enabled + ", reg_user=" + reg_user + ", reg_date=" + reg_date + ", mod_user="
-				+ mod_user + ", mod_date=" + mod_date + "]";
+				+ mod_user + ", mod_date=" + mod_date + ", updateType=" + updateType + "]";
 	}
 	
 }

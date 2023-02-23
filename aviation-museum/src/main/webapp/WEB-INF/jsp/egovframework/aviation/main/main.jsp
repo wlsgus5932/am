@@ -7,6 +7,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+	function logoutProcess(){
+		sessionStorage.removeItem("loginId");
+	    
+	    location.href="/logout.do";
+	}
+</script>
 <body>
 main
  <c:choose>
@@ -14,7 +21,7 @@ main
 		<button onclick="location.href='<c:url value='/login.do' />' ">login</button>
     </c:when>
     <c:otherwise>
-    	<button onclick="location.href='<c:url value='/logout.do' />' ">logout</button>
+    	<button onclick="logoutProcess();">logout</button>
     </c:otherwise>
 </c:choose>
 		<button onclick="location.href='<c:url value='/metadata/add.do' />' ">add</button>

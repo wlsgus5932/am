@@ -74,7 +74,7 @@
 	    <mvc:interceptor>
 	        <mvc:mapping path="/**/*.do"/> <!-- 절대경로(/)부터 시작하면 중간경로가 있을 수 있기에 (**)으로 표시 -->
 	        <mvc:exclude-mapping path="/login.do"/> <!-- 예외 경로 지정 --> 
-	        <mvc:exclude-mapping path="/main.do"/> <!-- 예외 경로 지정 -->
+<!-- 	        <mvc:exclude-mapping path="/main.do"/> 예외 경로 지정 -->
 	        <bean class="egovframework.aviation.interceptor.AuthInterceptor" />
 	    </mvc:interceptor>
 	</mvc:interceptors>

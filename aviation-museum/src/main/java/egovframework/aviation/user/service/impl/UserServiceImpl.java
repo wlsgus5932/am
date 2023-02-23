@@ -43,6 +43,10 @@ public class UserServiceImpl implements UserService {
 	public int updateUser(UserVO userVO) {
 		return dao.updateUser(userVO);
 	}
+
+	public int updateUserPassWord(UserVO userVO) {
+		return dao.updateUserPassWord(userVO);
+	}
 	
 	public int updateUserListEnabled(UserVO userVO) {
 		return dao.updateUserListEnabled(userVO);
@@ -67,5 +71,11 @@ public class UserServiceImpl implements UserService {
 	public List<PosSessionVO> getGroupPossessionList(GroupVO groupVO) {
 		return dao.getGroupPossessionList(groupVO);
 	}
+
+	@Override
+	public List<PosSessionVO> getPosSession2(GroupVO groupVO) {
+		return dao.getPosSession2(groupVO);
+	}
+
 	
 }

@@ -353,7 +353,7 @@
                 <ul class="sub-menu" aria-expanded="false">
                   <li><a href="index.html" data-key="t-ecommerce">자료 정보조회</a></li>
                   <li><a href="dashboard-saas.html" data-key="t-saas">자료 검색</a></li>
-                  <li><a href="dashboard-crypto.html" data-key="t-crypto">My페이지</a></li>
+                  <li><a href="/myPage.do" data-key="t-crypto">My페이지</a></li>
                 </ul>
               </li>
 
@@ -446,11 +446,11 @@
                   <span class="menu-item" data-key="t-ecommerce">환경설정</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
-                  <li><a href="ecommerce-products.html" data-key="t-products">화면설정</a></li>
-                  <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">코드관리</a></li>
+                  <li><a href="/codeMgr.do" data-key="t-products">코드관리</a></li>
+                  <li><a href="/otherMgr.do" data-key="t-product-detail">기타관리</a></li>
                   <li><a href="ecommerce-orders.html" data-key="t-orders">로그관리</a></li>
                   <li><a href="ecommerce-customers.html" data-key="t-customers">사전관리</a></li>
-                  <li><a href="ecommerce-cart.html" data-key="t-cart">승인관리</a></li>
+                  <li><a href="/approvalMgr.do" data-key="t-cart">승인관리</a></li>
                 </ul>
               </li>
 

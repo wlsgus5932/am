@@ -25,6 +25,8 @@ public interface UserMapper {
 	
 	public int updateUser(UserVO userVO);
 	
+	public int updateUserPassWord(UserVO userVO);
+	
 	public int updateUserListEnabled(UserVO userVO);
 	
 //	사용자 관리권한
@@ -37,4 +39,6 @@ public interface UserMapper {
 	public List<MenuCodeVO> getGroupMenuList(GroupVO groupVO);
 	
 	public List<PosSessionVO> getGroupPossessionList(GroupVO groupVO);
+	
+	public List<PosSessionVO> getPosSession2(GroupVO groupVO);
 }

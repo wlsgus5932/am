@@ -9,6 +9,7 @@ public class Purchase1VO {
 	private String reg_date;
 	private String mod_user;
 	private String mod_date;
+	private String updateType;
 	
 	public String getPurchase1_code_idx() {
 		return purchase1_code_idx;
@@ -58,12 +59,17 @@ public class Purchase1VO {
 	public void setMod_date(String mod_date) {
 		this.mod_date = mod_date;
 	}
-	
+	public String getUpdateType() {
+		return updateType;
+	}
+	public void setUpdateType(String updateType) {
+		this.updateType = updateType;
+	}
 	@Override
 	public String toString() {
-		return "purchaseVO [purchase1_code_idx=" + purchase1_code_idx + ", purchase1_nm=" + purchase1_nm + ", seq="
+		return "Purchase1VO [purchase1_code_idx=" + purchase1_code_idx + ", purchase1_nm=" + purchase1_nm + ", seq="
 				+ seq + ", enabled=" + enabled + ", reg_user=" + reg_user + ", reg_date=" + reg_date + ", mod_user="
-				+ mod_user + ", mod_date=" + mod_date + "]";
+				+ mod_user + ", mod_date=" + mod_date + ", updateType=" + updateType + "]";
 	}
 	
 }

@@ -2,6 +2,7 @@ package egovframework.aviation.metadata.vo;
 
 public class PosSessionVO {
 	private String possession_code_idx;
+	private String possession_code;
 	private String org_code_idx;
 	private String possession_nm;
 	private String seq;
@@ -10,12 +11,19 @@ public class PosSessionVO {
 	private String reg_date;
 	private String mod_user;
 	private String mod_date;
+	private String updateType;
 	
 	public String getPossession_code_idx() {
 		return possession_code_idx;
 	}
 	public void setPossession_code_idx(String possession_code_idx) {
 		this.possession_code_idx = possession_code_idx;
+	}
+	public String getPossession_code() {
+		return possession_code;
+	}
+	public void setPossession_code(String possession_code) {
+		this.possession_code = possession_code;
 	}
 	public String getOrg_code_idx() {
 		return org_code_idx;
@@ -65,14 +73,18 @@ public class PosSessionVO {
 	public void setMod_date(String mod_date) {
 		this.mod_date = mod_date;
 	}
-	
+	public String getUpdateType() {
+		return updateType;
+	}
+	public void setUpdateType(String updateType) {
+		this.updateType = updateType;
+	}
 	@Override
 	public String toString() {
-		return "PosSessionVO [possession_code_idx=" + possession_code_idx + ", org_code_idx=" + org_code_idx
-				+ ", possession_nm=" + possession_nm + ", seq=" + seq + ", enabled=" + enabled + ", reg_user="
-				+ reg_user + ", reg_date=" + reg_date + ", mod_user=" + mod_user + ", mod_date=" + mod_date + "]";
+		return "PosSessionVO [possession_code_idx=" + possession_code_idx + ", possession_code=" + possession_code
+				+ ", org_code_idx=" + org_code_idx + ", possession_nm=" + possession_nm + ", seq=" + seq + ", enabled="
+				+ enabled + ", reg_user=" + reg_user + ", reg_date=" + reg_date + ", mod_user=" + mod_user
+				+ ", mod_date=" + mod_date + ", updateType=" + updateType + "]";
 	}
-	
-	
 
 }

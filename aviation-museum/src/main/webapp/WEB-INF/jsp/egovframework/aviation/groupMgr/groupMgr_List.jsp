@@ -93,7 +93,7 @@
                <div class="modal-content">
                    <div class="modal-header mv-modal-header">
                        <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
-                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="groupInsInputClose"></button>
                    </div>
                    <div class="modal-body mv-modal-body">
                        <!-- 그룹 등록 모달 내용 -->
@@ -146,7 +146,7 @@
              <div class="modal-content">
                  <div class="modal-header mv-modal-header">
                      <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="groupModInputClose"></button>
                  </div>
                  <div class="modal-body mv-modal-body">
                      <!-- 그룹 수정 모달 내용 -->
@@ -248,7 +248,8 @@ $('input[type="checkbox"][name="admin"]').click(function(){
 function groupSearchList(){
 	// 사용자 조건 검색			
 	var queryString = $("form[name=groupSearchForm]").serialize();
-
+	var search_word = $('#search_word').val();
+	var search_type = $('#search_type').val();
 		$.ajax({
 			type : 'post',
 			url : '/groupListAjax.do',
@@ -260,6 +261,8 @@ function groupSearchList(){
 			},
 			success : function(data){
 				$('#tab-content').empty().append(data);
+				$('#search_word').val(search_word);
+				$('#search_type').val(search_type);
 			}
 		});
 }
@@ -272,11 +275,15 @@ $('input[type="text"]').keydown(function() {
 
 <%-- 그룹 페이지 이동 --%>
 function goPage(value) {
+	var search_word = $('#search_word').val();
+	var search_type = $('#search_type').val();
 	var page = value;
 	$.ajax({
 		type : 'POST',                 
 		url : '/groupListAjax.do',   
 		data:{
+			search_word : search_word,
+			search_type : search_type,
 			page : page
 		},
 		dataType : "html",           
@@ -286,6 +293,8 @@ function goPage(value) {
 		},
 		success : function(data) {  
 			$('#tab-content').empty().append(data);
+			$('#search_word').val(search_word);
+			$('#search_type').val(search_type);
 		}
 	});
 }
