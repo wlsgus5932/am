@@ -2,6 +2,7 @@ package egovframework.aviation.metadata.vo;
 
 public class Class1VO {
 	private String class1_code_idx;
+	private String class1_code;
 	private String class1_nm;
 	private String seq;
 	private String enabled;
@@ -9,12 +10,19 @@ public class Class1VO {
 	private String reg_date;
 	private String mod_user;
 	private String mod_date;
+	private String updateType;
 	
 	public String getClass1_code_idx() {
 		return class1_code_idx;
 	}
 	public void setClass1_code_idx(String class1_code_idx) {
 		this.class1_code_idx = class1_code_idx;
+	}
+	public String getClass1_code() {
+		return class1_code;
+	}
+	public void setClass1_code(String class1_code) {
+		this.class1_code = class1_code;
 	}
 	public String getClass1_nm() {
 		return class1_nm;
@@ -58,11 +66,17 @@ public class Class1VO {
 	public void setMod_date(String mod_date) {
 		this.mod_date = mod_date;
 	}
-	
+	public String getUpdateType() {
+		return updateType;
+	}
+	public void setUpdateType(String updateType) {
+		this.updateType = updateType;
+	}
 	@Override
 	public String toString() {
-		return "Class1VO [class1_code_idx=" + class1_code_idx + ", class1_nm=" + class1_nm + ", seq=" + seq
-				+ ", enabled=" + enabled + ", reg_user=" + reg_user + ", reg_date=" + reg_date + ", mod_user="
-				+ mod_user + ", mod_date=" + mod_date + "]";
+		return "Class1VO [class1_code_idx=" + class1_code_idx + ", class1_code=" + class1_code + ", class1_nm="
+				+ class1_nm + ", seq=" + seq + ", enabled=" + enabled + ", reg_user=" + reg_user + ", reg_date="
+				+ reg_date + ", mod_user=" + mod_user + ", mod_date=" + mod_date + ", updateType=" + updateType + "]";
 	}
+	
 }

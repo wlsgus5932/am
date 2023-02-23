@@ -171,6 +171,7 @@
             <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ojdbc-14.jar</systemPath>
         </dependency> -->
         
+<<<<<<< HEAD
         <!-- file upload -->
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -200,6 +201,20 @@
         
         
 		        
+=======
+        <!-- 20230208 excel api 추가  -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>4.1.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>4.1.2</version>
+		</dependency>
+		
+>>>>>>> sebin
 	</dependencies>
 
 	<build>

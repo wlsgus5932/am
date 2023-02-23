@@ -1,0 +1,22 @@
+/* .table > :not(caption) > * > * {
+  border-bottom-width: 3px;
+} */
+
+.view_border_1 {
+  border-color: #b0b0b0 !important;
+  border-bottom-width: 2px !important;
+}
+
+.view_border_2 {
+  border-color: #cecece !important;
+  border-bottom-width: 2px !important;
+}
+
+.view_right {
+  width: 100%;
+  margin: auto;
+}
+
+.table > :not(caption) > * > * {
+  text-align: left;
+}

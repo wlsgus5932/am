@@ -12,6 +12,7 @@ public class EraVO {
 	private String reg_date;
 	private String mod_user;
 	private String mod_date;
+	private String updateType;
 	
 	public String getEra_code_idx() {
 		return era_code_idx;
@@ -79,13 +80,18 @@ public class EraVO {
 	public void setMod_date(String mod_date) {
 		this.mod_date = mod_date;
 	}
-	
+	public String getUpdateType() {
+		return updateType;
+	}
+	public void setUpdateType(String updateType) {
+		this.updateType = updateType;
+	}
 	@Override
 	public String toString() {
 		return "EraVO [era_code_idx=" + era_code_idx + ", country_code_idx=" + country_code_idx + ", era_nm=" + era_nm
 				+ ", start_year=" + start_year + ", end_year=" + end_year + ", seq=" + seq + ", enabled=" + enabled
 				+ ", reg_user=" + reg_user + ", reg_date=" + reg_date + ", mod_user=" + mod_user + ", mod_date="
-				+ mod_date + "]";
+				+ mod_date + ", updateType=" + updateType + "]";
 	}
 	
 }

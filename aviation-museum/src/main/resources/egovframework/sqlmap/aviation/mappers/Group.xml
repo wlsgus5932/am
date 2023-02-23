@@ -10,11 +10,18 @@
         <result property="reg_date" column="REG_DATE"/>
     </resultMap>
     
+    <resultMap id="MenuAuthorityResult" type="egovframework.aviation.group.vo.MenuAuthorityVO">
+        <result property="group_idx" column="GROUP_IDX"/>
+        <result property="menu_code_idx" column="MENU_CODE_IDX"/>
+        <result property="reg_date" column="REG_DATE"/>
+    </resultMap>
+    
 	<select id="getGroupList" parameterType="egovframework.aviation.group.vo.GroupVO" resultMap="GroupResult">
            SELECT R1.* FROM( 
 	            SELECT 
 	          		  row_number() over(order by GROUP_IDX desc) as rnum
 	            	, GROUP_IDX
+	            	, ORG_CODE_IDX
 	            	, GROUP_NM
 	            	, REMARK 
 	            	, ADMIN
@@ -79,11 +86,13 @@
                   , GROUP_NM
                   , REMARK
                   , ADMIN
+                  , ORG_CODE_IDX
                   , REG_DATE )
            VALUES ( #{group_idx}
                   , #{group_nm}
                   , #{remark}
                   , #{admin}
+                  , #{org_code_idx}
                   , now())
          
     </insert>
@@ -100,18 +109,34 @@
             </if>
     </update>
      
-<!-- 그룹삭제 -->
-<!-- 기본 그룹 idx = 2 -->
     <delete id="deleteAuthority">
            
-            DELETE FROM nam_authority
-	        WHERE
+            DELETE FROM nam_menu_authority
+	        WHERE 1=1
+	        <if test="org_code_idx != null">AND
+                ORG_CODE_IDX = #{org_code_idx}
+            </if>
+	        AND
 	   			GROUP_IDX IN
 			<foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
 				#{group_seq}
 			</foreach>
 			
     </delete>
+    
+   	<insert id="insertMenuAuthority" parameterType="egovframework.aviation.group.vo.MenuAuthorityVO">
+        
+           INSERT INTO nam_menu_authority 
+                  (
+                 	GROUP_IDX
+                  , MENU_CODE_IDX
+                  , REG_DATE)
+           VALUES
+			 	 (  #{group_idx}       		 
+                  , #{menu_code_idx}
+                  , now()
+                 )
+    </insert>
     
     <update id="updateUserGroup" parameterType="egovframework.aviation.group.vo.GroupVO">
           
@@ -144,45 +169,40 @@
         
     </delete>
     
-<!--      -->
-	<select id="getMenuCodeList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.group.vo.MenuCodeVO">
-          
-         	SELECT 
-         		*
-			from nam_menu_code
-            
-	</select>
-	
-   	<select id="getGroupUserList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.user.vo.UserVO">
-          
-           	SELECT  
-		         nm.MEMBER_ID
-				,nm.MEMBER_NM 
-			FROM nam_group ng 
-			left join nam_member nm 
-			on ng.GROUP_IDX = nm.GROUP_IDX
-			WHERE 1=1
-			<if test="org_code_idx != null">AND
-                ng.ORG_CODE_IDX = #{org_code_idx}
-            </if>
-			AND
-				ng.GROUP_IDX =#{group_idx}
-            
-	</select>
+    <delete id="deletePossessionAuthority">
+           
+            DELETE FROM nam_possession_authority
+	        WHERE
+	   			GROUP_IDX IN
+			<foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
+				#{group_seq}
+			</foreach>
+			
+    </delete>
     
-    <select id="getGroupMenuList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.group.vo.MenuCodeVO">
-          
-            SELECT 
-	  			 nmc.MENU_CODE_IDX 
-			FROM nam_menu_code nmc 
-			left join nam_authority na 
-			on na.MENU_CODE_IDX = nmc.MENU_CODE_IDX 
-			WHERE 1=1
-<!-- 			<if test="org_code_idx != null">AND -->
-<!--                 ORG_CODE_IDX = #{org_code_idx} -->
-<!--             </if> -->
-			AND
-				ng.GROUP_IDX =#{group_idx}
-            
+   	<insert id="insertPossessionAuthority" parameterType="egovframework.aviation.group.vo.PossessionAuthorityVO">
+        
+           INSERT INTO nam_possession_authority 
+                  (
+                    GROUP_IDX
+                  , POSSESSION_CODE_IDX
+                  , ORG_CODE_IDX
+                  , REG_DATE)
+           VALUES
+			 	 (  #{group_idx}   
+			 	  , #{possession_code_idx}    		 
+                  , #{org_code_idx}
+                  , now()
+                 )
+    </insert>
+    
+    <select id="getMenuAuth"  parameterType="egovframework.aviation.group.vo.MenuAuthorityCodeJoinVO" resultType="egovframework.aviation.group.vo.MenuAuthorityCodeJoinVO">
+			SELECT 
+				nma.MENU_AUTHORITY_IDX 
+			from nam_menu_authority nma 
+			join nam_menu_code nmc 
+			on nma.MENU_CODE_IDX = nmc.MENU_CODE_IDX 
+			WHERE GROUP_IDX = #{group_idx}
+			AND nmc.MENU_PATTERN = #{menu_pattern}
 	</select>
 </mapper>

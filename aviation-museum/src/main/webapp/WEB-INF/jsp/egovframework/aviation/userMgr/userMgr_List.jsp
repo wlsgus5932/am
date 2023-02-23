@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+	
      <div class="tab-pane" id="profile" role="tabpanel" style="display:block;">
      <form id="userSearchForm" name="userSearchForm" method="post" class="form-horizontal">
 	      <div class="user_top_wrap">
@@ -23,7 +23,6 @@
           <button class="btn btn-secondary waves-effect waves-light btn_ml" id="userListEnabledBtn">선택 미사용</button>
         </div>
         <div class="user_btn">
-          <button class="btn btn-secondary waves-effect waves-light btn_ml">통합그룹별 권한보기</button>
           <button type="button" class="btn btn-primary waves-effect waves-light btn_ml btn_wh btn_ex" data-bs-toggle="modal" data-bs-target="#myModal">사용자등록</button>
         </div>
       </div>
@@ -34,7 +33,7 @@
               <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                       <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="userInsInputClose"></button>
                   </div>
                   <div class="modal-body mv-modal-body">
                       <!-- 사용자 등록 모달 내용 -->
@@ -44,14 +43,14 @@
                         </div>
                         <div class="card-body">
                           <div class="table-responsive">
-                       	 	  <form action="/userinsert.do" method="post" name="userinsertform">                          
+                       	 	  <form action="/userinsert.do" method="post" name="userinsertform">                 
 	                              <table class="table mb-0">
 	                                  <tbody>
 	                                      <tr>
 	                                        <td>사용자ID</td>
 	                                          <td>
-	                                            <input type="text" name="member_id" id="insUserId">
-	                                            <button type="button" onclick="duplicateCheck();">중복체크</button>
+	                                            <input type="text" name="member_id" id="insUserId" oninput="userInsInputChange();">
+	                                            <button type="button" id="userInsCheck" userInsCheck="" onclick="duplicateCheck();">중복체크</button>
 	                                          </td>
 	                                      </tr>
 	                                      <tr>
@@ -69,7 +68,7 @@
 	                                      <tr>
 	                                        <td>그룹명</td>
 	                                        <td>
-	                                          <select class="form-select st_select" name="group_idx">
+	                                          <select class="form-select st_select" name="group_idx" id="insGroupNm">
 <!-- 	                                            <option disabled selected>그룹 없음</option> -->
 		                                            <c:forEach var="groupList" items="${groupList}">
 			                                          <option value="${groupList.group_idx}">${groupList.group_nm}</option>
@@ -101,7 +100,7 @@
             <div class="modal-content">
                 <div class="modal-header mv-modal-header">
                     <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="userModInputClose"></button>
                 </div>
                 <div class="modal-body mv-modal-body">
                     <!-- 사용자 등록 모달 내용 -->
@@ -239,7 +238,7 @@
           </div>
       </div>
     </div>
-    </div>
+    </div>	
 	<script>	
 		<%-- 사용자 등록 유효성체크 --%>
 		var userInsValidation = function() {
@@ -309,7 +308,8 @@
 		function userSearchList(){
 			// 사용자 조건 검색			
 			var queryString = $("form[name=userSearchForm]").serialize();
-
+			var search_word = $('#search_word').val();
+			var search_type = $('#search_type').val();
 				$.ajax({
 					type : 'post',
 					url : '/usermgr/userListAjax.do',
@@ -321,6 +321,8 @@
 					},
 					success : function(data){
 						$('#tab-content').empty().append(data);
+						$('#search_word').val(search_word);
+						$('#search_type').val(search_type);
 					}
 				});
 		}
@@ -333,11 +335,15 @@
 		
 		<%-- 사용자 페이지 이동 --%>
 		function goPage(value) {
+			var search_word = $('#search_word').val();
+			var search_type = $('#search_type').val();
 			var page = value;
 			$.ajax({
 				type : 'POST',                 
 				url : '/usermgr/userListAjax.do',   
 				data:{
+					search_word : search_word,
+					search_type : search_type,
 					page : page
 				},
 				dataType : "html",           
@@ -347,6 +353,8 @@
 				},
 				success : function(data) {  
 					$('#tab-content').empty().append(data);
+					$('#search_word').val(search_word);
+					$('#search_type').val(search_type);
 				}
 			});
 	}

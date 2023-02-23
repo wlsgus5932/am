@@ -100,8 +100,10 @@
 
 			var queryString = $("form[name=userinsertform]").serialize();
 			var check_submit = confirm('사용자를 등록하시겠습니까?');
+			var userInsCheck = $('#userInsCheck').attr('userInsCheck');
+			if(userInsCheck == "" || userInsCheck == "N"){alert('아이디 중복체크를 해주세요'); $('#userInsCheck').focus(); return;}
 
-			if (userInsValidation()) {
+	  		if (userInsValidation()) {
 				if(check_submit){
 					$.ajax({
 						type : 'post',
@@ -114,7 +116,7 @@
 						},
 						success : function(success){
 							alert('사용자가 등록되었습니다.');
-							
+							$('#userInsInputClose').click();
 							$.ajax({
 								type : 'POST',                 
 								url : '/usermgr/userListAjax.do',   
@@ -125,16 +127,19 @@
 								},
 								success : function(data) {  
 									$('#tab-content').empty().append(data);
-									$('body').attr('class','').attr('style','');
-									$('.modal-backdrop').remove();
+									
+// 									$('body').attr('class','').attr('style','');
+// 									$('.modal-backdrop').remove();
 								}
 							});
 						}
 					});
 				}
 			}
+
 		});
 	
+
 		// 사용자 등록 중복체크 버튼
 		function duplicateCheck() {				
 				var insUserId = $('#insUserId').val();				
@@ -156,17 +161,22 @@
 						alert('통신실패!');
 					},
 					success : function(data) {
-						console.log(data);
 						$.each(data, function(index, item) { // 데이터 =item
 							if(item.result == "success"){								
 								alert('존재하는 아이디입니다.');
+								$('#userInsCheck').attr('userInsCheck','N');
 							}else{
 								alert('사용가능한 아이디입니다.');
-
+								$('#userInsCheck').attr('userInsCheck','Y');
 							}
 						});
 					}
 				});
+		}
+	
+		//중복확인란 텍스트 변경 시 다시 중복확인 해야함
+		function userInsInputChange(){
+			$('#userInsCheck').attr('userInsCheck','N');
 		}
 		
 		// 사용자 수정 팝업 버튼
@@ -184,7 +194,6 @@
 						alert('통신실패!');
 					},
 					success : function(data) {  
-						console.log(data);
 							
 						$.each(data, function(index, item) { // 데이터 =item
 							
@@ -224,7 +233,7 @@
 						},
 						success : function(success){
 							alert('사용자가 수정되었습니다.');
-							
+							$('#userModInputClose').click();
 							$.ajax({
 								type : 'POST',                 
 								url : '/usermgr/userListAjax.do',   
@@ -235,8 +244,8 @@
 								},
 								success : function(data) {  
 									$('#tab-content').empty().append(data);
-									$('body').attr('class','').attr('style','');
-									$('.modal-backdrop').remove();
+// 									$('body').attr('class','').attr('style','');
+// 									$('.modal-backdrop').remove();
 								}
 							});
 						}
@@ -257,7 +266,6 @@
 			$('.check_temp:checked').each(function(i){
 				user_seqList.push($(this).val());
 			});
-			console.log(user_seqList);
 			 
 			var $this = $(this);
 			var answer = confirm('선택하신 사용자를 미사용 처리하시겠습니까?');
@@ -286,8 +294,7 @@
 							},
 							success : function(data) {  
 								$('#tab-content').empty().append(data);
-								$('body').attr('class','').attr('style','');
-								$('.modal-backdrop').remove();
+
 							}
 						});
 					}
@@ -313,7 +320,7 @@
 						},
 						success : function(success){
 							alert('그룹이 등록되었습니다.');
-							
+							$('#groupInsInputClose').click();
 							$.ajax({
 								type : 'POST',                 
 								url : '/groupListAjax.do',   
@@ -324,8 +331,8 @@
 								},
 								success : function(data) {  
 									$('#tab-content').empty().append(data);
-									$('body').attr('class','').attr('style','');
-									$('.modal-backdrop').remove();
+// 									$('body').attr('class','').attr('style','');
+// 									$('.modal-backdrop').remove();
 								}
 							});
 						}
@@ -346,7 +353,6 @@
 			$('.check_temp:checked').each(function(i){
 				group_seqList.push($(this).val());
 			});
-			console.log(group_seqList);
 			 
 			var $this = $(this);
 			var answer = confirm('선택하신 그룹을 삭제하시겠습니까?');
@@ -397,13 +403,8 @@
 						alert('통신실패!');
 					},
 					success : function(data) {  
-						console.log(data);
 
 						$.each(data, function(index, item) { // 데이터 =item
-							console.log(item.group_idx);
-							console.log(item.group_nm);
-							console.log(item.remark);
-							console.log(item.admin);
 							
 							$('#modGroupIdx').val(value);
 							$('#modGroupNm').val(item.group_nm);
@@ -426,7 +427,6 @@
 
 			var queryString = $("form[name=groupupdateform]").serialize();
 			var check_submit = confirm('그룹을 수정하시겠습니까?');
-
 			if (groupModValidation()) {
 				if(check_submit){
 					$.ajax({
@@ -440,7 +440,7 @@
 						},
 						success : function(success){
 							alert('그룹이 수정되었습니다.');
-							
+							$('#groupModInputClose').click();
 							$.ajax({
 								type : 'POST',                 
 								url : '/groupListAjax.do',   
@@ -451,8 +451,8 @@
 								},
 								success : function(data) {  
 									$('#tab-content').empty().append(data);
-									$('body').attr('class','').attr('style','');
-									$('.modal-backdrop').remove();
+// 									$('body').attr('class','').attr('style','');
+// 									$('.modal-backdrop').remove();
 								}
 							});
 						}
@@ -483,84 +483,6 @@
 
           </div>
           <!--  -->
-          <!-- 퀵메뉴 -->
-          <div class="accordion" id="accordionExample">
-
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button
-                  class="accordion-button fw-medium"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
-                >
-                  퀵메뉴
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="text-muted">
-                    <strong class="text-dark">
-                      <ul>
-                        <li><a href="#">저장</a></li>
-                        <li><a href="#">자료 등록하기</a></li>
-                        <li><a href="#">자료 정보 가져오기</a></li>
-                        <li><a href="#">자료 정보 일괄 변경</a></li>
-                        <li><a href="#">자료 정보 삭제 신청</a></li>
-                        <li><a href="#">자료 번호 삽입</a></li>
-                      </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingTwo">
-                <button
-                  class="accordion-button fw-medium collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseTwo"
-                  aria-expanded="false"
-                  aria-controls="collapseTwo"
-                >
-                  고정메뉴
-                </button>
-              </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="text-muted">
-                    <strong class="text-dark">
-                      <ul>
-                        <li><a href="#">연표</a></li>
-                        <li><a href="#">연호</a></li>
-                        <li><a href="#">용어</a></li>
-                        <li><a href="#">분류체계</a></li>
-                      </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingThree">
-                <button
-                  class="accordion-button fw-medium collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseThree"
-                  aria-expanded="false"
-                  aria-controls="collapseThree"
-                >
-                  등록메뉴얼
-                </button>
-              </h2>
-              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                </div>
-              </div>
-            </div>
-          </xdiv>
-            <!--  -->
           </div>
           <!-- 내용물 -->
           <ul class="nav nav-tabs" role="tablist">

@@ -9,6 +9,7 @@ public class MeasurementUnitVO {
 	private String reg_date;
 	private String mod_user;
 	private String mod_date;
+	private String updateType;
 	
 	public String getMeasurement_unit_code_idx() {
 		return measurement_unit_code_idx;
@@ -58,11 +59,18 @@ public class MeasurementUnitVO {
 	public void setMod_date(String mod_date) {
 		this.mod_date = mod_date;
 	}
-	
+	public String getUpdateType() {
+		return updateType;
+	}
+	public void setUpdateType(String updateType) {
+		this.updateType = updateType;
+	}
 	@Override
 	public String toString() {
 		return "MeasurementUnitVO [measurement_unit_code_idx=" + measurement_unit_code_idx + ", measurement_unit_nm="
 				+ measurement_unit_nm + ", seq=" + seq + ", enabled=" + enabled + ", reg_user=" + reg_user
-				+ ", reg_date=" + reg_date + ", mod_user=" + mod_user + ", mod_date=" + mod_date + "]";
+				+ ", reg_date=" + reg_date + ", mod_user=" + mod_user + ", mod_date=" + mod_date + ", updateType="
+				+ updateType + "]";
 	}
+	
 }

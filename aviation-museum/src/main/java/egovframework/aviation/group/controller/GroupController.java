@@ -66,7 +66,7 @@ public class GroupController {
 		/** 그룹 등록 */
 		@RequestMapping(value = "/groupinsert.do")
 	    public String GroupInsert(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
-			
+			groupVO.setOrg_code_idx("1");
 			int result = groupService.insertGroup(groupVO);
 			String success = "";
 			
@@ -92,10 +92,11 @@ public class GroupController {
 	    public String GroupDelete(HttpServletRequest req, @ModelAttribute("groupVO") GroupVO groupVO, Model model) throws Exception {
 			int result = groupService.updateUserGroup(groupVO);
 			int result2 = groupService.deleteAuthority(groupVO);
-			int result3 = groupService.deleteGroup(groupVO);
+			int result3 = groupService.deletePossessionAuthority(groupVO);
+			int result4 = groupService.deleteGroup(groupVO);
 			String success = "";
 			
-			if(result > 0 && result2 > 0 && result3 > 0) {
+			if(result > 0 && result2 > 0 && result3 > 0 && result4 > 0) {
 				 success = "success";
 			}
 	        return "jsonView";

@@ -7,7 +7,7 @@ public class UserVO {
 	private String member_idx;
 	private String member_id;
 	private int org_code_idx;
-	private int group_idx;
+	private String group_idx;
 	private String member_pw;
 	private String member_nm;
 	private String remark;
@@ -17,6 +17,7 @@ public class UserVO {
 	private Date mod_date;
 	private String enabled;
 	private List<String> user_seqList = null;
+	private List<UserVO> user_infor = null;
 	public String getMember_idx() {
 		return member_idx;
 	}
@@ -35,10 +36,10 @@ public class UserVO {
 	public void setOrg_code_idx(int org_code_idx) {
 		this.org_code_idx = org_code_idx;
 	}
-	public int getGroup_idx() {
+	public String getGroup_idx() {
 		return group_idx;
 	}
-	public void setGroup_idx(int group_idx) {
+	public void setGroup_idx(String group_idx) {
 		this.group_idx = group_idx;
 	}
 	public String getMember_pw() {
@@ -95,12 +96,20 @@ public class UserVO {
 	public void setUser_seqList(List<String> user_seqList) {
 		this.user_seqList = user_seqList;
 	}
+	
+	public List<UserVO> getUser_infor() {
+		return user_infor;
+	}
+	public void setUser_infor(List<UserVO> userInfor) {
+		this.user_infor = userInfor;
+	}
 	@Override
 	public String toString() {
 		return "UserVO [member_idx=" + member_idx + ", member_id=" + member_id + ", org_code_idx=" + org_code_idx
 				+ ", group_idx=" + group_idx + ", member_pw=" + member_pw + ", member_nm=" + member_nm + ", remark="
 				+ remark + ", reg_user=" + reg_user + ", reg_date=" + reg_date + ", mod_user=" + mod_user
-				+ ", mod_date=" + mod_date + ", enabled=" + enabled + ", user_seqList=" + user_seqList + "]";
+				+ ", mod_date=" + mod_date + ", enabled=" + enabled + ", user_seqList=" + user_seqList + ", user_infor="
+				+ user_infor + "]";
 	}
 	
 }

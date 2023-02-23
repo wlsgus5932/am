@@ -10,6 +10,7 @@ public class Material2VO {
 	private String reg_date;
 	private String mod_user;
 	private String mod_date;
+	private String updateType;
 	
 	public String getMaterial2_code_idx() {
 		return material2_code_idx;
@@ -65,12 +66,18 @@ public class Material2VO {
 	public void setMod_date(String mod_date) {
 		this.mod_date = mod_date;
 	}
-	
+	public String getUpdateType() {
+		return updateType;
+	}
+	public void setUpdateType(String updateType) {
+		this.updateType = updateType;
+	}
 	@Override
 	public String toString() {
 		return "Material2VO [material2_code_idx=" + material2_code_idx + ", material1_code_idx=" + material1_code_idx
 				+ ", material2_nm=" + material2_nm + ", seq=" + seq + ", enabled=" + enabled + ", reg_user=" + reg_user
-				+ ", reg_date=" + reg_date + ", mod_user=" + mod_user + ", mod_date=" + mod_date + "]";
+				+ ", reg_date=" + reg_date + ", mod_user=" + mod_user + ", mod_date=" + mod_date + ", updateType="
+				+ updateType + "]";
 	}
 	
 }

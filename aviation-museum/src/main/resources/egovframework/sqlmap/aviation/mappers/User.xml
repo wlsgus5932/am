@@ -188,7 +188,16 @@
                  , MOD_DATE=#{mod_date}
                  , ENABLED=#{enabled}
              WHERE MEMBER_IDX=#{member_idx}
+    </update>
+    
+    <update id="updateUserPassWord" parameterType="egovframework.aviation.user.vo.UserVO">
         
+            UPDATE nam_member 
+               SET
+               	   MEMBER_PW = #{member_pw}
+               	 , MOD_USER= #{mod_user}
+                 , MOD_DATE= now()
+             WHERE MEMBER_IDX=#{member_idx}
     </update>
     
     <update id="updateUserListEnabled" parameterType="egovframework.aviation.user.vo.UserVO">
@@ -201,4 +210,76 @@
 				#{user_seq}
 			</foreach>
     </update>
+    
+    <!--   사용자 관리권한   -->
+	<select id="getMenuCodeList" parameterType="egovframework.aviation.group.vo.MenuCodeVO" resultType="egovframework.aviation.group.vo.MenuCodeVO">
+          
+         	SELECT 
+         		*
+			from nam_menu_code
+            
+	</select>
+	    <!--   사용자 세부메뉴 관리권한 대분류   -->
+	<select id="getMenuCodeListLarge" parameterType="egovframework.aviation.group.vo.MenuCodeVO" resultType="egovframework.aviation.group.vo.MenuCodeVO">
+          
+         	SELECT 
+         		*
+			FROM nam_menu_code
+			WHERE parent_menu is null
+            
+	</select>
+	
+   	<select id="getGroupUserList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.user.vo.UserVO">
+          
+           	SELECT  
+		         nm.MEMBER_ID
+				,nm.MEMBER_NM 
+			FROM nam_member nm 
+			left join nam_group ng
+			on ng.GROUP_IDX = nm.GROUP_IDX
+			WHERE 1=1
+			<if test="org_code_idx != null">AND
+                ng.ORG_CODE_IDX = #{org_code_idx}
+            </if>
+			AND
+				ng.GROUP_IDX =#{group_idx}
+            
+	</select>
+    
+    <select id="getGroupMenuList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.group.vo.MenuCodeVO">
+          
+            SELECT 
+	  			 nmc.MENU_CODE_IDX 
+			FROM nam_menu_code nmc 
+			left join nam_menu_authority na 
+			on na.MENU_CODE_IDX = nmc.MENU_CODE_IDX 
+			WHERE 1=1
+			AND
+				na.GROUP_IDX =#{group_idx}
+            
+	</select>
+	<!--     -->
+    
+    <select id="getGroupPossessionList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.metadata.vo.PosSessionVO">
+          
+		 	SELECT 
+	  				npc.POSSESSION_CODE_IDX 
+			FROM nam_possession_code npc 
+			left join nam_possession_authority npa 
+			on npc.POSSESSION_CODE_IDX = npa.POSSESSION_CODE_IDX 
+			WHERE 1=1
+			<if test="org_code_idx != null">AND
+                npa.ORG_CODE_IDX = #{org_code_idx}
+            </if>
+			AND
+				npa.GROUP_IDX =#{group_idx}
+            
+	</select>
+	
+	<select id="getPosSession2"  parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.metadata.vo.PosSessionVO">
+			SELECT * FROM nam_possession_code
+			WHERE
+				ORG_CODE_IDX = #{org_code_idx}
+	</select>
+	
 </mapper>
