@@ -65,8 +65,29 @@
             </map>
         </property>
     </bean>
-    
 	<!-- /For Pagination Tag -->
+	
+        <!-- 파일 업로드 설정 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="100000000" /> 
+        <property name="maxInMemorySize" value="100000000" /> 
+    </bean>
+    
+    <!-- <bean id="idName" class="devpia.dextuploadnj.support.spring.DEXTUploadNJMultipartResolver">
+	  <property name="environment">
+	    <bean class="devpia.dextuploadnj.Environment">
+	      <property name="licenseAuthKey" value="L8yzkuoGnxL2dLIGWVoK4/17Q5lPVj3Yv39u7eflwENdpNmrRiFx/i1LkDSMFNij/LLwZ56dusfG/x9Aw/VhpKiVRDYCoMNvZa5VIQ1dk7Hj13o8GdPlbT5scryBV3iq"/>
+	    </bean>
+	  </property>
+	</bean> -->
+	
+	<bean id="idName" class="devpia.dextuploadnj.support.spring.DEXTUploadNJMultipartResolver">
+	  <property name="environment">
+	    <bean class="devpia.dextuploadnj.Environment">
+	      <property name="licenseAuthKey" value="9fCzoEDYq+/V2uvNo1GELNyuQCkL2w+JmRVHxSzE1HN7BdYBBSy78KKiumnyXuIuOvt2ausAnqQeZ6dLm3ch27Uhr/0RQ4X9MJ0MqRFGDtfj+Lbzx2oJiWW1yqF4j0aM"/>
+	    </bean>
+	  </property>
+	</bean>
 
     <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/>
     

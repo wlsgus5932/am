@@ -1,6 +1,8 @@
 package egovframework.aviation.metadata.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,13 @@ import egovframework.aviation.metadata.vo.EraVO;
 import egovframework.aviation.metadata.vo.ExistenceVO;
 import egovframework.aviation.metadata.vo.GgnuriVO;
 import egovframework.aviation.metadata.vo.IcaoVO;
+import egovframework.aviation.metadata.vo.ItemBaseVO;
 import egovframework.aviation.metadata.vo.Material1VO;
 import egovframework.aviation.metadata.vo.Material2VO;
 import egovframework.aviation.metadata.vo.MeasurementUnitVO;
 import egovframework.aviation.metadata.vo.MeasurementVO;
+import egovframework.aviation.metadata.vo.MovementInVO;
+import egovframework.aviation.metadata.vo.MovementVO;
 import egovframework.aviation.metadata.vo.ObtainmentVO;
 import egovframework.aviation.metadata.vo.OrgVO;
 import egovframework.aviation.metadata.vo.PosSessionVO;
@@ -27,7 +32,20 @@ import egovframework.aviation.metadata.vo.Purchase1VO;
 import egovframework.aviation.metadata.vo.Purchase2VO;
 import egovframework.aviation.metadata.vo.QtyUnitVO;
 import egovframework.aviation.metadata.vo.RankingVO;
+import egovframework.aviation.metadata.vo.StorageType1VO;
+import egovframework.aviation.metadata.vo.StorageType2VO;
+import egovframework.aviation.metadata.vo.StorageVO;
+import egovframework.aviation.metadata.vo.metadata.CopyrightVO;
+import egovframework.aviation.metadata.vo.metadata.CountryEraVO;
+import egovframework.aviation.metadata.vo.metadata.InsuranceVO;
+import egovframework.aviation.metadata.vo.metadata.InvolvementVO;
+import egovframework.aviation.metadata.vo.metadata.KeywordVO;
+import egovframework.aviation.metadata.vo.metadata.MaterialVO;
+import egovframework.aviation.metadata.vo.metadata.PreservationVO;
+import egovframework.aviation.metadata.vo.metadata.PublicServiceVO;
+import egovframework.aviation.metadata.vo.metadata.TaxonomyVO;
 import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
+import egovframework.aviation.metadata.vo.param.MovementParamVO;
 
 @Service
 public class MetaDataServiceImpl implements MetaDataService {
@@ -149,46 +167,6 @@ public class MetaDataServiceImpl implements MetaDataService {
 	}
 
 	@Override
-	public void setTaxonomy(MetaDataParamVO param) {
-		dao.setTaxonomy(param);
-	}
-
-	@Override
-	public void setCountry(MetaDataParamVO param) {
-		dao.setCountry(param);
-	}
-
-	@Override
-	public void setMaterial(MetaDataParamVO param) {
-		dao.setMaterial(param);
-	}
-
-	@Override
-	public void setMeasurement(MetaDataParamVO param) {
-		dao.setMeasurement(param);
-	}
-
-	@Override
-	public void setObtainment(MetaDataParamVO param) {
-		dao.setObtainment(param);
-	}
-
-	@Override
-	public void setInvolvement(MetaDataParamVO param) {
-		dao.setInvolvement(param);
-	}
-
-	@Override
-	public void setInsurance(MetaDataParamVO param) {
-		dao.setInsurance(param);
-	}
-
-	@Override
-	public void setCopyright(MetaDataParamVO param) {
-		dao.setCopyright(param);
-	}
-
-	@Override
 	public void setGgnuri(MetaDataParamVO param) {
 		dao.setGgnuri(param);
 	}
@@ -197,6 +175,163 @@ public class MetaDataServiceImpl implements MetaDataService {
 	public void setKeyword(MetaDataParamVO param) {
 		dao.setKeyword(param);
 	}
+
+	@Override
+	public void setMeasurement(HashMap<Integer, Object> measureMap) {
+		dao.setMeasurement(measureMap);
+	}
+
+	@Override
+	public void setTaxonomy(HashMap<Integer, Object> classMap) {
+		dao.setTaxonomy(classMap);
+	}
+
+	@Override
+	public void setCountry(HashMap<Integer, Object> countryMap) {
+		dao.setCountry(countryMap);
+	}
+
+	@Override
+	public void setMaterial(HashMap<Integer, Object> materialMap) {
+		dao.setMaterial(materialMap);
+	}
+
+	@Override
+	public void setObtainment(MetaDataParamVO param) {
+		dao.setObtainment(param);
+	}
+
+	@Override
+	public void setInvolvement(HashMap<Integer, Object> possessionMap) {
+		dao.setInvolvement(possessionMap);
+	}
+
+	@Override
+	public void setInsurance(HashMap<Integer, Object> insuranceMap) {
+		dao.setInsurance(insuranceMap);
+	}
+
+	@Override
+	public void setCopyright(HashMap<Integer, Object> copyrightMap) {
+		dao.setCopyright(copyrightMap);
+	}
+
+	@Override
+	public List<StorageType1VO> getStorageType1() {
+		return dao.getStorageType1();
+	}
+
+	@Override
+	public List<StorageType2VO> getStorageType2(int type2) {
+		return dao.getStorageType2(type2);
+	}
+
+	@Override
+	public int setMovement(MovementParamVO param) {
+		int x = dao.setMovement(param);
+		return x;
+	}
+
+	@Override
+	public List<StorageVO> getStorage(int i) {
+		return dao.getStorage(i);
+	}
+
+	@Override
+	public void setStorage(MovementParamVO param) {
+		dao.setStorage(param);
+	}
+
+	@Override
+	public void setStorage2(MovementParamVO param) {
+		dao.setStorage2(param);
+	}
+
+	@Override
+	public int updateMovement(MovementParamVO param) {
+		return dao.updateMovement(param);
+	}
+
+	@Override
+	public void updateSotrageIn(List<Map<String, Object>> list) {
+		dao.updateStorageIn(list);
+	}
+
+	@Override
+	public int deleteStorage(int movement_idx) {
+		return dao.deleteStorage(movement_idx);
+	}
+
+	@Override
+	public int deleteMovement(int movement_idx) {
+		return dao.deleteMovement(movement_idx);
+	}
+
+	@Override
+	public List<MovementInVO> getMovementOut(int movement_id) {
+		return dao.getMovementOut(movement_id);
+	}
+
+	@Override
+	public List<MovementVO> getMovement(int item_idx) {
+		return dao.getMovement(item_idx);
+	}
+
+	@Override
+	public List<ItemBaseVO> getItemBase(MetaDataParamVO param) {
+		return dao.getItemBase(param);
+	}
+
+	@Override
+	public List<TaxonomyVO> getTaxonomy(int item_idx) {
+		return dao.getTaxonomy(item_idx);
+	}
+
+	@Override
+	public List<CountryEraVO> getCountryEra(int item_idx) {
+		return dao.getCountryEra(item_idx);
+	}
+
+	@Override
+	public List<MaterialVO> getMaterial(int item_idx) {
+		return dao.getMaterial(item_idx);
+	}
+
+	@Override
+	public List<MeasurementVO> getMeasure(int item_idx) {
+		return dao.getMeasure(item_idx);
+	}
+
+	@Override
+	public List<ObtainmentVO> getObtainmentList(int item_idx) {
+		return dao.getObtainmentList(item_idx);
+	}
+
+	@Override
+	public List<InvolvementVO> getInvolvementList(int item_idx) {
+		return dao.getInvolvementList(item_idx);
+	}
+
+	@Override
+	public List<InsuranceVO> getInsuranceList(int item_idx) {
+		return dao.getInsuranceList(item_idx);
+	}
+
+	@Override
+	public List<CopyrightVO> getCopyrightList(int item_idx) {
+		return dao.getCopyrightList(item_idx);
+	}
+
+	@Override
+	public List<PublicServiceVO> getPublicService(int item_idx) {
+		return dao.getPublicService(item_idx);
+	}
+
+	@Override
+	public List<KeywordVO> getKewordList(int item_idx) {
+		return dao.getKewordList(item_idx);
+	}
+
 	
 	
 
