@@ -351,7 +351,7 @@
           </a>
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="metaDataList.do" data-key="t-ecommerce">자료 정보조회</a></li>
-            <li><a href="dashboard-saas.html" data-key="t-saas">자료 검색</a></li>
+            <li><a href="/metaDataSearch.do" data-key="t-saas">자료 검색</a></li>
             <li><a href="/myPage.do" data-key="t-crypto">My페이지</a></li>
           </ul>
         </li>

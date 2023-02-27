@@ -148,10 +148,13 @@
 		                          </c:choose>
 		                          <c:choose>
 		                          	 <c:when test="${requestHistoryList.approval_state eq 'N'}">
-		                          		<td><button data-bs-toggle="modal" data-bs-target="#ReturnModal" type="button" onClick="returnModalBtn('${requestHistoryList.request_idx}','${requestHistoryList.keyword}')">${requestHistoryList.approval_state}</button></td>
+		                          		<td><button data-bs-toggle="modal" data-bs-target="#ReturnModal" type="button" onClick="returnModalBtn('${requestHistoryList.request_idx}','${requestHistoryList.keyword}')">반려</button></td>
+		                       		 </c:when>
+		                       		 <c:when test="${requestHistoryList.approval_state eq 'F'}">
+		                       		 	<td><button>미승인</button></td>		                       		 
 		                       		 </c:when>
 		                       		 <c:otherwise>
-		                       		 	<td><button>${requestHistoryList.approval_state}</button></td>
+		                       		 	<td><button>승인</button></td>
 		                       		 </c:otherwise>
 		                          </c:choose>
 		                          <td>${requestHistoryList.keyword_list}</td>
