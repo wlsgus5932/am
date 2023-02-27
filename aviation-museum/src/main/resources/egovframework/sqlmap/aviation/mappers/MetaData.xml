@@ -141,6 +141,7 @@
 	
 	<select id="getItemBase" resultType="egovframework.aviation.metadata.vo.ItemBaseVO">
 		select * from nam_item_base where item_no = #{item_no} 
+		and reg_state = #{reg_state}
 		<if test="item_detail_no != '' ">
 			and item_detail_no = #{item_detail_no}
 		</if>
