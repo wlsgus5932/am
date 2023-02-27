@@ -13,8 +13,9 @@ public class ObtainmentVO {
 	private String obtainment_place;
 	private String obtainment_addr;
 	private String obtainment_detail;
+	private String price_unit_code_idx;
 	private String record_date;
-	private String desighnation;
+	private String designation;
 	private String redemption;
 	private String country_code_idx;
 	private String qty;
@@ -99,12 +100,6 @@ public class ObtainmentVO {
 	public void setRecord_date(String record_date) {
 		this.record_date = record_date;
 	}
-	public String getDesighnation() {
-		return desighnation;
-	}
-	public void setDesighnation(String desighnation) {
-		this.desighnation = desighnation;
-	}
 	public String getRedemption() {
 		return redemption;
 	}
@@ -135,6 +130,18 @@ public class ObtainmentVO {
 	public void setRedemption_date(String redemption_date) {
 		this.redemption_date = redemption_date;
 	}
+	public String getDesignation() {
+		return designation;
+	}
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+	public String getPrice_unit_code_idx() {
+		return price_unit_code_idx;
+	}
+	public void setPrice_unit_code_idx(String price_unit_code_idx) {
+		this.price_unit_code_idx = price_unit_code_idx;
+	}
 	@Override
 	public String toString() {
 		return "ObtainmentVO [obtainment_idx=" + obtainment_idx + ", item_idx=" + item_idx + ", obtainment_code_idx="
@@ -142,11 +149,8 @@ public class ObtainmentVO {
 				+ purchase2_code_idx + ", obtainment_date=" + obtainment_date + ", obtainment_price=" + obtainment_price
 				+ ", won_exchange=" + won_exchange + ", obtainment_no=" + obtainment_no + ", obtainment_place="
 				+ obtainment_place + ", obtainment_addr=" + obtainment_addr + ", obtainment_detail=" + obtainment_detail
-				+ ", record_date=" + record_date + ", desighnation=" + desighnation + ", redemption=" + redemption
-				+ ", country_code_idx=" + country_code_idx + ", qty=" + qty + ", qty_unit_code_idx=" + qty_unit_code_idx
-				+ ", redemption_date=" + redemption_date + "]";
+				+ ", price_unit_code_idx=" + price_unit_code_idx + ", record_date=" + record_date + ", designation="
+				+ designation + ", redemption=" + redemption + ", country_code_idx=" + country_code_idx + ", qty=" + qty
+				+ ", qty_unit_code_idx=" + qty_unit_code_idx + ", redemption_date=" + redemption_date + "]";
 	}
-	
-	
-
 }

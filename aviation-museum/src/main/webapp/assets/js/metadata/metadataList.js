@@ -1,6 +1,6 @@
 
 //자료 기본사항
-const search_item_base = async () => {
+const search_item_base = async (reg_state) => {
 	let formData = new FormData(document.getElementById('add-form'));
 	
 	const form = await fetch('/searchItemBase.do', {
@@ -12,11 +12,12 @@ const search_item_base = async () => {
     	})
 
 		const { itemBaseList } = await form.json();
-    	itemBaseList ? set_itemBase_input(itemBaseList) : alert('오류입니다');
+    	itemBaseList.length ? set_itemBase_input(itemBaseList) : alert('검색하신 데이터가 없습니다.');
 }
 
 //자료기본사항 아래 항목들
 const set_itemBase_input = async (list) => {
+	//$('#add-form')[0].reset();
 	sessionStorage.setItem("item_idx", list[0].item_idx);
 	$('input[name=item_nm]').val(list[0].item_nm);
 	$('input[name=item_se_nm]').val(list[0].item_se_nm);
@@ -37,17 +38,25 @@ const set_itemBase_input = async (list) => {
 	const form = await fetch('/searchItemBaseChild.do?item_idx=' + list[0].item_idx);
 	const { taxonomyList, countryList, materialList, measurementList, obtainmentList, involvementList,
 				InsuranceList, copyrightList, publicServiceList, keywordList } = await form.json();
-	$('select[name=class1_code_idx]').val(taxonomyList[0].class1_code_idx).prop("selected", true);
-	$('select[name=class2_code_idx]').val(taxonomyList[0].class2_code_idx).prop("selected", true);
-	$('select[name=class3_code_idx]').val(taxonomyList[0].class3_code_idx).prop("selected", true);
+				
+	taxonomyList.forEach(async (e, i) => {
+		$('#class-tbody').children('tr:not(:first-child)').remove();
+		i != 0 ? addClassTd('class-table', 'class-tbody') : '';
+		$('#class1_code_idx'+i).val(e.class1_code_idx).prop("selected", true);
+		$('#class2_code_idx'+i).val(e.class2_code_idx).prop("selected", true);
+		$('#class3_code_idx'+i).val(e.class3_code_idx).prop("selected", true);
+	})
 	
-	$('select[name=country_code_idx]').val(countryList[0].country_code_idx).prop("selected", true);
-	await changeCountry(countryList[0].country_code_idx, 1);
-	$('select[name=era_code_idx]').val(countryList[0].era_code_idx).prop("selected", true);
-	$('input[name=detail_year]').val(countryList[0].detail_year);
-	
+	countryList.forEach(async (e, i) => {
+		$('#country-tbody').children('tr:not(:first-child)').remove();
+		$('#country-select'+i).val(e.country_code_idx).prop("selected", true);
+		await changeCountry(e.country_code_idx, 0);
+		$('#era-select'+i).val(e.era_code_idx).prop("selected", true);
+		$('#detail_year'+i).val(e.detail_year);
+	})
 	
 	materialList.forEach(async (e, i) => {
+		$('#material-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('material-table', 'material-tbody');
 		$('#material1_code_idx'+i).val(e.material1_code_idx).prop("selected", true);
 		await changeMaterial(e.material1_code_idx, i);
@@ -56,6 +65,7 @@ const set_itemBase_input = async (list) => {
 	})
 	
 	measurementList.forEach((e, i) => {
+		$('#measurement-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('measurement-table', 'measurement-tbody');
 		$('#measurement_item_type'+i).val(e.item_type);
 		$('#measurement_code_idx'+i).val(e.measurement_code_idx).prop("selected", true);
@@ -85,6 +95,7 @@ const set_itemBase_input = async (list) => {
 	})
 	
 	involvementList.forEach((e,i) => {
+		$('#possession-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('possession-table', 'possession-tbody');
 		$('#invol_possession_code_idx').val(e.possession_code_idx).prop("selected", true);
 		$('#invol_item_no').val(e.item_no);
@@ -92,6 +103,7 @@ const set_itemBase_input = async (list) => {
 	})
 	
 	InsuranceList.forEach((e,i) => {
+		$('#insurance-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('insurance-table', 'insurance-tbody');
 		$('#insu_agreed_value').val(e.agreed_value);
 		$('#insu_price_unit_code_idx').val(e.price_unit_code_idx).prop("selected", true);
@@ -102,6 +114,7 @@ const set_itemBase_input = async (list) => {
 	})
 	
 	copyrightList.forEach((e,i) => {
+		$('#copyright-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('copyright-table', 'copyright-tbody');
 		$('#copy_copyright').val(e.copyright).prop("selected", true);
 		$('#copy_owner').val(e.owner);
@@ -126,7 +139,6 @@ const set_itemBase_input = async (list) => {
 	await getImageList();
 	const form2 = await fetch('/getPreservation.do?item_idx=' + list[0].item_idx);
 	const { preservationList } = await form2.json();
-	console.log(preservationList);
 	preservationList.forEach((e, num) => {
 		num!=0 ? cloneDiv() : '';
 		$('#settings').children('option:not(:first)').remove();

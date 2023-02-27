@@ -68,10 +68,10 @@
 	<!-- /For Pagination Tag -->
 	
         <!-- 파일 업로드 설정 -->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="100000000" /> 
         <property name="maxInMemorySize" value="100000000" /> 
-    </bean>
+    </bean> -->
     
     <!-- <bean id="idName" class="devpia.dextuploadnj.support.spring.DEXTUploadNJMultipartResolver">
 	  <property name="environment">
@@ -81,14 +81,8 @@
 	  </property>
 	</bean> -->
 	
-	<bean id="idName" class="devpia.dextuploadnj.support.spring.DEXTUploadNJMultipartResolver">
-	  <property name="environment">
-	    <bean class="devpia.dextuploadnj.Environment">
-	      <property name="licenseAuthKey" value="9fCzoEDYq+/V2uvNo1GELNyuQCkL2w+JmRVHxSzE1HN7BdYBBSy78KKiumnyXuIuOvt2ausAnqQeZ6dLm3ch27Uhr/0RQ4X9MJ0MqRFGDtfj+Lbzx2oJiWW1yqF4j0aM"/>
-	    </bean>
-	  </property>
-	</bean>
-
+	<bean id="multipartResolver" class="devpia.dextuploadnj.support.spring.DEXTUploadNJMultipartResolver"/>
+	
     <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/>
     
     <mvc:interceptors>
@@ -96,6 +90,8 @@
 	        <mvc:mapping path="/**/*.do"/> <!-- 절대경로(/)부터 시작하면 중간경로가 있을 수 있기에 (**)으로 표시 -->
 	        <mvc:exclude-mapping path="/login.do"/> <!-- 예외 경로 지정 --> 
 <!-- 	        <mvc:exclude-mapping path="/main.do"/> 예외 경로 지정 -->
+				<mvc:exclude-mapping path="/assets/**"/> <!-- 예외 경로 지정 -->
+           		<mvc:exclude-mapping path="/dx5/**"/> <!-- 예외 경로 지정 -->
 	        <bean class="egovframework.aviation.interceptor.AuthInterceptor" />
 	    </mvc:interceptor>
 	</mvc:interceptors>

@@ -353,10 +353,7 @@
                 <ul class="sub-menu" aria-expanded="false">
                   <li><a href="metaDataList.do" data-key="t-ecommerce">자료 정보조회</a></li>
                   <li><a href="dashboard-saas.html" data-key="t-saas">자료 검색</a></li>
-<<<<<<< HEAD
-=======
                   <li><a href="/myPage.do" data-key="t-crypto">My페이지</a></li>
->>>>>>> sebin
                 </ul>
               </li>
               
@@ -365,7 +362,7 @@
                   <span class="menu-item" data-key="t-ecommerce">자료 관리</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
-                  <li><a href="ecommerce-products.html" data-key="t-products">자료 정보수정</a></li>
+                  <li><a href="/dataUpdate.do" data-key="t-products">자료 정보수정</a></li>
                   <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">이미지 수정</a></li>
                   <li><a href="ecommerce-orders.html" data-key="t-orders">이동사항 자동등록</a></li>
                 </ul>
@@ -378,8 +375,8 @@
                 <ul class="sub-menu" aria-expanded="false">
                   <li><a href="/add.do" data-key="t-products">자료 신규등록</a></li>
                   <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">이미지 신규등록</a></li>
-                  <li><a href="ecommerce-orders.html" data-key="t-orders">가등록 자료 정보조회</a></li>
-                  <li><a href="ecommerce-customers.html" data-key="t-customers">가등록자 료 정보검색</a></li>
+                  <li><a href="/notRegister.do" data-key="t-orders">가등록 자료 정보조회</a></li>
+                  <li><a href="ecommerce-customers.html" data-key="t-customers">가등록 자료 정보검색</a></li>
                   <li><a href="ecommerce-checkout.html" data-key="t-checkout">자료관리전환</a></li>
                   <li><a href="ecommerce-add-product.html" data-key="t-add-product">신규자료 자동등록</a></li>
                 </ul>
@@ -422,17 +419,11 @@
                   <span class="menu-item" data-key="t-ecommerce">환경설정</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
-<<<<<<< HEAD
-                  <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">코드관리</a></li>
-                  <li><a href="ecommerce-orders.html" data-key="t-orders">로그관리</a></li>
-                  <li><a href="ecommerce-cart.html" data-key="t-cart">승인관리</a></li>
-=======
                   <li><a href="/codeMgr.do" data-key="t-products">코드관리</a></li>
                   <li><a href="/otherMgr.do" data-key="t-product-detail">기타관리</a></li>
                   <li><a href="ecommerce-orders.html" data-key="t-orders">로그관리</a></li>
                   <li><a href="ecommerce-customers.html" data-key="t-customers">사전관리</a></li>
                   <li><a href="/approvalMgr.do" data-key="t-cart">승인관리</a></li>
->>>>>>> sebin
                 </ul>
               </li>
 

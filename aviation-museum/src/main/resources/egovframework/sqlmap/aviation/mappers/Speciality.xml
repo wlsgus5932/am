@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.aviation.metadata.service.impl.SpecialityMapper">
 
-	<select id="getSpeciality" resultType="egovframework.aviation.metadata.vo.speciality.SpecialityVO">
+	<select id="getSpeciality" resultType="egovframework.aviation.metadata.vo.speciality.SpecialityVO" parameterType="int">
 			select 
 				row_number() over(order by ns.reg_date) as rownum,
 				ns.speciality_idx, 
@@ -22,6 +22,7 @@
 				nam_speciality ns,
 				nam_speciality_code nsc
 			where ns.speciality_code_idx = nsc.speciality_code_idx
+				and ns.item_idx = #{item_idx}
 			order by rownum desc;
 	</select>
 	

@@ -26,11 +26,6 @@ public class SpecialityServiceImpl implements SpecialityService {
 	}
 
 	@Override
-	public List<SpecialityVO> getSpeciality() {
-		return dao.getSpeciality();
-	}
-
-	@Override
 	public int deleteSpeciality(SpecialityParamVO param) {
 		return dao.deleteSpeciality(param);
 	}
@@ -38,6 +33,11 @@ public class SpecialityServiceImpl implements SpecialityService {
 	@Override
 	public int updateSpeciality(SpecialityParamVO param) {
 		return dao.updateSpeciality(param);
+	}
+
+	@Override
+	public List<SpecialityVO> getSpeciality(int item_idx) {
+		return dao.getSpeciality(item_idx);
 	}
 
 
