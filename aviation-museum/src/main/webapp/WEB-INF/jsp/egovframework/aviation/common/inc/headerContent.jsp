@@ -343,6 +343,7 @@
       <!-- Left Menu Start -->
       <ul class="metismenu list-unstyled" id="side-menu">
         <li class="dash_text menu-title" data-key="t-menu">Dashboard</li>
+<<<<<<< HEAD
 
 <<<<<<< HEAD
               <li>
@@ -427,6 +428,8 @@
                 </ul>
               </li>
 =======
+=======
+>>>>>>> sebin
         <li>
           <a href="javascript: void(0);" class="has-arrow">
             <span class="menu-item" data-key="t-dashboards">자료 검색</span>
@@ -449,8 +452,11 @@
             <li><a href="ecommerce-orders.html" data-key="t-orders">이동사항 자동등록</a></li>
           </ul>
         </li>
+<<<<<<< HEAD
 >>>>>>> sebin
 
+=======
+>>>>>>> sebin
         <li>
           <a href="javascript: void(0);" class="has-arrow">
             <span class="menu-item" data-key="t-ecommerce">자료 등록</span>
