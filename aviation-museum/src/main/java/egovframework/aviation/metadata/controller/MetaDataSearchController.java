@@ -145,5 +145,33 @@ public class MetaDataSearchController {
         return "jsonView";
     } 
 	
-	
+	@RequestMapping(value = "/metaDataSearchListExcelDownload.do" )
+	public Object MetaDataSearchListExcelDownload(@ModelAttribute("metaDataSearchVO") MetaDataSearchVO metaDataSearchVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
+
+//		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
+//		metaDataSearchVO.setReg_user(userSessionId);
+//		 
+    	int perPageNum = metaDataSearchService.getMetaDataSearchListCnt(metaDataSearchVO);		
+		if(metaDataSearchVO.getPerPageNum() != 0) {
+			int criPerPageNum = metaDataSearchVO.getPerPageNum();
+			cri.setPerPageNum(criPerPageNum);
+		}
+		PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    pageMaker.setTotalCount(perPageNum);
+		    
+	    metaDataSearchVO.setPageStart(cri.getPageStart());
+	    metaDataSearchVO.setPerPageNum(cri.getPerPageNum());
+	  
+	    metaDataSearchVO.setPageStart(0);
+	    metaDataSearchVO.setPerPageNum(100000);
+	    
+		List<MetaDataSearchVO> metaDataSearchList = metaDataSearchService.getMetaDataSearchList(metaDataSearchVO);
+		
+    	model.addAttribute("metaDataSearchList", metaDataSearchList);
+    	model.addAttribute("perPageNum", perPageNum);
+    	model.addAttribute("pageMaker", pageMaker);
+		
+		return "metaDataSearch/excel/metaDataSearchExcelList";
+	}
 }

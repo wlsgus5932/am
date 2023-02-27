@@ -6,35 +6,38 @@
 
             <div class="tab-pane" id="messages" role="tabpanel" style="display:block;">
               <!-- 리스트 출력~ 분류별 검색 입력 창 -->
-<!--               <div class="st_wrap st_mv_wrap search_input_wrap"> -->
-<!--                 <div class="search_left"> -->
-<!--                   리스트 출력 -->
-<!--                   <select class="form-select"> -->
-<!--                     <option disabled="" selected="">자료 전체</option> -->
-<!--                     <option>더미1</option> -->
-<!--                     <option>더미2</option> -->
-<!--                     <option>더미3</option> -->
-<!--                   </select> -->
-<!--                   결과내 재검색 <input type="checkbox" name="" id="" /> -->
-<!--                   <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="검색어를 입력해 주세요." /> -->
-<!--                   <button>검색</button> -->
-<!--                 </div> -->
-<!--                 <div class="search_right"> -->
-<!--                   <select class="form-select"> -->
-<!--                     <option disabled="" selected="">자료 전체</option> -->
-<!--                     <option>더미1</option> -->
-<!--                     <option>더미2</option> -->
-<!--                     <option>더미3</option> -->
-<!--                   </select> -->
-<!--                   <select class="form-select"> -->
-<!--                     <option disabled="" selected="">정렬</option> -->
-<!--                     <option>더미1</option> -->
-<!--                     <option>더미2</option> -->
-<!--                     <option>더미3</option> -->
-<!--                   </select> -->
-<!--                   <button>분류별검색</button> -->
-<!--                 </div> -->
-<!--               </div> -->
+              <form id="metaDataSearchImageListForm" name="metaDataSearchImageListForm" method="post" class="form-horizontal">
+	              <div class="st_wrap st_mv_wrap search_input_wrap">
+	                <div class="search_left">
+		                  리스트 출력
+		                  <select class="form-select" id="perPageNum" name="perPageNum">
+		                      <option value="10">10</option>
+		                      <option value="15">15</option>
+		                      <option value="20">20</option>
+		                  </select>
+		                  결과내 재검색 <input type="checkbox" name="" id="" />
+		                  <input class="form-control" list="datalistOptions" placeholder="검색어를 입력해 주세요." id="search_word" name="search_word" />
+		                  <input type="hidden" id="searched_word"/>
+		                  <button type="button" onClick="metaDataSearchImageList();">검색</button>
+		                  <button type="button" data-bs-toggle="modal" data-bs-target="#TagModal-1">상세검색</button>
+	<!--                 </div> -->
+	<!--                 <div class="search_right"> -->
+	<!--                   <select class="form-select"> -->
+	<!--                     <option disabled="" selected="">자료 전체</option> -->
+	<!--                     <option>더미1</option> -->
+	<!--                     <option>더미2</option> -->
+	<!--                     <option>더미3</option> -->
+	<!--                   </select> -->
+	<!--                   <select class="form-select"> -->
+	<!--                     <option disabled="" selected="">정렬</option> -->
+	<!--                     <option>더미1</option> -->
+	<!--                     <option>더미2</option> -->
+	<!--                     <option>더미3</option> -->
+	<!--                   </select> -->
+	<!--                   <button>분류별검색</button> -->
+	                </div>
+            	  </div>	
+              </form>
               <!--  -->
               <div class="search_btn_wrap">
                 <div class="search_btn_left">
@@ -319,5 +322,32 @@
 	// 						$('#search_type').val(search_type);
 	    				}
 	    			});
+	    		}
+	    		
+	    		<%-- 조건 검색 --%>
+	    		function metaDataSearchImageList(){
+	    			var perPageNum = $('#perPageNum').val();
+	    			var search_word = $('#search_word').val();
+//	     			var search_type = $('#search_type').val();
+	    			// 태그 조건 검색			
+	    			var queryString = $("form[name=metaDataSearchImageListForm]").serialize();
+
+	    				$.ajax({
+	    					type : 'post',
+	    					url : '/metaDataSearchImageListAjax.do',
+	    					data : queryString,
+	    					dataType : 'html',
+	    					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+	    					error: function(xhr, status, error){
+	    						alert(error);
+	    					},
+	    					success : function(data){
+	    						$('#tab-content').empty().append(data);
+	    						$('#perPageNum').val(perPageNum);
+	    						$('#searched_word').val(search_word);
+	    						$('#simple_view_wrap').empty();
+//	     						$('#search_type').val(search_type);
+	    					}
+	    				});
 	    		}
     		</script>

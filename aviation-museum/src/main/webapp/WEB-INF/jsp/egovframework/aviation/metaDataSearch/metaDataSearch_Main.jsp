@@ -66,6 +66,7 @@
 					},
 					success : function(data) {  
 						$('#tab-content').empty().append(data);
+						$('#simple_view_wrap').empty();
 // 						$('.tap_text').find('span').text('그룹관리 권한');
 					}
 				});
@@ -83,6 +84,7 @@
 					},
 					success : function(data) {  
 						$('#tab-content').empty().append(data);
+						$('#simple_view_wrap').empty();
 // 						$('.tap_text').find('span').text('그룹관리 권한');
 					}
 				});
@@ -92,6 +94,10 @@
 	    
 	    function quickView(value){
 	    	var item_idx = value;
+	    	var searched_word;
+	    	if($('#searched_word').val()){
+	    		searched_word = $('#searched_word').val();
+	    	}
 	    	if(item_idx.length == 0){
 	    		return;
 	    	}
@@ -99,6 +105,7 @@
 				type : 'POST',                
 				url : '/metaDataSearchQuickViewAjax.do',
 				data : {
+					search_word : searched_word,
 					item_idx : item_idx
 				},
 				dataType : "html",           
@@ -115,6 +122,10 @@
 	   
 	    function imageQuickView(value){
 	    	var image_idx = value;
+	    	var searched_word;
+	    	if($('#searched_word').val()){
+	    		searched_word = $('#searched_word').val();
+	    	}
 	    	if(image_idx.length == 0){
 	    		return;
 	    	}
@@ -122,6 +133,7 @@
 				type : 'POST',                
 				url : '/metaDataSearchImageQuickViewAjax.do',
 				data : {
+					search_word : searched_word,
 					image_idx : image_idx
 				},
 				dataType : "html",           
@@ -139,6 +151,55 @@
 		function quickViewCloseBtn(){
 			$('#simple_view_wrap').empty();
 		}
+		
+   		// 관심자료등록
+		$(document).on('click', '#interestInsBtn', function(){
+
+			if(!$('input:checkbox[name="group_seqList"]').is(':checked')){
+				alert("선택하신 자료가 없습니다.");
+				$('#interestInsBtnClose').click();
+
+				return false;
+			}
+			var group_seqList = [];
+			
+			$('.check_temp:checked').each(function(i){
+				group_seqList.push($(this).val());
+			});
+			console.log(group_seqList);
+			 
+			var $this = $(this);
+
+				$.ajax({
+					type : 'POST',                 
+					url : '/interestInsert.do',   
+					dataType : "json",         
+					data:{
+						group_seqList : group_seqList
+					},
+					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+					error : function() {          
+						alert('통신실패!');
+					},
+					success : function(success) {   
+						alert("관심자료가 등록되었습니다.");
+						$('#interestInsBtnClose').click();
+						$.ajax({
+							type : 'POST',                 
+							url : '/metaDataSearchListAjax.do',   
+							dataType : "html",           
+							contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+							error : function() {        
+								alert('통신실패!');
+							},
+							success : function(data) {  
+								$('#tab-content').empty().append(data);
+							}
+						});
+					}
+				});
+		});
+
     </script>
   </head>
 

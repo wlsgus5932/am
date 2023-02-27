@@ -100,6 +100,7 @@
 	                  </select>
 	                  결과내 재검색 <input type="checkbox" name="" id="" />
 	                  <input class="form-control" list="datalistOptions" placeholder="검색어를 입력해 주세요." id="search_word" name="search_word" />
+	                  <input type="hidden" id="searched_word"/>
 	                  <button type="button" onClick="metaDataSearchList();">검색</button>
 	                  <button type="button" data-bs-toggle="modal" data-bs-target="#TagModal-1">상세검색</button>
 	                </div>
@@ -126,7 +127,7 @@
                  <button data-bs-toggle="modal" data-bs-target="#LikeModal">관심자료등록</button
                   ><button>항목 추가 및 삭제</button>
                 </div>
-                <div class="search_btn_right"><button>사용자 지정양식 인쇄</button><button>목록 인쇄</button><button>엑셀파일</button></div>
+                <div class="search_btn_right"><button>사용자 지정양식 인쇄</button><button>목록 인쇄</button><button type="button" onClick="metaDataSearchListExcelList();">엑셀파일</button></div>
               </div>
               <!-- 관심자료 모달창 -->
               <div id="LikeModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
@@ -288,7 +289,7 @@
             <%-- 페이지 이동 --%>
     		function goPage(value) {
     			var perPageNum = $('#perPageNum').val();
-    			var search_word = $('#search_word').val();
+    			var searched_word = $('#searched_word').val();
 //     			var search_type = $('#search_type').val();
     			var page = value;
     			$.ajax({
@@ -297,7 +298,7 @@
     				data:{
     					perPageNum : perPageNum,
 //     					search_type : search_type,
-    					search_word : search_word,
+    					search_word : searched_word,
     					page : page
     				},
     				dataType : "html",           
@@ -308,7 +309,8 @@
     				success : function(data) {  
     					$('#tab-content').empty().append(data);
 						$('#perPageNum').val(perPageNum);
-						$('#search_word').val(search_word);
+						$('#searched_word').val(searched_word);
+						$('#searched_word').val(searched_word);
 // 						$('#search_type').val(search_type);
     				}
     			});
@@ -335,57 +337,19 @@
     						$('#tab-content').empty().append(data);
     						$('#perPageNum').val(perPageNum);
     						$('#search_word').val(search_word);
+    						$('#searched_word').val(search_word);
+    						$('#simple_view_wrap').empty();
 //     						$('#search_type').val(search_type);
     					}
     				});
     		}
     		
-    		// 관심자료등록
-    		$(document).on('click', '#interestInsBtn', function(){
+    		
+    		function metaDataSearchListExcelList() {
+    				var $form = $('#metaDataSearchListForm');
 
-    			if(!$('input:checkbox[name="group_seqList"]').is(':checked')){
-    				alert("선택하신 자료가 없습니다.");
-    				$('#interestInsBtnClose').click();
-
-    				return false;
-    			}
-    			var group_seqList = [];
-    			
-    			$('.check_temp:checked').each(function(i){
-    				group_seqList.push($(this).val());
-    			});
-    			console.log(group_seqList);
-    			 
-    			var $this = $(this);
-
-    				$.ajax({
-    					type : 'POST',                 
-    					url : '/interestInsert.do',   
-    					dataType : "json",         
-    					data:{
-    						group_seqList : group_seqList
-    					},
-    					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-    					error : function() {          
-    						alert('통신실패!');
-    					},
-    					success : function(success) {   
-    						alert("관심자료가 등록되었습니다.");
-    						$('#interestInsBtnClose').click();
-    						$.ajax({
-    							type : 'POST',                 
-    							url : '/metaDataSearchListAjax.do',   
-    							dataType : "html",           
-    							contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-    							error : function() {        
-    								alert('통신실패!');
-    							},
-    							success : function(data) {  
-    								$('#tab-content').empty().append(data);
-    							}
-    						});
-    					}
-    				});
-    		});
+    				$form.attr("action", "/metaDataSearchListExcelDownload.do");
+    				$form.submit();
+    		}
             </script>
             
