@@ -35,7 +35,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/dextuploadnj.support.spring-2.7.0.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/dextuploadnj-2.7.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
