@@ -213,8 +213,6 @@
 			ORDER BY rownum desc;
 	</select>
 	
-	
-	
 	<insert id="setItemBase" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
 			insert into nam_item_base (
 				<include refid="metadata_columns1"><property name="alias" value=""/></include>
@@ -227,6 +225,32 @@
 		        SELECT LAST_INSERT_ID()
 		    </selectKey>
 	</insert>
+	
+	<update id="updateItemBase" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+		update nam_item_base set 
+		org_code_idx = #{org_code_idx},
+		possession_code_idx = #{possession_code_idx}, 
+		item_no = #{item_no}, 
+		item_detail_no = #{item_detail_no}, 
+		item_nm = #{item_nm}, 
+		item_se_nm = #{item_se_nm}, 
+		item_eng_nm = #{item_eng_nm},
+		author = #{author}, 
+		qty = #{qty}, 
+		qty_unit_code_idx = #{qty_unit_code_idx}, 
+		icao_code_idx = #{icao_code_idx}, 
+		existence_code_idx = #{existence_code_idx}, 
+		management_no = #{management_no}, 
+		preservation_need = #{preservation_need},
+		feature = #{feature}, 
+		condition_code_idx = #{condition_code_idx}, 
+		ranking_code_idx = #{ranking_code_idx}, 
+		remark = #{remark}, 
+		reg_state = #{reg_state},
+		mod_user = #{mod_user},
+		mod_date = now()
+		where item_idx = #{item_idx}
+	</update>
 	
 	<insert id="setTaxonomy" parameterType="java.util.HashMap">
 			insert into nam_taxonomy (
@@ -304,6 +328,29 @@
 			)
 	</insert>
 	
+	<update id="updateObtainment" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+		update nam_obtainment set
+		obtainment_date = #{obt_obtainment_date},
+		obtainment_code_idx = #{obt_obtainment_code_idx},
+		purchase1_code_idx = #{obt_purchase1_code_idx},
+		purchase2_code_idx = #{obt_purchase2_code_idx},
+		obtainment_price = #{obt_obtainment_price},
+		price_unit_code_idx = #{obt_price_unit_code_idx},
+		won_exchange = #{obt_won_exchange},
+		obtainment_no = #{obt_obtainment_no},
+		obtainment_place = #{obt_obtainment_place},
+		obtainment_addr = #{obt_obtainment_addr}, 
+		obtainment_detail = #{obt_obtainment_detail},
+		record_date = #{obt_record_date},
+		designation = #{obt_designation},
+		redemption = #{obt_redemption},
+		country_code_idx = #{obt_country_code_idx},
+		qty = #{obt_qty},
+		qty_unit_code_idx = #{obt_qty_unit_code_idx},
+		redemption_date = #{obt_redemption_date}
+		where item_idx = #{item_idx}
+	</update>
+	
 	<insert id="setInvolvement" parameterType="java.util.HashMap">
 			insert into nam_involvement (
 				item_idx, reg_date, reg_user, org_code_idx, possession_code_idx, item_no, remark
@@ -348,7 +395,7 @@
 				<foreach separator="," index="idx" item="item" collection="value">
 					#{item} 
 				</foreach>
-			) 
+			)
 			</foreach>
 	</insert>
 	
@@ -361,6 +408,14 @@
 			)
 	</insert>
 	
+	<update id="updateGgnuri" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+		update nam_public_service set
+		public_service = #{public_service}, 
+		reason = #{reason}, 
+		ggnuri_code_idx = #{ggnuri_code_idx}
+		where item_idx = #{item_idx}
+	</update>
+	
 	<insert id="setKeyword" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
 			insert into nam_keyword (
 				item_idx, keyword, reg_user, reg_date
@@ -369,6 +424,12 @@
 				(SELECT MAX(ITEM_IDX) FROM nam_item_base as nm), #{keyword}, #{reg_user}, now()
 			)
 	</insert>
+	
+	<update id="updateKeyword" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+		update nam_keyword set
+		keyword = #{keyword}
+		where item_idx = #{item_idx}
+	</update>
 	
 	<insert id="setMovement" parameterType="egovframework.aviation.metadata.vo.param.MovementParamVO">
 			insert into nam_movement (

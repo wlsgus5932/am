@@ -11,12 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
-    <!-- App favicon -->
-    <script src="<c:url value='/dx5sample/dx5/dextuploadx5-configuration.js'/>"></script>
-	<script src="<c:url value='/dx5sample/dx5/dextuploadx5.js'/>"></script>
-	
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
-
     <!-- Bootstrap Css -->
     <link href="<c:url value='/assets/css/bootstrap.min.css'/>" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
@@ -30,11 +25,18 @@
     <link rel="stylesheet" href="<c:url value='/assets/libs/swiper/swiper-bundle.min.css'/>" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="<c:url value='/assets/js/viewer.js'/>" defer></script>
+    <script src="<c:url value='/dx5/dextuploadx5-configuration.js'/>"></script>
+    <script src="<c:url value='/dx5/dextuploadx5.js'/>"></script>
     <script src="<c:url value='/assets/js/metadata/metadataList.js'/>" defer></script>
+    
     <script type="text/javascript">
     let count = 0;
     let movementData = [];
     let item_idx = '';
+    
+    function getImageFunction() {
+    	getImageList();
+    }
     
     const submitForm = async () => {
    	let formData = new FormData(document.getElementById('add-form'));
@@ -47,12 +49,17 @@
            body: new URLSearchParams(formData)
    	})
    	
-   	//const res = await form.text();
+	//const res = await form.text();
    	const { item_idx } = await form.json();
    	
    	sessionStorage.setItem("item_idx", item_idx);
    	
-   	item_idx ? alert('등록완료') : alert('오류입니다');
+   	if(item_idx == null) {
+        alert('오류입니다');
+     } else {
+        location.reload();
+        alert('등록완료');
+     }
     };
     
     const changeCountry = async(r, n) => {
@@ -593,7 +600,8 @@
 	   
 	   const getSpeciality = async () => {
 		   specialityData = [];
-		   const res = await fetch('/getSpeciality.do');
+		   let item_idx = sessionStorage.getItem("item_idx");
+		   const res = await fetch('/getSpeciality.do?item_idx='+item_idx);
 		   const { specialityList } = await res.json();
 		   specialityData = specialityList;
 		   specialityList ? $('#speciality-tbody').children('tr').remove() : alert('다시 시도해주세요.')
@@ -679,57 +687,60 @@
 	    var dx = dx5.get("dext5");
 		// ORAF, OROF, EXNJ로 업로드 모드를 설정한다.
 		dx.setUploadMode("EXNJ");
-   	dx5.get(id).openFileDialog();
- }
-
- function uploadFrom(id) {
-   var dx = dx5.get(id);
-   if (dx.hasUploadableItems()) {
-     // 추가된 모든 로컬 파일을 주어진 경로(웹)로 업로드한다.
-     dx.setUploadURL("http://localhost:8080/addImage.do");
-     dx.upload("AUTO");
-   } else {
-     alert("업로드할 대상이 없다.");
-   }
- } 
+	   	dx5.get(id).openFileDialog();
+	 }
+	
+	 function uploadFrom(id) {
+	   var dx = dx5.get(id);
+	   if (dx.hasUploadableItems()) {
+	     // 추가된 모든 로컬 파일을 주어진 경로(웹)로 업로드한다.
+	     dx.setUploadURL("http://localhost:8080/addImage.do");
+	     dx.upload("AUTO");
+	   } else {
+	     alert("업로드할 대상이 없다.");
+	   }
+	 } 
   	
-  	let gallery = '';
-  	
-  	const getImageList = async () => {
-  		let item_idx = sessionStorage.getItem("item_idx");
-  		let res = await fetch('/getImage.do?item_idx=' + item_idx);
-  		const { imageList } = await res.json();
-  		const rep_text = "rep_image";
-  		const public_text = "public_service";
-  		
-  		$('#img-info-preview').children().remove();
-  		$('#img-info-list').children().remove();
-  		
-  		imageList.forEach((e, i) => {
-	   			$('#img-info-preview').append(
-		   				'<div class="col img-col" id="images-take"><div class="img-col-header">' +
-		         		'<input type="checkbox" id="imageCheck'+i+'" name="imageListCheck" onclick="imageListChecked(this, '+i+')" value="'+e.image_idx+'">'+e.image_nm+'</div>' +
-		       			'<div class="img-col-img-wrap"><a href="#">' +
-		           		'<div class="img-hover-info"><h4>이미지 설명</h4><p>설명없음</p></div>' + 
-		           		'<img src="assets/images/test.png" alt="이미지"></a></div>' +
-		           		/* '<img src="<c:url value="images/test.png"/>" alt="이미지"></a></div>' + */
-		           		/* '<img src="<c:url value="'+e.image_path+e.image_nm+'"/>" alt="이미지"></a></div>' + */
-		         		'<div class="img-col-info">' +
-		           		'<dl><dt>명칭:</dt><dd>'+e.image_nm+'</dd></dl>' +
-		           		'<dl><dt>시간:</dt><dd>'+e.reg_date+'</dd></dl> ' +
-		           		'<dl><dt>사이즈:</dt><dd>'+e.image_width+'x'+e.image_height+'</dd></dl>' +
-		           		'<dl><dt>태그:</dt><dd><button class="img-tag"><a href="#">태그</a></button></dd></dl>' +
-		           		'<dl><dt><input type="checkbox" name="rep_image" id="rep_check'+i+'" value="'+e.image_idx+'" onclick="publicRepCheck(this)"></dt><dd>대표</dd><dt>' +
-		           		'<input type="checkbox" name="public_service" id="public_check'+i+'" value="'+e.image_idx+'" onclick="publicRepCheck(this)">' +
-		           		'</dt><dd>대국민 서비스</dd></dl>' +
-		           		'<dl><button class="img-info_btn" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xll">설명등록</button>' +
-		           		'<button class="img-info_btn" type="button" onclick="gallery.show()">원문보기</button></dl></div></div>');
-	   			
-		   		e.rep_image == 'Y' ? $('#rep_check'+i).prop('checked',true) : ''
-		   		e.public_service == 'Y' ? $('#public_check'+i).prop('checked',true) : ''
-		   				
-		   		$('#img-info-list').append(
-		   				'<tr><td><input type="checkbox" id="imageListCheck'+i+'" name="imageInfoListCheck"  value="'+e.image_idx+'" onclick="imageListChecked(this, '+i+')"></td>' +
+     // 이미지정보 -------------------------------------------------------------------------
+     
+     let gallery = '';
+     
+     const getImageList = async () => {
+        let item_idx = sessionStorage.getItem("item_idx");
+        let res = await fetch('/getImage.do?item_idx=' + item_idx);
+        const { imageList } = await res.json();
+        console.log(imageList);
+        const rep_text = "rep_image";
+        const public_text = "public_service";
+        
+        $('#img-info-preview').children().remove();
+        $('#img-info-list').children().remove();
+        
+        imageList.forEach((e, i) => {
+              $('#img-info-preview').append(
+                    '<div class="col img-col"><div class="img-col-header">' +
+                    '<input type="checkbox" id="imageCheck'+i+'" name="imageListCheck" onclick="imageListChecked(this, '+i+')" value1="'+e.image_idx+'" value2="'+e.image_path+'">'+e.image_nm+'</div>' +
+                     '<div id="images" class="img-col-img-wrap"><a href="#">' +
+                      '<div class="img-hover-info"><h4>이미지 설명</h4><p>설명없음</p></div>' + 
+//                       '<img src="assets/images/ggobugi.jpg" alt="이미지"></a></div>' +
+                      /* '<img src="<c:url value="images/test.png"/>" alt="이미지"></a></div>' + */
+                      '<img src="<c:url value="aviation-museum/images/'+e.image_nm+'"/>" alt="이미지"></a></div>' + 
+                    '<div class="img-col-info">' +
+                      '<dl><dt>명칭:</dt><dd>'+e.image_nm+'</dd></dl>' +
+                      '<dl><dt>시간:</dt><dd>'+e.reg_date+'</dd></dl> ' +
+                      '<dl><dt>사이즈:</dt><dd>'+e.image_width+'x'+e.image_height+'</dd></dl>' +
+                      '<dl><dt>태그:</dt><dd><button class="img-tag"><a href="#">태그</a></button></dd></dl>' +
+                      '<dl><dt><input type="checkbox" name="rep_image" id="rep_check'+i+'" value="'+e.image_idx+'" onclick="publicRepCheck(this)"></dt><dd>대표</dd><dt>' +
+                      '<input type="checkbox" name="public_service" id="public_check'+i+'" value="'+e.image_idx+'" onclick="publicRepCheck(this)">' +
+                      '</dt><dd>대국민 서비스</dd></dl>' +
+                      '<dl><button class="img-info_btn" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xll">설명등록</button>' +
+                      '<button class="img-info_btn" type="button" onclick="gallery.view('+i+')">원문보기</button></dl></div></div>');
+              
+              e.rep_image == 'Y' ? $('#rep_check'+i).prop('checked',true) : ''
+              e.public_service == 'Y' ? $('#public_check'+i).prop('checked',true) : ''
+                    
+              $('#img-info-list').append(
+                    '<tr><td><input type="checkbox" id="imageListCheck'+i+'" name="imageInfoListCheck"  value="'+e.image_idx+'" onclick="imageListChecked(this, '+i+')"></td>' +
                        '<td>'+e.rownum+'</td>' +
                        '<td>'+e.image_nm+'</td>' +
                        '<td>'+e.image_width+'x'+e.image_height+'</td>' +
@@ -737,13 +748,69 @@
                        '<td><input type="checkbox" name="rep_image" id="list_rep_check'+i+'" value="'+e.image_idx+'" onclick="publicRepCheck(this)"></td>' +
                        '<td><input type="checkbox" name="public_service" id="list_public_check'+i+'" value="'+e.image_idx+'" onclick="publicRepCheck(this)"></td>' +
                        '<td><button>원본보기</button></td></tr>');
-		   		
-		   		e.rep_image == 'Y' ? $('#list_rep_check'+i).prop('checked',true) : ''
-			   	e.public_service == 'Y' ? $('#list_public_check'+i).prop('checked',true) : ''
-			   	
-  		});
-		gallery = new Viewer(document.getElementById('img-info-preview'));
-  	}
+              
+              e.rep_image == 'Y' ? $('#list_rep_check'+i).prop('checked',true) : ''
+              e.public_service == 'Y' ? $('#list_public_check'+i).prop('checked',true) : ''
+                    
+        });
+        gallery = new Viewer(document.getElementById('img-info-preview'));
+     }
+  	
+  	/** 일반 업로드 **/
+    /** DEXTUPLOADX5 설정 **/
+    dx5.create({ 
+       mode: "multi", id: "dext5", parentId: "dext5-container" , btnFile: "btn-add-files",
+       btnUploadAuto: "btn-upload-auto"
+    });
+    
+	//   // onDX5Error라는 이름의 함수를 다음과 같이 만들면 컴포넌트에서 오류가 발생할 때, onDX5Error 함수를 호출한다.
+	//     function onDX5Error(id, code, msg) {
+	//        alert(id + " => " + code + "\n" + msg);
+	//     }
+	
+	//     // onDX5Created 함수를 다음과 같이 만들면, 컴포넌트가 로드(생성)된 후 호출된다.
+	//     function onDX5Created(id) {
+	//        var dx = dx5.get(id);
+	//        dx.setUploadURL(dx5.canonicalize("./uploadImage.do"));
+	//     }
+	    
+	//// onDX5UploadCompleted 함수는 업로드가 완료(서버 측 파일 업로드 처리가 완료)되면 호출되는 콜백 함수이다.
+	//     function onDX5UploadCompleted(id) {  
+	//          // 응답 데이터를 확인한다.
+	//        var dx = dx5.get(id);
+	//          dx.clearItems();
+	//          alert("업로드가 완료되었습니다.");
+	//     }
+	
+	 /** 대용량 업로드 **/
+	 function onDX5Error(id, code, msg) {
+	//     alert(id + " => " +  code + "\n" + msg);
+	 }
+	 
+	 function onDX5Created(id) {
+	    var dx = dx5.get(id);
+	    
+	    // 대용량 파일 업로드 방식으로 설정한다.
+	    dx.setUploadURL(dx5.canonicalize('./extension-upload.ext?item_idx='+sessionStorage.getItem('item_idx')));
+	    dx.setUploadMode("EXNJ");
+	    dx.setUploadBlockSize(10 * 1024 * 1024);
+	    
+	//     dx.addVirtualFile({ vindex: "F00001", name: "가상파일.txt", size: 12345 });
+	//     dx.addVirtualFile({ vindex: "F00002", name: "잠긴-가상파일.txt", size: 45678, lock: true });
+	//     dx.addVirtualFile({ vindex: "F00001", name: "코스모스.jpg", size: 195779 });
+	//     dx.setCompressURL(dx5.canonicalize("./zip-download.do"));
+	 }
+	 
+	 function onDX5UploadStopped(id) { alert("업로드가 중단되었습니다."); }
+	 
+	 function onDX5UploadCompleted(id) {
+	    // 대용량 업로드는 개별 파일마다 응답 데이터를 따로 받으므로, ';' 문자를 구분자로 하는 하나의 문자열로 생성하여 전달한다.
+	    var responses = dx5.get(id).getResponses();
+	    for(var i = 0, len = responses.length; i < len; i++) {
+	       console.log(responses[i]);
+	    }
+	    getImageList()
+	 }
   	
   	const publicRepCheck = box => {
   		box.checked ? setPublicRep(box.value, box.name, 'Y') : setPublicRep(box.value, box.name, 'N')
@@ -775,25 +842,68 @@
   								( $('#imageCheck'+num).prop('checked', false), $('#imageListCheck'+num).prop('checked', false) )
   	}
   	
+  	const downloadImageChecked = async () => {
+        let path_arr = [];
+      if($('input:checkbox[name=imageListCheck]:checked').length == 0) {
+         alert("다운로드할 항목을 선택해주세요.")
+         return;
+      }
+      if(confirm("다운하시겠습니까?")) {
+         $('input:checkbox[name=imageListCheck]:checked').each(function() {
+            console.log($(this).attr("value2"))
+            path_arr.push($(this).attr("value2"));
+         })
+//          const res = await fetch(encodeURI('/zip-download.do?img_path=' + path_arr));
+//          location.href=encodeURI("./zip-download.do?img_path="+path_arr);
+         $.ajax({
+              url :'./zip-download.do',
+              type : 'POST',
+              dataType : 'text',
+              data : {
+                 "img_path" : path_arr
+              },
+              async : false,
+              success: function(data) {
+                 console.log('성공');
+                 location.href = encodeURI("./zip-download.do?compresskey="+data);
+              },
+              error: function(xhr, ajaxOptions, thrownError) {
+                 console.log(xhr.status);
+                 console.log(thrownError);
+              }
+         });
+//          let formData = new FormData();
+//          formData.append("img_path", encodeURI(path_arr));
+//          console.log(path_arr);
+//          let res = await fetch('/zip-download.do', {
+//             method:'POST',
+//               body: formData
+//          })
+       } else {
+           return false;
+       }
+   }
+  	
   	const deleteImageChecked = async () => {
-  		let idx_arr = [];
-   	if($('input:checkbox[name=imageListCheck]:checked').length == 0) {
-   		alert("삭제할 항목을 선택해주세요.")
-   		return;
-   	}
-   	if(confirm("삭제하시겠습니까?")) {
-   		$('input:checkbox[name=imageListCheck]:checked').each(function() {
-   			idx_arr.push($(this).val());
-   		})
-   		
-   		let formData = new FormData();
-   		formData.append("image_idx", idx_arr);
-   		let res = await fetch('/deleteImage.do', {
-	    		method:'POST',
-	            body: formData
-	    	});
-   		
-   		res.text() == 'success' ? getImageList() : ''
+      let idx_arr = [];
+      if($('input:checkbox[name=imageListCheck]:checked').length == 0) {
+         alert("삭제할 항목을 선택해주세요.")
+         return;
+      }
+      if(confirm("삭제하시겠습니까?")) {
+         $('input:checkbox[name=imageListCheck]:checked').each(function() {
+            console.log($(this).attr("value1"))
+            idx_arr.push($(this).attr("value1"));
+         })
+         
+         let formData = new FormData();
+         formData.append("image_idx", idx_arr);
+         let res = await fetch('/deleteImage.do', {
+            method:'POST',
+              body: formData
+         })
+         location.reload();
+         res.text() == 'success' ? getImageList() : ''
        } else {
            return false;
        }
@@ -978,7 +1088,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#messages" role="tab">
+                <a class="nav-link" data-bs-toggle="tab" href="#messages" role="tab" onclick="getImageFunction(); return false;">
                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                     <span class="d-none d-sm-block">이미지(0)</span>
                 </a>
@@ -2043,15 +2153,17 @@
                           <option>더미2</option>
                           <option>더미3</option>
                         </select>
-                        
-	                     <!--  <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" data-bs-toggle="modal" data-bs-target=".imageUploadModal" >업로드</label> -->
-	                      <label for="image-upload-file" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" >업로드</label>
-						  <input style="display:none" id="image-upload-file" name="image_upload_file" class="form-control st_input" type="file" accept="image/*" onchange="change_img_info(this)" multiple>
-	                      <!-- <button>다운로드</button> -->
-	                      <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="imageAllCheck()">전체선택</button>
-	                      <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="imageCancelCheck()">선택해지</button>
-	                      <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteImageChecked()">선택삭제</button>
-	                      <button>엑셀파일</button>
+                        <!-- 
+	                     <label for="image-upload-file" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">업로드</label> -->
+<!--                     <input style="display:none" id="image-upload-file" name="image_upload_file" class="form-control st_input" type="file" accept="image/*" onchange="change_img_info(this)" multiple> -->
+                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="downloadImageChecked()">다운로드</button>
+                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="imageAllCheck()">전체선택</button>
+                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="imageCancelCheck()">선택해지</button>
+                         <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteImageChecked()">선택삭제</button>
+                         <button>엑셀파일</button>
+                           <div id="dext5-container" style="width:500px; height:300px;"><!-- 컴포넌트를 담는 컨테이너 요소 --></div>
+                         <button id="btn-add-files" type="button">추가</button>
+                    <button id="btn-upload-auto" type="button">업로드</button>
                     </div>
                   </div>
                   <!--  -->
@@ -2122,7 +2234,7 @@
                                     <dd>대국민 서비스</dd>
                                   </dl>
                                   <dl><button class="img-info_btn" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xll">설명등록</button><button class="img-info_btn">원문보기</button></dl>
-                                </div> -->
+                                </div> --> 
                                 
                             </div>
                             <!--  -->

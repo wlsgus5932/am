@@ -38,6 +38,8 @@ public class MetaDataParamVO {
 	private List<String> class2_code_idx;
 	private List<String> class3_code_idx;
 	
+	private List<String> taxonomy_idx;
+	
 	//국적 html 테이블 - country
 	private List<String> country_code_idx;
 	private List<String> era_code_idx;
@@ -115,12 +117,13 @@ public class MetaDataParamVO {
 				+ ", condition_code_idx=" + condition_code_idx + ", ranking_code_idx=" + ranking_code_idx + ", remark="
 				+ remark + ", reg_state=" + reg_state + ", reg_date=" + reg_date + ", mod_user=" + mod_user
 				+ ", mod_date=" + mod_date + ", class1_code_idx=" + class1_code_idx + ", class2_code_idx="
-				+ class2_code_idx + ", class3_code_idx=" + class3_code_idx + ", country_code_idx=" + country_code_idx
-				+ ", era_code_idx=" + era_code_idx + ", detail_year=" + detail_year + ", material1_code_idx="
-				+ material1_code_idx + ", material2_code_idx=" + material2_code_idx + ", material_detail="
-				+ material_detail + ", measurement_code_idx=" + measurement_code_idx + ", measurement_unit_code_idx="
-				+ measurement_unit_code_idx + ", measurement_value=" + measurement_value + ", measurement_item_type="
-				+ measurement_item_type + ", obt_obtainment_date=" + obt_obtainment_date + ", obt_obtainment_code_idx="
+				+ class2_code_idx + ", class3_code_idx=" + class3_code_idx + ", taxonomy_idx=" + taxonomy_idx
+				+ ", country_code_idx=" + country_code_idx + ", era_code_idx=" + era_code_idx + ", detail_year="
+				+ detail_year + ", material1_code_idx=" + material1_code_idx + ", material2_code_idx="
+				+ material2_code_idx + ", material_detail=" + material_detail + ", measurement_code_idx="
+				+ measurement_code_idx + ", measurement_unit_code_idx=" + measurement_unit_code_idx
+				+ ", measurement_value=" + measurement_value + ", measurement_item_type=" + measurement_item_type
+				+ ", obt_obtainment_date=" + obt_obtainment_date + ", obt_obtainment_code_idx="
 				+ obt_obtainment_code_idx + ", obt_purchase1_code_idx=" + obt_purchase1_code_idx
 				+ ", obt_purchase2_code_idx=" + obt_purchase2_code_idx + ", obt_obtainment_price="
 				+ obt_obtainment_price + ", obt_price_unit_code_idx=" + obt_price_unit_code_idx + ", obt_won_exchange="
@@ -140,7 +143,7 @@ public class MetaDataParamVO {
 				+ ", public_service=" + public_service + ", reason=" + reason + ", ggnuri_code_idx=" + ggnuri_code_idx
 				+ ", keyword=" + keyword + "]";
 	}
-	
+
 	public int getItem_idx() {
 		return item_idx;
 	}
@@ -739,6 +742,14 @@ public class MetaDataParamVO {
 
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	public List<String> getTaxonomy_idx() {
+		return taxonomy_idx;
+	}
+
+	public void setTaxonomy_idx(List<String> taxonomy_idx) {
+		this.taxonomy_idx = taxonomy_idx;
 	}
 
 	

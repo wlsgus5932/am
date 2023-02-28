@@ -39,24 +39,25 @@ const set_itemBase_input = async (list) => {
 	const { taxonomyList, countryList, materialList, measurementList, obtainmentList, involvementList,
 				InsuranceList, copyrightList, publicServiceList, keywordList } = await form.json();
 				
+	$('#class-tbody').children('tr:not(:first-child)').remove();
 	taxonomyList.forEach(async (e, i) => {
-		$('#class-tbody').children('tr:not(:first-child)').remove();
 		i != 0 ? addClassTd('class-table', 'class-tbody') : '';
+		$('#taxonomy_idx'+i).val(e.taxonomy_idx);
 		$('#class1_code_idx'+i).val(e.class1_code_idx).prop("selected", true);
 		$('#class2_code_idx'+i).val(e.class2_code_idx).prop("selected", true);
 		$('#class3_code_idx'+i).val(e.class3_code_idx).prop("selected", true);
 	})
 	
+	$('#country-tbody').children('tr:not(:first-child)').remove();
 	countryList.forEach(async (e, i) => {
-		$('#country-tbody').children('tr:not(:first-child)').remove();
 		$('#country-select'+i).val(e.country_code_idx).prop("selected", true);
 		await changeCountry(e.country_code_idx, 0);
 		$('#era-select'+i).val(e.era_code_idx).prop("selected", true);
 		$('#detail_year'+i).val(e.detail_year);
 	})
 	
+	$('#material-tbody').children('tr:not(:first-child)').remove();
 	materialList.forEach(async (e, i) => {
-		$('#material-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('material-table', 'material-tbody');
 		$('#material1_code_idx'+i).val(e.material1_code_idx).prop("selected", true);
 		await changeMaterial(e.material1_code_idx, i);
@@ -64,8 +65,8 @@ const set_itemBase_input = async (list) => {
 		$('#material_detail'+i).val(e.material_detail);
 	})
 	
+	$('#measurement-tbody').children('tr:not(:first-child)').remove();
 	measurementList.forEach((e, i) => {
-		$('#measurement-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('measurement-table', 'measurement-tbody');
 		$('#measurement_item_type'+i).val(e.item_type);
 		$('#measurement_code_idx'+i).val(e.measurement_code_idx).prop("selected", true);
@@ -94,16 +95,16 @@ const set_itemBase_input = async (list) => {
 		$('#obt_redemption_date').val(e.redemption_date);
 	})
 	
+	$('#possession-tbody').children('tr:not(:first-child)').remove();
 	involvementList.forEach((e,i) => {
-		$('#possession-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('possession-table', 'possession-tbody');
 		$('#invol_possession_code_idx').val(e.possession_code_idx).prop("selected", true);
 		$('#invol_item_no').val(e.item_no);
 		$('#invol_remark').val(e.remark);
 	})
 	
+	$('#insurance-tbody').children('tr:not(:first-child)').remove();
 	InsuranceList.forEach((e,i) => {
-		$('#insurance-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('insurance-table', 'insurance-tbody');
 		$('#insu_agreed_value').val(e.agreed_value);
 		$('#insu_price_unit_code_idx').val(e.price_unit_code_idx).prop("selected", true);
@@ -113,8 +114,8 @@ const set_itemBase_input = async (list) => {
 		$('#insu_remark').val(e.remark);
 	})
 	
+	$('#copyright-tbody').children('tr:not(:first-child)').remove();
 	copyrightList.forEach((e,i) => {
-		$('#copyright-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('copyright-table', 'copyright-tbody');
 		$('#copy_copyright').val(e.copyright).prop("selected", true);
 		$('#copy_owner').val(e.owner);
@@ -178,8 +179,6 @@ const set_itemBase_input = async (list) => {
 		})
 		
 		//처리결과, 보존처리후, 보존처리전 preview랑 값 추가해야함
-		
-		
 	})
 	
 }

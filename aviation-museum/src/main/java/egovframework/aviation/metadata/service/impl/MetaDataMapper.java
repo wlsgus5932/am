@@ -160,4 +160,12 @@ public interface MetaDataMapper {
 	List<PublicServiceVO> getPublicService(int item_idx);
 
 	List<KeywordVO> getKewordList(int item_idx);
+
+	int updateItemBase(MetaDataParamVO param);
+
+	void updateObtainment(MetaDataParamVO param);
+
+	void updateGgnuri(MetaDataParamVO param);
+
+	void updateKeyword(MetaDataParamVO param);
 }

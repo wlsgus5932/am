@@ -39,27 +39,34 @@
     }
     
     const submitForm = async () => {
-   	let formData = new FormData(document.getElementById('add-form'));
-   	
-   	const form = await fetch('/add.do', {
-   		method:'POST',
-   		headers: {
-               "Content-Type": "application/x-www-form-urlencoded",
-           },
-           body: new URLSearchParams(formData)
-   	})
-   	
-	//const res = await form.text();
-   	const { item_idx } = await form.json();
-   	
-   	sessionStorage.setItem("item_idx", item_idx);
-   	
-   	if(item_idx == null) {
-        alert('오류입니다');
-     } else {
-        location.reload();
-        alert('등록완료');
-     }
+    	if(confirm("등록하시겠습니까?")) {
+    		
+    	
+		   	let formData = new FormData(document.getElementById('add-form'));
+		   	
+		   	const form = await fetch('/add.do', {
+		   		method:'POST',
+		   		headers: {
+		               "Content-Type": "application/x-www-form-urlencoded",
+		           },
+		           body: new URLSearchParams(formData)
+		   	})
+		   	
+			//const res = await form.text();
+		   	const { item_idx } = await form.json();
+		   	
+		   	sessionStorage.setItem("item_idx", item_idx);
+		   	
+		   	if(item_idx == null) {
+		        alert('오류입니다');
+		     } else {
+		        location.reload();
+		        alert('등록완료');
+		     }
+	    } else {
+	    	alert('오류입니다');
+	    	return false;
+	    }
     };
     
     const changeCountry = async(r, n) => {
@@ -600,7 +607,8 @@
 	   
 	   const getSpeciality = async () => {
 		   specialityData = [];
-		   const res = await fetch('/getSpeciality.do');
+		   let item_idx = sessionStorage.getItem("item_idx");
+		   const res = await fetch('/getSpeciality.do?item_idx='+item_idx);
 		   const { specialityList } = await res.json();
 		   specialityData = specialityList;
 		   specialityList ? $('#speciality-tbody').children('tr').remove() : alert('다시 시도해주세요.')
@@ -696,7 +704,7 @@
 	     dx.setUploadURL("http://localhost:8080/addImage.do");
 	     dx.upload("AUTO");
 	   } else {
-	     alert("업로드할 대상이 없다.");
+	     alert("업로드할 파일을 선택해주세요.");
 	   }
 	 } 
   	

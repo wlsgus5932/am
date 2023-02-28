@@ -332,6 +332,26 @@ public class MetaDataServiceImpl implements MetaDataService {
 		return dao.getKewordList(item_idx);
 	}
 
+	@Override
+	public int updateItemBase(MetaDataParamVO param) {
+		return dao.updateItemBase(param);
+	}
+
+	@Override
+	public void updateObtainment(MetaDataParamVO param) {
+		dao.updateObtainment(param);
+	}
+
+	@Override
+	public void updateGgnuri(MetaDataParamVO param) {
+		dao.updateGgnuri(param);
+	}
+
+	@Override
+	public void updateKeyword(MetaDataParamVO param) {
+		dao.updateKeyword(param);
+	}
+
 	
 	
 
