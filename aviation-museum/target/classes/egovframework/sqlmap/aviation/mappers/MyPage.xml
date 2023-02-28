@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.aviation.mypage.service.impl.MyPageMapper">
+
+    <select id="getInterestList" parameterType="egovframework.aviation.mypage.vo.InterestVO" resultType="egovframework.aviation.mypage.vo.InterestVO">
+           SELECT R1.* FROM( 
+	             SELECT 
+	          		  row_number() over(order by ni.INTEREST_IDX desc) as rnum
+	            	, ni.INTEREST_IDX
+	            	, ni.ITEM_IDX
+	            	, ni.EXPL
+	            	, ni.REG_USER
+		           	, ni.REG_DATE
+		           	, (SELECT IMAGE_PATH FROM nam_image ni2 WHERE ni2.ITEM_IDX = ni.ITEM_IDX) AS IMAGE_PATH
+		           	, nib.ITEM_NO 
+		           	, nib.ITEM_DETAIL_NO 
+		           	, nib.ITEM_NM 
+		           	, nib.QTY 
+		           	, npc.POSSESSION_NM 
+	            FROM nam_interest ni
+	            join nam_item_base nib
+	            on ni.ITEM_IDX = nib.ITEM_IDX 
+	            join nam_possession_code npc 
+	            on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+	            WHERE 1=1 
+	            <if test="reg_user != null">AND
+	                ni.REG_USER = #{reg_user}
+	            </if>
+            ) R1
+            LIMIT #{perPageNum} OFFSET #{pageStart}  
+	</select>
+	
+	<select id="getInterestListCnt" resultType="Integer">
+	            SELECT 
+					count(*)
+	            FROM nam_interest ni
+	            join nam_item_base nib
+	            on ni.ITEM_IDX = nib.ITEM_IDX 
+	            join nam_possession_code npc 
+	            on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+	            WHERE 1=1 
+	            <if test="reg_user != null">AND
+	                ni.REG_USER = #{reg_user}
+	            </if>
+	</select>
+	
+	<select id="getSpecialityList" parameterType="egovframework.aviation.mypage.vo.Speciality1VO" resultType="egovframework.aviation.mypage.vo.Speciality1VO">
+           SELECT R1.* FROM( 
+	             SELECT 
+	          		  row_number() over(order by ns.SPECIALITY_IDX desc) as rnum
+	            	, ns.SPECIALITY_IDX
+	            	, ns.ITEM_IDX
+	            	, ns.SPECIALITY_CODE_IDX
+	            	, ns.TITLE
+	            	, ns.FILE_NM
+	            	, ns.FILE_PATH
+	            	, ns.COPYRIGHT
+	            	, ns.CONTENT
+	            	, ns.REG_USER
+		           	, ns.REG_DATE
+		           	, ns.MOD_USER
+		           	, ns.MOD_DATE
+		           	, (SELECT POSSESSION_NM FROM nam_possession_code npc WHERE npc.POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX) AS POSSESSION_NM
+	           		, nib.ITEM_NO
+	            	, nib.ITEM_DETAIL_NO
+	            	, nib.ITEM_NM 
+		           	, nib.QTY 
+		           	, (SELECT SPECIALITY_NM FROM nam_speciality_code nsc WHERE nsc.SPECIALITY_CODE_IDX = ns.SPECIALITY_CODE_IDX) AS SPECIALITY_NM
+	            FROM nam_speciality ns
+	            join nam_item_base nib
+	            on ns.ITEM_IDX = nib.ITEM_IDX 
+	            WHERE 1=1 
+	            <if test="reg_user != null">AND
+	                ns.REG_USER = #{reg_user}
+	            </if>
+	            <if test="speciality_code_idx != null and '' != speciality_code_idx">AND
+	                ns.SPECIALITY_CODE_IDX = #{speciality_code_idx}
+	            </if>
+	            <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'item_no'">
+						AND (nib.ITEM_NO LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'item_detail_no'">
+						AND (nib.ITEM_DETAIL_NO LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'item_nm'">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (nib.ITEM_NO LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_DETAIL_NO LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+            ) R1
+            LIMIT #{perPageNum} OFFSET #{pageStart}  
+	</select>
+	
+	<select id="getSpecialityListCnt" resultType="Integer">
+	            SELECT 
+	          		 count(*)
+	            FROM nam_speciality ns
+	            join nam_item_base nib
+	            on ns.ITEM_IDX = nib.ITEM_IDX 
+	            WHERE 1=1 
+	            <if test="reg_user != null">AND
+	                ns.REG_USER = #{reg_user}
+	            </if>
+	            <if test="speciality_code_idx != null and '' != speciality_code_idx">AND
+	                ns.SPECIALITY_CODE_IDX = #{speciality_code_idx}
+	            </if>
+	            <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'item_no'">
+						AND (nib.ITEM_NO LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'item_detail_no'">
+						AND (nib.ITEM_DETAIL_NO LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'item_nm'">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (nib.ITEM_NO LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_DETAIL_NO LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+	</select>
+	
+	<delete id="deleteInterest">
+           
+            DELETE FROM nam_interest
+	        WHERE
+	   			INTEREST_IDX IN
+			<foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
+				#{group_seq}
+			</foreach>
+			
+    </delete>
+    
+    <select id="getRequestHistoryList" parameterType="egovframework.aviation.mypage.vo.RequestHistoryVO" resultType="egovframework.aviation.mypage.vo.RequestHistoryVO">
+			 SELECT 
+		  	 	  ROW_NUMBER() OVER(ORDER BY REG_DATE DESC) rnum
+			 	 ,R1.*
+			 FROM(
+				SELECT
+					 nkr.KEYWORD_REQUEST_IDX as REQUEST_IDX
+					,(SELECT noc.ORG_NM from nam_org_code noc WHERE noc.ORG_CODE_IDX = nib.ORG_CODE_IDX) as ORG_NM
+					,(SELECT POSSESSION_NM from nam_possession_code npc where POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX ) as POSSESSION_NM 
+					,nib.ITEM_NO 
+					,nib.ITEM_DETAIL_NO 
+					,nib.ITEM_NM 
+					,nkr.REG_DATE 
+					,'keyword'
+					,nkr.APPROVAL_STATE 
+					,nkr.KEYWORD_LIST
+					,nkr.REFUSAL_REASON 
+				FROM nam_keyword_request nkr 
+				join nam_item_base nib 
+				on nkr.ITEM_IDX = nib.ITEM_IDX 
+				WHERE 1=1
+				AND nkr.REG_USER = #{reg_user}
+				UNION ALL
+				SELECT
+					 ner.ERASURE_REQUEST_IDX 
+					,ORG_NM
+		  			,ner.POSSESSION_NM 
+					,ner.ITEM_NO 
+					,ner.ITEM_DETAIL_NO 
+					,ner.ITEM_NM 
+					,ner.REG_DATE 
+					,'erasure'
+					,ner.APPROVAL_STATE 
+					,ner.ERASURE_REASON
+					,ner.REFUSAL_REASON 
+				FROM nam_erasure_request ner 
+				WHERE 1=1
+				AND ner.REG_USER = #{reg_user}
+				ORDER by REG_DATE DESC
+			) R1
+			WHERE 1=1 
+            <if test="keyword != null and keyword != ''">AND
+                keyword = #{keyword}
+            </if>
+            <if test="org_nm != null and org_nm != ''">AND
+                org_nm = #{org_nm}
+            </if>
+            <if test="possession_nm != null and possession_nm != ''">AND
+                possession_nm = #{possession_nm}
+            </if>
+            <if test="item_no != null and item_no != ''">AND
+                (item_no LIKE CONCAT('%', #{item_no}, '%'))
+            </if>
+            <if test="item_detail_no != null and item_detail_no != ''">AND               
+                (item_detail_no LIKE CONCAT('%', #{item_detail_no}, '%'))
+            </if>
+            LIMIT #{perPageNum} OFFSET #{pageStart}  
+	</select>
+	
+	<select id="getRequestHistoryListCnt" resultType="Integer">
+
+			 SELECT 
+		  	 	  count(*)
+			 FROM(
+				SELECT
+					 nkr.KEYWORD_REQUEST_IDX as REQUEST_IDX
+					,(SELECT POSSESSION_NM from nam_possession_code npc where POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX ) as POSSESSION_NM 
+					,nib.ITEM_NO 
+					,nib.ITEM_DETAIL_NO 
+					,nib.ITEM_NM 
+					,nkr.REG_DATE 
+					,'keyword'
+					,nkr.APPROVAL_STATE 
+					,nkr.REFUSAL_REASON 
+				FROM nam_keyword_request nkr 
+				join nam_item_base nib 
+				on nkr.ITEM_IDX = nib.ITEM_IDX 
+				WHERE 1=1
+				AND nkr.REG_USER = #{reg_user}
+				UNION ALL
+				SELECT
+					 ner.ERASURE_REQUEST_IDX 
+		  			,ner.POSSESSION_NM 
+					,ner.ITEM_NO 
+					,ner.ITEM_DETAIL_NO 
+					,ner.ITEM_NM 
+					,ner.REG_DATE 
+					,'erasure'
+					,ner.APPROVAL_STATE 
+					,ner.REFUSAL_REASON 
+				FROM nam_erasure_request ner 
+				WHERE 1=1
+				AND ner.REG_USER = #{reg_user}
+				ORDER by REG_DATE DESC
+			) R1
+  
+	</select>
+	
+	<select id="getPossessionList" parameterType="egovframework.aviation.mypage.vo.RequestHistoryVO" resultType="egovframework.aviation.metadata.vo.PosSessionVO">
+
+	        SELECT
+				*
+			FROM nam_possession_code npc 
+			JOIN nam_org_code noc 
+			on npc.ORG_CODE_IDX = noc.ORG_CODE_IDX
+			WHERE noc.ORG_NM = #{org_nm}	           
+ 	 </select>
+ 	 
+ 	 <select id="getErasureRefusalReason" parameterType="egovframework.aviation.mypage.vo.RequestHistoryVO" resultType="egovframework.aviation.mypage.vo.RequestHistoryVO">
+			SELECT 
+				*
+			FROM nam_erasure_request ner 
+			WHERE ner.ERASURE_REQUEST_IDX = #{request_idx}
+	 </select>
+	  	 
+ 	 <select id="getKeywordRefusalReason" parameterType="egovframework.aviation.mypage.vo.RequestHistoryVO" resultType="egovframework.aviation.mypage.vo.RequestHistoryVO">
+			SELECT 
+				(SELECT item_nm from nam_item_base nib where nib.ITEM_IDX = nkr.ITEM_IDX) AS item_nm
+				,nkr.*
+			FROM nam_keyword_request nkr 
+			WHERE nkr.keyword_REQUEST_IDX = #{request_idx}
+	 </select>
+	 
+	 <update id="updateKeywordRequest" parameterType="egovframework.aviation.mypage.vo.RequestHistoryVO">
+        
+            UPDATE nam_keyword_request 
+               SET KEYWORD_LIST=#{keyword_list}               
+             WHERE KEYWORD_REQUEST_IDX=#{request_idx}
+  
+    </update>
+    
+    <update id="updateErasureRequest" parameterType="egovframework.aviation.mypage.vo.RequestHistoryVO">
+        
+            UPDATE nam_erasure_request 
+               SET ERASURE_REASON=#{erasure_reason}               
+             WHERE ERASURE_REQUEST_IDX=#{request_idx}
+  
+    </update>
+    
+    <select id="getWorkHistoryList" parameterType="egovframework.aviation.mypage.vo.WorkHistoryVO" resultType="egovframework.aviation.mypage.vo.WorkHistoryVO">
+			
+			SELECT R1.* FROM( 
+				SELECT 
+					 row_number() over(order by REG_DATE desc) as rnum	
+					,WORK_HISTORY_IDX
+					,a.ITEM_IDX
+					,ORG_NM
+					,POSSESSION_NM
+					,ITEM_NM
+					,ITEM_NO
+					,ITEM_DETAIL_NO
+					,a.REG_DATE
+				FROM nam.nam_work_history AS a INNER JOIN
+					(SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE
+					 FROM nam_work_history
+					 GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE
+				WHERE REG_USER = #{reg_user}
+				ORDER BY REG_DATE DESC
+			) R1
+			LIMIT #{perPageNum} OFFSET #{pageStart}  
+			
+	</select>
+	
+	<select id="getWorkHistoryListCnt" resultType="Integer">
+			
+			SELECT 
+				count(*) 
+			FROM( 
+				SELECT 
+					 row_number() over(order by REG_DATE desc) as rnum	
+					,WORK_HISTORY_IDX
+					,a.ITEM_IDX
+					,ORG_NM
+					,POSSESSION_NM
+					,ITEM_NM
+					,ITEM_NO
+					,ITEM_DETAIL_NO
+					,a.REG_DATE
+				FROM nam.nam_work_history AS a INNER JOIN
+					(SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE
+					 FROM nam_work_history
+					 GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE
+				WHERE REG_USER = #{reg_user}
+				ORDER BY REG_DATE DESC
+			) R1
+
+	</select>
+	
+    <select id="getWorkHistoryViewList" parameterType="egovframework.aviation.mypage.vo.WorkHistoryVO" resultType="egovframework.aviation.mypage.vo.WorkHistoryVO">
+			
+			SELECT R1.* FROM( 
+				SELECT 
+					 row_number() over(order by nwh.REG_DATE desc) as rnum	
+					,nwh.* 
+				from nam_work_history nwh
+				WHERE 1=1
+				AND REG_USER = #{reg_user}
+				AND ITEM_IDX = #{item_idx}
+				ORDER BY REG_DATE DESC
+			) R1
+			LIMIT #{perPageNum} OFFSET #{pageStart}  
+			
+	</select>
+	
+	<select id="getWorkHistoryViewListCnt" resultType="Integer">
+			
+			SELECT 
+				count(*) 
+			FROM( 
+				SELECT 
+					 row_number() over(order by nwh.REG_DATE desc) as rnum	
+					,nwh.*  
+				from nam_work_history nwh
+				WHERE 1=1
+				AND REG_USER = #{reg_user}
+				AND ITEM_IDX = #{item_idx}
+				ORDER BY REG_DATE DESC
+			) R1
+
+	</select>	
+</mapper>
