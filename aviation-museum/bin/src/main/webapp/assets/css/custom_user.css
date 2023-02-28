@@ -1,0 +1,35 @@
+.nav {
+  max-width: 242px;
+  width: 100%;
+  float: left;
+  margin-bottom: 1%;
+}
+
+.nav-item {
+  width: auto;
+}
+
+.user_btn {
+  width: 22%;
+}
+
+.user-wrap {
+  width: 100%;
+}
+
+.user-modal {
+  width: 500px;
+}
+
+.group_btn {
+  width: 8%;
+}
+
+.st_select,
+.st_input {
+  width: auto;
+}
+
+.user_top_wrap span {
+  margin-left: 1%;
+}

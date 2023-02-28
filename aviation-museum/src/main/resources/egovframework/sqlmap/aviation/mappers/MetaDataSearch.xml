@@ -183,4 +183,16 @@
 					</if>
             ) R1
 	</select>
+	
+	<insert id="insertInterest" parameterType="egovframework.aviation.mypage.vo.InterestVO">
+		   INSERT INTO nam_interest
+                  ( ITEM_IDX
+                  , EXPL
+                  , REG_USER
+                  , REG_DATE )
+           VALUES ( #{item_idx}
+                  , #{expl}
+                  , #{reg_user}
+                  , now())
+    </insert>
 </mapper>

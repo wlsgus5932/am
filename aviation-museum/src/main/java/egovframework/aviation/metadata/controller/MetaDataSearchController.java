@@ -134,7 +134,7 @@ public class MetaDataSearchController {
 	
 	/** 관심자료 등록 */
 	@RequestMapping(value = "/interestInsert.do")
-    public String InterestInsert(HttpServletRequest req, @ModelAttribute("interestVO") InterestVO interestVO, Model model) throws Exception {
+    public String InterestInsert(HttpServletRequest req, @ModelAttribute("interestVO") InterestVO interestVO, Model model) throws Exception {		
 		int result = metaDataSearchService.insertInterest(interestVO);
 		
 		String success = "";

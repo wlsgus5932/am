@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.aviation.user.service.impl.UserMapper">
+
+	<resultMap id="UserResult" type="egovframework.aviation.user.vo.UserVO">
+		<result property="member_idx" column="MEMBER_IDX"/>
+		<result property="member_id" column="MEMBER_ID"/>
+		<result property="org_code_idx" column="ORG_CODE_IDX"/>
+		<result property="group_idx" column="GROUP_IDX"/>
+		<result property="member_pw" column="MEMBER_PW"/>
+		<result property="member_nm" column="MEMBER_NM"/>
+		<result property="remark" column="REMARK"/>
+		<result property="reg_user" column="REG_USER"/>
+		<result property="reg_date" column="REG_DATE"/>
+		<result property="mod_user" column="MOD_USER"/>
+		<result property="mod_date" column="MOD_DATE"/>
+	</resultMap>
+	
+<!-- 	<select id="login" resultMap="UserResult"> -->
+<!-- 			SELECT -->
+<!-- 			user_id, user_password, user_name, user_authority, user_enabled -->
+<!-- 			FROM tb_user -->
+<!-- 			WHERE user_id = #{user_id} -->
+<!-- 			AND user_password = #{user_password} -->
+<!-- 	</select> -->
+	
+	<select id="login" resultMap="UserResult">
+			SELECT
+				 member_idx
+				,member_id
+				,org_code_idx
+				,group_idx
+				,member_pw
+				,member_nm
+				,remark
+				,reg_user
+				,reg_date
+				,mod_user
+				,mod_date
+			FROM nam_member
+			WHERE member_id = #{member_id}
+			AND member_pw = #{member_pw}
+	</select>
+	
+	<select id="getUserList" resultType="egovframework.aviation.user.vo.UserJoinVO">
+			SELECT R1.* FROM(
+				SELECT
+					 row_number() over(order by member_idx desc) as rnum
+					,nm.member_idx
+					,nm.member_id
+					,nm.org_code_idx
+					,nm.group_idx
+					,nm.member_pw
+					,nm.member_nm
+					,nm.remark
+					,nm.reg_user
+					,nm.reg_date
+					,nm.mod_user
+					,nm.mod_date
+					,nm.enabled
+					,ng.group_nm
+					,ng.admin
+				FROM nam_member nm
+				left join nam_group ng 
+				on nm.GROUP_IDX =ng.GROUP_IDX
+				WHERE 1=1 
+	            <if test="member_idx != null">AND
+	                MEMBER_IDX = #{member_idx}
+	            </if>
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'member_id'">
+						AND (nm.member_id LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+					<if test="search_type == 'member_nm'">
+						AND (nm.member_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'group_nm'">
+						AND (ng.group_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'remark'">
+						AND (nm.remark LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'enabled'">
+						AND (nm.enabled LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (nm.member_id LIKE CONCAT('%', #{search_word}, '%') OR nm.member_nm LIKE CONCAT('%', #{search_word}, '%') OR ng.group_nm LIKE CONCAT('%', #{search_word}, '%') OR nm.remark LIKE CONCAT('%', #{search_word}, '%') OR nm.enabled LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+			) R1
+            	LIMIT #{perPageNum} OFFSET #{pageStart}
+	</select>
+	
+	<select id="getUserListCnt" resultType="Integer">
+				SELECT
+					count(*)
+				FROM nam_member nm
+				left join nam_group ng 
+				on nm.GROUP_IDX =ng.GROUP_IDX
+				WHERE 1=1 
+	            <if test="member_idx != null">AND
+	                MEMBER_IDX = #{member_idx}
+	            </if>
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'member_id'">
+						AND (nm.member_id LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+					<if test="search_type == 'member_nm'">
+						AND (nm.member_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'group_nm'">
+						AND (ng.group_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'remark'">
+						AND (nm.remark LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'enabled'">
+						AND (nm.enabled LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (nm.member_id LIKE CONCAT('%', #{search_word}, '%') OR nm.member_nm LIKE CONCAT('%', #{search_word}, '%') OR ng.group_nm LIKE CONCAT('%', #{search_word}, '%') OR nm.remark LIKE CONCAT('%', #{search_word}, '%') OR nm.enabled LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+	</select>
+	<select id="getDuplicateCheck" resultType="egovframework.aviation.user.vo.UserJoinVO">
+			SELECT
+				 nm.member_idx
+				,nm.member_id
+				,nm.org_code_idx
+				,nm.group_idx
+				,nm.member_pw
+				,nm.member_nm
+				,nm.remark
+				,nm.reg_user
+				,nm.reg_date
+				,nm.mod_user
+				,nm.mod_date
+				,nm.enabled
+				,ng.group_nm
+				,ng.admin
+			FROM nam_member nm
+			left join nam_group ng 
+			on nm.GROUP_IDX =ng.GROUP_IDX
+			WHERE 1=1 
+            <if test="member_id != null">AND
+                MEMBER_ID = #{member_id}
+            </if>
+<!--             <if test="searchCondition == 1">AND -->
+<!--                 AUTHOR_NM LIKE CONCAT('%' , #{searchKeyword}, '%') -->
+<!--             </if> -->
+            ORDER BY REG_DATE DESC
+<!--             LIMIT #{recordCountPerPage} OFFSET #{firstIndex}       -->
+	</select>
+	
+	<insert id="insertUser" parameterType="egovframework.aviation.user.vo.UserVO">
+        
+            INSERT INTO nam_member 
+                  ( MEMBER_ID
+                  , ORG_CODE_IDX
+                  , GROUP_IDX
+                  , MEMBER_PW
+                  , MEMBER_NM
+                  , REMARK
+                  , REG_USER
+                  , REG_DATE
+                  , ENABLED)
+           VALUES ( #{member_id}
+                  , '1'
+                  , #{group_idx}
+                  , #{member_pw}
+                  , #{member_nm}
+                  , #{remark}
+                  , #{reg_user}
+                  , now()
+                  , 'Y')
+         
+    </insert>
+    
+    <update id="updateUser" parameterType="egovframework.aviation.user.vo.UserVO">
+        
+            UPDATE nam_member 
+               SET MEMBER_ID=#{member_id}
+                 , ORG_CODE_IDX='1'
+                 , GROUP_IDX=#{group_idx}
+                 , MEMBER_NM=#{member_nm}
+                 , REMARK=#{remark}
+                 , MOD_USER=#{mod_user}
+                 , MOD_DATE=#{mod_date}
+                 , ENABLED=#{enabled}
+             WHERE MEMBER_IDX=#{member_idx}
+    </update>
+    
+    <update id="updateUserPassWord" parameterType="egovframework.aviation.user.vo.UserVO">
+        
+            UPDATE nam_member 
+               SET
+               	   MEMBER_PW = #{member_pw}
+               	 , MOD_USER= #{mod_user}
+                 , MOD_DATE= now()
+             WHERE MEMBER_IDX=#{member_idx}
+    </update>
+    
+    <update id="updateUserListEnabled" parameterType="egovframework.aviation.user.vo.UserVO">
+        
+            UPDATE nam_member 
+             	SET ENABLED='N'
+             WHERE 
+             	MEMBER_IDX IN
+			<foreach collection="user_seqList" item="user_seq" open="(" close=")" separator=",">
+				#{user_seq}
+			</foreach>
+    </update>
+    
+    <!--   사용자 관리권한   -->
+	<select id="getMenuCodeList" parameterType="egovframework.aviation.group.vo.MenuCodeVO" resultType="egovframework.aviation.group.vo.MenuCodeVO">
+          
+         	SELECT 
+         		*
+			from nam_menu_code
+            
+	</select>
+	    <!--   사용자 세부메뉴 관리권한 대분류   -->
+	<select id="getMenuCodeListLarge" parameterType="egovframework.aviation.group.vo.MenuCodeVO" resultType="egovframework.aviation.group.vo.MenuCodeVO">
+          
+         	SELECT 
+         		*
+			FROM nam_menu_code
+			WHERE parent_menu is null
+            
+	</select>
+	
+   	<select id="getGroupUserList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.user.vo.UserVO">
+          
+           	SELECT  
+		         nm.MEMBER_ID
+				,nm.MEMBER_NM 
+			FROM nam_member nm 
+			left join nam_group ng
+			on ng.GROUP_IDX = nm.GROUP_IDX
+			WHERE 1=1
+			<if test="org_code_idx != null">AND
+                ng.ORG_CODE_IDX = #{org_code_idx}
+            </if>
+			AND
+				ng.GROUP_IDX =#{group_idx}
+            
+	</select>
+    
+    <select id="getGroupMenuList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.group.vo.MenuCodeVO">
+          
+            SELECT 
+	  			 nmc.MENU_CODE_IDX 
+			FROM nam_menu_code nmc 
+			left join nam_menu_authority na 
+			on na.MENU_CODE_IDX = nmc.MENU_CODE_IDX 
+			WHERE 1=1
+			AND
+				na.GROUP_IDX =#{group_idx}
+            
+	</select>
+	<!--     -->
+    
+    <select id="getGroupPossessionList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.metadata.vo.PosSessionVO">
+          
+		 	SELECT 
+	  				npc.POSSESSION_CODE_IDX 
+			FROM nam_possession_code npc 
+			left join nam_possession_authority npa 
+			on npc.POSSESSION_CODE_IDX = npa.POSSESSION_CODE_IDX 
+			WHERE 1=1
+			<if test="org_code_idx != null">AND
+                npa.ORG_CODE_IDX = #{org_code_idx}
+            </if>
+			AND
+				npa.GROUP_IDX =#{group_idx}
+            
+	</select>
+	
+	<select id="getPosSession2"  parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.metadata.vo.PosSessionVO">
+			SELECT * FROM nam_possession_code
+			WHERE
+				ORG_CODE_IDX = #{org_code_idx}
+	</select>
+	
+</mapper>

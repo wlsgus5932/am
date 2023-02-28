@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.aviation.preferences.service.impl.OtherMgrMapper">
+
+	<resultMap id="TagResult" type="egovframework.aviation.preferences.vo.TagVO">
+        <result property="tag_idx" column="TAG_IDX"/>
+        <result property="tag_nm" column="TAG_NM"/>
+        <result property="seq" column="SEQ"/>
+        <result property="enabled" column="ENABLED"/>
+        <result property="reg_user" column="REG_USER"/>
+        <result property="reg_date" column="REG_DATE"/>
+        <result property="mod_user" column="MOD_USER"/>
+        <result property="mod_date" column="MOD_DATE"/>
+    </resultMap>
+    
+    <resultMap id="ExchnRateResult" type="egovframework.aviation.preferences.vo.ExchnRateVO">
+        <result property="exchange_rate_idx" column="EXCHANGE_RATE_IDX"/>
+        <result property="provider_nm" column="PROVIDER_NM"/>
+        <result property="service_url" column="SERVICE_URL"/>
+        <result property="seq" column="SEQ"/>
+        <result property="enabled" column="ENABLED"/>
+        <result property="reg_user" column="REG_USER"/>
+        <result property="reg_date" column="REG_DATE"/>
+        <result property="mod_user" column="MOD_USER"/>
+        <result property="mod_date" column="MOD_DATE"/>
+    </resultMap>
+    
+    <select id="getTagList" parameterType="egovframework.aviation.preferences.vo.TagVO" resultMap="TagResult">
+           SELECT R1.* FROM( 
+	            SELECT 
+	          		  row_number() over(order by TAG_IDX desc) as rnum
+	            	, TAG_IDX
+	            	, TAG_NM
+	            	, SEQ 
+	            	, ENABLED
+	            	, REG_USER
+		           	, REG_DATE
+		           	, MOD_USER
+		           	, MOD_DATE 
+	            FROM nam_tag 
+	            WHERE 1=1 
+	            <if test="tag_idx != null">AND
+	                TAG_IDX = #{tag_idx}
+	            </if>
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'tag_nm'">
+						AND (tag_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'reg_user'">
+						AND (reg_user LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'mod_user'">
+						AND (mod_user LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'enabled'">
+						AND (enabled LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (tag_nm LIKE CONCAT('%', #{search_word}, '%') OR reg_user LIKE CONCAT('%', #{search_word}, '%') OR mod_user LIKE CONCAT('%', #{search_word}, '%') OR enabled LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+            ) R1
+            LIMIT #{perPageNum} OFFSET #{pageStart}  
+	</select>
+	
+	<select id="getTagListCnt" resultType="Integer">
+	            SELECT 
+	            	count(*)
+	            FROM nam_tag 
+	            WHERE 1=1 
+ 				<if test="tag_idx != null">AND
+	                TAG_IDX = #{tag_idx}
+	            </if>
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'tag_nm'">
+						AND (tag_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'reg_user'">
+						AND (reg_user LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'mod_user'">
+						AND (mod_user LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'enabled'">
+						AND (enabled LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (tag_nm LIKE CONCAT('%', #{search_word}, '%') OR reg_user LIKE CONCAT('%', #{search_word}, '%') OR mod_user LIKE CONCAT('%', #{search_word}, '%') OR enabled LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+	</select>
+	
+	<select id="getTagDuplicateCheck" resultType="egovframework.aviation.preferences.vo.TagVO">
+			SELECT
+				  TAG_IDX
+            	, TAG_NM
+            	, SEQ 
+            	, ENABLED
+            	, REG_USER
+	           	, REG_DATE
+	           	, MOD_USER
+	           	, MOD_DATE 
+			FROM nam_tag
+			WHERE 1=1 
+            <if test="tag_nm != null">AND
+                TAG_NM = #{tag_nm}
+            </if>
+            ORDER BY REG_DATE DESC
+	</select>
+	
+	<insert id="insertTag" parameterType="egovframework.aviation.preferences.vo.TagVO">
+        
+            INSERT INTO nam_tag
+                  ( TAG_NM
+                  , SEQ
+                  , ENABLED
+                  , REG_USER
+                  , REG_DATE )
+           VALUES ( #{tag_nm}
+           		  , #{seq}
+                  , #{enabled}
+                  , #{reg_user}
+                  , now())
+         
+    </insert>
+    
+    <update id="updateTag" parameterType="egovframework.aviation.preferences.vo.TagVO">
+        
+            UPDATE nam_tag 
+               SET TAG_NM=#{tag_nm}
+                 , SEQ=#{seq}
+                 , ENABLED=#{enabled}
+                 , MOD_USER=#{mod_user}
+                 , MOD_DATE=now()
+             WHERE TAG_IDX=#{tag_idx}
+  
+    </update>
+    
+    <delete id="deleteTag">
+           
+            DELETE FROM nam_tag
+	        WHERE
+	   			TAG_IDX IN
+			<foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
+				#{group_seq}
+			</foreach>
+			
+    </delete>
+<!--   환율정보   -->
+    <select id="getExchnRateList" parameterType="egovframework.aviation.preferences.vo.ExchnRateVO" resultMap="ExchnRateResult">
+           SELECT R1.* FROM( 
+	            SELECT 
+	          		  row_number() over(order by EXCHANGE_RATE_IDX desc) as rnum
+	            	, EXCHANGE_RATE_IDX
+	            	, PROVIDER_NM
+	            	, SERVICE_URL
+	            	, SEQ 
+	            	, ENABLED
+	            	, REG_USER
+		           	, REG_DATE
+		           	, MOD_USER
+		           	, MOD_DATE 
+	            FROM nam_exchange_rate
+	            WHERE 1=1 
+	            <if test="exchange_rate_idx != null">AND
+	                EXCHANGE_RATE_IDX = #{exchange_rate_idx}
+	            </if>
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'provider_nm'">
+						AND (provider_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'service_url'">
+						AND (service_url LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'reg_user'">
+						AND (reg_user LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'mod_user'">
+						AND (mod_user LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'enabled'">
+						AND (enabled LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (tag_nm LIKE CONCAT('%', #{search_word}, '%') OR service_url LIKE CONCAT('%', #{search_word}, '%') OR reg_user LIKE CONCAT('%', #{search_word}, '%') OR mod_user LIKE CONCAT('%', #{search_word}, '%') OR enabled LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+            ) R1
+            LIMIT #{perPageNum} OFFSET #{pageStart}  
+	</select>
+	
+	<select id="getExchnRateListCnt" resultType="Integer">
+	            SELECT 
+	            	count(*)
+	            FROM nam_exchange_rate 
+	            WHERE 1=1 
+	            <if test="exchange_rate_idx != null">AND
+	                EXCHANGE_RATE_IDX = #{exchange_rate_idx}
+	            </if>
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'provider_nm'">
+						AND (provider_nm LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'service_url'">
+						AND (service_url LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'reg_user'">
+						AND (reg_user LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'mod_user'">
+						AND (mod_user LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == 'enabled'">
+						AND (enabled LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (tag_nm LIKE CONCAT('%', #{search_word}, '%') OR service_url LIKE CONCAT('%', #{search_word}, '%') OR reg_user LIKE CONCAT('%', #{search_word}, '%') OR mod_user LIKE CONCAT('%', #{search_word}, '%') OR enabled LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+	</select>
+	
+	<insert id="insertExchnRate" parameterType="egovframework.aviation.preferences.vo.ExchnRateVO">
+        
+            INSERT INTO nam_exchange_rate
+                  ( PROVIDER_NM
+                  , SERVICE_URL
+                  , SEQ
+                  , ENABLED
+                  , REG_USER
+                  , REG_DATE )
+           VALUES ( #{provider_nm}
+           	      , #{service_url}
+           	      , #{seq}
+                  , #{enabled}
+                  , #{reg_user}
+                  , now())
+         
+    </insert>
+    
+    <update id="setExchnRateAllEnabledMod">
+    	UPDATE 
+    		 nam_exchange_rate
+    	SET    		
+    		 ENABLED = 'N'
+    </update>
+    
+    <update id="updateExchnRate" parameterType="egovframework.aviation.preferences.vo.ExchnRateVO">
+        
+            UPDATE nam_exchange_rate 
+               SET PROVIDER_NM=#{provider_nm}
+                 , SERVICE_URL=#{service_url}
+                 , SEQ=#{seq}
+                 , ENABLED=#{enabled}
+                 , MOD_USER=#{mod_user}
+                 , MOD_DATE=now()
+             WHERE EXCHANGE_RATE_IDX=#{exchange_rate_idx}
+  
+    </update>
+    
+    <delete id="deleteExchnRate">
+           
+            DELETE FROM nam_exchange_rate
+	        WHERE
+	   			EXCHANGE_RATE_IDX IN
+			<foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
+				#{group_seq}
+			</foreach>
+			
+    </delete>
+</mapper>
