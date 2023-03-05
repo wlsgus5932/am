@@ -375,7 +375,7 @@
                   <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">이미지 신규등록</a></li>
                   <li><a href="/notRegister.do" data-key="t-orders">가등록 자료 정보조회</a></li>
                   <li><a href="ecommerce-customers.html" data-key="t-customers">가등록 자료 정보검색</a></li>
-                  <li><a href="ecommerce-checkout.html" data-key="t-checkout">자료관리전환</a></li>
+                  <li><a href="/getTransform.do" data-key="t-checkout">자료관리전환</a></li>
                   <li><a href="ecommerce-add-product.html" data-key="t-add-product">신규자료 자동등록</a></li>
                 </ul>
               </li>

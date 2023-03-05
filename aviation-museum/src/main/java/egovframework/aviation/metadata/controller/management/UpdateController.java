@@ -1,5 +1,7 @@
 package egovframework.aviation.metadata.controller.management;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.aviation.metadata.service.MetaDataService;
 import egovframework.aviation.metadata.service.SpecialityService;
@@ -45,117 +48,240 @@ public class UpdateController {
 	private SpecialityService service2;
 	
 	@PostMapping("/update.do")
+	@ResponseBody
 	public String updateData(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
 		System.out.println(param);
+		String result = "error";
 		try {
 			int x = service.updateItemBase(param);
+			service.updateObtainment(param);
+			service.updateGgnuri(param);
+			service.updateKeyword(param);
+			HashMap<Integer, Object> classMap = new HashMap<Integer, Object>();
+			HashMap<Integer, Object> countryMap = new HashMap<Integer, Object>();
+			HashMap<Integer, Object> materialMap = new HashMap<Integer, Object>();
+			HashMap<Integer, Object> measurementMap = new HashMap<Integer, Object>();
+			HashMap<Integer, Object> involMap = new HashMap<Integer, Object>();
+			HashMap<Integer, Object> insuMap = new HashMap<Integer, Object>();
+			HashMap<Integer, Object> copyMap = new HashMap<Integer, Object>();
 			
-			if(x != 0) {
-				service.updateObtainment(param);
-				service.updateGgnuri(param);
-				service.updateKeyword(param);
+			if(param.getUpdate_class1_code_idx() != null) {
+				for (int i = 0; i < param.getUpdate_class1_code_idx().size(); i++) {
+					List<Object> item = new ArrayList<>();
+					item.add(param.getItem_idx());
+					item.add(param.getReg_user());
+					item.add(param.getUpdate_class1_code_idx().get(i));
+					item.add(param.getUpdate_class2_code_idx().get(i));
+					item.add(param.getUpdate_class3_code_idx().get(i));
+					classMap.put(i, item);
+				}
+				service.setTaxonomy(classMap);
 			}
 			
+			if(param.getUpdate_country_code_idx() != null) {
+				for (int i = 0; i < param.getUpdate_country_code_idx().size(); i++) {
+					List<Object> item = new ArrayList<>();
+					item.add(param.getItem_idx());
+					item.add(param.getReg_user());
+					item.add(param.getUpdate_country_code_idx().get(i));
+					item.add(param.getUpdate_era_code_idx().get(i));
+					item.add(param.getUpdate_detail_year().get(i));
+					countryMap.put(i, item);
+				}
+				service.setCountry(countryMap);
+			}
+			
+			if(param.getUpdate_material1_code_idx() != null) {
+				for (int i = 0; i < param.getUpdate_material1_code_idx().size(); i++) {
+					List<Object> item = new ArrayList<>();
+					item.add(param.getItem_idx());
+					item.add(param.getReg_user());
+					item.add(param.getUpdate_material1_code_idx().get(i));
+					item.add(param.getUpdate_material2_code_idx().get(i));
+					item.add(param.getUpdate_material_detail().get(i));
+					materialMap.put(i, item);
+				}
+				service.setMaterial(materialMap);
+			}
+			
+			if(param.getUpdate_measurement_item_type() != null) {
+				for (int i = 0; i < param.getUpdate_measurement_item_type().size(); i++) {
+					List<Object> item = new ArrayList<>();
+					item.add(param.getItem_idx());
+					item.add(param.getReg_user());
+					item.add(param.getUpdate_measurement_item_type().get(i));
+					item.add(param.getUpdate_measurement_code_idx().get(i));
+					item.add(param.getUpdate_measurement_value().get(i));
+					item.add(param.getUpdate_measurement_unit_code_idx().get(i));
+					measurementMap.put(i, item);
+				}
+				service.setMeasurement(measurementMap);
+			}
+			
+			if(param.getUpdate_invol_possession_code_idx() != null) {
+				for (int i = 0; i < param.getUpdate_invol_possession_code_idx().size(); i++) {
+					List<Object> item = new ArrayList<>();
+					item.add(param.getItem_idx());
+					item.add(param.getReg_user());
+					item.add(param.getOrg_code_idx());
+					item.add(param.getUpdate_invol_possession_code_idx().get(i));
+					item.add(param.getUpdate_invol_item_no().get(i));
+					item.add(param.getUpdate_invol_remark().get(i));
+					involMap.put(i, item);
+				}
+				service.setInvolvement(involMap);
+			}
+			
+			if(param.getUpdate_insu_agreed_value() != null) {
+				for (int i = 0; i < param.getUpdate_insu_agreed_value().size(); i++) {
+					List<Object> item = new ArrayList<>();
+					item.add(param.getItem_idx());
+					item.add(param.getReg_user());
+					item.add(param.getUpdate_insu_agreed_value().get(i));
+					item.add(param.getUpdate_insu_price_unit_code_idx().get(i));
+					item.add(param.getUpdate_insu_start_date().get(i));
+					item.add(param.getUpdate_insu_end_date().get(i));
+					item.add(param.getUpdate_insu_rental_org().get(i));
+					item.add(param.getUpdate_insu_remark().get(i));
+					insuMap.put(i, item);
+				}
+				service.setInsurance(insuMap);
+			}
+			
+			if(param.getUpdate_copy_copyright() != null) {
+				System.out.println(param.getUpdate_copy_copyright().size());
+				for (int i = 0; i < param.getUpdate_copy_copyright().size(); i++) {
+					List<Object> item = new ArrayList<>();
+					item.add(param.getItem_idx());
+					item.add(param.getReg_user());
+					item.add(param.getUpdate_copy_copyright().get(i));
+					item.add(param.getUpdate_copy_owner().get(i));
+					item.add(param.getUpdate_copy_expiry_date().get(i));
+					item.add(param.getUpdate_copy_usage_permission().get(i));
+					item.add(param.getUpdate_copy_copyright_transfer().get(i));
+					item.add(param.getUpdate_copy_remark().get(i));
+					copyMap.put(i, item);
+				}
+				service.setCopyright(copyMap);
+			}
+			result = "success";
+			return result;
 		} catch (Exception e) {
+			return result;
 		}
+	}
 		
+	@PostMapping("/deleteTaxonomy.do")
+	@ResponseBody
+	public String deleteTaxonomy(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
+		String result = "error";
+		try {
+			String[] arr = param.getTaxonomy_idx().get(0).split(",");
+			int x = service.deleteTaxonomy(arr);
+			System.out.println(x);
+			if(x!=0) {
+				result = "success";
+			}
+			return result;
+		} catch (Exception e) {
+			return result;
+		}
+	}
 		
-//		try {
-//			 int x = service.setItemBase(param);
-//			 
-//			 if(x == 1) {
-//				 HashMap<Integer, Object> classMap = new HashMap<Integer, Object>();
-//				 HashMap<Integer, Object> countryMap = new HashMap<Integer, Object>();
-//				 HashMap<Integer, Object> materialMap = new HashMap<Integer, Object>();
-//				 HashMap<Integer, Object> measureMap = new HashMap<Integer, Object>();
-//				 HashMap<Integer, Object> possessionMap = new HashMap<Integer, Object>();
-//				 HashMap<Integer, Object> insuranceMap = new HashMap<Integer, Object>();
-//				 HashMap<Integer, Object> copyrightMap = new HashMap<Integer, Object>();
-//				 
-//				 for (int i = 0; i < param.getClass1_code_idx().size(); i++) {
-//						List<String> item = new ArrayList<>();
-//						item.add(param.getReg_user());
-//						item.add(param.getClass1_code_idx().get(i));
-//						item.add(param.getClass2_code_idx().get(i));
-//						item.add(param.getClass3_code_idx().get(i));
-//						classMap.put(i, item);
-//						}
-//				 for (int i = 0; i < param.getCountry_code_idx().size(); i++) {
-//						List<Object> item = new ArrayList<>();
-//						item.add(param.getReg_user());
-//						item.add(param.getCountry_code_idx().get(i));
-//						item.add(param.getEra_code_idx().get(i));
-//						item.add(param.getDetail_year().get(i));
-//						countryMap.put(i, item);
-//						}
-//				 for (int i = 0; i < param.getMaterial1_code_idx().size(); i++) {
-//						List<String> item = new ArrayList<>();
-//						item.add(param.getReg_user());
-//						item.add(param.getMaterial1_code_idx().get(i));
-//						item.add(param.getMaterial2_code_idx().get(i));
-//						item.add(param.getMaterial_detail().get(i));
-//						materialMap.put(i, item);
-//						}
-//				 for (int i = 0; i < param.getMeasurement_value().size(); i++) {
-//						List<String> item = new ArrayList<>();
-//						item.add(param.getReg_user());
-//						item.add(param.getMeasurement_code_idx().get(i));
-//						item.add(param.getMeasurement_unit_code_idx().get(i));
-//						item.add(param.getMeasurement_value().get(i));
-//						item.add(param.getMeasurement_item_type().get(i));
-//						measureMap.put(i, item);
-//						}
-//				 for (int i = 0; i < param.getInvol_org_code_idx().size(); i++) {
-//						List<String> item = new ArrayList<>();
-//						item.add(param.getReg_user());
-//						item.add(param.getInvol_org_code_idx().get(i));
-//						item.add(param.getInvol_possession_code_idx().get(i));
-//						item.add(param.getInvol_item_no().get(i));
-//						item.add(param.getInvol_remark().get(i));
-//						possessionMap.put(i, item);
-//				 		}
-//				 for (int i = 0; i < param.getInsu_price_unit_code_idx().size(); i++) {
-//						List<String> item = new ArrayList<>();
-//						item.add(param.getReg_user());
-//						item.add(param.getInsu_agreed_value().get(i));
-//						item.add(param.getInsu_price_unit_code_idx().get(i));
-//						item.add(param.getInsu_start_date().get(i));
-//						item.add(param.getInsu_end_date().get(i));
-//						item.add(param.getInsu_rental_org().get(i));
-//						item.add(param.getInsu_remark().get(i));
-//						insuranceMap.put(i, item);
-//				 		}
-//				 for (int i = 0; i < param.getInsu_price_unit_code_idx().size(); i++) {
-//						List<String> item = new ArrayList<>();
-//						item.add(param.getReg_user());
-//						item.add(param.getCopy_copyright().get(i));
-//						item.add(param.getCopy_owner().get(i));
-//						item.add(param.getCopy_expiry_date().get(i));
-//						item.add(param.getCopy_usage_permission().get(i));
-//						item.add(param.getCopy_copyright_transfer().get(i));
-//						item.add(param.getCopy_remark().get(i));
-//						copyrightMap.put(i, item);
-//				 		}
-//				service.setTaxonomy(classMap);
-//				service.setCountry(countryMap);
-//				service.setMaterial(materialMap);
-//				service.setMeasurement(measureMap);
-//				service.setObtainment(param);
-//				service.setInvolvement(possessionMap);
-//				service.setInsurance(insuranceMap);
-//				service.setCopyright(copyrightMap);
-//				service.setGgnuri(param);
-//				service.setKeyword(param);
-//				
-//				model.addAttribute("item_idx", param.getItem_idx());
-//			 }
-//			 return "jsonView"; 
-//				
-//		 } catch (Exception e) {
-//			 System.out.println(e); 
-//			 return "error"; 
-//		 }
-		return "ddd";
+	@PostMapping("/deleteCountry.do")
+	@ResponseBody
+	public String deleteCountry(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
+		String result = "error";
+		try {
+			String[] arr = param.getCountry_idx().get(0).split(",");
+			int x = service.deleteCountry(arr);
+			if(x!=0) {
+				result = "success";
+			}
+			return result;
+		} catch (Exception e) {
+			return result;
+		}
+	}
+	
+	@PostMapping("/deleteMaterial.do")
+	@ResponseBody
+	public String deleteMaterial(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
+		String result = "error";
+		try {
+			String[] arr = param.getMaterial_idx().get(0).split(",");
+			int x = service.deleteMaterial(arr);
+			if(x!=0) {
+				result = "success";
+			}
+			return result;
+		} catch (Exception e) {
+			return result;
+		}
+	}
+	
+	@PostMapping("/deleteMeasurement.do")
+	@ResponseBody
+	public String deleteMeasurement(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
+		String result = "error";
+		try {
+			String[] arr = param.getMeasurement_idx().get(0).split(",");
+			int x = service.deleteMeasurement(arr);
+			if(x!=0) {
+				result = "success";
+			}
+			return result;
+		} catch (Exception e) {
+			return result;
+		}
+	}
+	
+	@PostMapping("/deleteInvolvement.do")
+	@ResponseBody
+	public String deleteInvolvement(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
+		String result = "error";
+		try {
+			String[] arr = param.getInvolvement_idx().get(0).split(",");
+			int x = service.deleteInvolvement(arr);
+			if(x!=0) {
+				result = "success";
+			}
+			return result;
+		} catch (Exception e) {
+			return result;
+		}
+	}
+	
+	@PostMapping("/deleteInsurance.do")
+	@ResponseBody
+	public String deleteInsurance(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
+		String result = "error";
+		try {
+			String[] arr = param.getInsurance_idx().get(0).split(",");
+			int x = service.deleteInsurance(arr);
+			if(x!=0) {
+				result = "success";
+			}
+			return result;
+		} catch (Exception e) {
+			return result;
+		}
+	}
+	
+	@PostMapping("/deleteCopyright.do")
+	@ResponseBody
+	public String deleteCopyright(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
+		String result = "error";
+		try {
+			String[] arr = param.getCopyright_idx().get(0).split(",");
+			int x = service.deleteCopyright(arr);
+			if(x!=0) {
+				result = "success";
+			}
+			return result;
+		} catch (Exception e) {
+			return result;
+		}
 	}
 	
 	@GetMapping("/dataUpdate.do")

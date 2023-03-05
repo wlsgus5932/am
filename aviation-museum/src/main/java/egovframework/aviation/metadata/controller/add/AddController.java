@@ -142,7 +142,8 @@ public class AddController {
 				 HashMap<Integer, Object> copyrightMap = new HashMap<Integer, Object>();
 				 
 				 for (int i = 0; i < param.getClass1_code_idx().size(); i++) {
-						List<String> item = new ArrayList<>();
+						List<Object> item = new ArrayList<>();
+						item.add(param.getItem_idx());
 						item.add(param.getReg_user());
 						item.add(param.getClass1_code_idx().get(i));
 						item.add(param.getClass2_code_idx().get(i));
@@ -151,6 +152,7 @@ public class AddController {
 						}
 				 for (int i = 0; i < param.getCountry_code_idx().size(); i++) {
 						List<Object> item = new ArrayList<>();
+						item.add(param.getItem_idx());
 						item.add(param.getReg_user());
 						item.add(param.getCountry_code_idx().get(i));
 						item.add(param.getEra_code_idx().get(i));
@@ -158,7 +160,8 @@ public class AddController {
 						countryMap.put(i, item);
 						}
 				 for (int i = 0; i < param.getMaterial1_code_idx().size(); i++) {
-						List<String> item = new ArrayList<>();
+						List<Object> item = new ArrayList<>();
+						item.add(param.getItem_idx());
 						item.add(param.getReg_user());
 						item.add(param.getMaterial1_code_idx().get(i));
 						item.add(param.getMaterial2_code_idx().get(i));
@@ -166,7 +169,8 @@ public class AddController {
 						materialMap.put(i, item);
 						}
 				 for (int i = 0; i < param.getMeasurement_value().size(); i++) {
-						List<String> item = new ArrayList<>();
+						List<Object> item = new ArrayList<>();
+						item.add(param.getItem_idx());
 						item.add(param.getReg_user());
 						item.add(param.getMeasurement_code_idx().get(i));
 						item.add(param.getMeasurement_unit_code_idx().get(i));
@@ -175,7 +179,8 @@ public class AddController {
 						measureMap.put(i, item);
 						}
 				 for (int i = 0; i < param.getInvol_org_code_idx().size(); i++) {
-						List<String> item = new ArrayList<>();
+						List<Object> item = new ArrayList<>();
+						item.add(param.getItem_idx());
 						item.add(param.getReg_user());
 						item.add(param.getInvol_org_code_idx().get(i));
 						item.add(param.getInvol_possession_code_idx().get(i));
@@ -184,7 +189,8 @@ public class AddController {
 						possessionMap.put(i, item);
 				 		}
 				 for (int i = 0; i < param.getInsu_price_unit_code_idx().size(); i++) {
-						List<String> item = new ArrayList<>();
+						List<Object> item = new ArrayList<>();
+						item.add(param.getItem_idx());
 						item.add(param.getReg_user());
 						item.add(param.getInsu_agreed_value().get(i));
 						item.add(param.getInsu_price_unit_code_idx().get(i));
@@ -195,7 +201,8 @@ public class AddController {
 						insuranceMap.put(i, item);
 				 		}
 				 for (int i = 0; i < param.getInsu_price_unit_code_idx().size(); i++) {
-						List<String> item = new ArrayList<>();
+						List<Object> item = new ArrayList<>();
+						item.add(param.getItem_idx());
 						item.add(param.getReg_user());
 						item.add(param.getCopy_copyright().get(i));
 						item.add(param.getCopy_owner().get(i));

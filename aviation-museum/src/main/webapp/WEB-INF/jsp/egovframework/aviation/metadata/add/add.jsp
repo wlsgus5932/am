@@ -30,6 +30,11 @@
     <script src="<c:url value='/assets/js/metadata/metadataList.js'/>" defer></script>
     
     <script type="text/javascript">
+    
+    window.onload = function(){
+        sessionStorage.getItem("item_idx") ? sessionStorage.removeItem("item_idx") : '';
+    }
+    
     let count = 0;
     let movementData = [];
     let item_idx = '';
@@ -2106,16 +2111,12 @@
             </div>
             </div>
             
+            
             <!-- 이미지정보 -->
             <div class="tab-pane" id="messages" role="tabpanel">
                 <div class="mb-0">
                   <!--  -->
                   <div class="st_wrap st_mv_wrap">
-                  
-                
-                <!-- <button type="button" onclick="addTo('dext5');">추가</button>
-  				<button type="button" data-bs-toggle="modal" data-bs-target=".imageUploadModal">업로드</button> -->
-  				
   			<div class="modal fade imageUploadModal" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
                         <div class="modal-dialog modal-xl">
                           <div class="modal-content pro-modal-content">
@@ -2125,20 +2126,14 @@
                             </div>
                             <div class="modal-body mv-modal-body">
                                 <!-- 엑셀 모달 내용 -->
-                                  
-									  <label for="result-uploadFile" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">업로드</label>
-										<input style="display:none" class="form-control st_input" type="file" name="result_uploadFile" id="result-uploadFile" onchange="resultImg(this, 0)" accept="image/*">
-                                <%-- <div class="mb-0 move-wrap pro-wrap">
-                                  <div id="dext5-container" style="width:500px; height:300px;">
-                                  <!-- 버튼은 여기 -->
-                                  <form action="..." method="post" enctype="multipart/form-data">
-									  <input type="text" name="name" value="DEXTUploadNJ"/>
-									</form>
-                                  	<button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="addTo('dext5');">파일추가</button>
-                                  </div>
-                              	</div> --%>
+                               	 <div class="mb-0 move-wrap pro-wrap">
+			                      	<div id="dext5-container" style="width:100%; height:300px;"></div>
+			                      	<div id="dext5-btn" style="text-align: center; margin: 10px 10px 10px 10px;">
+			                         	<button id="btn-add-files" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">파일추가</button>
+			                    	 	<button id="btn-upload-auto" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">저장</button>
+			                    	 </div>
+                              	</div> 
                             </div>
-  									<button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="uploadFrom('dext5')">저장</button>
                         </div>
                         </div>
                     </div>
@@ -2163,14 +2158,12 @@
                         <!-- 
 	                     <label for="image-upload-file" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">업로드</label> -->
 <!--                     <input style="display:none" id="image-upload-file" name="image_upload_file" class="form-control st_input" type="file" accept="image/*" onchange="change_img_info(this)" multiple> -->
+						 <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" data-bs-toggle="modal" data-bs-target=".imageUploadModal">업로드</button>
                          <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="downloadImageChecked()">다운로드</button>
                          <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="imageAllCheck()">전체선택</button>
                          <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="imageCancelCheck()">선택해지</button>
                          <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteImageChecked()">선택삭제</button>
                          <button>엑셀파일</button>
-                           <div id="dext5-container" style="width:500px; height:300px;"><!-- 컴포넌트를 담는 컨테이너 요소 --></div>
-                         <button id="btn-add-files" type="button">추가</button>
-                    <button id="btn-upload-auto" type="button">업로드</button>
                     </div>
                   </div>
                   <!--  -->

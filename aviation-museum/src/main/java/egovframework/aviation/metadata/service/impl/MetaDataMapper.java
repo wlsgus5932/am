@@ -168,4 +168,18 @@ public interface MetaDataMapper {
 	void updateGgnuri(MetaDataParamVO param);
 
 	void updateKeyword(MetaDataParamVO param);
+
+	int deleteTaxonomy(@Param("arr") String[] arr);
+
+	int deleteCountry(@Param("arr") String[] arr);
+
+	int deleteMaterial(@Param("arr") String[] arr);
+
+	int deleteMeasurement(@Param("arr") String[] arr);
+
+	int deleteInvolvement(@Param("arr") String[] arr);
+
+	int deleteInsurance(@Param("arr") String[] arr);
+
+	int deleteCopyright(@Param("arr") String[] arr);
 }

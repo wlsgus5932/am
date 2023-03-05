@@ -352,6 +352,41 @@ public class MetaDataServiceImpl implements MetaDataService {
 		dao.updateKeyword(param);
 	}
 
+	@Override
+	public int deleteTaxonomy(String[] arr) {
+		return dao.deleteTaxonomy(arr);
+	}
+
+	@Override
+	public int deleteCountry(String[] arr) {
+		return dao.deleteCountry(arr);
+	}
+
+	@Override
+	public int deleteMaterial(String[] arr) {
+		return dao.deleteMaterial(arr);
+	}
+
+	@Override
+	public int deleteMeasurement(String[] arr) {
+		return dao.deleteMeasurement(arr);
+	}
+
+	@Override
+	public int deleteInvolvement(String[] arr) {
+		return dao.deleteInvolvement(arr);
+	}
+
+	@Override
+	public int deleteInsurance(String[] arr) {
+		return dao.deleteInsurance(arr);
+	}
+
+	@Override
+	public int deleteCopyright(String[] arr) {
+		return dao.deleteCopyright(arr);
+	}
+
 	
 	
 

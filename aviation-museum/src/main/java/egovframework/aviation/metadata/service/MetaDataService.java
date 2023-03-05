@@ -163,6 +163,20 @@ public interface MetaDataService {
 
 	void updateKeyword(MetaDataParamVO param);
 
+	int deleteTaxonomy(String[] arr);
+
+	int deleteCountry(String[] arr);
+
+	int deleteMaterial(String[] arr);
+
+	int deleteMeasurement(String[] arr);
+
+	int deleteInvolvement(String[] arr);
+
+	int deleteInsurance(String[] arr);
+
+	int deleteCopyright(String[] arr);
+
 
 
 }

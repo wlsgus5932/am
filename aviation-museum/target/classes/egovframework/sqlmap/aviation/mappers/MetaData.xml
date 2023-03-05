@@ -254,11 +254,11 @@
 	
 	<insert id="setTaxonomy" parameterType="java.util.HashMap">
 			insert into nam_taxonomy (
-				item_idx, reg_date, reg_user, class1_code_idx, class2_code_idx, class3_code_idx
+				reg_date, item_idx, reg_user, class1_code_idx, class2_code_idx, class3_code_idx
 			) 
 			values
 			<foreach separator="," index="key" item="value" collection="classMap">
-			((SELECT MAX(ITEM_IDX) FROM nam_item_base as nm),
+			(
 			now(),
 				<foreach separator="," index="idx" item="item" collection="value">
 					#{item} 
@@ -267,13 +267,20 @@
 			</foreach>	
 	</insert>
 	
+	<delete id="deleteTaxonomy">
+		delete from nam_taxonomy where taxonomy_idx in
+		<foreach collection="arr" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
 	<insert id="setCountry" parameterType="java.util.HashMap">
 		insert into nam_country_era (
-				item_idx, reg_date, reg_user, country_code_idx, era_code_idx, detail_year
+				reg_date, item_idx, reg_user, country_code_idx, era_code_idx, detail_year
 			) 
 			values 
 			<foreach separator="," index="key" item="value" collection="countryMap">
-			((SELECT MAX(ITEM_IDX) FROM nam_item_base as nm),
+			(
 			now(),
 				<foreach separator="," index="idx" item="item" collection="value">
 					#{item} 
@@ -281,14 +288,21 @@
 			) 
 			</foreach>
 	</insert>
+	
+	<delete id="deleteCountry">
+		delete from nam_country_era where country_era_idx in
+		<foreach collection="arr" item="item" index="index" separator="," open="(" close=")"> 
+			#{item}
+		</foreach> 
+	</delete>
 	
 	<insert id="setMaterial" parameterType="java.util.HashMap">
 			insert into nam_material (
-				item_idx, reg_date, reg_user, material1_code_idx, material2_code_idx, material_detail
+				reg_date, item_idx, reg_user, material1_code_idx, material2_code_idx, material_detail
 			) 
 			values 
 			<foreach separator="," index="key" item="value" collection="materialMap">
-			((SELECT MAX(ITEM_IDX) FROM nam_item_base as nm),
+			(
 			now(),
 				<foreach separator="," index="idx" item="item" collection="value">
 					#{item} 
@@ -297,14 +311,20 @@
 			</foreach>
 	</insert>
 	
+	<delete id="deleteMaterial">
+		delete from nam_material where material_idx in
+		<foreach collection="arr" item="item" index="index" separator="," open="(" close=")"> 
+			#{item}
+		</foreach> 
+	</delete>
+	
 	<insert id="setMeasurement" parameterType="java.util.HashMap" >
 		insert into nam_measurement (
-			item_idx, reg_date, reg_user, measurement_code_idx, measurement_unit_code_idx, measurement_value, item_type
+			reg_date, item_idx, reg_user, measurement_code_idx, measurement_unit_code_idx, measurement_value, item_type
 		) 
 		values 
 		<foreach separator="," index="key" item="value" collection="measureMap">
 		(
-			(SELECT MAX(ITEM_IDX) FROM nam_item_base as nm),
 			now(),
 			<foreach separator="," index="idx" item="item" collection="value">
 				#{item} 
@@ -312,6 +332,13 @@
 		) 
 		</foreach>
 	</insert>
+	
+	<delete id="deleteMeasurement">
+		delete from nam_measurement where measurement_idx in
+		<foreach collection="arr" item="item" index="index" separator="," open="(" close=")"> 
+			#{item}
+		</foreach> 
+	</delete>
 	
 	<insert id="setObtainment" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
 			insert into nam_obtainment (
@@ -353,12 +380,11 @@
 	
 	<insert id="setInvolvement" parameterType="java.util.HashMap">
 			insert into nam_involvement (
-				item_idx, reg_date, reg_user, org_code_idx, possession_code_idx, item_no, remark
+				reg_date, item_idx, reg_user, org_code_idx, possession_code_idx, item_no, remark
 			) 
 			values 
 			<foreach separator="," index="key" item="value" collection="possessionMap">
 			(
-				(SELECT MAX(ITEM_IDX) FROM nam_item_base as nm),
 				now(),
 				<foreach separator="," index="idx" item="item" collection="value">
 					#{item} 
@@ -367,14 +393,20 @@
 			</foreach>
 	</insert>
 	
+	<delete id="deleteInvolvement">
+		delete from nam_involvement where involvement_idx in
+		<foreach collection="arr" item="item" index="index" separator="," open="(" close=")"> 
+			#{item}
+		</foreach> 
+	</delete>
+	
 	<insert id="setInsurance" parameterType="java.util.HashMap">
 			insert into nam_insurance (
-				item_idx, reg_date, reg_user, agreed_value, price_unit_code_idx, start_date, end_date, rental_org, remark
+				reg_date, item_idx, reg_user, agreed_value, price_unit_code_idx, start_date, end_date, rental_org, remark
 			) 
 			values 
 			<foreach separator="," index="key" item="value" collection="insuranceMap">
 			(
-				(SELECT MAX(ITEM_IDX) FROM nam_item_base as nm),
 				now(),
 				<foreach separator="," index="idx" item="item" collection="value">
 					#{item} 
@@ -383,14 +415,20 @@
 			</foreach>
 	</insert>
 	
+	<delete id="deleteInsurance">
+		delete from nam_insurance where insurance_idx in
+		<foreach collection="arr" item="item" index="index" separator="," open="(" close=")"> 
+			#{item}
+		</foreach> 
+	</delete>
+	
 	<insert id="setCopyright" parameterType="java.util.HashMap">
 			insert into nam_copyright (
-				item_idx, reg_date, reg_user, copyright, owner, expiry_date, usage_permission, copyright_transfer, remark
+				reg_date, item_idx, reg_user, copyright, owner, expiry_date, usage_permission, copyright_transfer, remark
 			) 
 			values 
 			<foreach separator="," index="key" item="value" collection="copyrightMap">
 			(
-				(SELECT MAX(ITEM_IDX) FROM nam_item_base as nm),
 				now(),
 				<foreach separator="," index="idx" item="item" collection="value">
 					#{item} 
@@ -399,10 +437,17 @@
 			</foreach>
 	</insert>
 	
+	<delete id="deleteCopyright">
+		delete from nam_copyright where copyright_idx in
+		<foreach collection="arr" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
 	<insert id="setGgnuri" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
 			insert into nam_public_service (
 				item_idx, public_service, reason, ggnuri_code_idx
-			) 
+			)
 			values (
 				(SELECT MAX(ITEM_IDX) FROM nam_item_base as nm), #{public_service}, #{reason}, #{ggnuri_code_idx}
 			)
@@ -419,7 +464,7 @@
 	<insert id="setKeyword" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
 			insert into nam_keyword (
 				item_idx, keyword, reg_user, reg_date
-			) 
+			)
 			values (
 				(SELECT MAX(ITEM_IDX) FROM nam_item_base as nm), #{keyword}, #{reg_user}, now()
 			)
