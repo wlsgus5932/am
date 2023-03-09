@@ -1,4 +1,4 @@
-package egovframework.aviation.metadata.controller;
+package egovframework.aviation.metadata.controller.search;
 
 import java.util.HashMap;
 import java.util.List;
