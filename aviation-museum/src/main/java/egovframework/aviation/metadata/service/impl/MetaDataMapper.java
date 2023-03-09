@@ -160,26 +160,4 @@ public interface MetaDataMapper {
 	List<PublicServiceVO> getPublicService(int item_idx);
 
 	List<KeywordVO> getKewordList(int item_idx);
-
-	int updateItemBase(MetaDataParamVO param);
-
-	void updateObtainment(MetaDataParamVO param);
-
-	void updateGgnuri(MetaDataParamVO param);
-
-	void updateKeyword(MetaDataParamVO param);
-
-	int deleteTaxonomy(@Param("arr") String[] arr);
-
-	int deleteCountry(@Param("arr") String[] arr);
-
-	int deleteMaterial(@Param("arr") String[] arr);
-
-	int deleteMeasurement(@Param("arr") String[] arr);
-
-	int deleteInvolvement(@Param("arr") String[] arr);
-
-	int deleteInsurance(@Param("arr") String[] arr);
-
-	int deleteCopyright(@Param("arr") String[] arr);
 }

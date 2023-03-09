@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <header id="page-topbar" class="isvertical-topbar">
   <div class="navbar-header">
     <div class="d-flex">
@@ -343,6 +343,7 @@
       <!-- Left Menu Start -->
       <ul class="metismenu list-unstyled" id="side-menu">
         <li class="dash_text menu-title" data-key="t-menu">Dashboard</li>
+
         <li>
           <a href="javascript: void(0);" class="has-arrow">
             <span class="menu-item" data-key="t-dashboards">자료 검색</span>
@@ -360,7 +361,7 @@
             <span class="menu-item" data-key="t-ecommerce">자료 관리</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
-            <li><a href="/dataUpdate.do" data-key="t-products">자료 정보수정</a></li>
+            <li><a href="ecommerce-products.html" data-key="t-products">자료 정보수정</a></li>
             <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">이미지 수정</a></li>
             <li><a href="ecommerce-orders.html" data-key="t-orders">이동사항 자동등록</a></li>
           </ul>
@@ -373,21 +374,23 @@
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="/add.do" data-key="t-products">자료 신규등록</a></li>
             <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">이미지 신규등록</a></li>
-            <li><a href="/notRegister.do" data-key="t-orders">가등록 자료 정보조회</a></li>
-            <li><a href="/pRgstMetaDataSearch.do" data-key="t-customers">가등록 자료 정보검색</a></li>
-            <li><a href="/getTransform.do" data-key="t-checkout">자료관리전환</a></li>
+            <li><a href="ecommerce-orders.html" data-key="t-orders">가등록 자료 정보조회</a></li>
+            <li><a href="/pRgstMetaDataSearch.do" data-key="t-customers">가등록자 료 정보검색</a></li>
+            <li><a href="ecommerce-checkout.html" data-key="t-checkout">자료관리전환</a></li>
             <li><a href="ecommerce-add-product.html" data-key="t-add-product">신규자료 자동등록</a></li>
           </ul>
         </li>
 
         <li>
           <a href="javascript: void(0);" class="has-arrow">
-            <span class="menu-item" data-key="t-ecommerce">자료 심사</span>
+            <span class="menu-item" data-key="t-ecommerce">자료 심의</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
-            <li><a href="ecommerce-products.html" data-key="t-products">심사자료조회</a></li>
-            <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">심사자료등록</a></li>
-            <li><a href="ecommerce-orders.html" data-key="t-orders">심사자료 관리전환</a></li>
+            <li><a href="ecommerce-products.html" data-key="t-products">자료구입 관리</a></li>
+            <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">실무검토 심의</a></li>
+            <li><a href="ecommerce-orders.html" data-key="t-orders">구입감정 심의</a></li>
+            <li><a href="ecommerce-checkout.html" data-key="t-checkout">구입 심의</a></li>
+            <li><a href="ecommerce-add-product.html" data-key="t-add-product">자료구입 공고관리</a></li>
           </ul>
         </li>
 
@@ -420,7 +423,20 @@
             <li><a href="/codeMgr.do" data-key="t-products">코드관리</a></li>
             <li><a href="/otherMgr.do" data-key="t-product-detail">기타관리</a></li>
             <li><a href="ecommerce-orders.html" data-key="t-orders">로그관리</a></li>
+<!--             <li><a href="ecommerce-customers.html" data-key="t-customers">사전관리</a></li> -->
             <li><a href="/approvalMgr.do" data-key="t-cart">승인관리</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="javascript: void(0);" class="has-arrow">
+            <span class="menu-item" data-key="t-ecommerce">고객센터</span>
+          </a>
+          <ul class="sub-menu" aria-expanded="false">
+            <li><a href="ecommerce-products.html" data-key="t-products">공지사항</a></li>
+            <li><a href="ecommerce-orders.html" data-key="t-orders">FAQ</a></li>
+            <li><a href="ecommerce-customers.html" data-key="t-customers">오류신고센터</a></li>
+            <li><a href="ecommerce-cart.html" data-key="t-cart">개선사항</a></li>
           </ul>
         </li>
         <!-- 메뉴 끝 -->

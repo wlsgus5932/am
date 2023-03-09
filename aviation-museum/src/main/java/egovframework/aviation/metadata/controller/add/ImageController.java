@@ -1,7 +1,6 @@
 package egovframework.aviation.metadata.controller.add;
 
 import java.awt.Image;
-
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 
 import devpia.dextuploadnj.CompressUtil;
 import devpia.dextuploadnj.FileItem;

@@ -1,20 +1,6 @@
 
 //자료 기본사항
 const search_item_base = async (reg_state) => {
-	if(!$('#possession_code_idx > option:selected').val()) {
-    	alert("소장구분을 선택해주세요.");
-		return
-	}
-	if(!$('#org_code_idx > option:selected').val()) {
-    	alert("기관코드를 선택해주세요.");
-		return
-	}
-	if(!$('#item_no').val()) {
-    	alert("자료번호를 입력해주세요.");
-		return
-	}
-	
-	
 	let formData = new FormData(document.getElementById('add-form'));
 	
 	const form = await fetch('/searchItemBase.do', {
@@ -53,39 +39,34 @@ const set_itemBase_input = async (list) => {
 	const { taxonomyList, countryList, materialList, measurementList, obtainmentList, involvementList,
 				InsuranceList, copyrightList, publicServiceList, keywordList } = await form.json();
 				
-	$('#class-tbody').children('tr:not(:first-child)').remove();
 	taxonomyList.forEach(async (e, i) => {
-		i == 0 ? '' : addClassTd('class-table', 'class-tbody');
-		$('#class-checkbox'+i).val(e.taxonomy_idx);
+		$('#class-tbody').children('tr:not(:first-child)').remove();
+		i != 0 ? addClassTd('class-table', 'class-tbody') : '';
 		$('#class1_code_idx'+i).val(e.class1_code_idx).prop("selected", true);
 		$('#class2_code_idx'+i).val(e.class2_code_idx).prop("selected", true);
 		$('#class3_code_idx'+i).val(e.class3_code_idx).prop("selected", true);
 	})
 	
-	$('#country-tbody').children('tr:not(:first-child)').remove();
 	countryList.forEach(async (e, i) => {
-		i == 0 ? '' : addClassTd('country-table', 'country-tbody');
-		$('#country-checkbox'+i).val(e.country_era_idx);
+		$('#country-tbody').children('tr:not(:first-child)').remove();
 		$('#country-select'+i).val(e.country_code_idx).prop("selected", true);
-		await changeCountry(e.country_code_idx, i);
+		await changeCountry(e.country_code_idx, 0);
 		$('#era-select'+i).val(e.era_code_idx).prop("selected", true);
 		$('#detail_year'+i).val(e.detail_year);
 	})
 	
-	$('#material-tbody').children('tr:not(:first-child)').remove();
 	materialList.forEach(async (e, i) => {
+		$('#material-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('material-table', 'material-tbody');
-		$('#material-checkbox'+i).val(e.material_idx);
 		$('#material1_code_idx'+i).val(e.material1_code_idx).prop("selected", true);
 		await changeMaterial(e.material1_code_idx, i);
 		$('#material2_code_idx'+i).val(e.material2_code_idx).prop("selected", true);
 		$('#material_detail'+i).val(e.material_detail);
 	})
 	
-	$('#measurement-tbody').children('tr:not(:first-child)').remove();
 	measurementList.forEach((e, i) => {
+		$('#measurement-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('measurement-table', 'measurement-tbody');
-		$('#measurement-checkbox'+i).val(e.measurement_idx);
 		$('#measurement_item_type'+i).val(e.item_type);
 		$('#measurement_code_idx'+i).val(e.measurement_code_idx).prop("selected", true);
 		$('#measurement_value'+i).val(e.measurement_value);
@@ -113,37 +94,34 @@ const set_itemBase_input = async (list) => {
 		$('#obt_redemption_date').val(e.redemption_date);
 	})
 	
-	$('#possession-tbody').children('tr:not(:first-child)').remove();
 	involvementList.forEach((e,i) => {
+		$('#possession-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('possession-table', 'possession-tbody');
-		$('#possession-checkbox'+i).val(e.involvement_idx);
-		$('#invol_possession_code_idx'+i).val(e.possession_code_idx).prop("selected", true);
-		$('#invol_item_no'+i).val(e.item_no);
-		$('#invol_remark'+i).val(e.remark);
+		$('#invol_possession_code_idx').val(e.possession_code_idx).prop("selected", true);
+		$('#invol_item_no').val(e.item_no);
+		$('#invol_remark').val(e.remark);
 	})
 	
-	$('#insurance-tbody').children('tr:not(:first-child)').remove();
 	InsuranceList.forEach((e,i) => {
+		$('#insurance-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('insurance-table', 'insurance-tbody');
-		$('#insurance-checkbox'+i).val(e.insurance_idx);
-		$('#insu_agreed_value'+i).val(e.agreed_value);
-		$('#insu_price_unit_code_idx'+i).val(e.price_unit_code_idx).prop("selected", true);
-		$('#insu_start_date'+i).val(e.start_date);
-		$('#insu_end_date'+i).val(e.end_date);
-		$('#insu_rental_org'+i).val(e.rental_org);
-		$('#insu_remark'+i).val(e.remark);
+		$('#insu_agreed_value').val(e.agreed_value);
+		$('#insu_price_unit_code_idx').val(e.price_unit_code_idx).prop("selected", true);
+		$('#insu_start_date').val(e.start_date);
+		$('#insu_end_date').val(e.end_date);
+		$('#insu_rental_org').val(e.rental_org);
+		$('#insu_remark').val(e.remark);
 	})
 	
-	$('#copyright-tbody').children('tr:not(:first-child)').remove();
 	copyrightList.forEach((e,i) => {
+		$('#copyright-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('copyright-table', 'copyright-tbody');
-		$('#copyright-checkbox'+i).val(e.copyright_idx);
-		$('#copy_copyright'+i).val(e.copyright).prop("selected", true);
-		$('#copy_owner'+i).val(e.owner);
-		$('#copy_expiry_date'+i).val(e.expiry_date);
-		$('#copy_usage_permission'+i).val(e.usage_permission);
-		$('#copy_copyright_transfer'+i).val(e.copyright_transfer);
-		$('#copy_remark'+i).val(e.remark);
+		$('#copy_copyright').val(e.copyright).prop("selected", true);
+		$('#copy_owner').val(e.owner);
+		$('#copy_expiry_date').val(e.expiry_date);
+		$('#copy_usage_permission').val(e.usage_permission);
+		$('#copy_copyright_transfer').val(e.copyright_transfer);
+		$('#copy_remark').val(e.remark);
 	})
 	
 	publicServiceList.forEach((e,i) => {
@@ -200,6 +178,8 @@ const set_itemBase_input = async (list) => {
 		})
 		
 		//처리결과, 보존처리후, 보존처리전 preview랑 값 추가해야함
+		
+		
 	})
 	
 }
