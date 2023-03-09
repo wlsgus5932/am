@@ -202,6 +202,24 @@ const set_itemBase_input = async (list) => {
 		//처리결과, 보존처리후, 보존처리전 preview랑 값 추가해야함
 	})
 	
+	let item_idx = sessionStorage.getItem("item_idx");
+	
+	$.ajax({
+			type : 'POST',                 
+			url : '/getKeywordList.do',
+			data: {
+				item_idx: item_idx
+			},			
+			dataType : "html",           
+			contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+			error : function() {
+					alert('통신실패!');
+			},
+			success : function(data) {  
+				$('#keywordZone').empty().append(data);
+			}
+		});
+	
 }
 
 

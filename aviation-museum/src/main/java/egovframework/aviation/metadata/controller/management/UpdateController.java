@@ -3,6 +3,7 @@ package egovframework.aviation.metadata.controller.management;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,8 +36,12 @@ import egovframework.aviation.metadata.vo.QtyUnitVO;
 import egovframework.aviation.metadata.vo.RankingVO;
 import egovframework.aviation.metadata.vo.StorageType1VO;
 import egovframework.aviation.metadata.vo.StorageVO;
+import egovframework.aviation.metadata.vo.metadata.DeletionVO;
+import egovframework.aviation.metadata.vo.param.DeletionParamVO;
 import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
 import egovframework.aviation.metadata.vo.speciality.SpecialityCodeVO;
+import egovframework.aviation.paging.Criteria;
+import egovframework.aviation.paging.PageMaker;
 
 @Controller
 public class UpdateController {
@@ -334,7 +339,66 @@ public class UpdateController {
 		model.addAttribute("storageCodeList", storage);
 		model.addAttribute("specialityCodeList", scCode);
 		
-		return "metadata/management/update";
+		return "metadata/management/update/update";
+	}
+	
+	@PostMapping("/getDeletionList.do")
+	public String getDeletionList(@ModelAttribute DeletionParamVO param, @ModelAttribute Criteria cri, Model model) throws Exception {
+		System.out.println(cri.getPerPageNum() + ","+ param.getPerPageNum());
+		System.out.println(param);
+		String result = "metadata/management/update/deletion";
+		int perPageNum = service.getDeletionCnt(param);
+		System.out.println("perPageNum:::"+ perPageNum);
+		PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    pageMaker.setTotalCount(perPageNum);
+	    
+	    param.setPageStart(cri.getPageStart());
+	    param.setPerPageNum(cri.getPerPageNum());
+	    
+		List<DeletionVO> list = service.getDeletionList(param);
+		System.out.println(list);
+		System.out.println(list.size());
+		model.addAttribute("deletionList", list);
+		model.addAttribute("perPageNum", perPageNum);
+		model.addAttribute("pageMaker", pageMaker);
+		return result;
+	}
+	
+	@PostMapping("/deleteDeletion.do")
+	@ResponseBody
+	public String deleteDeletion(@ModelAttribute DeletionParamVO param, Model model) throws Exception {
+		System.out.println(param);
+		String result = "error";
+		try {
+			Map<Integer, Object> map = new HashMap<Integer, Object>();
+			for (int i = 0; i < param.getItem_no().size(); i++) {
+				List<Object> item = new ArrayList<>();
+				item.add(param.getItem_idx().get(i));
+				item.add(param.getOrg_nm());
+				item.add(param.getPossession_nm());
+				item.add(param.getItem_no().get(i));
+				item.add(param.getItem_detail_no().get(i));
+				item.add(param.getItem_nm().get(i));
+				if(param.getErasure_reason().equals("")) {
+					item.add("잘못 입력된 자료정보입니다.");
+				} else {
+					item.add(param.getErasure_reason());
+				}
+				item.add(param.getAproval_state());
+				item.add(param.getReg_user());
+				map.put(i, item);
+			}
+			int x = service.deleteDeletion(map);
+			
+			if(x > 0) {
+				result = "success";
+			}
+			return result;
+			
+		} catch (Exception e) {
+			return result;
+		}
 	}
 
 }

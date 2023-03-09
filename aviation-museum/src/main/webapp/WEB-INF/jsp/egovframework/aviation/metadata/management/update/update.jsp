@@ -28,6 +28,7 @@
     <script src="<c:url value='/dx5/dextuploadx5-configuration.js'/>"></script>
     <script src="<c:url value='/dx5/dextuploadx5.js'/>"></script>
     <script src="<c:url value='/assets/js/metadata/metadataList.js'/>" defer></script>
+    <script src="<c:url value='/assets/js/metadata/update.js'/>" defer></script>
     
     <script type="text/javascript">
     
@@ -1065,7 +1066,7 @@
 
     <!-- Begin page -->
     <div id="layout-wrapper">
-    <jsp:include page="../../common/inc/headerContent.jsp" />
+    <jsp:include page="../../../common/inc/headerContent.jsp" />
     
       <!-- ============================================================== -->
       <!-- Start right Content here -->
@@ -1142,12 +1143,8 @@
                   <div class="text-muted">
                     <strong class="text-dark">
                       <ul>
-                        <li><a href="#">저장</a></li>
-                        <li><a href="#">자료 등록하기</a></li>
-                        <li><a href="#">자료 정보 가져오기</a></li>
-                        <li><a href="#">자료 정보 일괄 변경</a></li>
-                        <li><a href="#">자료 정보 삭제 신청</a></li>
-                        <li><a href="#">자료 번호 삽입</a></li>
+                        <li onclick="updateData()"><a href="#">저장</a></li>
+                        <li data-bs-toggle="modal" data-bs-target="#keyword_modal" ><a href="#">자료 정보 삭제 신청</a></li>
                       </ul>
                   </div>
                 </div>
@@ -1260,6 +1257,7 @@
                           </div>
                       </div>
                   </div>
+                  
                   <div class="table-responsive tr_right">
                       <table class="table mb-0">
                           <tbody>
@@ -2038,6 +2036,7 @@
            
         </div>
       </div>
+  
       <!--  -->
       <div class="mb-0">
         <div class="st_wrap">
@@ -2605,7 +2604,7 @@
                                     </div>
                                 </div>
                               </div>
-                                        </form>
+                             </form>
                             </div>
                         </div>
                         </div>
@@ -2636,9 +2635,119 @@
               </div>
           </div>
         </div>
+        
+        
           <!--  -->
-
+          
+          <!-- 소장품정보 삭제 신청 -->
+  <div id="keyword_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header mv-modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body mv-modal-body">
+        <div class="st_wrap">
+          <label class="col-md-2 col-form-label st_title">소장품정보 삭제신청</label>
         </div>
+        <div class="">삭제를 원하시는 소장품을 선택 하신 후 사유를 작성하시고 '삭제신청'버튼을 클릭하세요.</div>
+        <!--  -->
+	  <form id="deletionForm">
+	  <input type="hidden" id="deletion_page" name="page" value="1"/>
+        <div class="mb-0 user-wrap">
+          <div>
+            <div class="col-md-10">
+              <label class="col-md-2 col-form-label">소장구분</label>
+              <select class="form-select" id="deletion_org_code_idx" name="org_code_idx">
+                    <option value="" selected>선택</option>
+                    		<c:forEach var="list" items="${orgList}" varStatus="status">
+		                           <option value="${list.org_code_idx}">${list.org_nm}</option>
+		                     </c:forEach>
+                </select>
+              <select class="form-select" id="deletion_possession_code_idx" name="possession_code_idx">
+                      <option value="" selected>선택</option>
+                      		<c:forEach var="list" items="${posSessionList}" varStatus="status">
+		                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
+		                     </c:forEach>
+                  </select>
+              <label class="col-md-2 col-form-label">소장품번호</label>
+              <input class="form-control" placeholder="자료번호" name="item_no1" id="deletion_item_no1">
+              <input class="form-control" placeholder="세부번호" name="item_detail_no1" id="deletion_item_detail_no1"/>
+              ~
+              <input class="form-control" placeholder="자료번호" name="item_no2" id="deletion_item_no2"/>
+              <input class="form-control" placeholder="세부번호" name="item_detail_no2"  id="deletion_item_detail_no2"/>
+              <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="getDeletion()">조회</button>
+            </div>
+          </div>
+          <select class="form-select" name="perPageNum">
+              <option selected value="10">10개</option>
+              <option value="20">20개</option>
+              <option value="30">30개</option>
+              <option value="50">50개</option>
+            </select>
+          <!--  -->
+          <div id="deletionZone">
+          <div class="card-body">
+            <div class="table-responsive" style="overflow-y: scroll; height: 300px; padding: 4px; border: 1 solid #000000">
+              <table class="table mb-0">
+                <thead>
+                  <tr class="tr_bgc">
+                    <th><input type="checkbox" id="deletionAllCheckbox" onclick="deletionCheckAll()"/></th>
+                    <th>번호</th>
+                    <th>소장구분</th>
+                    <th>소장품번호</th>
+                    <th>세부번호</th>
+                    <th>명칭</th>
+                  </tr>
+                </thead>
+                <tbody id="deletion-tbody">
+						<tr>
+							<td colspan="6">검색된 결과가 없습니다.</td>
+						</tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          </div>
+          
+          <!--  -->
+          
+        </div>
+        </form>
+        <!--  -->
+        <div class="custom_modal_footer"><button type="button" onclick="checkDelete()">삭제신청</button><button>닫기</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+<!--         
+  <div id="keyword_child_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header mv-modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body mv-modal-body">
+        <div class="st_wrap">
+          <label class="col-md-2 col-form-label st_title">소장품정보 삭제신청</label>
+        </div>
+        
+	  <input type="hidden" id="deletion_page" name="page" value="0"/>
+        <div class="mb-0 user-wrap">
+          <div>
+            <div class="col-md-10">
+            <input type="text" name="" placeholder="삭제사유를 입력해주세요" style="width:100%; heigth: 500px;"/>
+            <textarea name="">ddd</textarea>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div> -->
         
 
         <footer class="footer">

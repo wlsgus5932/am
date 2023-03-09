@@ -33,6 +33,7 @@ import egovframework.aviation.metadata.vo.StorageType2VO;
 import egovframework.aviation.metadata.vo.StorageVO;
 import egovframework.aviation.metadata.vo.metadata.CopyrightVO;
 import egovframework.aviation.metadata.vo.metadata.CountryEraVO;
+import egovframework.aviation.metadata.vo.metadata.DeletionVO;
 import egovframework.aviation.metadata.vo.metadata.InsuranceVO;
 import egovframework.aviation.metadata.vo.metadata.InvolvementVO;
 import egovframework.aviation.metadata.vo.metadata.KeywordVO;
@@ -40,6 +41,7 @@ import egovframework.aviation.metadata.vo.metadata.MaterialVO;
 import egovframework.aviation.metadata.vo.metadata.PreservationVO;
 import egovframework.aviation.metadata.vo.metadata.PublicServiceVO;
 import egovframework.aviation.metadata.vo.metadata.TaxonomyVO;
+import egovframework.aviation.metadata.vo.param.DeletionParamVO;
 import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
 import egovframework.aviation.metadata.vo.param.MovementParamVO;
 
@@ -176,6 +178,14 @@ public interface MetaDataService {
 	int deleteInsurance(String[] arr);
 
 	int deleteCopyright(String[] arr);
+
+	List<DeletionVO> getDeletionList(DeletionParamVO param);
+
+	int getDeletionCnt(DeletionParamVO param);
+
+	int deleteDeletion(Map<Integer, Object> map);
+
+	List<KeywordVO> getKeywordList(MetaDataParamVO param);
 
 
 

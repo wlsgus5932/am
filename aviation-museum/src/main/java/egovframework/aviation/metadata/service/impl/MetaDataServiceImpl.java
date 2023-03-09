@@ -37,6 +37,7 @@ import egovframework.aviation.metadata.vo.StorageType2VO;
 import egovframework.aviation.metadata.vo.StorageVO;
 import egovframework.aviation.metadata.vo.metadata.CopyrightVO;
 import egovframework.aviation.metadata.vo.metadata.CountryEraVO;
+import egovframework.aviation.metadata.vo.metadata.DeletionVO;
 import egovframework.aviation.metadata.vo.metadata.InsuranceVO;
 import egovframework.aviation.metadata.vo.metadata.InvolvementVO;
 import egovframework.aviation.metadata.vo.metadata.KeywordVO;
@@ -44,6 +45,7 @@ import egovframework.aviation.metadata.vo.metadata.MaterialVO;
 import egovframework.aviation.metadata.vo.metadata.PreservationVO;
 import egovframework.aviation.metadata.vo.metadata.PublicServiceVO;
 import egovframework.aviation.metadata.vo.metadata.TaxonomyVO;
+import egovframework.aviation.metadata.vo.param.DeletionParamVO;
 import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
 import egovframework.aviation.metadata.vo.param.MovementParamVO;
 
@@ -385,6 +387,27 @@ public class MetaDataServiceImpl implements MetaDataService {
 	@Override
 	public int deleteCopyright(String[] arr) {
 		return dao.deleteCopyright(arr);
+	}
+
+	@Override
+	public List<DeletionVO> getDeletionList(DeletionParamVO param) {
+		return dao.getDeletionList(param);
+	}
+
+	@Override
+	public int getDeletionCnt(DeletionParamVO param) {
+		// TODO Auto-generated method stub
+		return dao.getDeletionCnt(param);
+	}
+
+	@Override
+	public int deleteDeletion(Map<Integer, Object> map) {
+		return dao.deleteDeletion(map);
+	}
+
+	@Override
+	public List<KeywordVO> getKeywordList(MetaDataParamVO param) {
+		return dao.getKeywordList(param);
 	}
 
 	

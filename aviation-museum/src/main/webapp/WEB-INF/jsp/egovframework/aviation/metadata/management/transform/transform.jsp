@@ -24,17 +24,22 @@
     <!-- 커스텀 css -->
     <link href="<c:url value='/assets/css/custom.css'/>" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="<c:url value='/assets/css/custom_auto_upload.css'/>" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="<c:url value='/assets/js/metadata/transform.js'/>" defer></script>
+   
   </head>
 
   <body data-sidebar="dark">
     <!-- <body data-layout="horizontal"> -->
     <!-- Begin page -->
     <div id="layout-wrapper">
-      <jsp:include page="../../common/inc/headerContent.jsp" />
+      <jsp:include page="../../../common/inc/headerContent.jsp" />
       <!-- ============================================================== -->
       <div class="main-content">
         <!-- 신규자료 자동등록 시작 -->
         <form id="getTransform">
+        <input type="hidden" name="page" id="page" value="1">
+        <input type="hidden" name="reg_state" id="reg_state" value="All">
         <div class="page-content">
           <div class="tap_text">
             <h2>자동등록</h2>
@@ -59,30 +64,43 @@
                 </select>
                   <label class="col-md-2 col-form-label">자료 번호</label>
                   <!-- <div class="col-md-10"> -->
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="자료 번호">
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="세부 번호">
+                    <input class="form-control" list="datalistOptions" id="item_no1" name="item_no1" placeholder="자료 번호" type="number">
+                    <input class="form-control" list="datalistOptions" id="item_detail_no1" name="item_detail_no1" placeholder="세부 번호" type="number">
                     ~
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="자료 번호">
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="세부 번호">
+                    <input class="form-control" list="datalistOptions" id="item_no2" name="item_no2" placeholder="자료 번호" type="number">
+                    <input class="form-control" list="datalistOptions" id="item_detail_no2" name="item_detail_no2" placeholder="세부 번호" type="number">
                     <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="getTransformList()">조회</button>
+                    <div class="st_wrap st_mv_wrap">
+                
+                <div class="auto_btn_right" style="width:auto">
+                   리스트 출력 갯수 :
+                  <select class="form-select" name="perPageNum" id="perpage">
+                    <option selected value="10">10개</option>
+                    <option value="20">20개</option>
+                    <option value="30">30개</option>
+                    <option value="50">50개</option>
+                  </select>
+                  <button type="button" onclick="excelDownload()">엑셀파일</button>
+                </div>
+              </div>
               </div>
             </div>
           </div>
           <!-- 탭 -->
           <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item">
+            <li class="nav-item" onclick="changeTabName('P')">
                 <a class="nav-link active" data-bs-toggle="tab" href="#profile" role="tab">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                     <span class="d-none d-sm-block">전체 자료보기</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" onclick="changeTabName('N')">
                 <a class="nav-link" data-bs-toggle="tab" href="#messages" role="tab">
                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                     <span class="d-none d-sm-block">가등록→등록</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" onclick="changeTabName('Y')">
                 <a class="nav-link" data-bs-toggle="tab" href="#settings" role="tab">
                     <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
                     <span class="d-none d-sm-block">등록→가등록</span>
@@ -132,21 +150,8 @@
                 </div>
               </div>
               <!-- -->
-              <div class="st_wrap st_mv_wrap">
-                <div class="auto_btn_left">
-                  <span>| 총건수: 00건</span><span>| 총수량: 00건</span><span>| 현수량: 00건</span>
-                </div>
-                <div class="auto_btn_right" style="width:auto">
-                   리스트 출력 갯수 :
-                  <select class="">
-                    <option disabled="" selected="">50개</option>
-                    <option>더미1</option>
-                    <option>더미2</option>
-                    <option>더미3</option>
-                  </select>
-                  <button>엑셀파일</button>
-                </div>
-              </div>
+              
+              </form>
               <div class="mb-0">
                 <!-- 엑셀 모달 -->
                 <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
@@ -164,6 +169,7 @@
                                 </div>
                                 <div class="card-body">
                                   <div class="table-responsive">
+                                  <!-- Tab panes -->
                                       <table class="table mb-0">
                                           <tbody>
                                               <tr>
@@ -259,53 +265,22 @@
                               </div>
                             </div>
                             <!--  -->
-                            <div class="mb-0 move-wrap">
-                              <div class="st_wrap">
-                                <label class="col-md-2 col-form-label st_title">과거 이동처 코드</label>
-                              </div>
-                              <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table mb-0">
-                                        <thead>
-                                            <tr class="tr_bgc">
-                                                <th>번호</th>
-                                                <th>과거이동처</th>
-                                                <th>현수량</th>
-                                                <th>입력값선택</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>
-                                                20200000
-                                                </td>
-                                                <td>
-                                                  0
-                                                </td>
-                                                <td>
-                                                  <select class="form-select st_select">
-                                                    <option disabled selected>선택</option>
-                                                    <option>더미1</option>
-                                                    <option>더미2</option>
-                                                    <option>더미3</option>
-                                                  </select>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                          </div>
+                            
                           </div>
                       </div>
                   </div>
               </div>
-                <div class="card-body">
-                  <div class="table-responsive">
+                <div class="card-body" id="transformAllList">
+                <div class="auto_btn_left">
+                  <div class="auto_btn_left">
+                  <span>| 총건수: 0건</span><span>| 총수량: 0건</span><span>| 현수량: 0건</span>
+                </div>
+                </div>
+				<div class="table-responsive">
                       <table class="table mb-0">
                           <thead>
                               <tr class="tr_bgc">
+                                  <th>#</th>
                                   <th>번호</th>
                                   <th>소장구분</th>
                                   <th>자료번호</th>
@@ -320,21 +295,13 @@
                           </thead>
                           <tbody>
                               <tr>
-                                <td>1</td>
-                                <td>국립항공박물관-00-00</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
+                                <td>검색된 결과가 없습니다.</td>
                               </tr>
                           </tbody>
                       </table>
                   </div>
-              </div>
+                  
+              	</div>
             </div>
             </div>
             <!-- 가등록→등록 탭 -->
@@ -342,27 +309,27 @@
               <!-- -->
               <div class="st_wrap st_mv_wrap">
                 <div class="auto_btn_left">
-                  <button>전체선택</button><button>선택해지</button>
+                  <button type="button" onclick="allChecked('not')">전체선택</button>
+                  <button type="button" onclick="cancelChecked('not')">선택해지</button>
                 </div>
                 <div class="auto_btn_right" style="width:auto">
-                  리스트 출력 갯수 :
-                 <select class="">
-                   <option disabled="" selected="">50개</option>
-                   <option>더미1</option>
-                   <option>더미2</option>
-                   <option>더미3</option>
-                 </select>
-                 <button>선택변환</button>
-                 <button>전체변환</button>
+                 <button type="button" onclick="changeReg('not')">선택변환</button>
+                 <button type="button" onclick="changeRegAll('not')">전체변환</button>
                </div>
               </div>
               <!--  -->
               <div class="mb-0">
-                <div class="card-body">
-                  <div class="table-responsive">
+                <div class="card-body" id="transformNotList">
+                <div class="auto_btn_left">
+                  <div class="auto_btn_left">
+                  <span>| 총건수: 0건</span><span>| 총수량: 0건</span><span>| 현수량: 0건</span>
+                </div>
+                </div>
+				<div class="table-responsive">
                       <table class="table mb-0">
                           <thead>
                               <tr class="tr_bgc">
+                                  <th>#</th>
                                   <th>번호</th>
                                   <th>소장구분</th>
                                   <th>자료번호</th>
@@ -377,20 +344,12 @@
                           </thead>
                           <tbody>
                               <tr>
-                                <td>1</td>
-                                <td>국립항공박물관-00-00</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
+                                <td>검색된 결과가 없습니다.</td>
                               </tr>
                           </tbody>
                       </table>
                   </div>
+                  
               </div>
             </div>
             </div>
@@ -399,71 +358,50 @@
               <!-- -->
               <div class="st_wrap st_mv_wrap">
                 <div class="auto_btn_left">
-                  <button>전체선택</button><button>선택해지</button>
+                  <button type="button" onclick="allChecked('yes')">전체선택</button>
+                  <button type="button" onclick="cancelChecked('yes')">선택해지</button>
                 </div>
                 <div class="auto_btn_right" style="width:auto">
-                  리스트 출력 갯수 :
-                 <select class="">
-                   <option disabled="" selected="">50개</option>
-                   <option>더미1</option>
-                   <option>더미2</option>
-                   <option>더미3</option>
-                 </select>
-                 <button>선택변환</button>
-                 <button>전체변환</button>
+                 <button type="button" onclick="changeReg('yes')">선택변환</button>
+                 <button type="button" onclick="changeRegAll('yes')">전체변환</button>
                </div>
               </div>
               <!--  -->
               <div class="mb-0">
-                <div class="card-body">
-                  <div class="table-responsive">
-                      <table class="table mb-0">
-                          <thead>
-                              <tr class="tr_bgc">
-                                  <th>번호</th>
-                                  <th>소장구분</th>
-                                  <th>자료번호</th>
-                                  <th>세부번호</th>
-                                  <th>명칭</th>
-                                  <th>이명칭</th>
-                                  <th>영문명칭</th>
-                                  <th>시대(상세)</th>
-                                  <th>작가</th>
-                                  <th>상태</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr>
-                                <td>1</td>
-                                <td>국립항공박물관-00-00</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                              </tr>
-                              <tr>
-                                <td>2</td>
-                                <td>국립항공박물관-00-00</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                              </tr>
-                          </tbody>
-                      </table>
-                  </div>
+                <div class="card-body" id="transformYesList">
+	                <div class="auto_btn_left">
+	                  <div class="auto_btn_left">
+	                  <span>| 총건수: 0건</span><span>| 총수량: 0건</span><span>| 현수량: 0건</span>
+	                </div>
+	                </div>
+					<div class="table-responsive">
+	                      <table class="table mb-0">
+	                          <thead>
+	                              <tr class="tr_bgc">
+	                                  <th>#</th>
+	                                  <th>번호</th>
+	                                  <th>소장구분</th>
+	                                  <th>자료번호</th>
+	                                  <th>세부번호</th>
+	                                  <th>명칭</th>
+	                                  <th>이명칭</th>
+	                                  <th>영문명칭</th>
+	                                  <th>시대(상세)</th>
+	                                  <th>작가</th>
+	                                  <th>상태</th>
+	                              </tr>
+	                          </thead>
+	                          <tbody>
+	                              <tr>
+	                                <td>검색된 결과가 없습니다.</td>
+	                              </tr>
+	                          </tbody>
+	                      </table>
+	                  </div>
+                
               </div>
             </div>
             </div>
-            </form>
           <!--  -->
         <!-- End Page-content -->
         <footer class="footer">
