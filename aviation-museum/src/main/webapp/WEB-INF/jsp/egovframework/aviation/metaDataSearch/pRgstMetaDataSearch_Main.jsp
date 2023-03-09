@@ -52,7 +52,7 @@
 				
 				$.ajax({
 					type : 'post',
-					url : '/metaDataSearchListAjax.do',
+					url : '/pRgstMetaDataSearchListAjax.do',
 					data : {search_word : all_search_word},
 					dataType : 'html',
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -68,7 +68,7 @@
 				
 				$.ajax({
 					type : 'POST',                
-					url : '/metaDataSearchListAjax.do',    
+					url : '/pRgstMetaDataSearchListAjax.do',    
 					dataType : "html",           
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 					error : function() {          
@@ -83,7 +83,7 @@
 			$('#metaDataSearchList').click(function() {
 				$.ajax({
 					type : 'POST',                
-					url : '/metaDataSearchListAjax.do',    
+					url : '/pRgstMetaDataSearchListAjax.do',    
 					dataType : "html",           
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 					error : function() {          
@@ -101,7 +101,7 @@
 			$('#metaDataSearchImageList').click(function() {
 				$.ajax({
 					type : 'POST',                
-					url : '/metaDataSearchImageListAjax.do',    
+					url : '/pRgstMetaDataSearchImageListAjax.do',    
 					dataType : "html",           
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 					error : function() {          
@@ -172,7 +172,7 @@
 	    	}
 	    	$.ajax({
 				type : 'POST',                
-				url : '/metaDataSearchQuickViewAjax.do',
+				url : '/pRgstMetaDataSearchQuickViewAjax.do',
 				data : {
 					search_word : search_word,
 					searched_word : searched_word,
@@ -258,7 +258,7 @@
 	    	}
 	    	$.ajax({
 				type : 'POST',                
-				url : '/metaDataSearchImageQuickViewAjax.do',
+				url : '/pRgstMetaDataSearchImageQuickViewAjax.do',
 				data : {
 					search_word : search_word,
 					searched_word : searched_word,
@@ -312,7 +312,7 @@
 
 				$.ajax({
 					type : 'POST',                 
-					url : '/interestInsert.do',   
+					url : '/pRgstInterestInsert.do',   
 					dataType : "json",         
 					traditional : true,
 					data:{

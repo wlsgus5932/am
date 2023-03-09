@@ -20,6 +20,43 @@
                   </div>
                 </div>
               </div>
+               <!-- 반려 사유 모달 -->
+	         <div id="refusalModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+	           <div class="modal-dialog user-modal">
+	               <div class="modal-content">
+	                   <div class="modal-header mv-modal-header">
+	                       <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
+	                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="refusalModalClose"></button>
+	                   </div>
+	                   <div class="modal-body mv-modal-body">
+	                       <!-- 그룹 등록 모달 내용 -->
+	                       <div class="mb-0 user-wrap">
+	                         <div class="st_wrap">
+	                           <label class="col-md-2 col-form-label st_title">반려 사유</label>
+	                         </div>
+	                         <div class="card-body">
+	                           <div class="table-responsive">
+	                         	  <form method="post" name="refusalModalform">    
+	                         	  <input type="hidden" id="approval_state" name="approval_state" value="N" />
+		                               <table class="table mb-0">
+		                                   <tbody>
+		                                       <tr>
+		                                           <td>
+		                                             <textarea type="text" name="refusal_reason" id="refusal_reason"></textarea>
+		                                           </td>
+		                                       </tr>
+		                                   </tbody>
+		                               </table>
+	                              	   <button class="btn btn-secondary btn_save" type="button"onclick="allRefusalApproval()">저장</button>
+	                               </form>
+	                           </div>
+	                           </div>
+	                       </div>
+	                     </div>
+	                     <!--  -->
+	                   </div>
+	               </div>
+	           </div>
               <!-- -->
              <!-- 반려 사유 모달 -->
 	         <div id="refusalModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
@@ -201,9 +238,18 @@
                                    </td>
                                   <c:choose>
                                   	<c:when test="${keywordList.approval_state != 'F'}">
-	                                   <td>
-	                                    <button>${keywordList.approval_state}</button>
-	                                   </td>
+	                                    <c:choose>
+                                 		   <c:when test="${keywordList.approval_state != 'Y'}">
+			                                   <td>
+			                                    <button data-bs-toggle="modal" data-bs-target="#ReturnModal" type="button" onClick="returnModalBtn('${keywordList.request_idx}')">반려</button>
+			                                   </td>
+	                                   	   </c:when>
+	                                   	   <c:otherwise>
+	                                   	   	   <td>
+			                                    <button>승인</button>
+			                                   </td>
+	                                   	   </c:otherwise>
+	                                   	</c:choose>
 	                                </c:when>
 	                                <c:otherwise>  
 	                                   <td>
@@ -572,5 +618,30 @@
     						}
     					});
 	    			}
+	    		}
+	    		
+	    		function returnModalBtn(value1){
+	    			var request_idx = value1;
+	    			var keyword = 'keyword';
+	    			
+    				$.ajax({
+    					type : 'post',
+    					url : '/refusalReasonAjax.do',
+	    				data:{
+	    					request_idx : request_idx,
+	    					keyword : keyword
+	    				},
+    					dataType : 'json',
+    					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+    					error: function(xhr, status, error){
+    						alert(error);
+    					},
+    					success : function(data){
+    						$('#return_nm').html(data.RefusalReason.item_nm);
+    						$('#return_regdt').html(data.RefusalReason.reg_date);
+    						$('#return_reason').html(data.RefusalReason.refusal_reason);
+    					}
+    				});
+
 	    		}
             </script>

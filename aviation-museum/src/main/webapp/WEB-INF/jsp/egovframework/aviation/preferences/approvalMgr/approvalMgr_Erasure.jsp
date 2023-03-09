@@ -58,6 +58,42 @@
 	               </div>
 	           </div>
               <!-- -->
+               <!-- 반려 사유 모달 -->
+                <div id="ReturnModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-modal="true" role="dialog">
+                  <div class="modal-dialog user-modal">
+                      <div class="modal-content">
+                          <div class="modal-header mv-modal-header">
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body mv-modal-body">
+                              <div class="mb-0 user-wrap">
+                                <div class="st_wrap">
+                                  <label class="col-md-2 col-form-label st_title">반려사유</label>
+                                </div>
+                                <div class="card-body">
+                                  <div class="table-responsive">
+                                      <table class="table mb-0">
+                                          <tbody>
+                                              <tr>
+                                                <td>명칭</td>
+                                                <td id="return_nm"></td>
+                                                <td>등록일</td>
+                                                <td id="return_regdt"></td>
+                                              </tr>
+                                              <tr>
+                                                <td>사유</td>
+                                                <td id="return_reason"></td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                            </div>
+                            <!--  -->
+                          </div>
+                      </div>
+                  </div>
+              </div>
              <!-- 반려 사유 모달2 -->
 	         <div id="refusalModal2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
 	           <div class="modal-dialog user-modal">
@@ -201,9 +237,18 @@
                                   
                                   <c:choose>
                                   	<c:when test="${erasureList.approval_state != 'F'}">
-	                                   <td>
-	                                    <button>${erasureList.approval_state}</button>
-	                                   </td>
+	                                    <c:choose>
+                                 		   <c:when test="${erasureList.approval_state != 'Y'}">
+			                                   <td>
+			                                    <button data-bs-toggle="modal" data-bs-target="#ReturnModal" type="button" onClick="returnModalBtn('${erasureList.request_idx}')">반려</button>
+			                                   </td>
+	                                   	   </c:when>
+	                                   	   <c:otherwise>
+	                                   	   	   <td>
+			                                    <button>승인</button>
+			                                   </td>
+	                                   	   </c:otherwise>
+	                                   	</c:choose>
 	                                </c:when>
 	                                <c:otherwise>  
 	                                   <td>
@@ -569,5 +614,30 @@
     						}
     					});
 	    			}
+	    		}
+	    		
+	    		function returnModalBtn(value1){
+	    			var request_idx = value1;
+	    			var keyword = 'erasure';
+	    			
+    				$.ajax({
+    					type : 'post',
+    					url : '/refusalReasonAjax.do',
+	    				data:{
+	    					request_idx : request_idx,
+	    					keyword : keyword
+	    				},
+    					dataType : 'json',
+    					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+    					error: function(xhr, status, error){
+    						alert(error);
+    					},
+    					success : function(data){
+    						$('#return_nm').html(data.RefusalReason.item_nm);
+    						$('#return_regdt').html(data.RefusalReason.reg_date);
+    						$('#return_reason').html(data.RefusalReason.refusal_reason);
+    					}
+    				});
+
 	    		}
             </script>

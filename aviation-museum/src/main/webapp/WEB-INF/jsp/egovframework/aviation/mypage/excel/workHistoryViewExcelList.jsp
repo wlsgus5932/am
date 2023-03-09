@@ -42,7 +42,7 @@
 	</head>
 	<body>
 		<!-- list -->
-		<table summary="" class="sheetListA" style="width:150%">
+		<table border="thin solid gray" summary="" class="sheetListA" style="width:150%">
 			<caption>관심자료목록</caption>
 			<colgroup>
 				<col style="width:5%" />

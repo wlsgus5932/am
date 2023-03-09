@@ -22,4 +22,6 @@ public interface ApprovalMgrService {
 
 	int insertKeyword(RequestHistoryVO requestHistoryVO);
 
+	int deleteItem(RequestHistoryVO requestHistoryVO);
+
 }

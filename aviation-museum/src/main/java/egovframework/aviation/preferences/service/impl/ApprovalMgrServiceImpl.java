@@ -54,4 +54,9 @@ public class ApprovalMgrServiceImpl implements ApprovalMgrService{
 		return approvalMgrMapper.insertKeyword(requestHistoryVO);
 	}
 
+	@Override
+	public int deleteItem(RequestHistoryVO requestHistoryVO) {
+		return approvalMgrMapper.deleteItem(requestHistoryVO);
+	}
+
 }

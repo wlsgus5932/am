@@ -1,5 +1,7 @@
 package egovframework.aviation.metadata.vo;
 
+import java.util.List;
+
 public class MetaDataSearchVO {
 	private String rnum;
 	private String item_idx;
@@ -38,10 +40,24 @@ public class MetaDataSearchVO {
 	private String class1_nm;
 	private String class2_nm;
 	private String class3_nm;
-	
+	private String current_qty;
 	/* 검색필드 */
 	private String search_word;
 	private String search_type;
+	private String search_type2;
+	private String search_type3;
+	private String research_word;
+	private String searched_word;
+	private String search_range;
+	private String detail_search_word1;
+	private String detail_search_word2;
+	private String detail_search_word3;
+	private String pSrchfAndOr1;
+	private String pSrchfAndOr2;
+	private String start_item_no;
+	private String end_item_no;
+	private List<String> country;
+	private List<String> material1;
 	
 	/* 페이징   */
 	private int perPageNum;
@@ -293,6 +309,96 @@ public class MetaDataSearchVO {
 	public void setClass3_nm(String class3_nm) {
 		this.class3_nm = class3_nm;
 	}
+	public String getResearch_word() {
+		return research_word;
+	}
+	public void setResearch_word(String research_word) {
+		this.research_word = research_word;
+	}
+	public String getSearched_word() {
+		return searched_word;
+	}
+	public void setSearched_word(String searched_word) {
+		this.searched_word = searched_word;
+	}
+	public String getSearch_type2() {
+		return search_type2;
+	}
+	public void setSearch_type2(String search_type2) {
+		this.search_type2 = search_type2;
+	}
+	public String getSearch_type3() {
+		return search_type3;
+	}
+	public void setSearch_type3(String search_type3) {
+		this.search_type3 = search_type3;
+	}
+	public String getDetail_search_word1() {
+		return detail_search_word1;
+	}
+	public void setDetail_search_word1(String detail_search_word1) {
+		this.detail_search_word1 = detail_search_word1;
+	}
+	public String getDetail_search_word2() {
+		return detail_search_word2;
+	}
+	public void setDetail_search_word2(String detail_search_word2) {
+		this.detail_search_word2 = detail_search_word2;
+	}
+	public String getDetail_search_word3() {
+		return detail_search_word3;
+	}
+	public void setDetail_search_word3(String detail_search_word3) {
+		this.detail_search_word3 = detail_search_word3;
+	}
+	public String getSearch_range() {
+		return search_range;
+	}
+	public void setSearch_range(String search_range) {
+		this.search_range = search_range;
+	}
+	public String getpSrchfAndOr1() {
+		return pSrchfAndOr1;
+	}
+	public void setpSrchfAndOr1(String pSrchfAndOr1) {
+		this.pSrchfAndOr1 = pSrchfAndOr1;
+	}
+	public String getpSrchfAndOr2() {
+		return pSrchfAndOr2;
+	}
+	public void setpSrchfAndOr2(String pSrchfAndOr2) {
+		this.pSrchfAndOr2 = pSrchfAndOr2;
+	}
+	public String getStart_item_no() {
+		return start_item_no;
+	}
+	public void setStart_item_no(String start_item_no) {
+		this.start_item_no = start_item_no;
+	}
+	public String getEnd_item_no() {
+		return end_item_no;
+	}
+	public void setEnd_item_no(String end_item_no) {
+		this.end_item_no = end_item_no;
+	}
+	public List<String> getCountry() {
+		return country;
+	}
+	public void setCountry(List<String> country) {
+		this.country = country;
+	}
+	public List<String> getMaterial1() {
+		return material1;
+	}
+	public void setMaterial1(List<String> material1) {
+		this.material1 = material1;
+	}
+	public String getCurrent_qty() {
+		return current_qty;
+	}
+	public void setCurrent_qty(String current_qty) {
+		this.current_qty = current_qty;
+	}
 	@Override
 	public String toString() {
 		return "MetaDataSearchVO [rnum=" + rnum + ", item_idx=" + item_idx + ", prev=" + prev + ", next=" + next
@@ -307,8 +413,13 @@ public class MetaDataSearchVO {
 				+ reg_state + ", reg_user=" + reg_user + ", reg_date=" + reg_date + ", mod_user=" + mod_user
 				+ ", mod_date=" + mod_date + ", country_nm=" + country_nm + ", storage_nm=" + storage_nm
 				+ ", measurement_value=" + measurement_value + ", class1_nm=" + class1_nm + ", class2_nm=" + class2_nm
-				+ ", class3_nm=" + class3_nm + ", search_word=" + search_word + ", search_type=" + search_type
-				+ ", perPageNum=" + perPageNum + ", pageStart=" + pageStart + "]";
+				+ ", class3_nm=" + class3_nm + ", current_qty=" + current_qty + ", search_word=" + search_word
+				+ ", search_type=" + search_type + ", search_type2=" + search_type2 + ", search_type3=" + search_type3
+				+ ", research_word=" + research_word + ", searched_word=" + searched_word + ", search_range="
+				+ search_range + ", detail_search_word1=" + detail_search_word1 + ", detail_search_word2="
+				+ detail_search_word2 + ", detail_search_word3=" + detail_search_word3 + ", pSrchfAndOr1="
+				+ pSrchfAndOr1 + ", pSrchfAndOr2=" + pSrchfAndOr2 + ", start_item_no=" + start_item_no
+				+ ", end_item_no=" + end_item_no + ", country=" + country + ", material1=" + material1 + ", perPageNum="
+				+ perPageNum + ", pageStart=" + pageStart + "]";
 	}
-
 }

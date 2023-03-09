@@ -52,12 +52,12 @@ public class UserController {
 	@Autowired
 	private MetaDataService metaDataService;
 	
-	@GetMapping("/main.do")
-	public String Main(HttpServletRequest req, Model model) throws Exception {
-			model.addAttribute("session", req.getSession().getId());
-		
-		return "main/main";
-	}
+//	@GetMapping("/main.do")
+//	public String Main(HttpServletRequest req, Model model) throws Exception {
+//			model.addAttribute("session", req.getSession().getId());
+//		
+//		return "main/main";
+//	}
 	
 	@GetMapping("/login.do")
 	public String Login(HttpServletRequest req) throws Exception {

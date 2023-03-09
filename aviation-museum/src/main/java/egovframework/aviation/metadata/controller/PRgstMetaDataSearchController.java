@@ -47,7 +47,7 @@ import egovframework.aviation.paging.PageMaker;
 import egovframework.aviation.user.vo.UserVO;
 
 @Controller
-public class MetaDataSearchController {
+public class PRgstMetaDataSearchController {
 	@Autowired
 	private MetaDataSearchService metaDataSearchService;
 	
@@ -57,28 +57,28 @@ public class MetaDataSearchController {
 	@Autowired
 	private SpecialityService specialityService;
 	/** 자료검색 */
-	@RequestMapping("/metaDataSearchMain.do")
-	public String metaDataSearchMain(@ModelAttribute("interestVO") InterestVO interestVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri, RedirectAttributes rttr) throws Exception {
+	@RequestMapping("/pRgstMetaDataSearchMain.do")
+	public String PRgstMetaDataSearchMain(@ModelAttribute("interestVO") InterestVO interestVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri, RedirectAttributes rttr) throws Exception {
 		String all_search_word = req.getParameter("all_search_word");
 		rttr.addFlashAttribute("all_search_word", all_search_word);
-		return "redirect:/metaDataSearch.do";
+		return "redirect:/pRgstMetaDataSearch.do";
 	}
 	
-	@RequestMapping(value="/metaDataSearch.do")
-	public String MetaDataSearch( HttpServletRequest req, RedirectAttributes rttr) {
+	@RequestMapping(value="/pRgstMetaDataSearch.do")
+	public String PRgstMetaDataSearch( HttpServletRequest req, RedirectAttributes rttr) {
 		String all_search_word = req.getParameter("all_search_word");
 		System.out.println(all_search_word);
 		rttr.addFlashAttribute("all_search_word", all_search_word);
-	    return "metaDataSearch/metaDataSearch_Main";
+	    return "metaDataSearch/pRgstMetaDataSearch_Main";
 	}
  
 	/** 자료검색리스트 */
-	@RequestMapping("/metaDataSearchListAjax.do")
-	public String MetaDataSearchListAjax(@ModelAttribute("metaDataSearchVO") MetaDataSearchVO metaDataSearchVO, @ModelAttribute("material1VO") Material1VO material1VO, @ModelAttribute("countryVO") CountryVO countryVO, @ModelAttribute("userVO") UserVO userVO, @ModelAttribute("posSessionVO") PosSessionVO posSessionVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
+	@RequestMapping("/pRgstMetaDataSearchListAjax.do")
+	public String PRgstMetaDataSearchListAjax(@ModelAttribute("metaDataSearchVO") MetaDataSearchVO metaDataSearchVO, @ModelAttribute("material1VO") Material1VO material1VO, @ModelAttribute("countryVO") CountryVO countryVO, @ModelAttribute("userVO") UserVO userVO, @ModelAttribute("posSessionVO") PosSessionVO posSessionVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
 //		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 //		metaDataSearchVO.setReg_user(userSessionId);
 //		 
-		metaDataSearchVO.setReg_state("Y");
+		metaDataSearchVO.setReg_state("N");
     	int perPageNum = metaDataSearchService.getMetaDataSearchListCnt(metaDataSearchVO);		
 		if(metaDataSearchVO.getPerPageNum() != 0) {
 			int criPerPageNum = metaDataSearchVO.getPerPageNum();
@@ -106,16 +106,16 @@ public class MetaDataSearchController {
     	model.addAttribute("metaDataSearchList2", metaDataSearchList2);
     	model.addAttribute("perPageNum", perPageNum);
     	model.addAttribute("pageMaker", pageMaker);
-		return "metaDataSearch/metaDataSearch_List";
+		return "metaDataSearch/pRgstMetaDataSearch_List";
 	}
 	
 	/** 자료검색이미지리스트 */
-	@RequestMapping("/metaDataSearchImageListAjax.do")
-	public String MetaDataSearchImageListAjax(@ModelAttribute("metaDataSearchImageVO") MetaDataSearchImageVO metaDataSearchImageVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
+	@RequestMapping("/pRgstMetaDataSearchImageListAjax.do")
+	public String PRgstMetaDataSearchImageListAjax(@ModelAttribute("metaDataSearchImageVO") MetaDataSearchImageVO metaDataSearchImageVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
 //		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 //		interestVO.setReg_user(userSessionId);
 //		 
-		metaDataSearchImageVO.setReg_state("Y");
+		metaDataSearchImageVO.setReg_state("N");
     	int perPageNum = metaDataSearchService.getMetaDataSearchImageListCnt(metaDataSearchImageVO);		
 		if(metaDataSearchImageVO.getPerPageNum() != 0) {
 			int criPerPageNum = metaDataSearchImageVO.getPerPageNum();
@@ -143,16 +143,16 @@ public class MetaDataSearchController {
     	model.addAttribute("metaDataSearchImageList", metaDataSearchImageList);
     	model.addAttribute("perPageNum", perPageNum);
     	model.addAttribute("pageMaker", pageMaker);
-		return "metaDataSearch/metaDataSearch_ImageList";
+		return "metaDataSearch/pRgstMetaDataSearch_ImageList";
 	}
 	
 	/** 간략보기 */
-	@RequestMapping("/metaDataSearchQuickViewAjax.do")
-	public String MetaDataSearchQuickViewAjax(@ModelAttribute("metaDataSearchVO") MetaDataSearchVO metaDataSearchVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
+	@RequestMapping("/pRgstMetaDataSearchQuickViewAjax.do")
+	public String PRgstMetaDataSearchQuickViewAjax(@ModelAttribute("metaDataSearchVO") MetaDataSearchVO metaDataSearchVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
 //		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 //		interestVO.setReg_user(userSessionId);
 //		 
-		metaDataSearchVO.setReg_state("Y");
+		metaDataSearchVO.setReg_state("N");
     	int perPageNum = metaDataSearchService.getMetaDataSearchListCnt(metaDataSearchVO);		
 		if(metaDataSearchVO.getPerPageNum() != 0) {
 			int criPerPageNum = metaDataSearchVO.getPerPageNum();
@@ -173,12 +173,12 @@ public class MetaDataSearchController {
 	}
 	
 	/** 간략보기 */
-	@RequestMapping("/metaDataSearchImageQuickViewAjax.do")
-	public String MetaDataSearchImageQuickViewAjax(@ModelAttribute("metaDataSearchImageVO") MetaDataSearchImageVO metaDataSearchImageVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
+	@RequestMapping("/pRgstMetaDataSearchImageQuickViewAjax.do")
+	public String PRgstMetaDataSearchImageQuickViewAjax(@ModelAttribute("metaDataSearchImageVO") MetaDataSearchImageVO metaDataSearchImageVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
 //		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 //		interestVO.setReg_user(userSessionId);
 //		 
-		metaDataSearchImageVO.setReg_state("Y");
+		metaDataSearchImageVO.setReg_state("N");
     	int perPageNum = metaDataSearchService.getMetaDataSearchImageListCnt(metaDataSearchImageVO);		
 		if(metaDataSearchImageVO.getPerPageNum() != 0) {
 			int criPerPageNum = metaDataSearchImageVO.getPerPageNum();
@@ -199,8 +199,8 @@ public class MetaDataSearchController {
 	}
 	
 	/** 관심자료 등록 */
-	@RequestMapping(value = "/interestInsert.do")
-    public String InterestInsert(HttpServletRequest req, @ModelAttribute("interestVO") InterestVO interestVO, Model model) throws Exception {		
+	@RequestMapping(value = "/pRgstInterestInsert.do")
+    public String PRgstInterestInsert(HttpServletRequest req, @ModelAttribute("interestVO") InterestVO interestVO, Model model) throws Exception {		
 		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 		interestVO.setReg_user(userSessionId);
 		
@@ -233,13 +233,13 @@ public class MetaDataSearchController {
         return "jsonView";
     } 
 	
-	@RequestMapping(value = "/metaDataSearchListExcelDownload.do" )
-	public Object MetaDataSearchListExcelDownload(@ModelAttribute("metaDataSearchVO") MetaDataSearchVO metaDataSearchVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
+	@RequestMapping(value = "/pRgstMetaDataSearchListExcelDownload.do" )
+	public Object PRgstMetaDataSearchListExcelDownload(@ModelAttribute("metaDataSearchVO") MetaDataSearchVO metaDataSearchVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
 
 //		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 //		metaDataSearchVO.setReg_user(userSessionId);
-//		 
-		metaDataSearchVO.setReg_state("Y");
+
+		metaDataSearchVO.setReg_state("N");
     	int perPageNum = metaDataSearchService.getMetaDataSearchListCnt(metaDataSearchVO);		
 		if(metaDataSearchVO.getPerPageNum() != 0) {
 			int criPerPageNum = metaDataSearchVO.getPerPageNum();
@@ -264,14 +264,12 @@ public class MetaDataSearchController {
 		return "metaDataSearch/excel/metaDataSearchExcelList";
 	}
 	
-	@RequestMapping("/metaDataListView.do")
-	public String getMetaDataList(Model model, HttpServletRequest req) throws Exception {
+	@RequestMapping("/pRgstMetaDataListView.do")
+	public String PRgstMetaDataListView(Model model, HttpServletRequest req) throws Exception {
 		System.out.println(req.getParameter("possession_code_idx"));
 		System.out.println(req.getParameter("org_code_idx"));
 		System.out.println(req.getParameter("item_no"));
 		System.out.println(req.getParameter("item_detail_no"));
-		System.out.println(req.getParameter("reg_state"));
-		
 		try {
 			List<CountryVO> country = metaDataService.getCountry();
 			List<Material1VO> material = metaDataService.getMaterial1();
@@ -323,7 +321,7 @@ public class MetaDataSearchController {
 			model.addAttribute("org_code_idx", req.getParameter("org_code_idx"));
 			model.addAttribute("item_no", req.getParameter("item_no"));
 			model.addAttribute("item_detail_no", req.getParameter("item_detail_no"));
-			model.addAttribute("reg_state", req.getParameter("reg_state"));
+			model.addAttribute("reg_state", "N");
 			return "metaDataSearch/metaDataSearch_View";
 		}  catch (Exception e) {
 			 System.out.println(e);

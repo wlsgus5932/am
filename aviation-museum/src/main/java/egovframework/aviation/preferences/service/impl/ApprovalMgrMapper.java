@@ -24,4 +24,6 @@ public interface ApprovalMgrMapper {
 	int insertAllKeyword(RequestHistoryVO requestHistoryVO);
 
 	int insertKeyword(RequestHistoryVO requestHistoryVO);
+	
+	int deleteItem(RequestHistoryVO requestHistoryVO);
 }

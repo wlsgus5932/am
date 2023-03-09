@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+ <!-- css -->
+   <link rel="stylesheet" href="assets/css/main_css.css" />
+    
 <script src="assets/libs/jquery/jquery-3.6.3.min.js"></script>
 
 <script>
@@ -54,7 +57,7 @@
 					console.log(data);
 					if(data.session){
 						alert('로그인 성공');
-						location.href="/main.do";
+						location.href="/dashBoard.do";
 					}else{
 						alert('로그인 실패');
 						location.href="/login.do";
@@ -79,10 +82,18 @@
 <form action="" method="post" name="form">
 	<input type="hidden" id="rsaPublicKeyModulus" value="<%=publicKeyModulus%>" />          
 	<input type="hidden" id="rsaPublicKeyExponent" value="<%=publicKeyExponent%>" />
-	
-	id: <input type="text" name="member_id" id="member_id"/> <br/>
-	pw: <input type="password" name="member_pw" id="member_pw"/> <br/>
-	<button type="button" onClick="validateEncryptedForm()">login</button>
+	 <div class="main_wrap">
+      	<div class="content_wrap">
+     	    <h2 class="main_text">
+	          항공박물관
+	        </h2>
+			<input type="text" name="member_id" id="member_id" class="id_wrap total_input" placeholder="아이디"/> <br/>
+			<input type="password" name="member_pw" id="member_pw" class="passsword_wrap total_input" placeholder="비밀번호" /> <br/>
+			<div class="login_wrap">
+				<button type="button" onClick="validateEncryptedForm()">login</button>
+			</div>
+		</div>
+    </div>
 </form>
 
 <form id="securedLoginForm" name="securedLoginForm" action="<%=request.getContextPath()%>/login.do" method="post" style="display: none;">           

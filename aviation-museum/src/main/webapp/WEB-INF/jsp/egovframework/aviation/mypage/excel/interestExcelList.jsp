@@ -42,7 +42,7 @@
 	</head>
 	<body>
 		<!-- list -->
-		<table summary="" class="sheetListA" style="width:150%">
+		<table border="thin solid gray" summary="" class="sheetListA" style="width:150%;">
 			<caption>관심자료목록</caption>
 			<colgroup>
 				<col style="width:5%" />
@@ -69,7 +69,7 @@
 				<c:choose>
 					<c:when test="${interestList.size() > 0 }">
 						<c:forEach var="interestList" items="${interestList}" varStatus="status">
-							<tr>
+							<tr style="height:90;">
 	                          <td>${perPageNum + 1 - interestList.rnum}</td>
 	                          <td>
 	                            <div class="search_img_wrap">

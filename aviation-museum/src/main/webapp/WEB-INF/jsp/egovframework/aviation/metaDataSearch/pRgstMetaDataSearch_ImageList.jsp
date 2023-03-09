@@ -485,7 +485,7 @@
 		   			}
 	    			$.ajax({
 	    				type : 'POST',                 
-	    				url : '/metaDataSearchImageListAjax.do',   
+	    				url : '/pRgstMetaDataSearchImageListAjax.do',   
 	    				data:{
 	    					perPageNum : perPageNum,
 							searched_word : searched_word,
@@ -553,7 +553,7 @@
 
 	    				$.ajax({
 	    					type : 'post',
-	    					url : '/metaDataSearchImageListAjax.do',
+	    					url : '/pRgstMetaDataSearchImageListAjax.do',
 	    					data : queryString,
 	    					dataType : 'html',
 	    					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -601,7 +601,7 @@
 	    			
 	    				$.ajax({
 	    					type : 'post',
-	    					url : '/metaDataSearchImageListAjax.do',
+	    					url : '/pRgstMetaDataSearchImageListAjax.do',
 	        				data:{
 	       						search_type : search_type,
 	       						search_type2 : search_type2,
@@ -645,7 +645,7 @@
 	    		function metaDataSearchListExcelList() {
 	    				var $form = $('#metaDataSearchListForm');
 
-	    				$form.attr("action", "/metaDataSearchListExcelDownload.do");
+	    				$form.attr("action", "/pRgstMetaDataSearchListExcelDownload.do");
 	    				$form.submit();
 	    		}
 	    		 

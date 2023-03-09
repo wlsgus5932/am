@@ -16,6 +16,9 @@ public class InterestVO {
 	private String item_nm;
 	private String qty;
 	private String possession_nm;
+	private String org_code_idx;
+	private String reg_state;
+	private String possession_code_idx;
 	private String result;
 	private List<String> group_seqList = null;
 	
@@ -134,14 +137,33 @@ public class InterestVO {
 	public void setGroup_seqList(List<String> group_seqList) {
 		this.group_seqList = group_seqList;
 	}
+	public String getOrg_code_idx() {
+		return org_code_idx;
+	}
+	public void setOrg_code_idx(String org_code_idx) {
+		this.org_code_idx = org_code_idx;
+	}
+	public String getPossession_code_idx() {
+		return possession_code_idx;
+	}
+	public void setPossession_code_idx(String possession_code_idx) {
+		this.possession_code_idx = possession_code_idx;
+	}
+	public String getReg_state() {
+		return reg_state;
+	}
+	public void setReg_state(String reg_state) {
+		this.reg_state = reg_state;
+	}
 	@Override
 	public String toString() {
 		return "InterestVO [rnum=" + rnum + ", interest_idx=" + interest_idx + ", item_idx=" + item_idx + ", expl="
 				+ expl + ", reg_user=" + reg_user + ", reg_date=" + reg_date + ", image_path=" + image_path
 				+ ", item_no=" + item_no + ", item_detail_no=" + item_detail_no + ", item_nm=" + item_nm + ", qty="
-				+ qty + ", possession_nm=" + possession_nm + ", result=" + result + ", group_seqList=" + group_seqList
-				+ ", search_word=" + search_word + ", search_type=" + search_type + ", perPageNum=" + perPageNum
-				+ ", pageStart=" + pageStart + "]";
+				+ qty + ", possession_nm=" + possession_nm + ", org_code_idx=" + org_code_idx + ", reg_state="
+				+ reg_state + ", possession_code_idx=" + possession_code_idx + ", result=" + result + ", group_seqList="
+				+ group_seqList + ", search_word=" + search_word + ", search_type=" + search_type + ", perPageNum="
+				+ perPageNum + ", pageStart=" + pageStart + "]";
 	}
-	
+
 }

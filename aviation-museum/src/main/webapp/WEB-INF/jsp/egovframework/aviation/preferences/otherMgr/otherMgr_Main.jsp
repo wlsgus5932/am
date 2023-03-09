@@ -445,11 +445,11 @@
 			$("#insExchnRateServiceUrl").focus();
 			return false;
 		}	
-		if (!Boolean(insExchnRateSeq)) {
-			alert("순서를 입력해주세요.");
-			$("#insExchnRateSeq").focus();
-			return false;
-		}	
+// 		if (!Boolean(insExchnRateSeq)) {
+// 			alert("순서를 입력해주세요.");
+// 			$("#insExchnRateSeq").focus();
+// 			return false;
+// 		}	
 		if (!$('input[type="checkbox"][name="enabled"]').is(":checked")) {
 			alert("사용 여부를 체크해주세요.");
 			return false;

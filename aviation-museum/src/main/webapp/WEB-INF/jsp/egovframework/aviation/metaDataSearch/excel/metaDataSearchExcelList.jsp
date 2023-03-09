@@ -42,7 +42,7 @@
 	</head>
 	<body>
 		<!-- list -->
-		<table summary="" class="sheetListA" style="width:150%">
+		<table border="thin solid gray" summary="" class="sheetListA" style="width:150%">
 			<caption>자료검색결과목록</caption>
 			<colgroup>
 				<col style="width:5%" />
@@ -70,14 +70,14 @@
 				<c:choose>
 					<c:when test="${metaDataSearchList.size() > 0 }">
                        <c:forEach var="metaDataSearchList" items="${metaDataSearchList}">
-	                        <tr>
+	                        <tr style="height:90;">
 	                          <td>
 	                             <input type="checkbox" name="group_seqList" class="check_temp" name="" id="" value="${metaDataSearchList.item_idx}">
 	                          </td>
 	                          <td>${perPageNum + 1 - metaDataSearchList.rnum}</td>
 	                          <td>
 	                            <div class="search_img_wrap">
-	                              <img src="${metaDataSearchList.image_path}" alt="${metaDataSearchList.image_path}" />
+	                              <img src="${metaDataSearchList.image_path}" alt="${metaDataSearchList.image_path}" width="100" height="85"/>
 	                            </div>
 	                          </td>
 	                          <td onclick="quickView('${metaDataSearchList.item_idx}');">${metaDataSearchList.possession_nm}</td>

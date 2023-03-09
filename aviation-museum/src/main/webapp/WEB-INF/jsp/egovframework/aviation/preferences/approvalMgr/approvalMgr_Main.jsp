@@ -190,9 +190,7 @@
                     	   </c:forEach>
                        </select>
                        <select class="form-select" name="possession_nm" id="possession_select">
-                           	<c:forEach var="getPosSessionList" items="${getPosSessionList}">
-                           		<option value="${getPosSessionList.possession_nm}">${getPosSessionList.possession_nm}</option>        
-                           	</c:forEach>                     
+                           	<option value="">선택</option>        
                        </select>
 	              </div>
 	            </div>

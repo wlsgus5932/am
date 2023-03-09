@@ -45,4 +45,6 @@ public interface MyPageMapper {
 	public int getWorkHistoryViewListCnt(WorkHistoryVO workHistoryVO);
 
 	public List<WorkHistoryVO> getWorkHistoryViewList(WorkHistoryVO workHistoryVO);
+	
+	public int updateInterest(InterestVO interestVO);
 }

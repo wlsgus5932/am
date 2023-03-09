@@ -19,19 +19,7 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-           	   <input type="hidden" name="search_type" id="search_type_temp" />
-           	   <input type="hidden" name="search_type2_temp" id="search_type2_temp" />
-           	   <input type="hidden" name="search_type3_temp" id="search_type3_temp" />
-           	   <input type="hidden" name="detail_search_word1" id="detail_search_word1_temp" />
-           	   <input type="hidden" name="detail_search_word2" id="detail_search_word2_temp" />
-           	   <input type="hidden" name="detail_search_word3" id="detail_search_word3_temp" />
-           	   <input type="hidden" name="searchOperator1" id="searchOperator1_temp" />
-           	   <input type="hidden" name="searchOperator2" id="searchOperator2_temp" />
-           	   <input type="hidden" name="search_range" id="search_range_temp" />
- 			   <input type="hidden" name="start_item_no" id="start_item_no_temp" />
-               <input type="hidden" name="end_item_no" id="end_item_no_temp" />
-               <input type="hidden" name="country" id="country_temp"/>
-               <input type="hidden" name="material1" id="material1_temp"/>
+
                
                <form id="metaDataDetailSearchListForm" name="metaDataDetailSearchListForm" method="post" class="form-horizontal">            	
 	              <table class="table mb-0">
@@ -145,10 +133,24 @@
     </div>
   </div>
 </div>
-<!--  -->
+<!--  --> 		  
             <div class="tab-pane" id="profile" role="tabpanel" style="display:block;">
               <!-- 리스트 출력~ 분류별 검색 입력 창 -->
               <form id="metaDataSearchListForm" name="metaDataSearchListForm" method="post" class="form-horizontal">
+	               <input type="hidden" name="search_type" id="search_type_temp" />
+	           	   <input type="hidden" name="search_type2_temp" id="search_type2_temp" />
+	           	   <input type="hidden" name="search_type3_temp" id="search_type3_temp" />
+	           	   <input type="hidden" name="detail_search_word1" id="detail_search_word1_temp" />
+	           	   <input type="hidden" name="detail_search_word2" id="detail_search_word2_temp" />
+	           	   <input type="hidden" name="detail_search_word3" id="detail_search_word3_temp" />
+	           	   <input type="hidden" name="searchOperator1" id="searchOperator1_temp" />
+	           	   <input type="hidden" name="searchOperator2" id="searchOperator2_temp" />
+	           	   <input type="hidden" name="search_range" id="search_range_temp" />
+	 			   <input type="hidden" name="start_item_no" id="start_item_no_temp" />
+	               <input type="hidden" name="end_item_no" id="end_item_no_temp" />
+	               <input type="hidden" name="" id="country_temp"/>
+	               <input type="hidden" name="" id="material1_temp"/>
+	              
 	              <div class="st_wrap st_mv_wrap search_input_wrap">
 	                <div class="search_left">
 	                  리스트 출력
@@ -298,7 +300,7 @@
 		                          <td onclick="quickView('${metaDataSearchList.item_idx}');">${metaDataSearchList.possession_nm}</td>
 		                          <td>${metaDataSearchList.item_no}</td>
 		                          <td>${metaDataSearchList.item_detail_no}</td>
-		                          <td onclick="metaDataListView('${metaDataSearchList.possession_code_idx}','${metaDataSearchList.org_code_idx}','${metaDataSearchList.item_no}','${metaDataSearchList.item_detail_no}','Y')">${metaDataSearchList.item_nm}</td>
+		                          <td onclick="metaDataListView('${metaDataSearchList.possession_code_idx}','${metaDataSearchList.org_code_idx}','${metaDataSearchList.item_no}','${metaDataSearchList.item_detail_no}','N')">${metaDataSearchList.item_nm}</td>
 		                          <td>${metaDataSearchList.icao_nm}</td>
 		                          <td>${metaDataSearchList.qty}</td>
 		                        </tr>
@@ -348,7 +350,7 @@
 				<input type="hidden" name="org_code_idx" id="org_code_idx" />
 				<input type="hidden" name="item_no" id="item_no" />
 				<input type="hidden" name="item_detail_no" id="item_detail_no" />
-				<input type="hidden" name="reg_state" id="reg_state" value="Y"/>
+				<input type="hidden" name="reg_state" id="reg_state" value="N"/>
 			</form>
             </div>
             
@@ -417,7 +419,7 @@
 	   			}
     			$.ajax({
     				type : 'POST',                 
-    				url : '/metaDataSearchListAjax.do',   
+    				url : '/pRgstMetaDataSearchListAjax.do',   
     				data:{
     					perPageNum : perPageNum,
 						searched_word : searched_word,
@@ -470,9 +472,20 @@
     		function metaDataSearchList(){
     			var perPageNum = $('#perPageNum').val();
     			var search_word = $('#search_word').val();
+    			var researched_word = '';
 				var prevsearched_word;
-				 
+				var searched_word;
+				var research_word;
+//     			if($('#researched_word').val() == 'checked'){
+//     				research_word = 'on';
+//     				searched_word = $('#searched_word').val();
+// //     				researched_word = $('#researched_word').val(); 
+//     			}
+    			
 		        if($("#research_word").is(":checked")){
+		        	research_word = 'on';
+    				searched_word = $('#searched_word').val();
+		        	
 		        	researched_word = 'checked';
 		        	prevsearched_word = $('#searched_word').val();
 		        	prevsearch_word = $('#search_word').val();
@@ -481,12 +494,17 @@
 		        }
 		        
     			// 태그 조건 검색			
-    			var queryString = $("form[name=metaDataSearchListForm]").serialize();
+//     			var queryString = $("form[name=metaDataSearchListForm]").serialize();
 
     				$.ajax({
     					type : 'post',
-    					url : '/metaDataSearchListAjax.do',
-    					data : queryString,
+    					url : '/pRgstMetaDataSearchListAjax.do',
+    					data : {
+    						perPageNum : perPageNum,
+    						search_word : search_word,
+    						searched_word : searched_word,
+    						research_word : research_word						
+    					},
     					dataType : 'html',
     					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
     					error: function(xhr, status, error){
@@ -536,7 +554,7 @@
     			
     				$.ajax({
     					type : 'post',
-    					url : '/metaDataSearchListAjax.do',
+    					url : '/pRgstMetaDataSearchListAjax.do',
         				data:{
        						search_type : search_type,
        						search_type2 : search_type2,
@@ -588,9 +606,17 @@
     				});
     		}
     		function metaDataSearchListExcelList() {
+   
     				var $form = $('#metaDataSearchListForm');
+        			
+        			if($('#country_temp').val() != ''){
+        				$('#country_temp').attr('name','country');
+        			}
+           			if($('#material1_temp').val() != ''){
+           				$('#material1_temp').attr('name','material1');
+    	   			}
 
-    				$form.attr("action", "/metaDataSearchListExcelDownload.do");
+    				$form.attr("action", "/pRgstMetaDataSearchListExcelDownload.do");
     				$form.submit();
     		}
     		 

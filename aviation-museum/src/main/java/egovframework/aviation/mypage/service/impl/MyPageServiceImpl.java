@@ -97,4 +97,9 @@ public class MyPageServiceImpl implements MyPageService {
 	public List<WorkHistoryVO> getWorkHistoryViewList(WorkHistoryVO workHistoryVO) {
 		return myPageMapper.getWorkHistoryViewList(workHistoryVO);
 	}
+
+	@Override
+	public int updateInterest(InterestVO interestVO) {
+		return myPageMapper.updateInterest(interestVO);
+	}
 }

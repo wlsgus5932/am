@@ -1,0 +1,130 @@
+li {
+  list-style: none;
+}
+
+th,
+td {
+  text-align: center !important;
+}
+
+.col-lg-6 {
+  width: 100%;
+}
+
+.dash_ul li {
+  float: left;
+  width: 50%;
+  height: 75px;
+}
+
+.mb-0 {
+  padding: 0.5%;
+}
+
+.card-body {
+  padding: 3%;
+}
+
+.rental_li {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: none;
+}
+
+.col-xl-4 {
+  width: 50%;
+}
+
+.radialbar_wrap {
+  width: 50%;
+  float: left;
+}
+
+.last_data_info_inbox {
+  width: 50%;
+  float: left;
+}
+
+.circel_info_inbox {
+  text-align: center;
+  padding: 0;
+}
+
+.circel_info_inbox li span {
+  /* display: block; */
+  width: 33.333%;
+  margin: auto;
+  /* display: block; */
+}
+
+.circel_info_inbox li {
+  display: inline-block;
+  text-align: center;
+}
+
+.data_info_text_wrap {
+  width: 100%;
+}
+
+.dash_main_name {
+  font-weight: 900;
+  font-size: 20px;
+}
+
+.worker_main_text_wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 최근 작업한 자료 슬라이드 */
+.dash_img_slider_wrap {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  margin: auto;
+  text-align: center;
+  background-color: #666;
+  color: #fff;
+}
+
+.dash_img_slider_wrap div {
+  height: 100%;
+}
+
+.slick-arrow {
+  position: absolute;
+  z-index: 999999999999999;
+}
+
+.slick-next {
+  right: 0;
+}
+
+.slick-prev {
+  left: 0;
+}
+
+.slider_warp {
+  position: relative;
+}
+
+.slider_count_wrap {
+  background-color: rgba(102, 36, 36, 0.274);
+  position: absolute;
+  z-index: 99999999999999999;
+  padding: 1%;
+  right: 2%;
+  bottom: 2%;
+  color: #fff;
+}
+
+/*  */
+
+/* .dash_bar {
+  display: inline-block;
+  width: 100%;
+  height: 2px;
+  background-color: #000;
+  vertical-align: middle;
+} */

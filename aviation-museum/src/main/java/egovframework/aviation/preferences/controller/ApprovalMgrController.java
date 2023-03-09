@@ -121,6 +121,7 @@ public class ApprovalMgrController {
 		int result = approvalMgrService.updateErasureApproval(requestHistoryVO);
 		
 		if(result > 0) {
+			int result2 = approvalMgrService.deleteItem(requestHistoryVO);
 			 model.addAttribute("success", "success");
 		}
 		return "jsonView";

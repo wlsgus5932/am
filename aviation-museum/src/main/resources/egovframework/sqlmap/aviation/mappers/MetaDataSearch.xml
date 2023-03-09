@@ -7,8 +7,8 @@
 	             select 
 					 row_number() over(order by nib.REG_DATE desc) as rnum	
 					,nib.ITEM_IDX 
-					,lag(ITEM_IDX, 1) over (order by REG_DATE DESC) as PREV
-					,lead(ITEM_IDX, 1) over (order by REG_DATE DESC) as NEXT
+					,lag(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as PREV
+					,lead(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as NEXT
 					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y') as IMAGE_IDX 
 					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y') as IMAGE_PATH 
 					,nib.ORG_CODE_IDX 
@@ -36,21 +36,130 @@
 					,nib.REG_DATE 
 					,nib.MOD_USER 
 					,nib.MOD_DATE 
-					,(SELECT ncc.COUNTRY_NM from nam_country_code ncc WHERE ncc.COUNTRY_CODE_IDX =(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce WHERE ITEM_IDX = #{item_idx} limit 1)) as COUNTRY_NM
-					,(SELECT nsc.STORAGE_NM FROM nam_movement nm join nam_storage ns on nm.MOVEMENT_IDX = ns.MOVEMENT_IDX join nam_storage_code nsc on ns.STORAGE_CODE_IDX = nsc.STORAGE_CODE_IDX WHERE nm.ITEM_IDX = #{item_idx} ORDER by nm.MOVEMENT_DATE DESC , nm.REG_DATE DESC limit 1) as STORAGE_NM
-					,(SELECT nm2.MEASUREMENT_VALUE FROM nam_measurement nm2 WHERE nm2.ITEM_IDX = #{item_idx} limit 1) as MEASUREMENT_VALUE
-					,(SELECT ncc.CLASS1_NM from nam_taxonomy nt join nam_class1_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS1_CODE_IDX WHERE nt.item_idx = #{item_idx} limit 1) as CLASS1_NM
-					,(SELECT ncc.CLASS2_NM from nam_taxonomy nt join nam_class2_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS2_CODE_IDX WHERE nt.item_idx = #{item_idx} limit 1) as CLASS2_NM
-					,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = #{item_idx} limit 1) as CLASS3_NM
+					,(SELECT nmc.MATERIAL1_CODE_IDX from nam_material1_code nmc WHERE nmc.MATERIAL1_CODE_IDX = (SELECT nm.MATERIAL1_CODE_IDX from nam_material nm WHERE nm.ITEM_IDX = nib.ITEM_IDX limit 1)) as MATERIAL1
+					,(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce  WHERE nce.ITEM_IDX = nib.ITEM_IDX limit 1) as COUNTRY
+					,(SELECT ncc.COUNTRY_NM from nam_country_code ncc WHERE ncc.COUNTRY_CODE_IDX =(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce WHERE ITEM_IDX = nib.item_idx limit 1)) as COUNTRY_NM
+					,(SELECT nsc.STORAGE_NM FROM nam_movement nm join nam_storage ns on nm.MOVEMENT_IDX = ns.MOVEMENT_IDX join nam_storage_code nsc on ns.STORAGE_CODE_IDX = nsc.STORAGE_CODE_IDX WHERE nm.ITEM_IDX = nib.item_idx ORDER by nm.MOVEMENT_DATE DESC , nm.REG_DATE DESC limit 1) as STORAGE_NM
+					,(SELECT nm2.MEASUREMENT_VALUE FROM nam_measurement nm2 WHERE nm2.ITEM_IDX = nib.item_idx limit 1) as MEASUREMENT_VALUE
+					,(SELECT ncc.CLASS1_NM from nam_taxonomy nt join nam_class1_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS1_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS1_NM
+					,(SELECT ncc.CLASS2_NM from nam_taxonomy nt join nam_class2_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS2_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS2_NM
+					,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS3_NM
+					,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 				from nam_item_base nib
+				join nam_country_era nce2 
+				on nib.ITEM_IDX = nce2.ITEM_IDX
+				join nam_material nm3 
+				on nib.ITEM_IDX = nm3.ITEM_IDX 
 				WHERE 1=1
-				<if test=" '' != search_word and null != search_word">
-					AND (nib.ITEM_NO LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_DETAIL_NO LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%')) 
+				AND REG_STATE = #{reg_state}
+				<if test=" '' != research_word and null != research_word">		
+					<if test=" '' != searched_word and null != searched_word">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%')) 
+					</if>	
 				</if>
+				<if test=" '' != search_word and null != search_word">
+					AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%')) 
+				</if>
+				<if test=" '' != detail_search_word1 and null != detail_search_word1">
+					<if test="search_type == 'item_nm'">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>
+					<if test="search_type == 'item_se_nm'">
+						AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>
+					<if test="search_type == 'item_eng_nm'">
+						AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%')) 
+					</if>
+				</if>
+				<if test=" '' != detail_search_word2 and null != detail_search_word2">
+					<if test="pSrchfAndOr1 == 'AND' or pSrchfAndOr1 == '' ">
+						<if test="search_type2 == 'item_nm'">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_se_nm'">
+							AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_eng_nm'">
+							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == '' or search_type == null">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+						</if>
+					</if>
+					<if test="pSrchfAndOr1 == 'OR'">
+						<if test="search_type2 == 'item_nm'">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_se_nm'">
+							OR (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_eng_nm'">
+							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == '' or search_type == null">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+						</if>
+					</if>
+				</if>
+				<if test=" '' != detail_search_word3 and null != detail_search_word3">
+					<if test="pSrchfAndOr2 == 'AND' or pSrchfAndOr2 == '' ">
+						<if test="search_type3 == 'item_nm'">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_se_nm'">
+							AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_eng_nm'">
+							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == '' or search_type == null">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+						</if>
+					</if>
+					<if test="pSrchfAndOr2 == 'OR'">
+						<if test="search_type3 == 'item_nm'">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_se_nm'">
+							OR (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_eng_nm'">
+							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == '' or search_type == null">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+						</if>
+					</if>
+				</if>
+				<if test=" '' != search_range and null != search_range">
+					AND nib.POSSESSION_CODE_IDX = #{search_range}
+				</if>
+	            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+	                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+	            </if>
+	            <if test="country != null and country.size != 0">
+					AND nce2.COUNTRY_CODE_IDX IN
+					<foreach collection="country" item="country_seq" open="(" close=")" separator=",">
+						#{country_seq}
+					</foreach>
+				</if>
+				<if test="material1 != null and material1.size != 0">
+					AND nm3.MATERIAL1_CODE_IDX IN
+					<foreach collection="material1" item="material1_seq" open="(" close=")" separator=",">
+						#{material1_seq}
+					</foreach>
+				</if>
+				GROUP BY item_idx
+				ORDER BY rnum
             ) R1
+            WHERE 1=1
            	<if test=" '' != item_idx and null != item_idx">
-				WHERE ITEM_IDX = #{item_idx}
+				AND ITEM_IDX = #{item_idx}
 			</if>
+
             LIMIT #{perPageNum} OFFSET #{pageStart}  
 	</select>
 	
@@ -61,8 +170,8 @@
 	             select 
 					 row_number() over(order by nib.REG_DATE desc) as rnum	
 					,nib.ITEM_IDX 
-					,lag(ITEM_IDX, 1) over (order by REG_DATE DESC) as PREV
-					,lead(ITEM_IDX, 1) over (order by REG_DATE DESC) as NEXT
+					,lag(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as PREV
+					,lead(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as NEXT
 					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y') as IMAGE_IDX 
 					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y') as IMAGE_PATH 
 					,nib.ORG_CODE_IDX 
@@ -90,21 +199,288 @@
 					,nib.REG_DATE 
 					,nib.MOD_USER 
 					,nib.MOD_DATE 
-					<if test=" '' != item_idx and null != item_idx">
-						,(SELECT ncc.COUNTRY_NM from nam_country_code ncc WHERE ncc.COUNTRY_CODE_IDX =(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce WHERE ITEM_IDX = #{item_idx} limit 1)) as COUNTRY_NM
-						,(SELECT nsc.STORAGE_NM FROM nam_movement nm join nam_storage ns on nm.MOVEMENT_IDX = ns.MOVEMENT_IDX join nam_storage_code nsc on ns.STORAGE_CODE_IDX = nsc.STORAGE_CODE_IDX WHERE nm.ITEM_IDX = #{item_idx} ORDER by nm.MOVEMENT_DATE DESC , nm.REG_DATE DESC limit 1) as STORAGE_NM
-						,(SELECT nm2.MEASUREMENT_VALUE FROM nam_measurement nm2 WHERE nm2.ITEM_IDX = #{item_idx} limit 1) as MEASUREMENT_VALUE
-						,(SELECT ncc.CLASS1_NM from nam_taxonomy nt join nam_class1_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS1_CODE_IDX WHERE nt.item_idx = #{item_idx} limit 1) as CLASS1_NM
-						,(SELECT ncc.CLASS2_NM from nam_taxonomy nt join nam_class2_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS2_CODE_IDX WHERE nt.item_idx = #{item_idx} limit 1) as CLASS2_NM
-						,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = #{item_idx} limit 1) as CLASS3_NM
-					</if>
+					,(SELECT nmc.MATERIAL1_CODE_IDX from nam_material1_code nmc WHERE nmc.MATERIAL1_CODE_IDX = (SELECT nm.MATERIAL1_CODE_IDX from nam_material nm WHERE nm.ITEM_IDX = nib.ITEM_IDX limit 1)) as MATERIAL1
+					,(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce  WHERE nce.ITEM_IDX = nib.ITEM_IDX limit 1) as COUNTRY
+					,(SELECT ncc.COUNTRY_NM from nam_country_code ncc WHERE ncc.COUNTRY_CODE_IDX =(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce WHERE ITEM_IDX = nib.item_idx limit 1)) as COUNTRY_NM
+					,(SELECT nsc.STORAGE_NM FROM nam_movement nm join nam_storage ns on nm.MOVEMENT_IDX = ns.MOVEMENT_IDX join nam_storage_code nsc on ns.STORAGE_CODE_IDX = nsc.STORAGE_CODE_IDX WHERE nm.ITEM_IDX = nib.item_idx ORDER by nm.MOVEMENT_DATE DESC , nm.REG_DATE DESC limit 1) as STORAGE_NM
+					,(SELECT nm2.MEASUREMENT_VALUE FROM nam_measurement nm2 WHERE nm2.ITEM_IDX = nib.item_idx limit 1) as MEASUREMENT_VALUE
+					,(SELECT ncc.CLASS1_NM from nam_taxonomy nt join nam_class1_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS1_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS1_NM
+					,(SELECT ncc.CLASS2_NM from nam_taxonomy nt join nam_class2_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS2_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS2_NM
+					,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS3_NM
+					,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 				from nam_item_base nib
+				join nam_country_era nce2 
+				on nib.ITEM_IDX = nce2.ITEM_IDX
+				join nam_material nm3 
+				on nib.ITEM_IDX = nm3.ITEM_IDX 
 				WHERE 1=1
-				<if test=" '' != search_word and null != search_word">
-					AND (nib.ITEM_NO LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_DETAIL_NO LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%')) 
+				AND REG_STATE = #{reg_state}
+				<if test=" '' != research_word and null != research_word">		
+					<if test=" '' != searched_word and null != searched_word">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%')) 
+					</if>	
 				</if>
+				<if test=" '' != search_word and null != search_word">
+					AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%')) 
+				</if>
+				<if test=" '' != detail_search_word1 and null != detail_search_word1">
+					<if test="search_type == 'item_nm'">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>
+					<if test="search_type == 'item_se_nm'">
+						AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>
+					<if test="search_type == 'item_eng_nm'">
+						AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%')) 
+					</if>
+				</if>
+				<if test=" '' != detail_search_word2 and null != detail_search_word2">
+					<if test="pSrchfAndOr1 == 'AND' or pSrchfAndOr1 == '' ">
+						<if test="search_type2 == 'item_nm'">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_se_nm'">
+							AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_eng_nm'">
+							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == '' or search_type == null">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+						</if>
+					</if>
+					<if test="pSrchfAndOr1 == 'OR'">
+						<if test="search_type2 == 'item_nm'">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_se_nm'">
+							OR (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_eng_nm'">
+							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == '' or search_type == null">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+						</if>
+					</if>
+				</if>
+				<if test=" '' != detail_search_word3 and null != detail_search_word3">
+					<if test="pSrchfAndOr2 == 'AND' or pSrchfAndOr2 == '' ">
+						<if test="search_type3 == 'item_nm'">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_se_nm'">
+							AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_eng_nm'">
+							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == '' or search_type == null">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+						</if>
+					</if>
+					<if test="pSrchfAndOr2 == 'OR'">
+						<if test="search_type3 == 'item_nm'">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_se_nm'">
+							OR (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_eng_nm'">
+							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == '' or search_type == null">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+						</if>
+					</if>
+				</if>
+				<if test=" '' != search_range and null != search_range">
+					AND nib.POSSESSION_CODE_IDX = #{search_range}
+				</if>
+				<if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+	                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+	            </if>
+	            <if test="country != null and country.size != 0">
+					AND nce2.COUNTRY_CODE_IDX IN
+					<foreach collection="country" item="country_seq" open="(" close=")" separator=",">
+						#{country_seq}
+					</foreach>
+				</if>
+				<if test="material1 != null and material1.size != 0">
+					AND nm3.MATERIAL1_CODE_IDX IN
+					<foreach collection="material1" item="material1_seq" open="(" close=")" separator=",">
+						#{material1_seq}
+					</foreach>
+				</if>
+				GROUP BY item_idx
+				ORDER BY rnum
             ) R1
+
 	</select>
+	
+	 <select id="getMetaDataSearchListCurrentQty" parameterType="egovframework.aviation.metadata.vo.MetaDataSearchVO" resultType="egovframework.aviation.metadata.vo.MetaDataSearchVO">
+           SELECT R1.* FROM( 
+	             select 
+					 row_number() over(order by nib.REG_DATE desc) as rnum	
+					,nib.ITEM_IDX 
+					,lag(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as PREV
+					,lead(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as NEXT
+					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y') as IMAGE_IDX 
+					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y') as IMAGE_PATH 
+					,nib.ORG_CODE_IDX 
+					,nib.POSSESSION_CODE_IDX
+					,(SELECT npc.POSSESSION_NM from nam_possession_code npc WHERE npc.POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX) as POSSESSION_NM 
+					,nib.ITEM_NO 
+					,nib.ITEM_DETAIL_NO 
+					,nib.ITEM_NM 
+					,nib.ITEM_SE_NM 
+					,nib.ITEM_ENG_NM 
+					,nib.AUTHOR 
+					,nib.QTY 
+					,nib.QTY_UNIT_CODE_IDX 
+					,nib.ICAO_CODE_IDX 
+					,(SELECT nic.ICAO_NM FROM nam_icao_code nic WHERE nic.ICAO_CODE_IDX = nib.ICAO_CODE_IDX) as ICAO_NM
+					,nib.EXISTENCE_CODE_IDX 
+					,nib.MANAGEMENT_NO 
+					,nib.PRESERVATION_NEED 
+					,nib.FEATURE 
+					,nib.CONDITION_CODE_IDX 
+					,nib.RANKING_CODE_IDX 
+					,nib.REMARK 
+					,nib.REG_STATE 
+					,nib.REG_USER 
+					,nib.REG_DATE 
+					,nib.MOD_USER 
+					,nib.MOD_DATE 
+					,(SELECT nmc.MATERIAL1_CODE_IDX from nam_material1_code nmc WHERE nmc.MATERIAL1_CODE_IDX = (SELECT nm.MATERIAL1_CODE_IDX from nam_material nm WHERE nm.ITEM_IDX = nib.ITEM_IDX limit 1)) as MATERIAL1
+					,(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce  WHERE nce.ITEM_IDX = nib.ITEM_IDX limit 1) as COUNTRY
+					,(SELECT ncc.COUNTRY_NM from nam_country_code ncc WHERE ncc.COUNTRY_CODE_IDX =(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce WHERE ITEM_IDX = nib.item_idx limit 1)) as COUNTRY_NM
+					,(SELECT nsc.STORAGE_NM FROM nam_movement nm join nam_storage ns on nm.MOVEMENT_IDX = ns.MOVEMENT_IDX join nam_storage_code nsc on ns.STORAGE_CODE_IDX = nsc.STORAGE_CODE_IDX WHERE nm.ITEM_IDX = nib.item_idx ORDER by nm.MOVEMENT_DATE DESC , nm.REG_DATE DESC limit 1) as STORAGE_NM
+					,(SELECT nm2.MEASUREMENT_VALUE FROM nam_measurement nm2 WHERE nm2.ITEM_IDX = nib.item_idx limit 1) as MEASUREMENT_VALUE
+					,(SELECT ncc.CLASS1_NM from nam_taxonomy nt join nam_class1_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS1_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS1_NM
+					,(SELECT ncc.CLASS2_NM from nam_taxonomy nt join nam_class2_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS2_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS2_NM
+					,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS3_NM
+					,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
+				from nam_item_base nib
+				join nam_country_era nce2 
+				on nib.ITEM_IDX = nce2.ITEM_IDX
+				join nam_material nm3 
+				on nib.ITEM_IDX = nm3.ITEM_IDX 
+				WHERE 1=1
+				AND REG_STATE = #{reg_state}
+				<if test=" '' != research_word and null != research_word">		
+					<if test=" '' != searched_word and null != searched_word">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%')) 
+					</if>	
+				</if>
+				<if test=" '' != search_word and null != search_word">
+					AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%')) 
+				</if>
+				<if test=" '' != detail_search_word1 and null != detail_search_word1">
+					<if test="search_type == 'item_nm'">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>
+					<if test="search_type == 'item_se_nm'">
+						AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>
+					<if test="search_type == 'item_eng_nm'">
+						AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%')) 
+					</if>
+				</if>
+				<if test=" '' != detail_search_word2 and null != detail_search_word2">
+					<if test="pSrchfAndOr1 == 'AND' or pSrchfAndOr1 == '' ">
+						<if test="search_type2 == 'item_nm'">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_se_nm'">
+							AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_eng_nm'">
+							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == '' or search_type == null">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+						</if>
+					</if>
+					<if test="pSrchfAndOr1 == 'OR'">
+						<if test="search_type2 == 'item_nm'">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_se_nm'">
+							OR (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_eng_nm'">
+							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == '' or search_type == null">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+						</if>
+					</if>
+				</if>
+				<if test=" '' != detail_search_word3 and null != detail_search_word3">
+					<if test="pSrchfAndOr2 == 'AND' or pSrchfAndOr2 == '' ">
+						<if test="search_type3 == 'item_nm'">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_se_nm'">
+							AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_eng_nm'">
+							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == '' or search_type == null">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+						</if>
+					</if>
+					<if test="pSrchfAndOr2 == 'OR'">
+						<if test="search_type3 == 'item_nm'">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_se_nm'">
+							OR (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_eng_nm'">
+							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == '' or search_type == null">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+						</if>
+					</if>
+				</if>
+				<if test=" '' != search_range and null != search_range">
+					AND nib.POSSESSION_CODE_IDX = #{search_range}
+				</if>
+	            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+	                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+	            </if>
+	            <if test="country != null and country.size != 0">
+					AND nce2.COUNTRY_CODE_IDX IN
+					<foreach collection="country" item="country_seq" open="(" close=")" separator=",">
+						#{country_seq}
+					</foreach>
+				</if>
+				<if test="material1 != null and material1.size != 0">
+					AND nm3.MATERIAL1_CODE_IDX IN
+					<foreach collection="material1" item="material1_seq" open="(" close=")" separator=",">
+						#{material1_seq}
+					</foreach>
+				</if>
+				GROUP BY item_idx
+				ORDER BY rnum
+            ) R1
+            WHERE 1=1
+           	<if test=" '' != item_idx and null != item_idx">
+				AND ITEM_IDX = #{item_idx}
+			</if>
+
+	</select>
+	
 	
     <select id="getMetaDataSearchImageList" parameterType="egovframework.aviation.metadata.vo.MetaDataSearchImageVO" resultType="egovframework.aviation.metadata.vo.MetaDataSearchImageVO">
            SELECT R1.* FROM( 
@@ -122,6 +498,9 @@
 						,nib.QTY 
 						,nib.QTY_UNIT_CODE_IDX 
 						,nib.ICAO_CODE_IDX 
+						,nib.ORG_CODE_IDX 
+						,(SELECT nmc.MATERIAL1_CODE_IDX from nam_material1_code nmc WHERE nmc.MATERIAL1_CODE_IDX = (SELECT nm.MATERIAL1_CODE_IDX from nam_material nm WHERE nm.ITEM_IDX = nib.ITEM_IDX limit 1)) as MATERIAL1
+						,(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce  WHERE nce.ITEM_IDX = nib.ITEM_IDX limit 1) as COUNTRY
 						,(SELECT nic.ICAO_NM FROM nam_icao_code nic WHERE nic.ICAO_CODE_IDX = nib.ICAO_CODE_IDX) as ICAO_NM
 						,(SELECT nit.TAG_NM from nam_image_tag nit WHERE nit.IMAGE_IDX = ni.IMAGE_IDX) as TAG_NM
 						,(SELECT npc.POSSESSION_NM from nam_possession_code npc WHERE npc.POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX) as POSSESSION_NM 
@@ -131,19 +510,271 @@
 						,(SELECT ncc.CLASS1_NM from nam_taxonomy nt join nam_class1_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS1_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS1_NM
 						,(SELECT ncc.CLASS2_NM from nam_taxonomy nt join nam_class2_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS2_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS2_NM
 						,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS3_NM
+						,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 					FROM 
 						nam_image ni
 					join nam_item_base nib 
 					on ni.ITEM_IDX = nib.ITEM_IDX 
+					join nam_country_era nce2 
+					on nib.ITEM_IDX = nce2.ITEM_IDX
+					join nam_material nm3 
+					on nib.ITEM_IDX = nm3.ITEM_IDX 
 					WHERE 1=1
-					<if test=" '' != search_word and null != search_word">
-						AND (nib.ITEM_NO LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_DETAIL_NO LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%')) 
+					AND nib.REG_STATE = #{reg_state}
+					<if test=" '' != research_word and null != research_word">		
+						<if test=" '' != searched_word and null != searched_word">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%')) 
+						</if>	
 					</if>
+					<if test=" '' != search_word and null != search_word">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+					<if test=" '' != detail_search_word1 and null != detail_search_word1">
+						<if test="search_type == 'item_nm'">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+						</if>
+						<if test="search_type == 'item_se_nm'">
+							AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+						</if>
+						<if test="search_type == 'item_eng_nm'">
+							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+						</if>
+						<if test="search_type == '' or search_type == null">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%')) 
+						</if>
+					</if>
+					<if test=" '' != detail_search_word2 and null != detail_search_word2">
+						<if test="pSrchfAndOr1 == 'AND' or pSrchfAndOr1 == '' ">
+							<if test="search_type2 == 'item_nm'">
+								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>
+							<if test="search_type2 == 'item_se_nm'">
+								AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>
+							<if test="search_type2 == 'item_eng_nm'">
+								AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>
+							<if test="search_type2 == '' or search_type == null">
+								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+							</if>
+						</if>
+						<if test="pSrchfAndOr1 == 'OR'">
+							<if test="search_type2 == 'item_nm'">
+								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>
+							<if test="search_type2 == 'item_se_nm'">
+								OR (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>
+							<if test="search_type2 == 'item_eng_nm'">
+								OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>
+							<if test="search_type2 == '' or search_type == null">
+								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+							</if>
+						</if>
+					</if>
+					<if test=" '' != detail_search_word3 and null != detail_search_word3">
+						<if test="pSrchfAndOr2 == 'AND' or pSrchfAndOr2 == '' ">
+							<if test="search_type3 == 'item_nm'">
+								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
+							<if test="search_type3 == 'item_se_nm'">
+								AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
+							<if test="search_type3 == 'item_eng_nm'">
+								AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
+							<if test="search_type3 == '' or search_type == null">
+								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+							</if>
+						</if>
+						<if test="pSrchfAndOr2 == 'OR'">
+							<if test="search_type3 == 'item_nm'">
+								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
+							<if test="search_type3 == 'item_se_nm'">
+								OR (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
+							<if test="search_type3 == 'item_eng_nm'">
+								OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
+							<if test="search_type3 == '' or search_type == null">
+								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+							</if>
+						</if>
+					</if>
+					<if test=" '' != search_range and null != search_range">
+						AND nib.POSSESSION_CODE_IDX = #{search_range}
+					</if>
+					<if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+		                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+		            </if>
+		            <if test="country != null and country.size != 0">
+						AND nce2.COUNTRY_CODE_IDX IN
+						<foreach collection="country" item="country_seq" open="(" close=")" separator=",">
+							#{country_seq}
+						</foreach>
+					</if>
+					<if test="material1 != null and material1.size != 0">
+						AND nm3.MATERIAL1_CODE_IDX IN
+						<foreach collection="material1" item="material1_seq" open="(" close=")" separator=",">
+							#{material1_seq}
+						</foreach>
+					</if>
+					GROUP BY item_idx
+					ORDER BY rnum
             ) R1
             <if test=" '' != image_idx and null != image_idx">
 				WHERE IMAGE_IDX = #{image_idx}
 			</if>
             LIMIT #{perPageNum} OFFSET #{pageStart}  
+	</select>
+	
+	    <select id="getMetaDataSearchImageListCurrentQty" parameterType="egovframework.aviation.metadata.vo.MetaDataSearchImageVO" resultType="egovframework.aviation.metadata.vo.MetaDataSearchImageVO">
+           SELECT R1.* FROM( 
+		           SELECT 
+		   				 ni.*
+						,row_number() over(order by REG_DATE DESC, IMAGE_IDX) as rnum
+						,lag(IMAGE_IDX, 1) over (order by REG_DATE DESC, IMAGE_IDX) as PREV
+						,lead(IMAGE_IDX, 1) over (order by REG_DATE DESC, IMAGE_IDX) as NEXT
+						,nib.ITEM_NO 
+						,nib.ITEM_DETAIL_NO 
+						,nib.ITEM_NM 
+						,nib.ITEM_SE_NM 
+						,nib.ITEM_ENG_NM 
+						,nib.AUTHOR 
+						,nib.QTY 
+						,nib.QTY_UNIT_CODE_IDX 
+						,nib.ICAO_CODE_IDX 
+						,nib.ORG_CODE_IDX 
+						,(SELECT nmc.MATERIAL1_CODE_IDX from nam_material1_code nmc WHERE nmc.MATERIAL1_CODE_IDX = (SELECT nm.MATERIAL1_CODE_IDX from nam_material nm WHERE nm.ITEM_IDX = nib.ITEM_IDX limit 1)) as MATERIAL1
+						,(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce  WHERE nce.ITEM_IDX = nib.ITEM_IDX limit 1) as COUNTRY
+						,(SELECT nic.ICAO_NM FROM nam_icao_code nic WHERE nic.ICAO_CODE_IDX = nib.ICAO_CODE_IDX) as ICAO_NM
+						,(SELECT nit.TAG_NM from nam_image_tag nit WHERE nit.IMAGE_IDX = ni.IMAGE_IDX) as TAG_NM
+						,(SELECT npc.POSSESSION_NM from nam_possession_code npc WHERE npc.POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX) as POSSESSION_NM 
+						,(SELECT ncc.COUNTRY_NM from nam_country_code ncc WHERE ncc.COUNTRY_CODE_IDX =(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce WHERE ITEM_IDX = ni.ITEM_IDX limit 1)) as COUNTRY_NM
+						,(SELECT nsc.STORAGE_NM FROM nam_movement nm join nam_storage ns on nm.MOVEMENT_IDX = ns.MOVEMENT_IDX join nam_storage_code nsc on ns.STORAGE_CODE_IDX = nsc.STORAGE_CODE_IDX WHERE nm.ITEM_IDX = ni.ITEM_IDX ORDER by nm.MOVEMENT_DATE DESC , nm.REG_DATE DESC limit 1) as STORAGE_NM
+						,(SELECT nm2.MEASUREMENT_VALUE FROM nam_measurement nm2 WHERE nm2.ITEM_IDX = ni.ITEM_IDX limit 1) as MEASUREMENT_VALUE
+						,(SELECT ncc.CLASS1_NM from nam_taxonomy nt join nam_class1_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS1_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS1_NM
+						,(SELECT ncc.CLASS2_NM from nam_taxonomy nt join nam_class2_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS2_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS2_NM
+						,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS3_NM
+						,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
+					FROM 
+						nam_image ni
+					join nam_item_base nib 
+					on ni.ITEM_IDX = nib.ITEM_IDX 
+					join nam_country_era nce2 
+					on nib.ITEM_IDX = nce2.ITEM_IDX
+					join nam_material nm3 
+					on nib.ITEM_IDX = nm3.ITEM_IDX 
+					WHERE 1=1
+					AND nib.REG_STATE = #{reg_state}
+					<if test=" '' != research_word and null != research_word">		
+						<if test=" '' != searched_word and null != searched_word">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%')) 
+						</if>	
+					</if>
+					<if test=" '' != search_word and null != search_word">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+					<if test=" '' != detail_search_word1 and null != detail_search_word1">
+						<if test="search_type == 'item_nm'">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+						</if>
+						<if test="search_type == 'item_se_nm'">
+							AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+						</if>
+						<if test="search_type == 'item_eng_nm'">
+							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+						</if>
+						<if test="search_type == '' or search_type == null">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%')) 
+						</if>
+					</if>
+					<if test=" '' != detail_search_word2 and null != detail_search_word2">
+						<if test="pSrchfAndOr1 == 'AND' or pSrchfAndOr1 == '' ">
+							<if test="search_type2 == 'item_nm'">
+								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>
+							<if test="search_type2 == 'item_se_nm'">
+								AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>
+							<if test="search_type2 == 'item_eng_nm'">
+								AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>
+							<if test="search_type2 == '' or search_type == null">
+								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+							</if>
+						</if>
+						<if test="pSrchfAndOr1 == 'OR'">
+							<if test="search_type2 == 'item_nm'">
+								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>
+							<if test="search_type2 == 'item_se_nm'">
+								OR (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>
+							<if test="search_type2 == 'item_eng_nm'">
+								OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>
+							<if test="search_type2 == '' or search_type == null">
+								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+							</if>
+						</if>
+					</if>
+					<if test=" '' != detail_search_word3 and null != detail_search_word3">
+						<if test="pSrchfAndOr2 == 'AND' or pSrchfAndOr2 == '' ">
+							<if test="search_type3 == 'item_nm'">
+								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
+							<if test="search_type3 == 'item_se_nm'">
+								AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
+							<if test="search_type3 == 'item_eng_nm'">
+								AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
+							<if test="search_type3 == '' or search_type == null">
+								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+							</if>
+						</if>
+						<if test="pSrchfAndOr2 == 'OR'">
+							<if test="search_type3 == 'item_nm'">
+								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
+							<if test="search_type3 == 'item_se_nm'">
+								OR (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
+							<if test="search_type3 == 'item_eng_nm'">
+								OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
+							<if test="search_type3 == '' or search_type == null">
+								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+							</if>
+						</if>
+					</if>
+					<if test=" '' != search_range and null != search_range">
+						AND nib.POSSESSION_CODE_IDX = #{search_range}
+					</if>
+					<if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+		                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+		            </if>
+		            <if test="country != null and country.size != 0">
+						AND nce2.COUNTRY_CODE_IDX IN
+						<foreach collection="country" item="country_seq" open="(" close=")" separator=",">
+							#{country_seq}
+						</foreach>
+					</if>
+					<if test="material1 != null and material1.size != 0">
+						AND nm3.MATERIAL1_CODE_IDX IN
+						<foreach collection="material1" item="material1_seq" open="(" close=")" separator=",">
+							#{material1_seq}
+						</foreach>
+					</if>
+					GROUP BY item_idx
+					ORDER BY rnum
+            ) R1
+            <if test=" '' != image_idx and null != image_idx">
+				WHERE IMAGE_IDX = #{image_idx}
+			</if>
 	</select>
 	
 	<select id="getMetaDataSearchImageListCnt" resultType="Integer">
@@ -164,6 +795,9 @@
 						,nib.QTY 
 						,nib.QTY_UNIT_CODE_IDX 
 						,nib.ICAO_CODE_IDX 
+						,nib.ORG_CODE_IDX 
+						,(SELECT nmc.MATERIAL1_CODE_IDX from nam_material1_code nmc WHERE nmc.MATERIAL1_CODE_IDX = (SELECT nm.MATERIAL1_CODE_IDX from nam_material nm WHERE nm.ITEM_IDX = nib.ITEM_IDX limit 1)) as MATERIAL1
+						,(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce  WHERE nce.ITEM_IDX = nib.ITEM_IDX limit 1) as COUNTRY
 						,(SELECT nic.ICAO_NM FROM nam_icao_code nic WHERE nic.ICAO_CODE_IDX = nib.ICAO_CODE_IDX) as ICAO_NM
 						,(SELECT nit.TAG_NM from nam_image_tag nit WHERE nit.IMAGE_IDX = ni.IMAGE_IDX) as TAG_NM
 						,(SELECT npc.POSSESSION_NM from nam_possession_code npc WHERE npc.POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX) as POSSESSION_NM 
@@ -173,14 +807,119 @@
 						,(SELECT ncc.CLASS1_NM from nam_taxonomy nt join nam_class1_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS1_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS1_NM
 						,(SELECT ncc.CLASS2_NM from nam_taxonomy nt join nam_class2_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS2_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS2_NM
 						,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS3_NM
+						,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 					FROM 
 						nam_image ni
 					join nam_item_base nib 
 					on ni.ITEM_IDX = nib.ITEM_IDX 
+					join nam_country_era nce2 
+					on nib.ITEM_IDX = nce2.ITEM_IDX
+					join nam_material nm3 
+					on nib.ITEM_IDX = nm3.ITEM_IDX 
 					WHERE 1=1
-					<if test=" '' != search_word and null != search_word">
-						AND (nib.ITEM_NO LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_DETAIL_NO LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%')) 
+					AND nib.REG_STATE = #{reg_state}
+				<if test=" '' != research_word and null != research_word">		
+					<if test=" '' != searched_word and null != searched_word">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%')) 
+					</if>	
+				</if>
+				<if test=" '' != search_word and null != search_word">
+					AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%')) 
+				</if>
+				<if test=" '' != detail_search_word1 and null != detail_search_word1">
+					<if test="search_type == 'item_nm'">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
 					</if>
+					<if test="search_type == 'item_se_nm'">
+						AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>
+					<if test="search_type == 'item_eng_nm'">
+						AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%')) 
+					</if>
+				</if>
+				<if test=" '' != detail_search_word2 and null != detail_search_word2">
+					<if test="pSrchfAndOr1 == 'AND' or pSrchfAndOr1 == '' ">
+						<if test="search_type2 == 'item_nm'">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_se_nm'">
+							AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_eng_nm'">
+							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == '' or search_type == null">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+						</if>
+					</if>
+					<if test="pSrchfAndOr1 == 'OR'">
+						<if test="search_type2 == 'item_nm'">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_se_nm'">
+							OR (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == 'item_eng_nm'">
+							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
+						<if test="search_type2 == '' or search_type == null">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+						</if>
+					</if>
+				</if>
+				<if test=" '' != detail_search_word3 and null != detail_search_word3">
+					<if test="pSrchfAndOr2 == 'AND' or pSrchfAndOr2 == '' ">
+						<if test="search_type3 == 'item_nm'">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_se_nm'">
+							AND (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_eng_nm'">
+							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == '' or search_type == null">
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+						</if>
+					</if>
+					<if test="pSrchfAndOr2 == 'OR'">
+						<if test="search_type3 == 'item_nm'">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_se_nm'">
+							OR (nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == 'item_eng_nm'">
+							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
+						<if test="search_type3 == '' or search_type == null">
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+						</if>
+					</if>
+				</if>
+				<if test=" '' != search_range and null != search_range">
+					AND nib.POSSESSION_CODE_IDX = #{search_range}
+				</if>
+				<if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+	                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+	            </if>
+	            <if test="country != null and country.size != 0">
+					AND nce2.COUNTRY_CODE_IDX IN
+					<foreach collection="country" item="country_seq" open="(" close=")" separator=",">
+						#{country_seq}
+					</foreach>
+				</if>
+				<if test="material1 != null and material1.size != 0">
+					AND nm3.MATERIAL1_CODE_IDX IN
+					<foreach collection="material1" item="material1_seq" open="(" close=")" separator=",">
+						#{material1_seq}
+					</foreach>
+				</if>
+				GROUP BY item_idx
+				ORDER BY rnum
             ) R1
 	</select>
 	

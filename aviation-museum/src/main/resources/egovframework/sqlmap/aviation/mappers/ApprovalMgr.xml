@@ -225,4 +225,14 @@
 		WHERE a.KEYWORD NOT IN (SELECT KEYWORD FROM nam_keyword WHERE ITEM_IDX = a.ITEM_IDX))
     
     </insert>
+    
+    <delete id="deleteItem" parameterType="int">
+			DELETE nib FROM nam_item_base nib 
+			join nam_erasure_request ner 
+			on nib.ITEM_IDX = ner.ERASURE_ITEM 
+			WHERE ner.ERASURE_REQUEST_IDX IN
+           	<foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
+				#{group_seq}
+			</foreach> 
+	</delete>
 </mapper>

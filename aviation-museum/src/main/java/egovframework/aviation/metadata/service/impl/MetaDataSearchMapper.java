@@ -20,4 +20,8 @@ public interface MetaDataSearchMapper {
 	int getMetaDataSearchImageListCnt(MetaDataSearchImageVO metaDataSearchImageVO);
 
 	List<MetaDataSearchImageVO> getMetaDataSearchImageList(MetaDataSearchImageVO metaDataSearchImageVO);
+	
+	List<MetaDataSearchVO> getMetaDataSearchListCurrentQty(MetaDataSearchVO metaDataSearchVO);
+	
+	List<MetaDataSearchImageVO> getMetaDataSearchImageListCurrentQty(MetaDataSearchImageVO metaDataSearchImageVO);
 }

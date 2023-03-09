@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <header id="page-topbar" class="isvertical-topbar">
   <div class="navbar-header">
     <div class="d-flex">
@@ -38,10 +38,10 @@
             <i class="icon-sm" data-eva="search-outline"></i>
           </button>
           <div class="dropdown-menu dropdown-menu-end dropdown-menu-md p-0">
-            <form class="p-2">
+            <form class="p-2" action="/metaDataSearchMain.do" id="metaDataAllSearchListForm" name="metaDataAllSearchListForm" method="POST">
               <div class="search-box">
                 <div class="position-relative">
-                  <input type="text" class="form-control bg-light border-0" placeholder="Search..." />
+                  <input type="text" class="form-control bg-light border-0" placeholder="Search..." name="all_search_word" id="all_search_word" />
                   <i class="search-icon" data-eva="search-outline" data-eva-height="26" data-eva-width="26"></i>
                 </div>
               </div>
@@ -310,7 +310,7 @@
 <div class="main_left_menu vertical-menu">
   <!-- LOGO -->
   <div class="navbar-brand-box">
-    <a href="index.html" class="logo logo-dark">
+    <a href="/dashBoard.do" class="logo logo-dark">
       <span class="logo-sm">
         <img src="assets/custom_img/intro-logo.png" alt="" height="22" />
       </span>
@@ -319,7 +319,7 @@
       </span>
     </a>
 
-    <a href="index.html" class="logo logo-light">
+    <a href="/dashBoard.do" class="logo logo-light">
       <span class="logo-lg">
         <img src="assets/custom_img/intro-logo.png" alt="" height="22" />
       </span>
@@ -375,7 +375,7 @@
             <li><a href="/add.do" data-key="t-products">자료 신규등록</a></li>
             <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">이미지 신규등록</a></li>
             <li><a href="ecommerce-orders.html" data-key="t-orders">가등록 자료 정보조회</a></li>
-            <li><a href="ecommerce-customers.html" data-key="t-customers">가등록자 료 정보검색</a></li>
+            <li><a href="/pRgstMetaDataSearch.do" data-key="t-customers">가등록자 료 정보검색</a></li>
             <li><a href="ecommerce-checkout.html" data-key="t-checkout">자료관리전환</a></li>
             <li><a href="ecommerce-add-product.html" data-key="t-add-product">신규자료 자동등록</a></li>
           </ul>
@@ -383,12 +383,14 @@
 
         <li>
           <a href="javascript: void(0);" class="has-arrow">
-            <span class="menu-item" data-key="t-ecommerce">자료 심사</span>
+            <span class="menu-item" data-key="t-ecommerce">자료 심의</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
-            <li><a href="ecommerce-products.html" data-key="t-products">심사자료조회</a></li>
-            <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">심사자료등록</a></li>
-            <li><a href="ecommerce-orders.html" data-key="t-orders">심사자료 관리전환</a></li>
+            <li><a href="ecommerce-products.html" data-key="t-products">자료구입 관리</a></li>
+            <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">실무검토 심의</a></li>
+            <li><a href="ecommerce-orders.html" data-key="t-orders">구입감정 심의</a></li>
+            <li><a href="ecommerce-checkout.html" data-key="t-checkout">구입 심의</a></li>
+            <li><a href="ecommerce-add-product.html" data-key="t-add-product">자료구입 공고관리</a></li>
           </ul>
         </li>
 
@@ -421,7 +423,7 @@
             <li><a href="/codeMgr.do" data-key="t-products">코드관리</a></li>
             <li><a href="/otherMgr.do" data-key="t-product-detail">기타관리</a></li>
             <li><a href="ecommerce-orders.html" data-key="t-orders">로그관리</a></li>
-            <li><a href="ecommerce-customers.html" data-key="t-customers">사전관리</a></li>
+<!--             <li><a href="ecommerce-customers.html" data-key="t-customers">사전관리</a></li> -->
             <li><a href="/approvalMgr.do" data-key="t-cart">승인관리</a></li>
           </ul>
         </li>
@@ -1030,4 +1032,5 @@
     </div>
   </div>
 </header>
+
 <!-- ============================================================== -->

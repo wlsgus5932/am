@@ -16,6 +16,9 @@
 		           	, nib.ITEM_DETAIL_NO 
 		           	, nib.ITEM_NM 
 		           	, nib.QTY 
+		           	, nib.POSSESSION_CODE_IDX
+		           	, nib.ORG_CODE_IDX
+		           	, nib.REG_STATE
 		           	, npc.POSSESSION_NM 
 	            FROM nam_interest ni
 	            join nam_item_base nib
@@ -289,7 +292,7 @@
 				FROM nam.nam_work_history AS a INNER JOIN
 					(SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE
 					 FROM nam_work_history
-					 GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE
+					 GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX
 				WHERE REG_USER = #{reg_user}
 				ORDER BY REG_DATE DESC
 			) R1
@@ -315,7 +318,7 @@
 				FROM nam.nam_work_history AS a INNER JOIN
 					(SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE
 					 FROM nam_work_history
-					 GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE
+					 GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX
 				WHERE REG_USER = #{reg_user}
 				ORDER BY REG_DATE DESC
 			) R1
@@ -354,4 +357,12 @@
 			) R1
 
 	</select>	
+	
+	<update id="updateInterest" parameterType="egovframework.aviation.mypage.vo.InterestVO">
+        
+            UPDATE nam_interest 
+               SET EXPL=#{expl}               
+             WHERE INTEREST_IDX=#{interest_idx}
+  
+    </update>
 </mapper>

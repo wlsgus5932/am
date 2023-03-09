@@ -41,4 +41,15 @@ public class MetaDataSearchServiceImpl implements MetaDataSearchService {
 		return metaDataSearchMapper.getMetaDataSearchImageList(metaDataSearchImageVO);
 	}
 
+	@Override
+	public List<MetaDataSearchVO> getMetaDataSearchListCurrentQty(MetaDataSearchVO metaDataSearchVO) {
+		return metaDataSearchMapper.getMetaDataSearchListCurrentQty(metaDataSearchVO);
+	}
+
+	@Override
+	public List<MetaDataSearchImageVO> getMetaDataSearchImageListCurrentQty(
+			MetaDataSearchImageVO metaDataSearchImageVO) {
+		return metaDataSearchMapper.getMetaDataSearchImageListCurrentQty(metaDataSearchImageVO);
+	}
+
 }

@@ -533,8 +533,8 @@
 					                                    //트리 로딩 롼료 이벤트
 // 					                            		$('#tree').jstree("close_all");
 				                        				$('#tree').jstree("deselect_all");
-				                        				$('#tree').jstree("open_node",subParentCode);
-// 				                        				$('#tree').jstree(true)._open_to(subParentCode);
+// 				                        				$('#tree').jstree("open_node",subParentCode);
+				                        				$('#tree').jstree(true)._open_to(subParentCode);
 				                        				$('#'+subParentCode).children('div').addClass('jstree-wholerow-clicked');
 				                        				$('#'+subParentCode).attr('aria-selected', true);
 				                        				$('#'+subParentCode).children('a').addClass('jstree-clicked');

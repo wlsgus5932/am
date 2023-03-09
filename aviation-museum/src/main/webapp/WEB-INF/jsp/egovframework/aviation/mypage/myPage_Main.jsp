@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="assets/css/custom_view.css">
     <link rel="stylesheet" href="assets/css/custom_my.css">
     
+    <script src="assets/js/metadata/metadataList.js"></script> 
     <script type="text/javascript">
 	
     // 체크박스 전체선택 전체해제
@@ -207,18 +208,19 @@
 						},
 						success : function(data){
 							alert("비밀번호가 변경되었습니다");
-								$.ajax({
-									type : 'POST',                
-									url : '/changePrivacyAjax.do',    
-									dataType : "html",           
-									contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-									error : function() {          
-										alert('통신실패!');
-									},
-									success : function(data) {  
-										$('#tab-content').empty().append(data);
-									}
-								});
+								location.href = "logout.do";
+// 								$.ajax({
+// 									type : 'POST',                
+// 									url : '/changePrivacyAjax.do',    
+// 									dataType : "html",           
+// 									contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+// 									error : function() {          
+// 										alert('통신실패!');
+// 									},
+// 									success : function(data) {  
+// 										$('#tab-content').empty().append(data);
+// 									}
+// 								});
 						}
 					});
 				}

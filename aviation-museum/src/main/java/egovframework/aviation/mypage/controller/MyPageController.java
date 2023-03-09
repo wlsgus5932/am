@@ -86,6 +86,19 @@ public class MyPageController {
         return "jsonView";
     } 
 	
+	/** 관심자료 수정 */
+	@RequestMapping(value = "/interestModAjax.do")
+    public String InterestModAjax(HttpServletRequest req, @ModelAttribute("interestVO") InterestVO interestVO, Model model) throws Exception {
+		int result = myPageService.updateInterest(interestVO);
+		
+		String success = "";
+		
+		if(result > 0) {
+			 success = "success";
+		}
+        return "jsonView";
+    } 
+	
 //	/** 요청내역조회 조회 */
 	@RequestMapping("/requestHistoryAjax.do")
 	public String RequestHistoryAjax(Model model, HttpServletRequest req, @ModelAttribute("requestHistoryVO") RequestHistoryVO requestHistoryVO, @ModelAttribute("posSessionVO") PosSessionVO posSessionVO, @ModelAttribute("criteria") Criteria cri) throws Exception {

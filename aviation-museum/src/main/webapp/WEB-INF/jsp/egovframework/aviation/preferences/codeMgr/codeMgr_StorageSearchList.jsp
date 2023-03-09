@@ -36,7 +36,7 @@
                         			type : 'POST',                
                         			url : '/storageViewListAjax.do',    
                     				data:{
-                    					parent_code : parent_code
+                    					parent_code : storage_code_idx
                     				},
                         			dataType : "html",           
                         			contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -46,21 +46,24 @@
                         			success : function(data) {  
                         				$('.user_control_right').empty().append(data);
                         				$('#subCodeSearchClose').click();
-                        				
+  
+//                         				$('#tree').jstree(true).get_node(storage_code_idx);
+// 										$('#tree').getNode(storage_code_idx).children;
                         				$('#tree').jstree(); 
                         				$('#tree').jstree("close_all");
                         				$('#tree').jstree("deselect_all");
+//                         				$('#tree').jstree("open_node", storage_code_idx);
                         				$('#tree').jstree(true)._open_to(storage_code_idx);
-                        				$('#'+parent_code).children('div').addClass('jstree-wholerow-clicked');
-                        				$('#'+parent_code).attr('aria-selected', true);
-                        				$('#'+parent_code).children('a').addClass('jstree-clicked');
+                        				$('#'+storage_code_idx).children('div').addClass('jstree-wholerow-clicked');
+                        				$('#'+storage_code_idx).attr('aria-selected', true);
+                        				$('#'+storage_code_idx).children('a').addClass('jstree-clicked');
                         				
                         				if(parent_code == "root"){
                         					$('#subInsParentCode').val(0);
                         					$('#subModParentCode').val(0);
                         				}else{
-                        					$('#subInsParentCode').val(parent_code);
-                        					$('#subModParentCode').val(parent_code);
+                        					$('#subInsParentCode').val(storage_code_idx);
+                        					$('#subModParentCode').val(storage_code_idx);
                         				}
                         			}
                                 })

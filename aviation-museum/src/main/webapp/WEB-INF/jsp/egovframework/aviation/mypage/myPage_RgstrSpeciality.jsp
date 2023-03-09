@@ -26,6 +26,61 @@
                     <button type="button" onClick="rgstrSpecialityExcelList();">엑셀파일</button>
                 </div>
                 <!--  -->
+                
+                <!-- 설명 등록모달  -->
+                <div id="bs-example-modal-xll" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                  <div class="modal-dialog user-modal">
+	                <div class="modal-content">
+	                   <div class="modal-header mv-modal-header">
+		                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="interestModBtnClose"></button>
+		               </div>
+                       <div class="modal-body mv-modal-body">
+	                   		 <div class="mb-0 user-wrap">  
+                                  <div class="st_wrap">
+                                    <label class="col-md-2 col-form-label st_title">전문정보 등록 및 수정</label>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <tbody>
+                                                <tr>
+                                                  <td>구분</td>
+                                                    <td id="speciality_nm">
+                                                    </td>
+                                                   <td>제목</td>  
+                                                    <td id="title">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                  <td>첨부파일</td>
+                                                    <td>
+                                                    	<img src="" id="file_path"/>
+                                                    </td>                                                    
+                                                </tr>
+                                                <tr>
+                                                  <td>저작권자</td>
+                                                  <td id="copyright">
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td>내용</td>
+                                                  <td id="content">
+                                                  </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+<!--                                         <button type="button" class="btn btn-secondary btn_save" id="spc-add-btn" onclick="submitSpc()">저장</button> -->
+<!--                                         <button type="button" class="btn btn-secondary btn_save" id="spc-update-btn" onclick="updateSpeciality()">수정</button> -->
+                                    </div>
+                                </div>
+                              </div>
+		             	   </div>
+		                </div>
+	                </div>
+                </div>
+                
+                <!--  -->
+                
                 <form id="sForm" name="sForm" method="post" class="form-horizontal">
                 	<input type="hidden" id="speciality_code_idx2" name="speciality_code_idx" value="" />
                 	<input type="hidden" id="search_type2" name="search_type" value="" />
@@ -53,7 +108,7 @@
 		                          <td>${specialityList.possession_nm}</td>
 		                          <td>${specialityList.item_no}</td>
 		                          <td>${specialityList.item_detail_no}</td>
-		                          <td>${specialityList.item_nm}</td>
+		                          <td onclick="rgstrSpecialityListView('${specialityList.speciality_nm}','${specialityList.title}','${specialityList.file_path}','${specialityList.copyright}','${specialityList.content}');">${specialityList.item_nm}</button></td>
 		                          <td>${specialityList.speciality_nm}</td>
 		                          <td>${specialityList.title}</td>
 		                        </tr>
@@ -81,6 +136,7 @@
 	                </div>
 	            </form>  
                 <!--  -->
+                <button data-bs-toggle="modal" data-bs-target="#bs-example-modal-xll" class="btn btn-secondary waves-effect waves-light btn_ml btn_wh" type="button" style="display:none;" id="rgstrBtn"></button>
                 </div>
             </div>
             
@@ -152,5 +208,15 @@
 //     						$('#search_type').val(search_type);
 	    				}
 	    			});
+	    		}
+	    		
+	    		function rgstrSpecialityListView(value1, value2, value3, value4, value5){
+	    			$('#speciality_nm').html(value1);
+	    			$('#title').html(value2);
+	    			$('#file_path').attr('src', value3);
+	    			$('#copyright').html(value4);
+	    			$('#content').html(value5);
+	    			
+	    			$('#rgstrBtn').click();
 	    		}
             </script>

@@ -185,5 +185,20 @@ const set_itemBase_input = async (list) => {
 }
 
 
-
+function metaDataListView(value1,value2,value3,value4,value5){
+		$('#possession_code_idx').val(value1);
+		$('#org_code_idx').val(value2);
+		$('#item_no').val(value3);
+		$('#item_detail_no').val(value4);
+		//$('#reg_state').val(value5);
+		var pop_title = "popupOpener" ;
+		
+		window.open("", pop_title, 'width=1000, height=1000') ;
+		
+		var frmData = document.metaDataListViewForm ;
+		frmData.target = pop_title ;
+		frmData.action = "/metaDataListView.do" ;
+		
+		frmData.submit() ;
+}
 

@@ -50,12 +50,12 @@
 	                                                  <input type="text" name="service_url" id="insExchnRateServiceUrl">
 	                                                </td>
 	                                            </tr>
-	                                            <tr>
-	                                              <td>순서</td>
-	                                                <td>
-	                                                  <input type="text" name="seq" id="insExchnRateSeq">
-	                                                </td>
-	                                            </tr>
+<!-- 	                                            <tr> -->
+<!-- 	                                              <td>순서</td> -->
+<!-- 	                                                <td> -->
+<!-- 	                                                  <input type="text" name="seq" id="insExchnRateSeq"> -->
+<!-- 	                                                </td> -->
+<!-- 	                                            </tr> -->
 	                                            <tr>
 	                                              <td>사용 여부</td>
 	                                              <td>
@@ -104,12 +104,12 @@
 	                                                  <input type="text" name="service_url" id="modExchnRateServiceUrl">
 	                                                </td>
 	                                            </tr>
-	                                            <tr>
-	                                              <td>순서</td>
-	                                                <td>
-	                                                  <input type="text" name="seq" id="modExchnRateSeq">
-	                                                </td>
-	                                            </tr>
+<!-- 	                                            <tr> -->
+<!-- 	                                              <td>순서</td> -->
+<!-- 	                                                <td> -->
+<!-- 	                                                  <input type="text" name="seq" id="modExchnRateSeq"> -->
+<!-- 	                                                </td> -->
+<!-- 	                                            </tr> -->
 	                                            <tr>
 	                                              <td>사용 여부</td>
 	                                              <td>
@@ -163,7 +163,7 @@
                           <th>번호</th>
                           <th>제공자이름</th>
                           <th>제공주소</th>
-                          <th>순서</th>
+<!--                           <th>순서</th> -->
                           <th>등록자</th>
                           <th>등록일자</th>
                           <th>수정자</th>
@@ -184,7 +184,7 @@
 <!-- 	                            </div> -->
 	                          </td>
 	                          <td>${exchnRateList.service_url }</td>
-	                          <td>${exchnRateList.seq }</td>
+<%-- 	                          <td>${exchnRateList.seq }</td> --%>
 	                          <td>${exchnRateList.reg_user }</td>
 	                          <td>${exchnRateList.reg_date }</td>
 	                          <td>${exchnRateList.mod_user }</td>
