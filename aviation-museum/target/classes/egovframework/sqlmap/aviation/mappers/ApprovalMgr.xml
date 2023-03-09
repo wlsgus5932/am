@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.aviation.preferences.service.impl.ApprovalMgrMapper">
+
+	<select id="getErasureList" parameterType="egovframework.aviation.mypage.vo.RequestHistoryVO" resultType="egovframework.aviation.mypage.vo.RequestHistoryVO">
+			 SELECT 
+		  	 	  ROW_NUMBER() OVER(ORDER BY REG_DATE DESC) rnum
+			 	 ,R1.*
+			 FROM(
+				SELECT
+					 ner.ERASURE_REQUEST_IDX as REQUEST_IDX
+					,ORG_NM
+		  			,ner.POSSESSION_NM 
+					,ner.ITEM_NO 
+					,ner.ITEM_DETAIL_NO 
+					,ner.ITEM_NM 
+					,ner.REG_USER
+					,ner.REG_DATE 
+					,'erasure'
+					,ner.APPROVAL_STATE 
+					,ner.REFUSAL_REASON 
+				FROM nam_erasure_request ner 
+				WHERE 1=1
+				ORDER by REG_DATE DESC
+			) R1
+			WHERE 1=1 
+            <if test="org_nm != null and org_nm != ''">AND
+                org_nm = #{org_nm}
+            </if>
+            <if test="possession_nm != null and possession_nm != ''">AND
+                possession_nm = #{possession_nm}
+            </if>
+            <if test="item_no != null and item_no != ''">AND
+                (item_no LIKE CONCAT('%', #{item_no}, '%'))
+            </if>
+            <if test="item_detail_no != null and item_detail_no != ''">AND               
+                (item_detail_no LIKE CONCAT('%', #{item_detail_no}, '%'))
+            </if>
+            <choose>
+            	<when test='approval_state eq "F"'>
+            		AND approval_state = #{approval_state}
+            	</when>
+            	<when test='approval_state eq "Y"'>
+            		AND approval_state = #{approval_state}
+            	</when>
+            	<when test='approval_state eq "N"'>
+            		AND approval_state = #{approval_state}
+            	</when>
+            </choose>                
+            <if test="start_date != null and start_date != '' and end_date != null and end_date != ''">AND
+                (REG_DATE BETWEEN #{start_date} and #{end_date})
+            </if>
+            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+                (item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+            </if>
+            LIMIT #{perPageNum} OFFSET #{pageStart}  
+	</select>
+	
+	<select id="getErasureListCnt" resultType="Integer">
+
+			 SELECT 
+		  	 	  count(*)
+			 FROM(
+				SELECT
+					 ner.ERASURE_REQUEST_IDX as REQUEST_IDX
+		  			,ner.POSSESSION_NM 
+					,ner.ITEM_NO 
+					,ner.ITEM_DETAIL_NO 
+					,ner.ITEM_NM 
+					,ner.REG_USER
+					,ner.REG_DATE 
+					,'erasure'
+					,ner.APPROVAL_STATE 
+					,ner.REFUSAL_REASON 
+				FROM nam_erasure_request ner 
+				WHERE 1=1
+				ORDER by REG_DATE DESC
+			) R1
+  
+	</select>
+	
+	<select id="getKeywordList" parameterType="egovframework.aviation.mypage.vo.RequestHistoryVO" resultType="egovframework.aviation.mypage.vo.RequestHistoryVO">
+			 SELECT 
+		  	 	  ROW_NUMBER() OVER(ORDER BY REG_DATE DESC) rnum
+			 	 ,R1.*
+			 FROM(
+				SELECT
+					 nkr.KEYWORD_REQUEST_IDX as REQUEST_IDX
+					,(SELECT noc.ORG_NM from nam_org_code noc WHERE noc.ORG_CODE_IDX = nib.ORG_CODE_IDX) as ORG_NM
+					,(SELECT POSSESSION_NM from nam_possession_code npc where POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX ) as POSSESSION_NM 
+					,nib.ITEM_NO 
+					,nib.ITEM_DETAIL_NO 
+					,nib.ITEM_NM 
+					,nkr.REG_USER
+					,nkr.REG_DATE 
+					,'keyword'
+					,nkr.APPROVAL_STATE 
+					,nkr.REFUSAL_REASON 
+				FROM nam_keyword_request nkr 
+				join nam_item_base nib 
+				on nkr.ITEM_IDX = nib.ITEM_IDX 
+				WHERE 1=1
+				ORDER by REG_DATE DESC
+			) R1
+			WHERE 1=1 
+            <if test="org_nm != null and org_nm != ''">AND
+                org_nm = #{org_nm}
+            </if>
+            <if test="possession_nm != null and possession_nm != ''">AND
+                possession_nm = #{possession_nm}
+            </if>
+            <if test="item_no != null and item_no != ''">AND
+                (item_no LIKE CONCAT('%', #{item_no}, '%'))
+            </if>
+            <if test="item_detail_no != null and item_detail_no != ''">AND               
+                (item_detail_no LIKE CONCAT('%', #{item_detail_no}, '%'))
+            </if>
+            <choose>
+            	<when test='approval_state eq "F"'>
+            		AND approval_state = #{approval_state}
+            	</when>
+            	<when test='approval_state eq "Y"'>
+            		AND approval_state = #{approval_state}
+            	</when>
+            	<when test='approval_state eq "N"'>
+            		AND approval_state = #{approval_state}
+            	</when>
+            </choose>    
+            <if test="start_date != null and start_date != '' and end_date != null and end_date != ''">AND
+                (REG_DATE BETWEEN #{start_date} and #{end_date})
+            </if>
+            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+                (item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+            </if>
+            LIMIT #{perPageNum} OFFSET #{pageStart}  
+	</select>
+	
+	<select id="getKeywordListCnt" resultType="Integer">
+
+			 SELECT 
+		  	 	  count(*)
+			 FROM(
+				SELECT
+					 nkr.KEYWORD_REQUEST_IDX as REQUEST_IDX
+					,(SELECT noc.ORG_NM from nam_org_code noc WHERE noc.ORG_CODE_IDX = nib.ORG_CODE_IDX) as ORG_NM
+					,(SELECT POSSESSION_NM from nam_possession_code npc where POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX ) as POSSESSION_NM 
+					,nib.ITEM_NO 
+					,nib.ITEM_DETAIL_NO 
+					,nib.ITEM_NM 
+					,nkr.REG_DATE 
+					,'keyword'
+					,nkr.APPROVAL_STATE 
+					,nkr.REFUSAL_REASON 
+				FROM nam_keyword_request nkr 
+				join nam_item_base nib 
+				on nkr.ITEM_IDX = nib.ITEM_IDX 
+				WHERE 1=1
+				ORDER by REG_DATE DESC
+			) R1
+  
+	</select>
+	
+	<update id="updateErasureApproval" parameterType="egovframework.aviation.mypage.vo.RequestHistoryVO">
+        
+            UPDATE nam_erasure_request 
+            <set>
+             	<if test="approval_state != null and approval_state != ''">   
+               		APPROVAL_STATE=#{approval_state},     
+            	</if>
+	            <if test="refusal_reason != null and refusal_reason != ''">
+	                REFUSAL_REASON = #{refusal_reason},
+	            </if>   
+            </set>  
+             WHERE 1=1
+             <if test="group_seqList != null and group_seqList.size != 0">
+            	 AND ERASURE_REQUEST_IDX IN    	 
+            	 <foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
+					#{group_seq}
+				</foreach>
+           	 </if>
+  
+    </update>
+    
+	<update id="updateKeywordApproval" parameterType="egovframework.aviation.mypage.vo.RequestHistoryVO">
+        
+            UPDATE nam_keyword_request 
+            <set>
+             	<if test="approval_state != null and approval_state != ''">   
+               		APPROVAL_STATE=#{approval_state},     
+            	</if>
+	            <if test="refusal_reason != null and refusal_reason != ''">
+	                REFUSAL_REASON = #{refusal_reason},
+	            </if>   
+            </set>            
+             WHERE 1=1
+             <if test="group_seqList != null and group_seqList.size != 0">
+            	 AND KEYWORD_REQUEST_IDX IN    	 
+            	 <foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
+					#{group_seq}
+				</foreach>
+           	 </if>
+  
+    </update>
+    
+    <insert id="insertKeyword" parameterType="egovframework.aviation.mypage.vo.RequestHistoryVO">
+        INSERT INTO nam_keyword (ITEM_IDX, KEYWORD, REG_USER, REG_DATE)
+        SELECT a.ITEM_IDX, a.KEYWORD, a.REG_USER, NOW() AS REG_DATE
+		FROM (SELECT DISTINCT ITEM_IDX, TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(kw.KEYWORD_LIST, ',', numbers.N), ',', -1)) AS KEYWORD, REG_USER
+			  FROM (SELECT 1 AS N UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5) numbers INNER JOIN nam_keyword_request AS kw
+			  ON CHAR_LENGTH(kw.KEYWORD_LIST) - CHAR_LENGTH(REPLACE(kw.KEYWORD_LIST, ',', '')) >= numbers.N-1 AND kw.KEYWORD_REQUEST_IDX IN 
+			  <foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
+					#{group_seq}
+			  </foreach> AND kw.APPROVAL_STATE = 'F') AS a
+		WHERE a.KEYWORD NOT IN (SELECT KEYWORD FROM nam_keyword WHERE ITEM_IDX = a.ITEM_IDX)
+
+    </insert>
+    
+    <insert id="insertAllKeyword" parameterType="egovframework.aviation.mypage.vo.RequestHistoryVO">
+		
+		INSERT INTO nam_keyword (ITEM_IDX, KEYWORD, REG_USER, REG_DATE)
+		(SELECT a.ITEM_IDX, a.KEYWORD, a.REG_USER, NOW() AS REG_DATE
+		FROM (SELECT DISTINCT ITEM_IDX, TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(kw.KEYWORD_LIST, ',', numbers.N), ',', -1)) AS KEYWORD, REG_USER
+			  FROM (SELECT 1 AS N UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5) numbers INNER JOIN nam_keyword_request AS kw
+			  ON CHAR_LENGTH(kw.KEYWORD_LIST) - CHAR_LENGTH(REPLACE(kw.KEYWORD_LIST, ',', '')) >= numbers.N-1 AND kw.APPROVAL_STATE = 'F') AS a
+		WHERE a.KEYWORD NOT IN (SELECT KEYWORD FROM nam_keyword WHERE ITEM_IDX = a.ITEM_IDX))
+    
+    </insert>
+    
+    <delete id="deleteItem" parameterType="int">
+			DELETE nib FROM nam_item_base nib 
+			join nam_erasure_request ner 
+			on nib.ITEM_IDX = ner.ERASURE_ITEM 
+			WHERE ner.ERASURE_REQUEST_IDX IN
+           	<foreach collection="group_seqList" item="group_seq" open="(" close=")" separator=",">
+				#{group_seq}
+			</foreach> 
+	</delete>
+</mapper>
