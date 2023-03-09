@@ -343,7 +343,6 @@
       <!-- Left Menu Start -->
       <ul class="metismenu list-unstyled" id="side-menu">
         <li class="dash_text menu-title" data-key="t-menu">Dashboard</li>
-
         <li>
           <a href="javascript: void(0);" class="has-arrow">
             <span class="menu-item" data-key="t-dashboards">자료 검색</span>
@@ -422,17 +421,6 @@
             <li><a href="/otherMgr.do" data-key="t-product-detail">기타관리</a></li>
             <li><a href="ecommerce-orders.html" data-key="t-orders">로그관리</a></li>
             <li><a href="/approvalMgr.do" data-key="t-cart">승인관리</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="javascript: void(0);" class="has-arrow">
-            <span class="menu-item" data-key="t-ecommerce">고객센터</span>
-          </a>
-          <ul class="sub-menu" aria-expanded="false">
-            <li><a href="ecommerce-products.html" data-key="t-products">공지사항</a></li>
-            <li><a href="ecommerce-orders.html" data-key="t-orders">FAQ</a></li>
-            <li><a href="ecommerce-customers.html" data-key="t-customers">오류신고센터</a></li>
-            <li><a href="ecommerce-cart.html" data-key="t-cart">개선사항</a></li>
           </ul>
         </li>
         <!-- 메뉴 끝 -->
