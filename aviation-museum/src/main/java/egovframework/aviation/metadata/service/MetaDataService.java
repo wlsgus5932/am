@@ -155,6 +155,28 @@ public interface MetaDataService {
 
 	List<KeywordVO> getKewordList(int item_idx);
 
+	int updateItemBase(MetaDataParamVO param);
+
+	void updateObtainment(MetaDataParamVO param);
+
+	void updateGgnuri(MetaDataParamVO param);
+
+	void updateKeyword(MetaDataParamVO param);
+
+	int deleteTaxonomy(String[] arr);
+
+	int deleteCountry(String[] arr);
+
+	int deleteMaterial(String[] arr);
+
+	int deleteMeasurement(String[] arr);
+
+	int deleteInvolvement(String[] arr);
+
+	int deleteInsurance(String[] arr);
+
+	int deleteCopyright(String[] arr);
+
 
 
 }

@@ -83,6 +83,7 @@ public class SearchMetaDataController {
 	
 	@PostMapping("/searchItemBase.do")
 	public String searchItemBase(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
+		System.out.println(param);
 		List<ItemBaseVO> list = service.getItemBase(param);
 		model.addAttribute("itemBaseList", list);
 		

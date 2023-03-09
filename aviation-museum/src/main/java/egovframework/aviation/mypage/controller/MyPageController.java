@@ -3,7 +3,6 @@ package egovframework.aviation.mypage.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import egovframework.aviation.metadata.service.MetaDataService;
-import egovframework.aviation.metadata.vo.Material2VO;
 import egovframework.aviation.metadata.vo.OrgVO;
 import egovframework.aviation.metadata.vo.PosSessionVO;
 import egovframework.aviation.mypage.service.MyPageService;
@@ -24,10 +22,8 @@ import egovframework.aviation.mypage.vo.WorkHistoryVO;
 import egovframework.aviation.paging.Criteria;
 import egovframework.aviation.paging.PageMaker;
 import egovframework.aviation.preferences.service.CodeMgrService;
-import egovframework.aviation.preferences.vo.ExchnRateVO;
 import egovframework.aviation.preferences.vo.SpecialityVO;
 import egovframework.aviation.user.service.UserService;
-import egovframework.aviation.user.vo.UserJoinVO;
 import egovframework.aviation.user.vo.UserVO;
 
 @Controller
