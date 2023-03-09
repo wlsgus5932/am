@@ -216,33 +216,6 @@
 			<version>1.18.26</version>
 			<scope>provided</scope>
 		</dependency>
-
-        <!-- file upload -->
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.3.1</version>
-        </dependency>
-
-        <!-- MultipartHttpServletRequset -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
-
-        <dependency>
-		    <groupId>commons-codec</groupId>
-		    <artifactId>commons-codec</artifactId>
-		    <version>1.10</version>
-		</dependency>
-
-		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-compress</artifactId>
-		    <!-- 1.6 환경에서는 1.12 버전까지만 지원 -->
-		    <version>1.12</version>
-		</dependency>
 	</dependencies>
 
 	<build>
