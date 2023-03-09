@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<dextuploadnj-licenses>
-	<license type="cert" hostname="SERVER-A" ip="1.1.1.1" path="dextuploadnj-server-a.config"/>
-	<license type="cert" hostname="SERVER-B" ip="2.2.2.2" path="dextuploadnj-server-b.config"/>
-	<license type="eval" path="dextuploadnj.config"/>
-</dextuploadnj-licenses>
