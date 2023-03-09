@@ -208,7 +208,7 @@ function metaDataListView(value1,value2,value3,value4,value5){
 		$('#org_code_idx').val(value2);
 		$('#item_no').val(value3);
 		$('#item_detail_no').val(value4);
-		//$('#reg_state').val(value5);
+		$('#reg_state').val(value5);
 		var pop_title = "popupOpener" ;
 		
 		window.open("", pop_title, 'width=1000, height=1000') ;
