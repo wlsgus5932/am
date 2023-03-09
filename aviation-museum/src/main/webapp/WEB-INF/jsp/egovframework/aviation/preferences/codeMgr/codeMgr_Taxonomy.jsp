@@ -33,24 +33,24 @@
 	                            <td>${icaoList.seq}</td>
 	                            <td>${icaoList.mod_date}</td>
 	                            <td>${icaoList.mod_user}</td>
-	                            <td><button>${icaoList.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('icao', '${icaoList.icao_code_idx}', '${icaoList.icao_nm}', '${icaoList.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${icaoList.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('icao', '${icaoList.icao_code_idx}', '${icaoList.icao_nm}', '${icaoList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${icaoList.seq},'up','icao')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${icaoList.seq},'up','icao')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${icaoList.icao_code_idx},${icaoList.seq},'up','icao')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${icaoList.icao_code_idx},${icaoList.seq},'up','icao')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${icaoList.seq},'down','icao')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${icaoList.seq},'down','icao')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${icaoList.icao_code_idx},${icaoList.seq},'down','icao')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${icaoList.icao_code_idx},${icaoList.seq},'down','icao')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -60,7 +60,7 @@
                       </table>
                     </div>
                   </div>
-                  <button data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insFormBtn('icao')">코드등록</button>
+                  <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insFormBtn('icao')">코드등록</button>
                 </div>
                 <!-- 오른쪽 -->
                 <div class="user_control_right col-xl-6">
@@ -90,24 +90,24 @@
 	                            <td>${class1List.seq}</td>
 	                            <td>${class1List.mod_date}</td>
 	                            <td>${class1List.mod_user}</td>
-	                            <td><button>${class1List.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('class1', '${class1List.class1_code_idx}', '${class1List.class1_nm}', '${class1List.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${class1List.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('class1', '${class1List.class1_code_idx}', '${class1List.class1_nm}', '${class1List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${class1List.seq},'up','class1')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${class1List.seq},'up','class1')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${class1List.class1_code_idx},${class1List.seq},'up','class1')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${class1List.class1_code_idx},${class1List.seq},'up','class1')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${class1List.seq},'down','class1')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${class1List.seq},'down','class1')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${class1List.class1_code_idx},${class1List.seq},'down','class1')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${class1List.class1_code_idx},${class1List.seq},'down','class1')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -117,7 +117,7 @@
                       </table>
                     </div>
                   </div>
-                  <button data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insFormBtn('class1')">코드등록</button>
+                  <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insFormBtn('class1')">코드등록</button>
                 </div>
               </div>
               <!--  -->
@@ -150,24 +150,24 @@
 	                            <td>${class2List.seq}</td>
 	                            <td>${class2List.mod_date}</td>
 	                            <td>${class2List.mod_user}</td>
-	                            <td><button>${class2List.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('class2', '${class2List.class2_code_idx}', '${class2List.class2_nm}', '${class2List.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${class2List.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('class2', '${class2List.class2_code_idx}', '${class2List.class2_nm}', '${class2List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${class2List.seq},'up','class2')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${class2List.seq},'up','class2')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${class2List.class2_code_idx},${class2List.seq},'up','class2')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${class2List.class2_code_idx},${class2List.seq},'up','class2')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${class2List.seq},'down','class2')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${class2List.seq},'down','class2')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${class2List.class2_code_idx},${class2List.seq},'down','class2')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${class2List.class2_code_idx},${class2List.seq},'down','class2')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -177,7 +177,7 @@
                       </table>
                     </div>
                   </div>
-                  <button data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insFormBtn('class2')">코드등록</button>
+                  <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insFormBtn('class2')">코드등록</button>
                 </div>
                 <!-- 오른쪽 -->
                 <div class="user_control_right col-xl-6">
@@ -207,24 +207,24 @@
 	                            <td>${class3List.seq}</td>
 	                            <td>${class3List.mod_date}</td>
 	                            <td>${class3List.mod_user}</td>
-	                            <td><button>${class3List.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('class3', '${class3List.class3_code_idx}', '${class3List.class3_nm}', '${class3List.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${class3List.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('class3', '${class3List.class3_code_idx}', '${class3List.class3_nm}', '${class3List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${class3List.seq},'up','class3')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${class3List.seq},'up','class3')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${class3List.class3_code_idx},${class3List.seq},'up','class3')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${class3List.class3_code_idx},${class3List.seq},'up','class3')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${class3List.seq},'down','class3')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${class3List.seq},'down','class3')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${class3List.class3_code_idx},${class3List.seq},'down','class3')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${class3List.class3_code_idx},${class3List.seq},'down','class3')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -234,7 +234,7 @@
                       </table>
                     </div>
                   </div>
-                  <button data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insFormBtn('class3')">코드등록</button>
+                  <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insFormBtn('class3')">코드등록</button>
                 </div>
               </div>
             </div>

@@ -24,24 +24,24 @@
 	                            <td>${storageCodeViewList.storage_nm }</td>
 	                            <td>${storageCodeViewList.mod_user }</td>
 	                            <td>${storageCodeViewList.mod_date }</td>
-	                            <td><button>${storageCodeViewList.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modSubFormBtn('storage', '${storageCodeViewList.storage_code_idx}', '${storageCodeViewList.storage_nm}', '${storageCodeViewList.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${storageCodeViewList.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modSubFormBtn('storage', '${storageCodeViewList.storage_code_idx}', '${storageCodeViewList.storage_nm}', '${storageCodeViewList.enabled}')">수정</button></td>
 	                            <td>
 	                              	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${storageCodeViewList.seq},'up','storage')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${storageCodeViewList.seq},'up','storage')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${storageCodeViewList.storage_code_idx},${storageCodeViewList.seq},'up','storage')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${storageCodeViewList.storage_code_idx},${storageCodeViewList.seq},'up','storage')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${storageCodeViewList.seq},'down','storage')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${storageCodeViewList.seq},'down','storage')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${storageCodeViewList.storage_code_idx},${storageCodeViewList.seq},'down','storage')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${storageCodeViewList.storage_code_idx},${storageCodeViewList.seq},'down','storage')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -51,5 +51,5 @@
                       </table>
                     </div>
                   </div>
-                  <button data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insSubFormBtn('storage')">코드등록</button>
+                  <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insSubFormBtn('storage')">코드등록</button>
 

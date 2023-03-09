@@ -6,7 +6,7 @@
      <form id="userSearchForm" name="userSearchForm" method="post" class="form-horizontal">
 	      <div class="user_top_wrap">
 	          <span>검색</span>
-	          <select class="form-select st_select" id="search_type" name="search_type">
+	          <select class="search_select" id="search_type" name="search_type">
 	            <option value="">전체</option>
 	            <option value="member_id">사용자 ID</option>
 		        <option value="member_nm">사용자명</option>
@@ -14,17 +14,13 @@
 		        <option value="remark">비고</option>
 		        <option value="enabled">사용여부</option>
 	          </select>
-	            <input type="text" id="search_word" name="search_word" >
-	            <button type="button" onClick="userSearchList();">조회</button>
+	            <input class="custom_search_input" type="text" id="search_word" name="search_word" >
+	            <button class="custom_btn btn_inquiry"  type="button" onClick="userSearchList();">조회</button>
 	      </div>
       </form>
-      <div class="st_wrap st_mv_wrap">
-        <div class="st_title_wrap">
-          <button class="btn btn-secondary waves-effect waves-light btn_ml" id="userListEnabledBtn">선택 미사용</button>
-        </div>
-        <div class="user_btn">
-          <button type="button" class="btn btn-primary waves-effect waves-light btn_ml btn_wh btn_ex" data-bs-toggle="modal" data-bs-target="#myModal">사용자등록</button>
-        </div>
+      <div class="custom_btn_wrap">
+          <button class="custom_btn btn_no_select" id="userListEnabledBtn">선택 미사용</button>
+          <button type="button" class="custom_btn btn_user_registration" data-bs-toggle="modal" data-bs-target="#myModal">사용자등록</button>
       </div>
       <div class="mb-0">
         <!-- 사용자 등록 모달 -->
@@ -51,7 +47,7 @@
 	                                          <td>
 	                                            <input type="text" name="member_id" id="insUserId" oninput="userInsInputChange();">
 	                                            <button type="button" id="userInsCheck" userInsCheck="" onclick="duplicateCheck();">중복체크</button>
-	                                          </td>
+	                                      	    </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>비밀번호</td>
@@ -209,10 +205,10 @@
 	                           	${userList.enabled}
 	                           </td>
 	                           <td>
-	                            <button type="button" class="btn btn-primary waves-effect waves-light btn_ml btn_wh btn_ex" data-bs-toggle="modal" data-bs-target="#UserModal" onclick="userModPopup('${userList.member_idx}');">수정</button>
+	                            <button type="button" class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#UserModal" onclick="userModPopup('${userList.member_idx}');">수정</button>
 	                          </td>
 	                           <td>
-	                            <button class="btn btn-secondary waves-effect waves-light btn_ml btn_wh">초기화</button>
+	                            <button class="custom_btn btn_reset">초기화</button>
 	                           </td>
 	                      </tr>
 					</c:forEach>

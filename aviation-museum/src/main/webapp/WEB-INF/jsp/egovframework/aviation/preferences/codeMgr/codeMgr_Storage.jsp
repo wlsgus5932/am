@@ -19,7 +19,7 @@
                       <div id="tree"></div>
                     </div>
                   </div>
-                  <button class="find_code_btn" data-bs-toggle="modal" data-bs-target="#code_find_modal">코드찾기</button>
+                  <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_find_modal">코드찾기</button>
                 </div>
                 <!-- 화살표 -->
                 <div class="center_arrow">▶</div>

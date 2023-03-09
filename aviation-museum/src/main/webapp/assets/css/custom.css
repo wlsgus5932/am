@@ -1,3 +1,168 @@
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 300 !important;
+}
+
+button {
+	font-size: 14px;
+}
+
+table {
+	table-layout: fixed;
+	letter-spacing: -1.5px;
+	text-align: center;
+}
+
+/* 커스텀 셀렉트, 검색창 */
+
+.search_select {
+	width: 180px;
+	height: 30px;
+	border: 1px solid #D2D2D2;
+	border-radius: 6px;
+}
+
+.custom_search_input {
+	width: 400px;
+	height: 30px;
+	border: 1px solid #D2D2D2;
+	border-radius: 6px;
+}
+
+
+/* 커스텀 셀렉트, 검색창 끝 */
+
+/* 커스텀 버튼 */
+
+.custom_btn {
+	transition: 0.1s;
+	font-size: 14px;
+	padding: 0.1% 1% 0.1% 1%;
+	border-radius: 6px;
+	border: 0;
+}
+
+.custom_btn:hover {
+	opacity:0.5;
+}
+
+.btn_edit {
+	background-color: #fff;
+	color: #7D7D7D;
+	border: 1px solid #D2D2D2;
+	width:50px;
+	height: 28px;
+}
+
+.btn_reset {
+	background-color: #fff;
+	color: #7D7D7D;
+	border: 1px solid #D2D2D2;
+	width:60px;
+	height: 28px;
+}
+
+.btn_user_registration, .btn_no_select, .btn_in_wrap_header {
+	background-color: #707070;
+	color: #fff;
+	width: auto;
+	height: 30px;
+}
+
+.btn_inquiry {
+	background-color: #707070;
+	color: #fff;
+	height: 30px;
+}
+
+.btn_preferences_y {
+	font-size: 14px;
+	background-color: #3D3D3D;
+}
+
+.btn_preferences_n {
+	font-size: 14px;
+	background-color: #919191;
+}
+
+.btn_arrow {
+	width: 100%;
+}
+
+.btn_preferences_user_enabled {
+	width: 50px;
+	height: 28px;
+	background-color: #3D3D3D;
+	color: #fff;
+}
+
+.btn_code_upload {
+	background-color: #7288C5;
+	height: 28px;
+	color: #fff;
+	float: right;
+}
+
+.btn_3d3d3d {
+	width: 64px;
+	height: 28px;
+	background-color: #3D3D3D;
+	color: #fff;
+}
+
+.btn_c58672 {
+	width: 64px;
+	height: 28px;
+	background-color: #C58672;
+	color: #fff;
+}
+
+
+/* 커스텀 버튼 끝 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 커스텀 인풋, 버튼 영역 */
+
+.custom_btn_wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.custom_prefernces_header_wrap {
+	width: 100%;
+}
+
+.custom_prefernces_header_wrap_in_wrap {
+	
+}
+
+
+/* 커스텀 인풋, 버튼 영역 끝*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 .tap_text {
   display: flex;
   max-width: 1320px;
@@ -433,7 +598,7 @@ th {
 }
 
 .img-row {
-  justify-content: space-between;
+   justify-content: left;
 }
 
 .img-col {
@@ -577,3 +742,40 @@ th {
   /* background: url('../custom_img/intro_video_2.mp4') !important; */
   width: 100%;
 }
+
+.input-file-button{
+  background-color:#FF6600;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.filebox .upload-name {
+    display: inline-block;
+    height: 30px;
+    border: 1px solid #dddddd;
+    width: 50%;
+    color: #999999;
+}
+
+.filebox label {
+    display: inline-block;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+
+

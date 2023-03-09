@@ -106,9 +106,9 @@
                     </div>
                 </div>
               <!--  -->
-              <div class="st_wrap st_mv_wrap">
+              <div class="custom_prefernces_header_wrap">
                 <form id="tagSearchForm" name="tagSearchForm" method="post" class="form-horizontal">
-	                <div>
+	                <div class="custom_prefernces_header_wrap_in_wrap">
 	                  리스트 출력 갯수 :
 	                    <select class="form-select st_select img-select" id="perPageNum" name="perPageNum">	                      
 	                      <option value="10">10</option>
@@ -126,22 +126,16 @@
 					        <option value="enabled">사용여부</option>
 	                    </select>
 	                      <input type="text" id="search_word" name="search_word" >
-	                      <button type="button" onClick="tagSearchList();">조회</button>
+	                      <button class="custom_btn btn_inquiry" type="button" onClick="tagSearchList();">조회</button>
 	                  </div>
                   </form>
               </div>
               <div class="mb-0">
                 <div class="card-body">
                   <!--  -->
-                  <div class="st_wrap st_mv_wrap">
-                    <div>
-<!--                       <button>전체선택</button> -->
-<!--                       <button>선택해지</button> -->
-                      <button data-bs-toggle="modal" data-bs-target="#DelModal">선택삭제</button>
-                    </div>
-                    <div class="img-btn">
-                     <button data-bs-toggle="modal" data-bs-target="#TagModal-1">태그등록</button>
-                    </div>
+                  <div class="custom_btn_wrap">
+                      <button class="custom_btn btn_in_wrap_header" data-bs-toggle="modal" data-bs-target="#DelModal">선택삭제</button>
+                     <button class="custom_btn btn_in_wrap_header" data-bs-toggle="modal" data-bs-target="#TagModal-1">태그등록</button>
                   </div>
                   <!--  -->
                   <div class="table-responsive">
@@ -175,7 +169,7 @@
 	                          <td>${tagList.reg_date }</td>
 	                          <td>${tagList.mod_user }</td>
 	                          <td>${tagList.enabled }</td>
-	                          <td><button type="button" data-bs-toggle="modal" data-bs-target="#TagModal-2" onclick="tagModPopup('${tagList.tag_idx}');">수정</button></td>
+	                          <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#TagModal-2" onclick="tagModPopup('${tagList.tag_idx}');">수정</button></td>
 	                        </tr>
 	                     </c:forEach>  
                       </tbody>
