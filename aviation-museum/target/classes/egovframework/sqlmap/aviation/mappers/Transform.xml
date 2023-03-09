@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.aviation.metadata.service.impl.TransformMapper">
+
+<select id="getTransformList" resultType="egovframework.aviation.metadata.vo.metadata.TransformVO">
+	select
+		ib.rownum,
+		ib.item_idx,
+		ib.rownum,
+		ib.item_no,
+		ib.item_detail_no,
+		ib.item_nm,
+		ib.item_se_nm,
+		ib.item_eng_nm,
+		ib.author,
+		ib.reg_state,
+		ib.possession_nm,
+		ib.org_nm
+	from
+		(
+			select 
+				row_number() over(order by ib.item_no*1, ib.item_detail_no*1) rownum,
+				ib.item_idx,
+				ib.item_no,
+				ib.item_detail_no,
+				ib.item_nm,
+				ib.item_se_nm,
+				ib.item_eng_nm,
+				ib.author,
+				ib.reg_state,
+				npc.possession_nm,
+				noc.org_nm 
+			from 
+				nam_item_base ib, 
+				nam_involvement ni,
+				nam_possession_code npc, 
+				nam_org_code noc
+			where ib.item_no BETWEEN ${item_no1} and ${item_no2}
+				<if test='reg_state == "N" '>
+					and ib.reg_state = #{reg_state}
+				</if>
+				<if test='reg_state == "Y" '>
+					and ib.reg_state = #{reg_state}
+				</if>
+			and ib.item_idx = ni.item_idx
+			and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+			and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+			) ib
+			LIMIT #{perPageNum} OFFSET #{pageStart} 
+</select> 
+
+<select id="getTransformAllList" resultType="egovframework.aviation.metadata.vo.metadata.TransformVO">
+	select
+		ib.rownum,
+		ib.item_idx,
+		ib.rownum,
+		ib.item_no,
+		ib.item_detail_no,
+		ib.item_nm,
+		ib.item_se_nm,
+		ib.item_eng_nm,
+		ib.author,
+		ib.reg_state,
+		ib.possession_nm,
+		ib.org_nm
+	from
+		(
+			select 
+				row_number() over(order by ib.item_no*1, ib.item_detail_no*1) rownum,
+				ib.item_idx,
+				ib.item_no,
+				ib.item_detail_no,
+				ib.item_nm,
+				ib.item_se_nm,
+				ib.item_eng_nm,
+				ib.author,
+				ib.reg_state,
+				npc.possession_nm,
+				noc.org_nm 
+			from 
+				nam_item_base ib, 
+				nam_involvement ni,
+				nam_possession_code npc, 
+				nam_org_code noc
+			where ib.item_no BETWEEN ${item_no1} and ${item_no2}
+				<if test='reg_state == "N" '>
+					and ib.reg_state = #{reg_state}
+				</if>
+				<if test='reg_state == "Y" '>
+					and ib.reg_state = #{reg_state}
+				</if>
+			and ib.item_idx = ni.item_idx
+			and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+			and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+			) ib
+</select> 
+
+<select id="getTransformListCnt" resultType="int">
+	select count(*)
+	from
+		(
+			select 
+				ib.item_idx,
+				ib.item_no,
+				ib.item_detail_no,
+				ib.item_nm,
+				ib.item_se_nm,
+				ib.item_eng_nm,
+				ib.author,
+				ib.reg_state,
+				npc.possession_nm,
+				noc.org_nm 
+			from 
+				nam_item_base ib, 
+				nam_involvement ni,
+				nam_possession_code npc, 
+				nam_org_code noc
+			where ib.item_no BETWEEN ${item_no1} and ${item_no2}
+				<if test='reg_state == "N" '>
+					and ib.reg_state = #{reg_state}
+				</if>	
+				<if test='reg_state == "Y" '>
+					and ib.reg_state = #{reg_state}
+				</if>
+			and ib.item_idx = ni.item_idx
+			and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+			and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+			order by ib.item_no*1, ib.item_detail_no*1
+			) ib
+</select> 
+
+<update id="changeTransformReg" parameterType="egovframework.aviation.metadata.vo.param.TransformParamVO">
+		update nam_item_base
+			set reg_state = #{reg_state}
+		where item_idx  in 
+		<foreach collection="item_idx" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach>
+</update>
+
+</mapper>

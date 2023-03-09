@@ -172,8 +172,11 @@
         </dependency> -->
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> sebin
+=======
+>>>>>>> 834dc9c330f29058078e6f29d8037ef2b35cd8ec
         
         <!-- file upload -->
         <dependency>
@@ -202,9 +205,7 @@
 		    <!-- 1.6 환경에서는 1.12 버전까지만 지원 -->
 		    <version>1.12</version>
 		</dependency>
-=======
-
->>>>>>> sebin
+		
         <!-- 20230208 excel api 추가  -->
 		<dependency>
 		    <groupId>org.apache.poi</groupId>
@@ -216,6 +217,7 @@
 		    <artifactId>poi-ooxml</artifactId>
 		    <version>4.1.2</version>
 		</dependency>
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -243,6 +245,15 @@
           <version>4.1.2</version>
       </dependency>
 >>>>>>> sebin
+=======
+			
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.26</version>
+			<scope>provided</scope>
+		</dependency>
+>>>>>>> 834dc9c330f29058078e6f29d8037ef2b35cd8ec
 
         <!-- file upload -->
         <dependency>
@@ -264,6 +275,7 @@
           <version>1.10</version>
       </dependency>
 
+<<<<<<< HEAD
       <dependency>
           <groupId>org.apache.commons</groupId>
           <artifactId>commons-compress</artifactId>
@@ -276,6 +288,14 @@
 
 
 >>>>>>> sebin
+=======
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-compress</artifactId>
+		    <!-- 1.6 환경에서는 1.12 버전까지만 지원 -->
+		    <version>1.12</version>
+		</dependency>
+>>>>>>> 834dc9c330f29058078e6f29d8037ef2b35cd8ec
 	</dependencies>
 
 	<build>

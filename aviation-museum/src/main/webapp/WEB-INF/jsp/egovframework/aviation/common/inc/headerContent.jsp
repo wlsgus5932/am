@@ -344,8 +344,11 @@
       <ul class="metismenu list-unstyled" id="side-menu">
         <li class="dash_text menu-title" data-key="t-menu">Dashboard</li>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
+=======
+>>>>>>> 834dc9c330f29058078e6f29d8037ef2b35cd8ec
               <li>
                 <a href="javascript: void(0);" class="has-arrow">
                   <span class="menu-item" data-key="t-dashboards">자료 검색</span>
@@ -378,7 +381,7 @@
                   <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">이미지 신규등록</a></li>
                   <li><a href="/notRegister.do" data-key="t-orders">가등록 자료 정보조회</a></li>
                   <li><a href="ecommerce-customers.html" data-key="t-customers">가등록 자료 정보검색</a></li>
-                  <li><a href="ecommerce-checkout.html" data-key="t-checkout">자료관리전환</a></li>
+                  <li><a href="/getTransform.do" data-key="t-checkout">자료관리전환</a></li>
                   <li><a href="ecommerce-add-product.html" data-key="t-add-product">신규자료 자동등록</a></li>
                 </ul>
               </li>
@@ -427,6 +430,7 @@
                   <li><a href="/approvalMgr.do" data-key="t-cart">승인관리</a></li>
                 </ul>
               </li>
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> sebin
@@ -527,6 +531,8 @@
             <li><a href="ecommerce-cart.html" data-key="t-cart">개선사항</a></li>
           </ul>
         </li>
+=======
+>>>>>>> 834dc9c330f29058078e6f29d8037ef2b35cd8ec
         <!-- 메뉴 끝 -->
       </ul>
     </div>
