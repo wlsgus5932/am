@@ -905,12 +905,8 @@
                   <div class="text-muted">
                     <strong class="text-dark">
                       <ul>
-                        <li><a href="#">저장</a></li>
-                        <li><a href="#">자료 등록하기</a></li>
-                        <li><a href="#">자료 정보 가져오기</a></li>
-                        <li><a href="#">자료 정보 일괄 변경</a></li>
-                        <li><a href="#">자료 정보 삭제 신청</a></li>
-                        <li><a href="#">자료 번호 삽입</a></li>
+                        <li data-bs-toggle="modal" data-bs-target="#keyword_modal" >키워드 신청</li>
+                        <li><a href="#">관심 자료 등록하기</a></li>
                       </ul>
                   </div>
                 </div>
@@ -996,6 +992,9 @@
               </a>
           </li>
         </ul>
+        
+        
+            
         <!-- Tab panes -->
         <div class="tab-content p-3 text-muted">
           <!-- 기본 사항 시작 -->
@@ -1540,7 +1539,7 @@
           </div>
           
           <input type="hidden" id="gameToken" name="reg_user" value="jinhyun">
-          <input type="hidden" id="gameToken" name="reg_state" value="N">
+          <input type="hidden" id="gameToken" name="reg_state" value="Y">
         </div>
           <!-- 기본사항 - 자료상태 및 전시순위 끝 -->
           <!--  -->
@@ -2414,6 +2413,56 @@
           <!--  -->
 
         </div>
+        
+        <!-- 키워드 신청  모달 -->
+          <!--  -->
+          <div id="keyword_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
+          <input type="hidden" id="keywordPage" value="1"/>
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header mv-modal-header">
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mv-modal-body">
+                  <!--  -->
+                  <div class="mb-0 user-wrap">
+                    <div class="st_wrap">
+                      <label class="col-md-2 col-form-label st_title">키워드 신청</label>
+                    </div>
+                    <!--  -->
+                    <div class="">
+                      <input type="text"><button type="button">조회</button>
+                    </div>
+                    <!--  -->
+                    <div class="card-body" id="keywordZone">
+                    
+                    <div class="table-responsive" style="overflow-y:scroll; height:300px; padding:4px; border:1 solid #000000;">
+                        <table class="table mb-0">
+                          <thead>
+                            <tr class="tr_bgc">
+                              <th>번호</th>
+                              <th>색인어</th>
+                            </tr>
+                          </thead>
+                          <tbody id="keyword_tbody">
+	    						  <td>키워드 정보가 없습니다.</td>
+                          </tbody>
+                        </table>
+                      </div>
+                      
+                    </div>
+                    <!--  -->
+                    <div class="" style="border-top: 1px solid;">
+                      추가키워드<input type="text"><button type="button">+ 추가</button>
+                    </div>
+                  </div>
+                  <!--  -->
+                  <div class="custom_modal_footer">
+                    <button type="button">닫기</button>
+                  </div>
+                </div>
+              </div>
+            </div>
         
 
         <footer class="footer">

@@ -182,6 +182,24 @@ const set_itemBase_input = async (list) => {
 		
 	})
 	
+	let item_idx = sessionStorage.getItem("item_idx");
+	
+	$.ajax({
+			type : 'POST',                 
+			url : '/getKeywordList.do',
+			data: {
+				item_idx: item_idx
+			},			
+			dataType : "html",           
+			contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+			error : function() {
+					alert('통신실패!');
+			},
+			success : function(data) {  
+				$('#keywordZone').empty().append(data);
+			}
+		});
+	
 }
 
 

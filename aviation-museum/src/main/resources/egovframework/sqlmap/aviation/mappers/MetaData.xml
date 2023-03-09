@@ -1,142 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.aviation.metadata.service.impl.MetaDataMapper">
-
-	<!-- add.do 로드 시 select -->
-	<select id="getCountry" resultMap="CountryResult">
-			SELECT * FROM nam_country_code
+	
+	<select id="getDeletionList" resultType="egovframework.aviation.metadata.vo.metadata.DeletionVO">
+	select 
+			row_number() over(order by ib.reg_date) as rownum,
+			ib.item_idx,
+			ib.item_no,
+			ib.item_detail_no,
+			ib.item_nm,
+			npc.POSSESSION_NM,
+			noc.ORG_NM 
+		from nam_item_base ib,
+			nam_involvement ni,
+			nam_possession_code npc, 
+			nam_org_code noc
+		where ib.item_no between ${item_no1} and ${item_no2}
+		<if test="item_detail_no1 != '' and item_detail_no1 != null">
+		and ib.item_detail_no between ${item_detail_no1} and ${item_detail_no2}
+		</if>
+		and ib.item_idx = ni.item_idx
+		and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+		and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX
+		LIMIT #{perPageNum} OFFSET #{pageStart};
 	</select>
 	
-	<select id="getEra" resultMap="EraResult" parameterType="int">
-			SELECT * FROM nam_era_code where country_code_idx = #{country}
+	<select id="getDeletionCnt" resultType="int">
+		select count(ib.item_idx)
+		from nam_item_base ib,
+			nam_involvement ni,
+			nam_possession_code npc, 
+			nam_org_code noc
+		where ib.item_no between ${item_no1} and ${item_no2}
+		<if test="item_detail_no1 != '' and item_detail_no1 != null">
+		and ib.item_detail_no between ${item_detail_no1} and ${item_detail_no2}
+		</if>
+		and ib.item_idx = ni.item_idx
+		and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+		and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX
 	</select>
 	
-	<select id="getMaterial1" resultMap="Material1Result">
-			SELECT * FROM nam_material1_code
-	</select>
+	<insert id="deleteDeletion" parameterType="java.util.Map">
+		insert into nam_erasure_request (
+			REG_DATE,
+			ERASURE_ITEM,
+			ORG_NM, 
+			POSSESSION_NM, 
+			ITEM_NO, 
+			ITEM_DETAIL_NO, 
+			ITEM_NM, 
+			ERASURE_REASON, 
+			APPROVAL_STATE,
+			REG_USER
+		)
+		values
+		<foreach separator="," index="key" item="value" collection="map">
+			(
+				now(),
+				<foreach separator="," index="idx" item="item" collection="value">
+					#{item} 
+				</foreach>
+			) 
+			</foreach>
+	</insert>
 	
-	<select id="getMaterial2" resultMap="Material2Result" parameterType="int">
-			SELECT * FROM nam_material2_code where material1_code_idx = #{material}
-	</select>
-	
-	<select id="getIcao" resultMap="IcaoResult">
-			SELECT * FROM nam_icao_code
-	</select>
-	
-	<select id="getExistence" resultMap="existenceResult">
-			SELECT * FROM nam_existence_code
-	</select>
-	
-	<select id="getMeasurement" resultMap="measurementResult">
-			SELECT * FROM nam_measurement_code
-	</select>
-	
-	<select id="getMeasurementUnit" resultMap="measurementUnitResult">
-			SELECT * FROM nam_measurement_unit_code
-	</select>
-	
-	<select id="getClass1" resultMap="class1Result">
-			SELECT * FROM nam_class1_code
-	</select>
-	
-	<select id="getClass2" resultMap="class2Result">
-			SELECT * FROM nam_class2_code
-	</select>
-	
-	<select id="getClass3" resultMap="class3Result">
-			SELECT * FROM nam_class3_code
-	</select>
-	
-	<select id="getObtainment" resultMap="obtainmentResult">
-			SELECT * FROM nam_obtainment_code
-	</select>
-	
-	<select id="getPurchase1" resultMap="purchase1Result">
-			SELECT * FROM nam_purchase1_code
-	</select>
-	
-	<select id="getPurchase2" resultMap="purchase2Result">
-			SELECT * FROM nam_purchase2_code
-	</select>
-	
-	<select id="getPriceUnit" resultMap="priceUnitResult">
-			SELECT * FROM nam_price_unit_code
-	</select>
-	
-	<select id="getQtyUnit" resultMap="qtyUnitResult">
-			SELECT * FROM nam_qty_unit_code
-	</select>
-	
-	<select id="getCondition" resultMap="conditionResult">
-			SELECT * FROM nam_condition_code
-	</select>
-	
-	<select id="getRanking" resultMap="rankingResult">
-			SELECT * FROM nam_ranking_code
-	</select>
-	
-	<select id="getPosSession" resultMap="posSessionResult">
-			SELECT * FROM nam_possession_code
-	</select>
-	
-	<select id="getGgnuri" resultMap="ggnuriResult">
-			SELECT * FROM nam_ggnuri_code
-	</select>
-	
-	<select id="getOrg" resultMap="OrgResult">
-			SELECT * FROM nam_org_code
-	</select>
-	
-	<select id="getStorageType1" resultType="egovframework.aviation.metadata.vo.StorageType1VO">
-			SELECT * FROM nam_storage_type1_code
-	</select>
-	
-	<select id="getStorageType2" resultType="egovframework.aviation.metadata.vo.StorageType2VO">
-			SELECT * FROM nam_storage_type2_code where storage_type1_code_idx = #{type2}
-	</select>
-	
-	<select id="getStorage" resultType="egovframework.aviation.metadata.vo.StorageVO">
-			SELECT * FROM nam_storage_code where parent_code = #{i}
-	</select>
-	
-	<select id="getTaxonomy" resultType="egovframework.aviation.metadata.vo.metadata.TaxonomyVO">
-			SELECT * FROM nam_taxonomy where item_idx = #{item_idx}
-	</select>
-	
-	<select id="getCountryEra" resultType="egovframework.aviation.metadata.vo.metadata.CountryEraVO">
-			SELECT * FROM nam_country_era where item_idx = #{item_idx}
-	</select>
-	
-	<select id="getMaterial" resultType="egovframework.aviation.metadata.vo.metadata.MaterialVO">
-			SELECT * FROM nam_material where item_idx = #{item_idx}
-	</select>
-	
-	<select id="getMeasure" resultType="egovframework.aviation.metadata.vo.metadata.MeasurementVO">
-			SELECT * FROM nam_measurement where item_idx = #{item_idx}
-	</select>
-	
-	<select id="getObtainmentList" resultType="egovframework.aviation.metadata.vo.metadata.ObtainmentVO">
-			SELECT * FROM nam_obtainment where item_idx = #{item_idx}
-	</select>
-	
-	<select id="getInvolvementList" resultType="egovframework.aviation.metadata.vo.metadata.InvolvementVO">
-			SELECT * FROM nam_involvement where item_idx = #{item_idx}
-	</select>
-	
-	<select id="getInsuranceList" resultType="egovframework.aviation.metadata.vo.metadata.InsuranceVO">
-			SELECT * FROM nam_insurance where item_idx = #{item_idx}
-	</select>
-	
-	<select id="getCopyrightList" resultType="egovframework.aviation.metadata.vo.metadata.CopyrightVO">
-			SELECT * FROM nam_copyright where item_idx = #{item_idx}
-	</select>
-	
-	<select id="getPublicService" resultType="egovframework.aviation.metadata.vo.metadata.PublicServiceVO">
-			SELECT * FROM nam_public_service where item_idx = #{item_idx}
-	</select>
-	
-	<select id="getKewordList" resultType="egovframework.aviation.metadata.vo.metadata.KeywordVO">
-			SELECT * FROM nam_keyword where item_idx = #{item_idx}
+	<select id="getKeywordList" resultType="egovframework.aviation.metadata.vo.KeywordVO">
+		select *, row_number() over(order by reg_date) rownum from nam_keyword where item_idx = #{item_idx} order by rownum desc;
 	</select>
 	
 	<select id="getItemBase" resultType="egovframework.aviation.metadata.vo.ItemBaseVO">
@@ -432,6 +361,144 @@
 	<delete id="deleteMovement" parameterType="int">
 			delete from nam_movement where movement_idx = #{movement_idx}
 	</delete>
+	
+	
+	<!-- add.do 로드 시 select -->
+	<select id="getCountry" resultMap="CountryResult">
+			SELECT * FROM nam_country_code
+	</select>
+	
+	<select id="getEra" resultMap="EraResult" parameterType="int">
+			SELECT * FROM nam_era_code where country_code_idx = #{country}
+	</select>
+	
+	<select id="getMaterial1" resultMap="Material1Result">
+			SELECT * FROM nam_material1_code
+	</select>
+	
+	<select id="getMaterial2" resultMap="Material2Result" parameterType="int">
+			SELECT * FROM nam_material2_code where material1_code_idx = #{material}
+	</select>
+	
+	<select id="getIcao" resultMap="IcaoResult">
+			SELECT * FROM nam_icao_code
+	</select>
+	
+	<select id="getExistence" resultMap="existenceResult">
+			SELECT * FROM nam_existence_code
+	</select>
+	
+	<select id="getMeasurement" resultMap="measurementResult">
+			SELECT * FROM nam_measurement_code
+	</select>
+	
+	<select id="getMeasurementUnit" resultMap="measurementUnitResult">
+			SELECT * FROM nam_measurement_unit_code
+	</select>
+	
+	<select id="getClass1" resultMap="class1Result">
+			SELECT * FROM nam_class1_code
+	</select>
+	
+	<select id="getClass2" resultMap="class2Result">
+			SELECT * FROM nam_class2_code
+	</select>
+	
+	<select id="getClass3" resultMap="class3Result">
+			SELECT * FROM nam_class3_code
+	</select>
+	
+	<select id="getObtainment" resultMap="obtainmentResult">
+			SELECT * FROM nam_obtainment_code
+	</select>
+	
+	<select id="getPurchase1" resultMap="purchase1Result">
+			SELECT * FROM nam_purchase1_code
+	</select>
+	
+	<select id="getPurchase2" resultMap="purchase2Result">
+			SELECT * FROM nam_purchase2_code
+	</select>
+	
+	<select id="getPriceUnit" resultMap="priceUnitResult">
+			SELECT * FROM nam_price_unit_code
+	</select>
+	
+	<select id="getQtyUnit" resultMap="qtyUnitResult">
+			SELECT * FROM nam_qty_unit_code
+	</select>
+	
+	<select id="getCondition" resultMap="conditionResult">
+			SELECT * FROM nam_condition_code
+	</select>
+	
+	<select id="getRanking" resultMap="rankingResult">
+			SELECT * FROM nam_ranking_code
+	</select>
+	
+	<select id="getPosSession" resultMap="posSessionResult">
+			SELECT * FROM nam_possession_code
+	</select>
+	
+	<select id="getGgnuri" resultMap="ggnuriResult">
+			SELECT * FROM nam_ggnuri_code
+	</select>
+	
+	<select id="getOrg" resultMap="OrgResult">
+			SELECT * FROM nam_org_code
+	</select>
+	
+	<select id="getStorageType1" resultType="egovframework.aviation.metadata.vo.StorageType1VO">
+			SELECT * FROM nam_storage_type1_code
+	</select>
+	
+	<select id="getStorageType2" resultType="egovframework.aviation.metadata.vo.StorageType2VO">
+			SELECT * FROM nam_storage_type2_code where storage_type1_code_idx = #{type2}
+	</select>
+	
+	<select id="getStorage" resultType="egovframework.aviation.metadata.vo.StorageVO">
+			SELECT * FROM nam_storage_code where parent_code = #{i}
+	</select>
+	
+	<select id="getTaxonomy" resultType="egovframework.aviation.metadata.vo.metadata.TaxonomyVO">
+			SELECT * FROM nam_taxonomy where item_idx = #{item_idx}
+	</select>
+	
+	<select id="getCountryEra" resultType="egovframework.aviation.metadata.vo.metadata.CountryEraVO">
+			SELECT * FROM nam_country_era where item_idx = #{item_idx}
+	</select>
+	
+	<select id="getMaterial" resultType="egovframework.aviation.metadata.vo.metadata.MaterialVO">
+			SELECT * FROM nam_material where item_idx = #{item_idx}
+	</select>
+	
+	<select id="getMeasure" resultType="egovframework.aviation.metadata.vo.metadata.MeasurementVO">
+			SELECT * FROM nam_measurement where item_idx = #{item_idx}
+	</select>
+	
+	<select id="getObtainmentList" resultType="egovframework.aviation.metadata.vo.metadata.ObtainmentVO">
+			SELECT * FROM nam_obtainment where item_idx = #{item_idx}
+	</select>
+	
+	<select id="getInvolvementList" resultType="egovframework.aviation.metadata.vo.metadata.InvolvementVO">
+			SELECT * FROM nam_involvement where item_idx = #{item_idx}
+	</select>
+	
+	<select id="getInsuranceList" resultType="egovframework.aviation.metadata.vo.metadata.InsuranceVO">
+			SELECT * FROM nam_insurance where item_idx = #{item_idx}
+	</select>
+	
+	<select id="getCopyrightList" resultType="egovframework.aviation.metadata.vo.metadata.CopyrightVO">
+			SELECT * FROM nam_copyright where item_idx = #{item_idx}
+	</select>
+	
+	<select id="getPublicService" resultType="egovframework.aviation.metadata.vo.metadata.PublicServiceVO">
+			SELECT * FROM nam_public_service where item_idx = #{item_idx}
+	</select>
+	
+	<select id="getKewordList" resultType="egovframework.aviation.metadata.vo.metadata.KeywordVO">
+			SELECT * FROM nam_keyword where item_idx = #{item_idx}
+	</select>
 	
 	<sql id="metadata_columns1">
 		org_code_idx, 

@@ -37,6 +37,7 @@ import egovframework.aviation.metadata.vo.StorageType2VO;
 import egovframework.aviation.metadata.vo.StorageVO;
 import egovframework.aviation.metadata.vo.metadata.CopyrightVO;
 import egovframework.aviation.metadata.vo.metadata.CountryEraVO;
+import egovframework.aviation.metadata.vo.metadata.DeletionVO;
 import egovframework.aviation.metadata.vo.metadata.InsuranceVO;
 import egovframework.aviation.metadata.vo.metadata.InvolvementVO;
 import egovframework.aviation.metadata.vo.metadata.KeywordVO;
@@ -44,15 +45,16 @@ import egovframework.aviation.metadata.vo.metadata.MaterialVO;
 import egovframework.aviation.metadata.vo.metadata.PreservationVO;
 import egovframework.aviation.metadata.vo.metadata.PublicServiceVO;
 import egovframework.aviation.metadata.vo.metadata.TaxonomyVO;
+import egovframework.aviation.metadata.vo.param.DeletionParamVO;
 import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
 import egovframework.aviation.metadata.vo.param.MovementParamVO;
 
 @Service
 public class MetaDataServiceImpl implements MetaDataService {
-	
+
 	@Autowired
 	private MetaDataMapper dao;
-	
+
 	//add.do 첫 로딩시
 	@Override
 	public List<CountryVO> getCountry() {
@@ -126,7 +128,7 @@ public class MetaDataServiceImpl implements MetaDataService {
 
 	@Override
 	public List<PriceUnitVO> getPriceUnit() {
-		return dao.getPriceUnit(); 
+		return dao.getPriceUnit();
 	}
 
 	@Override
@@ -141,7 +143,7 @@ public class MetaDataServiceImpl implements MetaDataService {
 
 	@Override
 	public List<RankingVO> getRanking() {
-		return dao.getRanking(); 
+		return dao.getRanking();
 	}
 
 	@Override
@@ -158,7 +160,7 @@ public class MetaDataServiceImpl implements MetaDataService {
 	public List<OrgVO> getOrg() {
 		return dao.getOrg();
 	}
-	
+
 	//자료등록
 	@Override
 	public int setItemBase(MetaDataParamVO param) {
@@ -332,7 +334,83 @@ public class MetaDataServiceImpl implements MetaDataService {
 		return dao.getKewordList(item_idx);
 	}
 
-	
-	
+	@Override
+	public int updateItemBase(MetaDataParamVO param) {
+		return dao.updateItemBase(param);
+	}
+
+	@Override
+	public void updateObtainment(MetaDataParamVO param) {
+		dao.updateObtainment(param);
+	}
+
+	@Override
+	public void updateGgnuri(MetaDataParamVO param) {
+		dao.updateGgnuri(param);
+	}
+
+	@Override
+	public void updateKeyword(MetaDataParamVO param) {
+		dao.updateKeyword(param);
+	}
+
+	@Override
+	public int deleteTaxonomy(String[] arr) {
+		return dao.deleteTaxonomy(arr);
+	}
+
+	@Override
+	public int deleteCountry(String[] arr) {
+		return dao.deleteCountry(arr);
+	}
+
+	@Override
+	public int deleteMaterial(String[] arr) {
+		return dao.deleteMaterial(arr);
+	}
+
+	@Override
+	public int deleteMeasurement(String[] arr) {
+		return dao.deleteMeasurement(arr);
+	}
+
+	@Override
+	public int deleteInvolvement(String[] arr) {
+		return dao.deleteInvolvement(arr);
+	}
+
+	@Override
+	public int deleteInsurance(String[] arr) {
+		return dao.deleteInsurance(arr);
+	}
+
+	@Override
+	public int deleteCopyright(String[] arr) {
+		return dao.deleteCopyright(arr);
+	}
+
+	@Override
+	public List<DeletionVO> getDeletionList(DeletionParamVO param) {
+		return dao.getDeletionList(param);
+	}
+
+	@Override
+	public int getDeletionCnt(DeletionParamVO param) {
+		// TODO Auto-generated method stub
+		return dao.getDeletionCnt(param);
+	}
+
+	@Override
+	public int deleteDeletion(Map<Integer, Object> map) {
+		return dao.deleteDeletion(map);
+	}
+
+	@Override
+	public List<KeywordVO> getKeywordList(MetaDataParamVO param) {
+		return dao.getKeywordList(param);
+	}
+
+
+
 
 }
