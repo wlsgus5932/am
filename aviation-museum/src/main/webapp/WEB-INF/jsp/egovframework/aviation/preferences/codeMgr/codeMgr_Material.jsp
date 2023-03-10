@@ -30,24 +30,24 @@
 	                            <td>${material1List.seq }</td>
 	                            <td>${material1List.mod_date}</td>
 	                            <td>${material1List.mod_user}</td>
-	                            <td><button>${material1List.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1"  onclick="modFormBtn('material1', '${material1List.material1_code_idx}', '${material1List.material1_nm}', '${material1List.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${material1List.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1"  onclick="modFormBtn('material1', '${material1List.material1_code_idx}', '${material1List.material1_nm}', '${material1List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${material1List.seq},'up','material1')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${material1List.seq},'up','material1')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${material1List.material1_code_idx},${material1List.seq},'up','material1')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${material1List.material1_code_idx},${material1List.seq},'up','material1')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${material1List.seq},'down','material1')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${material1List.seq},'down','material1')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${material1List.material1_code_idx},${material1List.seq},'down','material1')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${material1List.material1_code_idx},${material1List.seq},'down','material1')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -57,7 +57,7 @@
                       </table>
                     </div>
                   </div>
-                  <button data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insFormBtn('material1')">코드등록</button>
+                  <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insFormBtn('material1')">코드등록</button>
                 </div>
                 <!-- 화살표 -->
                 <div class="center_arrow">▶</div>
@@ -87,24 +87,24 @@
 	                            <td>${material2List.seq }</td>
 	                            <td>${material2List.mod_date}</td>
 	                            <td>${material2List.mod_user}</td>
-	                            <td><button>${material2List.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modSubFormBtn('material2', '${material2List.material2_code_idx}', '${material2List.material2_nm}', '${material2List.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${material2List.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modSubFormBtn('material2', '${material2List.material2_code_idx}', '${material2List.material2_nm}', '${material2List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${material2List.seq},'up','material2')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${material2List.seq},'up','material2')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${material2List.material2_code_idx},${material2List.seq},'up','material2')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${material2List.material2_code_idx},${material2List.seq},'up','material2')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${material2List.seq},'down','material2')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${material2List.seq},'down','material2')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${material2List.material2_code_idx},${material2List.seq},'down','material2')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${material2List.material2_code_idx},${material2List.seq},'down','material2')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -115,7 +115,7 @@
                     </div>
                   </div>
                   <c:if test="${!empty material1VO.material1_code_idx}">
-                  	<button data-bs-toggle="modal" data-bs-target="#code_insert_modal-3-3" onclick="insSubFormBtn('material2')">코드등록</button>
+                  	<button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-3-3" onclick="insSubFormBtn('material2')">코드등록</button>
                   </c:if>
                 </div>
               </div>

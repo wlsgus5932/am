@@ -171,26 +171,26 @@
 	               </div>
 	           </div>
               <!-- -->
-              <div class="st_wrap st_mv_wrap">
-                <div class="auto_btn_left">
-                	<button type="button" onclick="allApproval('Y')">전체승인</button>
-                	<button type="button" data-bs-toggle="modal" data-bs-target="#refusalModal" >전체반려</button>
-                	<button type="button" onclick="selectApproval('Y')">선택승인</button>
-                	<button type="button" data-bs-toggle="modal" data-bs-target="#refusalModal2">선택반려</button>
-                	<button type="button" data-bs-toggle="modal" data-bs-target="#refusalModal3" style="display:none;" id="approvalBtn">반려</button>
-                </div>
-              <form id="erasureSearchForm" name="erasureSearchForm" method="post" class="form-horizontal">            
-                <div class="auto_btn_right">
-                  리스트 출력 갯수 :
-                    <select class="form-select st_select img-select" id="perPageNum" name="perPageNum" onchange="erasurePerPageNum();">	                      
-                      <option value="10">10</option>
-                      <option value="15">15</option>
-                      <option value="20">20</option>
-                    </select>
-                </div>
-              </form>
-              </div>
               <div class="mb-0">
+	              <div class="custom_btn_wrap">
+	                <div class="auto_btn_left">
+	                	<button class="custom_btn btn_3d3d3d" type="button" onclick="allApproval('Y')">전체승인</button>
+	                	<button class="custom_btn btn_c58672" type="button" data-bs-toggle="modal" data-bs-target="#refusalModal" >전체반려</button>
+	                	<button class="custom_btn btn_3d3d3d" type="button" onclick="selectApproval('Y')">선택승인</button>
+	                	<button class="custom_btn btn_c58672" type="button" data-bs-toggle="modal" data-bs-target="#refusalModal2">선택반려</button>
+	                	<button class="custom_btn" type="button" data-bs-toggle="modal" data-bs-target="#refusalModal3" style="display:none;" id="approvalBtn">반려</button>
+	                </div>
+	              <form id="erasureSearchForm" name="erasureSearchForm" method="post" class="form-horizontal">            
+	                <div class="auto_btn_right">
+	                  리스트 출력 갯수 :
+	                    <select class="form-select st_select img-select" id="perPageNum" name="perPageNum" onchange="erasurePerPageNum();">	                      
+	                      <option value="10">10</option>
+	                      <option value="15">15</option>
+	                      <option value="20">20</option>
+	                    </select>
+	                </div>
+	              </form>
+	              </div>              
                 <div class="card-body">
                   <div class="table-responsive">
                       <table class="table mb-0">
@@ -615,6 +615,7 @@
     					});
 	    			}
 	    		}
+	    	
 	    		
 	    		function returnModalBtn(value1){
 	    			var request_idx = value1;

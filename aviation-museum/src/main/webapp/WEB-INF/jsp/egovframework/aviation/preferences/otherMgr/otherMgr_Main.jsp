@@ -949,7 +949,7 @@
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab" id="exchnRateMgr">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                    <span class="d-none d-sm-block">환률정보관리</span>
+                    <span class="d-none d-sm-block">환율정보관리</span>
                 </a>
             </li>
         </ul>

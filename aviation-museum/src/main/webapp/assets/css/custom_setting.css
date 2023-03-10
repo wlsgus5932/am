@@ -10,9 +10,9 @@
   color: #000;
 }
 
-.user_control_wrap button {
-  float: right;
-}
+/* .user_control_wrap button { */
+/*   float: right; */
+/* } */
 
 table {
   table-layout: fixed;

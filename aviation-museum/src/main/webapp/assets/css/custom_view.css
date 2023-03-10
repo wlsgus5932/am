@@ -17,6 +17,6 @@
   margin: auto;
 }
 
-.table > :not(caption) > * > * {
-  text-align: left;
-}
+/* .table > :not(caption) > * > * { */
+/*   text-align: left; */
+/* } */

@@ -144,15 +144,9 @@
               <div class="mb-0">
                 <div class="card-body">
                   <!--  -->
-                  <div class="st_wrap st_mv_wrap">
-                    <div>
-<!--                       <button>전체선택</button> -->
-<!--                       <button>선택해지</button> -->
-                      <button data-bs-toggle="modal" data-bs-target="#DelModal1">선택삭제</button>
-                    </div>
-                    <div class="img-btn">
-                     <button data-bs-toggle="modal" data-bs-target="#TagModal-11">환율등록</button>
-                    </div>
+                  <div class="custom_btn_wrap">
+                     <button class="custom_btn btn_in_wrap_header" data-bs-toggle="modal" data-bs-target="#DelModal1">선택삭제</button>
+                     <button class="custom_btn btn_in_wrap_header" data-bs-toggle="modal" data-bs-target="#TagModal-11">환율등록</button>
                   </div>
                   <!--  -->
                   <div class="table-responsive">
@@ -189,7 +183,7 @@
 	                          <td>${exchnRateList.reg_date }</td>
 	                          <td>${exchnRateList.mod_user }</td>
 	                          <td>${exchnRateList.enabled }</td>
-	                          <td><button data-bs-toggle="modal" data-bs-target="#TagModal-22" type="button" onclick="exchnRateModPopup('${exchnRateList.exchange_rate_idx}');">수정</button></td>
+	                          <td><button class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#TagModal-22" type="button" onclick="exchnRateModPopup('${exchnRateList.exchange_rate_idx}');">수정</button></td>
 	                        </tr>
 						</c:forEach>
                       </tbody>

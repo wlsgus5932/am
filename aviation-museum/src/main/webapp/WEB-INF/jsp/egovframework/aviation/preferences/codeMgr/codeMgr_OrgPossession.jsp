@@ -33,24 +33,24 @@
 	                            <td>${orgList.seq}</td>
 	                            <td>${orgList.mod_date}</td>
 	                            <td>${orgList.mod_user}</td>
-	                            <td><button>${orgList.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1"  onclick="modFormBtn('org', '${orgList.org_code_idx}', '${orgList.org_nm}', '${orgList.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${orgList.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1"  onclick="modFormBtn('org', '${orgList.org_code_idx}', '${orgList.org_nm}', '${orgList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${orgList.seq},'up','org')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${orgList.seq},'up','org')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${orgList.org_code_idx},${orgList.seq},'up','org')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${orgList.org_code_idx},${orgList.seq},'up','org')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${orgList.seq},'down','org')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${orgList.seq},'down','org')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${orgList.org_code_idx},${orgList.seq},'down','org')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${orgList.org_code_idx},${orgList.seq},'down','org')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -60,7 +60,7 @@
                       </table>
                     </div>
                   </div>
-                  <button data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insFormBtn('org')">코드등록</button>
+                  <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insFormBtn('org')">코드등록</button>
                 </div>
                 <!-- 화살표 -->
                 <div class="center_arrow">▶</div>
@@ -92,24 +92,24 @@
 	                            <td>${possessionList.seq}</td>
 	                            <td>${possessionList.mod_date}</td>
 	                            <td>${possessionList.mod_user}</td>
-	                            <td><button>${possessionList.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modSubFormBtn('possession', '${possessionList.possession_code_idx}', '${possessionList.possession_nm}', '${possessionList.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${possessionList.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modSubFormBtn('possession', '${possessionList.possession_code_idx}', '${possessionList.possession_nm}', '${possessionList.enabled}')">수정</button></td>
 	                            <td>
 	                              	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${possessionList.seq},'up','possession')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${possessionList.seq},'up','possession')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${possessionList.possession_code_idx},${possessionList.seq},'up','possession')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${possessionList.possession_code_idx},${possessionList.seq},'up','possession')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${possessionList.seq},'down','possession')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${possessionList.seq},'down','possession')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${possessionList.possession_code_idx},${possessionList.seq},'down','possession')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${possessionList.possession_code_idx},${possessionList.seq},'down','possession')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -120,7 +120,7 @@
                     </div>
                   </div>
                   <c:if test="${!empty orgVO.org_code_idx}">
-                  	 <button data-bs-toggle="modal" data-bs-target="#code_insert_modal-2" onclick="insSubFormBtn('possession')">코드등록</button>
+                  	 <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-2" onclick="insSubFormBtn('possession')">코드등록</button>
                   </c:if>
                 </div>
               </div>

@@ -31,24 +31,24 @@
 	                            <td>${countryList.seq}</td>
 	                            <td>${countryList.mod_date}</td>
 	                            <td>${countryList.mod_user}</td>
-	                            <td><button>${countryList.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1"  onclick="modFormBtn('country', '${countryList.country_code_idx}', '${countryList.country_nm}', '${countryList.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${countryList.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1"  onclick="modFormBtn('country', '${countryList.country_code_idx}', '${countryList.country_nm}', '${countryList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${countryList.seq},'up','country')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${countryList.seq},'up','country')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${countryList.country_code_idx},${countryList.seq},'up','country')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${countryList.country_code_idx},${countryList.seq},'up','country')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${countryList.seq},'down','country')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${countryList.seq},'down','country')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${countryList.country_code_idx},${countryList.seq},'down','country')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${countryList.country_code_idx},${countryList.seq},'down','country')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -58,7 +58,7 @@
                       </table>
                     </div>
                   </div>
-                  <button data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insFormBtn('country')">코드등록</button>
+                  <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-1" onclick="insFormBtn('country')">코드등록</button>
                 </div>
                 <!-- 화살표 -->
                 <div class="center_arrow">▶</div>
@@ -86,24 +86,24 @@
 	                            <td>${eraList.era_nm}</td>
 	                            <td>${eraList.mod_date}</td>
 	                            <td>${eraList.mod_user}</td>
-	                            <td><button>${eraList.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modSubFormBtn('era', '${eraList.era_code_idx}', '${eraList.era_nm}', '${eraList.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${eraList.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modSubFormBtn('era', '${eraList.era_code_idx}', '${eraList.era_nm}', '${eraList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${eraList.seq},'up','era')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${eraList.seq},'up','era')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${eraList.era_code_idx},${eraList.seq},'up','era')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${eraList.era_code_idx},${eraList.seq},'up','era')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${eraList.seq},'down','era')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${eraList.seq},'down','era')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${eraList.era_code_idx},${eraList.seq},'down','era')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${eraList.era_code_idx},${eraList.seq},'down','era')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -114,7 +114,7 @@
                     </div>
                   </div>
                   <c:if test="${!empty countryVO.country_code_idx}">
-                  	 <button data-bs-toggle="modal" data-bs-target="#code_insert_modal-3-2" onclick="insSubFormBtn('era')">코드등록</button>
+                  	 <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-3-2" onclick="insSubFormBtn('era')">코드등록</button>
                   </c:if>
                 </div>
               </div>

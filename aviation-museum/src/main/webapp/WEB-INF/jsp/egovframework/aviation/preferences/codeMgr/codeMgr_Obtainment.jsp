@@ -32,24 +32,24 @@
 	                            <td>${obtainmentList.seq }</td>
 	                            <td>${obtainmentList.mod_date}</td>
 	                            <td>${obtainmentList.mod_user}</td>
-	                            <td><button>${obtainmentList.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('obtainment', '${obtainmentList.obtainment_code_idx}', '${obtainmentList.obtainment_nm}', '${obtainmentList.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${obtainmentList.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('obtainment', '${obtainmentList.obtainment_code_idx}', '${obtainmentList.obtainment_nm}', '${obtainmentList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${obtainmentList.seq},'up','obtainment')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${obtainmentList.seq},'up','obtainment')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${obtainmentList.obtainment_code_idx},${obtainmentList.seq},'up','obtainment')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${obtainmentList.obtainment_code_idx},${obtainmentList.seq},'up','obtainment')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${obtainmentList.seq},'down','obtainment')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${obtainmentList.seq},'down','obtainment')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${obtainmentList.obtainment_code_idx},${obtainmentList.seq},'down','obtainment')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${obtainmentList.obtainment_code_idx},${obtainmentList.seq},'down','obtainment')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -59,7 +59,7 @@
                       </table>
                     </div>
                   </div>
-                  <button data-bs-toggle="modal" data-bs-target="#code_insert_modal-3-1" onclick="insFormBtn('obtainment')">코드등록</button>
+                  <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-3-1" onclick="insFormBtn('obtainment')">코드등록</button>
                 </div>
                 <!-- 오른쪽 -->
                 <div class="user_control_right col-xl-6">
@@ -89,24 +89,24 @@
 	                            <td>${priceUnitList.seq }</td>
 	                            <td>${priceUnitList.mod_date}</td>
 	                            <td>${priceUnitList.mod_user}</td>
-	                            <td><button>${priceUnitList.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('price_unit', '${priceUnitList.price_unit_code_idx}', '${priceUnitList.price_unit_nm}', '${priceUnitList.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${priceUnitList.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('price_unit', '${priceUnitList.price_unit_code_idx}', '${priceUnitList.price_unit_nm}', '${priceUnitList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${priceUnitList.seq},'up','price_unit')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${priceUnitList.seq},'up','price_unit')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${priceUnitList.price_unit_code_idx},${priceUnitList.seq},'up','price_unit')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${priceUnitList.price_unit_code_idx},${priceUnitList.seq},'up','price_unit')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${priceUnitList.seq},'down','price_unit')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${priceUnitList.seq},'down','price_unit')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${priceUnitList.price_unit_code_idx},${priceUnitList.seq},'down','price_unit')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${priceUnitList.price_unit_code_idx},${priceUnitList.seq},'down','price_unit')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -116,7 +116,7 @@
                       </table>
                     </div>
                   </div>
-                  <button data-bs-toggle="modal" data-bs-target="#code_insert_modal-3-1" onclick="insFormBtn('price_unit')">코드등록</button>
+                  <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-3-1" onclick="insFormBtn('price_unit')">코드등록</button>
                 </div>
               </div>
               <!--  -->
@@ -149,24 +149,24 @@
 	                            <td>${purchase1List.seq }</td>
 	                            <td>${purchase1List.mod_date}</td>
 	                            <td>${purchase1List.mod_user}</td>
-	                            <td><button>${purchase1List.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('purchase1', '${purchase1List.purchase1_code_idx}', '${purchase1List.purchase1_nm}', '${purchase1List.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${purchase1List.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('purchase1', '${purchase1List.purchase1_code_idx}', '${purchase1List.purchase1_nm}', '${purchase1List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${purchase1List.seq},'up','purchase1')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${purchase1List.seq},'up','purchase1')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${purchase1List.purchase1_code_idx},${purchase1List.seq},'up','purchase1')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${purchase1List.purchase1_code_idx},${purchase1List.seq},'up','purchase1')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${purchase1List.seq},'down','purchase1')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${purchase1List.seq},'down','purchase1')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${purchase1List.purchase1_code_idx},${purchase1List.seq},'down','purchase1')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${purchase1List.purchase1_code_idx},${purchase1List.seq},'down','purchase1')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -176,7 +176,7 @@
                       </table>
                     </div>
                   </div>
-                  <button data-bs-toggle="modal" data-bs-target="#code_insert_modal-3-1" onclick="insFormBtn('purchase1')">코드등록</button>
+                  <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-3-1" onclick="insFormBtn('purchase1')">코드등록</button>
                 </div>
                 <!-- 오른쪽 -->
                 <div class="user_control_right col-xl-6">
@@ -206,24 +206,24 @@
 	                            <td>${purchase2List.seq }</td>
 	                            <td>${purchase2List.mod_date}</td>
 	                            <td>${purchase2List.mod_user}</td>
-	                            <td><button>${purchase2List.enabled}</button></td>
-	                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('purchase2', '${purchase2List.purchase2_code_idx}', '${purchase2List.purchase2_nm}', '${purchase2List.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${purchase2List.enabled}</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('purchase2', '${purchase2List.purchase2_code_idx}', '${purchase2List.purchase2_nm}', '${purchase2List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${varStatus.first}">  
-			                             	<button type="button" onClick="updateSeq(0,${purchase2List.seq},'up','purchase2')">▲</button>
+			                             	<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${purchase2List.seq},'up','purchase2')">▲</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${purchase2List.purchase2_code_idx},${purchase2List.seq},'up','purchase2')">▲</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${purchase2List.purchase2_code_idx},${purchase2List.seq},'up','purchase2')">▲</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 		                              
 		                            <c:choose>
 			                            <c:when test="${varStatus.last}">  
-			                              <button type="button" onClick="updateSeq(0,${purchase2List.seq},'down','purchase2')">▼</button>
+			                              <button class="custom_btn btn_arrow" type="button" onClick="updateSeq(0,${purchase2List.seq},'down','purchase2')">▼</button>
 		                            	</c:when>
 		                            	<c:otherwise>
-		                            		<button type="button" onClick="updateSeq(${purchase2List.purchase2_code_idx},${purchase2List.seq},'down','purchase2')">▼</button>
+		                            		<button class="custom_btn btn_arrow" type="button" onClick="updateSeq(${purchase2List.purchase2_code_idx},${purchase2List.seq},'down','purchase2')">▼</button>
 		                            	</c:otherwise>
 	                            	</c:choose>
 	                            </td>
@@ -233,7 +233,7 @@
                       </table>
                     </div>
                   </div>
-                  <button data-bs-toggle="modal" data-bs-target="#code_insert_modal-3-1" onclick="insFormBtn('purchase2')">코드등록</button>
+                  <button class="custom_btn btn_code_upload" data-bs-toggle="modal" data-bs-target="#code_insert_modal-3-1" onclick="insFormBtn('purchase2')">코드등록</button>
                 </div>
               </div>
             </div>
