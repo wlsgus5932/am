@@ -423,6 +423,17 @@
             <li><a href="/approvalMgr.do" data-key="t-cart">승인관리</a></li>
           </ul>
         </li>
+        
+        <li>
+          <a href="javascript: void(0);" class="has-arrow">
+            <span class="menu-item" data-key="t-ecommerce">고객센터</span>
+          </a>
+          <ul class="sub-menu" aria-expanded="false">
+            <li><a href="/notice.do" data-key="t-products">공지사항</a></li>
+            <li><a href="/otherMgr.do" data-key="t-product-detail">FAQ</a></li>
+            <li><a href="ecommerce-orders.html" data-key="t-orders">오류신고 / 개선사항</a></li>
+          </ul>
+        </li>
         <!-- 메뉴 끝 -->
       </ul>
     </div>
