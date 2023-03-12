@@ -12,9 +12,9 @@ public class NoticeVO {
 	private String notice_content;
 	private int count;
 	private String reg_user;
-	private LocalDateTime reg_date;
+	private String reg_date;
 	private String mod_user;
-	private LocalDateTime mod_date;
+	private String mod_date;
 	
 	/* 검색필드 */
 	private String search_word;
@@ -62,9 +62,9 @@ public class NoticeVO {
 		this.reg_user = reg_user;
 	}
 	public String getReg_date() {
-		return reg_date.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
+		return reg_date;
 	}
-	public void setReg_date(LocalDateTime reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
 	public String getMod_user() {
@@ -74,9 +74,9 @@ public class NoticeVO {
 		this.mod_user = mod_user;
 	}
 	public String getMod_date() {
-		return mod_date.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+		return mod_date;
 	}
-	public void setMod_date(LocalDateTime mod_date) {
+	public void setMod_date(String mod_date) {
 		this.mod_date = mod_date;
 	}
 	

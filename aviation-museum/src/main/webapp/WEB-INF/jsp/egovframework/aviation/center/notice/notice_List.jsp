@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
      <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block;">
-     <form id="userSearchForm" name="userSearchForm" method="post" class="form-horizontal">
+     <form id="noticeSearchForm" name="noticeSearchForm" method="post" class="form-horizontal">
 	      <div class="user_top_wrap" style="margin-top:20px;">
 	          <span>검색</span>
 	          <select class="search_select" id="search_type" name="search_type">
@@ -64,7 +64,7 @@
 	                                      <tr>
 	                                        <td>내용</td>
 	                                          <td>
-	                                          <textarea name="notice_content" id="insNoticeContent" cols="50" rows="10" required></textarea>
+	                                          <textarea name="notice_content" id="insNoticeContent" cols="70" rows="10" required></textarea>
 	                                          </td>
 	                                      </tr>
 	                                  </tbody>
@@ -81,11 +81,10 @@
       </div>
        <div class="st_wrap st_mv_wrap">
                 <div>
-                  리스트 출력 갯수 :
-                    <select class="form-select st_select img-select" id="perPageNum" name="perPageNum">
-                      <option>10</option>
-                      <option>15</option>
-                      <option>20</option>
+                    <select class="form-select st_select img-select" id="perPageNum" name="perPageNum" onchange="changePerPageNum(value);">
+                     	<option value="10" <c:if test="${pageMaker.cri.perPageNum == 10}">selected</c:if>>10개씩 보기</option>
+                        <option value="20" <c:if test="${pageMaker.cri.perPageNum == 20}">selected</c:if>>20개씩 보기</option>
+                        <option value="30" <c:if test="${pageMaker.cri.perPageNum == 30}">selected</c:if>>30개씩 보기</option>
                     </select>
                 </div>
        </div>
@@ -342,4 +341,22 @@
 				}
 			});
 	}
+		
+		function changePerPageNum(value) {
+			$.ajax({
+				type : 'POST',                
+				url : '/notice/noticeListAjax.do',
+				data : {
+					perPageNum : value
+				},
+				dataType : "html",           
+				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+				error : function() {          
+					alert('통신실패!');
+				},
+				success : function(data) {  
+					$('#tab-content').empty().append(data);
+				}
+			});
+		}
 	</script>

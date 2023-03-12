@@ -12,9 +12,9 @@
 					,nn.notice_content
 					,nn.count
 					,nn.reg_user
-					,nn.reg_date
+					,DATE_FORMAT(nn.reg_date, '%Y-%m-%d %H:%i') AS reg_date
 					,nn.mod_user
-					,nn.mod_date
+					,DATE_FORMAT(nn.mod_date, '%Y-%m-%d %H:%i') AS mod_date
 				FROM nam_notice nn
 				WHERE 1=1 
 		        <if test=" '' != search_word and null != search_word">

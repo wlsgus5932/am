@@ -1,5 +1,6 @@
 package egovframework.aviation.center.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +36,6 @@ public class CustomerCenterController {
 	/** 사용자 목록 조회 */
 	@RequestMapping("/notice/noticeListAjax.do")
 	public String NoticeListAjax(@ModelAttribute("noticeVO") NoticeVO noticeVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
-		
 		int perPageNum = noticeService.getNoticeListCnt(noticeVO);		
 		
 		PageMaker pageMaker = new PageMaker();
@@ -44,11 +44,10 @@ public class CustomerCenterController {
 		    
 	    noticeVO.setPageStart(cri.getPageStart());
 	    noticeVO.setPerPageNum(cri.getPerPageNum());
-	    
 		List<NoticeVO> noticeList = noticeService.getNoticeList(noticeVO);
 
 		model.addAttribute("noticeList", noticeList);
-		model.addAttribute("perPageNum", perPageNum);		
+		model.addAttribute("perPageNum", perPageNum);
 		model.addAttribute("pageMaker", pageMaker);
 		
 		return "center/notice/notice_List";

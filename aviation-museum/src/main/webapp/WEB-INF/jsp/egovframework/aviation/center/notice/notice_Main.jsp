@@ -27,6 +27,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	
 	<script type="text/javascript">
+		
 	
 		// 체크박스 전체선택 전체해제
 		function agreeAllCheck(){
