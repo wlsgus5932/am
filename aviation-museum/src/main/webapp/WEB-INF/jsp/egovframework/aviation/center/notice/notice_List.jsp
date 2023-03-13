@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	
      <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block;">
      <form id="noticeSearchForm" name="noticeSearchForm" method="post" class="form-horizontal">
@@ -16,25 +17,34 @@
 	      </div>
       </form>
       <div class="custom_btn_wrap" style="margin-top: 50px;">
-          <button class="custom_btn btn_no_select" id="noticeListDeleteBtn" data-bs-toggle="modal" data-bs-target="#DelModal">선택 삭제</button>
+          <button class="custom_btn btn_no_select" id="noticeListDeleteBtn">선택 삭제</button>
           <button type="button" class="custom_btn btn_user_registration" data-bs-toggle="modal" data-bs-target="#myModal">공지사항등록</button>
       </div>
-      <div id="DelModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-modal="true" role="dialog">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <p>삭제하시겠습니까?</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary waves-effect waves-light">확인</button>
-                      <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">취소</button>
-                    </div>
-                  </div>
-                </div>
-      </div>
+<!--       <div id="DelModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-modal="true" role="dialog"> -->
+<!--                 <div class="modal-dialog modal-dialog-centered"> -->
+<!--                   <div class="modal-content"> -->
+<!--                     <div class="modal-header"> -->
+<!--                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!--                     </div> -->
+<%--                     <c:choose> --%>
+<%--                     	<c:when test="${fn:length(notice_seqList) eq 0}"> --%>
+<!--                     		<div class="modal-body"> -->
+<!-- 		                      <p>선택한 공지사항이 없습니다.</p> -->
+<!-- 		                    </div> -->
+<%--                     	</c:when> --%>
+<%--                     	<c:otherwise> --%>
+<!--                     		<div class="modal-body"> -->
+<!-- 		                      <p>선택한 공지사항을 삭제 처리하시겠습니까?</p> -->
+<!-- 		                    </div> -->
+<!-- 		                    <div class="modal-footer"> -->
+<!-- 		                      <button type="button" class="btn btn-primary waves-effect waves-light" id="noticeListDeleteBtn">확인</button> -->
+<!-- 		                      <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">취소</button> -->
+<!-- 		                    </div> -->
+<%--                     	</c:otherwise> --%>
+<%--                     </c:choose> --%>
+<!--                   </div> -->
+<!--                 </div> -->
+<!--       </div> -->
       <div class="mb-0">
         <!-- 공지사항 등록 모달 -->
         <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
@@ -88,6 +98,47 @@
                     </select>
                 </div>
        </div>
+       
+       <!--  공지사항 상세보기 -->
+       <div id="myModal2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+          <div class="modal-dialog user-modal">
+              <div class="modal-content">
+                  <div class="modal-header mv-modal-header">
+                      <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="noticeInsInputClose"></button>
+                  </div>
+                  <div class="modal-body mv-modal-body">
+                      <!-- 공지사항 등록 모달 내용 -->
+                      <div class="mb-0 user-wrap">
+                        <div class="st_wrap">
+                          <label class="col-md-2 col-form-label st_title">공지사항 상세보기</label>
+                        </div>
+                        <div class="card-body">
+                          <div class="table-responsive">
+	                              <table class="table mb-0">
+	                                  <tbody>
+	                                      <tr>
+	                                        <td>제목</td>
+	                                          <td>
+	                                            <input type="text" name="notice_title" id="noticeTitle" readOnly>
+	                                      	  </td>
+	                                      </tr>
+	                                      <tr>
+	                                        <td>내용</td>
+	                                          <td>
+	                                          <textarea name="notice_content" id="noticeContent" cols="70" rows="10" readOnly></textarea>
+	                                          </td>
+	                                      </tr>
+	                                  </tbody>
+	                              </table>
+                          </div>
+                      </div>
+                    </div>
+                    <!--  -->
+                  </div>
+              </div>
+          </div>
+      </div>
       
       <!-- 공지사항 수정 모달 -->
       <div id="NoticeModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
@@ -105,50 +156,26 @@
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
-	                       	<form action="/userupdate.do" method="post" name="userupdateform">
-								<input type="hidden" name="member_idx" id="modUserIdx"/>
+	                       	<form name="noticeupdateform">
+								<input type="hidden" name="notice_idx" id="modNoticeIdx"/>
 	                            <table class="table mb-0">
 	                                <tbody>
 	                                    <tr>
-	                                      <td>사용자ID</td>
+	                                      <td>제목</td>
 	                                        <td>
-	                                          <input type="text" name="member_id" id="modUserId">
+	                                          <input type="text" name="notice_title" id="modNoticeTitle">
 	                                        </td>
 	                                    </tr>
 	
 	                                    <tr>
-	                                      <td>사용자명</td>
+	                                      <td>내용</td>
 	                                      <td>
-	                                        <input type="text" name="member_nm" id="modUserNm">
-	                                      </td>
-	                                    </tr>
-	                                    <tr>
-	                                      <td>그룹명</td>
-	                                      <td>
-	                                        <select class="form-select st_select" name="group_idx" id="modUserGroupidx">
-<!-- 	                                          <option disabled selected>그룹 없음</option> -->
-	                                           <c:forEach var="groupList" items="${groupList}">
-				                                    <option value="${groupList.group_idx}">${groupList.group_nm}</option>
-				                               </c:forEach>
-	                                        </select>
-	                                      </td>
-	                                    </tr>
-	                                    <tr>
-	                                      <td>비고</td>
-	                                      <td>
-	                                        <input type="text" name="remark" id="modUserRemark">
-	                                      </td>
-	                                    </tr>
-	                                    <tr>
-	                                      <td>사용 여부</td>
-	                                      <td>
-	                                      	<input type="checkbox" name="enabled" id="modUserEnabledY" value="Y">사용
-	                                        <input type="checkbox" name="enabled" id="modUserEnabledN" value="N">미사용
+	                                      	<textarea name="notice_content" id="modNoticeContent" cols="70" rows="10"></textarea>
 	                                      </td>
 	                                    </tr>
 	                                </tbody>
 	                            </table>
-	                            <button class="btn btn-secondary btn_save" type="button" id="userModBtn">저장</button>
+	                            <button class="btn btn-secondary btn_save" type="button" id="noticeModBtn">저장</button>
                       		</form>
                         </div>
                     </div>
@@ -168,7 +195,9 @@
                           <th>번호</th>
                           <th>제목</th>
                           <th>등록자</th>
-                          <th>등록일</th>
+                          <th>등록일시</th>
+                          <th>수정자</th>
+                          <th>수정일시</th>
                           <th>조회수</th>
                           <th>수정</th>
                       </tr>
@@ -183,8 +212,10 @@
 	                          	${perPageNum + 1 - noticeList.rnum}
 	                          </td>
 	                          <td>
-	                            ${noticeList.notice_title}
-	                           </td>
+		                          <a class="noticeDetail" href="#myModal2" data-bs-toggle="modal" data-id="${noticeList.notice_idx}">
+	                                ${noticeList.notice_title}
+	                              </a>
+                           	  </td>
 	                           <td>
 	                            ${noticeList.reg_user}
 	                           </td>
@@ -192,10 +223,16 @@
 	                            ${noticeList.reg_date}
 	                           </td>
 	                           <td>
+	                            ${noticeList.mod_user}
+	                           </td>
+	                           <td>
+	                            ${noticeList.mod_date}
+	                           </td>
+	                           <td>
 	                            ${noticeList.count}
 	                           </td>
 	                           <td>
-	                            <button type="button" class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#NoticeModal" onclick="noticeModPopup('${userList.member_idx}');">수정</button>
+	                            <button type="button" class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#NoticeModal" onclick="noticeModPopup('${noticeList.notice_idx}');">수정</button>
 	                          </td>
 	                      </tr>
 					</c:forEach>

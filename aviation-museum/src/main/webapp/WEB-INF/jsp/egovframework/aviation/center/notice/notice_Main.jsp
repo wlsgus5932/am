@@ -120,13 +120,38 @@
 					});
 				}
 		});
-	
+		
+		// 공지사항 상세보기(제목클릭)
+		$(document).on('click', '.noticeDetail', function() {
+			var idx = $(this).data('id');
+			$.ajax({
+				type : 'POST',                 
+				url : '/noticePopupAjax.do',   
+				data:{
+					notice_idx : idx
+				},
+				dataType : "json",           
+				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+				error : function() {        
+					alert('통신실패!');
+				},
+				success : function(data) {  
+					$.each(data, function(index, item) { // 데이터 =item
+					
+						$('#noticeTitle').val(item.notice_title);
+						$('#noticeContent').val(item.notice_content);
+						
+					});
+				}
+			});
+		});
+		
 		// 사용자 수정 팝업 버튼
 		function noticeModPopup(value) {
-				var member_idx = value;
+				var notice_idx = value;
 				$.ajax({
 					type : 'POST',                 
-					url : '/noticeModPopupAjax.do',   
+					url : '/noticePopupAjax.do',   
 					data:{
 						notice_idx : notice_idx
 					},
@@ -139,96 +164,36 @@
 							
 						$.each(data, function(index, item) { // 데이터 =item
 							
-							$('#modUserIdx').val(value);
-							$('#modUserId').val(item.member_id);
-							$('#modUserNm').val(item.member_nm);
-							$('#modUserGroupidx').val(item.group_idx);
-							$('#modUserRemark').val(item.remark);
-							if(item.enabled == 'Y'){
-								$('#modUserEnabledY').prop('checked',true);
-								$('#modUserEnabledN').prop('checked',false);
-							}else{
-								$('#modUserEnabledN').prop('checked',true);
-								$('#modUserEnabledY').prop('checked',false);
-							}
+							$('#modNoticeIdx').val(value);
+							$('#modNoticeTitle').val(item.notice_title);
+							$('#modNoticeContent').val(item.notice_content);
 						});
 					}
 				});
 		}
 		
-		// 사용자 수정
-		$(document).on('click', '#userModBtn', function(){
+		// 공지사항 수정
+		$(document).on('click', '#noticeModBtn', function(){
 
-			var queryString = $("form[name=userupdateform]").serialize();
-			var check_submit = confirm('사용자를 수정하시겠습니까?');
+			var queryString = $("form[name=noticeupdateform]").serialize();
+			var check_submit = confirm('공지사항을 수정하시겠습니까?');
 
-			if (userModValidation()) {
-				if(check_submit){
-					$.ajax({
-						type : 'post',
-						url : '/userupdate.do',
-						data : queryString,
-						dataType : 'json',
-						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-						error: function(xhr, status, error){
-							alert(error);
-						},
-						success : function(success){
-							alert('사용자가 수정되었습니다.');
-							$('#userModInputClose').click();
-							$.ajax({
-								type : 'POST',                 
-								url : '/usermgr/userListAjax.do',   
-								dataType : "html",           
-								contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-								error : function() {        
-									alert('통신실패!');
-								},
-								success : function(data) {  
-									$('#tab-content').empty().append(data);
-// 									$('body').attr('class','').attr('style','');
-// 									$('.modal-backdrop').remove();
-								}
-							});
-						}
-					});
-				}
-			}
-		});
-		
-		// 사용자 선택 미사용
-		$(document).on('click', '#userListEnabledBtn', function(){
-
-			if(!$('input:checkbox[name="user_seqList"]').is(':checked')){
-				alert("선택하신 사용자가 없습니다.");
-				return false;
-			}
-			var user_seqList = [];
-			
-			$('.check_temp:checked').each(function(i){
-				user_seqList.push($(this).val());
-			});
-			 
-			var $this = $(this);
-			var answer = confirm('선택하신 사용자를 미사용 처리하시겠습니까?');
-			if(answer){
+			if(check_submit){
 				$.ajax({
-					type : 'POST',                 
-					url : '/userListEnabled.do',   
-					dataType : "json",         
-					data:{
-						user_seqList : user_seqList
-					},
+					type : 'post',
+					url : '/noticeupdate.do',
+					data : queryString,
+					dataType : 'json',
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-					error : function() {          
-						alert('통신실패!');
+					error: function(xhr, status, error){
+						alert(error);
 					},
-					success : function(success) {   
-						alert("사용자가 미사용 처리되었습니다.");
-						
+					success : function(success){
+						alert('공지사항이 수정되었습니다.');
+						$('#noticeModInputClose').click();
 						$.ajax({
 							type : 'POST',                 
-							url : '/usermgr/userListAjax.do',   
+							url : '/notice/noticeListAjax.do',   
 							dataType : "html",           
 							contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 							error : function() {        
@@ -236,12 +201,57 @@
 							},
 							success : function(data) {  
 								$('#tab-content').empty().append(data);
-
 							}
 						});
 					}
 				});
 			}
+		});
+		
+		// 공지사항 선택 삭제
+		$(document).on('click', '#noticeListDeleteBtn', function(){
+
+			if(!$('input:checkbox[name="notice_seqList"]').is(':checked')){
+				alert("선택한 공지사항이 없습니다.");
+				return false;
+			}
+			var notice_seqList = [];
+			
+			$('.check_temp:checked').each(function(i){
+				notice_seqList.push($(this).val());
+			});
+			 
+			var $this = $(this);
+			var answer = confirm('선택한 공지사항을 삭제 처리하시겠습니까?');
+			$.ajax({
+				type : 'POST',                 
+				url : '/noticeListDelete.do',   
+				dataType : "json",         
+				data:{
+					notice_seqList : notice_seqList
+				},
+				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+				error : function() {          
+					alert('통신실패!');
+				},
+				success : function(success) {   
+					alert("공지사항이 삭제 처리되었습니다.");
+					
+					$.ajax({
+						type : 'POST',                 
+						url : '/notice/noticeListAjax.do',   
+						dataType : "html",           
+						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+						error : function() {        
+							alert('통신실패!');
+						},
+						success : function(data) {  
+							$('#tab-content').empty().append(data);
+
+						}
+					});
+				}
+			});
 		});
 		// 그룹 등록
 		$(document).on('click', '#groupInsBtn', function(){

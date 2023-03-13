@@ -1,9 +1,6 @@
 package egovframework.aviation.center.vo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import lombok.NoArgsConstructor;
+import java.util.List;
 
 public class NoticeVO {
 	private String rnum;
@@ -23,6 +20,8 @@ public class NoticeVO {
 	/* 페이징   */
 	private int perPageNum;
 	private int pageStart;
+	
+	private List<String> notice_seqList = null;
 	
 	public String getRnum() {
 		return rnum;
@@ -104,11 +103,18 @@ public class NoticeVO {
 	public void setPageStart(int pageStart) {
 		this.pageStart = pageStart;
 	}
+	public List<String> getNotice_seqList() {
+		return notice_seqList;
+	}
+	public void setNotice_seqList(List<String> notice_seqList) {
+		this.notice_seqList = notice_seqList;
+	}
 	@Override
 	public String toString() {
 		return "UserJoinVO [rnum=" + rnum + ", notice_idx=" + notice_idx + ", notice_title=" + notice_title
 				+ ", notice_content=" + notice_content + ", count=" + count + ", reg_user=" + reg_user + ", reg_date="
 				+ reg_date + ", mod_user=" + mod_user + ", mod_date=" + mod_date + ", search_word=" + search_word
-				+ ", search_type=" + search_type + ", perPageNum=" + perPageNum + ", pageStart=" + pageStart + "]";
+				+ ", search_type=" + search_type + ", perPageNum=" + perPageNum + ", pageStart=" + pageStart + 
+				", notice_seqList=" + notice_seqList + "]";
 	}
 }

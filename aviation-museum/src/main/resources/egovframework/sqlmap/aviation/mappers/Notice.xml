@@ -17,6 +17,9 @@
 					,DATE_FORMAT(nn.mod_date, '%Y-%m-%d %H:%i') AS mod_date
 				FROM nam_notice nn
 				WHERE 1=1 
+				<if test="notice_idx != null">AND
+	                NOTICE_IDX = #{notice_idx}
+	            </if>
 		        <if test=" '' != search_word and null != search_word">
 					<if test="search_type == 'notice_title'">
 						AND (nn.notice_title LIKE CONCAT('%', #{search_word}, '%')) 
@@ -64,5 +67,25 @@
                   , #{reg_user}
                   , now())
     </insert>
+    
+    <update id="updateNotice" parameterType="egovframework.aviation.center.vo.NoticeVO">
+        
+            UPDATE nam_notice 
+               SET NOTICE_TITLE=#{notice_title}
+                 , NOTICE_CONTENT=#{notice_content}
+                 , MOD_USER=#{mod_user}
+             WHERE NOTICE_IDX=#{notice_idx}
+    </update>
+    
+    <delete id="deleteNoticeList" parameterType="egovframework.aviation.center.vo.NoticeVO">
+		DELETE FROM nam_notice
+		WHERE 
+             	NOTICE_IDX IN
+			<foreach collection="notice_seqList" item="notice_seq" open="(" close=")" separator=",">
+				#{notice_seq}
+			</foreach>
+	</delete>
+    
+    
 	
 </mapper>

@@ -17,6 +17,7 @@ import egovframework.aviation.center.vo.NoticeVO;
 import egovframework.aviation.group.service.GroupService;
 import egovframework.aviation.paging.Criteria;
 import egovframework.aviation.paging.PageMaker;
+import egovframework.aviation.user.vo.UserJoinVO;
 import egovframework.aviation.user.vo.UserVO;
 import lombok.RequiredArgsConstructor;
 
@@ -66,6 +67,52 @@ public class CustomerCenterController {
 			 success = "success";
 		}
         return "jsonView";
-    }  
+    } 
+	
+	/** 공지사항 상세보기 */
+	@RequestMapping(value = "/noticePopupAjax.do")
+    public String NoticePopupAjax(HttpServletRequest req, @ModelAttribute("noticeVO") NoticeVO noticeVO, Model model) throws Exception {
+		noticeVO.setPerPageNum(1);
+		List<NoticeVO> noticeListView = noticeService.getNoticeList(noticeVO);
+		
+		if(noticeListView.size() >0) {
+			noticeVO.setNotice_title(noticeListView.get(0).getNotice_title());	
+			noticeVO.setNotice_content(noticeListView.get(0).getNotice_content());
+		}
+//    	model.addAttribute("groupListView", groupListView);
+    	
+        return "jsonView";
+    }
+	
+	/** 공지사항 수정 */
+	@RequestMapping(value = "/noticeupdate.do")
+    public String NoticeUpdate(HttpServletRequest req, @ModelAttribute("noticeVO") NoticeVO noticeVO, Model model) throws Exception {
+		HttpSession session = req.getSession();
+		String member_id = (String) session.getAttribute("userSessionId");
+		noticeVO.setMod_user(member_id);
+		
+		int result = noticeService.updateNotice(noticeVO);
+		String success = "";
+		
+		if(result > 0) {
+			 success = "success";
+		}
+        return "jsonView";
+    }
+	
+	/** 사용자 사용여부 */
+	@RequestMapping(value = "/noticeListDelete.do")
+    public String NoticeListDelete(HttpServletRequest req, @ModelAttribute("noticeVO") NoticeVO noticeVO, Model model) throws Exception {
+		System.out.println(noticeVO.getNotice_seqList());
+		int result = noticeService.deleteNoticeList(noticeVO);
+		String success = "";
+		
+		if(result > 0) {
+			 success = "success";
+		}	
+        return "jsonView";
+    } 
+	
+	
 	
 }
