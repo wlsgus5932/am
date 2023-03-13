@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.aviation.center.service.impl.FaqMapper">
+
+	
+	<select id="getFaqList" resultType="egovframework.aviation.center.vo.FaqVO">
+			SELECT R1.* FROM(
+				SELECT
+					 row_number() over(order by faq_idx desc) as rnum
+					,nf.faq_idx
+					,nf.faq_content
+					,nf.count
+					,nf.answer_contents
+					,nf.reg_user
+					,DATE_FORMAT(nf.reg_date, '%Y-%m-%d %H:%i') AS reg_date
+					,nf.mod_user
+					,DATE_FORMAT(nf.mod_date, '%Y-%m-%d %H:%i') AS mod_date
+				FROM nam_faq nf
+				WHERE 1=1 
+				<if test="faq_idx != null">AND
+	                faq_IDX = #{faq_idx}
+	            </if>
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'faq_content'">
+						AND (nf.faq_content LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+					<if test="search_type == 'answer_contents'">
+						AND (nf.answer_contents LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (nf.faq_content LIKE CONCAT('%', #{search_word}, '%') OR nf.answer_contents LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+			) R1
+            	LIMIT #{perPageNum} OFFSET #{pageStart}
+	</select>
+	
+	<select id="getFaqListCnt" resultType="Integer">
+				SELECT
+					count(*)
+				FROM nam_faq nf
+				WHERE 1=1 
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'faq_title'">
+						AND (nf.faq_content LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+					<if test="search_type == 'reg_user'">
+						AND (nf.answer_contents LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (nf.faq_content LIKE CONCAT('%', #{search_word}, '%') OR nf.answer_contents LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+	</select>
+	
+	<insert id="insertFaq" parameterType="egovframework.aviation.center.vo.FaqVO">
+        
+            INSERT INTO nam_faq 
+                  ( FAQ_CONTENT
+                  , COUNT
+                  , ANSWER_CONTENTS
+                  , REG_USER
+                  , REG_DATE)
+           VALUES ( #{faq_content}
+                  , 0
+                  , #{answer_contents}
+                  , #{reg_user}
+                  , now())
+    </insert>
+    
+    <update id="updateFaq" parameterType="egovframework.aviation.center.vo.FaqVO">
+        
+            UPDATE nam_faq
+               SET FAQ_CONTENT=#{faq_content}
+                 , ANSWER_CONTETNS=#{answer_contents}
+                 , MOD_USER=#{mod_user}
+             WHERE FAQ_IDX=#{faq_idx}
+    </update>
+    
+    <delete id="deleteFaqList" parameterType="egovframework.aviation.center.vo.FaqVO">
+		DELETE FROM nam_faq
+		WHERE 
+             	FAQ_IDX IN
+			<foreach collection="faq_seqList" item="faq_seq" open="(" close=")" separator=",">
+				#{faq_seq}
+			</foreach>
+	</delete>
+    
+    
+	
+</mapper>

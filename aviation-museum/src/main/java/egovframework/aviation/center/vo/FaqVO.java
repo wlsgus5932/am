@@ -2,12 +2,12 @@ package egovframework.aviation.center.vo;
 
 import java.util.List;
 
-public class NoticeVO {
+public class FaqVO {
 	private String rnum;
-	private String notice_idx;
-	private String notice_title;
-	private String notice_content;
+	private String faq_idx;
+	private String faq_content;
 	private int count;
+	private String answer_contents;
 	private String reg_user;
 	private String reg_date;
 	private String mod_user;
@@ -21,7 +21,7 @@ public class NoticeVO {
 	private int perPageNum;
 	private int pageStart;
 	
-	private List<String> notice_seqList = null;
+	private List<String> faq_seqList = null;
 	
 	public String getRnum() {
 		return rnum;
@@ -30,29 +30,29 @@ public class NoticeVO {
 		this.rnum = rnum;
 	}
 	
-	public String getNotice_idx() {
-		return notice_idx;
+	public String getFaq_idx() {
+		return faq_idx;
 	}
-	public void setNotice_idx(String notice_idx) {
-		this.notice_idx = notice_idx;
+	public void setFaq_idx(String faq_idx) {
+		this.faq_idx = faq_idx;
 	}
-	public String getNotice_title() {
-		return notice_title;
+	public String getFaq_content() {
+		return faq_content;
 	}
-	public void setNotice_title(String notice_title) {
-		this.notice_title = notice_title;
-	}
-	public String getNotice_content() {
-		return notice_content;
-	}
-	public void setNotice_content(String notice_content) {
-		this.notice_content = notice_content;
+	public void setFaq_content(String faq_content) {
+		this.faq_content = faq_content;
 	}
 	public int getCount() {
 		return count;
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+	public String getAnswer_contents() {
+		return answer_contents;
+	}
+	public void setAnswer_contents(String answer_contents) {
+		this.answer_contents = answer_contents;
 	}
 	public String getReg_user() {
 		return reg_user;
@@ -78,7 +78,6 @@ public class NoticeVO {
 	public void setMod_date(String mod_date) {
 		this.mod_date = mod_date;
 	}
-	
 	public String getSearch_word() {
 		return search_word;
 	}
@@ -103,19 +102,20 @@ public class NoticeVO {
 	public void setPageStart(int pageStart) {
 		this.pageStart = pageStart;
 	}
-	public List<String> getNotice_seqList() {
-		return notice_seqList;
+	public List<String> getFaq_seqList() {
+		return faq_seqList;
 	}
-	public void setNotice_seqList(List<String> notice_seqList) {
-		this.notice_seqList = notice_seqList;
+	public void setFaq_seqList(List<String> faq_seqList) {
+		this.faq_seqList = faq_seqList;
 	}
+	
 	@Override
 	public String toString() {
-		return "NoticeVO [rnum=" + rnum + ", notice_idx=" + notice_idx + ", notice_title=" + notice_title
-				+ ", notice_content=" + notice_content + ", count=" + count + ", reg_user=" + reg_user + ", reg_date="
-				+ reg_date + ", mod_user=" + mod_user + ", mod_date=" + mod_date + ", search_word=" + search_word
+		return "FaqVO [rnum=" + rnum + ", faq_idx=" + faq_idx + ", faq_content=" + faq_content + ", count=" + count
+				+ ", answer_contents=" + answer_contents + ", reg_user=" + reg_user + ", reg_date=" + reg_date
+				+ ", mod_user=" + mod_user + ", mod_date=" + mod_date + ", search_word=" + search_word
 				+ ", search_type=" + search_type + ", perPageNum=" + perPageNum + ", pageStart=" + pageStart
-				+ ", notice_seqList=" + notice_seqList + "]";
+				+ ", faq_seqList=" + faq_seqList + "]";
 	}
 	
 }

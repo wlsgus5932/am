@@ -23,6 +23,8 @@
     <link href="<c:url value='/assets/css/app.min.css'/>" id="app-style" rel="stylesheet" type="text/css" />
     <!-- 커스텀 css -->
     <link href="<c:url value='/assets/css/custom.css'/>" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="<c:url value='/assets/css/custom_center.css'/>">
+    <link rel="stylesheet" href="<c:url value='/assets/css/custom_view.css'/>">
 <%--     <link rel="stylesheet" href="<c:url value='/assets/css/custom_user.css'/>"/> --%>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	
@@ -49,7 +51,7 @@
 			
 			$.ajax({
 				type : 'POST',                
-				url : '/notice/noticeListAjax.do',    
+				url : '/faq/faqListAjax.do',    
 				dataType : "html",           
 				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 				error : function() {          
@@ -59,53 +61,18 @@
 					$('#tab-content').empty().append(data);
 				}
 			});
-			
-// 			// 공지사항 tab operation
-// 			$('#notice').click(function() {
-// 				$.ajax({
-// 					type : 'POST',                
-// 					url : '/notice/noticeListAjax.do',    
-// 					dataType : "html",           
-// 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-// 					error : function() {          
-// 						alert('통신실패!');
-// 					},
-// 					success : function(data) {  
-// 						$('#tab-content').empty().append(data);
-// 						$('.tap_text').find('span').text('공지사항');
-// 					}
-// 				});
-// 			});
-			
-// 			// FAQ tab operation
-// 			$('#faq').click(function() {
-// 				$.ajax({
-// 					type : 'POST',                 
-// 					url : '/faqListAjax.do',   				
-// 					dataType : "html",           
-// 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-// 					error : function() {        
-// 						alert('통신실패!');
-// 					},
-// 					success : function(data) {  
-// 						$('#tab-content').empty().append(data);
-// 						$('.tap_text').find('span').text('FAQ');
-// 					}
-// 				});
-// 			});
-			
 		});
 	
-		// 공지사항 등록
-		$(document).on('click', '#noticeInsBtn', function(){
+		// FAQ 등록
+		$(document).on('click', '#faqInsBtn', function(){
 
-			var queryString = $("form[name=noticeinsertform]").serialize();
-			var check_submit = confirm('공지사항을 등록하시겠습니까?');
+			var queryString = $("form[name=faqinsertform]").serialize();
+			var check_submit = confirm('FAQ을 등록하시겠습니까?');
 
 				if(check_submit){
 					$.ajax({
 						type : 'post',
-						url : '/noticeinsert.do',
+						url : '/faqinsert.do',
 						data : queryString,
 						dataType : 'json',
 						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -114,46 +81,21 @@
 						},
 						success : function(success){
 							alert('공지사항이 등록되었습니다.');
-							$('#noticeInsInputClose').click();
+							$('#faqInsInputClose').click();
 							location.reload();
 						}
 					});
 				}
 		});
 		
-		// 공지사항 상세보기(제목클릭)
-		$(document).on('click', '.noticeDetail', function() {
-			var idx = $(this).data('id');
-			$.ajax({
-				type : 'POST',                 
-				url : '/noticePopupAjax.do',   
-				data:{
-					notice_idx : idx
-				},
-				dataType : "json",           
-				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-				error : function() {        
-					alert('통신실패!');
-				},
-				success : function(data) {  
-					$.each(data, function(index, item) { // 데이터 =item
-					
-						$('#noticeTitle').val(item.notice_title);
-						$('#noticeContent').val(item.notice_content);
-						
-					});
-				}
-			});
-		});
-		
-		// 공지사항 수정 팝업 버튼
-		function noticeModPopup(value) {
-				var notice_idx = value;
+		// FAQ 수정 팝업 버튼
+		function faqModPopup(value) {
+				var faq_idx = value;
 				$.ajax({
 					type : 'POST',                 
-					url : '/noticePopupAjax.do',   
+					url : '/faqPopupAjax.do',   
 					data:{
-						notice_idx : notice_idx
+						faq_idx : faq_idx
 					},
 					dataType : "json",           
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -164,9 +106,9 @@
 							
 						$.each(data, function(index, item) { // 데이터 =item
 							
-							$('#modNoticeIdx').val(value);
-							$('#modNoticeTitle').val(item.notice_title);
-							$('#modNoticeContent').val(item.notice_content);
+							$('#modFaqIdx').val(value);
+							$('#modFaqContent').val(item.faq_content);
+							$('#modAnswerContents').val(item.answer_contents);
 						});
 					}
 				});
@@ -428,7 +370,7 @@
           <!-- 자료구분 셀렉트 -->
           <div class="tap_text">
             <h2>고객센터</h2>
-            <p>고객센터 > <span>공지사항</span></p>
+            <p>고객센터 > <span>FAQ</span></p>
           </div>
           <div class="fr_wrap">
             <div class="mb-3 row fr_1">
