@@ -72,7 +72,7 @@
         
             UPDATE nam_faq
                SET FAQ_CONTENT=#{faq_content}
-                 , ANSWER_CONTETNS=#{answer_contents}
+                 , ANSWER_CONTENTS=#{answer_contents}
                  , MOD_USER=#{mod_user}
              WHERE FAQ_IDX=#{faq_idx}
     </update>

@@ -99,10 +99,9 @@ public class CustomerCenterController {
         return "jsonView";
     }
 	
-	/** 사용자 사용여부 */
+	/** 공지사항 선택삭제 */
 	@RequestMapping(value = "/noticeListDelete.do")
     public String NoticeListDelete(HttpServletRequest req, @ModelAttribute("noticeVO") NoticeVO noticeVO, Model model) throws Exception {
-		System.out.println(noticeVO.getNotice_seqList());
 		int result = noticeService.deleteNoticeList(noticeVO);
 		String success = "";
 		
@@ -151,6 +150,49 @@ public class CustomerCenterController {
 		}
 //    	model.addAttribute("groupListView", groupListView);
     	
+        return "jsonView";
+    }
+	
+	/** FAQ 등록 */
+	@RequestMapping(value = "/faqinsert.do")
+    public String FaqInsert(HttpServletRequest req, @ModelAttribute("faqVO") FaqVO faqVO, Model model) throws Exception {
+		HttpSession session = req.getSession();
+		String member_id = (String) session.getAttribute("userSessionId");
+		faqVO.setReg_user(member_id);
+		int result = faqService.insertFaq(faqVO);
+		String success = "";
+		
+		if(result > 0) {
+			 success = "success";
+		}
+        return "jsonView";
+    } 
+	
+	/** FAQ 수정 */
+	@RequestMapping(value = "/faqupdate.do")
+    public String FaqUpdate(HttpServletRequest req, @ModelAttribute("faqVO") FaqVO faqVO, Model model) throws Exception {
+		HttpSession session = req.getSession();
+		String member_id = (String) session.getAttribute("userSessionId");
+		faqVO.setMod_user(member_id);
+		
+		int result = faqService.updateFaq(faqVO);
+		String success = "";
+		
+		if(result > 0) {
+			 success = "success";
+		}
+        return "jsonView";
+    }
+	
+	/** FAQ 선택삭제 */
+	@RequestMapping(value = "/faqListDelete.do")
+    public String FaqListDelete(HttpServletRequest req, @ModelAttribute("faqVO") FaqVO faqVO, Model model) throws Exception {
+		int result = faqService.deleteFaqList(faqVO);
+		String success = "";
+		
+		if(result > 0) {
+			 success = "success";
+		}	
         return "jsonView";
     }
 	

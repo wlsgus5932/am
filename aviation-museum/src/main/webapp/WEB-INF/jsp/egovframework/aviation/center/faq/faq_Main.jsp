@@ -30,20 +30,19 @@
 	
 	<script type="text/javascript">
 		
-	
-		// 체크박스 전체선택 전체해제
-		function agreeAllCheck(){
-			var val = true;
-	
-			if(!$('#allCheck').is(":checked")){
-				val = false;
-			}
-			
-			var elems = document.getElementsByClassName("check_temp");
-			for(var i=0; elems.length>i; i++){
-				elems[i].checked = val;
-			}
+	// 체크박스 전체선택 전체해제
+	function checkAll(){
+		var val = true;
+
+		if(!$('#checkAll').is(":checked")){
+			val = false;
 		}
+		
+		var elems = document.getElementsByClassName("check_temp");
+		for(var i=0; elems.length>i; i++){
+			elems[i].checked = val;
+		}
+	}
 		
 		$(function() {
 			// 첫 페이지
@@ -114,16 +113,16 @@
 				});
 		}
 		
-		// 공지사항 수정
-		$(document).on('click', '#noticeModBtn', function(){
+		// FAQ 수정
+		$(document).on('click', '#faqModBtn', function(){
 
-			var queryString = $("form[name=noticeupdateform]").serialize();
-			var check_submit = confirm('공지사항을 수정하시겠습니까?');
+			var queryString = $("form[name=faqupdateform]").serialize();
+			var check_submit = confirm('FAQ를 수정하시겠습니까?');
 
 			if(check_submit){
 				$.ajax({
 					type : 'post',
-					url : '/noticeupdate.do',
+					url : '/faqupdate.do',
 					data : queryString,
 					dataType : 'json',
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -131,11 +130,11 @@
 						alert(error);
 					},
 					success : function(success){
-						alert('공지사항이 수정되었습니다.');
-						$('#noticeModInputClose').click();
+						alert('FAQ가 수정되었습니다.');
+						$('#faqModInputClose').click();
 						$.ajax({
 							type : 'POST',                 
-							url : '/notice/noticeListAjax.do',   
+							url : '/faq/faqListAjax.do',   
 							dataType : "html",           
 							contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 							error : function() {        
@@ -150,38 +149,38 @@
 			}
 		});
 		
-		// 공지사항 선택 삭제
-		$(document).on('click', '#noticeListDeleteBtn', function(){
+		// FAQ 선택 삭제
+		$(document).on('click', '#faqListDeleteBtn', function(){
 
-			if(!$('input:checkbox[name="notice_seqList"]').is(':checked')){
-				alert("선택한 공지사항이 없습니다.");
+			if(!$('input:checkbox[name="faq_seqList"]').is(':checked')){
+				alert("선택한 FAQ가 없습니다.");
 				return false;
 			}
-			var notice_seqList = [];
+			var faq_seqList = [];
 			
 			$('.check_temp:checked').each(function(i){
-				notice_seqList.push($(this).val());
+				faq_seqList.push($(this).val());
 			});
 			 
 			var $this = $(this);
-			var answer = confirm('선택한 공지사항을 삭제 처리하시겠습니까?');
+			var answer = confirm('선택한 FAQ를 삭제 처리하시겠습니까?');
 			$.ajax({
 				type : 'POST',                 
-				url : '/noticeListDelete.do',   
+				url : '/faqListDelete.do',   
 				dataType : "json",         
 				data:{
-					notice_seqList : notice_seqList
+					faq_seqList : faq_seqList
 				},
 				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 				error : function() {          
 					alert('통신실패!');
 				},
 				success : function(success) {   
-					alert("공지사항이 삭제 처리되었습니다.");
+					alert("FAQ가 삭제 처리되었습니다.");
 					
 					$.ajax({
 						type : 'POST',                 
-						url : '/notice/noticeListAjax.do',   
+						url : '/faq/faqListAjax.do',   
 						dataType : "html",           
 						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 						error : function() {        
@@ -194,165 +193,6 @@
 					});
 				}
 			});
-		});
-		// 그룹 등록
-		$(document).on('click', '#groupInsBtn', function(){
-
-			var queryString = $("form[name=groupinsertform]").serialize();
-			var check_submit = confirm('그룹을 등록하시겠습니까?');
-
-			if (groupInsValidation()) {
-				if(check_submit){
-					$.ajax({
-						type : 'post',
-						url : '/groupinsert.do',
-						data : queryString,
-						dataType : 'json',
-						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-						error: function(xhr, status, error){
-							alert(error);
-						},
-						success : function(success){
-							alert('그룹이 등록되었습니다.');
-							$('#groupInsInputClose').click();
-							$.ajax({
-								type : 'POST',                 
-								url : '/groupListAjax.do',   
-								dataType : "html",           
-								contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-								error : function() {        
-									alert('통신실패!');
-								},
-								success : function(data) {  
-									$('#tab-content').empty().append(data);
-// 									$('body').attr('class','').attr('style','');
-// 									$('.modal-backdrop').remove();
-								}
-							});
-						}
-					});
-				}
-			}
-		});
-		
-		// 그룹 삭제
-		$(document).on('click', '#groupDelBtn', function(){
-
-			if(!$('input:checkbox[name="group_seqList"]').is(':checked')){
-				alert("선택하신 그룹이 없습니다.");
-				return false;
-			}
-			var group_seqList = [];
-			
-			$('.check_temp:checked').each(function(i){
-				group_seqList.push($(this).val());
-			});
-			 
-			var $this = $(this);
-			var answer = confirm('선택하신 그룹을 삭제하시겠습니까?');
-			if(answer){
-				$.ajax({
-					type : 'POST',                 
-					url : '/groupdelete.do',   
-					dataType : "json",         
-					data:{
-						group_seqList : group_seqList
-					},
-					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-					error : function() {          
-						alert('통신실패!');
-					},
-					success : function(success) {   
-						alert("그룹이 삭제되었습니다.");
-						
-						$.ajax({
-							type : 'POST',                 
-							url : '/groupListAjax.do',   
-							dataType : "html",           
-							contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-							error : function() {        
-								alert('통신실패!');
-							},
-							success : function(data) {  
-								$('#tab-content').empty().append(data);
-							}
-						});
-					}
-				});
-			}
-		});
-		
-		// 그룹 수정 팝업 버튼
-		function groupModPopup(value) {
-				var group_idx = value;
-				$.ajax({
-					type : 'POST',                 
-					url : '/groupModPopupAjax.do',   
-					data:{
-						group_idx : group_idx
-					},
-					dataType : "json",           
-					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-					error : function() {        
-						alert('통신실패!');
-					},
-					success : function(data) {  
-
-						$.each(data, function(index, item) { // 데이터 =item
-							
-							$('#modGroupIdx').val(value);
-							$('#modGroupNm').val(item.group_nm);
-							$('#modGroupRemark').val(item.remark);
-							
-							if(item.admin == 'Y'){
-								$('#modGroupY').prop('checked',true);
-								$('#modGroupN').prop('checked',false);
-							}else{
-								$('#modGroupN').prop('checked',true);
-								$('#modGroupY').prop('checked',false);
-							}
-						});
-					}
-				});
-		}
-		
-		// 그룹 수정
-		$(document).on('click', '#groupModBtn', function(){
-
-			var queryString = $("form[name=groupupdateform]").serialize();
-			var check_submit = confirm('그룹을 수정하시겠습니까?');
-			if (groupModValidation()) {
-				if(check_submit){
-					$.ajax({
-						type : 'post',
-						url : '/groupupdate.do',
-						data : queryString,
-						dataType : 'json',
-						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-						error: function(xhr, status, error){
-							alert(error);
-						},
-						success : function(success){
-							alert('그룹이 수정되었습니다.');
-							$('#groupModInputClose').click();
-							$.ajax({
-								type : 'POST',                 
-								url : '/groupListAjax.do',   
-								dataType : "html",           
-								contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-								error : function() {        
-									alert('통신실패!');
-								},
-								success : function(data) {  
-									$('#tab-content').empty().append(data);
-// 									$('body').attr('class','').attr('style','');
-// 									$('.modal-backdrop').remove();
-								}
-							});
-						}
-					});
-				}
-			}
 		});
 	</script>
 </head>

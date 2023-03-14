@@ -16,8 +16,8 @@
 	      </div>
       </form>
       <div style="margin-top: 50px;">
-          <button class="custom_btn btn_no_select" id="">전체 선택</button>
-          <button class="custom_btn btn_no_select" id="">선택 해지</button>
+      	  <label class="custom_btn btn_no_select"><input type="checkbox" id="checkAll" onchange="checkAll()"style="display:none;">전체 선택</label>
+<!--           <button class="custom_btn btn_no_select" id="allCheck" onclick="allCheck()">전체 선택</button> -->
           <button class="custom_btn btn_no_select" id="faqListDeleteBtn">선택 삭제</button>
           <button type="button" class="custom_btn btn_user_registration" data-bs-toggle="modal" data-bs-target="#myModal" style="float: right;">FAQ등록</button>
       </div>
@@ -116,7 +116,7 @@
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
-	                       	<form name="noticeupdateform">
+	                       	<form name="faqupdateform">
 								<input type="hidden" name="faq_idx" id="modFaqIdx"/>
 	                            <table class="table mb-0">
 	                                <tbody>
@@ -193,27 +193,15 @@
     </div>	
 	<script>	
 		
-		<%-- 사용자 수정 사용 여부 체크박스 단일선택 --%>
-		$('input[type="checkbox"][name="enabled"]').click(function(){
-			  if($(this).prop('checked')){
-			 
-			     $('input[type="checkbox"][name="enabled"]').prop('checked',false);
-			 
-			     $(this).prop('checked',true);
-			 
-			    }
-			  
-		});
-		
-		<%-- 사용자 조건 검색 --%>
+		<%-- FAQ 조건 검색 --%>
 		function noticeSearchList(){
 			// 사용자 조건 검색			
-			var queryString = $("form[name=noticeSearchForm]").serialize();
+			var queryString = $("form[name=faqSearchForm]").serialize();
 			var search_word = $('#search_word').val();
 			var search_type = $('#search_type').val();
 				$.ajax({
 					type : 'post',
-					url : '/notice/noticeListAjax.do',
+					url : '/faq/faqListAjax.do',
 					data : queryString,
 					dataType : 'html',
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -234,14 +222,14 @@
 			  };
 		});
 		
-		<%-- 사용자 페이지 이동 --%>
+		<%-- FAQ 페이지 이동 --%>
 		function goPage(value) {
 			var search_word = $('#search_word').val();
 			var search_type = $('#search_type').val();
 			var page = value;
 			$.ajax({
 				type : 'POST',                 
-				url : '/notice/noticeListAjax.do',   
+				url : '/faq/faqListAjax.do',   
 				data:{
 					search_word : search_word,
 					search_type : search_type,
@@ -263,7 +251,7 @@
 		function changePerPageNum(value) {
 			$.ajax({
 				type : 'POST',                
-				url : '/notice/noticeListAjax.do',
+				url : '/faq/faqListAjax.do',
 				data : {
 					perPageNum : value
 				},
