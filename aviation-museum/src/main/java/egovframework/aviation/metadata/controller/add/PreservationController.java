@@ -29,23 +29,28 @@ public class PreservationController {
 	@PostMapping("/addPreservation.do")
 	@ResponseBody
 	public String addPreservation(@ModelAttribute PreservationParamVO param) throws Exception {
+		System.out.println(param);
+		MultipartFile uploadFile = null;
 		String fileName = null;
-		String result_path = "D:\\uploadtest\\result-img\\";
-		String before_path = "D:\\uploadtest\\before-img\\";
-		String after_path = "D:\\uploadtest\\after-img\\";
+		String result_path = "D:\\uploadtest\\images\\preservation\\result-img\\";
+		String result_path2 = "images\\preservation\\result-img\\";
+		String before_path = "D:\\uploadtest\\images\\preservation\\before-img\\";
+		String before_path2 = "images\\preservation\\before-img\\";
+		String after_path = "D:\\uploadtest\\images\\preservation\\after-img\\";
+		String after_path2 = "images\\preservation\\after-img\\";
 		String result = "error";
 		
-		MultipartFile uploadFile = null;
-		try {
-			uploadFile = param.getResult_uploadFile();
-			fileName = uploadFile.getOriginalFilename();
-			param.setFile_nm(fileName);
-			param.setFile_path(result_path);
-			uploadFile.transferTo(new File(result_path + fileName));
-			
-			int x = service.setPreservation(param);
-			
-			if(x != 0) {
+		System.out.println(param.getResult_uploadFile());
+		uploadFile = param.getResult_uploadFile();
+		fileName = uploadFile.getOriginalFilename();
+		param.setFile_nm(fileName);
+		param.setFile_path(result_path2);
+		param.setFile_local_path(result_path);
+		uploadFile.transferTo(new File(result_path + fileName));
+		int x = service.setPreservation(param);
+		
+		System.out.println(fileName);
+			if(x > 0) {
 				Map<Integer, Object> map = new HashMap<Integer, Object>();
 				
 				for(int i = 0; i<param.getBefore_uploadFile().size(); i++) {
@@ -57,6 +62,7 @@ public class PreservationController {
 					
 					list.add(param.getPreservation_idx());
 					list.add(fileName);
+					list.add(before_path2);
 					list.add(before_path);
 					list.add("B");
 					list.add(param.getReg_user());
@@ -75,6 +81,7 @@ public class PreservationController {
 					
 					list.add(param.getPreservation_idx());
 					list.add(fileName);
+					list.add(after_path2);
 					list.add(after_path);
 					list.add("A");
 					list.add(param.getReg_user());
@@ -85,9 +92,6 @@ public class PreservationController {
 				int after_num = service.setPreservationImage(map);
 				result = "success";
 			}
-		} catch (Exception e) {
-			return result;
-		}
 		return result;
 	}
 	
@@ -99,8 +103,40 @@ public class PreservationController {
 			list.get(i).setImage(vo);
 		}
 		model.addAttribute("preservationList", list);
+		System.out.println(list);
 		
-		return "jsonView";
+		return "metadata/add/preservation/preservationList";
+	}
+	
+	@PostMapping("/deletePreservationImage.do")
+	@ResponseBody
+	public String deletePreservationImage(Model model, @RequestParam("image_idx[]") List<String> image_idx) throws Exception {
+		String result = "error";
+		System.out.println(image_idx);
+		int x = service.deletePreservationImage(image_idx);
+		
+		if(x > 0) result = "success";
+		
+		return result;
+	}
+	
+	@GetMapping("/deletePreservation.do")
+	@ResponseBody
+	public String deletePreservationImage(Model model, @RequestParam("idx") String preservation_idx) throws Exception {
+		String result = "error";
+		System.out.println(preservation_idx);
+		List<PreservationImageVO> vo = service.getPreservationImageList(preservation_idx);
+		int x = service.deletePreservation(preservation_idx);
+		
+		for(int i=0; i<vo.size(); i++) {
+			File file = new File("D:\\uploadtest\\"+vo.get(i).getImage_path()+vo.get(i).getImage_nm());
+			file.delete();
+			System.out.println("삭제되었습니다");
+		}
+		
+		if(x > 0) result = "success";
+		
+		return result;
 	}
 
 }

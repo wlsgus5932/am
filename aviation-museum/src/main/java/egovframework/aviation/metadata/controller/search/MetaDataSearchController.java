@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import egovframework.aviation.metadata.service.MetaDataSearchService;
@@ -50,6 +51,7 @@ import egovframework.aviation.metadata.vo.metadata.KeywordVO;
 import egovframework.aviation.metadata.vo.metadata.MaterialVO;
 import egovframework.aviation.metadata.vo.metadata.PublicServiceVO;
 import egovframework.aviation.metadata.vo.metadata.TaxonomyVO;
+import egovframework.aviation.metadata.vo.param.KeywordParamVO;
 import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
 import egovframework.aviation.metadata.vo.speciality.SpecialityCodeVO;
 import egovframework.aviation.mypage.vo.InterestVO;
@@ -112,12 +114,27 @@ public class MetaDataSearchController {
 	   }
 	   
 	   @PostMapping("/getKeywordList.do")
-	   public String getKeywordList(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
-	      List<KeywordVO> list = service.getKeywordList(param);
+	   public String getKeywordList(Model model, @ModelAttribute KeywordParamVO param) throws Exception {
+	      List<KeywordVO> list = metaDataSearchService.getKeywordList(param);
 	      model.addAttribute("keywordList", list);
-	      System.out.println("keyword:::"+list);
 	      
 	      return "metadata/search/keywordList";
+	   }
+	   
+	   @PostMapping("/addKeyword.do")
+	   @ResponseBody
+	   public String addKeyword(Model model, @ModelAttribute KeywordParamVO param) throws Exception {
+		   String result = "error";
+		   try {
+			   int x = metaDataSearchService.addKeyword(param);
+			   
+			   if(x > 0) {
+				   result = "success";
+			   }
+		   } catch (Exception e) {
+			   result = "error";
+		   }
+		   return result;
 	   }
 	   
 	   @GetMapping("/metaDataList.do")

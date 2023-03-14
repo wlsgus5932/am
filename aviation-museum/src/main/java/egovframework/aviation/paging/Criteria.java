@@ -34,5 +34,11 @@ public class Criteria {
             this.perPageNum = pageCount;
         }
     }
+	@Override
+	public String toString() {
+		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + "]";
+	}
+    
+    
  
 }

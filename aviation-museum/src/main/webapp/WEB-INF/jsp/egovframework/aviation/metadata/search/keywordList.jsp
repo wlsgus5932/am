@@ -11,12 +11,22 @@
                             </tr>
                           </thead>
                           <tbody id="keyword_tbody">
-                          <c:forEach var="list" items="${keywordList}">
-	                          <tr>
-	    						  <td>${list.rownum}</td>
-	                              <td>${list.keyword}</td>
-	                            </tr>
-	                            </c:forEach>
+                          <c:choose>
+							<c:when test="${keywordList.size() > 0 }">
+	                          <c:forEach var="list" items="${keywordList}">
+		                          <tr>
+		    						  <td>${list.rownum}</td>
+		                              <td>${list.keyword}</td>
+		                            </tr>
+		                       </c:forEach>
+		                      </c:when>
+		                      <c:otherwise>
+									<tr>
+										<td colspan="2">검색된 결과가 없습니다.</td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
+		                       
                           </tbody>
                         </table>
                       </div>

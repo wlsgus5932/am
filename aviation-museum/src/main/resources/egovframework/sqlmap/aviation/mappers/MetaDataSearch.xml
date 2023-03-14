@@ -934,4 +934,41 @@
                   , #{reg_user}
                   , now())
     </insert>
+    
+    <select id="getKeywordList" resultType="egovframework.aviation.metadata.vo.KeywordVO">
+		select 
+			*, 
+			row_number() over(order by reg_date) rownum 
+		from 
+			nam_keyword 
+		where 
+			item_idx = #{item_idx} 
+		<if test="keyword != '' and keyword != null">
+			and keyword = #{keyword}
+		</if>
+		order by rownum desc;
+	</select>
+	
+	<insert id="addKeyword" parameterType="egovframework.aviation.metadata.vo.param.KeywordParamVO">
+		   INSERT INTO nam_keyword_request
+                  ( 
+                 	keyword_list
+                  , ITEM_IDX
+                  , approval_state
+                  , refusal_reason
+                  , REG_USER
+                  , REG_DATE 
+                  )
+           VALUES 
+           <foreach separator="," item="item" collection="keywordList">
+           ( 
+                  	#{item}
+           		  , #{item_idx}
+                  , 'N'
+                  ,  ''
+                  , #{reg_user}
+                  , now()
+            )
+           </foreach>
+    </insert>
 </mapper>

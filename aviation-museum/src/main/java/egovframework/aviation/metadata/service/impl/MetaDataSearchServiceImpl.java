@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import egovframework.aviation.metadata.service.MetaDataSearchService;
 import egovframework.aviation.metadata.vo.MetaDataSearchImageVO;
 import egovframework.aviation.metadata.vo.MetaDataSearchVO;
+import egovframework.aviation.metadata.vo.metadata.KeywordVO;
+import egovframework.aviation.metadata.vo.param.KeywordParamVO;
 import egovframework.aviation.mypage.vo.InterestVO;
 
 @Service
@@ -50,6 +52,16 @@ public class MetaDataSearchServiceImpl implements MetaDataSearchService {
 	public List<MetaDataSearchImageVO> getMetaDataSearchImageListCurrentQty(
 			MetaDataSearchImageVO metaDataSearchImageVO) {
 		return metaDataSearchMapper.getMetaDataSearchImageListCurrentQty(metaDataSearchImageVO);
+	}
+
+	@Override
+	public List<KeywordVO> getKeywordList(KeywordParamVO param) {
+		return metaDataSearchMapper.getKeywordList(param);
+	}
+
+	@Override
+	public int addKeyword(KeywordParamVO param) {
+		return metaDataSearchMapper.addKeyword(param);
 	}
 
 }

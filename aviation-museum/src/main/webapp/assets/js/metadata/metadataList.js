@@ -1,5 +1,5 @@
 
-//자료 기본사항
+//자료 기본사항 검색
 const search_item_base = async (reg_state) => {
 	let formData = new FormData(document.getElementById('add-form'));
 	
@@ -17,6 +17,11 @@ const search_item_base = async (reg_state) => {
 
 //자료기본사항 아래 항목들
 const set_itemBase_input = async (list) => {
+	sessionStorage.setItem("item_idx", list[0].item_idx);
+	getImageList();
+	getMovementList();
+	getSpeciality();
+	getPreservation();
 	//$('#add-form')[0].reset();
 	sessionStorage.setItem("item_idx", list[0].item_idx);
 	$('input[name=item_nm]').val(list[0].item_nm);
@@ -134,54 +139,6 @@ const set_itemBase_input = async (list) => {
 		$('#keyword').val(e.keyword);
 	})
 	
-	await getMovementList();
-	await getSpeciality();
-	await getImageList();
-	const form2 = await fetch('/getPreservation.do?item_idx=' + list[0].item_idx);
-	const { preservationList } = await form2.json();
-	preservationList.forEach((e, num) => {
-		num!=0 ? cloneDiv() : '';
-		$('#settings').children('option:not(:first)').remove();
-		$('#treatment_org'+num).val(e.treatment_org);
-		$('#processor'+num).val(e.processor);
-		$('#start_date'+num).val(e.start_date);
-		$('#end_date'+num).val(e.end_date);
-		$('#content'+num).val(e.content);
-		$('#remark'+num).val(e.remark);
-		
-		$('#before-img-preview').children().remove();
-		$('#after-img-preview'+num).children().remove();
-		let beforeImg = e.image.filter(r => r.image_state == 'B');
-		let afterImg = e.image.filter(r => r.image_state == 'A');
-		$('#result-img-preview'+num).append('<div style="width:200px; height:250px; margin: 5px 5px 5px 5px; display:inline-block;"><img id="result-img'+num+'" style="width: 200px; height: 200px;"/><p style="text-align:center;">'+e.image_nm+'</p></div>');
-		document.getElementById('result-img'+num).src = e.file_path+e.file_nm;
-		
-		beforeImg.forEach((r, i) => {
-			$('#before-img-preview'+num).append(
-							'<div id="before'+num+'Div'+i+'" style="width:200px; height:250px; margin: 10px 10px 10px 10px; display:inline-block;">'+
-							'<input type="checkbox" value="'+i+'" id="before'+num+'checkbox'+i+'" name="before'+num+'checkbox" class="before'+num+'checkbox" style="position: relative; top: 20px; z-index: 1; width:15px; height:15px;"/>' +
-						    '<label for="before'+num+'checkbox'+i+'">' +
-						    '<img id="before'+num+'img'+i+'" style="width: 200px; height: 200px;"/></label>'+
-						    '<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+r.image_nm+'</p></div>');
-					document.getElementById('before'+num+'img'+i).src = r.image_path+r.image_nm;
-		})
-		
-		afterImg.forEach((r, i) => {
-			$('#after-img-preview'+num).append(
-					'<div id="after'+num+'Div'+i+'" style="width:200px; height:250px; margin: 10px 10px 10px 10px; display:inline-block;">' +
-					'<input type="checkbox" value="'+i+'" id="after'+num+'checkbox'+i+'" name="after'+num+'checkbox" class="after'+num+'checkbox" style="position: relative; top: 20px; z-index: 1; width:15px; height:15px;"/>' +
-					'<label for="after'+num+'checkbox'+i+'">' +
-					'<img id="after'+num+'img'+i+'" style="width: 200px; height: 200px;"/></label>' +
-					'<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+r.image_nm+'</p></div>');
-					
-					document.getElementById('after'+num+'img'+i).src = r.image_path+r.image_nm;
-		})
-		
-		//처리결과, 보존처리후, 보존처리전 preview랑 값 추가해야함
-		
-		
-	})
-	
 	let item_idx = sessionStorage.getItem("item_idx");
 	
 	$.ajax({
@@ -196,10 +153,75 @@ const set_itemBase_input = async (list) => {
 					alert('통신실패!');
 			},
 			success : function(data) {  
+				console.log(data);
 				$('#keywordZone').empty().append(data);
 			}
 		});
+}
+
+
+const searchKeyword = () => {
+	if(!$('#item_nm').val()) { alert('자료조회를 먼저 진행해주세요.'); return; }
+		let item_idx = sessionStorage.getItem("item_idx");
+		let keyword = $('#searchKeyword').val();
+		console.log(keyword);
+		
+		$.ajax({
+				type : 'POST',
+				url : '/getKeywordList.do',
+				data: {
+					item_idx: item_idx,
+					keyword: keyword
+				},			
+				dataType : "html",           
+				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+				error : function() {
+						alert('통신실패!');
+				},
+				success : function(data) {  
+					console.log(data);
+					$('#keywordZone').empty().append(data);
+				}
+			});
+}
+
+const addKeyword = () => {
+	let item_idx = sessionStorage.getItem("item_idx");
+	let arr = $('#addKeyword').val().split(',').filter(e => e.length !== 0 );
+		
+	if(!$('#item_nm').val()) { 
+		alert('자료조회를 먼저 진행해주세요.'); 
+		return; 
+	}
+	if(arr.length < 5) {
+			alert("콤마 ', ' 단위로 5개 이상 입력해주세요.")
+			return
+		}
 	
+	if(confirm("키워드 추가를 하시겠습니까?")) {
+		
+			$.ajax({
+					type : 'POST',
+					url : '/addKeyword.do',
+					data: {
+						item_idx: item_idx,
+						keywordList: arr
+					},			
+					dataType : "text",
+					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+					error : function() {
+							alert('통신실패!');
+					},
+					success : function(data) {  
+						data == 'success' ? (
+							alert('키워드 신청이 완료되었습니다.'), $('#addKeyword').val('')
+						) : alert('오류가 발생했습니다. 다시 시도해주세요.')
+					}
+				});
+		
+	} else {
+		return false;
+	}
 }
 
 

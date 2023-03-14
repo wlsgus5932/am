@@ -24,21 +24,30 @@
                               </tr>
                           </thead>
                           <tbody>
-                          	<c:forEach var="list" items="${transformList}">
-                              <tr>
-                                <td><input type="checkbox"/></td>
-                                <td id="rownum">${list.rownum}</td>
-                                <td>${list.possession_nm} - ${list.org_nm}</td>
-                                <td>${list.item_no}</td>
-                                <td>${list.item_detail_no}</td>
-                                <td>${list.item_nm}</td>
-                                <td>${list.item_se_nm}</td>
-                                <td>${list.item_eng_nm}</td>
-                                <td>-</td>
-                                <td>${list.author}</td>
-                                <td>${list.reg_state}</td>
-                              </tr>
-                              </c:forEach>
+                          <c:choose>
+							<c:when test="${transformList.size() > 0 }">
+	                          	<c:forEach var="list" items="${transformList}">
+	                              <tr>
+	                                <td><input type="checkbox"/></td>
+	                                <td id="rownum">${list.rownum}</td>
+	                                <td>${list.possession_nm} - ${list.org_nm}</td>
+	                                <td>${list.item_no}</td>
+	                                <td>${list.item_detail_no}</td>
+	                                <td>${list.item_nm}</td>
+	                                <td>${list.item_se_nm}</td>
+	                                <td>${list.item_eng_nm}</td>
+	                                <td>-</td>
+	                                <td>${list.author}</td>
+	                                <td>${list.reg_state}</td>
+	                              </tr>
+	                              </c:forEach>
+	                         </c:when>
+							<c:otherwise>
+									<tr>
+										<td colspan="6">검색된 결과가 없습니다.</td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
                           </tbody>
                       </table>
                       <ul class="btn-group pagination">

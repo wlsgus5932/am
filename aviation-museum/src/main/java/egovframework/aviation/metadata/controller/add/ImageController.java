@@ -37,24 +37,62 @@ import egovframework.aviation.metadata.vo.DEXTUploadX5Request;
 import egovframework.aviation.metadata.vo.image.FileEntity;
 import egovframework.aviation.metadata.vo.image.ImageVO;
 import egovframework.aviation.metadata.vo.param.ImageParamVO;
+import egovframework.aviation.paging.Criteria;
+import egovframework.aviation.paging.PageMaker;
 
 @Controller
 public class ImageController {
 	@Autowired
 	private ImageService service;
 	
-	@GetMapping("/getImage.do")
-	public String getImage(Model model, @RequestParam("item_idx") int item_idx) throws Exception {
-		List<ImageVO> list = service.getImage(item_idx);
+	@PostMapping("/getImage.do")
+	public String getImage(Model model, @ModelAttribute ImageParamVO param, @ModelAttribute Criteria cri) throws Exception {
+		int perPageNum = service.getImageListCnt(param.getItem_idx());		
+		if(param.getPerPageNum() != 0) {
+			int criPerPageNum = param.getPerPageNum();
+			cri.setPerPageNum(criPerPageNum);
+		}
+		PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    pageMaker.setTotalCount(perPageNum);
+		    
+	    param.setPageStart(cri.getPageStart());
+	    param.setPerPageNum(cri.getPerPageNum());
+		List<ImageVO> list = service.getImage(param);
 		model.addAttribute("imageList", list);
+		model.addAttribute("perPageNum", perPageNum);
+		model.addAttribute("pageMaker", pageMaker);
+		System.out.println(list);
 		
-		return "jsonView";
+		return "metadata/add/imageThumb";
+	}
+	
+	@PostMapping("/getImageList.do")
+	public String getImageList(Model model, @ModelAttribute ImageParamVO param, @ModelAttribute Criteria cri) throws Exception {
+		int perPageNum = service.getImageListCnt(param.getItem_idx());		
+		if(param.getPerPageNum() != 0) {
+			int criPerPageNum = param.getPerPageNum();
+			cri.setPerPageNum(criPerPageNum);
+		}
+		PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    pageMaker.setTotalCount(perPageNum);
+		    
+	    param.setPageStart(cri.getPageStart());
+	    param.setPerPageNum(cri.getPerPageNum());
+		List<ImageVO> list = service.getImage(param);
+		model.addAttribute("imageList", list);
+		model.addAttribute("perPageNum", perPageNum);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "metadata/add/imageList";
 	}
 	
 	@GetMapping("/setPublicrep.do")
 	@ResponseBody
 	public String setPublicrep(Model model, @RequestParam("image_idx") int image_idx, 
 			@RequestParam("colunm") String colunm, @RequestParam("val") String val) throws Exception {
+		System.out.println(image_idx);
 		String result = "error";
 		int x = service.setPublicrep(image_idx, colunm, val);
 		
@@ -140,6 +178,7 @@ public class ImageController {
 
 	      String path = null;
 	      Image image = null;
+	      System.out.println(x5);
 	      
 	      FileItem item = (FileItem) x5.getDEXTUploadX5_FileData().get(0);
 	      FileSaveOption option = new FileSaveOption();
@@ -241,16 +280,35 @@ public class ImageController {
 	
 	@PostMapping("/deleteImage.do")
 	@ResponseBody
-	public String deleteImage(@RequestParam("image_idx") List<String> values) throws Exception {
-//		List<ImageVO> list = new ArrayList<ImageVO>();
-		System.out.println(values);
+	public String deleteImage(@ModelAttribute ImageParamVO param) throws Exception {
+		String result = "error";
+		System.out.println(param);
 		try {
-			int x = service.deleteImage(values);
-			
-			return "success";
+			int x = service.deleteImage(param);
+			if(x > 0) {
+				result = "success";
+			}
+			return result;
 		}  catch (Exception e) {
 			 System.out.println(e);
-			 return "error";
+			 return result;
+		}
+	}
+	
+	@PostMapping("/updateImageDesc.do")
+	@ResponseBody
+	public String updateImageDesc(@ModelAttribute ImageParamVO param) throws Exception {
+		String result = "error";
+		System.out.println(param);
+		try {
+			int x = service.updateImageDesc(param);
+			if(x > 0) {
+				result = "success";
+			}
+			return result;
+		}  catch (Exception e) {
+			 System.out.println(e);
+			 return result;
 		}
 	}
 

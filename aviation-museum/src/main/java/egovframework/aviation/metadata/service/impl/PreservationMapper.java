@@ -21,4 +21,8 @@ public interface PreservationMapper {
 
 	List<PreservationImageVO> getPreservationImageList(String preservation_idx);
 
+	int deletePreservationImage(@Param("image_idx") List<String> image_idx);
+
+	int deletePreservation(String preservation_idx);
+
 }

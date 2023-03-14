@@ -37,4 +37,14 @@ public class PreservationServiceImpl implements PreservationService {
 		return dao.getPreservationImageList(preservation_idx);
 	}
 
+	@Override
+	public int deletePreservationImage(List<String> image_idx) {
+		return dao.deletePreservationImage(image_idx);
+	}
+
+	@Override
+	public int deletePreservation(String preservation_idx) {
+		return dao.deletePreservation(preservation_idx);
+	}
+
 }

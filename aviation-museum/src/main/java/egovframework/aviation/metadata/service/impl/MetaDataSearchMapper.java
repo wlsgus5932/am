@@ -6,6 +6,8 @@ import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import egovframework.aviation.metadata.vo.MetaDataSearchImageVO;
 import egovframework.aviation.metadata.vo.MetaDataSearchVO;
+import egovframework.aviation.metadata.vo.metadata.KeywordVO;
+import egovframework.aviation.metadata.vo.param.KeywordParamVO;
 import egovframework.aviation.mypage.vo.InterestVO;
 
 @Mapper
@@ -24,4 +26,8 @@ public interface MetaDataSearchMapper {
 	List<MetaDataSearchVO> getMetaDataSearchListCurrentQty(MetaDataSearchVO metaDataSearchVO);
 	
 	List<MetaDataSearchImageVO> getMetaDataSearchImageListCurrentQty(MetaDataSearchImageVO metaDataSearchImageVO);
+
+	List<KeywordVO> getKeywordList(KeywordParamVO param);
+
+	int addKeyword(KeywordParamVO param);
 }

@@ -19,7 +19,7 @@ const changeReg = nm => {
 	$.ajax({
 				type : 'POST',                 
 				url : '/changeTransformReg.do',
-				dataType : "json",
+				dataType : "text",
 				data: {
 					reg_state: reg_state,
 					item_idx: item_idx
@@ -29,13 +29,8 @@ const changeReg = nm => {
 					alert('통신실패!');
 				},
 				success : function(data) {  
-					if($('#reg_state').val() == 'N') {
-						$('#transformNotList').empty().append(data);
-					} else if($('#reg_state').val() == 'Y') {
-						$('#transformYesList').empty().append(data);
-					} else {
-						$('#transformAllList').empty().append(data);
-					}
+					data == 'success' ? 
+					(alert('변경되었습니다.'), getTransformList()) : alert('오류가 발생했습니다. 다시 시도해주세요.')
 				}
 			});
 	} else { return false }
@@ -51,7 +46,7 @@ const changeRegAll = nm => {
 	$.ajax({
 				type : 'POST',                 
 				url : '/changeTransformRegAll.do',
-				dataType : "json",
+				dataType : "text",
 				data: {
 					reg_state: reg_state,
 					item_no1: item_no1,
@@ -64,13 +59,8 @@ const changeRegAll = nm => {
 					alert('통신실패!');
 				},
 				success : function(data) {  
-					if($('#reg_state').val() == 'N') {
-						$('#transformNotList').empty().append(data);
-					} else if($('#reg_state').val() == 'Y') {
-						$('#transformYesList').empty().append(data);
-					} else {
-						$('#transformAllList').empty().append(data);
-					}
+					data == 'success' ? 
+					(alert('변경되었습니다.'), getTransformList()) : alert('오류가 발생했습니다. 다시 시도해주세요.')
 				}
 			});
 		} else {

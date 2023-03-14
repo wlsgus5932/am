@@ -16,6 +16,8 @@ public interface SpecialityMapper {
 	List<SpecialityVO> getSpeciality();
 	int deleteSpeciality(SpecialityParamVO param);
 	int updateSpeciality(SpecialityParamVO param);
-	List<SpecialityVO> getSpeciality(int item_idx);
+	List<SpecialityVO> getSpeciality(SpecialityParamVO param);
+	List<SpecialityVO> getSpecialityData(int speciality_idx);
+	int getSpecialityCnt(SpecialityParamVO param);
 	
 }

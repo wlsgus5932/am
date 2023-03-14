@@ -42,10 +42,10 @@ import egovframework.aviation.metadata.vo.metadata.InsuranceVO;
 import egovframework.aviation.metadata.vo.metadata.InvolvementVO;
 import egovframework.aviation.metadata.vo.metadata.KeywordVO;
 import egovframework.aviation.metadata.vo.metadata.MaterialVO;
-import egovframework.aviation.metadata.vo.metadata.PreservationVO;
 import egovframework.aviation.metadata.vo.metadata.PublicServiceVO;
 import egovframework.aviation.metadata.vo.metadata.TaxonomyVO;
 import egovframework.aviation.metadata.vo.param.DeletionParamVO;
+import egovframework.aviation.metadata.vo.param.KeywordParamVO;
 import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
 import egovframework.aviation.metadata.vo.param.MovementParamVO;
 
@@ -406,8 +406,13 @@ public class MetaDataServiceImpl implements MetaDataService {
 	}
 
 	@Override
-	public List<KeywordVO> getKeywordList(MetaDataParamVO param) {
+	public List<KeywordVO> getKeywordList(KeywordParamVO param) {
 		return dao.getKeywordList(param);
+	}
+
+	@Override
+	public List<MovementVO> getMovementData(int movement_idx) {
+		return dao.getMovementData(movement_idx);
 	}
 
 
