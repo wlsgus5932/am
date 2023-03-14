@@ -1,0 +1,24 @@
+/* 고객센터 css */
+
+.q_wrap,
+.a_warp {
+  width: 100%;
+  display: block;
+}
+
+.faq_icon {
+  text-align: center;
+  margin-right: 1%;
+  display: inline-block;
+  width: auto;
+  padding: 1% 2% 1% 2%;
+  background-color: #333;
+  color: #fff;
+  border-radius: 3px;
+}
+
+.q_wrap {
+  margin-bottom: 2%;
+  height: 60px;
+  border-bottom: 1px solid #000;
+}
