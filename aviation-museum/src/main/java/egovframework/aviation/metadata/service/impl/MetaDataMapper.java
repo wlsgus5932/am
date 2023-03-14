@@ -45,6 +45,7 @@ import egovframework.aviation.metadata.vo.metadata.PreservationVO;
 import egovframework.aviation.metadata.vo.metadata.PublicServiceVO;
 import egovframework.aviation.metadata.vo.metadata.TaxonomyVO;
 import egovframework.aviation.metadata.vo.param.DeletionParamVO;
+import egovframework.aviation.metadata.vo.param.KeywordParamVO;
 import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
 import egovframework.aviation.metadata.vo.param.MovementParamVO;
 
@@ -193,5 +194,7 @@ public interface MetaDataMapper {
 
 	int deleteDeletion(@Param("map") Map<Integer, Object> map);
 
-	List<KeywordVO> getKeywordList(MetaDataParamVO param);
+	List<KeywordVO> getKeywordList(KeywordParamVO param);
+
+	List<MovementVO> getMovementData(int movement_idx);
 }

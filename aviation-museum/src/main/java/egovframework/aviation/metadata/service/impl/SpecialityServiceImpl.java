@@ -36,9 +36,21 @@ public class SpecialityServiceImpl implements SpecialityService {
 	}
 
 	@Override
-	public List<SpecialityVO> getSpeciality(int item_idx) {
-		return dao.getSpeciality(item_idx);
+	public List<SpecialityVO> getSpecialityData(int speciality_idx) {
+		return dao.getSpecialityData(speciality_idx);
 	}
+
+	@Override
+	public List<SpecialityVO> getSpeciality(SpecialityParamVO param) {
+		return dao.getSpeciality(param);
+	}
+
+	@Override
+	public int getSpecialityCnt(SpecialityParamVO param) {
+		return dao.getSpecialityCnt(param);
+	}
+	
+	
 
 
 }

@@ -24,6 +24,8 @@
                               </tr>
                           </thead>
                           <tbody>
+                          <c:choose>
+							<c:when test="${transformList.size() > 0 }">
 								<c:forEach var="list" items="${transformList}">
 	                              <tr>
 	                                <td><input type="checkbox" name="item_idx" id="notCheckbox" value="${list.item_idx}"/></td>
@@ -39,6 +41,13 @@
 	                                <td>${list.reg_state}</td>
 	                              </tr>
                               </c:forEach>
+                              </c:when>
+							<c:otherwise>
+									<tr>
+										<td colspan="6">검색된 결과가 없습니다.</td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
                           </tbody>
                       </table>
                   </div>

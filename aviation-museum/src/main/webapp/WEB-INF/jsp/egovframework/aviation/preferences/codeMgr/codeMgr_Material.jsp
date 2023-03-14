@@ -30,7 +30,16 @@
 	                            <td>${material1List.seq }</td>
 	                            <td>${material1List.mod_date}</td>
 	                            <td>${material1List.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${material1List.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${material1List.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1"  onclick="modFormBtn('material1', '${material1List.material1_code_idx}', '${material1List.material1_nm}', '${material1List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -87,7 +96,16 @@
 	                            <td>${material2List.seq }</td>
 	                            <td>${material2List.mod_date}</td>
 	                            <td>${material2List.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${material2List.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${material2List.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modSubFormBtn('material2', '${material2List.material2_code_idx}', '${material2List.material2_nm}', '${material2List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>

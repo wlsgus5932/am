@@ -354,14 +354,13 @@
             <li><a href="/myPage.do" data-key="t-crypto">My페이지</a></li>
           </ul>
         </li>
-
         <li>
           <a href="javascript: void(0);" class="has-arrow">
             <span class="menu-item" data-key="t-ecommerce">자료 관리</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="/dataUpdate.do" data-key="t-products">자료 정보수정</a></li>
-            <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">이미지 수정</a></li>
+            <li><a href="/imageUpdate.do" data-key="t-product-detail">이미지 수정</a></li>
             <li><a href="ecommerce-orders.html" data-key="t-orders">이동사항 자동등록</a></li>
           </ul>
         </li>
@@ -372,7 +371,7 @@
           </a>
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="/add.do" data-key="t-products">자료 신규등록</a></li>
-            <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">이미지 신규등록</a></li>
+            <li><a href="/imageRegister.do" data-key="t-product-detail">이미지 신규등록</a></li>
             <li><a href="/notRegister.do" data-key="t-orders">가등록 자료 정보조회</a></li>
             <li><a href="/pRgstMetaDataSearch.do" data-key="t-customers">가등록 자료 정보검색</a></li>
             <li><a href="/getTransform.do" data-key="t-checkout">자료관리전환</a></li>
@@ -391,14 +390,13 @@
           </ul>
         </li>
 
-        <li>
+		 <li>
           <a href="javascript: void(0);" class="has-arrow">
             <span class="menu-item" data-key="t-ecommerce">자료 통계</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
-            <li><a href="ecommerce-products.html" data-key="t-products">가등록 자료 통계</a></li>
-            <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">등록 자료 통계</a></li>
-            <li><a href="ecommerce-orders.html" data-key="t-orders">사용자 양식</a></li>
+            <li><a href="/statistics.do" data-key="t-products">통계</a></li>
+            <li><a href="/fixedForm.do" data-key="t-customers">고정양식</a></li>
           </ul>
         </li>
 

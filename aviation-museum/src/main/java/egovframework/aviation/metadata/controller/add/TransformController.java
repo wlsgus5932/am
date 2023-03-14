@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.aviation.metadata.service.MetaDataService;
 import egovframework.aviation.metadata.service.TransformService;
@@ -88,6 +89,7 @@ public class TransformController {
 	}
 	
 	@PostMapping("/changeTransformReg.do")
+	@ResponseBody
 	public String changeTransformReg(Model model, @ModelAttribute TransformParamVO param) throws Exception {
 		String result = "error";
 		if(param.getReg_state().equals("N")) {
@@ -98,14 +100,13 @@ public class TransformController {
 		int x = service2.changeTransformReg(param);
 		if(x > 0) {
 			result = "success";
-			return result;
-		} else {
-			return result;
-			
 		}
+		
+		return result;
 	}
 	
 	@PostMapping("/changeTransformRegAll.do")
+	@ResponseBody
 	public String changeTransformRegAll(Model model, @ModelAttribute TransformParamVO param) throws Exception {
 		String result = "error";
 		System.out.println(param);
@@ -123,7 +124,10 @@ public class TransformController {
 			param.setReg_state("N");
 		}
 		
-		service2.changeTransformReg(param);
+		int x = service2.changeTransformReg(param);
+		if(x > 0) {
+			result = "success";
+		}
 		
 		return result;
 	}

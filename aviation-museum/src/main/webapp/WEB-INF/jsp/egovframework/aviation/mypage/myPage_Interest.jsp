@@ -59,7 +59,7 @@
               <form id="sForm" name="sForm" method="post" class="form-horizontal">
               <div class="st_wrap st_mv_wrap">
                 <div>
-                  <button data-bs-toggle="modal" data-bs-target="#DelModal">선택삭제</button>
+                  <button data-bs-toggle="modal" data-bs-target="#DelModal" type="button">선택삭제</button>
                 </div>
                 <!--  -->
                 <div class="img-btn">
@@ -92,7 +92,7 @@
                           <th>수정</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody id="gallery">
                         <c:forEach var="interestList" items="${interestList}">
 	                        <tr>
 	                          <td>
@@ -146,6 +146,7 @@
               <!--  -->
             </div>
             <script>
+            const gallery = new Viewer(document.getElementById('gallery'));
 	    		<%-- 관심자료 리스트 출력 갯수 --%>
 	    		function interestPageNum() {
 	    			var perPageNum = $('#perPageNum').val();

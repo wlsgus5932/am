@@ -198,7 +198,7 @@
 						$.each(data, function(index, item) { // 데이터 =item
 							
 							$('#modUserIdx').val(value);
-							$('#modUserId').val(item.member_id);
+							$('#modUserId').html(item.member_id);
 							$('#modUserNm').val(item.member_nm);
 							$('#modUserGroupidx').val(item.group_idx);
 							$('#modUserRemark').val(item.remark);
@@ -301,6 +301,45 @@
 				});
 			}
 		});
+		
+		// 사용자 비밀번호 초기화
+		function userPassWordReset(value1, value2){
+			var check_submit = confirm('비밀번호를 초기화하시겠습니까?');
+			var member_idx = value1;
+			var member_id = value2;
+			if(check_submit){
+				$.ajax({
+					type : 'post',
+					url : '/userPassWordReset.do',
+					data : {
+						member_idx : member_idx,
+						member_pw : member_id
+					},
+					dataType : 'json',
+					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+					error: function(xhr, status, error){
+						alert(error);
+					},
+					success : function(success){
+						alert('비밀번호를 초기화하였습니다.');
+						$.ajax({
+							type : 'POST',                 
+							url : '/usermgr/userListAjax.do',   
+							dataType : "html",           
+							contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+							error : function() {        
+								alert('통신실패!');
+							},
+							success : function(data) {  
+								$('#tab-content').empty().append(data);
+
+							}
+						});
+					}
+				});
+			}
+		}
+		
 		// 그룹 등록
 		$(document).on('click', '#groupInsBtn', function(){
 
@@ -460,6 +499,7 @@
 				}
 			}
 		});
+
 	</script>
 </head>
 <body data-sidebar="dark">

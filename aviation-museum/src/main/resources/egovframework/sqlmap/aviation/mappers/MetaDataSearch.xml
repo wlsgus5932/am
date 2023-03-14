@@ -9,8 +9,8 @@
 					,nib.ITEM_IDX 
 					,lag(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as PREV
 					,lead(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as NEXT
-					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y') as IMAGE_IDX 
-					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y') as IMAGE_PATH 
+					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_IDX 
+					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_PATH 
 					,nib.ORG_CODE_IDX 
 					,nib.POSSESSION_CODE_IDX
 					,(SELECT npc.POSSESSION_NM from nam_possession_code npc WHERE npc.POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX) as POSSESSION_NM 
@@ -172,8 +172,8 @@
 					,nib.ITEM_IDX 
 					,lag(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as PREV
 					,lead(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as NEXT
-					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y') as IMAGE_IDX 
-					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y') as IMAGE_PATH 
+					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_IDX 
+					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_PATH 
 					,nib.ORG_CODE_IDX 
 					,nib.POSSESSION_CODE_IDX
 					,(SELECT npc.POSSESSION_NM from nam_possession_code npc WHERE npc.POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX) as POSSESSION_NM 
@@ -328,8 +328,8 @@
 					,nib.ITEM_IDX 
 					,lag(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as PREV
 					,lead(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as NEXT
-					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y') as IMAGE_IDX 
-					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y') as IMAGE_PATH 
+					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_IDX 
+					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_PATH 
 					,nib.ORG_CODE_IDX 
 					,nib.POSSESSION_CODE_IDX
 					,(SELECT npc.POSSESSION_NM from nam_possession_code npc WHERE npc.POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX) as POSSESSION_NM 
@@ -499,6 +499,8 @@
 						,nib.QTY_UNIT_CODE_IDX 
 						,nib.ICAO_CODE_IDX 
 						,nib.ORG_CODE_IDX 
+						,nib.POSSESSION_CODE_IDX 
+						,nib.REG_STATE 
 						,(SELECT nmc.MATERIAL1_CODE_IDX from nam_material1_code nmc WHERE nmc.MATERIAL1_CODE_IDX = (SELECT nm.MATERIAL1_CODE_IDX from nam_material nm WHERE nm.ITEM_IDX = nib.ITEM_IDX limit 1)) as MATERIAL1
 						,(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce  WHERE nce.ITEM_IDX = nib.ITEM_IDX limit 1) as COUNTRY
 						,(SELECT nic.ICAO_NM FROM nam_icao_code nic WHERE nic.ICAO_CODE_IDX = nib.ICAO_CODE_IDX) as ICAO_NM
@@ -647,6 +649,8 @@
 						,nib.QTY_UNIT_CODE_IDX 
 						,nib.ICAO_CODE_IDX 
 						,nib.ORG_CODE_IDX 
+						,nib.POSSESSION_CODE_IDX 
+						,nib.REG_STATE
 						,(SELECT nmc.MATERIAL1_CODE_IDX from nam_material1_code nmc WHERE nmc.MATERIAL1_CODE_IDX = (SELECT nm.MATERIAL1_CODE_IDX from nam_material nm WHERE nm.ITEM_IDX = nib.ITEM_IDX limit 1)) as MATERIAL1
 						,(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce  WHERE nce.ITEM_IDX = nib.ITEM_IDX limit 1) as COUNTRY
 						,(SELECT nic.ICAO_NM FROM nam_icao_code nic WHERE nic.ICAO_CODE_IDX = nib.ICAO_CODE_IDX) as ICAO_NM
@@ -796,6 +800,8 @@
 						,nib.QTY_UNIT_CODE_IDX 
 						,nib.ICAO_CODE_IDX 
 						,nib.ORG_CODE_IDX 
+						,nib.POSSESSION_CODE_IDX 
+						,nib.REG_STATE
 						,(SELECT nmc.MATERIAL1_CODE_IDX from nam_material1_code nmc WHERE nmc.MATERIAL1_CODE_IDX = (SELECT nm.MATERIAL1_CODE_IDX from nam_material nm WHERE nm.ITEM_IDX = nib.ITEM_IDX limit 1)) as MATERIAL1
 						,(SELECT nce.COUNTRY_CODE_IDX from nam_country_era nce  WHERE nce.ITEM_IDX = nib.ITEM_IDX limit 1) as COUNTRY
 						,(SELECT nic.ICAO_NM FROM nam_icao_code nic WHERE nic.ICAO_CODE_IDX = nib.ICAO_CODE_IDX) as ICAO_NM
@@ -933,5 +939,42 @@
                   , #{expl}
                   , #{reg_user}
                   , now())
+    </insert>
+    
+    <select id="getKeywordList" resultType="egovframework.aviation.metadata.vo.KeywordVO">
+		select 
+			*, 
+			row_number() over(order by reg_date) rownum 
+		from 
+			nam_keyword 
+		where 
+			item_idx = #{item_idx} 
+		<if test="keyword != '' and keyword != null">
+			and keyword = #{keyword}
+		</if>
+		order by rownum desc;
+	</select>
+	
+	<insert id="addKeyword" parameterType="egovframework.aviation.metadata.vo.param.KeywordParamVO">
+		   INSERT INTO nam_keyword_request
+                  ( 
+                 	keyword_list
+                  , ITEM_IDX
+                  , approval_state
+                  , refusal_reason
+                  , REG_USER
+                  , REG_DATE 
+                  )
+           VALUES 
+           <foreach separator="," item="item" collection="keywordList">
+           ( 
+                  	#{item}
+           		  , #{item_idx}
+                  , 'N'
+                  ,  ''
+                  , #{reg_user}
+                  , now()
+            )
+           </foreach>
     </insert>
 </mapper>

@@ -7,7 +7,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>자료관리전환-자료등록 | 국립항공박물관</title>
+    <title>자료관리전환 | 국립항공박물관</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -42,33 +42,34 @@
         <input type="hidden" name="reg_state" id="reg_state" value="All">
         <div class="page-content">
           <div class="tap_text">
-            <h2>자동등록</h2>
-            <p>자료등록 > <span>자료관리전환</span></p>
+            <h2>자료 관리 전환</h2>
+            <p>자료 등록 > <span>자료 관리 전환</span></p>
           </div>
           <!-- 자료 구분 셀렉트 -->
           <div class="fr_wrap">
             <div class="mb-3 row fr_1">
               <div class="col-md-10">
                 <label class="col-md-2 col-form-label">자료 구분</label>
+                <select class="form-select" id="org_code_idx" name="org_code_idx">
+                    <option value="" selected>선택</option>
+                    		<c:forEach var="list" items="${orgList}" varStatus="status">
+		                           <option value="${list.org_code_idx}">${list.org_nm}</option>
+		                     </c:forEach>
+                </select>
                   <select class="form-select" id="possession_code_idx" name="possession_code_idx">
                       <option value="" selected>선택</option>
                       		<c:forEach var="list" items="${posSessionList}" varStatus="status">
 		                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
 		                     </c:forEach>
                   </select>
-                 <select class="form-select" id="org_code_idx" name="org_code_idx">
-                    <option value="" selected>선택</option>
-                    		<c:forEach var="list" items="${orgList}" varStatus="status">
-		                           <option value="${list.org_code_idx}">${list.org_nm}</option>
-		                     </c:forEach>
-                </select>
+                 
                   <label class="col-md-2 col-form-label">자료 번호</label>
                   <!-- <div class="col-md-10"> -->
-                    <input class="form-control" list="datalistOptions" id="item_no1" name="item_no1" placeholder="자료 번호" type="number">
-                    <input class="form-control" list="datalistOptions" id="item_detail_no1" name="item_detail_no1" placeholder="세부 번호" type="number">
+                    <input class="form-control" list="datalistOptions" id="item_no1" name="item_no1" placeholder="자료 번호" type="text">
+                    <input class="form-control" list="datalistOptions" id="item_detail_no1" name="item_detail_no1" placeholder="세부 번호" type="text">
                     ~
-                    <input class="form-control" list="datalistOptions" id="item_no2" name="item_no2" placeholder="자료 번호" type="number">
-                    <input class="form-control" list="datalistOptions" id="item_detail_no2" name="item_detail_no2" placeholder="세부 번호" type="number">
+                    <input class="form-control" list="datalistOptions" id="item_no2" name="item_no2" placeholder="자료 번호" type="text">
+                    <input class="form-control" list="datalistOptions" id="item_detail_no2" name="item_detail_no2" placeholder="세부 번호" type="text">
                     <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="getTransformList()">조회</button>
                     <div class="st_wrap st_mv_wrap">
                 
@@ -294,9 +295,7 @@
                               </tr>
                           </thead>
                           <tbody>
-                              <tr>
-                                <td>검색된 결과가 없습니다.</td>
-                              </tr>
+                          <tr><td>검색된 결과가 없습니다.</td></tr>
                           </tbody>
                       </table>
                   </div>

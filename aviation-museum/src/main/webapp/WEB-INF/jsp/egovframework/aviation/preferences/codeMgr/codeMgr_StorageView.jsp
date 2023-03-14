@@ -24,7 +24,16 @@
 	                            <td>${storageCodeViewList.storage_nm }</td>
 	                            <td>${storageCodeViewList.mod_user }</td>
 	                            <td>${storageCodeViewList.mod_date }</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${storageCodeViewList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${storageCodeViewList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modSubFormBtn('storage', '${storageCodeViewList.storage_code_idx}', '${storageCodeViewList.storage_nm}', '${storageCodeViewList.enabled}')">수정</button></td>
 	                            <td>
 	                              	<c:choose>

@@ -1,0 +1,27 @@
+.table > :not(caption) > * > * {
+  padding: 0.75rem 0.5rem !important;
+}
+
+.auto_btn_left {
+  width: 50%;
+  float: left;
+}
+
+.auto_btn_right {
+  width: 50%;
+  float: right;
+}
+
+.auto_btn_right button {
+  float: right;
+}
+
+.nat_form {
+  margin-top: 1%;
+  border: 1px solid #000;
+  width: 100%;
+  min-height: 300px;
+  height: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e5e8;
+}

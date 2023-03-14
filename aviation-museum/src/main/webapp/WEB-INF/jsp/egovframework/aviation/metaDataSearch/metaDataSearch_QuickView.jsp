@@ -63,10 +63,10 @@
             <div class="simple_view_footer">
               <c:choose>
 	              <c:when test="${image eq null }">
-	              	<span><a href="javascript:quickView('${metaDataSearchQuickView.prev}');">< 이전자료</a></span> | <span><a href="javascript:quickView('${metaDataSearchQuickView.next}');">다음자료 ></a></span> | <span><a href="javascript:metaDataListView('${metaDataSearchQuickView.possession_code_idx}','${metaDataSearchQuickView.org_code_idx}','${metaDataSearchQuickView.item_no}','${metaDataSearchQuickView.item_detail_no}')">자세히보기</a></span>
+	              	<span><a href="javascript:quickView('${metaDataSearchQuickView.prev}');">< 이전자료</a></span> | <span><a href="javascript:quickView('${metaDataSearchQuickView.next}');">다음자료 ></a></span> | <span><a href="javascript:metaDataListView('${metaDataSearchQuickView.possession_code_idx}','${metaDataSearchQuickView.org_code_idx}','${metaDataSearchQuickView.item_no}','${metaDataSearchQuickView.item_detail_no}', '${metaDataSearchQuickView.reg_state}')">자세히보기</a></span>
 	          	  </c:when>
 	          	  <c:otherwise>
-	          	  	<span><a href="javascript:imageQuickView('${metaDataSearchQuickView.prev}');">< 이전자료</a></span> | <span><a href="javascript:imageQuickView('${metaDataSearchQuickView.next}');">다음자료 ></a></span> | <span><a href="javascript:metaDataListView('${metaDataSearchQuickView.possession_code_idx}','${metaDataSearchQuickView.org_code_idx}','${metaDataSearchQuickView.item_no}','${metaDataSearchQuickView.item_detail_no}')">자세히보기</a></span>
+	          	  	<span><a href="javascript:imageQuickView('${metaDataSearchQuickView.prev}');">< 이전자료</a></span> | <span><a href="javascript:imageQuickView('${metaDataSearchQuickView.next}');">다음자료 ></a></span> | <span><a href="javascript:metaDataListView('${metaDataSearchQuickView.possession_code_idx}','${metaDataSearchQuickView.org_code_idx}','${metaDataSearchQuickView.item_no}','${metaDataSearchQuickView.item_detail_no}','${metaDataSearchQuickView.reg_state}')">자세히보기</a></span>
 	          	  </c:otherwise>
           	  </c:choose>
             </div>

@@ -133,24 +133,25 @@
     </div>
   </div>
 </div>
-<!--  --> 		  
-            <div class="tab-pane" id="profile" role="tabpanel" style="display:block;">
-              <!-- 리스트 출력~ 분류별 검색 입력 창 -->
-              <form id="metaDataSearchListForm" name="metaDataSearchListForm" method="post" class="form-horizontal">
-	               <input type="hidden" name="search_type" id="search_type_temp" />
-	           	   <input type="hidden" name="search_type2_temp" id="search_type2_temp" />
-	           	   <input type="hidden" name="search_type3_temp" id="search_type3_temp" />
+<!--  --> 		   
+			<form id="excelForm" name="excelForm" method="post" class="form-horizontal">
+				   <input type="hidden" name="search_type" id="search_type_temp" />
+	           	   <input type="hidden" name="search_type2" id="search_type2_temp" />
+	           	   <input type="hidden" name="search_type3" id="search_type3_temp" />
 	           	   <input type="hidden" name="detail_search_word1" id="detail_search_word1_temp" />
 	           	   <input type="hidden" name="detail_search_word2" id="detail_search_word2_temp" />
 	           	   <input type="hidden" name="detail_search_word3" id="detail_search_word3_temp" />
-	           	   <input type="hidden" name="searchOperator1" id="searchOperator1_temp" />
-	           	   <input type="hidden" name="searchOperator2" id="searchOperator2_temp" />
+	           	   <input type="hidden" name="pSrchfAndOr1" id="searchOperator1_temp" />
+	           	   <input type="hidden" name="pSrchfAndOr2" id="searchOperator2_temp" />
 	           	   <input type="hidden" name="search_range" id="search_range_temp" />
 	 			   <input type="hidden" name="start_item_no" id="start_item_no_temp" />
-	               <input type="hidden" name="end_item_no" id="end_item_no_temp" />
-	               <input type="hidden" name="" id="country_temp"/>
-	               <input type="hidden" name="" id="material1_temp"/>
-	              
+	               <input type="hidden" name="end_item_no" id="end_item_no_temp" />               	               
+			</form>
+				   <input type="hidden" name="country" id="country_temp"/>
+	               <input type="hidden" name="material1" id="material1_temp"/>
+            <div class="tab-pane" id="profile" role="tabpanel" style="display:block;">
+              <!-- 리스트 출력~ 분류별 검색 입력 창 -->
+              <form id="metaDataSearchListForm" name="metaDataSearchListForm" method="post" class="form-horizontal">              
 	              <div class="st_wrap st_mv_wrap search_input_wrap">
 	                <div class="search_left">
 	                  리스트 출력
@@ -285,7 +286,7 @@
                           <th>주수량</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody id="gallery">
 	                       <c:forEach var="metaDataSearchList" items="${metaDataSearchList}">
 		                        <tr>
 		                          <td>
@@ -355,20 +356,26 @@
             </div>
             
             <script type="text/javascript">
-            var totalQty = 0;
-            var currentQty = 0;
-            <c:forEach var="metaDataSearchList2" items="${metaDataSearchList2}" varStatus="varStatus">
-            	<c:if test="${!empty metaDataSearchList2.qty}"> 
-            		totalQty += ${metaDataSearchList2.qty};
-            	</c:if>
-            	<c:if test="${!empty metaDataSearchList2.current_qty}"> 
-            	 	currentQty += ${metaDataSearchList2.current_qty};
-            	</c:if>
-            </c:forEach>
-            $('#totalNum').html("| 총건수 : "+${perPageNum});
-			$('#totalQty').html("| 총수량 : "+totalQty);
-			$('#currentQty').html("| 현수량 : "+currentQty+" |");
-			
+            $(function(){
+            	gallery = new Viewer(document.getElementById('gallery'));
+            	qty();
+            })
+           
+            function qty(){
+	            var totalQty = 0;
+	            var currentQty = 0;
+	            <c:forEach var="metaDataSearchList2" items="${metaDataSearchList2}" varStatus="varStatus">
+	            	<c:if test="${!empty metaDataSearchList2.qty}"> 
+	            		totalQty += ${metaDataSearchList2.qty};
+	            	</c:if>
+	            	<c:if test="${!empty metaDataSearchList2.current_qty}"> 
+	            	 	currentQty += ${metaDataSearchList2.current_qty};
+	            	</c:if>
+	            </c:forEach>
+	            $('#totalNum').html("| 총건수 : "+${perPageNum});
+				$('#totalQty').html("| 총수량 : "+totalQty);
+				$('#currentQty').html("| 현수량 : "+currentQty+" |");
+            }
             <%-- 페이지 이동 --%>
     		function goPage(value) {
     			var perPageNum = $('#perPageNum').val();
@@ -379,7 +386,7 @@
     			if($('#researched_word').val() == 'checked'){
     				research_word = 'on';
     				searched_word = $('#searched_word').val();
-//     				researched_word = $('#researched_word').val(); 
+    				researched_word = $('#researched_word').val(); 
     			}
     			/* 상세검색 */
     			var search_type = $('#search_type_temp').val();
@@ -397,25 +404,18 @@
     			var material1 = [];
     			
     			if($('#country_temp').val() != ''){
-    				 country_temp = $('#country_temp').val();
-
+    				country_temp_input = $('#country_temp').val();
+    				var country_temp = country_temp_input.split(',');
     				 for(let i = 0; i <country_temp.length; i++){					
-    					 if(country_temp[i] != ','){
-    						 country.push(country_temp[i]);
-    					 }
+    					 country.push(country_temp[i]);
   					 }
-    				 console.log(country);
-
     			}
        			if($('#material1_temp').val() != ''){
-	       			material1_temp = $('#material1_temp').val();
-
+       				material1_temp_input = $('#material1_temp').val();
+	       			var material1_temp = material1_temp_input.split(',');
 	       			for(let i = 0; i <material1_temp.length; i++){
-	       			 	if(material1_temp[i] != ','){
-	       					material1.push(material1_temp[i]);
-	       			 	}
+	       				material1.push(material1_temp[i]);
 					}
-	       			console.log(material1);
 	   			}
     			$.ajax({
     				type : 'POST',                 
@@ -545,11 +545,9 @@
     			var material1 = [];
     			$('.country:checked').each(function(i){
     				country.push($(this).val());
-    				console.log(country);
     			});
     			$('.material1:checked').each(function(i){
     				material1.push($(this).val());
-    				console.log(material1);
     			});
     			
     				$.ajax({
@@ -606,15 +604,49 @@
     				});
     		}
     		function metaDataSearchListExcelList() {
-   
-    				var $form = $('#metaDataSearchListForm');
-        			
-        			if($('#country_temp').val() != ''){
-        				$('#country_temp').attr('name','country');
+    			
+    				var $form = $('#excelForm');
+        			var research_word;
+        			var searched_word;
+        			if($('#researched_word').val() == 'checked'){
+        				research_word = 'on';
+        				 var example_1 = $('<input type="hidden" value="'+research_word+'" name="research_word">');
+   						 $form.append(example_1);
         			}
-           			if($('#material1_temp').val() != ''){
-           				$('#material1_temp').attr('name','material1');
+    				if($('#search_word').val()){
+    		    		search_word =$('#search_word').val();
+    		    		 var example_1 = $('<input type="hidden" value="'+search_word+'" name="search_word">');
+   						 $form.append(example_1);
     	   			}
+    		    	if($('#searched_word').val()){
+    		    		searched_word = $('#searched_word').val();
+    		    		var example_1 = $('<input type="hidden" value="'+searched_word+'" name="searched_word">');
+  						$form.append(example_1);
+    		    	}
+    		    	
+    				var country = [];
+        			var material1 = [];
+        			var c = 0;
+        			var m = 0;
+        			if($('#country_temp').val() != ''){
+       				 country_temp_input = $('#country_temp').val();
+       				 var country_temp = country_temp_input.split(',');
+       				 for(let i = 0; i <country_temp.length; i++){					
+       						 var example_1 = $('<input type="hidden" value="'+country_temp[i]+'" name="country['+c+']">');
+       						 $form.append(example_1);
+       						 c += 1;
+     					 }
+
+       				}
+          			if($('#material1_temp').val() != ''){
+	   	       			material1_temp_input = $('#material1_temp').val();
+	   	       			var material1_temp = material1_temp_input.split(',');
+	   	       			for(let i = 0; i <material1_temp.length; i++){
+	          						 var example_2 = $('<input type="hidden" value="'+material1_temp[i]+'" name="material1['+m+']">');
+	          						 $form.append(example_2);
+	          						 m += 1;
+	   					}
+	   	   			}  
 
     				$form.attr("action", "/pRgstMetaDataSearchListExcelDownload.do");
     				$form.submit();

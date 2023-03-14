@@ -112,8 +112,8 @@
 	                                <tbody>
 	                                    <tr>
 	                                      <td>사용자ID</td>
-	                                        <td>
-	                                          <input type="text" name="member_id" id="modUserId">
+	                                        <td id="modUserId">
+	                                        
 	                                        </td>
 	                                    </tr>
 	
@@ -208,7 +208,7 @@
 	                            <button type="button" class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#UserModal" onclick="userModPopup('${userList.member_idx}');">수정</button>
 	                          </td>
 	                           <td>
-	                            <button class="custom_btn btn_reset">초기화</button>
+	                            <button class="custom_btn btn_reset" onclick="userPassWordReset('${userList.member_idx}','${userList.member_id}');">초기화</button>
 	                           </td>
 	                      </tr>
 					</c:forEach>
@@ -268,14 +268,14 @@
 		
 		<%-- 사용자 수정 유효성체크 --%>
 		var userModValidation = function() {
-			var modUserId = $("#modUserId").val();
+// 			var modUserId = $("#modUserId").val();
 			var modUserNm = $("#modUserNm").val();
 
-			if (!Boolean(modUserId)) {
-				alert("사용자ID를 입력해주세요.");
-				$("#modUserId").focus();
-				return false;
-			}
+// 			if (!Boolean(modUserId)) {
+// 				alert("사용자ID를 입력해주세요.");
+// 				$("#modUserId").focus();
+// 				return false;
+// 			}
 			if (!Boolean(modUserNm)) {
 				alert("사용자명을 입력해주세요.");
 				$("#modUserNm").focus();
@@ -353,5 +353,7 @@
 					$('#search_type').val(search_type);
 				}
 			});
-	}
+		}
+		
+
 	</script>

@@ -12,10 +12,14 @@ public interface SpecialityService {
 
 	int setSpeciality(SpecialityParamVO param);
 
-	List<SpecialityVO> getSpeciality(int item_idx);
+	List<SpecialityVO> getSpeciality(SpecialityParamVO param);
 
 	int deleteSpeciality(SpecialityParamVO param);
 
 	int updateSpeciality(SpecialityParamVO param);
+
+	List<SpecialityVO> getSpecialityData(int speciality_idx);
+
+	int getSpecialityCnt(SpecialityParamVO param);
 
 }

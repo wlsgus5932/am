@@ -6,18 +6,25 @@ import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import egovframework.aviation.metadata.vo.image.ImageVO;
+import egovframework.aviation.metadata.vo.param.ImageParamVO;
 
 @Mapper
 public interface ImageMapper {
 
 	int setImage(ImageVO list);
 
-	List<ImageVO> getImage();
-
-	List<ImageVO> getImage(int item_idx);
+	List<ImageVO> getImage(ImageParamVO param);
 
 	int setPublicrep(@Param("image_idx") int image_idx, @Param("colunm") String colunm, @Param("val") String val);
 
-	int deleteImage(@Param("values") List<String> values);
+	int getImageListCnt(String item_idx);
+
+	int deleteImage(ImageParamVO param);
+
+	int updateImageDesc(ImageParamVO param);
+
+	List<ImageVO> getImageIUpdateList(ImageParamVO param);
+
+	int getImageIUpdateListCnt(ImageParamVO param);
 
 }

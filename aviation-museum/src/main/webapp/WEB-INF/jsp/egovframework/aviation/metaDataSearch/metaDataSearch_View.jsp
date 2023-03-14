@@ -847,51 +847,51 @@
         <!-- 자료등록 시작 -->
        <form id="add-form">
         <div class="page-content">
-        <div class="tap_text">
-            <h2>자료 신규 등록</h2>
-            <p>자료 등록 > <span> 자료 신규 등록 </span></p>
-          </div>
+<!--         <div class="tap_text"> -->
+<!--             <h2>자료 신규 등록</h2> -->
+<!--             <p>자료 등록 > <span> 자료 신규 등록 </span></p> -->
+<!--           </div> -->
           <!-- 자료구분 셀렉트 -->
-          <div class="fr_wrap">
-            <div class="mb-3 row fr_1">
-              <div class="col-md-10">
-              <label class="col-md-2 col-form-label">자료 구분</label>
-                  <select class="form-select" name="possession_code_idx" id="possession_code_idx">
+<!--           <div class="fr_wrap"> -->
+<!--             <div class="mb-3 row fr_1"> -->
+<!--               <div class="col-md-10"> -->
+<!--               <label class="col-md-2 col-form-label">자료 구분</label> -->
+                  <select class="form-select" name="possession_code_idx" id="possession_code_idx" style="display:none;">
                       <option value="" selected>선택</option>
                       		<c:forEach var="list" items="${posSessionList}" varStatus="status">
 		                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
 		                     </c:forEach>
                   </select>
-                <select class="form-select" name="org_code_idx" onchange="changeOrgCode(this.value)" id="org_code_idx">
+                <select class="form-select" name="org_code_idx" onchange="changeOrgCode(this.value)" id="org_code_idx" style="display:none;">
                     <option value="" selected>선택</option>
                     		<c:forEach var="list" items="${orgList}" varStatus="status">
 		                           <option value="${list.org_code_idx}">${list.org_nm}</option>
 		                     </c:forEach>
                 </select>
                 
-                <label class="col-md-2 col-form-label">자료 번호</label>
+<!--                 <label class="col-md-2 col-form-label">자료 번호</label> -->
                   <!-- <div class="col-md-10"> -->
-                    <input class="form-control" list="datalistOptions" id="item_no" placeholder="자료 번호" name="item_no" id="item_no">
-                    <input class="form-control" list="datalistOptions" id="item_detail_no" placeholder="세부" name="item_detail_no" id="item_detail_no">
-                    <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="search_item_base()">조회</button>
+                    <input class="form-control" list="datalistOptions" id="item_no" placeholder="자료 번호" name="item_no" id="item_no" type="hidden">
+                    <input class="form-control" list="datalistOptions" id="item_detail_no" placeholder="세부" name="item_detail_no" id="item_detail_no" type="hidden">
+<!--                     <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="search_item_base()">조회</button> -->
                     <!--  -->
                     
-                    <button class="btn btn-secondary waves-effect waves-light btn_ml">인쇄</button>
-                    <select class="form-select fls kor_sl">
-                      <option disabled selected>한글</option>
-                      <option>더미1</option>
-                      <option>더미2</option>
-                      <option>더미3</option>
-                  </select>
-                   <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#"><<</a></li>
-                    <li class="page-item"><a class="page-link" href="#"><</a></li>
-                    <li class="page-item"><a class="page-link" href="#">상세</a></li>
-                    <li class="page-item"><a class="page-link" href="#">></a></li>
-                    <li class="page-item"><a class="page-link" href="#">>></a></li>
-                </ul>
-            </div>
-          </div>
+<!--                     <button class="btn btn-secondary waves-effect waves-light btn_ml">인쇄</button> -->
+<!--                     <select class="form-select fls kor_sl"> -->
+<!--                       <option disabled selected>한글</option> -->
+<!--                       <option>더미1</option> -->
+<!--                       <option>더미2</option> -->
+<!--                       <option>더미3</option> -->
+<!--                   </select> -->
+<!--                    <ul class="pagination"> -->
+<!--                     <li class="page-item"><a class="page-link" href="#"><<</a></li> -->
+<!--                     <li class="page-item"><a class="page-link" href="#"><</a></li> -->
+<!--                     <li class="page-item"><a class="page-link" href="#">상세</a></li> -->
+<!--                     <li class="page-item"><a class="page-link" href="#">></a></li> -->
+<!--                     <li class="page-item"><a class="page-link" href="#">>></a></li> -->
+<!--                 </ul> -->
+<!--             </div> -->
+<!--           </div> -->
           <!--  -->
           <!-- 퀵메뉴 -->
 
@@ -970,7 +970,7 @@
 <!--                 </div> -->
 <!--               </div> -->
 <!--             </div> -->
-          </div>
+<!--           </div> -->
           <!--  -->
           </div>
           <!-- 내용물 -->
@@ -1822,7 +1822,7 @@
       </form>
       <div class="mb-0">
         <div class="st_wrap">
-        	<button type="button" class="submit_btn" onclick="submitForm()">저장하기</button>
+<!--         	<button type="button" class="submit_btn" onclick="submitForm()">저장하기</button> -->
         </div>
        </div>
       </div>

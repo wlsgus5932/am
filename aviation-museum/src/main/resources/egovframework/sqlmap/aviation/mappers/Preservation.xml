@@ -13,6 +13,7 @@
 				remark,
 				file_nm,
 				file_path,
+				file_local_path,
 				reg_user,
 				reg_date
 			)
@@ -26,6 +27,7 @@
 				#{remark},
 				#{file_nm},
 				#{file_path},
+				#{file_local_path},
 				#{reg_user},
 				now()
 			)
@@ -40,6 +42,7 @@
 				preservation_idx,
 				image_nm,
 				image_path,
+				image_local_path,
 				image_state,
 				reg_user
 			)
@@ -61,5 +64,17 @@
 	<select id="getPreservationImageList" resultType="egovframework.aviation.metadata.vo.metadata.PreservationImageVO">
 		select * from nam_preservation_image where preservation_idx = #{preservation_idx}
 	</select>
+	
+	<delete id="deletePreservationImage" parameterType="java.util.List">
+		delete from nam_preservation_image where preservation_image_idx in(
+					<foreach separator="," index="idx" item="item" collection="image_idx">
+						#{item} 
+					</foreach>
+					)
+	</delete>
+	
+	<delete id="deletePreservation">
+		delete from nam_preservation where preservation_idx = #{preservation_idx}
+	</delete>
 	
 </mapper>

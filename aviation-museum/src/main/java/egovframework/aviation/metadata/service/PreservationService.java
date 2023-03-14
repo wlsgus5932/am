@@ -15,5 +15,7 @@ public interface PreservationService {
 	int setPreservationImage(Map<Integer, Object> map);
 	List<PreservationVO> getPreservationList(int item_idx);
 	List<PreservationImageVO> getPreservationImageList(String preservation_idx);
+	int deletePreservationImage(List<String> image_idx);
+	int deletePreservation(String preservation_idx);
 
 }
