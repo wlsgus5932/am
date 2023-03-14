@@ -23,7 +23,7 @@
 <!--                       <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl">자료등록</button> -->
  						 <form id="workHistorySearchForm" name="workHistorySearchForm" method="post" class="form-horizontal">
  						 </form>
- 						<button type="button" onClick="workHistoryExcelList();">엑셀파일</button>
+ 						<button class="custom_btn btn_ex" type="button" onClick="workHistoryExcelList();">엑셀파일</button>
                   </div>
                   
                 <!-- 수정 모달창 -->

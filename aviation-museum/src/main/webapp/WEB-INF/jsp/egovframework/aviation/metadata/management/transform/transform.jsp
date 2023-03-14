@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="<c:url value='/assets/css/custom_auto_upload.css'/>" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="<c:url value='/assets/js/metadata/transform.js'/>" defer></script>
-   
+
   </head>
 
   <body data-sidebar="dark">
@@ -50,38 +50,37 @@
             <div class="mb-3 row fr_1">
               <div class="col-md-10">
                 <label class="col-md-2 col-form-label">자료 구분</label>
-                <select class="form-select" id="org_code_idx" name="org_code_idx">
+                <select class="search-select" id="org_code_idx" name="org_code_idx">
                     <option value="" selected>선택</option>
                     		<c:forEach var="list" items="${orgList}" varStatus="status">
 		                           <option value="${list.org_code_idx}">${list.org_nm}</option>
 		                     </c:forEach>
                 </select>
-                  <select class="form-select" id="possession_code_idx" name="possession_code_idx">
+                  <select class="search-select" id="possession_code_idx" name="possession_code_idx">
                       <option value="" selected>선택</option>
                       		<c:forEach var="list" items="${posSessionList}" varStatus="status">
 		                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
 		                     </c:forEach>
                   </select>
-                 
                   <label class="col-md-2 col-form-label">자료 번호</label>
                   <!-- <div class="col-md-10"> -->
-                    <input class="form-control" list="datalistOptions" id="item_no1" name="item_no1" placeholder="자료 번호" type="text">
-                    <input class="form-control" list="datalistOptions" id="item_detail_no1" name="item_detail_no1" placeholder="세부 번호" type="text">
+                    <input class="custom_search_input" list="datalistOptions" id="item_no1" name="item_no1" placeholder="자료 번호" type="text">
+                    <input class="custom_search_input" list="datalistOptions" id="item_detail_no1" name="item_detail_no1" placeholder="세부 번호" type="text">
                     ~
-                    <input class="form-control" list="datalistOptions" id="item_no2" name="item_no2" placeholder="자료 번호" type="text">
-                    <input class="form-control" list="datalistOptions" id="item_detail_no2" name="item_detail_no2" placeholder="세부 번호" type="text">
-                    <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="getTransformList()">조회</button>
+                    <input class="custom_search_input" list="datalistOptions" id="item_no2" name="item_no2" placeholder="자료 번호" type="text">
+                    <input class="custom_search_input" list="datalistOptions" id="item_detail_no2" name="item_detail_no2" placeholder="세부 번호" type="text">
+                    <button type="button" class="custom_btn btn_707070" onclick="getTransformList()">조회</button>
                     <div class="st_wrap st_mv_wrap">
-                
+
                 <div class="auto_btn_right" style="width:auto">
                    리스트 출력 갯수 :
-                  <select class="form-select" name="perPageNum" id="perpage">
+                  <select class="search_select" name="perPageNum" id="perpage">
                     <option selected value="10">10개</option>
                     <option value="20">20개</option>
                     <option value="30">30개</option>
                     <option value="50">50개</option>
                   </select>
-                  <button type="button" onclick="excelDownload()">엑셀파일</button>
+                  <button class="custom_btn btn_ex" type="button" onclick="excelDownload()">엑셀파일</button>
                 </div>
               </div>
               </div>
@@ -151,7 +150,7 @@
                 </div>
               </div>
               <!-- -->
-              
+
               </form>
               <div class="mb-0">
                 <!-- 엑셀 모달 -->
@@ -266,7 +265,7 @@
                               </div>
                             </div>
                             <!--  -->
-                            
+
                           </div>
                       </div>
                   </div>
@@ -299,7 +298,7 @@
                           </tbody>
                       </table>
                   </div>
-                  
+
               	</div>
             </div>
             </div>
@@ -308,12 +307,12 @@
               <!-- -->
               <div class="st_wrap st_mv_wrap">
                 <div class="auto_btn_left">
-                  <button type="button" onclick="allChecked('not')">전체선택</button>
-                  <button type="button" onclick="cancelChecked('not')">선택해지</button>
+                  <button class="custom_btn btn_707070" type="button" onclick="allChecked('not')">전체선택</button>
+                  <button class="custom_btn btn_707070" type="button" onclick="cancelChecked('not')">선택해지</button>
                 </div>
                 <div class="auto_btn_right" style="width:auto">
-                 <button type="button" onclick="changeReg('not')">선택변환</button>
-                 <button type="button" onclick="changeRegAll('not')">전체변환</button>
+                 <button class="custom_btn btn_707070" type="button" onclick="changeReg('not')">선택변환</button>
+                 <button class="custom_btn btn_707070" type="button" onclick="changeRegAll('not')">전체변환</button>
                </div>
               </div>
               <!--  -->
@@ -348,7 +347,7 @@
                           </tbody>
                       </table>
                   </div>
-                  
+
               </div>
             </div>
             </div>
@@ -357,12 +356,12 @@
               <!-- -->
               <div class="st_wrap st_mv_wrap">
                 <div class="auto_btn_left">
-                  <button type="button" onclick="allChecked('yes')">전체선택</button>
-                  <button type="button" onclick="cancelChecked('yes')">선택해지</button>
+                  <button class="custom_btn btn_707070" type="button" onclick="allChecked('yes')">전체선택</button>
+                  <button class="custom_btn btn_707070" type="button" onclick="cancelChecked('yes')">선택해지</button>
                 </div>
                 <div class="auto_btn_right" style="width:auto">
-                 <button type="button" onclick="changeReg('yes')">선택변환</button>
-                 <button type="button" onclick="changeRegAll('yes')">전체변환</button>
+                 <button class="custom_btn btn_707070" type="button" onclick="changeReg('yes')">선택변환</button>
+                 <button class="custom_btn btn_707070" type="button" onclick="changeRegAll('yes')">전체변환</button>
                </div>
               </div>
               <!--  -->
@@ -397,7 +396,7 @@
 	                          </tbody>
 	                      </table>
 	                  </div>
-                
+
               </div>
             </div>
             </div>
@@ -639,11 +638,11 @@
     <script src="<c:url value='/assets/libs/metismenujs/metismenujs.min.js'/>" defer></script>
     <script src="<c:url value='/assets/libs/simplebar/simplebar.min.js'/>" defer></script>
     <script src="<c:url value='/assets/libs/eva-icons/eva.min.js'/>" defer></script>
-    
+
     <script src="<c:url value='/assets/libs/apexcharts/apexcharts.min.js'/>" defer></script>
     <script src="<c:url value='/assets/js/pages/dashboard.init.js'/>" defer></script>
     <script src="<c:url value='/assets/js/app.js'/>" defer></script>
-    
+
     <script src="<c:url value='/assets/js/pages/ecommerce-product-detail.init.js'/>" defer></script>
     <script src="<c:url value='/assets/libs/swiper/swiper-bundle.min.js'/>" defer></script>
   </body>

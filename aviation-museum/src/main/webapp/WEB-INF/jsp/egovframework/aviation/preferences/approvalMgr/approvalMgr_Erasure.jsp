@@ -183,7 +183,7 @@
 	              <form id="erasureSearchForm" name="erasureSearchForm" method="post" class="form-horizontal">            
 	                <div class="auto_btn_right">
 	                  리스트 출력 갯수 :
-	                    <select class="form-select st_select img-select" id="perPageNum" name="perPageNum" onchange="erasurePerPageNum();">	                      
+	                    <select class="search_select" id="perPageNum" name="perPageNum" onchange="erasurePerPageNum();">	                      
 	                      <option value="10">10</option>
 	                      <option value="15">15</option>
 	                      <option value="20">20</option>
@@ -240,7 +240,7 @@
 	                                    <c:choose>
                                  		   <c:when test="${erasureList.approval_state != 'Y'}">
 			                                   <td>
-			                                    <button data-bs-toggle="modal" data-bs-target="#ReturnModal" type="button" onClick="returnModalBtn('${erasureList.request_idx}')">반려</button>
+			                                    <button class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#ReturnModal" type="button" onClick="returnModalBtn('${erasureList.request_idx}')">반려</button>
 			                                   </td>
 	                                   	   </c:when>
 	                                   	   <c:otherwise>

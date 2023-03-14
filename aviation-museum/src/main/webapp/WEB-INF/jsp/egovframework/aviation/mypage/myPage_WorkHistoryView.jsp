@@ -13,7 +13,7 @@
                    	<form id="workHistoryViewSearchForm" name="workHistoryViewSearchForm" method="post" class="form-horizontal">
 						<input type="hidden" id="item_idx" name="item_idx" value="" />
 					</form>
-                    <button type="button" onClick="workHistoryViewExcelList();">엑셀파일</button>
+                    <button class="custom_btn btn_ex" type="button" onClick="workHistoryViewExcelList();">엑셀파일</button>
                   </div>
                    <div class="card-body">
                      <div class="table-responsive">

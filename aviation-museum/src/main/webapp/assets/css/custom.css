@@ -21,17 +21,19 @@ table {
 /* 커스텀 셀렉트, 검색창 */
 
 .search_select {
-  width: 180px;
+  width: auto;
   height: 30px;
   border: 1px solid #d2d2d2;
   border-radius: 6px;
+  font-size: 14px;
 }
 
 .custom_search_input {
-  width: 400px;
+  width: auto;
   height: 30px;
   border: 1px solid #d2d2d2;
   border-radius: 6px;
+  font-size: 14px;
 }
 
 .custom_search_input_2 {
@@ -49,9 +51,10 @@ table {
 .custom_btn {
   transition: 0.1s;
   font-size: 14px;
-  padding: 0.1% 1% 0.1% 1%;
+  /* 	padding: 0.1% 1% 0.1% 1%; */
   border-radius: 6px;
   border: 0;
+  /* 	padding: 0.5%; */
 }
 
 .custom_btn:hover {
@@ -63,31 +66,28 @@ table {
   color: #7d7d7d;
   border: 1px solid #d2d2d2;
   width: 50px;
-  height: 28px;
 }
 
 .btn_reset {
   background-color: #fff;
   color: #7d7d7d;
   border: 1px solid #d2d2d2;
-  width: 60px;
-  height: 28px;
+  /*     width: 50px; */
 }
 
 .btn_user_registration,
 .btn_no_select,
-.btn_in_wrap_header,
-.btn_search {
+.btn_in_wrap_header {
   background-color: #707070;
   color: #fff;
-  width: auto;
-  height: 30px;
 }
 
 .btn_inquiry {
   background-color: #707070;
   color: #fff;
   height: 30px;
+  width: 50px;
+  padding: 0;
 }
 
 .btn_preferences_y {
@@ -105,41 +105,66 @@ table {
 }
 
 .btn_preferences_user_enabled {
-  width: 50px;
-  height: 28px;
   background-color: #3d3d3d;
   color: #fff;
+  width: 50px;
 }
 
 .btn_code_upload {
   background-color: #7288c5;
-  height: 28px;
   color: #fff;
   float: right;
 }
 
 .btn_3d3d3d {
-  width: 64px;
-  height: 28px;
   background-color: #3d3d3d;
   color: #fff;
 }
 
 .btn_c58672 {
-  width: 64px;
-  height: 28px;
   background-color: #c58672;
   color: #fff;
 }
 
-.btn_excel {
-  width: auto;
+.btn_707070 {
+  background-color: #707070;
   color: #fff;
-  background-color: #74957b;
-  height: 30px;
+}
+
+.btn_6466ab {
+  background-color: #6466ab;
+  color: #fff;
+}
+
+.btn_7288c5 {
+  background-color: #7288c5;
+  color: #fff;
+}
+
+.btn_add_preservation_padding {
+  padding: 0.1% 0.5% 0.1% 0.5%;
+}
+
+.btn_689e97 {
+  background-color: #689e97;
+  color: #fff;
+}
+
+.btn_c57283 {
+  background-color: #c57283;
+  color: #fff;
+}
+
+.btn_c28876 {
+  background-color: #c28876;
+  color: #fff;
 }
 
 /* 커스텀 버튼 끝 */
+
+.tap_text p span {
+  font-weight: 900;
+}
 
 /* 커스텀 인풋, 버튼 영역 */
 
@@ -154,6 +179,7 @@ table {
 }
 
 .custom_prefernces_header_wrap_in_wrap {
+  height: 50px;
 }
 
 /* 커스텀 인풋, 버튼 영역 끝*/
@@ -323,7 +349,7 @@ td {
 }
 
 .col-md-2 {
-  font-size: 18px;
+  font-size: 14px;
   width: auto;
   font-weight: 600;
 }
@@ -465,8 +491,8 @@ th {
 }
 
 .pri {
-  width: auto !important;
-  min-width: 49%;
+  /*   width: auto !important; */
+  /*   min-width: 49%; */
 }
 
 .accordion {
@@ -568,12 +594,12 @@ th {
   justify-content: space-between;
 }
 
-.st_title_wrap {
-  width: 80%;
-}
-.move_btn {
-  width: 20%;
-}
+/* .st_title_wrap { */
+/*   width: 80%; */
+/* } */
+/* .move_btn { */
+/*   width: 20%; */
+/* } */
 
 .btn_ex {
   background-color: #74957b;
@@ -774,4 +800,30 @@ th {
 
 .page_num {
   display: inline-block;
+}
+.auto_btn_left {
+  width: 50%;
+}
+
+.btn_add_save_wrap {
+  text-align: center;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: #3d3d3d;
+}
+
+.btn_img_tap {
+  color: #3d3d3d;
+  background-color: #fff;
+}
+
+.btn_add_preservation_wrap {
+  width: 100%;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  margin: 0.5% auto;
 }

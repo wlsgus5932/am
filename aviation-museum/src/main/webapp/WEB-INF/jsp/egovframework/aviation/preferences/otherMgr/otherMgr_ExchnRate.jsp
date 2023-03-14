@@ -133,7 +133,7 @@
 	             <form id="exchnRateSearchForm" name="exchnRateSearchForm" method="post" class="form-horizontal"> 
 	                <div>
 	                  리스트 출력 갯수 :
-	                    <select class="form-select st_select img-select" id="perPageNum" name="perPageNum" onchange="exchnRateperPageNum();">	                      
+	                    <select class="search_select" id="perPageNum" name="perPageNum" onchange="exchnRateperPageNum();">	                      
 	                      <option value="10">10</option>
 	                      <option value="15">15</option>
 	                      <option value="20">20</option>

@@ -7,23 +7,23 @@
                   <!--  -->
                   <div class="st_wrap">
                     <label class="col-md-2 col-form-label st_title">전문정보검색</label>
-                    <form id="rgstrSpecialitySearchForm" name="rgstrSpecialitySearchForm" method="post" class="form-horizontal">
-	                    <select class="form-select st_select pro_info" id="speciality_code_idx" name=speciality_code_idx>
+                    <form id="rgstrSpecialitySearchForm" name="rgstrSpecialitySearchForm" method="post" class="form-horizontal" style="display: inline;">
+	                    <select class="search_select" id="speciality_code_idx" name=speciality_code_idx>
 	                       <option value="">전체</option>
 	                       <c:forEach var="specialityCodeList" items="${specialityCodeList}">
 	                     	 	<option value="${specialityCodeList.speciality_code_idx}">${specialityCodeList.speciality_nm}</option>
 	                       </c:forEach>
 	                    </select>
-	                    <select class="form-select st_select pro_info" id="search_type" name="search_type">
+	                    <select class="search_select" id="search_type" name="search_type">
 	                      <option value="">전체</option>
 	                      <option value="item_no">자료번호</option>
 	                      <option value="item_detail_no">세부번호</option>
 	                      <option value="item_nm">명칭</option>
 	                    </select>
-	                    <input type="text" class="form-control st_input pro_info" list="datalistOptions" placeholder="내용을 입력해 주세요." id="search_word" name="search_word" >
-	                    <button class="btn btn-secondary waves-effect waves-light btn_ml" type="button" onClick="rgstrSpecialitySearchList();">조회</button>
+	                    <input type="text" class="custom_search_input" list="datalistOptions" placeholder="내용을 입력해 주세요." id="search_word" name="search_word" >
+	                    <button class="custom_btn btn_707070" type="button" onClick="rgstrSpecialitySearchList();">조회</button>
                     </form>
-                    <button type="button" onClick="rgstrSpecialityExcelList();">엑셀파일</button>
+                    <button class="custom_btn btn_ex" type="button" onClick="rgstrSpecialityExcelList();">엑셀파일</button>
                 </div>
                 <!--  -->
                 
