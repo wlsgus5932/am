@@ -17,19 +17,6 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-           	   <input type="hidden" name="search_type" id="search_type_temp" />
-           	   <input type="hidden" name="search_type2_temp" id="search_type2_temp" />
-           	   <input type="hidden" name="search_type3_temp" id="search_type3_temp" />
-           	   <input type="hidden" name="detail_search_word1" id="detail_search_word1_temp" />
-           	   <input type="hidden" name="detail_search_word2" id="detail_search_word2_temp" />
-           	   <input type="hidden" name="detail_search_word3" id="detail_search_word3_temp" />
-           	   <input type="hidden" name="searchOperator1" id="searchOperator1_temp" />
-           	   <input type="hidden" name="searchOperator2" id="searchOperator2_temp" />
-           	   <input type="hidden" name="search_range" id="search_range_temp" />
- 			   <input type="hidden" name="start_item_no" id="start_item_no_temp" />
-               <input type="hidden" name="end_item_no" id="end_item_no_temp" />
-               <input type="hidden" name="country" id="country_temp"/>
-               <input type="hidden" name="material1" id="material1_temp"/>
                
                <form id="metaDataDetailSearchListForm" name="metaDataDetailSearchListForm" method="post" class="form-horizontal">            	
 	              <table class="table mb-0">
@@ -144,6 +131,22 @@
   </div>
 </div>
 <!--  -->
+			<form id="excelForm" name="excelForm" method="post" class="form-horizontal">
+           	   <input type="hidden" name="search_type" id="search_type_temp" />
+           	   <input type="hidden" name="search_type2_temp" id="search_type2_temp" />
+           	   <input type="hidden" name="search_type3_temp" id="search_type3_temp" />
+           	   <input type="hidden" name="detail_search_word1" id="detail_search_word1_temp" />
+           	   <input type="hidden" name="detail_search_word2" id="detail_search_word2_temp" />
+           	   <input type="hidden" name="detail_search_word3" id="detail_search_word3_temp" />
+           	   <input type="hidden" name="pSrchfAndOr1" id="searchOperator1_temp" />
+           	   <input type="hidden" name="pSrchfAndOr2" id="searchOperator2_temp" />
+           	   <input type="hidden" name="search_range" id="search_range_temp" />
+ 			   <input type="hidden" name="start_item_no" id="start_item_no_temp" />
+               <input type="hidden" name="end_item_no" id="end_item_no_temp" />
+            </form>  
+               <input type="hidden" name="country" id="country_temp"/>
+               <input type="hidden" name="material1" id="material1_temp"/>
+               
             <div class="tab-pane" id="messages" role="tabpanel" style="display:block;">
               <!-- 리스트 출력~ 분류별 검색 입력 창 -->
               <form id="metaDataSearchImageListForm" name="metaDataSearchImageListForm" method="post" class="form-horizontal">
@@ -295,9 +298,9 @@
                   <!--  -->
                   <div class="tab-pane fade active show" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="container text-center">
-                      <div class="row row-cols-auto img-row">
+                      <div class="row row-cols-auto img-row" id="gallery">
                         
-                        <c:forEach var="metaDataSearchImageList" items="${metaDataSearchImageList}">
+                        <c:forEach var="metaDataSearchImageList" items="${metaDataSearchImageList}" varStatus="varStatus">
 	                        <div class="col img-col">
 	                          <div class="img-col-header">
 	                             <input type="checkbox" name="group_seqList" class="check_temp" name="" id="" value="${metaDataSearchImageList.image_idx}">
@@ -305,10 +308,10 @@
 	                          </div>
 	                          <div class="img-col-img-wrap">
 	                            <a href="#">
-	                              <div class="img-hover-info">
-	                                <h4>이미지 설명</h4>
-	                                <p>설명없음</p>
-	                              </div>
+<!-- 	                              <div class="img-hover-info"> -->
+<!-- 	                                <h4>이미지 설명</h4> -->
+<!-- 	                                <p>설명없음</p> -->
+<!-- 	                              </div> -->
 	                              <img src="${metaDataSearchImageList.image_path}" alt="이미지" />
 	                            </a>
 	                          </div>
@@ -339,7 +342,7 @@
 	                            </dl>
 	                            <dl>
 	                              <button class="img-info_btn" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xll">설명등록</button>
-	                              <button class="img-info_btn">원문보기</button>
+	                              <button class="img-info_btn" onclick="javasctript:gallery.view(${varStatus.index});">원문보기</button>
 	                            </dl>
 	                          </div>
 	                        </div>
@@ -435,7 +438,16 @@
             </div>
           </div>
           <!--  -->
+          <form action="" name="metaDataListViewForm" id="metaDataListViewForm" method="post">
+			<input type="hidden" name="possession_code_idx" id="possession_code_idx" />
+			<input type="hidden" name="org_code_idx" id="org_code_idx" />
+			<input type="hidden" name="item_no" id="item_no" />
+			<input type="hidden" name="item_detail_no" id="item_detail_no" />
+			<input type="hidden" name="reg_state" id="reg_state" value="N"/>
+		  </form>
           <script type="text/javascript">
+        	  const gallery = new Viewer(document.getElementById('gallery'));
+          
 	          var totalQty = 0;
 	          var currentQty = 0;
 	          <c:forEach var="metaDataSearchList2" items="${metaDataSearchImageList2}" varStatus="varStatus">
@@ -478,10 +490,18 @@
 	    			var material1 = [];
 	    			
 	    			if($('#country_temp').val() != ''){
-	    				 country = $('#country_temp').val();
+	    				country_temp_input = $('#country_temp').val();
+	    				var country_temp = country_temp_input.split(',');
+	    				 for(let i = 0; i <country_temp.length; i++){					
+	    					 country.push(country_temp[i]);
+	  					 }
 	    			}
 	       			if($('#material1_temp').val() != ''){
-		       			 material1 = $('#material1_temp').val();
+	       				material1_temp_input = $('#material1_temp').val();
+		       			var material1_temp = material1_temp_input.split(',');
+		       			for(let i = 0; i <material1_temp.length; i++){
+		       				material1.push(material1_temp[i]);
+						}
 		   			}
 	    			$.ajax({
 	    				type : 'POST',                 
@@ -539,8 +559,14 @@
 	    			var perPageNum = $('#perPageNum').val();
 	    			var search_word = $('#search_word').val();
 	    			var prevsearched_word;
-					 
+	    			var researched_word = '';
+					var searched_word;
+					var research_word;
+					
 			        if($("#research_word").is(":checked")){
+			        	research_word = 'on';
+	    				searched_word = $('#searched_word').val();
+	    				
 			        	researched_word = 'checked';
 			        	prevsearched_word = $('#searched_word').val();
 			        	prevsearch_word = $('#search_word').val();
@@ -549,12 +575,17 @@
 			        }		     
 	    				    			
 	    			// 태그 조건 검색			
-	    			var queryString = $("form[name=metaDataSearchImageListForm]").serialize();
+// 	    			var queryString = $("form[name=metaDataSearchImageListForm]").serialize();
 
 	    				$.ajax({
 	    					type : 'post',
 	    					url : '/pRgstMetaDataSearchImageListAjax.do',
-	    					data : queryString,
+	    					data : {
+	    						perPageNum : perPageNum,
+	    						search_word : search_word,
+	    						searched_word : searched_word,
+	    						research_word : research_word						
+	    					},
 	    					dataType : 'html',
 	    					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 	    					error: function(xhr, status, error){
@@ -642,12 +673,12 @@
 	    					}
 	    				});
 	    		}
-	    		function metaDataSearchListExcelList() {
-	    				var $form = $('#metaDataSearchListForm');
+// 	    		function metaDataSearchListExcelList() {
+// 	    				var $form = $('#metaDataSearchListForm');
 
-	    				$form.attr("action", "/pRgstMetaDataSearchListExcelDownload.do");
-	    				$form.submit();
-	    		}
+// 	    				$form.attr("action", "/pRgstMetaDataSearchListExcelDownload.do");
+// 	    				$form.submit();
+// 	    		}
 	    		 
 	 			$('#searchOperator1').on("change", function(){
 					$('#keyword2').css("display", "flex");

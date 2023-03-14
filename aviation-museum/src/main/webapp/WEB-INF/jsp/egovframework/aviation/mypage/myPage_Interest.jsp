@@ -92,7 +92,7 @@
                           <th>수정</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody id="gallery">
                         <c:forEach var="interestList" items="${interestList}">
 	                        <tr>
 	                          <td>
@@ -146,6 +146,7 @@
               <!--  -->
             </div>
             <script>
+            const gallery = new Viewer(document.getElementById('gallery'));
 	    		<%-- 관심자료 리스트 출력 갯수 --%>
 	    		function interestPageNum() {
 	    			var perPageNum = $('#perPageNum').val();

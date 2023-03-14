@@ -78,6 +78,7 @@ public class PRgstMetaDataSearchController {
 //		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 //		metaDataSearchVO.setReg_user(userSessionId);
 //		 
+		System.out.println(metaDataSearchVO);
 		metaDataSearchVO.setReg_state("N");
     	int perPageNum = metaDataSearchService.getMetaDataSearchListCnt(metaDataSearchVO);		
 		if(metaDataSearchVO.getPerPageNum() != 0) {
@@ -115,6 +116,7 @@ public class PRgstMetaDataSearchController {
 //		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 //		interestVO.setReg_user(userSessionId);
 //		 
+		System.out.println(metaDataSearchImageVO);
 		metaDataSearchImageVO.setReg_state("N");
     	int perPageNum = metaDataSearchService.getMetaDataSearchImageListCnt(metaDataSearchImageVO);		
 		if(metaDataSearchImageVO.getPerPageNum() != 0) {
@@ -152,6 +154,7 @@ public class PRgstMetaDataSearchController {
 //		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 //		interestVO.setReg_user(userSessionId);
 //		 
+		System.out.println(metaDataSearchVO);
 		metaDataSearchVO.setReg_state("N");
     	int perPageNum = metaDataSearchService.getMetaDataSearchListCnt(metaDataSearchVO);		
 		if(metaDataSearchVO.getPerPageNum() != 0) {
@@ -178,6 +181,7 @@ public class PRgstMetaDataSearchController {
 //		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 //		interestVO.setReg_user(userSessionId);
 //		 
+		System.out.println(metaDataSearchImageVO);
 		metaDataSearchImageVO.setReg_state("N");
     	int perPageNum = metaDataSearchService.getMetaDataSearchImageListCnt(metaDataSearchImageVO);		
 		if(metaDataSearchImageVO.getPerPageNum() != 0) {

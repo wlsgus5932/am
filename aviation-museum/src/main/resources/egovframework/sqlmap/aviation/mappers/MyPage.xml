@@ -188,11 +188,17 @@
                 possession_nm = #{possession_nm}
             </if>
             <if test="item_no != null and item_no != ''">AND
-                (item_no LIKE CONCAT('%', #{item_no}, '%'))
+                item_no = #{item_no}
+            </if>   
+            <if test="item_detail_no != null and item_detail_no != ''">AND
+                item_detail_no = #{item_detail_no}
+            </if>           
+            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+                (item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
             </if>
-            <if test="item_detail_no != null and item_detail_no != ''">AND               
-                (item_detail_no LIKE CONCAT('%', #{item_detail_no}, '%'))
-            </if>
+<!--             <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND -->
+<!--                 (item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED)) -->
+<!--             </if> -->
             LIMIT #{perPageNum} OFFSET #{pageStart}  
 	</select>
 	

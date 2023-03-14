@@ -165,7 +165,7 @@
                   , REG_DATE
                   , ENABLED)
            VALUES ( #{member_id}
-                  , '1'
+                  , #{org_code_idx}
                   , #{group_idx}
                   , #{member_pw}
                   , #{member_nm}
@@ -179,8 +179,7 @@
     <update id="updateUser" parameterType="egovframework.aviation.user.vo.UserVO">
         
             UPDATE nam_member 
-               SET MEMBER_ID=#{member_id}
-                 , ORG_CODE_IDX='1'
+               SET ORG_CODE_IDX=#{org_code_idx}
                  , GROUP_IDX=#{group_idx}
                  , MEMBER_NM=#{member_nm}
                  , REMARK=#{remark}

@@ -31,7 +31,16 @@
 	                            <td>${countryList.seq}</td>
 	                            <td>${countryList.mod_date}</td>
 	                            <td>${countryList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${countryList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${countryList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1"  onclick="modFormBtn('country', '${countryList.country_code_idx}', '${countryList.country_nm}', '${countryList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -86,7 +95,16 @@
 	                            <td>${eraList.era_nm}</td>
 	                            <td>${eraList.mod_date}</td>
 	                            <td>${eraList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${eraList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${eraList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modSubFormBtn('era', '${eraList.era_code_idx}', '${eraList.era_nm}', '${eraList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>

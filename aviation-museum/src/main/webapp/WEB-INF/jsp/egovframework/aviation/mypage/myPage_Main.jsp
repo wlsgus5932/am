@@ -31,7 +31,8 @@
     <link href="assets/css/custom.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="assets/css/custom_view.css">
     <link rel="stylesheet" href="assets/css/custom_my.css">
-    
+    <link href="assets/css/viewer.css" rel="stylesheet" type="text/css" />
+	<script src="assets/js/viewer.js"></script>
     <script src="assets/js/metadata/metadataList.js"></script> 
     <script type="text/javascript">
 	

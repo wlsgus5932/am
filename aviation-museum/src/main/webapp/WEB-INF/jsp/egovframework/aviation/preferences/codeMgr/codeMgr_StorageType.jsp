@@ -30,7 +30,16 @@
 	                            <td>${storageType1List.seq }</td>
 	                            <td>${storageType1List.mod_date}</td>
 	                            <td>${storageType1List.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${storageType1List.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${storageType1List.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1"  onclick="modFormBtn('storage_type1', '${storageType1List.storage_type1_code_idx}', '${storageType1List.storage_type1_nm}', '${storageType1List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -87,7 +96,16 @@
 	                            <td>${storageType2List.seq }</td>
 	                            <td>${storageType2List.mod_date}</td>
 	                            <td>${storageType2List.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${storageType2List.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${storageType2List.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modSubFormBtn('storage_type2', '${storageType2List.storage_type2_code_idx}', '${storageType2List.storage_type2_nm}', '${storageType2List.enabled}')">수정</button></td>
 	                            <td>
 	                              	<c:choose>
