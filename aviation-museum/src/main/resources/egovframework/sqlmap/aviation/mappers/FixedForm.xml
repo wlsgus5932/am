@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.aviation.fixedform.service.impl.FixedFormMapper">
+
+    <select id="getDataCardFrontList" parameterType="egovframework.aviation.fixedform.vo.FixedFormVO" resultType="egovframework.aviation.fixedform.vo.FixedFormVO">
+				SELECT
+					row_number() over(order by nib.REG_DATE desc) as rnum	
+					,nib.ITEM_IDX 
+					,nib.ITEM_NM
+					,nib.ITEM_NO
+					,nib.ITEM_DETAIL_NO
+					,nib.qty
+					,nib.FEATURE 
+					,MATERIAL1_NM
+					,MATERIAL2_NM
+					,MATERIAL_DETAIL
+					,DETAIL_YEAR
+					,ERA_NM
+					,COUNTRY_NM
+					,OBTAINMENT_NM
+					,OBTAINMENT_DATE
+					,OBTAINMENT_PLACE
+					,OBTAINMENT_PRICE
+					,MEASUREMENT_NM
+					,MEASUREMENT_VALUE
+					,MEASUREMENT_UNIT_NM
+					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_IDX 
+					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_PATH
+					,(SELECT ni.IMAGE_NM from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_NM
+				FROM nam_item_base nib 
+				JOIN nam_material nm
+				ON nib.ITEM_IDX = nm.ITEM_IDX
+				JOIN (SELECT MATERIAL2_CODE_IDX, MATERIAL1_NM, MATERIAL2_NM FROM nam_material1_code nmc JOIN nam_material2_code nmc2 ON nmc.MATERIAL1_CODE_IDX = nmc2.MATERIAL1_CODE_IDX) as a
+				ON nm.MATERIAL2_CODE_IDX = a.MATERIAL2_CODE_IDX						
+				JOIN nam_country_era nce 
+				ON nib.ITEM_IDX = nce.ITEM_IDX 
+				JOIN nam_era_code nec 
+				ON nec.ERA_CODE_IDX = nce.ERA_CODE_IDX
+				JOIN nam_country_code ncc 
+				ON nec.COUNTRY_CODE_IDX = ncc.COUNTRY_CODE_IDX
+				JOIN nam_obtainment no2 
+				ON no2.ITEM_IDX =nib.ITEM_IDX
+				JOIN nam_obtainment_code noc 
+				ON no2.OBTAINMENT_CODE_IDX = noc.OBTAINMENT_CODE_IDX 
+				JOIN nam_measurement nm2 
+				ON nib.ITEM_IDX = nm2.ITEM_IDX 
+				JOIN nam_measurement_code nmc3 
+				ON nm2.MEASUREMENT_CODE_IDX = nmc3.MEASUREMENT_CODE_IDX 
+				JOIN nam_measurement_unit_code nmuc 
+				ON nm2.MEASUREMENT_UNIT_CODE_IDX = nmuc.MEASUREMENT_UNIT_CODE_IDX 
+				JOIN nam_possession_code npc 
+				ON nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX
+				JOIN nam_org_code noc2 
+				ON nib.ORG_CODE_IDX = noc2.ORG_CODE_IDX 
+				WHERE 1=1
+				<if test="org_nm != null and org_nm != ''">AND
+	                org_nm = #{org_nm}
+	            </if>
+	            <if test="possession_nm != null and possession_nm != ''">AND
+	                possession_nm = #{possession_nm}
+	            </if>
+	            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+	                (item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+	            </if>
+	            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+	                (item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+	            </if>
+				GROUP BY nib.ITEM_IDX
+
+	</select>
+	<select id="getDataCardBackList" parameterType="egovframework.aviation.fixedform.vo.DataCardBackVO" resultType="egovframework.aviation.fixedform.vo.DataCardBackVO">
+	
+			SELECT 
+				row_number() over(order by nm.MOVEMENT_DATE desc) as rnum	
+				,nib.ITEM_IDX 
+				,nib.ITEM_NO
+				,nib.ITEM_DETAIL_NO
+				,DATE_FORMAT(MOVEMENT_DATE, '%Y') as MOVEMENT_YEAR
+				,DATE_FORMAT(MOVEMENT_DATE, '%M') as MOVEMENT_MONTH
+				,DATE_FORMAT(MOVEMENT_DATE, '%D') as MOVEMENT_DAY
+				,nib.QTY 
+				,STORAGE_TYPE2_NM
+				,STORAGE_TYPE1_NM
+				,STORAGE_NM
+				,CURRENT_QTY
+			FROM nam_item_base nib 
+			JOIN nam_movement nm 
+			ON nib.ITEM_IDX = nm.ITEM_IDX
+			JOIN nam_storage ns 
+			ON nm.MOVEMENT_IDX = ns.MOVEMENT_IDX
+			JOIN nam_storage_code nsc 
+			ON ns.STORAGE_CODE_IDX = nsc.STORAGE_CODE_IDX
+			JOIN nam_possession_code npc 
+			ON nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX
+			JOIN nam_org_code noc2 
+			ON nib.ORG_CODE_IDX = noc2.ORG_CODE_IDX
+			JOIN nam_storage_type2_code nstc 
+			ON nstc.STORAGE_TYPE2_CODE_IDX = nm.STORAGE_TYPE2_CODE_IDX 
+			JOIN nam_storage_type1_code nstc2 
+			ON nstc2.STORAGE_TYPE1_CODE_IDX = nstc.STORAGE_TYPE1_CODE_IDX
+			WHERE 1=1
+			<if test="org_nm != null and org_nm != ''">AND
+                org_nm = #{org_nm}
+            </if>
+            <if test="possession_nm != null and possession_nm != ''">AND
+                possession_nm = #{possession_nm}
+            </if>
+            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+                (item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+            </if>
+            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+                (item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+            </if>
+	</select>
+	
+	<select id="getDataCardBackPList" parameterType="egovframework.aviation.fixedform.vo.DataCardBackVO"  resultType="egovframework.aviation.fixedform.vo.DataCardBackVO">
+	
+			SELECT DISTINCT 
+				nib.item_idx
+				,nib.ITEM_NO
+				,nib.ITEM_DETAIL_NO
+			FROM nam_item_base nib 
+			JOIN nam_movement nm 
+			ON nib.ITEM_IDX = nm.ITEM_IDX
+			JOIN nam_possession_code npc 
+			ON nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX
+			JOIN nam_org_code noc2 
+			ON nib.ORG_CODE_IDX = noc2.ORG_CODE_IDX
+			WHERE 1=1
+			<if test="org_nm != null and org_nm != ''">AND
+                org_nm = #{org_nm}
+            </if>
+            <if test="possession_nm != null and possession_nm != ''">AND
+                possession_nm = #{possession_nm}
+            </if>
+            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+                (item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+            </if>
+            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+                (item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+            </if>			
+	</select>
+</mapper>

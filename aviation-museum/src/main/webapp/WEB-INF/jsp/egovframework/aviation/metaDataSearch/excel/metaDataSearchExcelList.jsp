@@ -54,7 +54,6 @@
 			</colgroup>
                 <thead>
                   <tr class="tr_bgc">
-                     <th><input type="checkbox" id="allCheck" value="" onchange="agreeAllCheck();"></th>
                      <th>번호</th>
                      <th>대표이미지</th>
                      <th>소장구분</th>
@@ -71,9 +70,6 @@
 					<c:when test="${metaDataSearchList.size() > 0 }">
                        <c:forEach var="metaDataSearchList" items="${metaDataSearchList}">
 	                        <tr style="height:90;">
-	                          <td>
-	                             <input type="checkbox" name="group_seqList" class="check_temp" name="" id="" value="${metaDataSearchList.item_idx}">
-	                          </td>
 	                          <td>${perPageNum + 1 - metaDataSearchList.rnum}</td>
 	                          <td>
 	                            <div class="search_img_wrap">

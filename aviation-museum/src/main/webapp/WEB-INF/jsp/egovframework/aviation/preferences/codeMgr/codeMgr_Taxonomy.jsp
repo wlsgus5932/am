@@ -33,7 +33,16 @@
 	                            <td>${icaoList.seq}</td>
 	                            <td>${icaoList.mod_date}</td>
 	                            <td>${icaoList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${icaoList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${icaoList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('icao', '${icaoList.icao_code_idx}', '${icaoList.icao_nm}', '${icaoList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -90,7 +99,16 @@
 	                            <td>${class1List.seq}</td>
 	                            <td>${class1List.mod_date}</td>
 	                            <td>${class1List.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${class1List.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${class1List.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('class1', '${class1List.class1_code_idx}', '${class1List.class1_nm}', '${class1List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -150,7 +168,16 @@
 	                            <td>${class2List.seq}</td>
 	                            <td>${class2List.mod_date}</td>
 	                            <td>${class2List.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${class2List.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${class2List.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('class2', '${class2List.class2_code_idx}', '${class2List.class2_nm}', '${class2List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -207,7 +234,16 @@
 	                            <td>${class3List.seq}</td>
 	                            <td>${class3List.mod_date}</td>
 	                            <td>${class3List.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${class3List.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${class3List.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('class3', '${class3List.class3_code_idx}', '${class3List.class3_nm}', '${class3List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>

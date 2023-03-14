@@ -222,6 +222,8 @@ public class UserController {
 	/** 사용자 등록 */
 	@RequestMapping(value = "/userinsert.do")
     public String UserInsert(HttpServletRequest req, @ModelAttribute("UserVO") UserVO userVO, Model model) throws Exception {
+		int userSessionOrgCodeIdx =  (int) req.getSession().getAttribute("userSessionOrgCodeIdx");
+		userVO.setOrg_code_idx(userSessionOrgCodeIdx);
 		
 		int result = userService.insertUser(userVO);
 		String success = "";
@@ -254,6 +256,8 @@ public class UserController {
 	/** 사용자 수정 */
 	@RequestMapping(value = "/userupdate.do")
     public String UserUpdate(HttpServletRequest req, @ModelAttribute("userVO") UserVO userVO, Model model) throws Exception {
+		int userSessionOrgCodeIdx =  (int) req.getSession().getAttribute("userSessionOrgCodeIdx");
+		userVO.setOrg_code_idx(userSessionOrgCodeIdx);
 		
 		int result = userService.updateUser(userVO);
 		String success = "";
@@ -288,7 +292,22 @@ public class UserController {
 		}
         return "jsonView";
     } 
-	
+	/** 사용자 패스워드 초기화 */
+	@RequestMapping(value = "/userPassWordReset.do")
+    public String UserPassWordReset(HttpServletRequest req, @ModelAttribute("userVO") UserVO userVO, Model model) throws Exception {
+		int userSessionOrgCodeIdx =  (int) req.getSession().getAttribute("userSessionOrgCodeIdx");
+		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
+		userVO.setOrg_code_idx(userSessionOrgCodeIdx);
+		userVO.setMod_user(userSessionId);
+		
+		int result = userService.updateUserPassWord(userVO);
+		String success = "";
+		
+		if(result > 0) {
+			 success = "success";
+		}
+        return "jsonView";
+    } 
 	//////////////////////////////사용자 권한 관리
 	
 	/** 사용자 관리권한 메인 */

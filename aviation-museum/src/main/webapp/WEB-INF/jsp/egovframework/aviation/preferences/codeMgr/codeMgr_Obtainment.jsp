@@ -32,7 +32,16 @@
 	                            <td>${obtainmentList.seq }</td>
 	                            <td>${obtainmentList.mod_date}</td>
 	                            <td>${obtainmentList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${obtainmentList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${obtainmentList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('obtainment', '${obtainmentList.obtainment_code_idx}', '${obtainmentList.obtainment_nm}', '${obtainmentList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -89,7 +98,16 @@
 	                            <td>${priceUnitList.seq }</td>
 	                            <td>${priceUnitList.mod_date}</td>
 	                            <td>${priceUnitList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${priceUnitList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${priceUnitList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('price_unit', '${priceUnitList.price_unit_code_idx}', '${priceUnitList.price_unit_nm}', '${priceUnitList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -149,7 +167,16 @@
 	                            <td>${purchase1List.seq }</td>
 	                            <td>${purchase1List.mod_date}</td>
 	                            <td>${purchase1List.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${purchase1List.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${purchase1List.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('purchase1', '${purchase1List.purchase1_code_idx}', '${purchase1List.purchase1_nm}', '${purchase1List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -206,7 +233,16 @@
 	                            <td>${purchase2List.seq }</td>
 	                            <td>${purchase2List.mod_date}</td>
 	                            <td>${purchase2List.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${purchase2List.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${purchase2List.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('purchase2', '${purchase2List.purchase2_code_idx}', '${purchase2List.purchase2_nm}', '${purchase2List.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>

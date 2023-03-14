@@ -19,6 +19,8 @@
     <!-- 커스텀 css -->
     <link href="assets/css/custom.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="assets/css/custom_search.css" />
+    <link href="assets/css/viewer.css" rel="stylesheet" type="text/css" />
+	<script src="assets/js/viewer.js"></script>
     <script src="assets/libs/jquery/jquery-3.6.3.min.js"></script>
     <script src="assets/js/metadata/metadataList.js"></script> 
     <script type="text/javascript">
@@ -123,6 +125,9 @@
 	    	var searched_word;
 	    	var research_word;
 	    	
+	    	if($('#search_word').val()){
+	    		search_word =$('#search_word').val();
+   			}
 	    	if($('#searched_word').val()){
 	    		searched_word = $('#searched_word').val();
 	    	}
@@ -134,6 +139,7 @@
 			/* 상세검색 */
    			var search_type = $('#search_type_temp').val();
    			var search_type2 = $('#search_type2_temp').val();
+   			var search_type3 = $('#search_type3_temp').val();
    			var detail_search_word1 = $('#detail_search_word1_temp').val();
    			var detail_search_word2 = $('#detail_search_word2_temp').val();
    			var detail_search_word3 = $('#detail_search_word3_temp').val();
@@ -146,26 +152,19 @@
 			var material1 = [];
    			/*  */
 			if($('#country_temp').val() != ''){
-				 country_temp = $('#country_temp').val();
-
+				country_temp_input = $('#country_temp').val();
+				var country_temp = country_temp_input.split(',');
 				 for(let i = 0; i <country_temp.length; i++){					
-					 if(country_temp[i] != ','){
-						 country.push(country_temp[i]);
+					 country.push(country_temp[i]);
 					 }
-				 }
-				 console.log(country);
-
 			}
-  			if($('#material1_temp').val() != ''){
-      			material1_temp = $('#material1_temp').val();
-
-      			for(let i = 0; i <material1_temp.length; i++){
-      			 	if(material1_temp[i] != ','){
-      					material1.push(material1_temp[i]);
-      			 	}
+   			if($('#material1_temp').val() != ''){
+   				material1_temp_input = $('#material1_temp').val();
+       			var material1_temp = material1_temp_input.split(',');
+       			for(let i = 0; i <material1_temp.length; i++){
+       				material1.push(material1_temp[i]);
 				}
-      			console.log(material1);
-  			}
+   			}
   			
    			if(item_idx.length == 0){
 	    		return;
@@ -179,6 +178,7 @@
 					research_word : research_word,
 					search_type : search_type,
 					search_type2 : search_type2,
+					search_type3 : search_type3,
 					detail_search_word1 : detail_search_word1,
 					detail_search_word2 : detail_search_word2,
 					detail_search_word3 : detail_search_word3,
@@ -209,6 +209,9 @@
 	    	var searched_word;
 	    	var research_word;
 	    	
+	    	if($('#search_word').val()){
+	    		search_word =$('#search_word').val();
+   			}
 	    	if($('#searched_word').val()){
 	    		searched_word = $('#searched_word').val();
 	    	}
@@ -220,6 +223,7 @@
 			/* 상세검색 */
    			var search_type = $('#search_type_temp').val();
    			var search_type2 = $('#search_type2_temp').val();
+   			var search_type3 = $('#search_type3_temp').val();
    			var detail_search_word1 = $('#detail_search_word1_temp').val();
    			var detail_search_word2 = $('#detail_search_word2_temp').val();
    			var detail_search_word3 = $('#detail_search_word3_temp').val();
@@ -232,26 +236,19 @@
 			var material1 = [];
    			/*  */
 			if($('#country_temp').val() != ''){
-				 country_temp = $('#country_temp').val();
-
+				country_temp_input = $('#country_temp').val();
+				var country_temp = country_temp_input.split(',');
 				 for(let i = 0; i <country_temp.length; i++){					
-					 if(country_temp[i] != ','){
-						 country.push(country_temp[i]);
+					 country.push(country_temp[i]);
 					 }
-				 }
-				 console.log(country);
-
 			}
-  			if($('#material1_temp').val() != ''){
-      			material1_temp = $('#material1_temp').val();
-
-      			for(let i = 0; i <material1_temp.length; i++){
-      			 	if(material1_temp[i] != ','){
-      					material1.push(material1_temp[i]);
-      			 	}
+   			if($('#material1_temp').val() != ''){
+   				material1_temp_input = $('#material1_temp').val();
+       			var material1_temp = material1_temp_input.split(',');
+       			for(let i = 0; i <material1_temp.length; i++){
+       				material1.push(material1_temp[i]);
 				}
-      			console.log(material1);
-  			}
+   			}
   			
    			if(image_idx.length == 0){
 	    		return;
@@ -265,6 +262,7 @@
 					research_word : research_word,
 					search_type : search_type,
 					search_type2 : search_type2,
+					search_type3 : search_type3,
 					detail_search_word1 : detail_search_word1,
 					detail_search_word2 : detail_search_word2,
 					detail_search_word3 : detail_search_word3,

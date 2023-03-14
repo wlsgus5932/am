@@ -376,7 +376,7 @@ public class MetaDataSearchController {
 
 //		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 //		metaDataSearchVO.setReg_user(userSessionId);
-//		 
+//		
 		metaDataSearchVO.setReg_state("Y");
     	int perPageNum = metaDataSearchService.getMetaDataSearchListCnt(metaDataSearchVO);		
 		if(metaDataSearchVO.getPerPageNum() != 0) {

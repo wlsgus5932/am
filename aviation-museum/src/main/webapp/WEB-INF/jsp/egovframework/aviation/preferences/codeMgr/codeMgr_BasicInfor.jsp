@@ -33,7 +33,16 @@
 	                            <td>${qtyUnitList.seq }</td>
 	                            <td>${qtyUnitList.mod_date}</td>
 	                            <td>${qtyUnitList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${qtyUnitList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${qtyUnitList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('qty_unit', '${qtyUnitList.qty_unit_code_idx}', '${qtyUnitList.qty_unit_nm}', '${qtyUnitList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -90,7 +99,16 @@
 	                            <td>${existenceList.seq }</td>
 	                            <td>${existenceList.mod_date}</td>
 	                            <td>${existenceList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${existenceList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${existenceList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('existence', '${existenceList.existence_code_idx}', '${existenceList.existence_nm}', '${existenceList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -150,7 +168,16 @@
 	                            <td>${measurementList.seq }</td>
 	                            <td>${measurementList.mod_date}</td>
 	                            <td>${measurementList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${measurementList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${measurementList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('measurement', '${measurementList.measurement_code_idx}', '${measurementList.measurement_nm}', '${measurementList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -207,7 +234,16 @@
 	                            <td>${measurementUnitList.seq }</td>
 	                            <td>${measurementUnitList.mod_date}</td>
 	                            <td>${measurementUnitList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${measurementUnitList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${mesurementUnitList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('measurement_unit', '${measurementUnitList.measurement_unit_code_idx}', '${measurementUnitList.measurement_unit_nm}', '${measurementUnitList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -267,7 +303,16 @@
 	                            <td>${conditionList.seq }</td>
 	                            <td>${conditionList.mod_date}</td>
 	                            <td>${conditionList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${conditionList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${conditionList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('condition', '${conditionList.condition_code_idx}', '${conditionList.condition_nm}', '${conditionList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -324,7 +369,16 @@
 	                            <td>${rankingList.seq }</td>
 	                            <td>${rankingList.mod_date}</td>
 	                            <td>${rankingList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${rankingList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${rankingList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('ranking', '${rankingList.ranking_code_idx}', '${rankingList.ranking_nm}', '${rankingList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -384,7 +438,16 @@
 	                            <td>${ggnuriList.seq }</td>
 	                            <td>${ggnuriList.mod_date}</td>
 	                            <td>${ggnuriList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${ggnuriList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${ggnuriList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('ggnuri', '${ggnuriList.ggnuri_code_idx}', '${ggnuriList.ggnuri_nm}', '${ggnuriList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -441,7 +504,16 @@
 	                            <td>${specialityList.seq }</td>
 	                            <td>${specialityList.mod_date}</td>
 	                            <td>${specialityList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${specialityList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${specialityList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1" onclick="modFormBtn('speciality', '${specialityList.speciality_code_idx}', '${specialityList.speciality_nm}', '${specialityList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>

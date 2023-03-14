@@ -33,7 +33,16 @@
 	                            <td>${orgList.seq}</td>
 	                            <td>${orgList.mod_date}</td>
 	                            <td>${orgList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${orgList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${orgList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                            </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-1"  onclick="modFormBtn('org', '${orgList.org_code_idx}', '${orgList.org_nm}', '${orgList.enabled}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
@@ -92,7 +101,16 @@
 	                            <td>${possessionList.seq}</td>
 	                            <td>${possessionList.mod_date}</td>
 	                            <td>${possessionList.mod_user}</td>
-	                            <td><button class="custom_btn btn_preferences_user_enabled">${possessionList.enabled}</button></td>
+	                            <td>
+	                            	<c:choose>
+			                            <c:when test="${possessionList.enabled != 'Y'}">  
+	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          			</c:otherwise>
+	                          		</c:choose>
+	                           </td>
 	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modSubFormBtn('possession', '${possessionList.possession_code_idx}', '${possessionList.possession_nm}', '${possessionList.enabled}')">수정</button></td>
 	                            <td>
 	                              	<c:choose>
