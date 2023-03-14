@@ -11,7 +11,7 @@
 	            	, ni.EXPL
 	            	, ni.REG_USER
 		           	, ni.REG_DATE
-		           	, (SELECT IMAGE_PATH FROM nam_image ni2 WHERE ni2.ITEM_IDX = ni.ITEM_IDX) AS IMAGE_PATH
+		           	, (SELECT IMAGE_PATH FROM nam_image ni2 WHERE ni2.ITEM_IDX = ni.ITEM_IDX limit 1) AS IMAGE_PATH
 		           	, nib.ITEM_NO 
 		           	, nib.ITEM_DETAIL_NO 
 		           	, nib.ITEM_NM 

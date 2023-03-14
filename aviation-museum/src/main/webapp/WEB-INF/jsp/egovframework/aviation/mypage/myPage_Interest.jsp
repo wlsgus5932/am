@@ -59,7 +59,7 @@
               <form id="sForm" name="sForm" method="post" class="form-horizontal">
               <div class="st_wrap st_mv_wrap">
                 <div>
-                  <button data-bs-toggle="modal" data-bs-target="#DelModal">선택삭제</button>
+                  <button data-bs-toggle="modal" data-bs-target="#DelModal" type="button">선택삭제</button>
                 </div>
                 <!--  -->
                 <div class="img-btn">

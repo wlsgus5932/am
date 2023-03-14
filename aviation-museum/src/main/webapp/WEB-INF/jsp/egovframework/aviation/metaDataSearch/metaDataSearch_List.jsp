@@ -356,22 +356,26 @@
             </div>
             
             <script type="text/javascript">
-            const gallery = new Viewer(document.getElementById('gallery'));
+            $(function(){
+            	gallery = new Viewer(document.getElementById('gallery'));
+            	qty();
+            })
             
-            var totalQty = 0;
-            var currentQty = 0;
-            <c:forEach var="metaDataSearchList2" items="${metaDataSearchList2}" varStatus="varStatus">
-            	<c:if test="${!empty metaDataSearchList2.qty}"> 
-            		totalQty += ${metaDataSearchList2.qty};
-            	</c:if>
-            	<c:if test="${!empty metaDataSearchList2.current_qty}"> 
-            	 	currentQty += ${metaDataSearchList2.current_qty};
-            	</c:if>
-            </c:forEach>
-            $('#totalNum').html("| 총건수 : "+${perPageNum});
-			$('#totalQty').html("| 총수량 : "+totalQty);
-			$('#currentQty').html("| 현수량 : "+currentQty+" |");
-			
+            function qty(){
+	            var totalQty = 0;
+	            var currentQty = 0;
+	            <c:forEach var="metaDataSearchList2" items="${metaDataSearchList2}" varStatus="varStatus">
+	            	<c:if test="${!empty metaDataSearchList2.qty}"> 
+	            		totalQty += ${metaDataSearchList2.qty};
+	            	</c:if>
+	            	<c:if test="${!empty metaDataSearchList2.current_qty}"> 
+	            	 	currentQty += ${metaDataSearchList2.current_qty};
+	            	</c:if>
+	            </c:forEach>
+	            $('#totalNum').html("| 총건수 : "+${perPageNum});
+				$('#totalQty').html("| 총수량 : "+totalQty);
+				$('#currentQty').html("| 현수량 : "+currentQty+" |");
+            }
             <%-- 페이지 이동 --%>
     		function goPage(value) {
     			var perPageNum = $('#perPageNum').val();
@@ -588,7 +592,6 @@
     						$('#end_item_no_temp').val(end_item_no);
     						$('#country_temp').val(country);
     						$('#material1_temp').val(material1);
-    						
 //     						for(let i = 0; i <country.length; i++){
 //     							console.log(country[i])
 //     							$('#c'+country[i]).prop('checked', true)

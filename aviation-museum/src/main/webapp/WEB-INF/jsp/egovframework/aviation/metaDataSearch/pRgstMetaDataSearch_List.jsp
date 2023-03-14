@@ -356,22 +356,26 @@
             </div>
             
             <script type="text/javascript">
-            const gallery = new Viewer(document.getElementById('gallery'));
-            
-            var totalQty = 0;
-            var currentQty = 0;
-            <c:forEach var="metaDataSearchList2" items="${metaDataSearchList2}" varStatus="varStatus">
-            	<c:if test="${!empty metaDataSearchList2.qty}"> 
-            		totalQty += ${metaDataSearchList2.qty};
-            	</c:if>
-            	<c:if test="${!empty metaDataSearchList2.current_qty}"> 
-            	 	currentQty += ${metaDataSearchList2.current_qty};
-            	</c:if>
-            </c:forEach>
-            $('#totalNum').html("| 총건수 : "+${perPageNum});
-			$('#totalQty').html("| 총수량 : "+totalQty);
-			$('#currentQty').html("| 현수량 : "+currentQty+" |");
-			
+            $(function(){
+            	gallery = new Viewer(document.getElementById('gallery'));
+            	qty();
+            })
+           
+            function qty(){
+	            var totalQty = 0;
+	            var currentQty = 0;
+	            <c:forEach var="metaDataSearchList2" items="${metaDataSearchList2}" varStatus="varStatus">
+	            	<c:if test="${!empty metaDataSearchList2.qty}"> 
+	            		totalQty += ${metaDataSearchList2.qty};
+	            	</c:if>
+	            	<c:if test="${!empty metaDataSearchList2.current_qty}"> 
+	            	 	currentQty += ${metaDataSearchList2.current_qty};
+	            	</c:if>
+	            </c:forEach>
+	            $('#totalNum').html("| 총건수 : "+${perPageNum});
+				$('#totalQty').html("| 총수량 : "+totalQty);
+				$('#currentQty').html("| 현수량 : "+currentQty+" |");
+            }
             <%-- 페이지 이동 --%>
     		function goPage(value) {
     			var perPageNum = $('#perPageNum').val();
