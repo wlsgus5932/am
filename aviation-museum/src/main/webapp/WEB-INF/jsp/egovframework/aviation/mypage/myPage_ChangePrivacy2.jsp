@@ -30,7 +30,7 @@
 		                      <dd>${sessionScope.userSessionModDate}</dd>
 		                    </dl>
 	                  </div>
-	                  <button type="button" id="userPwChangeBtn">저장</button>
+	                  <button class="custom_btn btn_c58672" type="button" id="userPwChangeBtn">저장</button>
 	                </div>
                  </form>             
             </div>

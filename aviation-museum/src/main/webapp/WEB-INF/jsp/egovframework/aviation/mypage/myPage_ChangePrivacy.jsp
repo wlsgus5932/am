@@ -23,10 +23,10 @@
 		                    </dl>
 		                    <dl>
 		                      <dt>비밀번호<span>*</span></dt>
-		                      <dd><input type="password" placeholder="비밀번호 입력" name="member_pw" id="member_pw"></dd>
+		                      <dd><input class="custom_search_input" type="password" placeholder="비밀번호 입력" name="member_pw" id="member_pw"></dd>
 		                    </dl>
 	                  </div>
-	                  <button type="button" id="userConfirmBtn">저장</button>
+	                  <button class="custom_btn btn_c58672" type="button" id="userConfirmBtn">저장</button>
 	                </div>
                  </form>             
             </div>

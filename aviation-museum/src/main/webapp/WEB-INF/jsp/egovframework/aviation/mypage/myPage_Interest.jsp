@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
-        
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
           <!-- 관심자료관리 탭 시작 -->
             <div class="tab-pane" id="home" role="tabpanel" style="display:block">
               <!-- 선택삭제 모달 -->
@@ -59,19 +59,19 @@
               <form id="sForm" name="sForm" method="post" class="form-horizontal">
               <div class="st_wrap st_mv_wrap">
                 <div>
-                  <button data-bs-toggle="modal" data-bs-target="#DelModal" type="button">선택삭제</button>
+                  <button data-bs-toggle="modal" data-bs-target="#DelModal" type="button" class="custom_btn btn_707070">선택삭제</button>
                 </div>
                 <!--  -->
                 <div class="img-btn">
                   리스트 출력 갯수 :
-                    <select class="form-select st_select img-select" id="perPageNum" name="perPageNum" onchange="interestPageNum();">	                      
+                    <select class="search_select" id="perPageNum" name="perPageNum" onchange="interestPageNum();">
                       <option value="10">10</option>
                       <option value="15">15</option>
                       <option value="20">20</option>
                     </select>
-                  <button>항목 추가 및 삭제</button>
-                  <button>사용자 지정양식 인쇄</button>
-                  <button type="button" onClick="interestExcelList();">엑셀파일</button>
+                  <button class="custom_btn btn_707070" >항목 추가 및 삭제</button>
+                  <button class="custom_btn btn_707070" >사용자 지정양식 인쇄</button>
+                  <button class="custom_btn btn_ex"  type="button" onClick="interestExcelList();">엑셀파일</button>
                 </div>
               </div>
               <div class="mb-0">
@@ -110,7 +110,7 @@
 	                          <td onclick="metaDataListView('${interestList.possession_code_idx}','${interestList.org_code_idx}','${interestList.item_no}','${interestList.item_detail_no}','${interestList.reg_state}')">${interestList.item_nm}</td>
 	                          <td>${interestList.expl}</td>
 	                          <td>${interestList.qty}</td>
-	                          <td><button  data-bs-toggle="modal" data-bs-target="#interest_update_modal" class="btn btn-secondary waves-effect waves-light btn_ml btn_wh" type="button" onClick="interestModFormBtn('${interestList.interest_idx}','${interestList.expl}')">수정</button></td>
+	                          <td><button  data-bs-toggle="modal" data-bs-target="#interest_update_modal" class="custom_btn btn_edit" type="button" onClick="interestModFormBtn('${interestList.interest_idx}','${interestList.expl}')">수정</button></td>
 	                        </tr>
                         </c:forEach>
                       </tbody>
@@ -131,7 +131,7 @@
 					        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 					    </li>
 					    </c:if>
-					</ul> 
+					</ul>
                   </div>
                 </div>
               </div>
@@ -150,34 +150,34 @@
 	    		<%-- 관심자료 리스트 출력 갯수 --%>
 	    		function interestPageNum() {
 	    			var perPageNum = $('#perPageNum').val();
-	
+
 	    			$.ajax({
-	    				type : 'POST',                 
-	    				url : '/interestAjax.do',   
+	    				type : 'POST',
+	    				url : '/interestAjax.do',
 	    				data:{
 	    					perPageNum : perPageNum
 	    				},
-	    				dataType : "html",           
+	    				dataType : "html",
 	    				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-	    				error : function() {        
+	    				error : function() {
 	    					alert('통신실패!');
 	    				},
-	    				success : function(data) {  
+	    				success : function(data) {
 	    					$('#tab-content').empty().append(data);
 							$('#perPageNum').val(perPageNum);
-	
+
 	    				}
 	    			});
-	    			  
+
 	    		};
-	    		
+
 	    		function interestExcelList() {
 	    			var $form = $('#sForm');
 
 	    				$form.attr("action", "/interestExcelDownload.do");
 	    				$form.submit();
 	    		}
-	    		
+
 	    		<%-- 관심자료 페이지 이동 --%>
 	    		function goPage(value) {
 	    			var perPageNum = $('#perPageNum').val();
@@ -185,20 +185,20 @@
 	    			var search_type = $('#search_type').val();
 	    			var page = value;
 	    			$.ajax({
-	    				type : 'POST',                 
-	    				url : '/interestAjax.do',   
+	    				type : 'POST',
+	    				url : '/interestAjax.do',
 	    				data:{
 	    					perPageNum : perPageNum,
 	    					search_type : search_type,
 	    					search_word : search_word,
 	    					page : page
 	    				},
-	    				dataType : "html",           
+	    				dataType : "html",
 	    				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-	    				error : function() {        
+	    				error : function() {
 	    					alert('통신실패!');
 	    				},
-	    				success : function(data) {  
+	    				success : function(data) {
 	    					$('#tab-content').empty().append(data);
 //     						$('#perPageNum').val(perPageNum);
 //     						$('#search_word').val(search_word);
@@ -206,20 +206,20 @@
 	    				}
 	    			});
 	    		}
-	    		
+
 				function interestModFormBtn(value1, value2){
-	    			
+
 	    			var interest_idx = value1;
 	    			var expl = value2;
 	    			$('#interest_idx').val(interest_idx);
 	    			$('#expl').val(expl);
 
 	    		}
-				
+
 	    		function interestMod(){
 
 	    			var queryString = $("form[name=interestModForm]").serialize();
-	    			
+
 	    				$.ajax({
 	    					type : 'post',
 	    					url : '/interestModAjax.do',
@@ -233,14 +233,14 @@
 	    						alert("수정되었습니다.");
 	    						$('#interestModBtnClose').click();
 		    						$.ajax({
-		    							type : 'POST',                
-		    							url : '/interestAjax.do',    
-		    							dataType : "html",           
+		    							type : 'POST',
+		    							url : '/interestAjax.do',
+		    							dataType : "html",
 		    							contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-		    							error : function() {          
+		    							error : function() {
 		    								alert('통신실패!');
 		    							},
-		    							success : function(data) {  
+		    							success : function(data) {
 		    								$('#tab-content').empty().append(data);
 		    							}
 		    						});

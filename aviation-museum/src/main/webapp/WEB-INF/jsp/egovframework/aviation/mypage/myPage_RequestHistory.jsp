@@ -10,21 +10,21 @@
                     <div class="fr_wrap">
                       <div class="mb-3 row fr_1">
 	                      <form id="requestHistorySearchForm" name="requestHistorySearchForm" method="post" class="form-horizontal">
-	                        <div class="col-md-10">
+	                        <div class="custom_btn_wrap">
 	                          <label class="col-md-2 col-form-label">구분</label>
-	                            <select class="form-select" name="keyword">
+	                            <select class="search_select" name="keyword">
 	                                <option value="">전체</option>
 	                                <option value="erasure">삭제</option>
 	                                <option value="keyword">키워드</option>
 	                            </select>
 	                          <label class="col-md-2 col-form-label">자료구분</label>
-	                            <select class="form-select" name="org_nm" onChange="orgCodeChange();">
+	                            <select class="search_select" name="org_nm" onChange="orgCodeChange();">
 	                            	<option value="">전체</option>
 	                                <c:forEach var="getOrgList" items="${getOrgList}">
 	                               		 <option value="${getOrgList.org_nm}">${getOrgList.org_nm}</option>
 	                         	    </c:forEach>
 	                            </select>
-	                          <select class="form-select" name="possession_nm" id="possession_select">
+	                          <select class="search_select" name="possession_nm" id="possession_select">
 	                              	<c:forEach var="getPosSessionList" items="${getPosSessionList}">
 	                              		<option value="${getPosSessionList.possession_nm}">${getPosSessionList.possession_nm}</option>        
 	                              	</c:forEach>                     
@@ -32,9 +32,9 @@
 	                          <!--  -->
 	                            <label class="col-md-2 col-form-label">자료 번호</label>
 	                            <!-- <div class="col-md-10"> -->
-	                              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="자료 번호" name="item_no">
-	                              <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="세부" name="item_detail_no">
-	                              <button class="btn btn-secondary waves-effect waves-light btn_ml" type="button" onClick="requestHistorySearchList();">조회</button>
+	                              <input class="custom_search_input" list="datalistOptions" id="exampleDataList" placeholder="자료 번호" name="item_no">
+	                              <input class="custom_search_input" list="datalistOptions" id="exampleDataList" placeholder="세부" name="item_detail_no">
+	                              <button class="custom_btn btn_707070" type="button" onClick="requestHistorySearchList();">조회</button>
 	                      </div>
 	                     </form>
                     </div>
@@ -148,13 +148,13 @@
 		                          </c:choose>
 		                          <c:choose>
 		                          	 <c:when test="${requestHistoryList.approval_state eq 'N'}">
-		                          		<td><button data-bs-toggle="modal" data-bs-target="#ReturnModal" type="button" onClick="returnModalBtn('${requestHistoryList.request_idx}','${requestHistoryList.keyword}')">반려</button></td>
+		                          		<td><button class="custom_btn btn_c58672" data-bs-toggle="modal" data-bs-target="#ReturnModal" type="button" onClick="returnModalBtn('${requestHistoryList.request_idx}','${requestHistoryList.keyword}')">반려</button></td>
 		                       		 </c:when>
 		                       		 <c:when test="${requestHistoryList.approval_state eq 'F'}">
 		                       		 	<td><button>미승인</button></td>		                       		 
 		                       		 </c:when>
 		                       		 <c:otherwise>
-		                       		 	<td><button>승인</button></td>
+		                       		 	<td><button class="custom_btn btn_3d3d3d">승인</button></td>
 		                       		 </c:otherwise>
 		                          </c:choose>
 		                          <td>${requestHistoryList.keyword_list}</td>
@@ -162,10 +162,10 @@
 		                          
 		                          <c:choose>
 		                          	<c:when test="${requestHistoryList.approval_state eq 'N' or requestHistoryList.approval_state eq 'F'}">
-		                          		<td><button  data-bs-toggle="modal" data-bs-target="#code_update_modal" class="btn btn-secondary waves-effect waves-light btn_ml btn_wh" type="button" onClick="keywordModFormBtn('${requestHistoryList.request_idx}','${requestHistoryList.keyword}')">수정</button></td>
+		                          		<td><button  data-bs-toggle="modal" data-bs-target="#code_update_modal" class="custom_btn btn_edit" type="button" onClick="keywordModFormBtn('${requestHistoryList.request_idx}','${requestHistoryList.keyword}')">수정</button></td>
 		                          	</c:when>
 		                          	<c:otherwise>
-		                          		<td><button class="btn btn-secondary waves-effect waves-light btn_ml btn_wh">수정</button></td>
+		                          		<td><button class="custom_btn btn_edit">수정</button></td>
 		                          	</c:otherwise>	                          	
 		                          </c:choose>
 		                        </tr>
