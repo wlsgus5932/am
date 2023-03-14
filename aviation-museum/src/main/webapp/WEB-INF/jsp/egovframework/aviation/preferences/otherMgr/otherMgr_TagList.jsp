@@ -110,7 +110,7 @@
                 <form id="tagSearchForm" name="tagSearchForm" method="post" class="form-horizontal">
 	                <div class="custom_prefernces_header_wrap_in_wrap">
 	                  리스트 출력 갯수 :
-	                    <select class="form-select st_select img-select" id="perPageNum" name="perPageNum">	                      
+	                    <select class="search_select" id="perPageNum" name="perPageNum">	                      
 	                      <option value="10">10</option>
 	                      <option value="15">15</option>
 	                      <option value="20">20</option>
@@ -118,14 +118,14 @@
 	                </div>
 	                  <div class="user_top_wrap">
 	                    <span>검색</span>
-	                    <select class="form-select st_select" id="search_type" name="search_type">
+	                    <select class="search_select" id="search_type" name="search_type">
 	                        <option value="">전체</option>
 				            <option value="tag_nm">태그명</option>
 					        <option value="reg_user">등록자</option>
 					        <option value="mod_user">수정자</option>
 					        <option value="enabled">사용여부</option>
 	                    </select>
-	                      <input type="text" id="search_word" name="search_word" >
+	                      <input class="custom_search_input" type="text" id="search_word" name="search_word" >
 	                      <button class="custom_btn btn_inquiry" type="button" onClick="tagSearchList();">조회</button>
 	                  </div>
                   </form>

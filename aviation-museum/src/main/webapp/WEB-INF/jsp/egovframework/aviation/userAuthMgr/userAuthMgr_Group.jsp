@@ -14,7 +14,7 @@
                           <tr class="tr_bgc">
                             <th class="control_card_header">
                               <span>그룹명</span>
-                              <select class="form-select" name="group_idx" id="group_select" onchange="groupChange(this)">
+                              <select class="search_select" name="group_idx" id="group_select" onchange="groupChange(this)">
 	                              <c:forEach var="groupList" items="${groupList}">
 	                                 <option value="${groupList.group_idx}">${groupList.group_nm}</option>
 	                         	  </c:forEach>
@@ -60,11 +60,11 @@
                 <!--  -->
                 <div class="user_control_right col-xl-6">
                   <h5 class="user_control_text">권한설정 
-                  <button type="button" id="allCheck">전체선택</button>
                	  <form action="/possessionAuthUpdate.do" method="post" name="possessionAuthModform" id="possessionAuthModform"> 
 				  	<input type="hidden" id="mGroup_idx" name="group_idx"/>   
-				  	<input type="hidden" id="mMenu_code_idx" name="menu_code_idx"/>  
-				  	<button type="button" id="menuAuthModBtn">선택변경</button>
+				  	<input type="hidden" id="mMenu_code_idx" name="menu_code_idx"/>
+				  	<button class="custom_btn btn_707070" type="button" id="allCheck">전체선택</button>  
+				  	<button class="custom_btn btn_707070" type="button" id="menuAuthModBtn">선택변경</button>
 				  </form>	                 
                   </h5>
                   <div class="user_control_card_wrap card">

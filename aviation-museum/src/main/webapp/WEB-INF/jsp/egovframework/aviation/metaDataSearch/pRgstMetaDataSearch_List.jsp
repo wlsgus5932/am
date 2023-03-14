@@ -154,17 +154,17 @@
 	              <div class="st_wrap st_mv_wrap search_input_wrap">
 	                <div class="search_left">
 	                  리스트 출력
-	                  <select class="form-select" id="perPageNum" name="perPageNum">
+	                  <select class="search_select" id="perPageNum" name="perPageNum">
 	                      <option value="10">10</option>
 	                      <option value="15">15</option>
 	                      <option value="20">20</option>
 	                  </select>
 	                  결과내 재검색 <input type="checkbox" id="research_word" name="research_word"/>
 	                  <input type="hidden" id="researched_word" name="researched_word"/>
-	                  <input class="form-control" list="datalistOptions" placeholder="검색어를 입력해 주세요." id="search_word" name="search_word" />
+	                  <input class="custom_search_input" list="datalistOptions" placeholder="검색어를 입력해 주세요." id="search_word" name="search_word" />
 	                  <input type="hidden" id="searched_word" name="searched_word"/>
-	                  <button type="button" onClick="metaDataSearchList();">검색</button>
-	                  <button type="button" data-bs-toggle="modal" data-bs-target="#TagModal-1">상세검색</button>
+	                  <button class="custom_btn btn_707070" type="button" onClick="metaDataSearchList();">검색</button>
+	                  <button class="custom_btn btn_707070" type="button" data-bs-toggle="modal" data-bs-target="#TagModal-1">상세검색</button>
 	                </div>
 	<!--                 <div class="search_right"> -->
 	<!--                   <select class="form-select"> -->
@@ -186,10 +186,9 @@
               <!--  -->
               <div class="search_btn_wrap">
                 <div class="search_btn_left">
-                 <button data-bs-toggle="modal" data-bs-target="#LikeModal">관심자료등록</button
-                  ><button>항목 추가 및 삭제</button>
+                 <button class="custom_btn btn_c57283" data-bs-toggle="modal" data-bs-target="#LikeModal">관심자료등록</button ><button class="custom_btn btn_c28876">항목 추가 및 삭제</button>
                 </div>
-                <div class="search_btn_right"><button>사용자 지정양식 인쇄</button><button>목록 인쇄</button><button type="button" onClick="metaDataSearchListExcelList();">엑셀파일</button></div>
+                <div class="search_btn_right"><button class="custom_btn btn_707070">사용자 지정양식 인쇄</button><button class="custom_btn btn_707070">목록 인쇄</button><button class="custom_btn btn_ex"  type="button" onClick="metaDataSearchListExcelList();">엑셀파일</button></div>
               </div>
               <!-- 관심자료 모달창 -->
               <div id="LikeModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
@@ -197,7 +196,7 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+                    </div> 
                     <div class="modal-body">
                       <p>선택 자료를 관심자료로 등록 하시겠습니까?</p>
                     </div>

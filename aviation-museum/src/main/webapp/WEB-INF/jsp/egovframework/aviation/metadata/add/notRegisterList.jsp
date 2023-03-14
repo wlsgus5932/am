@@ -1126,9 +1126,9 @@
                 <div class="mb-0">
                   <div class="st_wrap">
                     <label class="col-md-2 col-form-label st_title">분류체계</label>
-                    <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" >간편입력</button>
-                    <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" onclick="deleteClassTd('class-table', 'class-checkbox')">선택삭제</button>
-                    <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" onclick="addClassTd('class-table', 'class-tbody')">추가</button>
+                    <button class="custom_btn btn_707070" type="button" >간편입력</button>
+                    <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('class-table', 'class-checkbox')">선택삭제</button>
+                    <button class="custom_btn btn_707070" type="button" onclick="addClassTd('class-table', 'class-tbody')">추가</button>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
@@ -1186,9 +1186,9 @@
               <div class="mb-0">
                 <div class="st_wrap">
                   <label class="col-md-2 col-form-label st_title">국적</label>
-                  <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" >간편입력</button>
-                  <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" onclick="deleteClassTd('country-table', 'country-checkbox')">선택삭제</button>
-                  <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" onclick="addClassTd('country-table', 'country-tbody')">추가</button>
+                  <button class="custom_btn btn_707070" type="button" >간편입력</button>
+                  <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('country-table', 'country-checkbox')">선택삭제</button>
+                  <button class="custom_btn btn_707070" type="button" onclick="addClassTd('country-table', 'country-tbody')">추가</button>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -1235,9 +1235,9 @@
             <div class="mb-0">
               <div class="st_wrap">
                 <label class="col-md-2 col-form-label st_title">재질</label>
-                <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" >간편입력</button>
-                <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" onclick="deleteClassTd('material-table', 'material-checkbox')">선택삭제</button>
-                <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" onclick="addClassTd('material-table', 'material-tbody')">추가</button>
+                <button class="custom_btn btn_707070" type="button" >간편입력</button>
+                <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('material-table', 'material-checkbox')">선택삭제</button>
+                <button class="custom_btn btn_707070" type="button" onclick="addClassTd('material-table', 'material-tbody')">추가</button>
               </div>
               <div class="card-body">
                 <div class="table-responsive">

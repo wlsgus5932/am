@@ -59,19 +59,19 @@
               <form id="sForm" name="sForm" method="post" class="form-horizontal">
               <div class="st_wrap st_mv_wrap">
                 <div>
-                  <button data-bs-toggle="modal" data-bs-target="#DelModal">선택삭제</button>
+                  <button class="custom_btn btn_707070" data-bs-toggle="modal" data-bs-target="#DelModal">선택삭제</button>
                 </div>
                 <!--  -->
                 <div class="img-btn">
                   리스트 출력 갯수 :
-                    <select class="form-select st_select img-select" id="perPageNum" name="perPageNum" onchange="interestPageNum();">	                      
+                    <select class="search_select" id="perPageNum" name="perPageNum" onchange="interestPageNum();">	                      
                       <option value="10">10</option>
                       <option value="15">15</option>
                       <option value="20">20</option>
                     </select>
-                  <button>항목 추가 및 삭제</button>
-                  <button>사용자 지정양식 인쇄</button>
-                  <button type="button" onClick="interestExcelList();">엑셀파일</button>
+                  <button class="custom_btn btn_707070" >항목 추가 및 삭제</button>
+                  <button class="custom_btn btn_707070" >사용자 지정양식 인쇄</button>
+                  <button class="custom_btn btn_ex"  type="button" onClick="interestExcelList();">엑셀파일</button>
                 </div>
               </div>
               <div class="mb-0">
@@ -110,7 +110,7 @@
 	                          <td onclick="metaDataListView('${interestList.possession_code_idx}','${interestList.org_code_idx}','${interestList.item_no}','${interestList.item_detail_no}','${interestList.reg_state}')">${interestList.item_nm}</td>
 	                          <td>${interestList.expl}</td>
 	                          <td>${interestList.qty}</td>
-	                          <td><button  data-bs-toggle="modal" data-bs-target="#interest_update_modal" class="btn btn-secondary waves-effect waves-light btn_ml btn_wh" type="button" onClick="interestModFormBtn('${interestList.interest_idx}','${interestList.expl}')">수정</button></td>
+	                          <td><button  data-bs-toggle="modal" data-bs-target="#interest_update_modal" class="custom_btn btn_edit" type="button" onClick="interestModFormBtn('${interestList.interest_idx}','${interestList.expl}')">수정</button></td>
 	                        </tr>
                         </c:forEach>
                       </tbody>

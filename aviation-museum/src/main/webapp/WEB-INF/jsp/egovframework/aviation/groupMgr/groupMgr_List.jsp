@@ -7,23 +7,19 @@
      <form id="groupSearchForm" name="groupSearchForm" method="post" class="form-horizontal">
        <div class="user_top_wrap">
          <span>검색</span>
-         <select class="form-select st_select" id="search_type" name="search_type">
+         <select class="search_select" id="search_type" name="search_type">
            <option value="">전체</option>
            <option value="group_nm">그룹명</option>
            <option value="remark">비고</option>
            <option value="admin">관리자 여부</option>
          </select>
-           <input type="text" id="search_word" name="search_word" >
-           <button type="button" onClick="groupSearchList();">조회</button>
+           <input class="custom_search_input" type="text" id="search_word" name="search_word" >
+           <button class="custom_btn btn_inquiry" type="button" onClick="groupSearchList();">조회</button>
        </div>
       </form>
-       <div class="st_wrap st_mv_wrap">
-         <div class="st_title_wrap">
-           <button class="btn btn-secondary waves-effect waves-light btn_ml" id="groupDelBtn">선택삭제</button>
-         </div>
-         <div class="group_btn">
-           <button type="button" class="btn btn-primary waves-effect waves-light btn_ml btn_wh btn_ex" data-bs-toggle="modal" data-bs-target="#GroupModal">그룹등록</button>
-         </div>
+       <div class="custom_btn_wrap">
+           <button class="custom_btn btn_no_select" id="groupDelBtn">선택삭제</button>
+           <button type="button" class="custom_btn btn_707070" data-bs-toggle="modal" data-bs-target="#GroupModal">그룹등록</button>
        </div>
        <div class="mb-0">
          <div class="card-body">
@@ -62,7 +58,7 @@
 	                             ${groupList.reg_date}
 	                           </td>
 	                            <td>
-	                             <button type="button" class="btn btn-primary waves-effect waves-light btn_ml btn_wh btn_ex" data-bs-toggle="modal" data-bs-target="#GroupModal-2" onclick="groupModPopup('${groupList.group_idx}');">수정</button>
+	                             <button type="button" class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#GroupModal-2" onclick="groupModPopup('${groupList.group_idx}');">수정</button>
 	                            </td>
 	                       </tr>
 						</c:forEach>	
