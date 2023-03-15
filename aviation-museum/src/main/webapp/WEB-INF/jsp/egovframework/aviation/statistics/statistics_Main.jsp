@@ -82,8 +82,8 @@
                         ~
                         <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="exampleDataList" placeholder="">
                         <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="exampleDataList" placeholder="">
-                        <button class="custom_btn btn_search">검색</button>
-                        <button class="custom_btn btn_excel">엑셀파일</button>
+                        <button class="custom_btn btn_707070" type="button">검색</button>
+                        <button class="custom_btn btn_ex" type="button">엑셀파일</button>
                   </div>
                 </div>
               </div>
@@ -336,8 +336,8 @@
                       ~
                       <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="exampleDataList" placeholder="">
                       <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="exampleDataList" placeholder="">
-                      <button class="custom_btn btn_search">검색</button>
-                      <button class="custom_btn btn_excel">엑셀파일</button>
+                      <button class="custom_btn btn_707070" type="button">검색</button>
+                      <button class="custom_btn btn_ex" type="button">엑셀파일</button>
                 </div>
               </div>
             </div>
@@ -564,8 +564,8 @@
                       ~
                       <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="exampleDataList" placeholder="">
                       <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="exampleDataList" placeholder="">
-                      <button class="custom_btn btn_search">검색</button>
-                      <button class="custom_btn btn_excel">엑셀파일</button>
+                      <button class="custom_btn btn_707070" type="button">검색</button>
+                      <button class="custom_btn btn_ex" type="button">엑셀파일</button>
                 </div>
               </div>
             </div>

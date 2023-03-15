@@ -50,13 +50,13 @@
             <div class="mb-3 row fr_1">
               <div class="col-md-10">
                 <label class="col-md-2 col-form-label">자료 구분</label>
-                <select class="search-select" id="org_code_idx" name="org_code_idx">
+                <select class="search_select" id="org_code_idx" name="org_code_idx">
                     <option value="" selected>선택</option>
                     		<c:forEach var="list" items="${orgList}" varStatus="status">
 		                           <option value="${list.org_code_idx}">${list.org_nm}</option>
 		                     </c:forEach>
                 </select>
-                  <select class="search-select" id="possession_code_idx" name="possession_code_idx">
+                  <select class="search_select" id="possession_code_idx" name="possession_code_idx">
                       <option value="" selected>선택</option>
                       		<c:forEach var="list" items="${posSessionList}" varStatus="status">
 		                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
@@ -72,7 +72,7 @@
                     <button type="button" class="custom_btn btn_707070" onclick="getTransformList()">조회</button>
                     <div class="st_wrap st_mv_wrap">
 
-                <div class="auto_btn_right" style="width:auto">
+                <div class="auto_btn_right">
                    리스트 출력 갯수 :
                   <select class="search_select" name="perPageNum" id="perpage">
                     <option selected value="10">10개</option>
@@ -278,6 +278,10 @@
                 </div>
 				<div class="table-responsive">
                       <table class="table mb-0">
+						<colgroup>
+						    <col width="5%">
+						    <col width="5%">
+						</colgroup>
                           <thead>
                               <tr class="tr_bgc">
                                   <th>#</th>
@@ -294,7 +298,7 @@
                               </tr>
                           </thead>
                           <tbody>
-                          <tr><td>검색된 결과가 없습니다.</td></tr>
+                          <tr><td colspan="11">검색된 결과가 없습니다.</td></tr>
                           </tbody>
                       </table>
                   </div>
@@ -310,7 +314,7 @@
                   <button class="custom_btn btn_707070" type="button" onclick="allChecked('not')">전체선택</button>
                   <button class="custom_btn btn_707070" type="button" onclick="cancelChecked('not')">선택해지</button>
                 </div>
-                <div class="auto_btn_right" style="width:auto">
+                <div class="auto_btn_right">
                  <button class="custom_btn btn_707070" type="button" onclick="changeReg('not')">선택변환</button>
                  <button class="custom_btn btn_707070" type="button" onclick="changeRegAll('not')">전체변환</button>
                </div>
@@ -325,6 +329,10 @@
                 </div>
 				<div class="table-responsive">
                       <table class="table mb-0">
+						<colgroup>
+						    <col width="5%">
+						    <col width="5%">
+						</colgroup>                      
                           <thead>
                               <tr class="tr_bgc">
                                   <th>#</th>
@@ -342,7 +350,7 @@
                           </thead>
                           <tbody>
                               <tr>
-                                <td>검색된 결과가 없습니다.</td>
+                                <td colspan="11">검색된 결과가 없습니다.</td>
                               </tr>
                           </tbody>
                       </table>
@@ -359,7 +367,7 @@
                   <button class="custom_btn btn_707070" type="button" onclick="allChecked('yes')">전체선택</button>
                   <button class="custom_btn btn_707070" type="button" onclick="cancelChecked('yes')">선택해지</button>
                 </div>
-                <div class="auto_btn_right" style="width:auto">
+                <div class="auto_btn_right">
                  <button class="custom_btn btn_707070" type="button" onclick="changeReg('yes')">선택변환</button>
                  <button class="custom_btn btn_707070" type="button" onclick="changeRegAll('yes')">전체변환</button>
                </div>
@@ -372,8 +380,12 @@
 	                  <span>| 총건수: 0건</span><span>| 총수량: 0건</span><span>| 현수량: 0건</span>
 	                </div>
 	                </div>
-					<div class="table-responsive">
+					<div class="table-responsive">				
 	                      <table class="table mb-0">
+								<colgroup>
+								    <col width="5%">
+								    <col width="5%">
+								</colgroup>	                      
 	                          <thead>
 	                              <tr class="tr_bgc">
 	                                  <th>#</th>
@@ -391,7 +403,7 @@
 	                          </thead>
 	                          <tbody>
 	                              <tr>
-	                                <td>검색된 결과가 없습니다.</td>
+	                                <td colspan="11">검색된 결과가 없습니다.</td>
 	                              </tr>
 	                          </tbody>
 	                      </table>

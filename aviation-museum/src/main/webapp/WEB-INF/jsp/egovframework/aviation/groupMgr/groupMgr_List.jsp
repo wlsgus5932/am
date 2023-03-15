@@ -64,6 +64,7 @@
 						</c:forEach>	
                    </tbody>
                </table>
+              <nav aria-label="Page navigation example">
                <ul class="btn-group pagination">
 				    <c:if test="${pageMaker.prev }">
 				    <li>
@@ -80,7 +81,8 @@
 				        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 				    </li>
 				    </c:if>
-				</ul>       
+				</ul>   
+				</nav>
            </div>
        </div>
          <!-- 그룹 등록 모달 -->
@@ -101,6 +103,9 @@
                            <div class="table-responsive">
                          	  <form action="/groupinsert.do" method="post" name="groupinsertform">                          
 	                               <table class="table mb-0">
+										<colgroup>
+										  <col style="width:30%;">
+										</colgroup>	                               
 	                                   <tbody>
 	                                       <tr>
 	                                         <td>그룹명</td>
@@ -117,8 +122,8 @@
 	                                       <tr>
 	                                         <td>관리자 여부</td>
 	                                         <td>
-	                                           <input type="checkbox" name="admin" value="Y">관리자
-	                                           <input type="checkbox" name="admin" value="N">일반
+	                                           <input class="custom_search_input" type="checkbox" name="admin" value="Y">관리자
+	                                           <input class="custom_search_input" type="checkbox" name="admin" value="N">일반
 	                                         </td>
 	                                       </tr>
 	                                   </tbody>
