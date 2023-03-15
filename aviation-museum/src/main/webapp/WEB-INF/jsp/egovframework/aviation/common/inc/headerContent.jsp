@@ -381,12 +381,14 @@
 
         <li>
           <a href="javascript: void(0);" class="has-arrow">
-            <span class="menu-item" data-key="t-ecommerce">자료 심사</span>
+            <span class="menu-item" data-key="t-ecommerce">자료 심의</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
-            <li><a href="ecommerce-products.html" data-key="t-products">심사자료조회</a></li>
-            <li><a href="ecommerce-product-detail.html" data-key="t-product-detail">심사자료등록</a></li>
-            <li><a href="ecommerce-orders.html" data-key="t-orders">심사자료 관리전환</a></li>
+            <li><a href="/dataPurchaseMgr.do" data-key="t-products">자료구입 관리</a></li>
+            <li><a href="/practicalReview.do" data-key="t-product-detail">실무검토 심의</a></li>
+            <li><a href="/purchaseAppraisalReview.do" data-key="t-orders">구입감정 심의</a></li>
+            <li><a href="/purchaseReview.do" data-key="t-customers">구입 심의</a></li>
+            <li><a href="ecommerce-orders.html" data-key="t-checkout">자료구입 공고관리</a></li>
           </ul>
         </li>
 
