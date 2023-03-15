@@ -180,7 +180,7 @@
 	                	<button class="custom_btn btn_c58672" type="button" data-bs-toggle="modal" data-bs-target="#refusalModal2">선택반려</button>
 	                	<button class="custom_btn" type="button" data-bs-toggle="modal" data-bs-target="#refusalModal3" style="display:none;" id="approvalBtn">반려</button>
 	                </div>
-	              <form id="erasureSearchForm" name="erasureSearchForm" method="post" class="form-horizontal">            
+	              <form id="erasureSearchForm" name="erasureSearchForm" method="post" class="form-horizontal" style="width: 100% !important;">            
 	                <div class="auto_btn_right">
 	                  리스트 출력 갯수 :
 	                    <select class="search_select" id="perPageNum" name="perPageNum" onchange="erasurePerPageNum();">	                      

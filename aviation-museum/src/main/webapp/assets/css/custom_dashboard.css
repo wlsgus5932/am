@@ -22,7 +22,7 @@ td {
 }
 
 .card-body {
-  padding: 3%;
+  padding: 3% !important;
 }
 
 .rental_li {
@@ -49,6 +49,8 @@ td {
 .circel_info_inbox {
   text-align: center;
   padding: 0;
+  display: flex;
+  justify-content: space-around;
 }
 
 .circel_info_inbox li span {
@@ -84,7 +86,7 @@ td {
   height: 150px;
   margin: auto;
   text-align: center;
-  background-color: #666;
+/*   background-color: #666; */
   color: #fff;
 }
 
@@ -128,3 +130,17 @@ td {
   background-color: #000;
   vertical-align: middle;
 } */
+
+.apexcharts-legend {
+	left:0 !important;
+}
+
+.slick-slide {
+	border-radius: 20px 0px 20px 0px;
+    background-color: black;
+    margin-right: 0.3%;
+}
+
+.d-flex {
+	display: -webkit-box!important;
+}

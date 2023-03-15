@@ -41,30 +41,33 @@
                           <div class="table-responsive">
                        	 	  <form action="/userinsert.do" method="post" name="userinsertform">                 
 	                              <table class="table mb-0">
+									<colgroup>
+	                                  <col style="width:20%;">
+                                    </colgroup>
 	                                  <tbody>
 	                                      <tr>
 	                                        <td>사용자ID</td>
 	                                          <td>
-	                                            <input type="text" name="member_id" id="insUserId" oninput="userInsInputChange();">
-	                                            <button type="button" id="userInsCheck" userInsCheck="" onclick="duplicateCheck();">중복체크</button>
+	                                            <input class="custom_search_input" type="text" name="member_id" id="insUserId" oninput="userInsInputChange();">
+	                                            <button class="custom_btn btn_707070" type="button" id="userInsCheck" userInsCheck="" onclick="duplicateCheck();">중복체크</button>
 	                                      	    </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>비밀번호</td>
 	                                          <td>
-	                                            <input type="password" name="member_pw" id="insUserPw">
+	                                            <input class="custom_search_input" type="password" name="member_pw" id="insUserPw">
 	                                          </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>사용자명</td>
 	                                        <td>
-	                                          <input type="text" name="member_nm" id="insUserNm">
+	                                          <input class="custom_search_input" type="text" name="member_nm" id="insUserNm">
 	                                        </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>그룹명</td>
 	                                        <td>
-	                                          <select class="form-select st_select" name="group_idx" id="insGroupNm">
+	                                          <select class="search_select" name="group_idx" id="insGroupNm">
 <!-- 	                                            <option disabled selected>그룹 없음</option> -->
 		                                            <c:forEach var="groupList" items="${groupList}">
 			                                          <option value="${groupList.group_idx}">${groupList.group_nm}</option>
@@ -75,7 +78,7 @@
 	                                      <tr>
 	                                        <td>비고</td>
 	                                        <td>
-	                                          <input type="text" name="remark" id="insUserRemark">
+	                                          <input class="custom_search_input" type="text" name="remark" id="insUserRemark">
 	                                        </td>
 	                                      </tr>
 	                                  </tbody>

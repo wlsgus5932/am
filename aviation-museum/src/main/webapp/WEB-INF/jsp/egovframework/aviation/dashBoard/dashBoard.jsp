@@ -94,6 +94,10 @@
                               <!-- 프로필, 팀공지 테이블 -->
                               <div class="table-responsive">
                                 <table class="table mb-0">
+                                  <colgroup>
+	                                  <col style="width:20%;">
+	                                  <col style="width:30%;">
+                                  </colgroup>
                                   <thead>
                                     <tr class="tr_bgc">
                                       <th>작성자</th>
@@ -156,10 +160,10 @@
                             </div>
                               <!-- 작업자별 작업량 -->
                               <div class="worker_main_text_wrap">
-                                <h4>작업자별 작업량</h4><div class="dash_bar"></div>
+                                <div class="dash_bar"></div>
                               </div>
                               <!--  -->
-                              <div class="table-responsive">
+                              <div class="table-responsive">                        
                                 <table class="table mb-0">
                                   <thead>
                                     <tr class="tr_bgc">
@@ -270,8 +274,12 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <div class="table-responsive">
+                                  <div class="table-responsive">                                  
                                     <table class="table mb-0">
+	                                  <colgroup>
+		                                  <col style="width:20%;">
+		                                  <col style="width:30%;">
+	                                  </colgroup>                                    
                                       <thead>
                                         <tr class="tr_bgc">
                                           <th>작성자</th>
@@ -415,8 +423,12 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <div class="table-responsive">
+                                  <div class="table-responsive">                                 
                                     <table class="table mb-0">
+	                                  <colgroup>
+		                                  <col style="width:20%;">
+		                                  <col style="width:30%;">
+	                                  </colgroup>                                    
                                       <thead>
                                         <tr class="tr_bgc">
                                           <th>작성자</th>
@@ -495,6 +507,10 @@
                                     <div class="last_data_info_wrap">
                                       <div class="table-responsive last_data_info_inbox">
                                         <table class="table mb-0">
+<%-- 		                                  <colgroup> --%>
+<%-- 			                                  <col style="width:20%;"> --%>
+<%-- 			                                  <col style="width:30%;"> --%>
+<%-- 		                                  </colgroup>                                         --%>
                                           <thead>
                                             <tr class="tr_bgc">
                                               <th>자료명</th>
@@ -523,6 +539,10 @@
                                       </div>
                                       <div class="table-responsive last_data_info_inbox">
                                         <table class="table mb-0">
+<%-- 		                                  <colgroup> --%>
+<%-- 			                                  <col style="width:20%;"> --%>
+<%-- 			                                  <col style="width:30%;"> --%>
+<%-- 		                                  </colgroup>                                         --%>
                                           <thead>
                                             <tr class="tr_bgc">
                                               <th>자료명</th>

@@ -58,7 +58,7 @@
                            <option value="${list.org_code_idx}">${list.org_nm}</option>
                      </c:forEach>
                   </select>
-                  <select class="search-select" name="possession_code_idx">
+                  <select class="search_select" name="possession_code_idx">
                       <option value="" selected>선택</option>
                       		<c:forEach var="list" items="${posSessionList}" varStatus="status">
 		                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
@@ -1231,7 +1231,7 @@
                     <!--  -->
                     <div class="img-btn">
                       리스트 출력 갯수 :
-                        <select class="form-select st_select img-select" id="ImageperPageNum" onchange="getImageList()">
+                        <select class="search_select" id="ImageperPageNum" onchange="getImageList()">
                           <option value="10" selected>10개</option>
                           <option value="20" >20개</option>
                           <option value="30" >30개</option>
@@ -1240,13 +1240,13 @@
                         <!--
 	                     <label for="image-upload-file" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">업로드</label> -->
 <!--                     <input style="display:none" id="image-upload-file" name="image_upload_file" class="form-control st_input" type="file" accept="image/*" onchange="change_img_info(this)" multiple> -->
-						 <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" data-bs-toggle="modal" data-bs-target=".imageUploadModal">업로드</button>
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="downloadImageChecked()">다운로드</button>
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="imageAllCheck()">전체선택</button>
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="imageCancelCheck()">선택해지</button>
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteImageChecked()">선택삭제</button>
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="preview()">미리보기</button>
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" >엑셀파일</button>
+						 <button type="button" class="custom_btn btn_6466ab" data-bs-toggle="modal" data-bs-target=".imageUploadModal">업로드</button>
+                         <button type="button" class="custom_btn btn_7288c5" onclick="downloadImageChecked()">다운로드</button>
+                         <button type="button" class="custom_btn btn_707070" onclick="imageAllCheck()">전체선택</button>
+                         <button type="button" class="custom_btn btn_707070" onclick="imageCancelCheck()">선택해지</button>
+                         <button type="button" class="custom_btn btn_707070" onclick="deleteImageChecked()">선택삭제</button>
+                         <button type="button" class="custom_btn btn_707070" onclick="preview()">미리보기</button>
+                         <button type="button" class="custom_btn btn_ex" >엑셀파일</button>
 
                     </div>
                   </div>
@@ -1399,15 +1399,15 @@
                 <div class="mb-0">
                   <div class="st_wrap">
                       <label class="col-md-2 col-form-label st_title">전문정보검색</label>
-                      <select class="form-select st_select pro_info" name="speciality_code_idx_search">
+                      <select class="search_select" name="speciality_code_idx_search">
                          <option selected value="">전체</option>
                          <c:forEach var="list" items="${specialityCodeList}" varStatus="status">
 							<option value="${list.speciality_code_idx}">${list.speciality_nm}</option>
 						 </c:forEach>
                       </select>
-                      <input class="form-control st_input pro_info" list="datalistOptions" id="speciality_title_search" placeholder="제목을 입력해 주세요.">
-                      <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="getSpecialitySearch()">조회</button>
-                      <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" id="spc-add-button">자료등록</button>
+                      <input class="custom_search_input" list="datalistOptions" id="speciality_title_search" placeholder="제목을 입력해 주세요.">
+                      <button type="button" class="custom_btn btn_707070" onclick="getSpecialitySearch()">조회</button>
+                      <button type="button" class="custom_btn btn_689e97" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" id="spc-add-button">자료등록</button>
                       <!--전문정보 자료등록 버튼 모달창 -->
                       <div class="modal fade bs-example-modal-xl" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
                         <div class="modal-dialog modal-xl">

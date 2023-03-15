@@ -10,7 +10,7 @@
                     <div class="fr_wrap">
                       <div class="mb-3 row fr_1">
 	                      <form id="requestHistorySearchForm" name="requestHistorySearchForm" method="post" class="form-horizontal">
-	                        <div class="custom_btn_wrap">
+	                        <div class="custom_btn_wrap2">
 	                          <label class="col-md-2 col-form-label">구분</label>
 	                            <select class="search_select" name="keyword">
 	                                <option value="">전체</option>
