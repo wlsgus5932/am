@@ -687,20 +687,24 @@
                               </td>
                               <td>
                                 문화재 지정
-                                <input type="checkbox" name="" id="">
                               </td>
                               <td>
-                                <input class="form-control st_input" list="datalistOptions" id="obt_designation" placeholder="문화재 지정 내용을 입력해 주세요." name="obt_designation">
+                                <select class="form-select st_select" name="obt_designation" id="obt_designation">
+                                  <option value="N" selected>N</option>
+                                  <option value="Y">Y</option>
+                                </select>
                               </td>
                           </tr>
                           <!-- 7 -->
                           <tr>
                             <td>
                               문화재 환수
-                              <input type="checkbox" name="" id="">
                             </td>
                               <td>
-                                <input class="form-control st_input" list="datalistOptions" id="obt_redemption" placeholder="환수 경로를 입력해 주세요." name="obt_redemption">
+                                <select class="form-select st_select" name="obt_redemption" id="obt_redemption">
+                                  <option value="N" selected>N</option>
+                                  <option value="Y">Y</option>
+                                </select>
                               </td>
                               <td>
                                 문화재 환수 국적
@@ -720,7 +724,6 @@
                               문화재 환수 수량
                             </td>
                               <td>
-                                <input class="form-control st_input pri" list="datalistOptions" id="obt_qty" placeholder="환수 경로를 입력해 주세요." name="obt_qty">
                                 <select class="form-select st_select pri" id="obt_qty_unit_code_idx" name="obt_qty_unit_code_idx">
                                   <option value="" selected>문화재 환수 단위</option>
                                   		<c:forEach var="list" items="${qtyUnitList}" varStatus="status">
@@ -970,9 +973,8 @@
           <div class="st_wrap">
             <label class="col-md-2 col-form-label st_title">대국민 서비스</label>
             <select class="form-select st_select ser_sel" id="public_service" name="public_service">
-              <option value="" selected>선택</option>
+              <option value="N" selected>비사용</option>
               <option value="Y">사용</option>
-              <option value="N">비사용</option>
             </select>
           </div>
           <div class="card-body">
@@ -1268,7 +1270,6 @@
                          <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="imageAllCheck()">전체선택</button>
                          <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="imageCancelCheck()">선택해지</button>
                          <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteImageChecked()">선택삭제</button>
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="preview()">미리보기</button>
                          <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" >엑셀파일</button>
                          
                     </div>

@@ -46,7 +46,8 @@ const set_itemBase_input = async (list) => {
 				
 	taxonomyList.forEach(async (e, i) => {
 		$('#class-tbody').children('tr:not(:first-child)').remove();
-		i != 0 ? addClassTd('class-table', 'class-tbody') : '';
+		if(i != 0) addClassTd('class-table', 'class-tbody');
+		/*i != 0 ? addClassTd('class-table', 'class-tbody') : '';*/
 		$('#class1_code_idx'+i).val(e.class1_code_idx).prop("selected", true);
 		$('#class2_code_idx'+i).val(e.class2_code_idx).prop("selected", true);
 		$('#class3_code_idx'+i).val(e.class3_code_idx).prop("selected", true);
@@ -91,8 +92,8 @@ const set_itemBase_input = async (list) => {
 		$('#obt_obtainment_addr').val(e.obtainment_addr);
 		$('#obt_obtainment_detail').val(e.obtainment_detail);
 		$('#obt_record_date').val(e.record_date);
-		$('#obt_designation').val(e.designation);
-		$('#obt_redemption').val(e.redemption);
+		$('#obt_designation').val(e.designation).prop("selected", true);
+		$('#obt_redemption').val(e.redemption).prop("selected", true);
 		$('#obt_country_code_idx').val(e.country_code_idx).prop("selected", true);
 		$('#obt_qty').val(e.qty);
 		$('#obt_qty_unit_code_idx').val(e.qty_unit_code_idx).prop("selected", true);
