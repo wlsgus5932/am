@@ -272,9 +272,7 @@
               </div>
                 <div class="card-body" id="transformAllList">
                 <div class="auto_btn_left">
-                  <div class="auto_btn_left">
                   <span>| 총건수: 0건</span><span>| 총수량: 0건</span><span>| 현수량: 0건</span>
-                </div>
                 </div>
 				<div class="table-responsive">
                       <table class="table mb-0">
