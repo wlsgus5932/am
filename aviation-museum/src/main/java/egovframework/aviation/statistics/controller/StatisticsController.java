@@ -24,29 +24,21 @@ public class StatisticsController {
 	}	
 	
 	/** 박물관 등록현황 */
-//	@RequestMapping("/museum.do")
-//	public String InterestAjax(@ModelAttribute("interestVO") InterestVO interestVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
-//		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
-//		interestVO.setReg_user(userSessionId);
-//		 
-//    	int perPageNum = myPageService.getInterestListCnt(interestVO);		
-//		if(interestVO.getPerPageNum() != 0) {
-//			int criPerPageNum = interestVO.getPerPageNum();
-//			cri.setPerPageNum(criPerPageNum);
-//		}
-//		PageMaker pageMaker = new PageMaker();
-//	    pageMaker.setCri(cri);
-//	    pageMaker.setTotalCount(perPageNum);
-//		    
-//	    interestVO.setPageStart(cri.getPageStart());
-//	    interestVO.setPerPageNum(cri.getPerPageNum());
-//
-//		List<InterestVO> interestList = myPageService.getInterestList(interestVO);
-//		
-//    	model.addAttribute("interestList", interestList);
-//    	model.addAttribute("perPageNum", perPageNum);
-//    	model.addAttribute("pageMaker", pageMaker);
-//		return "mypage/myPage_Interest";
-//	}
+	@RequestMapping("/statisticsMuseumAjax.do")
+	public String StatisticsMuseumAjax(@ModelAttribute("interestVO") InterestVO interestVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
+		return "statistics/statistics_Museum";
+	}
+	
+	/** 이미지 통계 */
+	@RequestMapping("/statisticsImagesAjax.do")
+	public String StatisticsImagesAjax(@ModelAttribute("interestVO") InterestVO interestVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
+		return "statistics/statistics_Images";
+	}
+	
+	/** 전문정보 등록현황 */
+	@RequestMapping("/statisticsSpecialityAjax.do")
+	public String StatisticsSpecialityAjax(@ModelAttribute("interestVO") InterestVO interestVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
+		return "statistics/statistics_Speciality";
+	}
 
 }
