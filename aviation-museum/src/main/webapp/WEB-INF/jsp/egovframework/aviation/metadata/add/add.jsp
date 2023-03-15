@@ -74,12 +74,12 @@
                     <!--  -->
 
                     <button class="custom_btn btn_707070">인쇄</button>
-                    <select class="search_select">
+                    <!-- <select class="search_select">
                       <option disabled selected>한글</option>
                       <option>더미1</option>
                       <option>더미2</option>
                       <option>더미3</option>
-                  </select>
+                  </select> -->
                    <ul class="pagination">
                     <li class="page-item"><a class="page-link" href="#"><<</a></li>
                     <li class="page-item"><a class="page-link" href="#"><</a></li>
@@ -134,7 +134,7 @@
                   <div class="text-muted">
                     <strong class="text-dark">
                       <ul>
-                        <li><a href="#">저장</a></li>
+                        <li onclick="updateData()"><a href="#">저장</a></li>
                         <li><a href="#">자료 등록하기</a></li>
                         <li><a href="#">자료 정보 가져오기</a></li>
                         <li><a href="#">자료 정보 일괄 변경</a></li>
@@ -706,6 +706,7 @@
                               문화재 환수 수량
                             </td>
                               <td>
+                              <input class="form-control st_input pri" list="datalistOptions" id="obt_qty" placeholder="환수 수량을 입력해 주세요." name="obt_qty">
                                 <select class="form-select st_select pri" id="obt_qty_unit_code_idx" name="obt_qty_unit_code_idx">
                                   <option value="" selected>문화재 환수 단위</option>
                                   		<c:forEach var="list" items="${qtyUnitList}" varStatus="status">
@@ -1038,11 +1039,11 @@
         <div class="st_wrap">
           <label class="col-md-2 col-form-label st_title">키워드</label>
         </div>
-          <input type="text" class="st_inp_tbox" placeholder="키워드를 입력해 주세요. 콤마 단위로 입력해주세요." id="keyword" name="keyword">
+          <input type="text" class="st_inp_tbox" placeholder="키워드를 입력해 주세요. 콤마 단위로 입력해주세요." id="itembasekeyword" name="itembasekeyword">
       </div>
       </form>
         <div class="mb-0 btn_add_save_wrap">
-        	<button type="button" class="custom_btn btn_c58672" onclick="submitForm()">저장하기</button>
+        	<button type="button" class="custom_btn btn_c58672" onclick="checkSubmitForm()">저장하기</button>
         </div>
       </div>
              <!-- End Page-content -->
@@ -1185,8 +1186,8 @@
                     <label class="col-md-2 col-form-label st_sub_title">| 수주량 : 0</label>
                   </div>
                   <div class="move_btn">
-                    <button type="button" class="custom_btn btn_ex">엑셀파일</button>
-                    <button class="custom_btn btn_707070" data-bs-toggle="modal" data-bs-target="#myModal" onclick="btn_control(0)">이동사항 등록</button>
+                    <button type="button" class="custom_btn btn_ex" onclick="MovementExcelDownload()">엑셀파일</button>
+                    <button class="custom_btn btn_707070" type="button" data-bs-toggle="modal" data-bs-target="#myModal" onclick="btn_control(0)">이동사항 등록</button>
                   </div>
                 </div>
                 <div class="card-body">

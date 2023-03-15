@@ -119,29 +119,43 @@ const goPage = page => {
 function getImageFunction() {
     	getImageList();
     }
+
+	const checkSubmitForm = () => {
+		let arr = $('#itembasekeyword').val().split(',').filter(e => e.length !== 0 );
+		if(arr.length < 5) {
+			alert("콤마 ', ' 단위로 5개 이상 입력해주세요.")
+			return
+		}
+		submitForm();
+	}
     
     const submitForm = async () => {
-   	let formData = new FormData(document.getElementById('add-form'));
+	if(confirm("저장하시겠습니까?")) {
+	   	let formData = new FormData(document.getElementById('add-form'));
+	   	
+	   	const form = await fetch('/add.do', {
+	   		method:'POST',
+	   		headers: {
+	               "Content-Type": "application/x-www-form-urlencoded",
+	           },
+	           body: new URLSearchParams(formData)
+	   	})
+	   	
+		//const res = await form.text();
+	   	const { item_idx } = await form.json();
+	   	
+	   	sessionStorage.setItem("item_idx", item_idx);
+
+	   	if(!item_idx) {
+	        alert('오류입니다');
+	     } else {
+	        /*location.reload();*/
+	        alert('등록완료');
+	     }
+	} else {
+		return
+	}
    	
-   	const form = await fetch('/add.do', {
-   		method:'POST',
-   		headers: {
-               "Content-Type": "application/x-www-form-urlencoded",
-           },
-           body: new URLSearchParams(formData)
-   	})
-   	
-	//const res = await form.text();
-   	const { item_idx } = await form.json();
-   	
-   	sessionStorage.setItem("item_idx", item_idx);
-   	
-   	if(item_idx == null) {
-        alert('오류입니다');
-     } else {
-        location.reload();
-        alert('등록완료');
-     }
     };
     
     const changeCountry = async(r, n) => {
@@ -346,6 +360,19 @@ function getImageFunction() {
                  console.log(thrownError);
               }
          });
+}
+
+function MovementExcelDownload() {
+		let $form = $('<form></form>');
+		var input1 = document.createElement('input');
+		input1.setAttribute("name", "item_idx");
+		input1.setAttribute("value", sessionStorage.getItem("item_idx"));
+		input1.setAttribute("type", "hidden");
+		
+		$form.append(input1);
+		$form.attr("action", "/getMovementExcelList.do");
+		$form.attr("method", "post");
+	    $form.submit();
 }
 
 	const getMovementData = async(btn) => {

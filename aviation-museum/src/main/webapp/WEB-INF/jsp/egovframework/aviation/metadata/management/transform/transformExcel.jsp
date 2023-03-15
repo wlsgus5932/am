@@ -42,7 +42,7 @@
 	</head>
 	<body>
 		<!-- list -->
-		<table summary="" class="sheetListA" style="width:150%">
+		<table summary="" class="sheetListA" style="width:150%; border: 1px solid;">
 			<caption>자료관리전환</caption>
 			<colgroup>
 				<col style="width:5%" />
@@ -72,7 +72,6 @@
 					<c:when test="${transformList.size() > 0 }">
 						<c:forEach var="list" items="${transformList}">
 	                              <tr>
-	                                <td><input type="checkbox" name="item_idx" id="notCheckbox" value="${list.item_idx}"/></td>
 	                                <td id="rownum">${list.rownum}</td>
 	                                <td>${list.possession_nm} - ${list.org_nm}</td>
 	                                <td>${list.item_no}</td>

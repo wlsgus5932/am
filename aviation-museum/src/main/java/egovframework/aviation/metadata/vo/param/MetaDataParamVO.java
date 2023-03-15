@@ -38,6 +38,7 @@ public class MetaDataParamVO {
    private String reg_date;
    private String mod_user;
    private String mod_date;
+   private List<String> itembasekeyword;
    
    //분류체계 html 테이블 - taxonomy
    private List<String> class1_code_idx;

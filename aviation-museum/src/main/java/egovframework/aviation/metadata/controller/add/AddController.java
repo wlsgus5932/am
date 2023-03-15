@@ -221,6 +221,13 @@ public class AddController {
 				service.setInsurance(insuranceMap);
 				service.setCopyright(copyrightMap);
 				service.setGgnuri(param);
+				String[] arr = param.getItembasekeyword().get(0).split(",");
+				System.out.println("arr:::" + arr);
+				List<String> ddd = new ArrayList<String>();
+				for(int i=0; i<arr.length; i++) {
+					ddd.add(arr[i]);
+				}
+				param.setItembasekeyword(ddd);
 				service.setKeyword(param);
 				
 				model.addAttribute("item_idx", param.getItem_idx());
@@ -228,8 +235,8 @@ public class AddController {
 			 return "jsonView"; 
 				
 		 } catch (Exception e) {
-			 System.out.println(e); 
-			 return "error"; 
+			 model.addAttribute("item_idx", "error");
+			 return "jsonView"; 
 		 }
 	}
 	
@@ -323,6 +330,14 @@ public class AddController {
 		model.addAttribute("movementList", list);
 		
 		return "metadata/add/movement/movementList";
+	}
+	
+	@PostMapping("/getMovemenExceltList.do")
+	public String getMovemenExceltList(ModelMap model, @RequestParam("item_idx") int item_idx) throws Exception {
+		List<MovementVO> list = service.getMovement(item_idx);
+		model.addAttribute("movementList", list);
+		
+		return "metadata/add/movement/movementExcel";
 	}
 	
 	

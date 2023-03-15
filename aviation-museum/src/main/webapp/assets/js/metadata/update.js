@@ -155,6 +155,15 @@ const goDelitionPage = page => {
     let movementData = [];
     let item_idx = '';
     // update -------------------------------
+
+	const checkUpdateForm = () => {
+		let arr = $('#itembasekeyword').val().split(',').filter(e => e.length !== 0 );
+		if(arr.length < 5) {
+			alert("콤마 ', ' 단위로 5개 이상 입력해주세요.")
+			return
+		}
+		updateData();
+	}
     const updateData = async () => {
     	if(confirm("수정하시겠습니까?")) {
     		

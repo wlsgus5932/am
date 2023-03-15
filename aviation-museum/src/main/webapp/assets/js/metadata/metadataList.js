@@ -194,6 +194,7 @@ const addKeyword = () => {
 		alert('자료조회를 먼저 진행해주세요.'); 
 		return; 
 	}
+	
 	if(arr.length < 5) {
 			alert("콤마 ', ' 단위로 5개 이상 입력해주세요.")
 			return
