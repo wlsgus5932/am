@@ -3,23 +3,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
      <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block;">
-     <form id="faqSearchForm" name="faqSearchForm" method="post" class="form-horizontal">
+     <form id="errorFixSearchForm" name="errorFixSearchForm" method="post" class="form-horizontal">
 	      <div class="user_top_wrap" style="margin-top:20px;">
 	          <span>검색</span>
 	          <select class="search_select" id="search_type" name="search_type">
 	            <option value="">전체</option>
-	            <option value="faq_content">질문</option>
-		        <option value="answer_contents">답변</option>
+	            <option value="error_fix_org_nm">기관명</option>
+	            <option value="board_type">구분</option>
+		        <option value="reg_user">등록자</option>
 	          </select>
 	            <input class="custom_search_input" type="text" id="search_word" name="search_word" >
-	            <button class="custom_btn btn_inquiry"  type="button" onClick="faqSearchList();">조회</button>
+	            <button class="custom_btn btn_inquiry"  type="button" onClick="errorFixSearchList();">조회</button>
 	      </div>
       </form>
-      <div style="margin-top: 50px;">
-      	  <label class="custom_btn btn_no_select"><input type="checkbox" id="checkAll" onchange="checkAll()"style="display:none;">전체 선택</label>
-<!--           <button class="custom_btn btn_no_select" id="allCheck" onclick="allCheck()">전체 선택</button> -->
-          <button class="custom_btn btn_no_select" id="faqListDeleteBtn">선택 삭제</button>
-          <button type="button" class="custom_btn btn_user_registration" data-bs-toggle="modal" data-bs-target="#myModal" style="float: right;">FAQ등록</button>
+      <div class="custom_btn_wrap" style="margin-top: 50px;">
+          <button class="custom_btn btn_no_select" id="noticeListDeleteBtn">선택 삭제</button>
+          <button type="button" class="custom_btn btn_user_registration" data-bs-toggle="modal" data-bs-target="#myModal">오류신고|개선사항등록</button>
       </div>
 <!--       <div id="DelModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-modal="true" role="dialog"> -->
 <!--                 <div class="modal-dialog modal-dialog-centered"> -->
@@ -53,34 +52,34 @@
               <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                       <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="faqInsInputClose"></button>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="noticeInsInputClose"></button>
                   </div>
                   <div class="modal-body mv-modal-body">
                       <!-- 공지사항 등록 모달 내용 -->
                       <div class="mb-0 user-wrap">
                         <div class="st_wrap">
-                          <label class="col-md-2 col-form-label st_title">FAQ 등록</label>
+                          <label class="col-md-2 col-form-label st_title">공지사항 등록</label>
                         </div>
                         <div class="card-body">
                           <div class="table-responsive">
-                       	 	  <form action="/faqinsert.do" method="post" name="faqinsertform">                 
+                       	 	  <form action="/noticeinsert.do" method="post" name="noticeinsertform">                 
 	                              <table class="table mb-0">
 	                                  <tbody>
 	                                      <tr>
-	                                        <td>질문</td>
+	                                        <td>제목</td>
 	                                          <td>
-	                                            <textarea name="faq_content" id="insFaqContent" cols="70" rows="3" required></textarea>
+	                                            <input type="text" name="notice_title" id="insNoticeTitle" required>
 	                                      	  </td>
 	                                      </tr>
 	                                      <tr>
-	                                        <td>답변</td>
+	                                        <td>내용</td>
 	                                          <td>
-	                                          	<textarea name="answer_contents" id="insAnswerContents" cols="70" rows="3" required></textarea>
+	                                          <textarea name="notice_content" id="insNoticeContent" cols="70" rows="10" required></textarea>
 	                                          </td>
 	                                      </tr>
 	                                  </tbody>
 	                              </table>
-	                              <button class="btn btn-secondary btn_save" type="button" id="faqInsBtn">저장</button>
+	                              <button class="btn btn-secondary btn_save" type="button" id="noticeInsBtn">저장</button>
                               </form>
                           </div>
                       </div>
@@ -90,9 +89,9 @@
               </div>
           </div>
       </div>
-       <div class="st_wrap st_mv_wrap" style="border-bottom: 2px solid; padding-bottom: 2%;">
+       <div class="st_wrap st_mv_wrap">
                 <div>
-                    <select class="form-select st_select img-select" id="perPageNum" name="perPageNum" onchange="changePerPageNum(value);">
+                    <select class="search_select" id="perPageNum" name="perPageNum" onchange="changePerPageNum(value);">
                      	<option value="10" <c:if test="${pageMaker.cri.perPageNum == 10}">selected</c:if>>10개씩 보기</option>
                         <option value="20" <c:if test="${pageMaker.cri.perPageNum == 20}">selected</c:if>>20개씩 보기</option>
                         <option value="30" <c:if test="${pageMaker.cri.perPageNum == 30}">selected</c:if>>30개씩 보기</option>
@@ -100,42 +99,83 @@
                 </div>
        </div>
        
-      <!-- FAQ 수정 모달 -->
-      <div id="FaqModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+       <!--  공지사항 상세보기 -->
+       <div id="myModal2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+          <div class="modal-dialog user-modal">
+              <div class="modal-content">
+                  <div class="modal-header mv-modal-header">
+                      <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="noticeInsInputClose"></button>
+                  </div>
+                  <div class="modal-body mv-modal-body">
+                      <!-- 공지사항 등록 모달 내용 -->
+                      <div class="mb-0 user-wrap">
+                        <div class="st_wrap">
+                          <label class="col-md-2 col-form-label st_title">공지사항 상세보기</label>
+                        </div>
+                        <div class="card-body">
+                          <div class="table-responsive">
+	                              <table class="table mb-0">
+	                                  <tbody>
+	                                      <tr>
+	                                        <td>제목</td>
+	                                          <td>
+	                                            <input type="text" name="notice_title" id="noticeTitle" readOnly>
+	                                      	  </td>
+	                                      </tr>
+	                                      <tr>
+	                                        <td>내용</td>
+	                                          <td>
+	                                          <textarea name="notice_content" id="noticeContent" cols="70" rows="10" readOnly></textarea>
+	                                          </td>
+	                                      </tr>
+	                                  </tbody>
+	                              </table>
+                          </div>
+                      </div>
+                    </div>
+                    <!--  -->
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      <!-- 공지사항 수정 모달 -->
+      <div id="NoticeModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog notice-modal">
             <div class="modal-content">
                 <div class="modal-header mv-modal-header">
                     <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="faqModInputClose"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="noticeModInputClose"></button>
                 </div>
                 <div class="modal-body mv-modal-body">
-                    <!-- FAQ 등록 모달 내용 -->
+                    <!-- 사용자 등록 모달 내용 -->
                     <div class="mb-0 user-wrap">
                       <div class="st_wrap">
-                        <label class="col-md-2 col-form-label st_title">FAQ 수정</label>
+                        <label class="col-md-2 col-form-label st_title">공지사항 수정</label>
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
-	                       	<form name="faqupdateform">
-								<input type="hidden" name="faq_idx" id="modFaqIdx"/>
+	                       	<form name="noticeupdateform">
+								<input type="hidden" name="notice_idx" id="modNoticeIdx"/>
 	                            <table class="table mb-0">
 	                                <tbody>
 	                                    <tr>
-	                                      <td>질문</td>
+	                                      <td>제목</td>
 	                                        <td>
-	                                          <textarea name="faq_content" id="modFaqContent" cols="70" rows="3" required></textarea>
+	                                          <input type="text" name="notice_title" id="modNoticeTitle">
 	                                        </td>
 	                                    </tr>
 	
 	                                    <tr>
-	                                      <td>답변</td>
+	                                      <td>내용</td>
 	                                      <td>
-	                                      	<textarea name="answer_contents" id="modAnswerContents" cols="70" rows="3" required></textarea>
+	                                      	<textarea name="notice_content" id="modNoticeContent" cols="70" rows="10"></textarea>
 	                                      </td>
 	                                    </tr>
 	                                </tbody>
 	                            </table>
-	                            <button class="btn btn-secondary btn_save" type="button" id="faqModBtn">저장</button>
+	                            <button class="btn btn-secondary btn_save" type="button" id="noticeModBtn">저장</button>
                       		</form>
                         </div>
                     </div>
@@ -145,26 +185,62 @@
             </div>
         </div>
     </div>
-      <!-- FAQ 목록 -->
+      <!-- 사용자 목록 -->
         <div class="card-body">
           <div class="table-responsive">
               <table class="table mb-0">
-                  
+                  <thead>
+                      <tr class="tr_bgc">
+                          <th><input type="checkbox" id="allCheck" value="" onchange="agreeAllCheck();"></th>
+                          <th>번호</th>
+                          <th>구분</th>
+                          <th>제목</th> 
+                          <th>기관명</th> 
+                          <th>등록자</th>
+                          <th>등록일시</th>
+                          <th>수정자</th>
+                          <th>수정일시</th>
+                          <th>조회수</th>
+                          <th>수정</th>
+                      </tr>
+                  </thead>
                   <tbody>
-                      <c:forEach var="faqList" items="${faqList}">
-	                      <tr style="border-bottom: 2px solid;">
-	                          <td style="width: 5%;">
-	                            <input type="checkbox" name="faq_seqList" id="" class="check_temp" value="${faqList.faq_idx}">
+                      <c:forEach var="errorFixList" items="${errorFixList}">
+	                      <tr>
+	                          <td>
+	                            <input type="checkbox" name="error_fix_seqList" id="" class="check_temp" value="${errorFixList.error_fix_idx}">
 	                          </td>
-	                          <td style="width: 5%;">
-	                          	${perPageNum + 1 - faqList.rnum}
+	                          <td>
+	                          	${perPageNum + 1 - errorFixList.rnum}
 	                          </td>
-	                          <td style="width: 80%;">
-	                            <span class="q_wrap"><div class="faq_icon">Q</div>${faqList.faq_content}</span>
-	                            <span class="a_warp"><div class="faq_icon">A</div>${faqList.answer_contents}</span>
-                          	  </td>
-	                          <td style="width: 10%;">
-	                            <button type="button" class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#FaqModal" onclick="faqModPopup('${faqList.faq_idx}');">수정</button>
+	                           <td>
+	                            ${errorFixList.board_type eq "E" or "e" ? "오류신고" : "개선사항"}
+	                           </td>
+	                          <td>
+		                          <a class="errorFixDetail" href="#myModal2" data-bs-toggle="modal" data-id="${errorFixList.error_fix_idx}">
+	                                ${errorFixList.error_fix_title}
+	                              </a>
+                           	  </td>
+                           	  <td>
+	                            ${errorFixList.error_fix_org_nm}
+	                           </td>
+	                           <td>
+	                            ${errorFixList.reg_user}
+	                           </td>
+	                           <td>
+	                            ${errorFixList.reg_date}
+	                           </td>
+	                           <td>
+	                            ${errorFixList.mod_user}
+	                           </td>
+	                           <td>
+	                            ${errorFixList.mod_date}
+	                           </td>
+	                           <td>
+	                            ${errorFixList.count}
+	                           </td>
+	                           <td>
+	                            <button type="button" class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#ErrorFixModal" onclick="errorFixModPopup('${errorFixList.error_fix_idx}');">수정</button>
 	                          </td>
 	                      </tr>
 					</c:forEach>
@@ -191,17 +267,17 @@
       </div>
     </div>
     </div>	
+	
 	<script>	
-		
-		<%-- FAQ 조건 검색 --%>
-		function faqSearchList(){
-			// 사용자 조건 검색			
-			var queryString = $("form[name=faqSearchForm]").serialize();
+		<%-- 오류신고/개선사항 조건 검색 --%>
+		function errorFixSearchList(){
+			// 오류신고/개선사항 조건 검색			
+			var queryString = $("form[name=errorFixSearchForm]").serialize();
 			var search_word = $('#search_word').val();
 			var search_type = $('#search_type').val();
 				$.ajax({
 					type : 'post',
-					url : '/faq/faqListAjax.do',
+					url : '/errorFix/errorFixListAjax.do',
 					data : queryString,
 					dataType : 'html',
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -222,14 +298,14 @@
 			  };
 		});
 		
-		<%-- FAQ 페이지 이동 --%>
+		<%-- 공지사항 페이지 이동 --%>
 		function goPage(value) {
 			var search_word = $('#search_word').val();
 			var search_type = $('#search_type').val();
 			var page = value;
 			$.ajax({
 				type : 'POST',                 
-				url : '/faq/faqListAjax.do',   
+				url : '/notice/noticeListAjax.do',   
 				data:{
 					search_word : search_word,
 					search_type : search_type,
@@ -251,7 +327,7 @@
 		function changePerPageNum(value) {
 			$.ajax({
 				type : 'POST',                
-				url : '/faq/faqListAjax.do',
+				url : '/notice/noticeListAjax.do',
 				data : {
 					perPageNum : value
 				},

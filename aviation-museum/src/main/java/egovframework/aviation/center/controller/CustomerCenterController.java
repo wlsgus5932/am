@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import egovframework.aviation.center.service.ErrorFixService;
 import egovframework.aviation.center.service.FaqService;
 import egovframework.aviation.center.service.NoticeService;
+import egovframework.aviation.center.vo.ErrorFixVO;
 import egovframework.aviation.center.vo.FaqVO;
 import egovframework.aviation.center.vo.NoticeVO;
 import egovframework.aviation.paging.Criteria;
@@ -25,6 +27,7 @@ public class CustomerCenterController {
 	
 	private final NoticeService noticeService;
 	private final FaqService faqService;
+	private final ErrorFixService errorFixService;
 	
 	/** 공지사항 메인 */
 	@GetMapping("/notice.do")
@@ -196,6 +199,31 @@ public class CustomerCenterController {
         return "jsonView";
     }
 	
+	/** 오류신고/개선사항 메인 */
+	@GetMapping("/errorFix.do")
+	public String Error_Fix(HttpServletRequest req) throws Exception {
+
+		return "center/error_fix/error_fix_Main";
+	}
 	
+	/** 오류신고/개선사항 목록 조회 */
+	@RequestMapping("/errorFix/errorFixListAjax.do")
+	public String ErrorFixListAjax(@ModelAttribute("errorFixVO") ErrorFixVO errorFixVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
+		int perPageNum = errorFixService.getErrorFixListCnt(errorFixVO);		
+		
+		PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    pageMaker.setTotalCount(perPageNum);
+		    
+	    errorFixVO.setPageStart(cri.getPageStart());
+	    errorFixVO.setPerPageNum(cri.getPerPageNum());
+		List<ErrorFixVO> errorFixList = errorFixService.getErrorFixList(errorFixVO);
+
+		model.addAttribute("errorFixList", errorFixList);
+		model.addAttribute("perPageNum", perPageNum);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "center/error_fix/error_fix_List";
+	}
 	
 }
