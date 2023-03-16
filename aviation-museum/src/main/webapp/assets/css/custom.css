@@ -1,6 +1,9 @@
 * {
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 300 !important;
+  list-style: none;
+  margin:0;
+  padding:0;
 }
 
 button {
@@ -51,7 +54,7 @@ table {
 .custom_btn {
   transition: 0.1s;
   font-size: 14px;
-  /* 	padding: 0.1% 1% 0.1% 1%; */
+  padding: 0.1% 0.5% 0.1% 0.5%;
   border-radius: 6px;
   border: 0;
   /* 	padding: 0.5%; */
@@ -72,7 +75,7 @@ table {
   background-color: #fff;
   color: #7d7d7d;
   border: 1px solid #d2d2d2;
-  /*     width: 50px; */
+  width: 50px;
 }
 
 .btn_user_registration,
@@ -160,6 +163,13 @@ table {
   color: #fff;
 }
 
+
+.custom_img_list_btn {
+	width: auto !important
+}
+
+
+
 /* 커스텀 버튼 끝 */
 
 .tap_text p span {
@@ -209,7 +219,7 @@ table {
 
 th,
 td {
-  text-align: center;
+  text-align: center !important;
 }
 
 .main_left_menu {
@@ -332,6 +342,7 @@ td {
 } */
 
 .fr_wrap {
+	width: 100%;
 }
 
 .fr_1 {
@@ -616,6 +627,7 @@ th {
 
 .img-nav-item {
   width: 33%;
+  background: none;
 }
 
 .img-row {
@@ -706,6 +718,8 @@ th {
 
 .img-btn-wrap {
   float: right;
+  width: 100%;
+  text-align: right;
 }
 
 .img-btn-wrap dt {
@@ -713,8 +727,9 @@ th {
 }
 
 .img-btn {
-  width: auto;
   float: right;
+  width: 100%;
+  text-align: right;
 }
 
 .img-select {
@@ -827,3 +842,36 @@ th {
   background-color: #fff;
   margin: 0.5% auto;
 }
+
+.page_current_num, .page_total_num {
+	display: inline-block;
+}
+
+.search_left {
+	width: 100%;
+}
+
+.search_btn_left, .auto_btn_left, .st_title_wrap {
+	width: 100%;
+	
+}
+
+.search_btn_right, .auto_btn_right, .move_btn {
+	width: 100%;
+    float: right;
+    text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

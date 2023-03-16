@@ -7,7 +7,7 @@
 <hr/>
 <div class="accordion-item" id="preservation-div">
 	<h2 class="accordion-header" id="flush-headingOne">
-		<button class="accordion-button fw-medium ac_btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne${status.index}" aria-expanded="true" aria-controls="flush-collapseOne">버튼으로 수정 예정</button>
+		<button class="accordion-button fw-medium ac_btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne${status.index}" aria-expanded="true" aria-controls="flush-collapseOne"></button>
 	</h2>
 	<div id="flush-collapseOne${status.index}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
 		<div class="accordion-body text-muted">

@@ -8,25 +8,25 @@
                 	<form id="dataCardFrontSearchForm" name="dataCardFrontSearchForm" method="post" class="form-horizontal">           
 	                  <div class="col-md-10">
 	               	        <label class="col-md-2 col-form-label">자료구분</label>
-	                         <select class="form-select" name="org_nm" onChange="orgCodeChange();">
+	                         <select class="search_select" name="org_nm" onChange="orgCodeChange();">
 	                         	<option value="">전체</option>
 	                             <c:forEach var="getOrgList" items="${getOrgList}">
 	                            		 <option value="${getOrgList.org_nm}">${getOrgList.org_nm}</option>
 	                      	    </c:forEach>
 	                         </select>
-	                       <select class="form-select" name="possession_nm" id="possession_select">
+	                       <select class="search_select" name="possession_nm" id="possession_select">
 	                           	<c:forEach var="getPosSessionList" items="${getPosSessionList}">
 	                           		<option value="${getPosSessionList.possession_nm}">${getPosSessionList.possession_nm}</option>        
 	                           	</c:forEach>                     
 	                       </select>
 	                      <label class="col-md-2 col-form-label">자료 번호</label>
 	                      <!-- <div class="col-md-10"> -->
-	                        <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="exampleDataList" placeholder=""  name="start_item_no">
-	                        <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="exampleDataList" placeholder=""  name="start_detail_item_no">
+	                        <input class="custom_search_input" list="datalistOptions" id="exampleDataList" placeholder=""  name="start_item_no">
+	                        <input class="custom_search_input" list="datalistOptions" id="exampleDataList" placeholder=""  name="start_detail_item_no">
 	                        ~
-	                        <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="exampleDataList" placeholder="" name="end_item_no">
-	                        <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="exampleDataList" placeholder="" name="end_detail_item_no">
-	                        <button class="custom_btn btn_search" type="button" onClick="dataCardFrontSearchList();">검색</button>
+	                        <input class="custom_search_input" list="datalistOptions" id="exampleDataList" placeholder="" name="end_item_no">
+	                        <input class="custom_search_input" list="datalistOptions" id="exampleDataList" placeholder="" name="end_detail_item_no">
+	                        <button class="custom_btn btn_707070" type="button" onClick="dataCardFrontSearchList();">검색</button>
 	                  </div>
                   </form>
                 </div>
@@ -41,12 +41,12 @@
                       <!-- <div class="col-md-10"> -->
                         <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="firstItemNo" placeholder="" readonly="readonly" value="${firstItemNo}">
                         <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="firstItemDetailNo" placeholder="" readonly="readonly" value="${firstDetailItemNo}">
-                        <button class="custom_btn btn_search" type="button" onclick="pageBtn('prev')">이전</button>
+                        <button class="custom_btn btn_707070" type="button" onclick="pageBtn('prev')">이전</button>
                         <div class="page_current_num" id="page_current_num">1</div>
                         /
                         <div class="page_total_num" id="page_total_num">${dataCardFrontListTotal}</div>
-                        <button class="custom_btn btn_search" type="button" onclick="pageBtn('next')">다음</button>
-                        <button class="custom_btn btn_search" onclick="content_print()">인쇄</button>
+                        <button class="custom_btn btn_707070" type="button" onclick="pageBtn('next')">다음</button>
+                        <button class="custom_btn btn_707070" onclick="content_print()">인쇄</button>
                   </div>
                 </div>
               </div>
@@ -162,7 +162,7 @@
 						$('#'+next_num).css('display', 'block');	
 						$('#firstItemNo').val($('#'+next_num).find('#item_no').val());
 						$('#firstItemDetailNo').val($('#'+next_num).find('#item_detail_no').val());
-					}
+					} 
             	}
             }
             function orgCodeChange() {

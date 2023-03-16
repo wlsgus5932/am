@@ -2,15 +2,15 @@
   padding: 0.75rem 0.5rem !important;
 }
 
-.auto_btn_left {
-  width: 50%;
-  float: left;
-}
+/* .auto_btn_left { */
+/*   width: 50%; */
+/*   float: left; */
+/* } */
 
-.auto_btn_right {
-  width: 50%;
-  float: right;
-}
+/* .auto_btn_right { */
+/*   width: 50%; */
+/*   float: right; */
+/* } */
 
 .auto_btn_right button {
   float: right;

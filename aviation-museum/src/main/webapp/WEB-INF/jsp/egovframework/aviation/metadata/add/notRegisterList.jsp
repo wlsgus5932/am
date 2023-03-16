@@ -35,7 +35,7 @@
     <!-- Begin page -->
     <div id="layout-wrapper">
     <jsp:include page="../../common/inc/headerContent.jsp" />
-    
+
       <!-- ============================================================== -->
       <!-- Start right Content here -->
       <!-- ============================================================== -->
@@ -64,22 +64,22 @@
 		                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
 		                     </c:forEach>
                   </select>
-                
-                
+
+
                 <label class="col-md-2 col-form-label">자료 번호</label>
                   <!-- <div class="col-md-10"> -->
                     <input class="form-control" list="datalistOptions" id="item_no" placeholder="자료 번호" name="item_no">
                     <input class="form-control" list="datalistOptions" id="item_detail_no" placeholder="세부" name="item_detail_no">
                     <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="search_item_base()">조회</button>
                     <!--  -->
-                    
+
                     <button class="btn btn-secondary waves-effect waves-light btn_ml">인쇄</button>
-                    <select class="form-select fls kor_sl">
+                    <!-- <select class="form-select fls kor_sl">
                       <option disabled selected>한글</option>
                       <option>더미1</option>
                       <option>더미2</option>
                       <option>더미3</option>
-                  </select>
+                  </select> -->
                    <ul class="pagination">
                     <li class="page-item"><a class="page-link" href="#"><<</a></li>
                     <li class="page-item"><a class="page-link" href="#"><</a></li>
@@ -91,7 +91,7 @@
           </div>
           <!--  -->
           <!-- 퀵메뉴 -->
-          
+
           <div class="modal fade imageUploadModal" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
                         <div class="modal-dialog modal-xl">
                           <div class="modal-content pro-modal-content">
@@ -102,7 +102,7 @@
                             <div class="modal-body mv-modal-body">
                             <div style="text-align: right; margin-bottom: 10px">
 			                        <button id="btn-add-files" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">파일추가</button>
-                             </div>   
+                             </div>
                                 <!-- 엑셀 모달 내용 -->
 			                      	<div id="dext5-container" style="width:100%; height:300px;"></div>
 			                      	<div id="dext5-btn" style="text-align: center; margin: 10px 10px 10px 10px;">
@@ -115,7 +115,7 @@
                     </div>
 
           <div class="accordion" id="accordionExample">
-          
+
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
                 <button
@@ -241,8 +241,9 @@
                         <div class="slider_count_wrap">
                           1/10
                         </div>
-                          <div class="card-title-desc">
-                            <button>원본보기</button><button>다운로드</button>
+						              <div class="card-title-desc">
+                            <button class="custom_btn btn_707070" type="button" style="margin-right: 1%;">원본보기</button>
+                            <button class="custom_btn btn_707070" type="button">다운로드</button>
                           </div>
                           <!--  -->
                           <div class="img-slider">
@@ -294,7 +295,7 @@
                                       	<c:forEach var="list" items="${qtyUnitList}" varStatus="status">
 		                                    <option value="${list.qty_unit_code_idx}">${list.qty_unit_nm}</option>
 		                                </c:forEach>
-                                    </select>	
+                                    </select>
                                   </td>
                                   <td>
                                      ICAO
@@ -349,15 +350,15 @@
                           </tbody>
                       </table>
                   </div>
-                  
+
               </div>
               </div>
                 <div class="mb-0">
                   <div class="st_wrap">
                     <label class="col-md-2 col-form-label st_title">분류체계</label>
-                    <button class="custom_btn btn_707070" type="button" >간편입력</button>
-                    <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('class-table', 'class-checkbox')">선택삭제</button>
-                    <button class="custom_btn btn_707070" type="button" onclick="addClassTd('class-table', 'class-tbody')">추가</button>
+                    <!-- <button class="custom_btn btn_707070" type="button" >간편입력</button> -->
+                    <!-- <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('class-table', 'class-checkbox')">선택삭제</button>
+                    <button class="custom_btn btn_707070" type="button" onclick="addClassTd('class-table', 'class-tbody')">추가</button> -->
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
@@ -406,18 +407,18 @@
                     </div>
                 </div>
               </div>
-              
-              
+
+
               <!-- ------------------------ddddddddddddddddddddmnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn -->
-              <!-- 기본 사항 - 분류체계 끝 --> 
+              <!-- 기본 사항 - 분류체계 끝 -->
               <!-- 기본사항 - 국적 시작 -->
-             
+
               <div class="mb-0">
                 <div class="st_wrap">
                   <label class="col-md-2 col-form-label st_title">국적</label>
-                  <button class="custom_btn btn_707070" type="button" >간편입력</button>
+                  <!-- <button class="custom_btn btn_707070" type="button" >간편입력</button>
                   <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('country-table', 'country-checkbox')">선택삭제</button>
-                  <button class="custom_btn btn_707070" type="button" onclick="addClassTd('country-table', 'country-tbody')">추가</button>
+                  <button class="custom_btn btn_707070" type="button" onclick="addClassTd('country-table', 'country-tbody')">추가</button> -->
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -464,9 +465,9 @@
             <div class="mb-0">
               <div class="st_wrap">
                 <label class="col-md-2 col-form-label st_title">재질</label>
-                <button class="custom_btn btn_707070" type="button" >간편입력</button>
+                <!-- <button class="custom_btn btn_707070" type="button" >간편입력</button>
                 <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('material-table', 'material-checkbox')">선택삭제</button>
-                <button class="custom_btn btn_707070" type="button" onclick="addClassTd('material-table', 'material-tbody')">추가</button>
+                <button class="custom_btn btn_707070" type="button" onclick="addClassTd('material-table', 'material-tbody')">추가</button> -->
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -507,13 +508,13 @@
           </div>
             <!-- 기본사항 - 재질 끝 -->
             <!-- 기본사항 - 크기 시작 -->
-            
+
             <div class="mb-0">
               <div class="st_wrap">
                 <label class="col-md-2 col-form-label st_title">크기</label>
-                <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button">간편입력</button>
+                <!-- <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button">간편입력</button>
                 <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" onclick="deleteClassTd('measurement-table', 'measurement-checkbox')">선택삭제</button>
-                <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" onclick="addClassTd('measurement-table', 'measurement-tbody')">추가</button>
+                <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" onclick="addClassTd('measurement-table', 'measurement-tbody')">추가</button> -->
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -669,20 +670,24 @@
                               </td>
                               <td>
                                 문화재 지정
-                                <input type="checkbox" name="" id="">
                               </td>
                               <td>
-                                <input class="form-control st_input" list="datalistOptions" id="obt_designation" placeholder="문화재 지정 내용을 입력해 주세요." name="obt_designation">
+                                <select class="form-select st_select" name="obt_designation" id="obt_designation">
+                                  <option value="N" selected>N</option>
+                                  <option value="Y">Y</option>
+                                </select>
                               </td>
                           </tr>
                           <!-- 7 -->
                           <tr>
                             <td>
                               문화재 환수
-                              <input type="checkbox" name="" id="">
                             </td>
                               <td>
-                                <input class="form-control st_input" list="datalistOptions" id="obt_redemption" placeholder="환수 경로를 입력해 주세요." name="obt_redemption">
+                                <select class="form-select st_select" name="obt_redemption" id="obt_redemption">
+                                  <option value="N" selected>N</option>
+                                  <option value="Y">Y</option>
+                                </select>
                               </td>
                               <td>
                                 문화재 환수 국적
@@ -702,7 +707,6 @@
                               문화재 환수 수량
                             </td>
                               <td>
-                                <input class="form-control st_input pri" list="datalistOptions" id="obt_qty" placeholder="환수 경로를 입력해 주세요." name="obt_qty">
                                 <select class="form-select st_select pri" id="obt_qty_unit_code_idx" name="obt_qty_unit_code_idx">
                                   <option value="" selected>문화재 환수 단위</option>
                                   		<c:forEach var="list" items="${qtyUnitList}" varStatus="status">
@@ -767,7 +771,7 @@
                   </table>
               </div>
           </div>
-          
+
           <input type="hidden" id="gameToken" name="reg_user" value="jinhyun">
           <input type="hidden" id="gameToken" name="reg_state" value="N">
         </div>
@@ -777,8 +781,8 @@
           <div class="mb-0">
             <div class="st_wrap">
               <label class="col-md-2 col-form-label st_title">관련자료</label>
-              <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" onclick="deleteClassTd('possession-table', 'possession-checkbox')">선택삭제</button>
-              <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" onclick="addClassTd('possession-table', 'possession-tbody')">추가</button>
+             <!--  <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" onclick="deleteClassTd('possession-table', 'possession-checkbox')">선택삭제</button>
+              <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" type="button" onclick="addClassTd('possession-table', 'possession-tbody')">추가</button> -->
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -823,8 +827,8 @@
         <div class="mb-0">
           <div class="st_wrap">
             <label class="col-md-2 col-form-label st_title">보험 관계기록</label>
-            <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteClassTd('insurance-table', 'insurance-checkbox')">선택삭제</button>
-            <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="addClassTd('insurance-table', 'insurance-tbody')">추가</button>
+            <!-- <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteClassTd('insurance-table', 'insurance-checkbox')">선택삭제</button>
+            <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="addClassTd('insurance-table', 'insurance-tbody')">추가</button> -->
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -886,8 +890,8 @@
         <div class="mb-0">
           <div class="st_wrap">
             <label class="col-md-2 col-form-label st_title">저작권</label>
-            <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteClassTd('copyright-table', 'copyright-checkbox')">선택삭제</button>
-            <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="addClassTd('copyright-table', 'copyright-tbody')">추가</button>
+            <!-- <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteClassTd('copyright-table', 'copyright-checkbox')">선택삭제</button>
+            <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="addClassTd('copyright-table', 'copyright-tbody')">추가</button> -->
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -948,13 +952,12 @@
         <!-- 기본사항 - 저작권 끝 -->
         <!--  -->
         <!-- 기본사항 - 대국민 서비스 시작 -->
-        <div class="mb-0">
+         <div class="mb-0">
           <div class="st_wrap">
             <label class="col-md-2 col-form-label st_title">대국민 서비스</label>
             <select class="form-select st_select ser_sel" id="public_service" name="public_service">
-              <option value="" selected>선택</option>
+              <option value="N" selected>비사용</option>
               <option value="Y">사용</option>
-              <option value="N">비사용</option>
             </select>
           </div>
           <div class="card-body">
@@ -1028,7 +1031,7 @@
                     </tbody>
                 </table>
             </div>
-           
+
         </div>
       </div>
       <!--  -->
@@ -1039,16 +1042,14 @@
           <input type="text" class="st_inp_tbox" placeholder="키워드를 입력해 주세요. 콤마 단위로 입력해주세요." id="keyword" name="keyword">
       </div>
       </form>
-      <div class="mb-0">
-        <div class="st_wrap">
-        	<button type="button" class="submit_btn" onclick="submitForm()">저장하기</button>
-        </div>
-       </div>
+		<!-- <div class="mb-0 btn_add_save_wrap">
+        	<button type="button" class="custom_btn btn_c58672" onclick="submitForm()">저장하기</button>
+        </div> -->
       </div>
              <!-- End Page-content -->
         <!-- End Page-content -->
             <!-- form 끝 -->
-            
+
          <!-- 기본사항 - 자료정보변경이력 끝 -->
         <!--  -->
         <!--  -->
@@ -1099,7 +1100,7 @@
                                                   </td>
                                               </tr>
                                               <tr id="movement-in-tr">
-                                                <td>보관처</td> 
+                                                <td>보관처</td>
                                                 <td>
                                                   <select class="form-select st_select" name="storage1_code_idx" id="storage1_code1" onchange="change_storage1(this.value, 1)">
                                                     <option selected value="null">선택</option>
@@ -1168,7 +1169,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="past-movement-tbody">
-                                        
+
                                         </tbody>
                                     </table> -->
                                 </div>
@@ -1185,8 +1186,8 @@
                     <label class="col-md-2 col-form-label st_sub_title">| 수주량 : 0</label>
                   </div>
                   <div class="move_btn">
-                    <button type="button" class="btn btn-primary waves-effect waves-light btn_ml btn_wh btn_ex">엑셀파일</button>
-                    <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" data-bs-toggle="modal" data-bs-target="#myModal" onclick="btn_control(0)">이동사항 등록</button>
+                    <button type="button" class="custom_btn btn_ex">엑셀파일</button>
+                    <!-- <button type="button" class="custom_btn btn_707070" data-bs-toggle="modal" data-bs-target="#myModal" onclick="btn_control(0)">이동사항 등록</button> -->
                   </div>
                 </div>
                 <div class="card-body">
@@ -1217,76 +1218,68 @@
               </div>
             </div>
             </div>
-            
+
             <!-- 이미지정보 -->
             <div class="tab-pane" id="messages" role="tabpanel">
                 <div class="mb-0">
                   <!--  -->
                   <div class="st_wrap st_mv_wrap">
-  			
+
 
                     <ul class="nav nav-pills mb-3 img-nav img-nav-item" id="pills-tab" role="tablist">
-                      <li class="nav-item" role="presentation">
+                      <li class="nav-item custom_img_list_btn" role="presentation">
                         <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">이미지</button>
                       </li>
-                      <li class="nav-item" role="presentation">
+                      <li class="nav-item custom_img_list_btn" role="presentation">
                         <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">리스트</button>
                       </li>
                     </ul>
                     <!--  -->
                     <div class="img-btn">
                       리스트 출력 갯수 :
-                        <select class="form-select st_select img-select" id="ImageperPageNum" onchange="getImageList()">
+                        <select class="search_select" id="ImageperPageNum" onchange="getImageList()">
                           <option value="10" selected>10개</option>
                           <option value="20" >20개</option>
                           <option value="30" >30개</option>
                           <option value="50" >50개</option>
                         </select>
-                        <!-- 
+                        <!--
 	                     <label for="image-upload-file" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">업로드</label> -->
 <!--                     <input style="display:none" id="image-upload-file" name="image_upload_file" class="form-control st_input" type="file" accept="image/*" onchange="change_img_info(this)" multiple> -->
-						 <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" data-bs-toggle="modal" data-bs-target=".imageUploadModal">업로드</button>
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="downloadImageChecked()">다운로드</button>
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="imageAllCheck()">전체선택</button>
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="imageCancelCheck()">선택해지</button>
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteImageChecked()">선택삭제</button>
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="preview()">미리보기</button>
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" >엑셀파일</button>
-                         
+						 <!-- <button type="button" class="custom_btn btn_6466ab" data-bs-toggle="modal" data-bs-target=".imageUploadModal">업로드</button> -->
+                         <button type="button" class="custom_btn btn_7288c5" onclick="downloadImageChecked()">다운로드</button>
+                         <!-- <button type="button" class="custom_btn btn_707070" onclick="imageAllCheck()">전체선택</button>
+                         <button type="button" class="custom_btn btn_707070" onclick="imageCancelCheck()">선택해지</button>
+                         <button type="button" class="custom_btn btn_707070" onclick="deleteImageChecked()">선택삭제</button>
+                         <button type="button" class="custom_btn btn_707070" onclick="preview()">미리보기</button> -->
+                         <button type="button" class="custom_btn btn_ex" >엑셀파일</button>
+
                     </div>
                   </div>
                   <!--  -->
                   <div class="tab-content" id="pills-tabContent">
                     <!--  -->
                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    
+
                       <div id="imageInfoZone"></div>
                     </div>
                     <!--  -->
-                    
+
                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" >
                     	<div id="imageInfoListZone"></div>
                     </div>
                   </div>
                 </div>
             </div>
-            
-            
+
+
             <!-- 보존처리 -->
             <div class="tab-pane" id="settings" role="tabpanel">
-            
-            <div class="mb-0">
-		        <div class="st_wrap">
-		        
-		        	<button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="addPreservation()">전체 저장하기</button>
-		        </div>
-		     </div>
             <form id="preservation-form0" enctype="multipart/form-data">
             <div id="accordion-div">
               <div class="accordion-item" id="preservation-div">
                 <h2 class="accordion-header" id="flush-headingOne">
                   <button class="accordion-button fw-medium ac_btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
-                    버튼으로 수정 예정
                   </button>
                 </h2>
                 <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
@@ -1337,31 +1330,32 @@
               <div class="mb-0">
                 <div class="st_wrap" id="resut-div">
                   <label class="col-md-2 col-form-label st_title">처리결과</label>
-                    <label for="result-uploadFile" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">업로드</label>
-					<input style="display:none" class="form-control st_input" type="file" name="result_uploadFile" id="result-uploadFile" onchange="resultImg(this, 0)" accept="image/*"><br/> 
+                    <!-- <label for="result-uploadFile" class="custom_btn btn_6466ab btn_add_preservation_padding">업로드</label>
+					<input style="display:none" class="form-control st_input" type="file" name="result_uploadFile" id="result-uploadFile" onchange="resultImg(this, 0)" accept="image/*"> -->
+          <br/>
                   <!-- <input type="file" name="uploadFile" onchange="resultImg(this)"><br/> -->
                   <div id="result-img-preview0">
-                  
+
                   </div>
                   <!-- <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">업로드</button> -->
                 </div>
-                
+
                  <!--  <img id="result-img" style="width: 100px; height: 100px;"/> -->
             </div>
             <div class="mb-0" id="before-div">
               <div class="st_wrap">
                 <label class="col-md-2 col-form-label st_title" style="display:inline">보존처리 전 이미지</label>
-                
-                <label for="before-uploadFile" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" style="display:inline">업로드</label>
-				<input type="file" name="before_uploadFile" id="before-uploadFile" onchange="beforeImg(this, 0)" multiple style="display:none;" accept="image/*">
-                
-                <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">다운로드</button>
-                <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="allCheck('before', '0')">전체선택</button>
-                <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="cancelCheck('before', '0')">선택해지</button>
-                <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteChecked('before', '0')">선택삭제</button>
-                
+
+                <!-- <label for="before-uploadFile" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
+				<input type="file" name="before_uploadFile" id="before-uploadFile" onchange="beforeImg(this, 0)" multiple style="display:none;" accept="image/*"> -->
+
+                <button class="custom_btn btn_7288c5">다운로드</button>
+                <!-- <button type="button" class="custom_btn btn_707070" onclick="allCheck('before', '0')">전체선택</button>
+                <button type="button" class="custom_btn btn_707070" onclick="cancelCheck('before', '0')">선택해지</button>
+                <button type="button" class="custom_btn btn_707070" onclick="deleteChecked('before', '0')">선택삭제</button> -->
+
                 <div id="before-img-preview0">
-                  
+
                   </div>
               </div>
               <!-- <img id="before-img" style="width: 50px; height: 50px;"/> -->
@@ -1370,22 +1364,22 @@
               <div class="st_wrap">
                 <label class="col-md-2 col-form-label st_title">보존처리 후 이미지</label>
                 <!-- <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" data-bs-toggle="modal" data-bs-target=".imageUploadModal">업로드</button> -->
-                <label for="after-uploadFile" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" style="display:inline">업로드</label>
-				<input type="file" name="after_uploadFile" id="after-uploadFile" onchange="afterImg(this, 0)" multiple style="display:none;" accept="image/*">
-				
-                <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">다운로드</button>
-                <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="allCheck('after', '0')">전체선택</button>
-                <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="cancelCheck('after', '0')">선택해지</button>
-                <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteChecked('after', '0')">선택삭제</button>
-                
+                <!-- <label for="after-uploadFile" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
+				<input type="file" name="after_uploadFile" id="after-uploadFile" onchange="afterImg(this, 0)" multiple style="display:none;" accept="image/*"> -->
+
+                <button class="custom_btn btn_7288c5">다운로드</button>
+                <!-- <button type="button" class="custom_btn btn_707070" onclick="allCheck('after', '0')">전체선택</button>
+                <button type="button" class="custom_btn btn_707070" onclick="cancelCheck('after', '0')">선택해지</button>
+                <button type="button" class="custom_btn btn_707070" onclick="deleteChecked('after', '0')">선택삭제</button> -->
+
                 <div id="after-img-preview0">
-                  
+
                   </div>
               </div>
               </div>
-              <div class="mb-0">
+             <!--  <div class="mb-0">
                   <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" id="addPreservationBtn0" onclick="addPreservation(0)">저장</button>
-               </div>
+               </div> -->
               <!-- <div class="mb-0">
               <div class="st_wrap">
             	<button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="addPreservation()">저장</button>
@@ -1394,30 +1388,28 @@
               </div> -->
               </div>
             </div>
-            
-            <button type="button" class="mb-0" id="add-tab-btn" onclick="cloneDiv()">
-              <div class="st_wrap">
+
+			<!-- <button type="button" class="btn_add_preservation_wrap" id="add-tab-btn" onclick="cloneDiv()">
                 <label class="col-md-2 col-form-label st_title" style="cursor: pointer"> + 보존처리 추가</label>
-              </div>
-            </button>
+            </button> -->
             </div>
           </div>
           </form>
-            
+
             <!-- 전문정보 -->
             <div class="tab-pane" id="settings22" role="tabpanel">
                 <div class="mb-0">
                   <div class="st_wrap">
                       <label class="col-md-2 col-form-label st_title">전문정보검색</label>
-                      <select class="form-select st_select pro_info" name="speciality_code_idx_search">
+                      <select class="search_select" name="speciality_code_idx_search">
                          <option selected value="">전체</option>
                          <c:forEach var="list" items="${specialityCodeList}" varStatus="status">
 							<option value="${list.speciality_code_idx}">${list.speciality_nm}</option>
 						 </c:forEach>
                       </select>
-                      <input class="form-control st_input pro_info" list="datalistOptions" id="speciality_title_search" placeholder="제목을 입력해 주세요.">
-                      <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="getSpecialitySearch()">조회</button>
-                      <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" id="spc-add-button">자료등록</button>
+                      <input class="custom_search_input" list="datalistOptions" id="speciality_title_search" placeholder="제목을 입력해 주세요.">
+                      <button type="button" class="custom_btn btn_707070" onclick="getSpecialitySearch()">조회</button>
+                      <button type="button" class="custom_btn btn_689e97" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" id="spc-add-button">자료등록</button>
                       <!--전문정보 자료등록 버튼 모달창 -->
                       <div class="modal fade bs-example-modal-xl" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
                         <div class="modal-dialog modal-xl">
@@ -1428,7 +1420,7 @@
                             </div>
                             <div class="modal-body mv-modal-body">
                                 <!-- 엑셀 모달 내용 -->
-                                  
+
                               <form id="speciality-form" enctype="multipart/form-data">
                                 <div class="mb-0 move-wrap pro-wrap">
                                   <div class="st_wrap">
@@ -1471,7 +1463,7 @@
 														</div>
                                                     </td>
                                                       <!-- <button class="btn btn-secondary waves-effect waves-light">파일 업로드</button> -->
-                                                    
+
                                                 </tr>
                                                 <tr>
                                                   <td>저작권자</td>
@@ -1500,7 +1492,7 @@
                   </div>
                   <div class="card-body">
                     <div class="table-responsive" id="specialityZone">
-                        
+
                     </div>
                 </div>
               </div>
@@ -1509,7 +1501,7 @@
           <!--  -->
 
         </div>
-        
+
 
         <footer class="footer">
           <div class="container-fluid">
@@ -1740,7 +1732,7 @@
       </div>
       <div class="offcanvas-body">...</div>
     </div>
-    <!-- 
+    <!--
     JAVASCRIPT
     <script src="./assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/libs/metismenujs/metismenujs.min.js"></script>
@@ -1750,7 +1742,7 @@
     <script src="./assets/libs/apexcharts/apexcharts.min.js"></script>
     <script src="./assets/js/pages/dashboard.init.js"></script>
     <script src="./assets/js/app.js"></script>
-    
+
     <script src="./assets/libs/swiper/swiper-bundle.min.js"></script>
     <script src="./assets/js/pages/ecommerce-product-detail.init.js"></script> -->
 
@@ -1764,8 +1756,8 @@
     <script src="<c:url value='/assets/libs/apexcharts/apexcharts.min.js'/>" defer></script>
     <script src="<c:url value='/assets/js/app.js'/>" defer></script>
     <script src="<c:url value='/assets/js/pages/dashboard.init.js'/>" defer></script>
-    
-   
-    
+
+
+
   </body>
 </html>

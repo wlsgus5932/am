@@ -90,7 +90,7 @@
       </div>
        <div class="st_wrap st_mv_wrap">
                 <div>
-                    <select class="form-select st_select img-select" id="perPageNum" name="perPageNum" onchange="changePerPageNum(value);">
+                    <select class="search_select" id="perPageNum" name="perPageNum" onchange="changePerPageNum(value);">
                      	<option value="10" <c:if test="${pageMaker.cri.perPageNum == 10}">selected</c:if>>10개씩 보기</option>
                         <option value="20" <c:if test="${pageMaker.cri.perPageNum == 20}">selected</c:if>>20개씩 보기</option>
                         <option value="30" <c:if test="${pageMaker.cri.perPageNum == 30}">selected</c:if>>30개씩 보기</option>

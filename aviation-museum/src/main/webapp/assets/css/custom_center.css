@@ -4,6 +4,7 @@
 .a_warp {
   width: 100%;
   display: block;
+  text-align: left;
 }
 
 .faq_icon {

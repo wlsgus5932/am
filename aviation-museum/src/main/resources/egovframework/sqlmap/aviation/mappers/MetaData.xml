@@ -454,9 +454,15 @@
 			insert into nam_keyword (
 				item_idx, keyword, reg_user, reg_date
 			)
-			values (
-				(SELECT MAX(ITEM_IDX) FROM nam_item_base as nm), #{keyword}, #{reg_user}, now()
+			values 
+			<foreach collection="itembasekeyword" item="item" index="index" separator=",">
+			(
+				#{item_idx},
+				#{item},
+				#{reg_user},
+				now()
 			)
+			</foreach>
 	</insert>
 	
 	<update id="updateKeyword" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
@@ -547,103 +553,103 @@
 	
 	<!-- add.do 로드 시 select -->
 	<select id="getCountry" resultMap="CountryResult">
-			SELECT * FROM nam_country_code
+			SELECT * FROM nam_country_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getEra" resultMap="EraResult" parameterType="int">
-			SELECT * FROM nam_era_code where country_code_idx = #{country}
+			SELECT * FROM nam_era_code where country_code_idx = #{country} and enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getMaterial1" resultMap="Material1Result">
-			SELECT * FROM nam_material1_code
+			SELECT * FROM nam_material1_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getMaterial2" resultMap="Material2Result" parameterType="int">
-			SELECT * FROM nam_material2_code where material1_code_idx = #{material}
+			SELECT * FROM nam_material2_code where material1_code_idx = #{material} and enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getIcao" resultMap="IcaoResult">
-			SELECT * FROM nam_icao_code
+			SELECT * FROM nam_icao_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getExistence" resultMap="existenceResult">
-			SELECT * FROM nam_existence_code
+			SELECT * FROM nam_existence_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getMeasurement" resultMap="measurementResult">
-			SELECT * FROM nam_measurement_code
+			SELECT * FROM nam_measurement_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getMeasurementUnit" resultMap="measurementUnitResult">
-			SELECT * FROM nam_measurement_unit_code
+			SELECT * FROM nam_measurement_unit_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getClass1" resultMap="class1Result">
-			SELECT * FROM nam_class1_code
+			SELECT * FROM nam_class1_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getClass2" resultMap="class2Result">
-			SELECT * FROM nam_class2_code
+			SELECT * FROM nam_class2_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getClass3" resultMap="class3Result">
-			SELECT * FROM nam_class3_code
+			SELECT * FROM nam_class3_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getObtainment" resultMap="obtainmentResult">
-			SELECT * FROM nam_obtainment_code
+			SELECT * FROM nam_obtainment_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getPurchase1" resultMap="purchase1Result">
-			SELECT * FROM nam_purchase1_code
+			SELECT * FROM nam_purchase1_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getPurchase2" resultMap="purchase2Result">
-			SELECT * FROM nam_purchase2_code
+			SELECT * FROM nam_purchase2_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getPriceUnit" resultMap="priceUnitResult">
-			SELECT * FROM nam_price_unit_code
+			SELECT * FROM nam_price_unit_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getQtyUnit" resultMap="qtyUnitResult">
-			SELECT * FROM nam_qty_unit_code
+			SELECT * FROM nam_qty_unit_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getCondition" resultMap="conditionResult">
-			SELECT * FROM nam_condition_code
+			SELECT * FROM nam_condition_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getRanking" resultMap="rankingResult">
-			SELECT * FROM nam_ranking_code
+			SELECT * FROM nam_ranking_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getPosSession" resultMap="posSessionResult">
-			SELECT * FROM nam_possession_code
+			SELECT * FROM nam_possession_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getGgnuri" resultMap="ggnuriResult">
-			SELECT * FROM nam_ggnuri_code
+			SELECT * FROM nam_ggnuri_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getOrg" resultMap="OrgResult">
-			SELECT * FROM nam_org_code
+			SELECT * FROM nam_org_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getStorageType1" resultType="egovframework.aviation.metadata.vo.StorageType1VO">
-			SELECT * FROM nam_storage_type1_code
+			SELECT * FROM nam_storage_type1_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getStorageType2" resultType="egovframework.aviation.metadata.vo.StorageType2VO">
-			SELECT * FROM nam_storage_type2_code where storage_type1_code_idx = #{type2}
+			SELECT * FROM nam_storage_type2_code where storage_type1_code_idx = #{type2} and enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getStorage" resultType="egovframework.aviation.metadata.vo.StorageVO">
-			SELECT * FROM nam_storage_code where parent_code = #{i}
+			SELECT * FROM nam_storage_code where parent_code = #{i} and enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getTaxonomy" resultType="egovframework.aviation.metadata.vo.metadata.TaxonomyVO">
-			SELECT * FROM nam_taxonomy where item_idx = #{item_idx}
+			SELECT * FROM nam_taxonomy where item_idx = #{item_idx} 
 	</select>
 	
 	<select id="getCountryEra" resultType="egovframework.aviation.metadata.vo.metadata.CountryEraVO">
