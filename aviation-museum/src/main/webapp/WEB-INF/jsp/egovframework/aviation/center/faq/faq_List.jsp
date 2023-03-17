@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
      <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block;">
-     <form id="noticeSearchForm" name="noticeSearchForm" method="post" class="form-horizontal">
+     <form id="faqSearchForm" name="faqSearchForm" method="post" class="form-horizontal">
 	      <div class="user_top_wrap" style="margin-top:20px;">
 	          <span>검색</span>
 	          <select class="search_select" id="search_type" name="search_type">
@@ -194,7 +194,7 @@
 	<script>	
 		
 		<%-- FAQ 조건 검색 --%>
-		function noticeSearchList(){
+		function faqSearchList(){
 			// 사용자 조건 검색			
 			var queryString = $("form[name=faqSearchForm]").serialize();
 			var search_word = $('#search_word').val();

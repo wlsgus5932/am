@@ -23,34 +23,30 @@
     <link href="<c:url value='/assets/css/app.min.css'/>" id="app-style" rel="stylesheet" type="text/css" />
     <!-- 커스텀 css -->
     <link href="<c:url value='/assets/css/custom.css'/>" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="<c:url value='/assets/css/custom_center.css'/>">
-    <link rel="stylesheet" href="<c:url value='/assets/css/custom_view.css'/>">
 <%--     <link rel="stylesheet" href="<c:url value='/assets/css/custom_user.css'/>"/> --%>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	
 	<script type="text/javascript">
 		
-	// 체크박스 전체선택 전체해제
-	function checkAll(){
-		var val = true;
-
-		if(!$('#checkAll').is(":checked")){
-			val = false;
+	
+		// 체크박스 전체선택 전체해제
+		function agreeAllCheck(){
+			var val = true;
+	
+			if(!$('#allCheck').is(":checked")){
+				val = false;
+			}
+			
+			var elems = document.getElementsByClassName("check_temp");
+			for(var i=0; elems.length>i; i++){
+				elems[i].checked = val;
+			}
 		}
-		
-		var elems = document.getElementsByClassName("check_temp");
-		for(var i=0; elems.length>i; i++){
-			elems[i].checked = val;
-		}
-	}
 		
 		$(function() {
-			// 첫 페이지
-// 			$('#notice').attr('aria-selected', 'true').addClass('active');
-			
 			$.ajax({
 				type : 'POST',                
-				url : '/faq/faqListAjax.do',    
+				url : '/errorFix/errorFixListAjax.do',    
 				dataType : "html",           
 				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 				error : function() {          
@@ -62,16 +58,16 @@
 			});
 		});
 	
-		// FAQ 등록
-		$(document).on('click', '#faqInsBtn', function(){
+		// 오류신고, 개선사항 등록
+		$(document).on('click', '#errorFixInsBtn', function(){
 
-			var queryString = $("form[name=faqinsertform]").serialize();
-			var check_submit = confirm('FAQ을 등록하시겠습니까?');
+			var queryString = $("form[name=errorFixinsertform]").serialize();
+			var check_submit = confirm('글을 등록하시겠습니까?');
 
 				if(check_submit){
 					$.ajax({
 						type : 'post',
-						url : '/faqinsert.do',
+						url : '/errorFixinsert.do',
 						data : queryString,
 						dataType : 'json',
 						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -79,22 +75,53 @@
 							alert(error);
 						},
 						success : function(success){
-							alert('FAQ가 등록되었습니다.');
-							$('#faqInsInputClose').click();
+							alert('글이 등록되었습니다.');
+							$('#errorFixInsInputClose').click();
 							location.reload();
 						}
 					});
 				}
 		});
 		
-		// FAQ 수정 팝업 버튼
-		function faqModPopup(value) {
-				var faq_idx = value;
+		// 오류신고, 개선사항 상세보기(제목클릭)
+		$(document).on('click', '.errorFixDetail', function() {
+			var idx = $(this).data('id');
+			$.ajax({
+				type : 'POST',                 
+				url : '/errorFixPopupAjax.do',   
+				data:{
+					error_fix_idx : idx
+				},
+				dataType : "json",           
+				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+				error : function() {        
+					alert('통신실패!');
+				},
+				success : function(data) {  
+					$.each(data, function(index, item) { // 데이터 =item
+						if(item.board_type == 'E') {
+							$('#boardType').val('오류신고');
+						} else if(item.board_type == 'F') {
+							$('#boardType').val('개선사항');
+						}
+						
+						$('#errorFixOrgNm').val(item.error_fix_org_nm);
+						$('#errorFixTitle').val(item.error_fix_title);
+						$('#errorFixContent').val(item.error_fix_content);
+						
+					});
+				}
+			});
+		});
+		
+		// 오류신고, 개선사항 수정 팝업 버튼
+		function errorFixModPopup(value) {
+				var error_fix_idx = value;
 				$.ajax({
 					type : 'POST',                 
-					url : '/faqPopupAjax.do',   
+					url : '/errorFixPopupAjax.do',   
 					data:{
-						faq_idx : faq_idx
+						error_fix_idx : error_fix_idx
 					},
 					dataType : "json",           
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -105,24 +132,26 @@
 							
 						$.each(data, function(index, item) { // 데이터 =item
 							
-							$('#modFaqIdx').val(value);
-							$('#modFaqContent').val(item.faq_content);
-							$('#modAnswerContents').val(item.answer_contents);
+							$('#modErrorFixIdx').val(value);
+							$('#modBoardType').val(item.board_type).prop("selected", true);
+							$('#modErrorFixOrgNm').val(item.error_fix_org_nm);
+							$('#modErrorFixTitle').val(item.error_fix_title);
+							$('#modErrorFixContent').val(item.error_fix_content);
 						});
 					}
 				});
 		}
 		
-		// FAQ 수정
-		$(document).on('click', '#faqModBtn', function(){
+		// 오류신고 | 개선사항 수정
+		$(document).on('click', '#errorFixModBtn', function(){
 
-			var queryString = $("form[name=faqupdateform]").serialize();
-			var check_submit = confirm('FAQ를 수정하시겠습니까?');
+			var queryString = $("form[name=errorFixupdateform]").serialize();
+			var check_submit = confirm('글을 수정하시겠습니까?');
 
 			if(check_submit){
 				$.ajax({
 					type : 'post',
-					url : '/faqupdate.do',
+					url : '/errorFixupdate.do',
 					data : queryString,
 					dataType : 'json',
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -130,11 +159,11 @@
 						alert(error);
 					},
 					success : function(success){
-						alert('FAQ가 수정되었습니다.');
-						$('#faqModInputClose').click();
+						alert('글이 수정되었습니다.');
+						$('#errorFixModInputClose').click();
 						$.ajax({
 							type : 'POST',                 
-							url : '/faq/faqListAjax.do',   
+							url : '/errorFix/errorFixListAjax.do',   
 							dataType : "html",           
 							contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 							error : function() {        
@@ -149,38 +178,38 @@
 			}
 		});
 		
-		// FAQ 선택 삭제
-		$(document).on('click', '#faqListDeleteBtn', function(){
+		// 글 선택 삭제
+		$(document).on('click', '#errorFixListDeleteBtn', function(){
 
-			if(!$('input:checkbox[name="faq_seqList"]').is(':checked')){
-				alert("선택한 FAQ가 없습니다.");
+			if(!$('input:checkbox[name="error_fix_seqList"]').is(':checked')){
+				alert("선택한 공지사항이 없습니다.");
 				return false;
 			}
-			var faq_seqList = [];
+			var errorFix_seqList = [];
 			
 			$('.check_temp:checked').each(function(i){
-				faq_seqList.push($(this).val());
+				errorFix_seqList.push($(this).val());
 			});
 			 
 			var $this = $(this);
-			var answer = confirm('선택한 FAQ를 삭제 처리하시겠습니까?');
+			var answer = confirm('선택한 글을 삭제 처리하시겠습니까?');
 			$.ajax({
 				type : 'POST',                 
-				url : '/faqListDelete.do',   
+				url : '/errorFixListDelete.do',   
 				dataType : "json",         
 				data:{
-					faq_seqList : faq_seqList
+					error_fix_seqList : errorFix_seqList
 				},
 				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 				error : function() {          
 					alert('통신실패!');
 				},
 				success : function(success) {   
-					alert("FAQ가 삭제 처리되었습니다.");
+					alert("글이 삭제 처리되었습니다.");
 					
 					$.ajax({
 						type : 'POST',                 
-						url : '/faq/faqListAjax.do',   
+						url : '/errorFix/errorFixListAjax.do',   
 						dataType : "html",           
 						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 						error : function() {        
@@ -210,7 +239,7 @@
           <!-- 자료구분 셀렉트 -->
           <div class="tap_text">
             <h2>고객센터</h2>
-            <p>고객센터 > <span>FAQ</span></p>
+            <p>고객센터 > <span>오류신고/개선사항</span></p>
           </div>
           <div class="fr_wrap">
             <div class="mb-3 row fr_1">
