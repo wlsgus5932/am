@@ -237,6 +237,7 @@
 					</c:forEach>
                   </tbody>
               </table>
+              
               <ul class="btn-group pagination">
 			    <c:if test="${pageMaker.prev }">
 			    <li>

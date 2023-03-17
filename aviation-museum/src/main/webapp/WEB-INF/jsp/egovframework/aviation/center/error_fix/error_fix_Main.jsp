@@ -44,9 +44,6 @@
 		}
 		
 		$(function() {
-			// 첫 페이지
-// 			$('#notice').attr('aria-selected', 'true').addClass('active');
-			
 			$.ajax({
 				type : 'POST',                
 				url : '/errorFix/errorFixListAjax.do',    
@@ -59,53 +56,18 @@
 					$('#tab-content').empty().append(data);
 				}
 			});
-			
-// 			// 공지사항 tab operation
-// 			$('#notice').click(function() {
-// 				$.ajax({
-// 					type : 'POST',                
-// 					url : '/notice/noticeListAjax.do',    
-// 					dataType : "html",           
-// 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-// 					error : function() {          
-// 						alert('통신실패!');
-// 					},
-// 					success : function(data) {  
-// 						$('#tab-content').empty().append(data);
-// 						$('.tap_text').find('span').text('공지사항');
-// 					}
-// 				});
-// 			});
-			
-// 			// FAQ tab operation
-// 			$('#faq').click(function() {
-// 				$.ajax({
-// 					type : 'POST',                 
-// 					url : '/faqListAjax.do',   				
-// 					dataType : "html",           
-// 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-// 					error : function() {        
-// 						alert('통신실패!');
-// 					},
-// 					success : function(data) {  
-// 						$('#tab-content').empty().append(data);
-// 						$('.tap_text').find('span').text('FAQ');
-// 					}
-// 				});
-// 			});
-			
 		});
 	
-		// 공지사항 등록
-		$(document).on('click', '#noticeInsBtn', function(){
+		// 오류신고, 개선사항 등록
+		$(document).on('click', '#errorFixInsBtn', function(){
 
-			var queryString = $("form[name=noticeinsertform]").serialize();
-			var check_submit = confirm('공지사항을 등록하시겠습니까?');
+			var queryString = $("form[name=errorFixinsertform]").serialize();
+			var check_submit = confirm('글을 등록하시겠습니까?');
 
 				if(check_submit){
 					$.ajax({
 						type : 'post',
-						url : '/noticeinsert.do',
+						url : '/errorFixinsert.do',
 						data : queryString,
 						dataType : 'json',
 						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -113,22 +75,22 @@
 							alert(error);
 						},
 						success : function(success){
-							alert('공지사항이 등록되었습니다.');
-							$('#noticeInsInputClose').click();
+							alert('글이 등록되었습니다.');
+							$('#errorFixInsInputClose').click();
 							location.reload();
 						}
 					});
 				}
 		});
 		
-		// 공지사항 상세보기(제목클릭)
-		$(document).on('click', '.noticeDetail', function() {
+		// 오류신고, 개선사항 상세보기(제목클릭)
+		$(document).on('click', '.errorFixDetail', function() {
 			var idx = $(this).data('id');
 			$.ajax({
 				type : 'POST',                 
-				url : '/noticePopupAjax.do',   
+				url : '/errorFixPopupAjax.do',   
 				data:{
-					notice_idx : idx
+					error_fix_idx : idx
 				},
 				dataType : "json",           
 				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -137,23 +99,29 @@
 				},
 				success : function(data) {  
 					$.each(data, function(index, item) { // 데이터 =item
-					
-						$('#noticeTitle').val(item.notice_title);
-						$('#noticeContent').val(item.notice_content);
+						if(item.board_type == 'E') {
+							$('#boardType').val('오류신고');
+						} else if(item.board_type == 'F') {
+							$('#boardType').val('개선사항');
+						}
+						
+						$('#errorFixOrgNm').val(item.error_fix_org_nm);
+						$('#errorFixTitle').val(item.error_fix_title);
+						$('#errorFixContent').val(item.error_fix_content);
 						
 					});
 				}
 			});
 		});
 		
-		// 공지사항 수정 팝업 버튼
-		function noticeModPopup(value) {
-				var notice_idx = value;
+		// 오류신고, 개선사항 수정 팝업 버튼
+		function errorFixModPopup(value) {
+				var error_fix_idx = value;
 				$.ajax({
 					type : 'POST',                 
-					url : '/noticePopupAjax.do',   
+					url : '/errorFixPopupAjax.do',   
 					data:{
-						notice_idx : notice_idx
+						error_fix_idx : error_fix_idx
 					},
 					dataType : "json",           
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -164,24 +132,26 @@
 							
 						$.each(data, function(index, item) { // 데이터 =item
 							
-							$('#modNoticeIdx').val(value);
-							$('#modNoticeTitle').val(item.notice_title);
-							$('#modNoticeContent').val(item.notice_content);
+							$('#modErrorFixIdx').val(value);
+							$('#modBoardType').val(item.board_type).prop("selected", true);
+							$('#modErrorFixOrgNm').val(item.error_fix_org_nm);
+							$('#modErrorFixTitle').val(item.error_fix_title);
+							$('#modErrorFixContent').val(item.error_fix_content);
 						});
 					}
 				});
 		}
 		
-		// 공지사항 수정
-		$(document).on('click', '#noticeModBtn', function(){
+		// 오류신고 | 개선사항 수정
+		$(document).on('click', '#errorFixModBtn', function(){
 
-			var queryString = $("form[name=noticeupdateform]").serialize();
-			var check_submit = confirm('공지사항을 수정하시겠습니까?');
+			var queryString = $("form[name=errorFixupdateform]").serialize();
+			var check_submit = confirm('글을 수정하시겠습니까?');
 
 			if(check_submit){
 				$.ajax({
 					type : 'post',
-					url : '/noticeupdate.do',
+					url : '/errorFixupdate.do',
 					data : queryString,
 					dataType : 'json',
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -189,11 +159,11 @@
 						alert(error);
 					},
 					success : function(success){
-						alert('공지사항이 수정되었습니다.');
-						$('#noticeModInputClose').click();
+						alert('글이 수정되었습니다.');
+						$('#errorFixModInputClose').click();
 						$.ajax({
 							type : 'POST',                 
-							url : '/notice/noticeListAjax.do',   
+							url : '/errorFix/errorFixListAjax.do',   
 							dataType : "html",           
 							contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 							error : function() {        
@@ -208,38 +178,38 @@
 			}
 		});
 		
-		// 공지사항 선택 삭제
-		$(document).on('click', '#noticeListDeleteBtn', function(){
+		// 글 선택 삭제
+		$(document).on('click', '#errorFixListDeleteBtn', function(){
 
-			if(!$('input:checkbox[name="notice_seqList"]').is(':checked')){
+			if(!$('input:checkbox[name="error_fix_seqList"]').is(':checked')){
 				alert("선택한 공지사항이 없습니다.");
 				return false;
 			}
-			var notice_seqList = [];
+			var errorFix_seqList = [];
 			
 			$('.check_temp:checked').each(function(i){
-				notice_seqList.push($(this).val());
+				errorFix_seqList.push($(this).val());
 			});
 			 
 			var $this = $(this);
-			var answer = confirm('선택한 공지사항을 삭제 처리하시겠습니까?');
+			var answer = confirm('선택한 글을 삭제 처리하시겠습니까?');
 			$.ajax({
 				type : 'POST',                 
-				url : '/noticeListDelete.do',   
+				url : '/errorFixListDelete.do',   
 				dataType : "json",         
 				data:{
-					notice_seqList : notice_seqList
+					error_fix_seqList : errorFix_seqList
 				},
 				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 				error : function() {          
 					alert('통신실패!');
 				},
 				success : function(success) {   
-					alert("공지사항이 삭제 처리되었습니다.");
+					alert("글이 삭제 처리되었습니다.");
 					
 					$.ajax({
 						type : 'POST',                 
-						url : '/notice/noticeListAjax.do',   
+						url : '/errorFix/errorFixListAjax.do',   
 						dataType : "html",           
 						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 						error : function() {        
@@ -269,7 +239,7 @@
           <!-- 자료구분 셀렉트 -->
           <div class="tap_text">
             <h2>고객센터</h2>
-            <p>고객센터 > <span>공지사항</span></p>
+            <p>고객센터 > <span>오류신고/개선사항</span></p>
           </div>
           <div class="fr_wrap">
             <div class="mb-3 row fr_1">

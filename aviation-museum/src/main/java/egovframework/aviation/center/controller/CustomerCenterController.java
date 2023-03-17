@@ -199,14 +199,14 @@ public class CustomerCenterController {
         return "jsonView";
     }
 	
-	/** 오류신고/개선사항 메인 */
+	/** 오류신고&개선사항 메인 */
 	@GetMapping("/errorFix.do")
 	public String Error_Fix(HttpServletRequest req) throws Exception {
 
 		return "center/error_fix/error_fix_Main";
 	}
 	
-	/** 오류신고/개선사항 목록 조회 */
+	/** 오류신고&개선사항 목록 조회 */
 	@RequestMapping("/errorFix/errorFixListAjax.do")
 	public String ErrorFixListAjax(@ModelAttribute("errorFixVO") ErrorFixVO errorFixVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
 		int perPageNum = errorFixService.getErrorFixListCnt(errorFixVO);		
@@ -225,5 +225,64 @@ public class CustomerCenterController {
 		
 		return "center/error_fix/error_fix_List";
 	}
+	
+	/** 오류신고&개선사항 수정팝업 */
+	@RequestMapping(value = "/errorFixPopupAjax.do")
+    public String ErrorFixPopupAjax(HttpServletRequest req, @ModelAttribute("errorFixVO") ErrorFixVO errorFixVO, Model model) throws Exception {
+		errorFixVO.setPerPageNum(1);
+		List<ErrorFixVO> errorFixListView = errorFixService.getErrorFixList(errorFixVO);
+		
+		if(errorFixListView.size() >0) {
+			errorFixVO.setBoard_type(errorFixListView.get(0).getBoard_type());
+			errorFixVO.setError_fix_title(errorFixListView.get(0).getError_fix_title());	
+			errorFixVO.setError_fix_content(errorFixListView.get(0).getError_fix_content());
+			errorFixVO.setError_fix_org_nm(errorFixListView.get(0).getError_fix_org_nm());
+		}
+    	
+        return "jsonView";
+    }
+	
+	/** 오류신고&개선사항 수정 */
+	@RequestMapping(value = "/errorFixupdate.do")
+    public String ErrorFixUpdate(HttpServletRequest req, @ModelAttribute("errorFixVO") ErrorFixVO errorFixVO, Model model) throws Exception {
+		HttpSession session = req.getSession();
+		String member_id = (String) session.getAttribute("userSessionId");
+		errorFixVO.setMod_user(member_id);
+		
+		int result = errorFixService.updateErrorFix(errorFixVO);
+		String success = "";
+		
+		if(result > 0) {
+			 success = "success";
+		}
+        return "jsonView";
+    }
+	
+	/** 오류신고&개선사항 등록 */
+	@RequestMapping(value = "/errorFixinsert.do")
+    public String ErrorFixInsert(HttpServletRequest req, @ModelAttribute("errorFixVO") ErrorFixVO errorFixVO, Model model) throws Exception {
+		HttpSession session = req.getSession();
+		String member_id = (String) session.getAttribute("userSessionId");
+		errorFixVO.setReg_user(member_id);
+		int result = errorFixService.insertErrorFix(errorFixVO);
+		String success = "";
+		
+		if(result > 0) {
+			 success = "success";
+		}
+        return "jsonView";
+    }
+	
+	/** 오류신고&개선사항 선택삭제 */
+	@RequestMapping(value = "/errorFixListDelete.do")
+    public String ErrorFixListDelete(HttpServletRequest req, @ModelAttribute("errorFixVO") ErrorFixVO errorFixVO, Model model) throws Exception {
+		int result = errorFixService.deleteErrorFixList(errorFixVO);
+		String success = "";
+		
+		if(result > 0) {
+			 success = "success";
+		}	
+        return "jsonView";
+    }
 	
 }
