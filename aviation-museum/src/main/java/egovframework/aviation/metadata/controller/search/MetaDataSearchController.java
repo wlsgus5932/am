@@ -121,6 +121,14 @@ public class MetaDataSearchController {
 	      return "metadata/search/keywordList";
 	   }
 	   
+	   @PostMapping("/getKeyword.do")
+	   public String getKeyword(Model model, @ModelAttribute KeywordParamVO param) throws Exception {
+	      List<KeywordVO> list = metaDataSearchService.getKeywordList(param);
+	      model.addAttribute("keywordList", list);
+	      
+	      return "jsonView";
+	   }
+	   
 	   @PostMapping("/addKeyword.do")
 	   @ResponseBody
 	   public String addKeyword(Model model, @ModelAttribute KeywordParamVO param) throws Exception {

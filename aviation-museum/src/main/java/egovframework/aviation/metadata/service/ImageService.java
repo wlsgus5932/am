@@ -23,4 +23,8 @@ public interface ImageService {
 
 	int getImageIUpdateListCnt(ImageParamVO param);
 
+	List<ImageVO> getImageExcel(ImageParamVO param);
+
+	List<ImageVO> getImageAll(ImageParamVO param);
+
 }

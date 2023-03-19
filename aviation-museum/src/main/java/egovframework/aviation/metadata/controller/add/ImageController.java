@@ -62,7 +62,6 @@ public class ImageController {
 		model.addAttribute("imageList", list);
 		model.addAttribute("perPageNum", perPageNum);
 		model.addAttribute("pageMaker", pageMaker);
-		System.out.println(list);
 		
 		return "metadata/add/imageThumb";
 	}
@@ -86,6 +85,30 @@ public class ImageController {
 		model.addAttribute("pageMaker", pageMaker);
 		
 		return "metadata/add/imageList";
+	}
+	
+	@PostMapping("/getMainImageList.do")
+	public String getMainImageList(Model model, @ModelAttribute ImageParamVO param) throws Exception {
+		List<ImageVO> list = service.getImageAll(param);
+		model.addAttribute("mainImageList", list);
+		
+		return "metadata/add/mainImageList";
+	}
+	
+	@PostMapping("/getImageListJson.do")
+	public String getImageListJson(Model model, @ModelAttribute ImageParamVO param) throws Exception {
+		List<ImageVO> list = service.getImageAll(param);
+		model.addAttribute("imageList", list);
+		
+		return "jsonView";
+	}
+	
+	@PostMapping("/getImageListExcel.do")
+	public String getImageListExcel(Model model, @ModelAttribute ImageParamVO param) throws Exception {
+		List<ImageVO> list = service.getImageExcel(param);
+		model.addAttribute("imageList", list);
+		
+		return "metadata/add/imageListExcel";
 	}
 	
 	@GetMapping("/setPublicrep.do")
@@ -151,8 +174,6 @@ public class ImageController {
         uploadFile.transferTo(new File(addImage + ran + fileNm));
         uploadFile.transferTo(new File(addThumImage + ran + thum_nm));
 		try {
-			
-			
 			return "success";
 		}  catch (Exception e) {
 			 System.out.println(e);

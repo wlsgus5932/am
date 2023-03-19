@@ -31,7 +31,7 @@
 				                       		<input type="checkbox" id="public_service${status.index}" name="public_service" value="${list.image_idx}" onclick="publicRepCheck(this)" ${list.public_service == "Y" ? "CHECKED" : ""}>
 				                        </td>
 				                        <td>
-				                       		<button type="button" onclick="gallery.view(${status.index})">원본보기</button>
+				                       		<button type="button" onclick="imageListClick(${status.index})">원본보기</button>
 				                        </td>
 				                   </tr>
 				                   </c:forEach>

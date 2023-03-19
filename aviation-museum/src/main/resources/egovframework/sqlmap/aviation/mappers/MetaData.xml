@@ -4,7 +4,7 @@
 	
 	<select id="getDeletionList" resultType="egovframework.aviation.metadata.vo.metadata.DeletionVO">
 	select 
-			row_number() over(order by ib.reg_date) as rownum,
+			row_number() over(order by ib.item_no) as rownum,
 			ib.item_idx,
 			ib.item_no,
 			ib.item_detail_no,
@@ -15,9 +15,9 @@
 			nam_involvement ni,
 			nam_possession_code npc, 
 			nam_org_code noc
-		where ib.item_no between ${item_no1} and ${item_no2}
+		where ib.item_no between #{item_no1} and #{item_no2}
 		<if test="item_detail_no1 != '' and item_detail_no1 != null">
-		and ib.item_detail_no between ${item_detail_no1} and ${item_detail_no2}
+			and ib.item_detail_no between #{item_detail_no1} and #{item_detail_no2}
 		</if>
 		and ib.item_idx = ni.item_idx
 		and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
@@ -70,7 +70,9 @@
 	
 	<select id="getItemBase" resultType="egovframework.aviation.metadata.vo.ItemBaseVO">
 		select * from nam_item_base where item_no = #{item_no} 
-		and reg_state = #{reg_state}
+		<if test="reg_state != '' and reg_state != null">
+			and reg_state = #{reg_state}
+		</if>
 		<if test="item_detail_no != '' ">
 			and item_detail_no = #{item_detail_no}
 		</if>
@@ -82,7 +84,7 @@
 		</if>
 	</select>
 	
-	<select id="getMovement" resultType="egovframework.aviation.metadata.vo.MovementVO" parameterType="int">
+	<select id="getMovement" resultType="egovframework.aviation.metadata.vo.MovementVO" parameterType="egovframework.aviation.metadata.vo.param.MovementParamVO">
 			WITH RECURSIVE CTE AS(
 				SELECT
 					A.MOVEMENT_IDX,
@@ -139,7 +141,8 @@
 				 GROUP BY D.MOVEMENT_IDX, D.STORAGE_TYPE) AS E
 				 WHERE item_idx = #{item_idx}
 			GROUP BY MOVEMENT_IDX
-			ORDER BY rownum desc;
+			ORDER BY rownum desc
+			LIMIT #{perPageNum} OFFSET #{pageStart};
 	</select>
 	
 	<select id="getMovementData" resultType="egovframework.aviation.metadata.vo.MovementVO" parameterType="int">
@@ -177,7 +180,7 @@
 					GROUP_CONCAT(CASE STORAGE_TYPE WHEN 'OUT' THEN STORAGE_NM END) AS STORAGE_OUT,  
 					GROUP_CONCAT(CASE STORAGE_TYPE WHEN 'IN' THEN STORAGE_CODE_IDX END) AS STORAGE_IN_CODE_IDX, 
 					GROUP_CONCAT(CASE STORAGE_TYPE WHEN 'OUT' THEN STORAGE_CODE_IDX END) AS STORAGE_OUT_CODE_IDX,
-					REQUESTER, ITEM_IDX, STORAGE_TYPE1_CODE_IDX, STORAGE_TYPE2_CODE_IDX, MOVEMENT_DATE, MOVEMENT_QTY, CURRENT_QTY, REQUESTER, REMARK, REG_USER, REG_DATE
+					ITEM_IDX, STORAGE_TYPE1_CODE_IDX, STORAGE_TYPE2_CODE_IDX, MOVEMENT_DATE, MOVEMENT_QTY, CURRENT_QTY, REQUESTER, REMARK, REG_USER, REG_DATE
 			FROM
 				(
 				SELECT D.MOVEMENT_IDX, GROUP_CONCAT(D.STORAGE_NM ORDER BY D.MOVEMENT_IDX, D.STORAGE_TYPE, D.SEQ_CHAR) AS STORAGE_NM,
@@ -202,6 +205,142 @@
 			ORDER BY rownum desc;
 	</select>
 	
+	<select id="getMovementExcel" resultType="egovframework.aviation.metadata.vo.MovementVO" parameterType="egovframework.aviation.metadata.vo.param.MovementParamVO">
+			WITH RECURSIVE CTE AS(
+				SELECT
+					A.MOVEMENT_IDX,
+					A.STORAGE_CODE_IDX,
+					A.STORAGE_NM,
+					A.PARENT_CODE,
+					A.STORAGE_NM AS LOCATION,
+					A.STORAGE_TYPE,
+					1 AS lvl,
+					A.SEQ,
+					CONVERT(LPAD(CONVERT(A.SEQ, CHAR(4)), 4, '0'), CHAR(100)) AS SEQ_CHAR
+				FROM(SELECT ns.MOVEMENT_IDX, ns.STORAGE_CODE_IDX, nsc.STORAGE_NM, nsc.PARENT_CODE, ns.STORAGE_TYPE, nsc.SEQ
+					 FROM nam_storage AS ns JOIN nam_storage_code AS nsc ON ns.STORAGE_CODE_IDX = nsc.STORAGE_CODE_IDX) AS A
+				WHERE A.PARENT_CODE = 0
+				UNION ALL
+				SELECT
+					B.MOVEMENT_IDX,
+					B.STORAGE_CODE_IDX,
+					B.STORAGE_NM,
+					B.PARENT_CODE,
+					CONCAT(C.LOCATION, ',', B.STORAGE_NM) AS LOCATION,
+					B.STORAGE_TYPE,
+					C.lvl+1 AS lvl,
+					B.SEQ,
+					CONCAT(C.SEQ_CHAR, LPAD(CONVERT(B.SEQ, CHAR(4)), 4, '0')) AS SEQ_CHAR
+				FROM CTE AS C JOIN
+					(SELECT ns.MOVEMENT_IDX, ns.STORAGE_CODE_IDX, nsc.STORAGE_NM, nsc.PARENT_CODE, ns.STORAGE_TYPE, nsc.SEQ 
+					 FROM nam_storage AS ns JOIN nam_storage_code AS nsc ON ns.STORAGE_CODE_IDX = nsc.STORAGE_CODE_IDX) AS B
+				ON C.STORAGE_CODE_IDX = B.PARENT_CODE AND C.MOVEMENT_IDX = B.MOVEMENT_IDX AND C.STORAGE_TYPE = B.STORAGE_TYPE
+			)
+			SELECT row_number() over(order by movement_date) as rownum, MOVEMENT_IDX, GROUP_CONCAT(CASE STORAGE_TYPE WHEN 'IN' THEN STORAGE_NM END) AS STORAGE_IN, 
+					GROUP_CONCAT(CASE STORAGE_TYPE WHEN 'OUT' THEN STORAGE_NM END) AS STORAGE_OUT,  
+					GROUP_CONCAT(CASE STORAGE_TYPE WHEN 'IN' THEN STORAGE_CODE_IDX END) AS STORAGE_IN_CODE_IDX, 
+					GROUP_CONCAT(CASE STORAGE_TYPE WHEN 'OUT' THEN STORAGE_CODE_IDX END) AS STORAGE_OUT_CODE_IDX,
+					ITEM_IDX, STORAGE_TYPE1_CODE_IDX, STORAGE_TYPE2_CODE_IDX, MOVEMENT_DATE, MOVEMENT_QTY, CURRENT_QTY, REQUESTER, REMARK, REG_USER, REG_DATE
+			FROM
+				(
+				SELECT D.MOVEMENT_IDX, GROUP_CONCAT(D.STORAGE_NM ORDER BY D.MOVEMENT_IDX, D.STORAGE_TYPE, D.SEQ_CHAR) AS STORAGE_NM,
+						GROUP_CONCAT(D.STORAGE_CODE_IDX ORDER BY D.MOVEMENT_IDX, D.STORAGE_TYPE, D.SEQ_CHAR) AS STORAGE_CODE_IDX, 
+						D.STORAGE_TYPE, nm.MOVEMENT_IDX as nmMovement_idx, nm.ITEM_IDX, nm.STORAGE_TYPE1_CODE_IDX, nm.STORAGE_TYPE2_CODE_IDX, nm.MOVEMENT_DATE, nm.MOVEMENT_QTY, nm.CURRENT_QTY, nm.REQUESTER, nm.REMARK, nm.REG_USER, nm.REG_DATE 
+				 FROM
+					(SELECT
+						MOVEMENT_IDX,
+						STORAGE_CODE_IDX,
+						STORAGE_NM,
+						PARENT_CODE,
+						LOCATION,
+						STORAGE_TYPE,
+						lvl,
+						SEQ,
+						SEQ_CHAR
+					 FROM CTE) AS D
+				 JOIN nam_movement as nm on nm.MOVEMENT_IDX = D.movement_idx
+				 GROUP BY D.MOVEMENT_IDX, D.STORAGE_TYPE) AS E
+				 WHERE item_idx = #{item_idx}
+			GROUP BY MOVEMENT_IDX
+			ORDER BY rownum desc;
+	</select>
+	
+	<select id="getMovementListCnt" resultType="int" parameterType="egovframework.aviation.metadata.vo.param.MovementParamVO">
+			WITH RECURSIVE CTE AS(
+				SELECT
+					A.MOVEMENT_IDX,
+					A.STORAGE_CODE_IDX,
+					A.STORAGE_NM,
+					A.PARENT_CODE,
+					A.STORAGE_NM AS LOCATION,
+					A.STORAGE_TYPE,
+					1 AS lvl,
+					A.SEQ,
+					CONVERT(LPAD(CONVERT(A.SEQ, CHAR(4)), 4, '0'), CHAR(100)) AS SEQ_CHAR
+				FROM(SELECT ns.MOVEMENT_IDX, ns.STORAGE_CODE_IDX, nsc.STORAGE_NM, nsc.PARENT_CODE, ns.STORAGE_TYPE, nsc.SEQ
+					 FROM nam_storage AS ns JOIN nam_storage_code AS nsc ON ns.STORAGE_CODE_IDX = nsc.STORAGE_CODE_IDX) AS A
+				WHERE A.PARENT_CODE = 0
+				UNION ALL
+				SELECT
+					B.MOVEMENT_IDX,
+					B.STORAGE_CODE_IDX,
+					B.STORAGE_NM,
+					B.PARENT_CODE,
+					CONCAT(C.LOCATION, ',', B.STORAGE_NM) AS LOCATION,
+					B.STORAGE_TYPE,
+					C.lvl+1 AS lvl,
+					B.SEQ,
+					CONCAT(C.SEQ_CHAR, LPAD(CONVERT(B.SEQ, CHAR(4)), 4, '0')) AS SEQ_CHAR
+				FROM CTE AS C JOIN
+					(SELECT ns.MOVEMENT_IDX, ns.STORAGE_CODE_IDX, nsc.STORAGE_NM, nsc.PARENT_CODE, ns.STORAGE_TYPE, nsc.SEQ 
+					 FROM nam_storage AS ns JOIN nam_storage_code AS nsc ON ns.STORAGE_CODE_IDX = nsc.STORAGE_CODE_IDX) AS B
+				ON C.STORAGE_CODE_IDX = B.PARENT_CODE AND C.MOVEMENT_IDX = B.MOVEMENT_IDX AND C.STORAGE_TYPE = B.STORAGE_TYPE
+			)
+			
+			select count(*) from (
+			SELECT row_number() over(order by movement_date) as rownum, MOVEMENT_IDX, GROUP_CONCAT(CASE STORAGE_TYPE WHEN 'IN' THEN STORAGE_NM END) AS STORAGE_IN, 
+					GROUP_CONCAT(CASE STORAGE_TYPE WHEN 'OUT' THEN STORAGE_NM END) AS STORAGE_OUT,  
+					GROUP_CONCAT(CASE STORAGE_TYPE WHEN 'IN' THEN STORAGE_CODE_IDX END) AS STORAGE_IN_CODE_IDX, 
+					GROUP_CONCAT(CASE STORAGE_TYPE WHEN 'OUT' THEN STORAGE_CODE_IDX END) AS STORAGE_OUT_CODE_IDX,
+					REQUESTER, ITEM_IDX, STORAGE_TYPE1_CODE_IDX, STORAGE_TYPE2_CODE_IDX, MOVEMENT_DATE, MOVEMENT_QTY, CURRENT_QTY, REMARK, REG_USER, REG_DATE
+			FROM
+				(
+				SELECT D.MOVEMENT_IDX, GROUP_CONCAT(D.STORAGE_NM ORDER BY D.MOVEMENT_IDX, D.STORAGE_TYPE, D.SEQ_CHAR) AS STORAGE_NM,
+						GROUP_CONCAT(D.STORAGE_CODE_IDX ORDER BY D.MOVEMENT_IDX, D.STORAGE_TYPE, D.SEQ_CHAR) AS STORAGE_CODE_IDX, 
+						D.STORAGE_TYPE, nm.MOVEMENT_IDX as nmMovement_idx, nm.ITEM_IDX, nm.STORAGE_TYPE1_CODE_IDX, nm.STORAGE_TYPE2_CODE_IDX, nm.MOVEMENT_DATE, nm.MOVEMENT_QTY, nm.CURRENT_QTY, nm.REQUESTER, nm.REMARK, nm.REG_USER, nm.REG_DATE 
+				 FROM
+					(SELECT
+						MOVEMENT_IDX,
+						STORAGE_CODE_IDX,
+						STORAGE_NM,
+						PARENT_CODE,
+						LOCATION,
+						STORAGE_TYPE,
+						lvl,
+						SEQ,
+						SEQ_CHAR
+					 FROM CTE) AS D
+				 JOIN nam_movement as nm on nm.MOVEMENT_IDX = D.movement_idx
+				 GROUP BY D.MOVEMENT_IDX, D.STORAGE_TYPE) AS E
+				 WHERE item_idx = #{item_idx}
+			GROUP BY MOVEMENT_IDX
+			ORDER BY rownum desc ) hh;
+	</select>
+	
+	<select id="searchItemNo" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO" resultType="String">
+		select item_no from nam_item_base where org_code_idx = #{org_code_idx} and possession_code_idx = #{possession_code_idx} and item_no = #{item_no}
+	</select>
+	
+	<update id="setItemNo" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+		update nam_item_base set item_no = item_no+1 
+		where item_no in (
+			select * from (
+			select item_no from nam_item_base 
+			where item_no &gt;= #{item_no}
+			) as A	
+		);
+	</update>
+	
 	<insert id="setItemBase" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
 			insert into nam_item_base (
 				<include refid="metadata_columns1"><property name="alias" value=""/></include>
@@ -210,7 +349,7 @@
 				<include refid="metadata_columns2"><property name="alias" value=""/></include>
 			);
 			
-			<selectKey resultType="int" keyProperty="item_idx" order="AFTER">
+			<selectKey resultType="String" keyProperty="item_idx" order="AFTER">
 		        SELECT LAST_INSERT_ID()
 		    </selectKey>
 	</insert>

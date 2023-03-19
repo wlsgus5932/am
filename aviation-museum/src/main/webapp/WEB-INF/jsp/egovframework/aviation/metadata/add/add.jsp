@@ -21,20 +21,29 @@
     <!-- 커스텀 css -->
     <link href="<c:url value='/assets/css/custom.css'/>" rel="stylesheet" type="text/css" />
     <link href="<c:url value='/assets/css/viewer.css'/>" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="<c:url value="/assets/libs/slick/slick.css"/>">
+	<link rel="stylesheet" href="<c:url value="/assets/libs/slick/slick-theme.css"/> ">
     <!--  -->
     <link rel="stylesheet" href="<c:url value='/assets/libs/swiper/swiper-bundle.min.css'/>" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="<c:url value='/assets/js/viewer.js'/>"></script>
     <script src="<c:url value='/dx5/dextuploadx5-configuration.js'/>"></script>
     <script src="<c:url value='/dx5/dextuploadx5.js'/>"></script>
+    <script src="<c:url value='/assets/libs/slick/slick.js'/>"></script>
     <%-- <script src="<c:url value='/assets/js/metadata/add.js'/>"></script> --%>
     <script src="<c:url value='/assets/js/metadata/metadataList.js'/>"></script>
+    <script>
+		  $(function() {
+		  	$('.img-slider').slick();
+		  });
+</script>
   </head>
   <script>
   let count = 0;
   let movementData = [];
   let item_idx = '';
   let gallery = '';
+  let mainImageViewer = '';
 
   const getImageList = () => {
   		let item_idx = sessionStorage.getItem("item_idx");
@@ -46,23 +55,24 @@
   							item_idx: item_idx,
   							perPageNum: perPageNum
   						},
-  						dataType : "html",           
+  						dataType : "html",
   						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-  						error : function() {        
+  						
+  						error : function() {
   							alert('통신실패!');
   						},
-  						success : function(data) {  
+  						success : function(data) {
   							$('#imageInfoZone').empty().append(data);
   						}
   					});
   	$.ajax({
-  						type : 'POST',                 
+  						type : 'POST',
   						url : '/getImageList.do',
   						data: {
   							item_idx: item_idx,
   							perPageNum: perPageNum
   						},
-  						dataType : "html",           
+  						dataType : "html",
   						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
   						error : function() {
   							alert('통신실패!');
@@ -71,8 +81,68 @@
   							$('#imageInfoListZone').empty().append(data);
   						}
   					});
-  					
+  	$.ajax({
+			type : 'POST',
+			url : '/getMainImageList.do',
+			data: {
+				item_idx: item_idx
+			},
+			dataType : "html",
+			contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+			async: false,
+			error : function() {
+				alert('통신실패!');
+			},
+			success : function(data) {
+				$('#img-card-body').empty().append(data);
+				$('.img-slider').slick();
+			}
+		});
   	}
+  
+  const downloadMainImage = async () => {
+     let path_arr = [];
+     
+	  $.ajax({
+          url :'/getImageListJson.do',
+          type : 'POST',
+          dataType : 'json',
+          data : {
+             item_idx: sessionStorage.getItem("item_idx")
+          },
+          async : false,
+          success: function(data) {
+        	  data.imageList.forEach(e => {
+        		  path_arr.push(e.image_path)
+        	  })
+        	  $.ajax({
+                  url :'./zip-download.do',
+                  type : 'POST',
+                  dataType : 'text',
+                  data : {
+                     img_path : path_arr
+                  },
+                  async : false,
+                  success: function(data) {
+                     console.log('성공');
+                     location.href = encodeURI("./zip-download.do?compresskey="+data);
+                  },
+                  error: function(xhr, ajaxOptions, thrownError) {
+                     console.log(xhr.status);
+                     console.log(thrownError);
+                  }
+             });
+        	  
+          },
+          error: function(xhr, ajaxOptions, thrownError) {
+             console.log(xhr.status);
+             console.log(thrownError);
+          }
+     });
+	  
+       
+ }
+	
 
   const setImageIdx = val => {
   	$('#imageidxhidden').val(val);
@@ -127,8 +197,6 @@
   							$('#imageInfoZone').empty().append(data);
   						}
   					});
-  					
-  	
   	$.ajax({
   						type : 'POST',                 
   						url : '/getImageList.do',
@@ -146,7 +214,13 @@
   							$('#imageInfoListZone').empty().append(data);
   						}
   					});
-  		gallery = new Viewer(document.getElementById('imageInfoZone'));
+  }
+  
+  const mainImageClick = () => {
+	  if(!mainImageViewer.images) {
+		  mainImageViewer = new Viewer(document.getElementById('img-card-body'));
+	  }
+	  mainImageViewer.view(0);
   }
 
   function getImageFunction() {
@@ -156,7 +230,7 @@
   	const checkSubmitForm = () => {
   		let arr = $('#itembasekeyword').val().split(',').filter(e => e.length !== 0 );
   		if(arr.length < 5) {
-  			alert("콤마 ', ' 단위로 5개 이상 입력해주세요.")
+  			alert("키워드 입력을 콤마 ', ' 단위로 5개 이상 입력해주세요.")
   			return
   		}
   		submitForm();
@@ -174,17 +248,9 @@
   	           body: new URLSearchParams(formData)
   	   	})
   	   	
-  		//const res = await form.text();
-  	   	const { item_idx } = await form.json();
-  	   	
-  	   	sessionStorage.setItem("item_idx", item_idx);
-
-  	   	if(!item_idx) {
-  	        alert('오류입니다');
-  	     } else {
-  	        /*location.reload();*/
-  	        alert('등록완료');
-  	     }
+  		const res = await form.text();
+  	   	//const { item_idx } = await form.json();
+  	   	res == 'error' ? alert('오류가 발생했습니다. 다시 시도해주세요.') : (alert('등록완료'), sessionStorage.setItem("item_idx", item_idx))
   	} else {
   		return
   	}
@@ -362,13 +428,12 @@
     }
     
      const getMovementList = async () => {
-     	  	let item_idx = sessionStorage.getItem("item_idx");
-  		movementData = [];
+     	let item_idx = sessionStorage.getItem("item_idx");
   		$.ajax({
-                url : '/getMovementList.do?item_idx=' + item_idx,
-                type : 'Get',
+                url : '/getMovementList.do',
+                type : 'POST',
                 dataType : 'html',
-                
+                data: { item_idx: sessionStorage.getItem("item_idx") },
                 async : false,
                 success: function(data) {
                    $('#movementZone').empty().append(data);
@@ -380,10 +445,10 @@
            });
 
   		$.ajax({
-                url : '/getPastMovementList.do?item_idx=' + item_idx,
-                type : 'Get',
+                url : '/getPastMovementList.do',
+                type : 'post',
                 dataType : 'html',
-                
+                data: { item_idx: sessionStorage.getItem("item_idx") },
                 async : false,
                 success: function(data) {
                    $('#pastMovementZone').empty().append(data);
@@ -394,18 +459,51 @@
                 }
            });
   }
+     
+     const movementGoPage = page => {
+		  	let item_idx = sessionStorage.getItem("item_idx");
+		  	$.ajax({
+                url : '/getMovementList.do',
+                type : 'POST',
+                dataType : 'html',
+                data: { item_idx: sessionStorage.getItem("item_idx"), page: page },
+                async : false,
+                success: function(data) {
+                   $('#movementZone').empty().append(data);
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                   console.log(xhr.status);
+                   console.log(thrownError);
+                }
+           });
+
+  		$.ajax({
+                url : '/getPastMovementList.do',
+                type : 'post',
+                dataType : 'html',
+                data: { item_idx: sessionStorage.getItem("item_idx"), page: page },
+                async : false,
+                success: function(data) {
+                   $('#pastMovementZone').empty().append(data);
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                   console.log(xhr.status);
+                   console.log(thrownError);
+                }
+           });
+		  }
 
   function MovementExcelDownload() {
-  		let $form = $('<form></form>');
-  		var input1 = document.createElement('input');
-  		input1.setAttribute("name", "item_idx");
-  		input1.setAttribute("value", sessionStorage.getItem("item_idx"));
-  		input1.setAttribute("type", "hidden");
-  		
-  		$form.append(input1);
-  		$form.attr("action", "/getMovementExcelList.do");
-  		$form.attr("method", "post");
-  	    $form.submit();
+	  let formData = document.createElement('form');
+	  let obj1 = document.createElement('input');
+	  obj1.setAttribute('type', 'hidden');
+	  obj1.setAttribute('name', 'item_idx');
+	  obj1.setAttribute('value', sessionStorage.getItem('item_idx'));
+	  formData.appendChild(obj1);
+  	  formData.setAttribute('method', 'post');
+  	  formData.setAttribute('action', '/getMovemenExceltList.do');
+  	  document.body.appendChild(formData);
+  	  formData.submit();
   }
 
   	const getMovementData = async(btn) => {
@@ -598,21 +696,40 @@
   	   let tabCnt = 0;
   	   
   	   const addPreservation = async (num) => {
-  		   let res = '';
-  			   let formData = new FormData(document.getElementById('preservation-form'+num));
-  			   formData.append('item_idx', sessionStorage.getItem('item_idx'));
-  		    	
-  		    	let form = await fetch('/addPreservation.do', {
-  		    		method:'POST',
-  		    		/* headers: {
-  		                "Content-Type": "application/x-www-form-urlencoded",
-  		            }, */
-  		            body: formData
-  		    	})
-  		   res = await form.text();
-  		   res == 'success' ? (alert('등록완료'), $('#addPreservationBtn'+num).html('저장완료'), $('#addPreservationBtn'+num).attr('disabled', true), $('#deletePreservationBtn'+num).attr('disabled', true)
-  										) : alert('오류입니다');
+  		   	/* document.querySelector('#before-uploadFile').files = beforeImgList.files;
+  		 	document.querySelector('#after-uploadFile').files = afterImgList.files; */
+  			let formData = new FormData(document.getElementById('preservation-form'+num));
+  			formData.append('item_idx', sessionStorage.getItem('item_idx'));
+  		   	let form = await fetch('/addPreservation.do', {
+  		    	method:'POST',
+  		        body: formData
+  		    })
+  		    let res = await form.text();
+  		   	res == 'success' ? (
+  		   								alert('등록완료'), 
+  		   								$('#addPreservationBtn'+num).html('저장완료'), 
+  		   								$('#addPreservationBtn'+num).attr('disabled', true), 
+  		   								$('#deletePreservationBtn'+num).attr('disabled', true)
+  										 ) : alert('오류입니다');
   	   }
+  	   
+  	 const updatePreservation = async (num, preservation_idx) => {
+		   	/* document.querySelector('#before-uploadFile').files = beforeImgList.files;
+		 	document.querySelector('#after-uploadFile').files = afterImgList.files; */
+			let formData = new FormData(document.getElementById('update-preservation-form'+num));
+		 	formData.append("preservation_idx", preservation_idx);
+		   	let form = await fetch('/updatePreservation.do', {
+		    	method:'POST',
+		        body: formData
+		    })
+		    let res = await form.text();
+		   	res == 'success' ? (
+		   								alert('수정완료'), 
+		   								$('#updatePreservationBtn'+num).html('수정완료'), 
+		   								$('#updatePreservationBtn'+num).attr('disabled', true), 
+		   								$('#updatedeletePreservationBtn'+num).attr('disabled', true)
+										 ) : alert('오류입니다');
+	   }
   	   
   	   let beforeArr = [];
   	   let afterArr = [];
@@ -621,6 +738,8 @@
   	   let after = "after";
   	   let before = "before";
   	   let result = "result";
+  	   let updateTransfer = [];
+  	   let addTransfer = [];
   	   
   	    function resultImg(input, num) {
   		   if (input.files && input.files[0]) {
@@ -632,7 +751,7 @@
   				    	 imgTag.setAttribute('width', '200');
   				    	 imgTag.setAttribute('height', '200');
   			    		 $('#result-img-preview'+num).children().remove();
-  				    	 $('#result-img-preview'+num).append('<div style="width:200px; height:250px; margin: 5px 5px 5px 5px; display:inline-block;"><img id="result-img'+num+'" style="width: 200px; height: 200px;"/><p style="text-align:center;">'+input.files[0].name+'</p></div>');
+  				    	 $('#result-img-preview'+num).append('<div style="width:100px; height:100px; margin: 5px 5px 5px 5px; display:inline-block;"><img id="result-img'+num+'" style="width: 100px; height: 100px;"/><p style="text-align:center;">'+input.files[0].name+'</p></div>');
   				    	 document.getElementById('result-img'+num).src = e.target.result;
   			    	 
   			    	 //document.querySelector('#result-img-preview').appendChild(imgTag);
@@ -644,47 +763,221 @@
   		   }
   		 }
   	    
+  		/* let beforeImgList = new DataTransfer();
+  		let afterImgList = new DataTransfer(); */
+  		
   	    function beforeImg(input, num) {
-  			$('#before-img-preview').children().remove();
-  			for(let i=0; i<input.files.length; i++) {
+  			$('#before-img-preview'+num).children().remove();
+  			let before = 'before';
+  			
+  			if(!addTransfer[num]) {
+				let arr = [];
+		     	arr.push(new DataTransfer(), new DataTransfer());
+		     	addTransfer[num] = arr;
+			}
+  			
+  			input.files.forEach(e=>{
+  				addTransfer[num][0].items.add(e);
+  			});
+  			
+  			for(let i=0; i<addTransfer[num][0].files.length; i++) {
   				const reader = new FileReader();
   				reader.onload = e => {
   					$('#before-img-preview'+num).append(
-  							'<div id="before'+num+'Div'+i+'" style="width:200px; height:250px; margin: 10px 10px 10px 10px; display:inline-block;">'+
-  							'<input type="checkbox" value="'+i+'" id="before'+num+'checkbox'+i+'" name="before'+num+'checkbox" class="before'+num+'checkbox" style="position: relative; top: 20px; z-index: 1; width:15px; height:15px;"/>' +
-  						    '<label for="before'+num+'checkbox'+i+'">' +
-  						    '<img id="before'+num+'img'+i+'" style="width: 200px; height: 200px;"/></label>'+
-  						    '<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+input.files[i].name+'</p></div>');
+  							'<div id="before'+num+'Div'+i+'" style="width:100px; height:100px; margin: 10px 10px 10px 10px; display:inline-block;">'+
+  							'<button type="button" onclick="deleteImage('+addTransfer[num][0].files[i].lastModified+', '+before+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1;">dddddd</button>' +
+  						    '<img id="before'+num+'img'+i+'" style="width: 100px; height: 100px;"/></label>'+
+  						    '<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+addTransfer[num][0].files[i].name+'</p></div>');
+  					
   					document.getElementById('before'+num+'img'+i).src = e.target.result;
   				}
-  				reader.readAsDataURL(input.files[i]);
+  				reader.readAsDataURL(addTransfer[num][0].files[i]);
+  				input.files = addTransfer[num][0].files;
   			}
   		}
   	    
   	    function afterImg(input, num) {
+  	    	let afterImgList = new DataTransfer();
+  			console.log(num)
   			$('#after-img-preview'+num).children().remove();
-  			for(let i=0; i<input.files.length; i++) {
-  				let img = document.createElement("img");
+  			let after = 'after';
+  			
+  			if(!addTransfer[num]) {
+				let arr = [];
+		     	arr.push(new DataTransfer(), new DataTransfer());
+		     	addTransfer[num] = arr;
+			}
+  			
+  			input.files.forEach(e=>{
+  				addTransfer[num][1].items.add(e);
+  			});
+  			
+  			for(let i=0; i<addTransfer[num][1].files.length; i++) {
   				const reader = new FileReader();
   				reader.onload = e => {
   					$('#after-img-preview'+num).append(
-  					'<div id="after'+num+'Div'+i+'" style="width:200px; height:250px; margin: 10px 10px 10px 10px; display:inline-block;">' +
-  					'<input type="checkbox" value="'+i+'" id="after'+num+'checkbox'+i+'" name="after'+num+'checkbox" class="after'+num+'checkbox" style="position: relative; top: 20px; z-index: 1; width:15px; height:15px;"/>' +
-  					'<label for="after'+num+'checkbox'+i+'">' +
-  					'<img id="after'+num+'img'+i+'" style="width: 200px; height: 200px;"/></label>' +
-  					'<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+input.files[i].name+'</p></div>');
+  					'<div id="after'+num+'Div'+i+'" style="width:100px; height:100px; margin: 10px 10px 10px 10px; display:inline-block;">' +
+  					'<button type="button" onclick="deleteImage('+addTransfer[num][1].files[i].lastModified+', '+after+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1;">dddddd</button>' +
+  					'<img id="after'+num+'img'+i+'" style="width: 100px; height: 100px;"/></label>' +
+  					'<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+addTransfer[num][1].files[i].name+'</p></div>');
   					
   					document.getElementById('after'+num+'img'+i).src = e.target.result;
   				}
-  				reader.readAsDataURL(input.files[i]);
+  				reader.readAsDataURL(addTransfer[num][1].files[i]);
+  				input.files = addTransfer[num][1].files;
   			}
   		}
+  	    
+  	  const deleteImage = (lastModified, name ,num, num2) => {
+	    	let divName = name+num+'Div'+num2;
+	    	
+	    	if(name == 'before') {
+		    	const files = document.querySelector('#before-uploadFile'+num).files;
+		    	let returnArr = Array.from(addTransfer[num][0].files)
+		    	    .filter(file => file.lastModified != lastModified);
+		    	
+		    	addTransfer[num][0] = new DataTransfer();
+		    	returnArr.forEach(e=> addTransfer[num][0].items.add(e))
+		    	$('#'+divName).remove();
+		    	
+		    	document.querySelector('#before-uploadFile'+num).files = addTransfer[num][0].files;
+		    	
+	    	} else {
+		    	const files = document.querySelector('#after-uploadFile'+num).files;
+	
+		    	let returnArr = Array.from(addTransfer[num][1].files)
+		    	    .filter(file => file.lastModified != lastModified);
+		    	
+		    	addTransfer[num][1] = new DataTransfer();
+		    	returnArr.forEach(e=> addTransfer[num][1].items.add(e))
+		    	$('#'+divName).remove();
+		    	
+		    	document.querySelector('#after-uploadFile'+num).files = addTransfer[num][1].files;
+		    
+	    	}
+  	  }
+  	  
+  	  <!--  보존처리 update List 업데이트-->
+  	  	 function updateresultImg(input, num) {
+		   if (input.files && input.files[0]) {
+			     const reader = new FileReader();
+			     
+			     reader.onload = e => {
+				    	 let imgTag = document.createElement('img');
+				    	 imgTag.setAttribute('src', e.target.result);
+				    	 imgTag.setAttribute('width', '200');
+				    	 imgTag.setAttribute('height', '200');
+			    		 $('#update-result-img-preview'+num).children().remove();
+				    	 $('#update-result-img-preview'+num).append('<div style="width:100px; height:100px; margin: 5px 5px 5px 5px; display:inline-block;"><img id="result-img'+num+'" style="width: 100px; height: 100px;"/><p style="text-align:center;">'+input.files[0].name+'</p></div>');
+				    	 document.getElementById('result-img'+num).src = e.target.result;
+			    	 
+			    	 //document.querySelector('#result-img-preview').appendChild(imgTag);
+		     	};
+		     	reader.readAsDataURL(input.files[0]);
+		   } else {
+		     document.getElementById('result-img'+num).src = "";
+		   }
+		 }
+	    
+		let updatebeforeImgList = new DataTransfer();
+		let updateafterImgList = new DataTransfer();
+		
+	    function updatebeforeImg(input, num) {
+			let before = 'before';
+			
+			if(!updateTransfer[num]) {
+				let arr = [];
+		     	arr.push(new DataTransfer(), new DataTransfer());
+		     	updateTransfer[num] = arr;
+			}
+			
+			document.querySelector('#update-before-uploadFile'+num).files.forEach(e=>{
+				updateTransfer[num][0].items.add(e);
+			});
+			
+			for(let i=0; i<updateTransfer[num][0].files.length; i++) {
+				const reader = new FileReader();
+				$('#update-upload-before'+num+'Div'+i).remove();
+				reader.onload = e => {
+					$('#update-before-img-preview'+num).append(
+							'<div id="update-upload-before'+num+'Div'+i+'" style="width:100px; height:100px; margin: 10px 10px 10px 10px; display:inline-block;">'+
+							'<button type="button" onclick="updatedeleteImage('+updateTransfer[num][0].files[i].lastModified+', '+before+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1;">dddddd</button>' +
+						    '<img id="before'+num+'img'+i+'" style="width: 100px; height: 100px;"/></label>'+
+						    '<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+updateTransfer[num][0].files[i].name+'</p></div>');
+					
+					document.getElementById('before'+num+'img'+i).src = e.target.result;
+				}
+				reader.readAsDataURL(updateTransfer[num][0].files[i]);
+				
+				document.querySelector('#update-before-uploadFile'+num).files = updateTransfer[num][0].files;
+				console.log(document.querySelector('#update-before-uploadFile'+num).files = updateTransfer[num][0].files)
+				
+			}
+		}
+	    
+	    function updateafterImg(input, num) {
+			let after = 'after';
+			
+			if(!updateTransfer[num]) {
+				let arr = [];
+		     	arr.push(new DataTransfer(), new DataTransfer());
+		     	updateTransfer[num] = arr;
+			}
+			
+			document.querySelector('#update-after-uploadFile'+num).files.forEach(e=>{
+				updateTransfer[num][1].items.add(e);
+			});
+			
+			for(let i=0; i<updateTransfer[num][1].files.length; i++) {
+				const reader = new FileReader();
+				$('#update-upload-after'+num+'Div'+i).remove();
+				reader.onload = e => {
+					$('#update-after-img-preview'+num).append(
+							'<div id="update-upload-after'+num+'Div'+i+'" style="width:100px; height:100px; margin: 10px 10px 10px 10px; display:inline-block;">'+
+							'<button type="button" onclick="updatedeleteImage('+updateTransfer[num][1].files[i].lastModified+', '+after+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1;">dddddd</button>' +
+						    '<img id="after'+num+'img'+i+'" style="width: 100px; height: 100px;"/></label>'+
+						    '<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+updateTransfer[num][1].files[i].name+'</p></div>');
+					
+					document.getElementById('after'+num+'img'+i).src = e.target.result;
+				}
+				reader.readAsDataURL(updateTransfer[num][1].files[i]);
+				console.log(updateTransfer[num])
+				
+				document.querySelector('#update-after-uploadFile'+num).files = updateTransfer[num][1].files;
+				console.log(document.querySelector('#update-after-uploadFile'+num).files = updateTransfer[num][1].files)
+				
+			}
+		}
+	    
+	  const updatedeleteImage = (lastModified, name ,num, num2) => {
+	       let divName = 'update-upload-'+name+num+'Div'+num2;
+	    	
+	    	if(name == 'before') {
+		    	const files = document.querySelector('#update-before-uploadFile'+num).files;
+		    	let returnArr = Array.from(updateTransfer[num][0].files).filter(file => file.lastModified != lastModified);
+		    	updateTransfer[num][0] = new DataTransfer();
+		    	returnArr.forEach(e=> updateTransfer[num][0].items.add(e))
+		    	$('#'+divName).remove();
+		    	document.querySelector('#update-before-uploadFile'+num).files = updateTransfer[num][0].files;
+		    	console.log(document.querySelector('#update-before-uploadFile'+num).files = updateTransfer[num][0].files)
+		    	}
+	    	
+		    	else if (name == 'after') {
+		    		const files = document.querySelector('#update-after-uploadFile'+num).files;
+			    	let returnArr = Array.from(updateTransfer[num][1].files).filter(file => file.lastModified != lastModified);
+			    	updateTransfer[num][1] = new DataTransfer();
+			    	returnArr.forEach(e=> updateTransfer[num][1].items.add(e))
+			    	$('#'+divName).remove();
+			    	document.querySelector('#update-after-uploadFile'+num).files = updateTransfer[num][1].files;
+			    	console.log(document.querySelector('#update-after-uploadFile'+num).files = updateTransfer[num][1].files)
+		    	}
+	  }
   	    
   	    const cloneDiv = () => {
   	    	$('#add-tab-btn').remove();
   	    	tabCnt ++;
   	          $('#settings').append('<form id="preservation-form'+tabCnt+'" enctype="multipart/form-data"><div id="accordion-div"><hr/><div class="accordion-item" id="preservation-div"><h2 class="accordion-header" id="flush-headingOne">' +
-  	                        '<button class="accordion-button fw-medium ac_btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne'+tabCnt+'" aria-expanded="true" aria-controls="flush-collapseOne">버튼으로 수정 예정</button></h2>' +
+  	                        '<button class="accordion-button fw-medium ac_btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne'+tabCnt+'" aria-expanded="true" aria-controls="flush-collapseOne"></button></h2>' +
   	                      	'<div id="flush-collapseOne'+tabCnt+'" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">' +
   	                        '<div class="accordion-body text-muted"><div class="mb-0"><div class="card-body"><div class="table-responsive"><table class="table mb-0"><tbody>' +
   	                        '<tr><td>처리기관</td><td><input class="form-control st_input" list="datalistOptions" id="treatment_org'+tabCnt+'" name="treatment_org" placeholder="처리기관을 입력해 주세요."></td>' +
@@ -740,42 +1033,48 @@
   	    	$('input[class='+name+num+'checkbox').prop("checked", false);
   	    }
   	    
-  	    const deleteChecked = (name, num) => {
+  	  $(document).on('click', '#spc-add-button', async function() {
+			$("#speciality-form")[0].reset();
+		   $('#spc-add-btn').show();
+		   $('#spc-update-btn').hide();
+ 		})
+  	    
+  	    /* const deleteChecked = async (name, num) => {
   	    	let names = name+num+'checkbox';
   	    	let divName = name+num+'Div';
+  	    	let checkboxArr = [];
   	    	if($('input:checkbox[name='+names+']:checked').length == 0) {
   	    		alert("삭제할 항목을 선택해주세요.")
   	    		return;
   	    	}
   	    	if(confirm("삭제하시겠습니까?")) {
-  		
-  	    		$('input:checkbox[name='+names+']:checked').each(function() {
+  	    		let fileArr = Array.from(document.querySelector('#before-uploadFile').files);
+  	    		let beforeImgList = new DataTransfer();
+  				console.log('변경전:::', fileArr)
+  	    		await $('input:checkbox[name='+names+']:checked').each(function() {
   	    			$('#'+divName+$(this).val()).remove();
+  	    			checkboxArr.push($(this).attr('value2'));
   	    		})
-  					
+  	    		
+  	    		await checkboxArr.forEach((e, i)=> {
+  	    			fileArr.splice(e, 1);
+  	    		})
+  	    		
+                document.querySelector('#before-uploadFile').files = beforeImgList.files;
+                console.log('lastFiles:::', document.querySelector('#before-uploadFile').files)
   	        } else {
   	            return false;
   	        }
-  	    }
+  	    } */
 
-  		const preservationDeleteChecked = (name, num, state) => {
-  	    	let names = name+num+'checkbox';
+  		const preservationDeleteChecked = (name, image_idx, num, num2) => {
   	    	let divName = name+num+'Div';
-  			let updateNames = state+name+num+'checkbox';
-  			let updateDivName = state+name+num+'Div'
-  	    	if($('input:checkbox[name='+names+']:checked').length == 0) {
-  	    		alert("삭제할 항목을 선택해주세요.")
-  	    		return;
-  	    	}
-  	    	if(confirm("삭제하시겠습니까?")) {
-  				let arr = [];
-  		
-  	    		$('input:checkbox[name='+names+']:checked').each(function() {
-  	    			$('#update'+divName+$(this).val()).remove();
-  	    			$('#'+divName+$(this).val()).remove();
-  					arr.push($(this).attr('idx'));
-  	    		})
-  				if(arr) {
+  	    	console.log(divName, num2)
+  			let arr = [];
+  			arr.push(image_idx);
+  	    	if(confirm("등록된 이미지가 영구삭제됩니다. 삭제하시겠습니까?")) {
+  				$('#update'+divName+num2).remove();
+  				
   					$.ajax({
   						type : 'post',                 
   						url : '/deletePreservationImage.do',
@@ -789,7 +1088,6 @@
   							data == 'success' ? alert('삭제되었습니다') : alert('오류가 발생했습니다. 다시 시도해주세요.')
   						}
   					});
-  				} 
   	        } else {
   	            return false;
   	        }
@@ -1178,6 +1476,358 @@
      	$('input[name=imageCheckbox]').prop("checked", false);
      	$('input[name=imageListCheckbox]').prop("checked", false);
      }
+     
+     function getImageListExcel() {
+   	  let formData = document.createElement('form');
+   	  let obj1 = document.createElement('input');
+   	  obj1.setAttribute('type', 'hidden');
+   	  obj1.setAttribute('name', 'item_idx');
+   	  obj1.setAttribute('value', sessionStorage.getItem('item_idx'));
+   	  formData.appendChild(obj1);
+     	  formData.setAttribute('method', 'post');
+     	  formData.setAttribute('action', '/getImageListExcel.do');
+     	  document.body.appendChild(formData);
+     	  formData.submit();
+     }
+     
+     <!-- 자료 정보 가져오기 -->
+     
+     const getMetaDataInfo = async () => {
+    	 if(confirm('조회하시겠습니까?')) {
+    	 let formData = new FormData(document.getElementById('getMetaDataInfo'));
+    		
+    		const form = await fetch('/searchItemBase.do', {
+    	    		method:'POST',
+    	    		headers: {
+    	                "Content-Type": "application/x-www-form-urlencoded",
+    	            },
+    	            body: new URLSearchParams(formData)
+    	    	})
+
+    			const { itemBaseList } = await form.json();
+    	    	itemBaseList.length ? $('#metadata_item_nm').val(itemBaseList[0].item_nm) : alert('검색하신 데이터가 없습니다.');
+    	 } else {
+    		 return false;
+    	 }
+     }
+     
+     const setMetaDataInfo = async (list) => {
+    	 if(confirm('저장하시겠습니까?')) {
+    		 let formData = new FormData(document.getElementById('getMetaDataInfo'));
+     		
+     		const form = await fetch('/searchItemBase.do', {
+     	    		method:'POST',
+     	    		headers: {
+     	                "Content-Type": "application/x-www-form-urlencoded",
+     	            },
+     	            body: new URLSearchParams(formData)
+     	    	})
+
+     			const { itemBaseList } = await form.json();
+     			let list = itemBaseList;
+     			
+     			const form2 = await fetch('/searchItemBaseChild.do?item_idx=' + list[0].item_idx);
+     			const { taxonomyList, countryList, materialList, measurementList, obtainmentList, involvementList,
+     						InsuranceList, copyrightList, publicServiceList, keywordList } = await form2.json();
+     			
+	    	 if($('#copyDefault').is(':checked')) {
+	    	 	$('input[name=item_nm]').val(list[0].item_nm);
+	    		$('input[name=item_se_nm]').val(list[0].item_se_nm);
+	    		$('input[name=item_eng_nm]').val(list[0].item_eng_nm);
+	    		$('input[name=author]').val(list[0].author);
+	    		$('input[name=qty]').val(list[0].qty);
+	    		$('select[name=qty_unit_code_idx]').val(list[0].qty_unit_code_idx).prop("selected", true);
+	    		$('select[name=icao_code_idx]').val(list[0].icao_code_idx).prop("selected", true);
+	    		$('select[name=existence_code_idx]').val(list[0].existence_code_idx).prop("selected", true);
+	    		$('input[name=management_no]').val(list[0].management_no);
+	    		$('select[name=preservation_need]').val(list[0].preservation_need).prop("selected", true);
+	    		
+	    		taxonomyList.forEach(async (e, i) => {
+	    			$('#class-tbody').children('tr:not(:first-child)').remove();
+	    			if(i != 0) addClassTd('class-table', 'class-tbody');
+	    			/*i != 0 ? addClassTd('class-table', 'class-tbody') : '';*/
+	    			$('#class1_code_idx'+i).val(e.class1_code_idx).prop("selected", true);
+	    			$('#class2_code_idx'+i).val(e.class2_code_idx).prop("selected", true);
+	    			$('#class3_code_idx'+i).val(e.class3_code_idx).prop("selected", true);
+	    		})
+	    		
+	    		countryList.forEach(async (e, i) => {
+	    			$('#country-tbody').children('tr:not(:first-child)').remove();
+	    			$('#country-select'+i).val(e.country_code_idx).prop("selected", true);
+	    			await changeCountry(e.country_code_idx, 0);
+	    			$('#era-select'+i).val(e.era_code_idx).prop("selected", true);
+	    			$('#detail_year'+i).val(e.detail_year);
+	    		})
+	    		
+	    		materialList.forEach(async (e, i) => {
+	    			$('#material-tbody').children('tr:not(:first-child)').remove();
+	    			if(i != 0) addClassTd('material-table', 'material-tbody');
+	    			$('#material1_code_idx'+i).val(e.material1_code_idx).prop("selected", true);
+	    			await changeMaterial(e.material1_code_idx, i);
+	    			$('#material2_code_idx'+i).val(e.material2_code_idx).prop("selected", true);
+	    			$('#material_detail'+i).val(e.material_detail);
+	    		})
+	    		
+	    		measurementList.forEach((e, i) => {
+	    			$('#measurement-tbody').children('tr:not(:first-child)').remove();
+	    			if(i != 0) addClassTd('measurement-table', 'measurement-tbody');
+	    			$('#measurement_item_type'+i).val(e.item_type);
+	    			$('#measurement_code_idx'+i).val(e.measurement_code_idx).prop("selected", true);
+	    			$('#measurement_value'+i).val(e.measurement_value);
+	    			$('#measurement_unit_code_idx'+i).val(e.measurement_unit_code_idx).prop("selected", true);
+	    		})
+	    	 }
+	    	 
+	    	 if($('#copyDetail').is(':checked')) {
+	    		 $('#feature').val(list[0].feature);
+	    			$('#condition_code_idx').val(list[0].condition_code_idx).prop("selected", true);
+	    			$('#ranking_code_idx').val(list[0].ranking_code_idx).prop("selected", true);
+	    			$('#remark').val(list[0].remark);
+	    		 obtainmentList.forEach((e, i) => {
+	    				$('#obt_obtainment_date').val(e.obtainment_date);
+	    				$('#obt_obtainment_code_idx').val(e.obtainment_code_idx).prop("selected", true);
+	    				$('#obt_purchase1_code_idx').val(e.purchase1_code_idx).prop("selected", true);
+	    				$('#obt_purchase2_code_idx').val(e.purchase2_code_idx).prop("selected", true);
+	    				$('#obt_obtainment_price').val(e.obtainment_price);
+	    				$('#obt_price_unit_code_idx').val(e.price_unit_code_idx).prop("selected", true);
+	    				$('#obt_won_exchange').val(e.won_exchange);
+	    				$('#obt_obtainment_no').val(e.obtainment_no);
+	    				$('#obt_obtainment_place').val(e.obtainment_place);
+	    				$('#obt_obtainment_addr').val(e.obtainment_addr);
+	    				$('#obt_obtainment_detail').val(e.obtainment_detail);
+	    				$('#obt_record_date').val(e.record_date);
+	    				$('#obt_designation').val(e.designation).prop("selected", true);
+	    				$('#obt_redemption').val(e.redemption).prop("selected", true);
+	    				$('#obt_country_code_idx').val(e.country_code_idx).prop("selected", true);
+	    				$('#obt_qty').val(e.qty);
+	    				$('#obt_qty_unit_code_idx').val(e.qty_unit_code_idx).prop("selected", true);
+	    				$('#obt_redemption_date').val(e.redemption_date);
+	    			})
+	    			
+	    			involvementList.forEach((e,i) => {
+	    				$('#possession-tbody').children('tr:not(:first-child)').remove();
+	    				if(i != 0) addClassTd('possession-table', 'possession-tbody');
+	    				$('#invol_possession_code_idx').val(e.possession_code_idx).prop("selected", true);
+	    				$('#invol_item_no').val(e.item_no);
+	    				$('#invol_remark').val(e.remark);
+	    			})
+	    			
+	    			InsuranceList.forEach((e,i) => {
+	    				$('#insurance-tbody').children('tr:not(:first-child)').remove();
+	    				if(i != 0) addClassTd('insurance-table', 'insurance-tbody');
+	    				$('#insu_agreed_value').val(e.agreed_value);
+	    				$('#insu_price_unit_code_idx').val(e.price_unit_code_idx).prop("selected", true);
+	    				$('#insu_start_date').val(e.start_date);
+	    				$('#insu_end_date').val(e.end_date);
+	    				$('#insu_rental_org').val(e.rental_org);
+	    				$('#insu_remark').val(e.remark);
+	    			})
+	    			
+	    			copyrightList.forEach((e,i) => {
+	    				$('#copyright-tbody').children('tr:not(:first-child)').remove();
+	    				if(i != 0) addClassTd('copyright-table', 'copyright-tbody');
+	    				$('#copy_copyright').val(e.copyright).prop("selected", true);
+	    				$('#copy_owner').val(e.owner);
+	    				$('#copy_expiry_date').val(e.expiry_date);
+	    				$('#copy_usage_permission').val(e.usage_permission);
+	    				$('#copy_copyright_transfer').val(e.copyright_transfer);
+	    				$('#copy_remark').val(e.remark);
+	    			})
+	    			
+	    			publicServiceList.forEach((e,i) => {
+	    				$('#public_service').val(e.public_service).prop("selected", true);
+	    				$('#reason').val(e.reason);
+	    				$('#ggnuri_code_idx').val(e.ggnuri_code_idx).prop("selected", true);
+	    			})
+	    			
+	    			if(keywordList.length > 1) {
+	    	    		let keywordArr = [];
+	    	    		
+	    				keywordList.forEach((e,i) => {
+	    	    			keywordArr.push(e.keyword);
+	    	    		 })
+	    	    		 keywordArr.join(',');
+	    				$('#itembasekeyword').val(keywordArr);
+	    			} else {
+	    				$('#itembasekeyword').val(keywordList[0].keyword);
+	    			}
+	    	 }
+    	 } else { return false; }
+     }
+     
+     <!-- 자료번호삽입 -->
+	const setItemNo = async () => {
+		if(confirm('입력하신 자료번호를 삽입 하시겠습니까?')) {
+	    	 let formData = new FormData(document.getElementById('setItemNo'));
+	    		
+	    		const form = await fetch('/setItemNo.do', {
+	    	    		method:'POST',
+	    	    		headers: {
+	    	                "Content-Type": "application/x-www-form-urlencoded",
+	    	            },
+	    	            body: new URLSearchParams(formData)
+	    	    	})
+
+	    			const txt = await form.text();
+	    		txt == 'success' ? alert('삽입 되었습니다.') : ( txt == 'not' ? alert('해당 자료번호를 가진 자료가 없습니다.') : alert('오류가 발생했습니다. 다시 시도해주세요') );
+	    	 } else {
+	    		 return false;
+	    	 }
+	}
+	
+	<!-- 자료정보삭제신청 -->
+	const getDeletion = () => {
+		if(!checkInput()) { return }
+		$('#deletion_page').val(1);
+		let formData = $('#deletionForm').serialize();
+					$.ajax({
+							type : 'POST',                 
+							url : '/getDeletionList.do',
+							data: formData,			
+							dataType : "html",           
+							contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+							error : function() {        
+								alert('통신실패!');
+							},
+							success : function(data) {  
+								$('#deletionZone').empty().append(data);
+							}
+						});
+	}
+
+	const checkInput = () => {
+		if(!$('#deletion_org_code_idx > option:selected').val()) {
+	    	alert("기관코드를 선택해주세요.");
+			return false
+		}
+		if(!$('#deletion_possession_code_idx > option:selected').val()) {
+	    	alert("소장구분을 선택해주세요.");
+			return false
+		}
+		if(!$('#deletion_item_no1').val()) {
+	    	alert("첫번째 자료번호를 입력해주세요.");
+			return false
+		}
+		if(!$('#deletion_item_no2').val()) {
+	    	alert("두번째 자료번호를 입력해주세요.");
+			return false
+		}
+		if($('#deletion_item_detail_no1').val()) {
+			if(!$('#deletion_item_detail_no2').val()) {
+				alert("두번째 세부번호를 입력해주세요.");
+				return false
+			}
+		}
+		if($('#deletion_item_detail_no2').val()) {
+			if(!$('#deletion_item_detail_no1').val()) {
+				alert("첫번째 세부번호를 입력해주세요.");
+				return false
+			}
+		}
+		if($('#deletion_item_no1').val() > $('#deletion_item_no2').val()) {
+			alert("두번째 자료번호의 검색조건이 잘못되었습니다")
+			return false
+		}
+		return true
+	}
+
+	const deletionCheckAll = () => {
+		if($("#deletionAllCheckbox").is(':checked')) {
+			$("input[name=item_idx]").prop("checked", true);
+		} else {
+			$("input[name=item_idx]").prop("checked", false);
+		}
+	}
+
+	$("#deletionAllCheckbox").click(function() {
+		console.log('click');
+		if($("#deletionAllCheckbox").is(':checked')) {
+			$("input[id=deletionCheckbox]").prop("checked", true);
+		} else {
+			$("input[id=deletionCheckbox]").prop("checked", false);
+		}
+	});
+
+	const checkDelete = () => {
+		let checkbox = $('input:checkbox[id=deletionCheckbox]:checked');
+		if($('#deletionCheckbox').is(":checked") == false){
+			alert("삭제신청하실 자료를 1개이상 선택해주세요.");
+			return;
+		}
+	   
+
+		if(confirm("선택하신 자료 삭제신청을 하시겠습니까?")) {
+			let item_idx = [];
+			let org_nm = $('#deletion_org_code_idx option:checked').text();
+			let possession_nm = $('#deletion_possession_code_idx option:checked').text();
+			let item_no = [];
+			let item_detail_no = [];
+			let item_nm = [];
+			let erasure_reason = $('#erasure_reason').val();
+			let aproval_state = 'N';
+		checkbox.each(function(j) {
+			let tr = checkbox.parent().parent().eq(j);
+			item_idx.push(checkbox.val());
+			
+			let td = tr.children();
+				item_no.push(td.eq(3).text());
+				item_detail_no.push(td.eq(4).text());
+				item_nm.push(td.eq(5).text());
+			/*for(let i=3; i<tr.children().length; i++) {
+				console.log(i+'::::'+td.eq(i).text());
+			}*/
+			console.log(item_idx, item_no, item_detail_no, item_nm);
+		})
+		
+				$.ajax({
+							type : 'POST',
+							url : '/deleteDeletion.do',
+							data: {
+								item_idx: item_idx,
+								item_no: item_no,
+								item_detail_no: item_detail_no,
+								item_nm: item_nm,
+								org_nm: org_nm,
+								possession_nm: possession_nm,
+								erasure_reason: erasure_reason,
+								aproval_state: aproval_state
+								},			
+							dataType : "text",           
+							contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+							error : function() {
+								alert('오류가 발생했습니다. 다시 시도해주세요.');
+							},
+							success : function(data) {
+								data == 'success' ? (alert('삭제 신청 완료'), getDeletion()) : alert('오류가 발생했습니다. 다시 시도해주세요.');
+							}
+						});
+		} else {
+			return false;
+		}
+	}
+
+	const goDelitionPage = page => {
+		$('#deletion_page').val(page);
+		let formData = $('#deletionForm').serialize();
+		console.log(formData);
+		$.ajax({
+				type : 'POST',                 
+				url : '/getDeletionList.do',
+				data: formData,			
+				dataType : "html",           
+				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+				error : function() {
+						alert('통신실패!');
+				},
+				success : function(data) {  
+					$('#deletionZone').empty().append(data);
+					console.log(data);
+				}
+			});
+	}
+    	 
+     
+     
   </script>
   
 
@@ -1241,29 +1891,6 @@
           </div>
           <!--  -->
           <!-- 퀵메뉴 -->
-
-          <div class="modal fade imageUploadModal" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
-                        <div class="modal-dialog modal-xl">
-                          <div class="modal-content pro-modal-content">
-                            <div class="modal-header mv-modal-header">
-                                <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body mv-modal-body">
-                            <div style="text-align: right; margin-bottom: 10px">
-			                        <button id="btn-add-files" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">파일추가</button>
-                             </div>
-                                <!-- 엑셀 모달 내용 -->
-			                      	<div id="dext5-container" style="width:100%; height:300px;"></div>
-			                      	<div id="dext5-btn" style="text-align: center; margin: 10px 10px 10px 10px;">
-			                    	 	<button id="btn-upload-auto" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">저장</button>
-			                    	 	<button id="btn-delete-auto" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">삭제</button>
-			                    	 </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-
           <div class="accordion" id="accordionExample">
 
             <div class="accordion-item">
@@ -1284,11 +1911,11 @@
                   <div class="text-muted">
                     <strong class="text-dark">
                       <ul>
-                        <li onclick="updateData()"><a href="#">저장</a></li>
+                        <li onclick="submitForm()"><a href="#">저장</a></li>
                         <li><a href="#">자료 등록하기</a></li>
-                        <li><a href="#">자료 정보 가져오기</a></li>
-                        <li><a href="#">자료 정보 삭제 신청</a></li>
-                        <li><a href="#">자료 번호 삽입</a></li>
+                        <li data-bs-toggle="modal" data-bs-target="#getMetaDataInfoModal">자료 정보 가져오기</li>
+	                   	<li data-bs-toggle="modal" data-bs-target="#deleteItemInfo" >자료 정보 삭제 신청</li>
+                        <li data-bs-toggle="modal" data-bs-target="#setItemNoModal">자료 번호 삽입</li>
                       </ul>
                   </div>
                 </div>
@@ -1381,24 +2008,20 @@
           <!-- 기본 사항 - 분류체계 시작 -->
             <div class="tab-pane active" id="home" role="tabpanel">
               <div class="mb-0">
-                <div class="st_wrap">
-                </div>
                 <div class="card-body cd_df">
                   <div class="tr_left">
                   <!-- 이미지 슬라이드 -->
                       <div class="card-body">
-                        <div class="slider_count_wrap">
-                          1/10
-                        </div>
                           <div class="card-title-desc">
-                            <button class="custom_btn btn_707070" style="margin-right: 1%;">원본보기</button><button class="custom_btn btn_707070">다운로드</button>
+                            <button type="button" class="custom_btn btn_707070" style="margin-right: 1%;" onclick="mainImageClick()">원본보기</button>
+                            <button type="button" class="custom_btn btn_707070" onclick="downloadMainImage()">다운로드</button>
                           </div>
                           <!--  -->
-                          <div class="img-slider">
-                            <div><img src="" alt="이미지1"></div>
-                            <div><img src="" alt="이미지2"></div>
-                            <div><img src="" alt="이미지3"></div>
+                          <div id="img-card-body">
+                          
+                          
                           </div>
+                          
                       </div>
                   </div>
                   <div class="table-responsive tr_right">
@@ -1555,6 +2178,7 @@
                     </div>
                 </div>
               </div>
+              
 
 
               <!-- ------------------------ddddddddddddddddddddmnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn -->
@@ -1976,8 +2600,8 @@
         <div class="mb-0">
           <div class="st_wrap">
             <label class="col-md-2 col-form-label st_title">보험 관계기록</label>
-            <button class="custom_btn btn_707070" onclick="deleteClassTd('insurance-table', 'insurance-checkbox')">선택삭제</button>
-            <button class="custom_btn btn_707070" onclick="addClassTd('insurance-table', 'insurance-tbody')">추가</button>
+            <button type="button" class="custom_btn btn_707070" onclick="deleteClassTd('insurance-table', 'insurance-checkbox')">선택삭제</button>
+            <button type="button" class="custom_btn btn_707070" onclick="addClassTd('insurance-table', 'insurance-tbody')">추가</button>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -2191,6 +2815,233 @@
           <input type="text" class="st_inp_tbox" placeholder="키워드를 입력해 주세요. 콤마 단위로 입력해주세요." id="itembasekeyword" name="itembasekeyword">
       </div>
       </form>
+      
+      <!-- modalzone 모달 -->
+       <div class="modal fade imageUploadModal" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                          <div class="modal-content pro-modal-content">
+                            <div class="modal-header mv-modal-header">
+                                <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body mv-modal-body">
+                            <div style="text-align: right; margin-bottom: 10px">
+			                        <button id="btn-add-files" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">파일추가</button>
+                             </div>
+                                <!-- 엑셀 모달 내용 -->
+			                      	<div id="dext5-container" style="width:100%; height:300px;"></div>
+			                      	<div id="dext5-btn" style="text-align: center; margin: 10px 10px 10px 10px;">
+			                    	 	<button id="btn-upload-auto" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">저장</button>
+			                    	 	<button id="btn-delete-auto" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">삭제</button>
+			                    	 </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    
+           <div id="getMetaDataInfoModal" class="modal fade" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                          <div class="modal-content pro-modal-content">
+                            <div class="modal-header mv-modal-header">
+                                <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body mv-modal-body">
+                            	
+				                  <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <tbody>
+                                            <form id="getMetaDataInfo">
+                                             <tr>
+                                                  <td>자료구분</td>
+                                                    <td>
+	                                                    <select class="search_select" name="org_code_idx">
+										                	<option value="" selected>선택</option>
+										                    <c:forEach var="list" items="${orgList}" varStatus="status">
+										                           <option value="${list.org_code_idx}" <c:if test ="${list.org_nm eq '항공박물관'}">selected="selected"</c:if>>${list.org_nm}</option>
+										                     </c:forEach>
+										                  </select>
+										                  <select class="search_select" name="possession_code_idx">
+										                      <option value="" selected>선택</option>
+										                      		<c:forEach var="list" items="${posSessionList}" varStatus="status">
+												                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
+												                     </c:forEach>
+										                  </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                  <td>자료번호</td>
+                                                    <td>
+                                                      <input class="form-control st_input" type="text" name="item_no" placeholder="자료번호를 입력해주세요">
+                                                      <input class="form-control st_input" type="text" name="item_detail_no" placeholder="세부번호를 입력해주세요">
+                                                      <button type="button" class="btn btn-secondary btn_save" onclick="getMetaDataInfo()">조회</button>
+                                                    </td>
+                                                </tr>
+                                               </form>
+                                               
+                                                <tr>
+                                                  <td>자료명칭</td>
+                                                    <td>
+                                                    	<input class="form-control st_input" type="text" id="metadata_item_nm" placeholder="자료명칭을 입력해주세요">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                  <td>복사항목</td>
+                                                  <td>
+                                                  	<label for="copyDefault">
+                                                  		기본사항
+	                                                    <input type="checkbox" id="copyDefault" >
+                                                  	</label>
+                                                  	<label for="copyDetail">
+                                                  		세부사항
+                                                    	<input type="checkbox" id="copyDetail" >
+                                                    </label>
+                                                  </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button type="button" class="btn btn-secondary btn_save" onclick="setMetaDataInfo()">저장</button>
+                                        <button type="button" class="btn btn-secondary btn_save"  data-bs-dismiss="modal" aria-label="Close">닫기</button>
+                                    </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 자료번호삽입 -->
+                   <div id="setItemNoModal" class="modal fade" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                          <div class="modal-content pro-modal-content">
+                            <div class="modal-header mv-modal-header">
+                                <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
+                                <span style="color: white;">자료번호 삽입</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body mv-modal-body">
+                            	<div class="mb-0">
+                            		연속된 자료번호 중간에 신규로 자료번호를 삽입할 경우 사용하는 기능입니다.
+                            	</div>
+				                  <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <tbody>
+                                            <form id="setItemNo">
+                                             <tr>
+                                                  <td>자료구분</td>
+                                                    <td>
+	                                                    <select class="search_select" name="org_code_idx">
+										                	<option value="" selected>선택</option>
+										                    <c:forEach var="list" items="${orgList}" varStatus="status">
+										                           <option value="${list.org_code_idx}" <c:if test ="${list.org_nm eq '항공박물관'}">selected="selected"</c:if>>${list.org_nm}</option>
+										                     </c:forEach>
+										                  </select>
+										                  <select class="search_select" name="possession_code_idx">
+										                      <option value="" selected>선택</option>
+										                      		<c:forEach var="list" items="${posSessionList}" varStatus="status">
+												                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
+												                     </c:forEach>
+										                  </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                  <td>삽입할 자료 번호</td>
+                                                    <td>
+                                                      <input class="form-control st_input" type="text" name="item_no" placeholder="자료번호를 입력해주세요">
+                                                    </td>
+                                                </tr>
+                                               </form>
+                                            </tbody>
+                                        </table>
+                                        <button type="button" class="btn btn-secondary btn_save" onclick="setItemNo()">삽입</button>
+                                    </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 자료정보 삭제신청 -->
+                    <div id="deleteItemInfo" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header mv-modal-header">
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					      </div>
+					      <div class="modal-body mv-modal-body">
+					        <div class="st_wrap">
+					          <label class="col-md-2 col-form-label st_title">자료정보 삭제신청</label>
+					        </div>
+					        <div class="">삭제를 원하시는 자료를 선택 하신 후 사유를 작성하시고 '삭제신청'버튼을 클릭하세요.</div>
+					        <!--  -->
+						  <form id="deletionForm">
+						  <input type="hidden" id="deletion_page" name="page" value="1"/>
+					        <div class="mb-0 user-wrap">
+					          <div>
+					            <div class="col-md-10">
+					              <label class="col-md-2 col-form-label">자료구분</label>
+					              <select class="form-select" id="deletion_org_code_idx" name="org_code_idx">
+					                    <option value="" selected>선택</option>
+					                    		<c:forEach var="list" items="${orgList}" varStatus="status">
+							                           <option value="${list.org_code_idx}">${list.org_nm}</option>
+							                     </c:forEach>
+					                </select>
+					              <select class="form-select" id="deletion_possession_code_idx" name="possession_code_idx">
+					                      <option value="" selected>선택</option>
+					                      		<c:forEach var="list" items="${posSessionList}" varStatus="status">
+							                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
+							                     </c:forEach>
+					                  </select>
+					              <label class="col-md-2 col-form-label">자료번호</label>
+					              <input class="form-control" placeholder="자료번호" name="item_no1" id="deletion_item_no1">
+					              <input class="form-control" placeholder="세부번호" name="item_detail_no1" id="deletion_item_detail_no1"/>
+					              ~
+					              <input class="form-control" placeholder="자료번호" name="item_no2" id="deletion_item_no2"/>
+					              <input class="form-control" placeholder="세부번호" name="item_detail_no2"  id="deletion_item_detail_no2"/>
+					              <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="getDeletion()">조회</button>
+					            </div>
+					          </div>
+					          <select class="form-select" name="perPageNum">
+					              <option selected value="10">10개</option>
+					              <option value="20">20개</option>
+					              <option value="30">30개</option>
+					              <option value="50">50개</option>
+					            </select>
+					          <!--  -->
+					          <div id="deletionZone">
+					          <div class="card-body">
+					            <div class="table-responsive" style="overflow-y: scroll; height: 300px; padding: 4px; border: 1 solid #000000">
+					              <table class="table mb-0">
+					                <thead>
+					                  <tr class="tr_bgc">
+					                    <th><input type="checkbox" id="deletionAllCheckbox" onclick="deletionCheckAll()"/></th>
+					                    <th>번호</th>
+					                    <th>자료구분</th>
+					                    <th>자료번호</th>
+					                    <th>세부번호</th>
+					                    <th>명칭</th>
+					                  </tr>
+					                </thead>
+					                <tbody id="deletion-tbody">
+											<tr>
+												<td colspan="6">검색된 결과가 없습니다.</td>
+											</tr>
+					                </tbody>
+					              </table>
+					            </div>
+					          </div>
+					
+					          </div>
+					
+					          <!--  -->
+					
+					        </div>
+					        </form>
+					        <!--  -->
+					        <div class="custom_modal_footer"><button type="button" onclick="checkDelete()">삭제신청</button><button>닫기</button></div>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+                    <!-- modalzone 모달 end -->
+                    
         <div class="mb-0 btn_add_save_wrap">
         	<button type="button" class="custom_btn btn_c58672" onclick="checkSubmitForm()">저장하기</button>
         </div>
@@ -2217,7 +3068,6 @@
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body mv-modal-body">
-                              엑셀 모달 내용
                               <div class="mb-0 move-wrap">
                                 <div class="st_wrap">
                                   <label class="col-md-2 col-form-label st_title">이동사항 등록 및 수정</label>
@@ -2397,7 +3247,7 @@
                          <button type="button" class="custom_btn btn_707070" onclick="imageAllCheck()">전체선택</button>
                          <button type="button" class="custom_btn btn_707070" onclick="imageCancelCheck()">선택해지</button>
                          <button type="button" class="custom_btn btn_707070" onclick="deleteImageChecked()">선택삭제</button>
-                         <button type="button" class="custom_btn btn_ex" >엑셀파일</button>
+                         <button type="button" class="custom_btn btn_ex" onclick="getImageListExcel()" >엑셀파일</button>
 
                     </div>
                   </div>
@@ -2495,13 +3345,13 @@
               <div class="st_wrap">
                 <label class="col-md-2 col-form-label st_title" style="display:inline">보존처리 전 이미지</label>
 
-                <label for="before-uploadFile" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
-				<input type="file" name="before_uploadFile" id="before-uploadFile" onchange="beforeImg(this, 0)" multiple style="display:none;" accept="image/*">
+                <label for="before-uploadFile0" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
+				<input type="file" name="before_uploadFile" id="before-uploadFile0" onchange="beforeImg(this, 0)" multiple style="display:none;" accept="image/*">
 
                 <button class="custom_btn btn_7288c5">다운로드</button>
-                <button type="button" class="custom_btn btn_707070"" onclick="allCheck('before', '0')">전체선택</button>
+               <!--  <button type="button" class="custom_btn btn_707070"" onclick="allCheck('before', '0')">전체선택</button>
                 <button type="button" class="custom_btn btn_707070" onclick="cancelCheck('before', '0')">선택해지</button>
-                <button type="button" class="custom_btn btn_707070" onclick="deleteChecked('before', '0')">선택삭제</button>
+                <button type="button" class="custom_btn btn_707070" onclick="deleteChecked('before', '0')">선택삭제</button> -->
 
                 <div id="before-img-preview0">
 
@@ -2513,8 +3363,8 @@
               <div class="st_wrap">
                 <label class="col-md-2 col-form-label st_title">보존처리 후 이미지</label>
 
-                <label for="after-uploadFile" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
-				<input type="file" name="after_uploadFile" id="after-uploadFile" onchange="afterImg(this, 0)" multiple style="display:none;" accept="image/*">
+                <label for="after-uploadFile0" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
+				<input type="file" name="after_uploadFile" id="after-uploadFile0" onchange="afterImg(this, 0)" multiple style="display:none;" accept="image/*">
 
                 <button class="custom_btn btn_7288c5">다운로드</button>
                 <button type="button" class="custom_btn btn_707070" onclick="allCheck('after', '0')">전체선택</button>
@@ -2648,9 +3498,9 @@
           </div>
         </div>
           <!--  -->
-
+                    
         </div>
-
+        
 
         <footer class="footer">
           <div class="container-fluid">
@@ -2905,6 +3755,7 @@
     <script src="<c:url value='/assets/libs/apexcharts/apexcharts.min.js'/>" defer></script>
     <script src="<c:url value='/assets/js/app.js'/>" defer></script>
     <script src="<c:url value='/assets/js/pages/dashboard.init.js'/>" defer></script>
+    
 
 
 

@@ -275,11 +275,6 @@ public class MetaDataServiceImpl implements MetaDataService {
 	}
 
 	@Override
-	public List<MovementVO> getMovement(int item_idx) {
-		return dao.getMovement(item_idx);
-	}
-
-	@Override
 	public List<ItemBaseVO> getItemBase(MetaDataParamVO param) {
 		return dao.getItemBase(param);
 	}
@@ -413,6 +408,36 @@ public class MetaDataServiceImpl implements MetaDataService {
 	@Override
 	public List<MovementVO> getMovementData(int movement_idx) {
 		return dao.getMovementData(movement_idx);
+	}
+
+	@Override
+	public List<MovementVO> getMovementExcel(MovementParamVO param) {
+		return dao.getMovementExcel(param);
+	}
+
+	@Override
+	public List<MovementVO> getMovement(MovementParamVO param) {
+		return dao.getMovement(param);
+	}
+
+	@Override
+	public int getMovementListCnt(MovementParamVO param) {
+		return dao.getMovementListCnt(param);
+	}
+
+	@Override
+	public Integer getMetaDataInfo(MetaDataParamVO param) {
+		return dao.getMetaDataInfo(param);
+	}
+
+	@Override
+	public String searchItemNo(MetaDataParamVO param) {
+		return dao.searchItemNo(param);
+	}
+
+	@Override
+	public int setItemNo(MetaDataParamVO param) {
+		return dao.setItemNo(param);
 	}
 
 

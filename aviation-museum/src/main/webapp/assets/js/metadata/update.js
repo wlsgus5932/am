@@ -78,9 +78,6 @@ const checkDelete = () => {
    
 
 	if(confirm("선택하신 자료 삭제신청을 하시겠습니까?")) {
-		/*$("#keyword_child_modal").css("display", "block");
-		$('#keyword_child_modal').addClass("show");*/
-		
 		let item_idx = [];
 		let org_nm = $('#deletion_org_code_idx option:checked').text();
 		let possession_nm = $('#deletion_possession_code_idx option:checked').text();
@@ -90,7 +87,6 @@ const checkDelete = () => {
 		let erasure_reason = $('#erasure_reason').val();
 		let aproval_state = 'N';
 	checkbox.each(function(j) {
-		
 		let tr = checkbox.parent().parent().eq(j);
 		item_idx.push(checkbox.val());
 		
