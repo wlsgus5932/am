@@ -3,11 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
     
             <div class="tab-pane" id="profile" role="tabpanel" style="display:block;">
-              <div class="mb-0">
-                <!-- 요청내역조회 탭 시작 -->
+            
                 <div class="st_wrap st_mv_wrap">
                     <!-- 자료구분 셀렉트 -->
-                    <div class="fr_wrap">
+                    <div class="fr_wrap" style="margin: 0;">
                       <div class="mb-3 row fr_1">
 	                      <form id="requestHistorySearchForm" name="requestHistorySearchForm" method="post" class="form-horizontal">
 	                        <div class="custom_btn_wrap2">
@@ -39,7 +38,11 @@
 	                     </form>
                     </div>
                     </div>
-                </div>
+                </div>            
+            
+              <div class="mb-0">
+                <!-- 요청내역조회 탭 시작 -->
+
                 <!-- 반려 사유 모달 -->
                 <div id="ReturnModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-modal="true" role="dialog">
                   <div class="modal-dialog user-modal">
@@ -148,13 +151,13 @@
 		                          </c:choose>
 		                          <c:choose>
 		                          	 <c:when test="${requestHistoryList.approval_state eq 'N'}">
-		                          		<td><button class="custom_btn btn_c58672" data-bs-toggle="modal" data-bs-target="#ReturnModal" type="button" onClick="returnModalBtn('${requestHistoryList.request_idx}','${requestHistoryList.keyword}')">반려</button></td>
+		                          		<td><button class="custom_btn btn_c58672 btn_mypage" data-bs-toggle="modal" data-bs-target="#ReturnModal" type="button" onClick="returnModalBtn('${requestHistoryList.request_idx}','${requestHistoryList.keyword}')">반려</button></td>
 		                       		 </c:when>
 		                       		 <c:when test="${requestHistoryList.approval_state eq 'F'}">
 		                       		 	<td><button>미승인</button></td>		                       		 
 		                       		 </c:when>
 		                       		 <c:otherwise>
-		                       		 	<td><button class="custom_btn btn_3d3d3d">승인</button></td>
+		                       		 	<td><button class="custom_btn btn_3d3d3d btn_mypage">승인</button></td>
 		                       		 </c:otherwise>
 		                          </c:choose>
 		                          <td>${requestHistoryList.keyword_list}</td>

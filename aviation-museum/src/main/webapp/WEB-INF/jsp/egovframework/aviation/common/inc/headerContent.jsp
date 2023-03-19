@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<header id="page-topbar" class="isvertical-topbar">
+<header id="page-topbar" class="isvertical-topbar sticky">
   <div class="navbar-header">
     <div class="d-flex">
       <!-- LOGO -->
@@ -255,11 +255,11 @@
         </div>
       </div>
 
-      <div class="dropdown d-inline-block">
-        <button type="button" class="btn header-item noti-icon right-bar-toggle" id="right-bar-toggle-v">
-          <i class="icon-sm" data-eva="settings-outline"></i>
-        </button>
-      </div>
+<!--       <div class="dropdown d-inline-block"> -->
+<!--         <button type="button" class="btn header-item noti-icon right-bar-toggle" id="right-bar-toggle-v"> -->
+<!--           <i class="icon-sm" data-eva="settings-outline"></i> -->
+<!--         </button> -->
+<!--       </div> -->
 
       <div class="dropdown d-inline-block">
         <!-- <button

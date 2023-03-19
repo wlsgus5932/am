@@ -825,7 +825,7 @@
 		                                </c:forEach>
                               </select>
                             </td>
-                            <td>
+                            <td class="table_2nd_row_wrap">
                               <!-- 대여기간 캘린더 폼 -->
                               <input class="form-control" type="date" id="insu_start_date" name="insu_start_date"> ~ <input class="form-control" type="date" id="insu_end_date" name="insu_end_date">
                             </td>

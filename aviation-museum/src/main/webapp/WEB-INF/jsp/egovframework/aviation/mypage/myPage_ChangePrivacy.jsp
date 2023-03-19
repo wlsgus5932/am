@@ -26,7 +26,7 @@
 		                      <dd><input class="custom_search_input" type="password" placeholder="비밀번호 입력" name="member_pw" id="member_pw"></dd>
 		                    </dl>
 	                  </div>
-	                  <button class="custom_btn btn_c58672" type="button" id="userConfirmBtn">저장</button>
+	                  <button class="custom_btn btn_c58672 btn_mypage" type="button" id="userConfirmBtn">저장</button>
 	                </div>
                  </form>             
             </div>

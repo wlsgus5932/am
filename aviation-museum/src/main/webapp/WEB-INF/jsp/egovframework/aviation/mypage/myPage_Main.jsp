@@ -29,7 +29,7 @@
     <script src="assets/libs/jquery/jquery-3.6.3.min.js"></script>
     <!-- 커스텀 css -->
     <link href="assets/css/custom.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="assets/css/custom_view.css">
+<!--     <link rel="stylesheet" href="assets/css/custom_view.css"> -->
     <link rel="stylesheet" href="assets/css/custom_my.css">
     <link href="assets/css/viewer.css" rel="stylesheet" type="text/css" />
 	<script src="assets/js/viewer.js"></script>

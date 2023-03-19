@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
-     <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block;">
+     <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block; width:100%;">
      <form id="noticeSearchForm" name="noticeSearchForm" method="post" class="form-horizontal">
 	      <div class="user_top_wrap" style="margin-top:20px;">
 	          <span>검색</span>
@@ -15,7 +15,7 @@
 	            <button class="custom_btn btn_inquiry"  type="button" onClick="noticeSearchList();">조회</button>
 	      </div>
       </form>
-      <div class="custom_btn_wrap" style="margin-top: 50px;">
+      <div class="custom_btn_wrap" style="margin-top: 10px;">
           <button class="custom_btn btn_no_select" id="noticeListDeleteBtn">선택 삭제</button>
           <button type="button" class="custom_btn btn_user_registration" data-bs-toggle="modal" data-bs-target="#myModal">공지사항등록</button>
       </div>

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
-     <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block;">
+     <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block; width:100%;">
      <form id="noticeSearchForm" name="noticeSearchForm" method="post" class="form-horizontal">
 	      <div class="user_top_wrap" style="margin-top:20px;">
 	          <span>검색</span>

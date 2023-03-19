@@ -114,7 +114,7 @@
                         </div>
                     </div>
 
-          <div class="accordion" id="accordionExample">
+          <div class="accordion quick_menu" id="accordionExample">
 
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
@@ -288,7 +288,7 @@
                                 <td>
                                   수량
                                 </td>
-                                  <td>
+                                  <td class="table_2nd_row_wrap">
                                     <input class="form-control st_input pri" list="datalistOptions" id="exampleDataList" placeholder="수량을 입력해 주세요." name="qty" style="min-width:auto !important;">
                                     <select class="form-select st_select pri" name="qty_unit_code_idx" style="min-width:auto !important;">
                                       <option value="" selected>단위선택</option>
@@ -365,7 +365,7 @@
 	                        <table class="table mb-0" id="class-table">
 	                            <thead>
 	                                <tr class="tr_bgc">
-	                                    <td>#</td>
+	                                    <td>선택</td>
 	                                    <td>번호</td>
 	                                    <td>대분류</td>
 	                                    <td>중분류</td>
@@ -425,7 +425,7 @@
                       <table class="table mb-0" id="country-table">
                           <thead>
                               <tr class="tr_bgc">
-                                  <td>#</td>
+                                  <td>선택</td>
                                   <td>번호</td>
                                   <td>국적</td>
                                   <td>국적별 시대</td>
@@ -474,7 +474,7 @@
                     <table class="table mb-0" id="material-table">
                         <thead>
                             <tr class="tr_bgc">
-                                <td>#</td>
+                                <td>선택</td>
                                 <td>번호</td>
                                 <td>1단계</td>
                                 <td>2단계</td>
@@ -521,7 +521,7 @@
                     <table class="table mb-0" id="measurement-table">
                         <thead>
                             <tr class="tr_bgc">
-                                <td>#</td>
+                                <td>선택</td>
                                 <td>번호</td>
                                 <td>소장구분</td>
                                 <td>실측부위</td>
@@ -614,7 +614,7 @@
                           <tr>
                             <td>
                               가격
-                              <td>
+                              <td class="table_2nd_row_wrap">
                                 <input class="form-control st_input pri" list="datalistOptions" id="obt_obtainment_price" placeholder="가격을 입력해 주세요." name="obt_obtainment_price">
                                 <select class="form-select st_select pri" name="obt_price_unit_code_idx" id="obt_price_unit_code_idx">
                                   <option value="" selected>선택</option>
@@ -746,7 +746,7 @@
                   <table class="table mb-0">
                       <tbody>
                           <tr>
-                            <td>
+                            <td style="width: 10%;">
                               자료상태
                               <td>
                                 <select class="form-select st_select"  id="condition_code_idx" name="condition_code_idx">
@@ -756,7 +756,7 @@
 		                                </c:forEach>
                                 </select>
                               </td>
-                              <td>
+                              <td style="width: 10%;">
                                 전시순위
                               <td>
                                 <select class="form-select st_select" id="ranking_code_idx" name="ranking_code_idx">
@@ -789,7 +789,7 @@
                   <table class="table mb-0" id="possession-table">
                       <thead>
                           <tr class="tr_bgc">
-                              <td>#</td>
+                              <td>선택</td>
                               <td>번호</td>
                               <td>자료구분</td>
                               <td>자료번호</td>
@@ -835,7 +835,7 @@
                 <table class="table mb-0" id="insurance-table">
                     <thead>
                         <tr class="tr_bgc">
-                            <td>#</td>
+                            <td>선택</td>
                             <td>번호</td>
                             <td>평가액</td>
                             <td>가격단위</td>
@@ -860,7 +860,7 @@
 		                                </c:forEach>
                               </select>
                             </td>
-                            <td>
+                            <td class="table_2nd_row_wrap">
                               <!-- 대여기간 캘린더 폼 -->
                               <input class="form-control" type="date" id="insu_start_date" name="insu_start_date"> ~ <input class="form-control" type="date" id="insu_end_date" name="insu_end_date">
                             </td>
@@ -898,7 +898,7 @@
                 <table class="table mb-0" id="copyright-table">
                     <thead>
                         <tr class="tr_bgc">
-                            <td>#</td>
+                            <td>선택</td>
                             <td>번호</td>
                             <td>저작권</td>
                             <td>저작권 소유자</td>

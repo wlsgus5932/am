@@ -21,6 +21,7 @@
     <!-- 커스텀 css -->
     <link href="<c:url value='/assets/css/custom.css'/>" rel="stylesheet" type="text/css" />
     <link href="<c:url value='/assets/css/viewer.css'/>" rel="stylesheet" type="text/css" />
+    <link href="<c:url value='/assets/css/custom_view.css'/>" rel="stylesheet" type="text/css" />
     <!--  -->
     <link rel="stylesheet" href="<c:url value='/assets/libs/swiper/swiper-bundle.min.css'/>" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -117,7 +118,7 @@
                         </div>
                     </div>
 
-          <div class="accordion" id="accordionExample">
+          <div class="accordion quick_menu" id="accordionExample">
 
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
@@ -158,7 +159,7 @@
                 </button>
               </h2>
               <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
+                <div class="accordion-body accordion-body_2">
                   <div class="text-muted">
                     <strong class="text-dark">
                       <ul>
@@ -173,16 +174,6 @@
             </div>
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingThree">
-                <button
-                  class="accordion-button fw-medium collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseThree"
-                  aria-expanded="false"
-                  aria-controls="collapseThree"
-                >
-                  등록메뉴얼
-                </button>
               </h2>
               <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 </div>
@@ -252,7 +243,7 @@
                           </div>
                       </div>
                   </div>
-                  <div class="table-responsive tr_right">
+                  <div class="table-responsive tr_right view_right">
                       <table class="table mb-0">
                           <tbody>
                               <tr>
@@ -260,12 +251,12 @@
                                   명칭
                                 </td>
                                   <td>
-                                    <input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="자료의 명칭을 입력해 주세요." name="item_nm">
+                                    명칭
                                   </td>
                                   <td>
                                     이명칭
                                   <td>
-                                    <input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="자료의 명칭을 입력해 주세요." name="item_se_nm">
+                                    이명칭
                                   </td>
                               </tr>
                               <!-- 2  -->
@@ -274,12 +265,12 @@
                                   영문 명칭
                                 </td>
                                   <td>
-                                    <input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="자료의 영문 명칭을 입력해 주세요." name="item_eng_nm">
+                                    영문 명칭
                                   </td>
                                   <td>
                                     작가
                                   <td>
-                                    <input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="작가의 이름을 입력해 주세요." name="author">
+                                    홍길동
                                   </td>
                               </tr>
                               <!-- 3 -->
@@ -288,24 +279,13 @@
                                   수량
                                 </td>
                                   <td>
-                                    <input class="form-control st_input pri" list="datalistOptions" id="exampleDataList" placeholder="수량을 입력해 주세요." name="qty" style="min-width:auto !important;">
-                                    <select class="form-select st_select pri" name="qty_unit_code_idx" style="min-width:auto !important;">
-                                      <option value="" selected>단위선택</option>
-                                      	<c:forEach var="list" items="${qtyUnitList}" varStatus="status">
-		                                    <option value="${list.qty_unit_code_idx}">${list.qty_unit_nm}</option>
-		                                </c:forEach>
-                                    </select>
+                                  1정
                                   </td>
                                   <td>
                                      ICAO
                                   </td>
                                   <td>
-                                    <select class="form-select st_select" name="icao_code_idx">
-                                      <option selected value="">선택안함</option>
-                                      <c:forEach var="list" items="${IcaoList}" varStatus="status">
-		                                    <option value="${list.icao_code_idx}">${list.icao_nm}</option>
-		                                </c:forEach>
-                                    </select>
+                                  선택안함
                                   </td>
                               </tr>
                               <!-- 4 -->
@@ -314,18 +294,13 @@
                                   현존여부
                                 </td>
                                   <td>
-                                    <select class="form-select st_select" name="existence_code_idx">
-                                      <option selected value="">선택</option>
-                                      <c:forEach var="list" items="${existenceList}" varStatus="status">
-		                                    <option value="${list.existence_code_idx}">${list.existence_nm}</option>
-		                               </c:forEach>
-                                    </select>
+                                    선택
                                   </td>
                                   <td>
                                     관리번호
                                   </td>
                                   <td>
-                                    <input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="관리번호를 입력해 주세요." name="management_no">
+                                    11-11
                                   </td>
                               </tr>
                               <!-- 5 -->
@@ -334,16 +309,13 @@
                                   보존처리필요
                                 </td>
                                   <td>
-                                    <select class="form-select st_select" name="preservation_need">
-                                      <option selected value="N">불필요</option>
-                                      <option value="Y">필요</option>
-                                    </select>
+                                    필
                                   </td>
                                   <td>
                                     보존처리자
                                   </td>
                                   <td>
-                                    <input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="보존처리 이력이 있을 경우만 이름을 나타냅니다.">
+                                    고길동
                                   </td>
                               </tr>
                           </tbody>
@@ -364,41 +336,24 @@
 	                        <table class="table mb-0" id="class-table">
 	                            <thead>
 	                                <tr class="tr_bgc">
-	                                    <td>#</td>
-	                                    <td>번호</td>
-	                                    <td>대분류</td>
-	                                    <td>중분류</td>
-	                                    <td>소분류</td>
+	                                    <th>번호</th>
+	                                    <th>대분류</th>
+	                                    <th>중분류</th>
+	                                    <th>소분류</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody id="class-tbody">
 	                                <tr id="class-tr">
-	                                  <td></td>
 	                                 <!--  <input type="checkbox" name="class-checkbox" id=""> -->
-	                                    <th scope="row" id="row-number">1</th>
+	                                    <td scope="row" id="row-number">1</td>
 	                                    <td>
-	                                      <select class="form-select st_select" id="class1_code_idx0" name="class1_code_idx">
-	                                        <option value="" selected>선택</option>
-	                                        <c:forEach var="list" items="${class1List}" varStatus="status">
-			                                    <option value="${list.class1_code_idx}">${list.class1_nm}</option>
-			                                </c:forEach>
-	                                      </select>
+	                                      선택
 	                                    </td>
 	                                    <td>
-	                                      <select class="form-select st_select" id="class2_code_idx0" name="class2_code_idx">
-	                                        <option value="" selected>선택</option>
-	                                        <c:forEach var="list" items="${class2List}" varStatus="status">
-			                                    <option value="${list.class2_code_idx}">${list.class2_nm}</option>
-			                                </c:forEach>
-	                                      </select>
+	                                      선택
 	                                    </td>
 	                                    <td>
-	                                      <select class="form-select st_select" id="class3_code_idx0" name="class3_code_idx">
-	                                        <option value="" selected>선택</option>
-	                                        <c:forEach var="list" items="${class3List}" varStatus="status">
-			                                    <option value="${list.class3_code_idx}">${list.class3_nm}</option>
-			                                </c:forEach>
-	                                      </select>
+	                                      선택
 	                                    </td>
 	                                </tr>
 	                            </tbody>
@@ -424,35 +379,23 @@
                       <table class="table mb-0" id="country-table">
                           <thead>
                               <tr class="tr_bgc">
-                                  <td>#</td>
-                                  <td>번호</td>
-                                  <td>국적</td>
-                                  <td>국적별 시대</td>
-                                  <td>시대(상세)</td>
+                                  <th>번호</th>
+                                  <th>국적</th>
+                                  <th>국적별 시대</th>
+                                  <th>시대(상세)</th>
                               </tr>
                           </thead>
                           <tbody id="country-tbody">
                               <tr>
-                                <td></td>
-                                  <th scope="row">1</th>
+                                  <td scope="row">1</td>
                                   <td>
-                                    <select class="form-select st_select" id="country-select0" onchange="changeCountry(this.value, 0)" name="country_code_idx">
-                                      <option value="" selected>선택</option>
-		                               <c:forEach var="list" items="${countryList}" varStatus="status">
-		                                    <option value="${list.country_code_idx}">${list.country_nm}</option>
-		                                </c:forEach>
-                                    </select>
+                                   더미데이터
                                   </td>
                                   <td>
-                                    <select class="form-select st_select" id="era-select0" name="era_code_idx">
-                                      <option value="" selected>선택</option>
-                                      <%-- <c:forEach var="list" items="${eraList}" varStatus="status">
-		                                    <option value="${list.era_code_idx}">${list.era_nm}</option>
-		                                </c:forEach> --%>
-                                    </select>
+                                    더미데이터
                                   </td>
                                   <td>
-                                    <input class="form-control st_input" list="datalistOptions" placeholder="상세 시대를 입력해 주세요." id="detail_year0" name=detail_year>
+                                    더미데이터
                               </tr>
                           </tbody>
                       </table>
@@ -473,32 +416,23 @@
                     <table class="table mb-0" id="material-table">
                         <thead>
                             <tr class="tr_bgc">
-                                <td>#</td>
-                                <td>번호</td>
-                                <td>1단계</td>
-                                <td>2단계</td>
-                                <td>재질(상세)</td>
+                                <th>번호</th>
+                                <th>1단계</th>
+                                <th>2단계</th>
+                                <th>재질(상세)</th>
                             </tr>
                         </thead>
                         <tbody id="material-tbody">
                             <tr>
-                              <td></td>
-                                <th scope="row">1</th>
+                                <td scope="row">1</td>
                                 <td>
-                                  <select class="form-select st_select" id="material1_code_idx0" onchange="changeMaterial(this.value, 0)" name="material1_code_idx">
-                                    <option value="" selected>선택</option>
-                                    <c:forEach var="list" items="${material1List}" varStatus="status">
-		                                    <option value="${list.material1_code_idx}">${list.material1_nm}</option>
-		                                </c:forEach>
-                                  </select>
+                                 더미데이터
                                 </td>
                                 <td>
-                                  <select class="form-select st_select" id="material2_code_idx0" name="material2_code_idx">
-                                    <option value="" selected>선택</option>
-                                  </select>
+                                  더미데이터
                                 </td>
                                 <td>
-                                  <input class="form-control st_input" list="datalistOptions" id="material_detail0" placeholder="상세 재질을 입력해 주세요." name="material_detail">
+                                  더미데이터
                             </tr>
                         </tbody>
                     </table>
@@ -520,38 +454,26 @@
                     <table class="table mb-0" id="measurement-table">
                         <thead>
                             <tr class="tr_bgc">
-                                <td>#</td>
-                                <td>번호</td>
-                                <td>소장구분</td>
-                                <td>실측부위</td>
-                                <td>실측치</td>
-                                <td>실단위</td>
+                                <th>번호</th>
+                                <th>소장구분</th>
+                                <th>실측부위</th>
+                                <th>실측치</th>
+                                <th>실단위</th>
                             </tr>
                         </thead>
                         <tbody id="measurement-tbody">
                             <tr>
-                              <td></td>
-                                <th scope="row">1</th>
+                                <td scope="row">1</td>
                                 <td>
-                                  <input class="form-control st_input" list="datalistOptions" id="measurement_item_type0" placeholder="소장구분을 입력해 주세요." name="measurement_item_type">
+                                  더미데이터
                                 </td>
                                 <td>
-                                  <select class="form-select st_select" id="measurement_code_idx0" name="measurement_code_idx">
-                                    <option value="" selected>선택</option>
-                                    	<c:forEach var="list" items="${measurementList}" varStatus="status">
-		                                    <option value="${list.measurement_code_idx}">${list.measurement_nm}</option>
-		                                </c:forEach>
-                                  </select>
+                                  더미데이터
                                 </td>
                                 <td>
-                                  <input class="form-control st_input" list="datalistOptions" id="measurement_value0" placeholder="실측치를 입력해 주세요." name="measurement_value">
+                                  더미데이터
                                 <td>
-                                  <select class="form-select st_select" id="measurement_unit_code_idx0" name="measurement_unit_code_idx">
-                                    <option value="" selected>선택</option>
-                                   	 	<c:forEach var="list" items="${measurementUnitList}" varStatus="status">
-		                                    <option value="${list.measurement_unit_code_idx}">${list.measurement_unit_nm}</option>
-		                                </c:forEach>
-                                  </select>
+                                 더미데이터
                                 </td>
                             </tr>
                         </tbody>
@@ -559,6 +481,9 @@
                 </div>
             </div>
           </div>
+<!--           <div class="mb-0 btn_add_save_wrap"> -->
+<!--         	<button type="button" class="custom_btn btn_c58672" onclick="checkSubmitForm()">저장하기</button> -->
+<!--         </div> -->
           <!-- 기본사항 - 크기 끝 -->
           <!--  -->
           <div class="mb-0">
@@ -567,158 +492,123 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                  <table class="table mb-0">
+					<table class="table mb-0">
                       <tbody>
                           <tr>
-                            <td>
+                            <td class="view_border_1">
                               입수일자
-                              <td>
-                                <input class="form-control in_date" type="date" id="obt_obtainment_date" name="obt_obtainment_date">
+                              </td><td class="view_border_2">
+                                2022-12-14
                               </td>
-                              <td>
+                              <td class="view_border_1">
                                 입수연유
-                              <td>
-                                <select class="form-select st_select" id="obt_obtainment_code_idx" name="obt_obtainment_code_idx">
-                                  <option value="" selected>선택</option>
-                                  		<c:forEach var="list" items="${obtainmentList}" varStatus="status">
-		                                    <option value="${list.obtainment_code_idx}">${list.obtainment_nm}</option>
-		                                </c:forEach>
-                                </select>
+                              </td><td class="view_border_2">
+                                선택
                               </td>
                           </tr>
                           <!-- 2  -->
                           <tr>
-                            <td>
+                            <td class="view_border_1">
                               구입구분1
-                              <td>
-                                <select class="form-select st_select" id="obt_purchase1_code_idx" name="obt_purchase1_code_idx">
-                                  <option value="" selected>선택</option>
-                                  		<c:forEach var="list" items="${purchase1List}" varStatus="status">
-		                                    <option value="${list.purchase1_code_idx}">${list.purchase1_nm}</option>
-		                                </c:forEach>
-                                </select>
+                              </td><td class="view_border_2">
+                                선택
                               </td>
-                              <td>
+                              <td class="view_border_1">
                                 구입구분2
-                              <td>
-                                <select class="form-select st_select" id="obt_purchase2_code_idx" name="obt_purchase2_code_idx">
-                                  <option value="" selected>선택</option>
-                                 		 <c:forEach var="list" items="${purchase2List}" varStatus="status">
-		                                    <option value="${list.purchase2_code_idx}">${list.purchase2_nm}</option>
-		                                </c:forEach>
-                                </select>
+                              </td>
+                              <td class="view_border_2">
+                                선택
                               </td>
                           </tr>
                           <!-- 3 -->
                           <tr>
-                            <td>
+                            <td class="view_border_1">
                               가격
-                              <td>
-                                <input class="form-control st_input pri" list="datalistOptions" id="obt_obtainment_price" placeholder="가격을 입력해 주세요." name="obt_obtainment_price">
-                                <select class="form-select st_select pri" name="obt_price_unit_code_idx" id="obt_price_unit_code_idx">
-                                  <option value="" selected>선택</option>
-                                  		<c:forEach var="list" items="${priceUnitList}" varStatus="status">
-		                                    <option value="${list.price_unit_code_idx}">${list.price_unit_nm}</option>
-		                                </c:forEach>
-                                </select>
+                              </td><td class="view_border_2">
+                                가격 가격단위
                               </td>
-                              <td>
+                              <td class="view_border_1">
                                 원화환산
-                                <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">환률정보</button>
+                                <button class="custom_btn btn_707070">환률정보</button>
                               </td>
-                              <td>
-                                <input class="form-control st_input" list="datalistOptions" id="obt_won_exchange" placeholder="원화환산 입력에 관하여 환률정보 클릭 시 도움을 받을 수 있습니다." name="obt_won_exchange">
+                              <td class="view_border_2">
+                                원화환산
                               </td>
                           </tr>
                           <!-- 4 -->
                           <tr>
-                            <td>
+                            <td class="view_border_1">
                               일괄구입번호
-                              <td>
-                                <input class="form-control st_input" list="datalistOptions" id="obt_obtainment_no" placeholder="일괄구입번호를 입력해 주세요." name="obt_obtainment_no">
-                              </td>
-                              <td>
-                                입수처
-                              </td>
-                              <td>
-                                <input class="form-control st_input" list="datalistOptions" id="obt_obtainment_place" placeholder="입수처를 입력해 주세요." name="obt_obtainment_place">
-                              </td>
+                            </td>
+                            <td class="view_border_2">
+                              일괄구입번호
+                            </td>
+                            <td class="view_border_1">
+                              입수처
+                            </td>
+                            <td class="view_border_2">
+                              선택
+                            </td>
                           </tr>
                           <!-- 5 -->
                           <tr>
-                            <td>
+                            <td class="view_border_1">
                               입수주소
                             </td>
-                              <td>
-                                <input class="form-control st_input" list="datalistOptions" id="obt_obtainment_addr" placeholder="입수주소를 입력해 주세요." name="obt_obtainment_addr">
+                              <td class="view_border_2">
+                                입수주소
                               </td>
-                              <td>
+                              <td class="view_border_1">
                                 입수 내용
                               </td>
-                              <td>
-                                <input class="form-control st_input" list="datalistOptions" id="obt_obtainment_detail" placeholder="연락처 외 기본사항을 입력 할 수 있습니다." name="obt_obtainment_detail">
+                              <td class="view_border_2">
+                                연락처 외 기본사항
                               </td>
                           </tr>
                           <!-- 6 -->
                           <tr>
-                            <td>
+                            <td class="view_border_1">
                               등록일자
                             </td>
-                              <td>
-                                <input class="form-control in_date" type="date" id="obt_record_date" name="obt_record_date">
+                              <td class="view_border_2">
+                                선택
                               </td>
-                              <td>
+                              <td class="view_border_1">
                                 문화재 지정
                               </td>
-                              <td>
-                                <select class="form-select st_select" name="obt_designation" id="obt_designation">
-                                  <option value="N" selected>N</option>
-                                  <option value="Y">Y</option>
-                                </select>
+                              <td class="view_border_2">
+                                선택 안함
                               </td>
                           </tr>
                           <!-- 7 -->
                           <tr>
-                            <td>
+                            <td class="view_border_1">
                               문화재 환수
+                              <input type="checkbox" name="" id="">
                             </td>
-                              <td>
-                                <select class="form-select st_select" name="obt_redemption" id="obt_redemption">
-                                  <option value="N" selected>N</option>
-                                  <option value="Y">Y</option>
-                                </select>
+                              <td class="view_border_2">
+                                환수 경로
                               </td>
-                              <td>
+                              <td class="view_border_1">
                                 문화재 환수 국적
                               </td>
-                              <td>
-                                <select class="form-select st_select" name="obt_country_code_idx" id="obt_country_code_idx">
-                                  <option value="" selected>선택</option>
-                                  		<c:forEach var="list" items="${countryList}" varStatus="status">
-		                                    <option value="${list.country_code_idx}">${list.country_nm}</option>
-		                                </c:forEach>
-                                </select>
+                              <td class="view_border_2">
+                                선택
                               </td>
                           </tr>
                           <!-- 8 -->
                           <tr>
-                            <td>
+                            <td class="view_border_1">
                               문화재 환수 수량
                             </td>
-                              <td>
-                                <input class="form-control st_input pri" list="datalistOptions" id="obt_qty" placeholder="환수 경로를 입력해 주세요." name="obt_qty">
-                                <select class="form-select st_select pri" id="obt_qty_unit_code_idx" name="obt_qty_unit_code_idx">
-                                  <option value="" selected>문화재 환수 단위</option>
-                                  		<c:forEach var="list" items="${qtyUnitList}" varStatus="status">
-		                                    <option value="${list.qty_unit_code_idx}">${list.qty_unit_nm}</option>
-		                                </c:forEach>
-                                </select>
+                              <td class="view_border_2">
+                                문화재수량 단위
                               </td>
-                              <td>
+                              <td class="view_border_1">
                                 문화재 환수 연도
                               </td>
-                              <td>
-                                <input class="form-control st_input" list="datalistOptions" id="obt_redemption_date" placeholder="문화재 환수 연도를 입력해 주세요." name="obt_redemption_date">
+                              <td class="view_border_2">
+                                문화재 환수 연도
                               </td>
                           </tr>
                       </tbody>
@@ -732,7 +622,7 @@
             <div class="st_wrap">
               <label class="col-md-2 col-form-label st_title">특징</label>
             </div>
-              <input type="text" class="st_inp_tbox" placeholder="특징에 관하여 입력해 주세요." id="feature" name="feature">
+              <p>특징</p>
           </div>
           <!-- 기본사항 특징 끝 -->
           <!--  -->
@@ -746,25 +636,15 @@
                   <table class="table mb-0">
                       <tbody>
                           <tr>
-                            <td>
+                            <td style="width: 10%;">
                               자료상태
                               <td>
-                                <select class="form-select st_select"  id="condition_code_idx" name="condition_code_idx">
-                                  <option value="" selected>선택</option>
-                                  		<c:forEach var="list" items="${conditionList}" varStatus="status">
-		                                    <option value="${list.condition_code_idx}">${list.condition_nm}</option>
-		                                </c:forEach>
-                                </select>
+                               자료상태
                               </td>
+                              <td style="width: 10%;">전시순위</td>
+
                               <td>
                                 전시순위
-                              <td>
-                                <select class="form-select st_select" id="ranking_code_idx" name="ranking_code_idx">
-                                  <option value="" selected>선택</option>
-                                  		<c:forEach var="list" items="${rankingList}" varStatus="status">
-		                                    <option value="${list.ranking_code_idx}">${list.ranking_nm}</option>
-		                                </c:forEach>
-                                </select>
                               </td>
                           </tr>
                       </tbody>
@@ -789,31 +669,24 @@
                   <table class="table mb-0" id="possession-table">
                       <thead>
                           <tr class="tr_bgc">
-                              <td>#</td>
-                              <td>번호</td>
-                              <td>자료구분</td>
-                              <td>자료번호</td>
-                              <td>비고</td>
+                              <th>번호</th>
+                              <th>자료구분</th>
+                              <th>자료번호</th>
+                              <th>비고</th>
                           </tr>
                       </thead>
                       <tbody id="possession-tbody">
                           <tr>
                           	<input type="hidden" name="invol_org_code_idx" id="invol_org_code_idx">
-                            <td></td>
-                              <th scope="row">1</th>
+                              <td scope="row">1</td>
                               <td>
-                                <select class="form-select st_select" id="invol_possession_code_idx" name="invol_possession_code_idx">
-                                  <option value="" selected>선택</option>
-                                  		<c:forEach var="list" items="${posSessionList}" varStatus="status">
-		                                    <option value="${list.possession_code_idx}">${list.possession_nm}</option>
-		                                </c:forEach>
-                                </select>
+                                선택
                               </td>
                               <td>
-                                <input class="form-control st_input" list="datalistOptions" id="invol_item_no" placeholder="자료번호를 입력해 주세요." name="invol_item_no">
+                                자료번호
                               </td>
                               <td>
-                                <input class="form-control st_input" list="datalistOptions" id="invol_remark" placeholder="참고사항을 입력해 주세요." name="invol_remark">
+                                비고
                               </td>
                           </tr>
                       </tbody>
@@ -835,40 +708,31 @@
                 <table class="table mb-0" id="insurance-table">
                     <thead>
                         <tr class="tr_bgc">
-                            <td>#</td>
-                            <td>번호</td>
-                            <td>평가액</td>
-                            <td>가격단위</td>
-                            <td>대여기간</td>
-                            <td>대여기관</td>
-                            <td>비고</td>
+                            <th>번호</th>
+                            <th>평가액</th>
+                            <th>가격단위</th>
+                            <th>대여기간</th>
+                            <th>대여기관</th>
+                            <th>비고</th>
                         </tr>
                     </thead>
                     <tbody id="insurance-tbody">
                         <tr>
-                          <td></td>
-                            <th scope="row">1</th>
+                            <td scope="row">1</td>
                             <td>
-                              <input class="form-control st_input" list="datalistOptions" id="insu_agreed_value" placeholder="평가액을 입력해 주세요." name="insu_agreed_value">
-
+                              평가액
                             </td>
                             <td>
-                              <select class="form-select st_select" name="insu_price_unit_code_idx" id="insu_price_unit_code_idx">
-                                <option value="" selected>선택</option>
-                                		<c:forEach var="list" items="${priceUnitList}" varStatus="status">
-		                                    <option value="${list.price_unit_code_idx}">${list.price_unit_nm}</option>
-		                                </c:forEach>
-                              </select>
+                             가격단위
+                            </td>
+                            <td class="table_2nd_row_wrap">
+                             대여기간
                             </td>
                             <td>
-                              <!-- 대여기간 캘린더 폼 -->
-                              <input class="form-control" type="date" id="insu_start_date" name="insu_start_date"> ~ <input class="form-control" type="date" id="insu_end_date" name="insu_end_date">
+                              대여기관
                             </td>
                             <td>
-                              <input class="form-control st_input" list="datalistOptions" id="insu_rental_org" placeholder="대여기관을 입력해 주세요." name="insu_rental_org">
-                            </td>
-                            <td>
-                              <input class="form-control st_input" list="datalistOptions" id="insu_remark" placeholder="참고사항을 입력해 주세요." name="insu_remark">
+                              비고
                             </td>
                         </tr>
                     </tbody>
@@ -882,7 +746,7 @@
           <div class="st_wrap">
             <label class="col-md-2 col-form-label st_title">비고</label>
           </div>
-            <input type="text" class="st_inp_tbox" placeholder="참고사항을 입력해 주세요." id="remark" name="remark">
+            <p>비고</p>
         </div>
         <!-- 기본사항 - 비고 끝 -->
         <!--  -->
@@ -898,50 +762,35 @@
                 <table class="table mb-0" id="copyright-table">
                     <thead>
                         <tr class="tr_bgc">
-                            <td>#</td>
-                            <td>번호</td>
-                            <td>저작권</td>
-                            <td>저작권 소유자</td>
-                            <td>저작권만료일자</td>
-                            <td>이용허락 여부</td>
-                            <td>저작권 양도 여부</td>
-                            <td>비고</td>
+                            <th>번호</th>
+                            <th>저작권</th>
+                            <th>저작권 소유자</th>
+                            <th>저작권만료일자</th>
+                            <th>이용허락 여부</th>
+                            <th>저작권 양도 여부</th>
+                            <th>비고</th>
                         </tr>
                     </thead>
                     <tbody id="copyright-tbody">
                         <tr>
-                          <td></td>
-                            <th scope="row">1</th>
+                            <td scope="row">1</td>
                             <td>
-                              <select class="form-select st_select" id="copy_copyright" name="copy_copyright">
-                                <option value="" selected>선택</option>
-                                <option value="Y">예</option>
-                                <option value="N">아니요</option>
-                              </select>
+                              더미데이터
                             </td>
                             <td>
-                              <input class="form-control st_input" list="datalistOptions" id="copy_owner" placeholder="" name="copy_owner">
+                              더미데이터
                             </td>
                             <td>
-                              <!-- 대여기간 캘린더 폼 -->
-                              <input class="form-control" type="date" id="copy_expiry_date" name="copy_expiry_date">
+                             더미데이터
                             </td>
                             <td>
-                              <select class="form-select st_select" id="copy_usage_permission" name="copy_usage_permission">
-                                <option value="" selected>선택</option>
-                                <option value="Y">예</option>
-                                <option value="N">아니요</option>
-                              </select>
+                              더미데이터
                             </td>
                             <td>
-                              <select class="form-select st_select" id="copy_copyright_transfer" name="copy_copyright_transfer">
-                                <option value="" selected>선택</option>
-                                <option value="Y">예</option>
-                                <option value="N">아니요</option>
-                              </select>
+                              더미데이터
                             </td>
                             <td>
-                              <input class="form-control st_input" list="datalistOptions" id="copy_remark" placeholder="참고사항을 입력해 주세요." name="copy_remark">
+                             더미데이터
                             </td>
                         </tr>
                     </tbody>
@@ -955,10 +804,7 @@
         <div class="mb-0">
           <div class="st_wrap">
             <label class="col-md-2 col-form-label st_title">대국민 서비스</label>
-            <select class="form-select st_select ser_sel" id="public_service" name="public_service">
-              <option value="N" selected>비사용</option>
-              <option value="Y">사용</option>
-            </select>
+            <span>선택내용</span>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -972,15 +818,10 @@
                     <tbody>
                         <tr>
                             <td>
-                              <input class="form-control st_input" list="datalistOptions" id="reason" placeholder="서비스 불가 사유를 입력해 주세요." name="reason">
+                             더미데이터
                             </td>
                             <td>
-                              <select class="form-select st_select" id="ggnuri_code_idx" name="ggnuri_code_idx">
-                                <option value="" selected>선택</option>
-                                		<c:forEach var="list" items="${ggnuriList}" varStatus="status">
-		                                    <option value="${list.ggnuri_code_idx}">${list.ggnuri_nm}</option>
-		                                </c:forEach>
-                              </select>
+                             더미데이터
                             </td>
                         </tr>
                     </tbody>
@@ -1011,7 +852,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
+                            <td scope="row">1</td>
                             <td>
                              -
                             </td>
@@ -1039,7 +880,7 @@
         <div class="st_wrap">
           <label class="col-md-2 col-form-label st_title">키워드</label>
         </div>
-          <input type="text" class="st_inp_tbox" placeholder="키워드를 입력해 주세요. 콤마 단위로 입력해주세요." id="keyword" name="keyword">
+          <p>키워드</p>
       </div>
       </form>
 		<!-- <div class="mb-0 btn_add_save_wrap">

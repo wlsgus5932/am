@@ -84,14 +84,18 @@
 	<input type="hidden" id="rsaPublicKeyExponent" value="<%=publicKeyExponent%>" />
 	 <div class="main_wrap">
       	<div class="content_wrap">
-     	    <h2 class="main_text">
-	          항공박물관
-	        </h2>
+<!--      	    <h2 class="main_text"> -->
+<!--      	    안녕하세요.<br>국립항공박물관입니다. -->
+<!-- 	        </h2> -->
+	        <h3 class="sub_text">회원 서비스 이용을 위해 로그인 해주세요.</h3>
 			<input type="text" name="member_id" id="member_id" class="id_wrap total_input" placeholder="아이디"/> <br/>
 			<input type="password" name="member_pw" id="member_pw" class="passsword_wrap total_input" placeholder="비밀번호" /> <br/>
 			<div class="login_wrap">
-				<button type="button" onClick="validateEncryptedForm()">login</button>
+				<button type="button" onClick="validateEncryptedForm()">로그인</button>
 			</div>
+      		<div class="login_main_logo_img">
+      		<img src="assets/custom_img/logo-black.png" alt="" height="22">
+      		</div>			
 		</div>
     </div>
 </form>
