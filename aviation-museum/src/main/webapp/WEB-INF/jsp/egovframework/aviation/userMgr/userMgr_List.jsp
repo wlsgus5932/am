@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
      <div class="tab-pane" id="profile" role="tabpanel" style="display:block;">
-     <form id="userSearchForm" name="userSearchForm" method="post" class="form-horizontal">
+     <form id="userSearchForm" name="userSearchForm" method="post" class="form-horizontal" onsubmit="return false">
 	      <div class="user_top_wrap">
 	          <span>검색</span>
 	          <select class="search_select" id="search_type" name="search_type">
@@ -14,7 +14,7 @@
 		        <option value="remark">비고</option>
 		        <option value="enabled">사용여부</option>
 	          </select>
-	            <input class="custom_search_input" type="text" id="search_word" name="search_word" >
+	            <input class="custom_search_input" type="text" id="search_word" name="search_word" onkeypress="if( event.keyCode == 13 ){userSearchList();}">
 	            <button class="custom_btn btn_inquiry"  type="button" onClick="userSearchList();">조회</button>
 	      </div>
       </form>
@@ -322,15 +322,16 @@
 						$('#tab-content').empty().append(data);
 						$('#search_word').val(search_word);
 						$('#search_type').val(search_type);
+						$('#search_word').focus();
 					}
 				});
 		}
 		
-		$('input[type="text"]').keydown(function() {
-			  if (event.keyCode === 13) {
-			    event.preventDefault();
-			  };
-		});
+// 		$('input[type="text"]').keydown(function() {
+// 			  if (event.keyCode === 13) {
+// 			    event.preventDefault();
+// 			  };
+// 		});
 		
 		<%-- 사용자 페이지 이동 --%>
 		function goPage(value) {
