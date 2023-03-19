@@ -36,6 +36,11 @@
   border: 1px solid #D2D2D2;
 }
 
+.search_img_wrap img {
+	width: 100%;
+	height: 90px;
+}
+
 .simple_view_wrap {
   border: 1px solid #000;
   width: 300px;
