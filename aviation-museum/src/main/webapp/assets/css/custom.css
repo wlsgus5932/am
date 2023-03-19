@@ -544,6 +544,9 @@ th {
   float: right;
   box-shadow: 0px 3px 8px #7d7d7d29;
   border-radius: 15px;
+  position: absolute;
+  top: 270px;
+  right: 0;
 }
 
 .accordion-body {
