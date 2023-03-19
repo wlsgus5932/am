@@ -3,6 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
     
             <div class="tab-pane" id="profile" role="tabpanel" style="display:block;">
+            <form id="sForm" name="sForm" method="post" class="form-horizontal">
+           		<input type="hidden" id="keyword2" name="keyword" value="" />
+            	<input type="hidden" id="org_nm2" name="org_nm" value="" />
+                <input type="hidden" id="possession_nm2" name="possession_nm" value="" />
+                <input type="hidden" id="item_no2" name="item_no" value="" />
+                <input type="hidden" id="item_detail_no2" name="item_detail_no" value="" />
+            </form>
               <div class="mb-0">
                 <!-- 요청내역조회 탭 시작 -->
                 <div class="st_wrap st_mv_wrap">
@@ -12,13 +19,13 @@
 	                      <form id="requestHistorySearchForm" name="requestHistorySearchForm" method="post" class="form-horizontal">
 	                        <div class="custom_btn_wrap2">
 	                          <label class="col-md-2 col-form-label">구분</label>
-	                            <select class="search_select" name="keyword">
+	                            <select class="search_select" name="keyword" id ="keyword">
 	                                <option value="">전체</option>
 	                                <option value="erasure">삭제</option>
 	                                <option value="keyword">키워드</option>
 	                            </select>
 	                          <label class="col-md-2 col-form-label">자료구분</label>
-	                            <select class="search_select" name="org_nm" onChange="orgCodeChange();">
+	                            <select class="search_select" name="org_nm" id="org_nm" onChange="orgCodeChange();">
 	                            	<option value="">전체</option>
 	                                <c:forEach var="getOrgList" items="${getOrgList}">
 	                               		 <option value="${getOrgList.org_nm}">${getOrgList.org_nm}</option>
@@ -32,8 +39,8 @@
 	                          <!--  -->
 	                            <label class="col-md-2 col-form-label">자료 번호</label>
 	                            <!-- <div class="col-md-10"> -->
-	                              <input class="custom_search_input" list="datalistOptions" id="exampleDataList" placeholder="자료 번호" name="item_no">
-	                              <input class="custom_search_input" list="datalistOptions" id="exampleDataList" placeholder="세부" name="item_detail_no">
+	                              <input class="custom_search_input" list="datalistOptions" id="item_no" placeholder="자료 번호" name="item_no" onkeypress="if( event.keyCode == 13 ){requestHistorySearchList();}">
+	                              <input class="custom_search_input" list="datalistOptions" id="item_detail_no" placeholder="세부" name="item_detail_no" onkeypress="if( event.keyCode == 13 ){requestHistorySearchList();}">
 	                              <button class="custom_btn btn_707070" type="button" onClick="requestHistorySearchList();">조회</button>
 	                      </div>
 	                     </form>
@@ -195,12 +202,12 @@
             </div>
             
             <script>
-	    		$('input[type="text"]').keydown(function() {
-		  			  if (event.keyCode === 13) {
-		  			    event.preventDefault();
-		  			  };
-				});
-		
+// 	    		$('input[type="text"]').keydown(function() {
+// 		  			  if (event.keyCode === 13) {
+// 		  			    event.preventDefault();
+// 		  			  };
+// 				});
+		 		
 	            function orgCodeChange() {
 				
 	    			var queryString = $("form[name=requestHistorySearchForm]").serialize();
@@ -222,9 +229,11 @@
 	            
 	    		<%-- 요청내역조회 조건 검색 --%>
 	    		function requestHistorySearchList(){
-// 	    			var speciality_code_idx = $('#speciality_code_idx').val();
-// 	    			var search_word = $('#search_word').val();
-// 	    			var search_type = $('#search_type').val();
+	    			var keyword = $('#keyword').val();
+	    			var org_nm = $('#org_nm').val();
+	    			var possession_nm = $('#possession_select').val();
+	    			var item_no = $('#item_no').val();
+	    			var item_detail_no = $('#item_detail_no').val();
 	    			// 태그 조건 검색			
 	    			var queryString = $("form[name=requestHistorySearchForm]").serialize();
 	
@@ -239,10 +248,13 @@
 	    					},
 	    					success : function(data){
 	    						$('#tab-content').empty().append(data);
-	    						$('#possession_select').empty()
-// 	    						$('#speciality_code_idx2').val(speciality_code_idx);
-// 	    						$('#search_word2').val(search_word);
-// 	    						$('#search_type2').val(search_type);
+	    						$('#possession_select').empty();
+	    						
+	    						$('#keyword2').val(keyword);
+	    						$('#org_nm2').val(org_nm);
+	    						$('#possession_nm2').val(possession_nm);
+	    						$('#item_no2').val(item_no);
+	    						$('#item_detail_no2').val(item_detail_no);
 	    					}
 	    				});
 	    		}
@@ -250,16 +262,22 @@
 	    		<%-- 관심자료 페이지 이동 --%>
 	    		function goPage(value) {
 	    			var perPageNum = $('#perPageNum').val();
-	    			var search_word = $('#search_word').val();
-	    			var search_type = $('#search_type').val();
+	    			var keyword2 = $('#keyword2').val();
+	    			var org_nm2 = $('#org_nm2').val();
+	    			var possession_nm2 = $('#possession_nm2').val();
+	    			var item_no2 = $('#item_no2').val();
+	    			var item_detail_no2 = $('#item_detail_no2').val();
 	    			var page = value;
 	    			$.ajax({
 	    				type : 'POST',                 
 	    				url : '/requestHistoryAjax.do',   
 	    				data:{
 	    					perPageNum : perPageNum,
-	    					search_type : search_type,
-	    					search_word : search_word,
+	    					keyword : keyword2,
+	    					org_nm : org_nm2,
+	    					possession_nm : possession_nm2,
+	    					item_no : item_no2,
+	    					item_detail_no : item_detail_no2,
 	    					page : page
 	    				},
 	    				dataType : "html",           
@@ -269,9 +287,13 @@
 	    				},
 	    				success : function(data) {  
 	    					$('#tab-content').empty().append(data);
-//     						$('#perPageNum').val(perPageNum);
-//     						$('#search_word').val(search_word);
-//     						$('#search_type').val(search_type);
+	    					$('#possession_select').empty();
+	    					
+    						$('#keyword2').val(keyword2);
+    						$('#org_nm2').val(org_nm2);
+    						$('#possession_nm2').val(possession_nm2);
+    						$('#item_no2').val(item_no2);
+    						$('#item_detail_no2').val(item_detail_no2);
 	    				}
 	    			});
 	    		}
@@ -345,6 +367,12 @@
 	    		}
 				
 	    		function reasonKeywordMod(){
+	    			var keyword2 = $('#keyword2').val();
+	    			var org_nm2 = $('#org_nm2').val();
+	    			var possession_nm2 = $('#possession_nm2').val();
+	    			var item_no2 = $('#item_no2').val();
+	    			var item_detail_no2 = $('#item_detail_no2').val();
+	    			
 	    			if($('#keywordMod').val() == 'keyword'){
 	    				arr =  $('#mod_reason_keyword2').val().toString().split(",");
 	    				if(arr.length >5){
@@ -369,6 +397,13 @@
 	    							$.ajax({
 	    								type : 'POST',                
 	    								url : '/requestHistoryAjax.do',    
+	    								data : {
+	    									keyword : keyword2,
+	    			    					org_nm : org_nm2,
+	    			    					possession_nm : possession_nm2,
+	    			    					item_no : item_no2,
+	    			    					item_detail_no : item_detail_no2,
+	    								},
 	    								dataType : "html",           
 	    								contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 	    								error : function() {          

@@ -12,12 +12,21 @@
 <script src="assets/libs/jquery/jquery-3.6.3.min.js"></script>
 
 <script>
+	$(function(){
+		$('#member_id').focus();
+	})
 	function validateEncryptedForm() {
 	 		  
 		var username = document.getElementById("member_id").value;
 	 	var password = document.getElementById("member_pw").value;
-		if (!username || !password) {
-			   alert("ID/비밀번호를 입력해주세요.");
+		if (!username) {
+			   alert("ID를 입력해주세요.");
+			   $('#member_id').focus();
+			   return false;
+		}
+		if (!password){
+			   alert("비밀번호를 입력해주세요.");
+			   $('#member_pw').focus();
 			   return false;
 		}
 	
@@ -79,7 +88,7 @@
 %>
 <body>
 
-<form action="" method="post" name="form">
+<form action="" method="post" name="form" onsubmit="return false">
 	<input type="hidden" id="rsaPublicKeyModulus" value="<%=publicKeyModulus%>" />          
 	<input type="hidden" id="rsaPublicKeyExponent" value="<%=publicKeyExponent%>" />
 	 <div class="main_wrap">
@@ -87,8 +96,8 @@
      	    <h2 class="main_text">
 	          항공박물관
 	        </h2>
-			<input type="text" name="member_id" id="member_id" class="id_wrap total_input" placeholder="아이디"/> <br/>
-			<input type="password" name="member_pw" id="member_pw" class="passsword_wrap total_input" placeholder="비밀번호" /> <br/>
+			<input type="text" name="member_id" id="member_id" class="id_wrap total_input" placeholder="아이디" onkeypress="if( event.keyCode == 13 ){validateEncryptedForm();}"/> <br/>
+			<input type="password" name="member_pw" id="member_pw" class="passsword_wrap total_input" placeholder="비밀번호" onkeypress="if( event.keyCode == 13 ){validateEncryptedForm();}"/> <br/>
 			<div class="login_wrap">
 				<button type="button" onClick="validateEncryptedForm()">login</button>
 			</div>

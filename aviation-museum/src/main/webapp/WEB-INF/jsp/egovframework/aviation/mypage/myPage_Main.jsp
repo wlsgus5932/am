@@ -190,7 +190,40 @@
 					}
 				});
 		});
-    	
+    	function member_pw_enter(){
+    		var queryString = $("form[name=userConfirmForm]").serialize();
+    		
+			$.ajax({
+				type : 'post',
+				url : '/userConfirmAjax.do',
+				data : queryString,
+				dataType : 'json',
+				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+				error: function(xhr, status, error){
+					alert(error);
+				},
+				success : function(data){
+					console.log(data.userConfirm.length);
+					if(data.userConfirm.length == 0){
+						alert('비밀번호를 확인해주세요');
+						$("#member_pw").focus();
+					}else{							
+						$.ajax({
+							type : 'POST',                
+							url : '/changePrivacyAjax2.do',    
+							dataType : "html",           
+							contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+							error : function() {          
+								alert('통신실패!');
+							},
+							success : function(data) {  
+								$('#tab-content').empty().append(data);
+							}
+						});
+					}
+				}
+			});
+    	}
     	// 비밀번호 변경
 		$(document).on('click', '#userPwChangeBtn', function(){
 	
@@ -210,24 +243,35 @@
 						success : function(data){
 							alert("비밀번호가 변경되었습니다");
 								location.href = "logout.do";
-// 								$.ajax({
-// 									type : 'POST',                
-// 									url : '/changePrivacyAjax.do',    
-// 									dataType : "html",           
-// 									contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-// 									error : function() {          
-// 										alert('통신실패!');
-// 									},
-// 									success : function(data) {  
-// 										$('#tab-content').empty().append(data);
-// 									}
-// 								});
+
 						}
 					});
 				}
 			}
 		});
-    	
+    	function userPwChangeBtnEnter(){
+    		var queryString = $("form[name=userPwChangeForm]").serialize();
+			var check_submit = confirm('비밀번호를 수정하시겠습니까?');
+			if (userModValidation()) {
+				if(check_submit){
+					$.ajax({
+						type : 'post',
+						url : '/userPwChangeAjax.do',
+						data : queryString,
+						dataType : 'json',
+						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+						error: function(xhr, status, error){
+							alert(error);
+						},
+						success : function(data){
+							alert("비밀번호가 변경되었습니다");
+								location.href = "logout.do";
+
+						}
+					});
+				}
+			}
+    	}
 		// 관심자료 삭제
 		$(document).on('click', '#interestDelBtn', function(){
 
