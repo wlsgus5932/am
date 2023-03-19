@@ -136,28 +136,17 @@ const set_itemBase_input = async (list) => {
 		$('#ggnuri_code_idx').val(e.ggnuri_code_idx).prop("selected", true);
 	})
 	
-	keywordList.forEach((e,i) => {
-		$('#keyword').val(e.keyword);
-	})
-	
-	let item_idx = sessionStorage.getItem("item_idx");
-	
-	$.ajax({
-			type : 'POST',                 
-			url : '/getKeywordList.do',
-			data: {
-				item_idx: item_idx
-			},			
-			dataType : "html",           
-			contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-			error : function() {
-					alert('통신실패!');
-			},
-			success : function(data) {  
-				console.log(data);
-				$('#keywordZone').empty().append(data);
-			}
-		});
+					if(keywordList.length > 1) {
+	    	    		let keywordArr = [];
+	    	    		
+	    				keywordList.forEach((e,i) => {
+	    	    			keywordArr.push(e.keyword);
+	    	    		 })
+	    	    		 keywordArr.join(',');
+	    				$('#keyword').val(keywordArr);
+	    			} else {
+	    				$('#keyword').val(keywordList[0].keyword);
+	    			}
 }
 
 

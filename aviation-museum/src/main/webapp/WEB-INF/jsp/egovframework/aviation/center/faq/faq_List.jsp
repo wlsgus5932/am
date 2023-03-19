@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	
-     <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block; width:100%;">
-     <form id="noticeSearchForm" name="noticeSearchForm" method="post" class="form-horizontal">
+
+     <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block;">
+     <form id="faqSearchForm" name="faqSearchForm" method="post" class="form-horizontal">
 	      <div class="user_top_wrap" style="margin-top:20px;">
 	          <span>검색</span>
 	          <select class="search_select" id="search_type" name="search_type">
@@ -63,7 +63,7 @@
                         </div>
                         <div class="card-body">
                           <div class="table-responsive">
-                       	 	  <form action="/faqinsert.do" method="post" name="faqinsertform">                 
+                       	 	  <form action="/faqinsert.do" method="post" name="faqinsertform">
 	                              <table class="table mb-0">
 	                                  <tbody>
 	                                      <tr>
@@ -99,7 +99,7 @@
                     </select>
                 </div>
        </div>
-       
+
       <!-- FAQ 수정 모달 -->
       <div id="FaqModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog notice-modal">
@@ -126,7 +126,7 @@
 	                                          <textarea name="faq_content" id="modFaqContent" cols="70" rows="3" required></textarea>
 	                                        </td>
 	                                    </tr>
-	
+
 	                                    <tr>
 	                                      <td>답변</td>
 	                                      <td>
@@ -149,7 +149,7 @@
         <div class="card-body">
           <div class="table-responsive">
               <table class="table mb-0">
-                  
+
                   <tbody>
                       <c:forEach var="faqList" items="${faqList}">
 	                      <tr style="border-bottom: 2px solid;">
@@ -186,16 +186,16 @@
 			        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 			    </li>
 			    </c:if>
-			</ul>            
+			</ul>
           </div>
       </div>
     </div>
-    </div>	
-	<script>	
-		
+    </div>
+	<script>
+
 		<%-- FAQ 조건 검색 --%>
-		function noticeSearchList(){
-			// 사용자 조건 검색			
+		function faqSearchList(){
+			// 사용자 조건 검색
 			var queryString = $("form[name=faqSearchForm]").serialize();
 			var search_word = $('#search_word').val();
 			var search_type = $('#search_type').val();
@@ -215,52 +215,52 @@
 					}
 				});
 		}
-		
+
 		$('input[type="text"]').keydown(function() {
 			  if (event.keyCode === 13) {
 			    event.preventDefault();
 			  };
 		});
-		
+
 		<%-- FAQ 페이지 이동 --%>
 		function goPage(value) {
 			var search_word = $('#search_word').val();
 			var search_type = $('#search_type').val();
 			var page = value;
 			$.ajax({
-				type : 'POST',                 
-				url : '/faq/faqListAjax.do',   
+				type : 'POST',
+				url : '/faq/faqListAjax.do',
 				data:{
 					search_word : search_word,
 					search_type : search_type,
 					page : page
 				},
-				dataType : "html",           
+				dataType : "html",
 				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-				error : function() {        
+				error : function() {
 					alert('통신실패!');
 				},
-				success : function(data) {  
+				success : function(data) {
 					$('#tab-content').empty().append(data);
 					$('#search_word').val(search_word);
 					$('#search_type').val(search_type);
 				}
 			});
 	}
-		
+
 		function changePerPageNum(value) {
 			$.ajax({
-				type : 'POST',                
+				type : 'POST',
 				url : '/faq/faqListAjax.do',
 				data : {
 					perPageNum : value
 				},
-				dataType : "html",           
+				dataType : "html",
 				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-				error : function() {          
+				error : function() {
 					alert('통신실패!');
 				},
-				success : function(data) {  
+				success : function(data) {
 					$('#tab-content').empty().append(data);
 				}
 			});

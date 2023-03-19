@@ -431,7 +431,7 @@
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="/notice.do" data-key="t-products">공지사항</a></li>
             <li><a href="/faq.do" data-key="t-product-detail">FAQ</a></li>
-            <li><a href="ecommerce-orders.html" data-key="t-orders">오류신고 / 개선사항</a></li>
+            <li><a href="/errorFix.do" data-key="t-orders">오류신고 / 개선사항</a></li>
           </ul>
         </li>
         <!-- 메뉴 끝 -->

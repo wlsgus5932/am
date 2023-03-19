@@ -4,7 +4,7 @@
 
 	<select id="getImage" resultType="egovframework.aviation.metadata.vo.image.ImageVO" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO">
 		select 
-			row_number() over(order by reg_date desc) as rownum,
+			row_number() over(order by reg_date) as rownum,
 			item_idx,
 			image_idx,
 			image_nm,
@@ -28,6 +28,57 @@
 			order by rownum desc
 		LIMIT #{perPageNum} OFFSET #{pageStart}
 	</select>
+	
+	<select id="getImageAll" resultType="egovframework.aviation.metadata.vo.image.ImageVO" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO">
+		select 
+			row_number() over(order by reg_date) as rownum,
+			item_idx,
+			image_idx,
+			image_nm,
+			image_desc,
+			orignl_nm,
+			thumbnail_nm,
+			image_path,
+			image_width,
+			image_height,
+			rep_image,
+			file_size,
+			public_service,
+			reg_user,
+			DATE_FORMAT(A.reg_date, '%Y-%m-%d') AS reg_date, 
+			mod_user,
+			DATE_FORMAT(A.reg_date, '%Y-%m-%d') AS mod_date
+		from 
+			nam_image A
+		where 
+			item_idx = #{item_idx}
+	</select>
+	
+	<select id="getImageExcel" resultType="egovframework.aviation.metadata.vo.image.ImageVO" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO">
+		select 
+			row_number() over(order by reg_date desc) as rownum,
+			item_idx,
+			image_idx,
+			image_nm,
+			image_desc,
+			orignl_nm,
+			thumbnail_nm,
+			image_path,
+			image_width,
+			image_height,
+			rep_image,
+			file_size,
+			public_service,
+			reg_user,
+			DATE_FORMAT(A.reg_date, '%Y-%m-%d') AS reg_date, 
+			mod_user,
+			DATE_FORMAT(A.reg_date, '%Y-%m-%d') AS mod_date
+		from 
+			nam_image A
+		where 
+			item_idx = #{item_idx}
+	</select>
+	
 	
 	<select id="getImageListCnt" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO" resultType="int">
 		select count(*)

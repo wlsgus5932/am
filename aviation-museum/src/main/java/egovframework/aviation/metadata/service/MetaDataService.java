@@ -132,7 +132,7 @@ public interface MetaDataService {
 
 	int deleteMovement(int movement_idx);
 
-	List<MovementVO> getMovement(int item_idx);
+	List<MovementVO> getMovement(MovementParamVO param);
 
 	List<MovementInVO> getMovementOut(int movement_id);
 
@@ -189,6 +189,16 @@ public interface MetaDataService {
 	List<KeywordVO> getKeywordList(KeywordParamVO param);
 
 	List<MovementVO> getMovementData(int movement_idx);
+
+	List<MovementVO> getMovementExcel(MovementParamVO param);
+
+	int getMovementListCnt(MovementParamVO param);
+
+	Integer getMetaDataInfo(MetaDataParamVO param);
+
+	String searchItemNo(MetaDataParamVO param);
+
+	int setItemNo(MetaDataParamVO param);
 
 
 

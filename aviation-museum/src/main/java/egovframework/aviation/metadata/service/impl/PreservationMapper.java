@@ -25,4 +25,6 @@ public interface PreservationMapper {
 
 	int deletePreservation(String preservation_idx);
 
+	int updatePreservation(PreservationParamVO param);
+
 }

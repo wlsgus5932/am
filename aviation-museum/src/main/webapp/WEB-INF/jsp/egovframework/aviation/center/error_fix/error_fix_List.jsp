@@ -2,22 +2,23 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
-     <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block; width:100%;">
-     <form id="noticeSearchForm" name="noticeSearchForm" method="post" class="form-horizontal">
+     <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block;">
+     <form id="errorFixSearchForm" name="errorFixSearchForm" method="post" class="form-horizontal">
 	      <div class="user_top_wrap" style="margin-top:20px;">
 	          <span>검색</span>
 	          <select class="search_select" id="search_type" name="search_type">
 	            <option value="">전체</option>
-	            <option value="notice_title">제목</option>
+	            <option value="error_fix_org_nm">기관명</option>
+	            <option value="board_type">구분</option>
 		        <option value="reg_user">등록자</option>
 	          </select>
 	            <input class="custom_search_input" type="text" id="search_word" name="search_word" >
-	            <button class="custom_btn btn_inquiry"  type="button" onClick="noticeSearchList();">조회</button>
+	            <button class="custom_btn btn_inquiry"  type="button" onClick="errorFixSearchList();">조회</button>
 	      </div>
       </form>
-      <div class="custom_btn_wrap" style="margin-top: 10px;">
-          <button class="custom_btn btn_no_select" id="noticeListDeleteBtn">선택 삭제</button>
-          <button type="button" class="custom_btn btn_user_registration" data-bs-toggle="modal" data-bs-target="#myModal">공지사항등록</button>
+      <div class="custom_btn_wrap" style="margin-top: 50px;">
+          <button class="custom_btn btn_no_select" id="errorFixListDeleteBtn">선택 삭제</button>
+          <button type="button" class="custom_btn btn_user_registration" data-bs-toggle="modal" data-bs-target="#myModal">오류신고/개선사항등록</button>
       </div>
 <!--       <div id="DelModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-modal="true" role="dialog"> -->
 <!--                 <div class="modal-dialog modal-dialog-centered"> -->
@@ -45,40 +46,55 @@
 <!--                 </div> -->
 <!--       </div> -->
       <div class="mb-0">
-        <!-- 공지사항 등록 모달 -->
+        <!-- 오류신고 & 개선사항 등록 모달 -->
         <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
           <div class="modal-dialog user-modal">
               <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                       <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="noticeInsInputClose"></button>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="errorFixInsInputClose"></button>
                   </div>
                   <div class="modal-body mv-modal-body">
-                      <!-- 공지사항 등록 모달 내용 -->
+                      <!-- 오류신고&개선사항 등록 모달 내용 -->
                       <div class="mb-0 user-wrap">
                         <div class="st_wrap">
-                          <label class="col-md-2 col-form-label st_title">공지사항 등록</label>
+                          <label class="col-md-2 col-form-label st_title">오류신고&개선사항 등록</label>
                         </div>
                         <div class="card-body">
                           <div class="table-responsive">
-                       	 	  <form action="/noticeinsert.do" method="post" name="noticeinsertform">                 
+                       	 	  <form action="/errorFixinsert.do" method="post" name="errorFixinsertform">                 
 	                              <table class="table mb-0">
 	                                  <tbody>
+	                                  	  <tr>
+	                                        <td>구분</td>
+	                                        <td>
+	                                        	<select class="search_select" name="board_type" id="BoardType">
+							                     	<option value="E">오류신고</option>
+							                        <option value="F">개선사항</option>
+                    							</select>
+	                                        </td>
+	                                      </tr>
+	                                      <tr>
+	                                        <td>기관명</td>
+	                                          <td>
+	                                            <input type="text" name="error_fix_org_nm" id="insErrorFixOrgNm">
+	                                      	  </td>
+	                                      </tr>
 	                                      <tr>
 	                                        <td>제목</td>
 	                                          <td>
-	                                            <input type="text" name="notice_title" id="insNoticeTitle" required>
+	                                            <input type="text" name="error_fix_title" id="insErrorFixTitle">
 	                                      	  </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>내용</td>
 	                                          <td>
-	                                          <textarea name="notice_content" id="insNoticeContent" cols="70" rows="10" required></textarea>
+	                                          <textarea name="error_fix_content" id="insErrorFixContent" cols="70" rows="10"></textarea>
 	                                          </td>
 	                                      </tr>
 	                                  </tbody>
 	                              </table>
-	                              <button class="btn btn-secondary btn_save" type="button" id="noticeInsBtn">저장</button>
+	                              <button class="btn btn-secondary btn_save" type="button" id="errorFixInsBtn">저장</button>
                               </form>
                           </div>
                       </div>
@@ -104,28 +120,40 @@
               <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                       <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="noticeInsInputClose"></button>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="errorFixInsInputClose"></button>
                   </div>
                   <div class="modal-body mv-modal-body">
                       <!-- 공지사항 등록 모달 내용 -->
                       <div class="mb-0 user-wrap">
                         <div class="st_wrap">
-                          <label class="col-md-2 col-form-label st_title">공지사항 상세보기</label>
+                          <label class="col-md-2 col-form-label st_title">오류신고&개선사항 상세보기</label>
                         </div>
                         <div class="card-body">
                           <div class="table-responsive">
 	                              <table class="table mb-0">
 	                                  <tbody>
+	                                  	  <tr>
+	                                        <td>구분</td>
+	                                          <td>
+	                                            <input type="text" name="board_type" id="boardType" readOnly>
+	                                      	  </td>
+	                                      </tr>
+	                                      <tr>
+	                                        <td>기관명</td>
+	                                          <td>
+	                                            <input type="text" name="error_fix_org_nm" id="errorFixOrgNm" readOnly>
+	                                      	  </td>
+	                                      </tr>
 	                                      <tr>
 	                                        <td>제목</td>
 	                                          <td>
-	                                            <input type="text" name="notice_title" id="noticeTitle" readOnly>
+	                                            <input type="text" name="error_fix_title" id="errorFixTitle" readOnly>
 	                                      	  </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>내용</td>
 	                                          <td>
-	                                          <textarea name="notice_content" id="noticeContent" cols="70" rows="10" readOnly></textarea>
+	                                          <textarea name="error_fix_content" id="errorFixContent" cols="70" rows="10" readOnly></textarea>
 	                                          </td>
 	                                      </tr>
 	                                  </tbody>
@@ -140,41 +168,56 @@
       </div>
       
       <!-- 공지사항 수정 모달 -->
-      <div id="NoticeModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+      <div id="ErrorFixModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog notice-modal">
             <div class="modal-content">
                 <div class="modal-header mv-modal-header">
                     <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="noticeModInputClose"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="errorFixModInputClose"></button>
                 </div>
                 <div class="modal-body mv-modal-body">
                     <!-- 사용자 등록 모달 내용 -->
                     <div class="mb-0 user-wrap">
                       <div class="st_wrap">
-                        <label class="col-md-2 col-form-label st_title">공지사항 수정</label>
+                        <label class="col-md-2 col-form-label st_title">오류신고&개선센터 수정</label>
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
-	                       	<form name="noticeupdateform">
-								<input type="hidden" name="notice_idx" id="modNoticeIdx"/>
+	                       	<form name="errorFixupdateform">
+								<input type="hidden" name="error_fix_idx" id="modErrorFixIdx"/>
 	                            <table class="table mb-0">
 	                                <tbody>
+	                                	<tr>
+	                                      <td>구분</td>
+	                                        <td>
+	                                        	<select class="search_select" name="board_type" id="modBoardType">
+							                     	<option value="E">오류신고</option>
+							                        <option value="F">개선사항</option>
+                    							</select>
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                      <td>기관명</td>
+	                                        <td>
+	                                          <input type="text" name="error_fix_org_nm" id="modErrorFixOrgNm">
+	                                        </td>
+	                                    </tr>
 	                                    <tr>
 	                                      <td>제목</td>
 	                                        <td>
-	                                          <input type="text" name="notice_title" id="modNoticeTitle">
+	                                          <input type="text" name="error_fix_title" id="modErrorFixTitle">
 	                                        </td>
 	                                    </tr>
 	
 	                                    <tr>
 	                                      <td>내용</td>
 	                                      <td>
-	                                      	<textarea name="notice_content" id="modNoticeContent" cols="70" rows="10"></textarea>
+	                                      	<textarea name="error_fix_content" id="modErrorFixContent" cols="70" rows="10"></textarea>
 	                                      </td>
 	                                    </tr>
 	                                </tbody>
 	                            </table>
-	                            <button class="btn btn-secondary btn_save" type="button" id="noticeModBtn">저장</button>
+	                            <button class="btn btn-secondary btn_save" type="button" id="errorFixModBtn">저장</button>
                       		</form>
                         </div>
                     </div>
@@ -192,7 +235,9 @@
                       <tr class="tr_bgc">
                           <th><input type="checkbox" id="allCheck" value="" onchange="agreeAllCheck();"></th>
                           <th>번호</th>
-                          <th>제목</th>
+                          <th>구분</th>
+                          <th>제목</th> 
+                          <th>기관명</th> 
                           <th>등록자</th>
                           <th>등록일시</th>
                           <th>수정자</th>
@@ -202,42 +247,47 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <c:forEach var="noticeList" items="${noticeList}">
+                      <c:forEach var="errorFixList" items="${errorFixList}">
 	                      <tr>
 	                          <td>
-	                            <input type="checkbox" name="notice_seqList" id="" class="check_temp" value="${noticeList.notice_idx}">
+	                            <input type="checkbox" name="error_fix_seqList" id="" class="check_temp" value="${errorFixList.error_fix_idx}">
 	                          </td>
 	                          <td>
-	                          	${perPageNum + 1 - noticeList.rnum}
+	                          	${perPageNum + 1 - errorFixList.rnum}
 	                          </td>
+	                           <td>
+	                            ${errorFixList.board_type eq "E" or "e" ? "오류신고" : "개선사항"}
+	                           </td>
 	                          <td>
-		                          <a class="noticeDetail" href="#myModal2" data-bs-toggle="modal" data-id="${noticeList.notice_idx}">
-	                                ${noticeList.notice_title}
+		                          <a class="errorFixDetail" href="#myModal2" data-bs-toggle="modal" data-id="${errorFixList.error_fix_idx}">
+	                                ${errorFixList.error_fix_title}
 	                              </a>
                            	  </td>
-	                           <td>
-	                            ${noticeList.reg_user}
+                           	  <td>
+	                            ${errorFixList.error_fix_org_nm}
 	                           </td>
 	                           <td>
-	                            ${noticeList.reg_date}
+	                            ${errorFixList.reg_user}
 	                           </td>
 	                           <td>
-	                            ${noticeList.mod_user}
+	                            ${errorFixList.reg_date}
 	                           </td>
 	                           <td>
-	                            ${noticeList.mod_date}
+	                            ${errorFixList.mod_user}
 	                           </td>
 	                           <td>
-	                            ${noticeList.count}
+	                            ${errorFixList.mod_date}
 	                           </td>
 	                           <td>
-	                            <button type="button" class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#NoticeModal" onclick="noticeModPopup('${noticeList.notice_idx}');">수정</button>
+	                            ${errorFixList.count}
+	                           </td>
+	                           <td>
+	                            <button type="button" class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#ErrorFixModal" onclick="errorFixModPopup('${errorFixList.error_fix_idx}');">수정</button>
 	                          </td>
 	                      </tr>
 					</c:forEach>
                   </tbody>
               </table>
-              
               <ul class="btn-group pagination">
 			    <c:if test="${pageMaker.prev }">
 			    <li>
@@ -261,15 +311,15 @@
     </div>	
 	
 	<script>	
-		<%-- 공지사항 조건 검색 --%>
-		function noticeSearchList(){
-			// 공지사항 조건 검색			
-			var queryString = $("form[name=noticeSearchForm]").serialize();
+		<%-- 오류신고/개선사항 조건 검색 --%>
+		function errorFixSearchList(){
+			// 오류신고/개선사항 조건 검색			
+			var queryString = $("form[name=errorFixSearchForm]").serialize();
 			var search_word = $('#search_word').val();
 			var search_type = $('#search_type').val();
 				$.ajax({
 					type : 'post',
-					url : '/notice/noticeListAjax.do',
+					url : '/errorFix/errorFixListAjax.do',
 					data : queryString,
 					dataType : 'html',
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -290,14 +340,13 @@
 			  };
 		});
 		
-		<%-- 공지사항 페이지 이동 --%>
 		function goPage(value) {
 			var search_word = $('#search_word').val();
 			var search_type = $('#search_type').val();
 			var page = value;
 			$.ajax({
 				type : 'POST',                 
-				url : '/notice/noticeListAjax.do',   
+				url : '/errorFix/errorFixListAjax.do',   
 				data:{
 					search_word : search_word,
 					search_type : search_type,
@@ -319,7 +368,7 @@
 		function changePerPageNum(value) {
 			$.ajax({
 				type : 'POST',                
-				url : '/notice/noticeListAjax.do',
+				url : '/errorFix/errorFixListAjax.do',
 				data : {
 					perPageNum : value
 				},

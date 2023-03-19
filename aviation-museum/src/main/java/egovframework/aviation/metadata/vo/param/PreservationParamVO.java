@@ -23,6 +23,7 @@ public class PreservationParamVO {
 	private String file_path;
 	private String file_local_path;
 	private String reg_user = "jinhyun";
+	private String mod_user;
 	
 	private List<String> image_nm;
 	private List<String> image_path;

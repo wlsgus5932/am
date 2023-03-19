@@ -1027,7 +1027,7 @@
                     <label class="col-md-2 col-form-label st_sub_title">| 수주량 : 0</label>
                   </div>
                   <div class="move_btn">
-                    <button type="button" class="custom_btn btn_ex">엑셀파일</button>
+                    <button type="button" class="custom_btn btn_ex" onclick="MovementExcelDownload()">엑셀파일</button>
                     <button type="button" class="custom_btn btn_707070" data-bs-toggle="modal" data-bs-target="#myModal" onclick="btn_control(0)">이동사항 등록</button>
                   </div>
                 </div>
@@ -1093,7 +1093,7 @@
                          <button type="button" class="custom_btn btn_707070" onclick="imageCancelCheck()">선택해지</button>
                          <button type="button" class="custom_btn btn_707070" onclick="deleteImageChecked()">선택삭제</button>
                          <button type="button" class="custom_btn btn_707070" onclick="preview()">미리보기</button> -->
-                         <button type="button" class="custom_btn btn_ex" >엑셀파일</button>
+                         <button type="button" class="custom_btn btn_ex" onclick="getImageListExcel()" >엑셀파일</button>
 
                     </div>
                   </div>

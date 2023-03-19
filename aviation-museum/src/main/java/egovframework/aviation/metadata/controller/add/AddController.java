@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.aviation.metadata.service.MetaDataService;
 import egovframework.aviation.metadata.service.SpecialityService;
-import egovframework.aviation.metadata.service.impl.MetaDataMapper;
 import egovframework.aviation.metadata.vo.Class1VO;
 import egovframework.aviation.metadata.vo.Class2VO;
 import egovframework.aviation.metadata.vo.Class3VO;
@@ -27,7 +26,6 @@ import egovframework.aviation.metadata.vo.EraVO;
 import egovframework.aviation.metadata.vo.ExistenceVO;
 import egovframework.aviation.metadata.vo.GgnuriVO;
 import egovframework.aviation.metadata.vo.IcaoVO;
-import egovframework.aviation.metadata.vo.ItemBaseVO;
 import egovframework.aviation.metadata.vo.Material1VO;
 import egovframework.aviation.metadata.vo.Material2VO;
 import egovframework.aviation.metadata.vo.MeasurementUnitVO;
@@ -50,12 +48,13 @@ import egovframework.aviation.metadata.vo.metadata.InsuranceVO;
 import egovframework.aviation.metadata.vo.metadata.InvolvementVO;
 import egovframework.aviation.metadata.vo.metadata.KeywordVO;
 import egovframework.aviation.metadata.vo.metadata.MaterialVO;
-import egovframework.aviation.metadata.vo.metadata.PreservationVO;
 import egovframework.aviation.metadata.vo.metadata.PublicServiceVO;
 import egovframework.aviation.metadata.vo.metadata.TaxonomyVO;
 import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
 import egovframework.aviation.metadata.vo.param.MovementParamVO;
 import egovframework.aviation.metadata.vo.speciality.SpecialityCodeVO;
+import egovframework.aviation.paging.Criteria;
+import egovframework.aviation.paging.PageMaker;
 
 @Controller
 //@RequestMapping("/metadata")
@@ -232,11 +231,10 @@ public class AddController {
 				
 				model.addAttribute("item_idx", param.getItem_idx());
 			 }
-			 return "jsonView"; 
+			 return param.getItem_idx(); 
 				
 		 } catch (Exception e) {
-			 model.addAttribute("item_idx", "error");
-			 return "jsonView"; 
+			 return "error"; 
 		 }
 	}
 	
@@ -324,26 +322,39 @@ public class AddController {
 		return "jsonView";
 	}
 	
-	@GetMapping("/getMovementList.do")
-	public String getMovementList(ModelMap model, @RequestParam("item_idx") int item_idx) throws Exception {
-		List<MovementVO> list = service.getMovement(item_idx);
+	@PostMapping("/getMovementList.do")
+	public String getMovementList(ModelMap model, @ModelAttribute MovementParamVO param, @ModelAttribute Criteria cri) throws Exception {
+		int perPageNum = service.getMovementListCnt(param);		
+		if(param.getPerPageNum() != 0) {
+			int criPerPageNum = param.getPerPageNum();
+			cri.setPerPageNum(criPerPageNum);
+		}
+		PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    pageMaker.setTotalCount(perPageNum);
+		    
+	    param.setPageStart(cri.getPageStart());
+	    param.setPerPageNum(cri.getPerPageNum());
+	    
+		List<MovementVO> list = service.getMovement(param);
 		model.addAttribute("movementList", list);
+		model.addAttribute("perPageNum", perPageNum);
+		model.addAttribute("pageMaker", pageMaker);
 		
 		return "metadata/add/movement/movementList";
 	}
 	
 	@PostMapping("/getMovemenExceltList.do")
-	public String getMovemenExceltList(ModelMap model, @RequestParam("item_idx") int item_idx) throws Exception {
-		List<MovementVO> list = service.getMovement(item_idx);
+	public String getMovemenExceltList(ModelMap model, @ModelAttribute MovementParamVO param) throws Exception {
+		List<MovementVO> list = service.getMovementExcel(param);
 		model.addAttribute("movementList", list);
 		
 		return "metadata/add/movement/movementExcel";
 	}
 	
-	
-	@GetMapping("/getPastMovementList.do")
-	public String getPastMovementList(ModelMap model, @RequestParam("item_idx") int item_idx) throws Exception {
-		List<MovementVO> list = service.getMovement(item_idx);
+	@PostMapping("/getPastMovementList.do")
+	public String getPastMovementList(ModelMap model, @ModelAttribute MovementParamVO param) throws Exception {
+		List<MovementVO> list = service.getMovement(param);
 		model.addAttribute("movementList", list);
 		
 		return "metadata/add/movement/pastMovement";
@@ -364,4 +375,27 @@ public class AddController {
 		
 		return "jsonView";
 	}
+	
+	@PostMapping("/setItemNo.do")
+	@ResponseBody
+	public String setItemNo(ModelMap model, @ModelAttribute MetaDataParamVO param) throws Exception {
+		String result = "error";
+		try {
+			String searchItemNo = service.searchItemNo(param);
+			System.out.println("search:::"+ searchItemNo);
+			if(searchItemNo != null) {
+				int x = service.setItemNo(param);
+				if(x > 0) {
+					result = "success";
+				}
+			} else if(searchItemNo == null) {
+				result = "not";
+			}
+		} catch (Exception e) {
+			result = "error";
+		}
+		
+		return result;
+	}
+	
 }
