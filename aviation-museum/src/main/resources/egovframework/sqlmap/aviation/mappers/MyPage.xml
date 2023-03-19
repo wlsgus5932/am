@@ -209,6 +209,7 @@
 			 FROM(
 				SELECT
 					 nkr.KEYWORD_REQUEST_IDX as REQUEST_IDX
+					,(SELECT noc.ORG_NM from nam_org_code noc WHERE noc.ORG_CODE_IDX = nib.ORG_CODE_IDX) as ORG_NM
 					,(SELECT POSSESSION_NM from nam_possession_code npc where POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX ) as POSSESSION_NM 
 					,nib.ITEM_NO 
 					,nib.ITEM_DETAIL_NO 
@@ -225,6 +226,7 @@
 				UNION ALL
 				SELECT
 					 ner.ERASURE_REQUEST_IDX 
+					,ORG_NM
 		  			,ner.POSSESSION_NM 
 					,ner.ITEM_NO 
 					,ner.ITEM_DETAIL_NO 
@@ -238,6 +240,28 @@
 				AND ner.REG_USER = #{reg_user}
 				ORDER by REG_DATE DESC
 			) R1
+			WHERE 1=1 
+            <if test="keyword != null and keyword != ''">AND
+                keyword = #{keyword}
+            </if>
+            <if test="org_nm != null and org_nm != ''">AND
+                org_nm = #{org_nm}
+            </if>
+            <if test="possession_nm != null and possession_nm != ''">AND
+                possession_nm = #{possession_nm}
+            </if>
+            <if test="item_no != null and item_no != ''">AND
+                item_no = #{item_no}
+            </if>   
+            <if test="item_detail_no != null and item_detail_no != ''">AND
+                item_detail_no = #{item_detail_no}
+            </if>           
+            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+                (item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+            </if>
+<!--             <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND -->
+<!--                 (item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED)) -->
+<!--             </if> -->
   
 	</select>
 	

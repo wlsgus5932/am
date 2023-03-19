@@ -7,7 +7,7 @@
                   <!--  -->
                   <div class="st_wrap">
                     <label class="col-md-2 col-form-label st_title">전문정보검색</label>
-                    <form id="rgstrSpecialitySearchForm" name="rgstrSpecialitySearchForm" method="post" class="form-horizontal" style="display: inline;">
+                    <form id="rgstrSpecialitySearchForm" name="rgstrSpecialitySearchForm" method="post" class="form-horizontal" style="display: inline;" onsubmit="return false">
 	                    <select class="search_select" id="speciality_code_idx" name=speciality_code_idx>
 	                       <option value="">전체</option>
 	                       <c:forEach var="specialityCodeList" items="${specialityCodeList}">
@@ -20,7 +20,7 @@
 	                      <option value="item_detail_no">세부번호</option>
 	                      <option value="item_nm">명칭</option>
 	                    </select>
-	                    <input type="text" class="custom_search_input" list="datalistOptions" placeholder="내용을 입력해 주세요." id="search_word" name="search_word" >
+	                    <input type="text" class="custom_search_input" list="datalistOptions" placeholder="내용을 입력해 주세요." id="search_word" name="search_word"  onkeypress="if( event.keyCode == 13 ){rgstrSpecialitySearchList();}">
 	                    <button class="custom_btn btn_707070" type="button" onClick="rgstrSpecialitySearchList();">조회</button>
                     </form>
                     <button class="custom_btn btn_ex" type="button" onClick="rgstrSpecialityExcelList();">엑셀파일</button>
@@ -141,12 +141,14 @@
             </div>
             
             <script>
-	    		$('input[type="text"]').keydown(function() {
-		  			  if (event.keyCode === 13) {
-		  			    event.preventDefault();
-		  			  };
-				});
-  		
+// 	    		$('input[type="text"]').keydown(function() {
+// 		  			  if (event.keyCode === 13) {
+// 		  			    event.preventDefault();
+// 		  			  };
+// 				});
+  				$(function(){
+  					$('#search_word').focus();
+  				})
 	    		<%-- 등록전문 조건 검색 --%>
 	    		function rgstrSpecialitySearchList(){
 	    			var speciality_code_idx = $('#speciality_code_idx').val();
@@ -166,6 +168,9 @@
 	    					},
 	    					success : function(data){
 	    						$('#tab-content').empty().append(data);
+// 	    						$('#speciality_code_idx').val(speciality_code_idx);
+// 	    						$('#search_word').val(search_word);
+// 	    						$('#search_type').val(search_type);
 	    						$('#speciality_code_idx2').val(speciality_code_idx);
 	    						$('#search_word2').val(search_word);
 	    						$('#search_type2').val(search_type);
@@ -184,8 +189,9 @@
 	    		<%-- 등록 전문정본 페이지 이동 --%>
 	    		function goPage(value) {
 	    			var perPageNum = $('#perPageNum').val();
-	    			var search_word = $('#search_word').val();
-	    			var search_type = $('#search_type').val();
+	    			var speciality_code_idx = $('#speciality_code_idx2').val();
+	    			var search_word = $('#search_word2').val();
+	    			var search_type = $('#search_type2').val();
 	    			var page = value;
 	    			$.ajax({
 	    				type : 'POST',                 
@@ -193,6 +199,7 @@
 	    				data:{
 	    					perPageNum : perPageNum,
 	    					search_type : search_type,
+	    					speciality_code_idx : speciality_code_idx,
 	    					search_word : search_word,
 	    					page : page
 	    				},
@@ -203,9 +210,12 @@
 	    				},
 	    				success : function(data) {  
 	    					$('#tab-content').empty().append(data);
-//     						$('#perPageNum').val(perPageNum);
-//     						$('#search_word').val(search_word);
+//     						$('#speciality_code_idx').val(speciality_code_idx);
 //     						$('#search_type').val(search_type);
+//     						$('#search_word').val(search_word);
+    						$('#speciality_code_idx2').val(speciality_code_idx);
+    						$('#search_word2').val(search_word);
+    						$('#search_type2').val(search_type);
 	    				}
 	    			});
 	    		}

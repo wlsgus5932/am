@@ -4,7 +4,7 @@
   <!-- 개인정보 변경 탭 -->
             <div class="tab-pane" id="settings" role="tabpanel" style="display:block;">
               <div class="mb-0">
-              	<form action="/userPwChangeAjax.do" method="post" name="userPwChangeForm">  
+              	<form action="/userPwChangeAjax.do" method="post" name="userPwChangeForm" onsubmit="return false">  
               		<input type="hidden" name="member_idx" value="${sessionScope.userSessionIdx}">
 	                <div class="id_check_wrap">
 	                  <div class="id_check_main_text">개인정보 변경</div>
@@ -19,11 +19,11 @@
 		                    </dl>
 		                    <dl>
 		                      <dt>비밀번호 변경<span>*</span></dt>
-		                      <dd><input type="password" placeholder="비밀번호 입력" name="member_pw" id="member_pw"></dd>
+		                      <dd><input type="password" placeholder="비밀번호 입력" name="member_pw" id="member_pw" onkeypress="if( event.keyCode == 13 ){userPwChangeBtnEnter();}"></dd>
 		                    </dl>
 		                    <dl>
 		                      <dt>비밀번호 변경 확인<span>*</span></dt>
-		                      <dd><input type="password" placeholder="비밀번호 입력" id="member_pw_confirm"></dd>
+		                      <dd><input type="password" placeholder="비밀번호 입력" id="member_pw_confirm" onkeypress="if( event.keyCode == 13 ){userPwChangeBtnEnter();}"></dd>
 		                    </dl>
 		                    <dl>
 		                      <dt>비밀번호 변경일</dt>
@@ -37,12 +37,14 @@
           </div>
           <script>
 
-	          $('input[type="text"]').keydown(function() {
-	          	  if (event.keyCode === 13) {
-	          	    event.preventDefault();
-	          	  };
-	          });
-	          
+// 	          $('input[type="text"]').keydown(function() {
+// 	          	  if (event.keyCode === 13) {
+// 	          	    event.preventDefault();
+// 	          	  };
+// 	          });
+	         $(function(){
+					$('#member_pw').focus();
+			 })
          	 var userModValidation = function() {
         		var modMemberPw = $("#member_pw").val();
         		var modMemberPwConfirm = $("#member_pw_confirm").val();
