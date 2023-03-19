@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.aviation.center.service.impl.ErrorFixMapper">
+
+	
+	<select id="getErrorFixList" resultType="egovframework.aviation.center.vo.ErrorFixVO">
+			SELECT R1.* FROM(
+				SELECT
+					 row_number() over(order by error_fix_idx desc) as rnum
+					,nef.error_fix_idx
+					,nef.error_fix_title
+					,nef.error_fix_content
+					,nef.error_fix_org_nm
+					,nef.board_type
+					,nef.count
+					,nef.reg_user
+					,DATE_FORMAT(nef.reg_date, '%Y-%m-%d %H:%i') AS reg_date
+					,nef.mod_user
+					,DATE_FORMAT(nef.mod_date, '%Y-%m-%d %H:%i') AS mod_date
+				FROM nam_error_fix nef
+				WHERE 1=1 
+				<if test="error_fix_idx != null">AND
+	                ERROR_FIX_IDX = #{error_fix_idx}
+	            </if>
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'error_fix_org_nm'">
+						AND (nef.error_fix_org_nm LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+					<if test="search_type == 'board_type'">
+						AND (nef.board_type = 
+								CASE 
+									WHEN '오류신고' LIKE CONCAT('%', #{search_word}, '%') THEN 'E'
+									WHEN '개선사항' LIKE CONCAT('%', #{search_word}, '%') THEN 'F'
+								END	
+							)
+					</if>
+					<if test="search_type == 'reg_user'">
+						AND (nef.reg_user LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (nef.error_fix_org_nm LIKE CONCAT('%', #{search_word}, '%') OR 
+						nef.board_type = 
+								CASE 
+									WHEN '오류신고' LIKE CONCAT('%', #{search_word}, '%') THEN 'E'
+									WHEN '개선사항' LIKE CONCAT('%', #{search_word}, '%') THEN 'F'
+								END 
+						OR nef.reg_user LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+			) R1
+            	LIMIT #{perPageNum} OFFSET #{pageStart}
+	</select>
+	
+	<select id="getErrorFixListCnt" resultType="Integer">
+				SELECT
+					count(*)
+				FROM nam_error_fix nef
+				WHERE 1=1 
+		        <if test=" '' != search_word and null != search_word">
+					<if test="search_type == 'error_fix_org_nm'">
+						AND (nef.error_fix_org_nm LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+					<if test="search_type == 'board_type'">
+						AND (nef.board_type = 
+								CASE 
+									WHEN '오류신고' LIKE CONCAT('%', #{search_word}, '%') THEN 'E'
+									WHEN '개선사항' LIKE CONCAT('%', #{search_word}, '%') THEN 'F'
+								END	
+							)
+					</if>
+					<if test="search_type == 'reg_user'">
+						AND (nef.reg_user LIKE CONCAT('%', #{search_word}, '%'))
+					</if>
+					<if test="search_type == '' or search_type == null">
+						AND (nef.error_fix_org_nm LIKE CONCAT('%', #{search_word}, '%') OR 
+						nef.board_type = 
+								CASE 
+									WHEN '오류신고' LIKE CONCAT('%', #{search_word}, '%') THEN 'E'
+									WHEN '개선사항' LIKE CONCAT('%', #{search_word}, '%') THEN 'F'
+								END 
+						OR nef.reg_user LIKE CONCAT('%', #{search_word}, '%')) 
+					</if>
+				</if>
+	</select>
+	
+	<insert id="insertErrorFix" parameterType="egovframework.aviation.center.vo.ErrorFixVO">
+        
+            INSERT INTO nam_error_fix 
+                  ( ERROR_FIX_TITLE
+                  , ERROR_FIX_CONTENT
+                  , ERROR_FIX_ORG_NM
+                  , BOARD_TYPE
+                  , COUNT
+                  , REG_USER
+                  , REG_DATE)
+           VALUES ( #{error_fix_title}
+                  , #{error_fix_content}
+                  , #{error_fix_org_nm}
+                  , #{board_type}
+                  , 0
+                  , #{reg_user}
+                  , now())
+    </insert>
+    
+    <update id="updateErrorFix" parameterType="egovframework.aviation.center.vo.ErrorFixVO">
+        
+            UPDATE nam_error_fix 
+               SET ERROR_FIX_TITLE=#{error_fix_title}
+                 , ERROR_FIX_CONTENT=#{error_fix_content}
+                 , ERROR_FIX_ORG_NM=#{error_fix_org_nm}
+                 , BOARD_TYPE=#{board_type}
+                 , MOD_USER=#{mod_user}
+             WHERE ERROR_FIX_IDX=#{error_fix_idx}
+    </update>
+    
+    <delete id="deleteErrorFixList" parameterType="egovframework.aviation.center.vo.ErrorFixVO">
+		DELETE FROM nam_error_fix
+		WHERE 
+             	ERROR_FIX_IDX IN
+			<foreach collection="error_fix_seqList" item="errorFix_seq" open="(" close=")" separator=",">
+				#{errorFix_seq}
+			</foreach>
+	</delete>
+    
+</mapper>
