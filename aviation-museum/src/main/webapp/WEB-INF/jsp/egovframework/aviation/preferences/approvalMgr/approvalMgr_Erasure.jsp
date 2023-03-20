@@ -287,25 +287,32 @@
             </div>
             
             <script>
-	    		$('input[type="text"]').keydown(function() {
-		  			  if (event.keyCode === 13) {
-		  			    event.preventDefault();
-		  			  };
-				});
-	    		
+
 	    		<%-- 페이지 이동 --%>
 	    		function goPage(value) {
 	    			var perPageNum = $('#perPageNum').val();
-// 	    			var search_word = $('#search_word').val();
-// 	    			var search_type = $('#search_type').val();
+	    			var searchKeyword = $('#searchKeyword2').val();
+	    			var approval_state = $('#approval_state2').val();
+	    			var org_nm = $('#org_nm2').val();
+	    			var possession_nm = $('#possession_select').val();
+	    			var start_date = $('#start_date2').val();
+	    			var end_date = $('#end_date2').val();
+	    			var start_item_no = $('#start_item_no2').val();
+	    			var end_item_no = $('#end_item_no2').val();
 	    			var page = value;
 	    			$.ajax({
 	    				type : 'POST',                 
 	    				url : '/erasureListAjax.do',   
 	    				data:{
 	    					perPageNum : perPageNum,
-// 	    					search_type : search_type,
-// 	    					search_word : search_word,
+	    					searchKeyword : searchKeyword,
+	    					approval_state : approval_state,
+	    					org_nm : org_nm,
+	    					possession_nm : possession_nm,
+	    					start_date : start_date,
+	    					end_date : end_date,
+	    					start_item_no : start_item_no,
+	    					end_item_no : end_item_no,
 	    					page : page
 	    				},
 	    				dataType : "html",           
@@ -315,9 +322,15 @@
 	    				},
 	    				success : function(data) {  
 	    					$('#tab-content').empty().append(data);
-//     						$('#perPageNum').val(perPageNum);
-//     						$('#search_word').val(search_word);
-//     						$('#search_type').val(search_type);
+	    					$('#perPageNum').val(perPageNum)
+	    					$('#searchKeyword2').val(searchKeyword);
+	    					$('#approval_state2').val(approval_state);
+	    					$('#org_nm2').val(org_nm);
+	    					$('#possession_nm2').val(possession_nm);
+	    					$('#start_date2').val(start_date);
+	    					$('#end_date2').val(end_date);
+	    					$('#start_item_no2').val(start_item_no);
+	    					$('#end_item_no2').val(end_item_no);
 	    				}
 	    			});
 	    		}

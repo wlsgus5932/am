@@ -106,6 +106,12 @@
             <script>
             
             	$(function() {
+            		console.log($('.user_control_bd').children('#menuCodeListMiddleTr').length);
+//             		if(!$('.user_control_bd').find('#menuCodeListMiddleTr')){
+//             			alert('tq');
+//             			$('.user_control_bd').append('<tr id="menuCodeListMiddleTr"><td class="menu_auth_middle"></td></tr>')
+//             		}
+            		
             		// 세부메뉴 전체갯수와 선택된 세부메뉴 갯수가 같으면 전체선택버튼에 checked 
             		if(${menuCodeList.size() == groupMenuList.size()}){
             			$('#allCheck').addClass("checked");

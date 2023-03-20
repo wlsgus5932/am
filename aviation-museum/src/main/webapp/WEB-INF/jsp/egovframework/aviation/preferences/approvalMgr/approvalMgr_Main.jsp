@@ -90,6 +90,11 @@
 				success : function(data) {  
 					$('#tab-content').empty().append(data);
 					$('#searchKeyword').val('erasure');
+					$('#searchForm2').find('input[type=hidden]').each(function(){
+						$(this).val('');
+					});
+					$("#searchForm")[0].reset();
+					$('#possession_select').empty();
 				}
 			});
 		});
@@ -107,6 +112,11 @@
 				success : function(data) {  
 					$('#tab-content').empty().append(data);
 					$('#searchKeyword').val('keyword');
+					$('#searchForm2').find('input[type=hidden]').each(function(){
+						$(this).val('');
+					});		
+					$("#searchForm")[0].reset();
+					$('#possession_select').empty();
 				}
 			});
 		});
@@ -118,11 +128,31 @@
 
 		// 조건 검색			
 		var queryString = $("form[name=searchForm]").serialize();
+		var perPageNum = $('#perPageNum').val();
+		var searchKeyword = $('#searchKeyword').val();
+		var approval_state = $('#approval_state').val();
+		var org_nm = $('#org_nm').val();
+		var possession_nm = $('#possession_select').val();
+		var start_date = $('#start_date').val();
+		var end_date = $('#end_date').val();
+		var start_item_no = $('#start_item_no').val();
+		var end_item_no = $('#end_item_no').val();
+		
 		if($('#searchKeyword').val() == 'erasure'){
 			$.ajax({
 				type : 'post',
 				url : '/erasureListAjax.do',
-				data : queryString,
+				data : {
+					perPageNum : perPageNum,
+					searchKeyword : searchKeyword,
+					approval_state : approval_state,
+					org_nm : org_nm,
+					possession_nm : possession_nm,
+					start_date : start_date,
+					end_date : end_date,
+					start_item_no : start_item_no,
+					end_item_no : end_item_no
+				},
 				dataType : 'html',
 				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 				error: function(xhr, status, error){
@@ -130,17 +160,32 @@
 				},
 				success : function(data){
 					$('#tab-content').empty().append(data);
-// 					$('#possession_select').empty()
-//						$('#speciality_code_idx2').val(speciality_code_idx);
-//						$('#search_word2').val(search_word);
-//						$('#search_type2').val(search_type);
+					$('#perPageNum').val(perPageNum)
+					$('#searchKeyword2').val(searchKeyword);
+					$('#approval_state2').val(approval_state);
+					$('#org_nm2').val(org_nm);
+					$('#possession_nm2').val(possession_nm);
+					$('#start_date2').val(start_date);
+					$('#end_date2').val(end_date);
+					$('#start_item_no2').val(start_item_no);
+					$('#end_item_no2').val(end_item_no);
 				}
 			});
 		}else{
 			$.ajax({
 				type : 'post',
 				url : '/keywordListAjax.do',
-				data : queryString,
+				data : {
+					perPageNum : perPageNum,
+					searchKeyword : searchKeyword,
+					approval_state : approval_state,
+					org_nm : org_nm,
+					possession_nm : possession_nm,
+					start_date : start_date,
+					end_date : end_date,
+					start_item_no : start_item_no,
+					end_item_no : end_item_no
+				},
 				dataType : 'html',
 				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 				error: function(xhr, status, error){
@@ -148,10 +193,15 @@
 				},
 				success : function(data){
 					$('#tab-content').empty().append(data);
-// 					$('#possession_select').empty()
-//						$('#speciality_code_idx2').val(speciality_code_idx);
-//						$('#search_word2').val(search_word);
-//						$('#search_type2').val(search_type);
+					$('#perPageNum').val(perPageNum)
+					$('#searchKeyword2').val(searchKeyword);
+					$('#approval_state2').val(approval_state);
+					$('#org_nm2').val(org_nm);
+					$('#possession_nm2').val(possession_nm);
+					$('#start_date2').val(start_date);
+					$('#end_date2').val(end_date);
+					$('#start_item_no2').val(start_item_no);
+					$('#end_item_no2').val(end_item_no);
 				}
 			});
 		}
@@ -169,6 +219,16 @@
             <h2>신규자료 자동등록</h2>
             <p>환경설정 > <span>승인관리</span></p>
           </div>
+          <form id="searchForm2" name="searchForm2" method="post" class="form-horizontal">
+        	  <input type="hidden" id="searchKeyword2" name="keyword" value="" />
+        	  <input type="hidden" id="approval_state2" name="approval_state" value="" />
+        	  <input type="hidden" id="org_nm2" name="org_nm" value="" />
+        	  <input type="hidden" id="possession_nm2" name="possession_nm" value="" />
+        	  <input type="hidden" id="start_date2" name="start_date" value="" />
+        	  <input type="hidden" id="end_date2" name="end_date" value="" />
+        	  <input type="hidden" id="start_item_no2" name="start_item_no" value="" />
+        	  <input type="hidden" id="end_item_no2" name="end_item_no" value="" />
+          </form>
           <!-- 자료 구분 셀렉트 -->
           <form id="searchForm" name="searchForm" method="post" class="form-horizontal">
           	  <input type="hidden" id="searchKeyword" name="keyword" value="erasure" />
@@ -176,14 +236,14 @@
 	            <div class="mb-3 row fr_1">
 	              <div class="col-md-10">
 	                <label class="col-md-2 col-form-label">승인여부</label>
-	                <select class="form-select" name="approval_state">
+	                <select class="form-select" name="approval_state" id="approval_state">
 	                  <option value>전체</option>
 	                  <option value="Y">승인</option>
 	                  <option value="F">미승인</option>
 	                  <option value="N">반려</option>
 	                </select>
 	                <label class="col-md-2 col-form-label">자료 구분</label>
-	                  <select class="form-select" name="org_nm" onChange="orgCodeChange();">
+	                  <select class="form-select" name="org_nm" onChange="orgCodeChange();" id="org_nm">
                        	   <option value="">전체</option>
                            <c:forEach var="getOrgList" items="${getOrgList}">
                           		<option value="${getOrgList.org_nm}">${getOrgList.org_nm}</option>
@@ -197,15 +257,15 @@
 	            <div class="mb-3 row fr_1">
 	              <div class="col-md-10">
 	                <label class="col-md-2 col-form-label">요청일자</label>
-	                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="" name="start_date">
+	                <input class="form-control" list="datalistOptions" placeholder="" name="start_date" id="start_date">
 	                ~
-	                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="" name="end_date">
+	                <input class="form-control" list="datalistOptions" placeholder="" name="end_date" id="end_date">
 	
 	                  <label class="col-md-2 col-form-label">자료 번호</label>
 	                  <!-- <div class="col-md-10"> -->
-	                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="" name="start_item_no">
+	                    <input class="form-control" list="datalistOptions" placeholder="" name="start_item_no" id="start_item_no">
 	                    ~
-	                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="" name="end_item_no">
+	                    <input class="form-control" list="datalistOptions" placeholder="" name="end_item_no" id="end_item_no">
 	                    <button class="btn btn-secondary waves-effect waves-light btn_ml" type="button" onClick="searchList();">조회</button>
 	              </div>
 	            </div>

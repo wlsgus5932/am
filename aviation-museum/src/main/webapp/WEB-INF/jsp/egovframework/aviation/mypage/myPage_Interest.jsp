@@ -69,8 +69,8 @@
                       <option value="15">15</option>
                       <option value="20">20</option>
                     </select>
-                  <button class="custom_btn btn_707070" >항목 추가 및 삭제</button>
-                  <button class="custom_btn btn_707070" >사용자 지정양식 인쇄</button>
+<!--                   <button class="custom_btn btn_707070" >항목 추가 및 삭제</button> -->
+<!--                   <button class="custom_btn btn_707070" >사용자 지정양식 인쇄</button> -->
                   <button class="custom_btn btn_ex"  type="button" onClick="interestExcelList();">엑셀파일</button>
                 </div>
               </div>

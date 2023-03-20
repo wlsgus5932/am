@@ -63,6 +63,7 @@
 			 FROM(
 				SELECT
 					 ner.ERASURE_REQUEST_IDX as REQUEST_IDX
+					,ORG_NM
 		  			,ner.POSSESSION_NM 
 					,ner.ITEM_NO 
 					,ner.ITEM_DETAIL_NO 
@@ -76,7 +77,36 @@
 				WHERE 1=1
 				ORDER by REG_DATE DESC
 			) R1
-  
+  			WHERE 1=1 
+            <if test="org_nm != null and org_nm != ''">AND
+                org_nm = #{org_nm}
+            </if>
+            <if test="possession_nm != null and possession_nm != ''">AND
+                possession_nm = #{possession_nm}
+            </if>
+            <if test="item_no != null and item_no != ''">AND
+                (item_no LIKE CONCAT('%', #{item_no}, '%'))
+            </if>
+            <if test="item_detail_no != null and item_detail_no != ''">AND               
+                (item_detail_no LIKE CONCAT('%', #{item_detail_no}, '%'))
+            </if>
+            <choose>
+            	<when test='approval_state eq "F"'>
+            		AND approval_state = #{approval_state}
+            	</when>
+            	<when test='approval_state eq "Y"'>
+            		AND approval_state = #{approval_state}
+            	</when>
+            	<when test='approval_state eq "N"'>
+            		AND approval_state = #{approval_state}
+            	</when>
+            </choose>                
+            <if test="start_date != null and start_date != '' and end_date != null and end_date != ''">AND
+                (REG_DATE BETWEEN #{start_date} and #{end_date})
+            </if>
+            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+                (item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+            </if>
 	</select>
 	
 	<select id="getKeywordList" parameterType="egovframework.aviation.mypage.vo.RequestHistoryVO" resultType="egovframework.aviation.mypage.vo.RequestHistoryVO">
@@ -157,7 +187,36 @@
 				WHERE 1=1
 				ORDER by REG_DATE DESC
 			) R1
-  
+  			WHERE 1=1 
+            <if test="org_nm != null and org_nm != ''">AND
+                org_nm = #{org_nm}
+            </if>
+            <if test="possession_nm != null and possession_nm != ''">AND
+                possession_nm = #{possession_nm}
+            </if>
+            <if test="item_no != null and item_no != ''">AND
+                (item_no LIKE CONCAT('%', #{item_no}, '%'))
+            </if>
+            <if test="item_detail_no != null and item_detail_no != ''">AND               
+                (item_detail_no LIKE CONCAT('%', #{item_detail_no}, '%'))
+            </if>
+            <choose>
+            	<when test='approval_state eq "F"'>
+            		AND approval_state = #{approval_state}
+            	</when>
+            	<when test='approval_state eq "Y"'>
+            		AND approval_state = #{approval_state}
+            	</when>
+            	<when test='approval_state eq "N"'>
+            		AND approval_state = #{approval_state}
+            	</when>
+            </choose>    
+            <if test="start_date != null and start_date != '' and end_date != null and end_date != ''">AND
+                (REG_DATE BETWEEN #{start_date} and #{end_date})
+            </if>
+            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+                (item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+            </if>
 	</select>
 	
 	<update id="updateErasureApproval" parameterType="egovframework.aviation.mypage.vo.RequestHistoryVO">

@@ -107,7 +107,7 @@
                 </div>
               <!--  -->
               <div class="custom_prefernces_header_wrap">
-                <form id="tagSearchForm" name="tagSearchForm" method="post" class="form-horizontal">
+                <form id="tagSearchForm" name="tagSearchForm" method="post" class="form-horizontal" onsubmit="return false">
 	                <div class="custom_prefernces_header_wrap_in_wrap">
 	                  리스트 출력 갯수 :
 	                    <select class="search_select" id="perPageNum" name="perPageNum">	                      
@@ -125,7 +125,7 @@
 					        <option value="mod_user">수정자</option>
 					        <option value="enabled">사용여부</option>
 	                    </select>
-	                      <input class="custom_search_input" type="text" id="search_word" name="search_word" >
+	                      <input class="custom_search_input" type="text" id="search_word" name="search_word" onkeypress="if( event.keyCode == 13 ){tagSearchList();}">
 	                      <button class="custom_btn btn_inquiry" type="button" onClick="tagSearchList();">조회</button>
 	                  </div>
                   </form>
@@ -232,15 +232,16 @@
 	    						$('#perPageNum').val(perPageNum);
 	    						$('#search_word').val(search_word);
 	    						$('#search_type').val(search_type);
+	    						$('#search_word').focus();
 	    					}
 	    				});
 	    		}
 	    		
-	    		$('input[type="text"]').keydown(function() {
-		  			  if (event.keyCode === 13) {
-		  			    event.preventDefault();
-		  			  };
-	  			});
+// 	    		$('input[type="text"]').keydown(function() {
+// 		  			  if (event.keyCode === 13) {
+// 		  			    event.preventDefault();
+// 		  			  };
+// 	  			});
 	    		
 	    		<%-- 태그 페이지 이동 --%>
 	    		function goPage(value) {

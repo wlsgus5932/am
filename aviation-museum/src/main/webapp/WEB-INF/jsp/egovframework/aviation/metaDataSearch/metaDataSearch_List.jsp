@@ -667,5 +667,41 @@
 			$('#searchOperator2').on("change", function(){
 				$('#keyword3').css("display", "flex");
 			})
+			
+			$('#country').click(function() {
+ 				var val = true;
+ 				
+ 				$('#country').toggleClass("checked");
+ 				
+ 				if(!$('#country').attr('class')){
+ 					val = false;
+ 				}
+ 				 $('input[name=country]').each(function() {
+ 		            this.checked = val;
+ 		            if(val == true){
+ 		           	 	$('#country').addClass('checked');
+ 		            }else{
+ 		            	$('#country').removeClass('checked');
+ 		            }
+ 		        });
+		    });
+ 			
+ 			$('#material1').click(function() {
+ 				var val = true;
+ 				
+ 				$('#material1').toggleClass("checked");
+ 				
+ 				if(!$('#material1').attr('class')){
+ 					val = false;
+ 				}
+ 				 $('input[name=material1]').each(function() {
+ 		            this.checked = val;
+ 		            if(val == true){
+ 		           	 	$('#material1').addClass('checked');
+ 		            }else{
+ 		            	$('#material1').removeClass('checked');
+ 		            }
+ 		        });
+		    });
             </script>
             

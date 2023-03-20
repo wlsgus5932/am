@@ -8,7 +8,14 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="quickViewCloseBtn();"></button>
             </div>
             <div class="simple_view_thumb">
-              <img src="${metaDataSearchQuickView.image_path}" alt="" />
+              <c:choose>
+	            		<c:when test="${metaDataSearchQuickView.image_path ne null}">
+	            		 	 <img src="${metaDataSearchQuickView.image_path}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+	           		</c:when>
+	           		<c:otherwise>
+	           			<img src="/assets/images/no_image.png" alt="이미지">
+	           		</c:otherwise>
+	           </c:choose>
             </div>
             <div class="simple_view_info">
               <dl>
