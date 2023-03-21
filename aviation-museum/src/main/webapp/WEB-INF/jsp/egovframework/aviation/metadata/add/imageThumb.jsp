@@ -64,9 +64,9 @@
                                     <dd><button type="button" class="img-tag"><a href="#">태그</a></button></dd>
                                   </dl>
                                   <dl>
-                                    <dt><input type="checkbox" id="req_image${status.index}" name="rep_image" value="${list.image_idx}" onclick="publicRepCheck(this)" ${list.rep_image == "Y" ? "CHECKED" : ""}/></dt>
+                                    <dt><input type="checkbox" id="req_image${status.index}" value="${list.image_idx}" colunmName="rep_image" onclick="publicRepCheck(this)" ${list.rep_image == "Y" ? "CHECKED" : ""}/></dt>
                                     <dd>대표</dd>
-                                    <dt><input type="checkbox" id="public_service${status.index}" name="public_service" value="${list.image_idx}" onclick="publicRepCheck(this)" ${list.public_service == "Y" ? "CHECKED" : ""}></dt>
+                                    <dt><input type="checkbox" id="public_service${status.index}" value="${list.image_idx}" colunmName="public_service" onclick="publicRepCheck(this)" ${list.public_service == "Y" ? "CHECKED" : ""}></dt>
                                     <dd>대국민 서비스</dd>
                                   </dl>
                                   <dl>

@@ -45,8 +45,6 @@
 			  })
 		  });
 		  
-
-
 </script>
   </head>
   <script>
@@ -237,34 +235,32 @@
   function getImageFunction() {
       	getImageList();
       }
-
-  	const checkSubmitForm = () => {
-  		let arr = $('#itembasekeyword').val().split(',').filter(e => e.length !== 0 );
-  		if(arr.length < 5) {
-  			alert("키워드 입력을 콤마 ', ' 단위로 5개 이상 입력해주세요.")
-  			return
-  		}
-  		submitForm();
-  	}
-
-      const submitForm = async () => {
-  	if(confirm("저장하시겠습니까?")) {
-  	   	let formData = new FormData(document.getElementById('add-form'));
-
-  	   	const form = await fetch('/add.do', {
-  	   		method:'POST',
-  	   		headers: {
-  	               "Content-Type": "application/x-www-form-urlencoded",
-  	           },
-  	           body: new URLSearchParams(formData)
-  	   	})
-
-  		const res = await form.text();
-  	   	//const { item_idx } = await form.json();
-  	   	res == 'error' ? alert('오류가 발생했습니다. 다시 시도해주세요.') : (alert('등록완료'), sessionStorage.setItem("item_idx", item_idx))
-  	} else {
-  		return
-  	}
+  
+  const submitForm = async () => {
+	  	if(confirm("저장하시겠습니까?")) {
+	  	   	let formData = new FormData(document.getElementById('add-form'));
+	
+	  	   	const form = await fetch('/add.do', {
+	  	   		method:'POST',
+	  	   		headers: {
+	  	               "Content-Type": "application/x-www-form-urlencoded",
+	  	           },
+	  	           body: new URLSearchParams(formData)
+	  	   	})
+	
+	  		const res = await form.text();
+	  	   	//const { item_idx } = await form.json();
+	  	   	if(res == 'error') {
+	  	   		alert('오류가 발생했습니다. 다시 시도해주세요.')
+	  	   	} else if(res == 'not') {
+	  	   		alert('중복된 자료번호가 있습니다. 다른 자료번호를 입력해주세요.')
+	  	   	} else {
+		  	   	alert('등록완료'); 
+		  	   	sessionStorage.setItem("item_idx", res);
+	  	   	}
+	  	} else {
+	  		return
+	  	}
 
       };
 
@@ -281,7 +277,7 @@
       };
 
       const changeMaterial = async(r, n) => {
-     	 $('#material2-code_idx'+n).children('option:not(:first)').remove();
+     	 $('#material2_code_idx'+n).children('option:not(:first)').remove();
      	 const res = await fetch('/getMaterialData.do?material=' + r);
 
      	 if (res.status === 200) {
@@ -293,35 +289,36 @@
       };
 
       const addClassTd = (r, b) => {
-     	 count = document.getElementById(r).querySelectorAll("th").length;
+     	 count = document.getElementById(r).querySelectorAll("tr").length-1;
+     	 console.log(count);
      	 let cell = '';
      	 switch (r) {
      	  case 'class-table':
      	  	 cell =  '<tr id="class-tr"><td><input type="checkbox" name="class-checkbox"></td>' +
   			 '<th scope="row">'+(count+1)+'</th>' +
-  			 '<td><select class="form-select st_select" id="class1_code_idx'+count+'" name="class1_code_idx"><option value="" selected>선택</option>' +
+  			 '<td><select class="form-select st_select" id="class1_code_idx'+count+'" name="class1_code_idx"><option value="0" selected>선택</option>' +
   			 '<c:forEach var="list" items="${class1List}" varStatus="status"><option value="${list.class1_code_idx}">${list.class1_nm}</option></c:forEach></select></td>' +
-  			 '<td><select class="form-select st_select" id="class2_code_idx'+count+'" name="class2_code_idx"><option value="" selected>선택</option>' +
+  			 '<td><select class="form-select st_select" id="class2_code_idx'+count+'" name="class2_code_idx"><option value="0" selected>선택</option>' +
   			 '<c:forEach var="list" items="${class2List}" varStatus="status"><option value="${list.class2_code_idx}">${list.class2_nm}</option></c:forEach></select></td>' +
-  			 '<td><select class="form-select st_select" id="class3_code_idx'+count+'" name="class3_code_idx"><option value="" selected>선택</option> ' +
+  			 '<td><select class="form-select st_select" id="class3_code_idx'+count+'" name="class3_code_idx"><option value="0" selected>선택</option> ' +
   			 '<c:forEach var="list" items="${class3List}" varStatus="status"><option value="${list.class3_code_idx}">${list.class3_nm}</option></c:forEach></select></td></tr>';
      	    break;
 
      	  case 'country-table':
      	    cell = '<tr><td><input type="checkbox" name="country-checkbox"></td>' +
      	    '<th scope="row">'+(count+1)+'</th>' +
-             '<td><select class="form-select st_select" id="country-select'+count+'" onchange="changeCountry(this.value, '+count+')" name="country_code_idx"><option value="" selected>선택</option>' +
+             '<td><select class="form-select st_select" id="country-select'+count+'" onchange="changeCountry(this.value, '+count+')" name="country_code_idx"><option value="0" selected>선택</option>' +
              '<c:forEach var="list" items="${countryList}" varStatus="status"><option value="${list.country_code_idx}">${list.country_nm}</option></c:forEach></select></td>'+
-             '<td><select class="form-select st_select" id="era-select'+count+'" name="era_code_idx"><option value="" selected>선택</option></select></td>' +
+             '<td><select class="form-select st_select" id="era-select'+count+'" name="era_code_idx"><option value="0" selected>선택</option></select></td>' +
              '<td><input class="form-control st_input" list="datalistOptions" name="detail_year" placeholder="상세 시대를 입력해 주세요." id=detail_year'+count+'></td></tr>';
      	    break;
 
      	  case 'material-table':
      		  cell =  '<tr><td><input type="checkbox" name="material-checkbox"></td>' +
                '<th scope="row">'+(count+1)+'</th>' +
-               '<td><select class="form-select st_select" onchange="changeMaterial(this.value, '+count+')" id="material1_code_idx'+count+'" name="material1_code_idx"><option value="" selected>선택</option>' +
+               '<td><select class="form-select st_select" onchange="changeMaterial(this.value, '+count+')" id="material1_code_idx'+count+'" name="material1_code_idx"><option value="0" selected>선택</option>' +
                '<c:forEach var="list" items="${material1List}" varStatus="status"><option value="${list.material1_code_idx}">${list.material1_nm}</option></c:forEach></select></td>' +
-               '<td><select class="form-select st_select" id="material2_code_idx'+count+'" name="material2_code_idx"><option value="" selected>선택</option></select></td>' +
+               '<td><select class="form-select st_select" id="material2_code_idx'+count+'" name="material2_code_idx"><option value="0" selected>선택</option></select></td>' +
                '<td><input class="form-control st_input" list="datalistOptions" placeholder="상세 재질을 입력해 주세요." id="material_detail'+count+'" name="material_detail"></td></tr>';
                break;
 
@@ -329,10 +326,10 @@
      		  cell = '<tr><td><input type="checkbox" name="measurement-checkbox"></td>' +
                '<th scope="row">'+(count+1)+'</th>' +
                '<td><input class="form-control st_input" list="datalistOptions" id="measurement_item_type'+count+'" placeholder="소장구분을 입력해 주세요." name="measurement_item_type"></td>' +
-               '<td><select class="form-select st_select" id="measurement_code_idx'+count+'" name="measurement_code_idx"><option value="" selected>선택</option>' +
+               '<td><select class="form-select st_select" id="measurement_code_idx'+count+'" name="measurement_code_idx"><option value="0" selected>선택</option>' +
                '<c:forEach var="list" items="${measurementList}" varStatus="status"><option value="${list.measurement_code_idx}">${list.measurement_nm}</option></c:forEach></select></td>' +
                '<td><input class="form-control st_input" list="datalistOptions" id="measurement_value'+count+'" placeholder="실측치를 입력해 주세요." name="measurement_value"><td>' +
-               '<select class="form-select st_select" id="measurement_unit_code_idx'+count+'" name="measurement_unit_code_idx"><option value="" selected>선택</option>' +
+               '<select class="form-select st_select" id="measurement_unit_code_idx'+count+'" name="measurement_unit_code_idx"><option value="0" selected>선택</option>' +
                '<c:forEach var="list" items="${measurementUnitList}" varStatus="status"><option value="${list.measurement_unit_code_idx}">${list.measurement_unit_nm}</option></c:forEach>' +
                '</select></td></tr>';
                break;
@@ -340,32 +337,32 @@
      	  case 'possession-table':
      		  cell = '<tr><input type="hidden" name="invol_org_code_idx" id="invol_org_code_idx"><td><input type="checkbox" name="possession-checkbox">' +
                '<th scope="row">'+(count+1)+'</th>' +
-               '<td><select class="form-select st_select" name="invol_possession_code_idx'+(count+1)+'"><option value="" selected>선택</option>' +
+               '<td><select class="form-select st_select" name="invol_possession_code_idx" id="invol_possession_code_idx'+count+'"><option value="0" selected>선택</option>' +
                '<c:forEach var="list" items="${posSessionList}" varStatus="status"><option value="${list.possession_code_idx}">${list.possession_nm}</option></c:forEach></select>' +
-               '</td><td><input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="자료번호를 입력해 주세요." name="invol_item_no'+(count+1)+'"></td>' +
-               '<td><input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="참고사항을 입력해 주세요." name="invol_remark'+(count+1)+'"></td></tr>';
+               '</td><td><input class="form-control st_input" list="datalistOptions" placeholder="자료번호를 입력해 주세요." name="invol_item_no" id="invol_item_no'+count+'"></td>' +
+               '<td><input class="form-control st_input" list="datalistOptions" placeholder="참고사항을 입력해 주세요." name="invol_remark" id="invol_remark'+count+'"></td></tr>';
                break;
 
      	  case 'insurance-table':
      		  cell = '<tr><td><input type="checkbox" name="insurance-checkbox"></td>' +
-               '<th scope="row">'+(count+1)+'</th><td><input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="평가액을 입력해 주세요." name="insu_agreed_value'+(count+1)+'"></td>' +
-               '<td><select class="form-select st_select" name="insu_price_unit_code_idx'+(count+1)+'"><option value="" selected>선택</option>' +
+               '<th scope="row">'+(count+1)+'</th><td><input class="form-control st_input" list="datalistOptions" id="insu_agreed_value'+count+'" placeholder="평가액을 입력해 주세요." name="insu_agreed_value"></td>' +
+               '<td><select class="form-select st_select" name="insu_price_unit_code_idx" id="insu_price_unit_code_idx'+count+'"><option value="0" selected>선택</option>' +
                '<c:forEach var="list" items="${priceUnitList}" varStatus="status"><option value="${list.price_unit_code_idx}">${list.price_unit_nm}</option></c:forEach></select></td>' +
-               '<td><input class="form-control" type="date" name="insu_start_date'+(count+1)+'"> ~ <input class="form-control" type="date" name="insu_end_date"></td>' +
-               '<td><input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="대여기관을 입력해 주세요." name="insu_rental_org'+(count+1)+'"></td>' +
-               '<td><input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="참고사항을 입력해 주세요." name="insu_remark'+(count+1)+'"></td></tr>';
+               '<td><input class="form-control" type="date" id="insu_start_date'+count+'" name="insu_start_date"> ~ <input class="form-control" type="date" id="insu_end_date'+count+'" name="insu_end_date"></td>' +
+               '<td><input class="form-control st_input" list="datalistOptions" id="insu_rental_org'+count+'" placeholder="대여기관을 입력해 주세요." name="insu_rental_org"></td>' +
+               '<td><input class="form-control st_input" list="datalistOptions" id="insu_remark'+count+'" placeholder="참고사항을 입력해 주세요." name="insu_remark"></td></tr>';
                break;
 
      	  case 'copyright-table':
      		  cell = '<tr><td><input type="checkbox" name="copyright-checkbox"></td>' +
-               '<th scope="row">'+(count+1)+'</th><td><select class="form-select st_select" name="copy_copyright'+(count+1)+'"><option value="" selected>선택</option><option value="Y">예</option>' +
+               '<th scope="row">'+(count+1)+'</th><td><select class="form-select st_select" id="copy_copyright'+count+'" name="copy_copyright"><option value="0" selected>선택</option><option value="Y">예</option>' +
                '<option value="N">아니요</option></select></td>' +
-               '<td><input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="" name="copy_owner'+(count+1)+'"></td>' +
-               '<td><input class="form-control" type="date" name="copy_expiry_date'+(count+1)+'"></td>' +
-               '<td><select class="form-select st_select" name="copy_usage_permission'+(count+1)+'"><option value="" selected>선택</option><option value="Y">예</option><option value="N">아니요</option>' +
-               '</select></td><td><select class="form-select st_select" name="copy_copyright_transfer'+(count+1)+'"><option value="" selected>선택</option><option value="Y">예</option>' +
+               '<td><input class="form-control st_input" list="datalistOptions" id="copy_owner'+count+'" placeholder="" name="copy_owner"></td>' +
+               '<td><input class="form-control" type="date" id="copy_expiry_date'+count+'" name="copy_expiry_date"></td>' +
+               '<td><select class="form-select st_select" id="copy_usage_permission'+count+'" name="copy_usage_permission"><option value="0" selected>선택</option><option value="Y">예</option><option value="N">아니요</option>' +
+               '</select></td><td><select class="form-select st_select" id="copy_copyright_transfer'+count+'" name="copy_copyright_transfer"><option value="0" selected>선택</option><option value="Y">예</option>' +
                '<option value="N">아니요</option></select></td>' +
-               '<td><input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="참고사항을 입력해 주세요." name="copy_remark'+(count+1)+'"></td></tr>';
+               '<td><input class="form-control st_input" list="datalistOptions" id="copy_remark'+count+'" placeholder="참고사항을 입력해 주세요." name="copy_remark"></td></tr>';
                break;
 
      	  default:
@@ -390,7 +387,7 @@
     const sortNumber = e => {
   	  let rows = document.getElementById(e).querySelectorAll("th");
   	   for(let i = 1; i<=rows.length; i++) {
-  		   $(rows[i]).text((i+1));
+  		   $(rows[i]).text(i+1);
   	   }
     }
 
@@ -1367,8 +1364,8 @@
   	    getImageList()
   	 }
 
-    	const publicRepCheck = box => {
-    		box.checked ? setPublicRep(box.value, box.name, 'Y') : setPublicRep(box.value, box.name, 'N')
+    	const publicRepCheck =  box => {
+    		box.checked ? setPublicRep(box.value, box.getAttribute("colunmName"), 'Y') : setPublicRep(box.value, box.getAttribute("colunmName"), 'N')
     	}
 
     	const setPublicRep = async (idx, colunm, val) => {
@@ -1649,6 +1646,7 @@
 	    				$('#public_service').val(e.public_service).prop("selected", true);
 	    				$('#reason').val(e.reason);
 	    				$('#ggnuri_code_idx').val(e.ggnuri_code_idx).prop("selected", true);
+	    				
 	    			})
 
 	    			if(keywordList.length > 1) {
@@ -1659,11 +1657,13 @@
 	    	    		 })
 	    	    		 keywordArr.join(',');
 	    				$('#itembasekeyword').val(keywordArr);
-	    			} else {
-	    				$('#itembasekeyword').val(keywordList[0].keyword);
+	    				return;
 	    			}
+	    				$('#itembasekeyword').val(keywordList[0].keyword);
 	    	 }
-    	 } else { return false; }
+    	 } else { 
+    		 return false
+    		 }
      }
 
      <!-- 자료번호삽입 -->
@@ -1836,6 +1836,209 @@
 				}
 			});
 	}
+	
+	<!-- 퀵메뉴 자료 등록하기 -->
+	const resetMetaData = () => {
+		 $('form').each(function() {
+		      this.reset();
+		  });
+	}
+	
+	<!-- 공공서비스 셀렉트박스 -->
+	const changePublicService = () => {
+		$('#public_service').val() == 'N' ? ($('#reason').attr('disabled', true), $('#ggnuri_code_idx').attr('disabled', true)) : ($('#reason').attr('disabled', false), $('#ggnuri_code_idx').attr('disabled', false))
+	}
+	
+	<!-- 번호 조회 페이징-->
+	const searchItemPrev = () => {
+		
+		
+	}
+	
+	const searchItemNext = async() => {
+		let formData = new FormData();
+		
+		formData.append('item_no', $('#item_no').val())
+		formData.append('item_detail_no', $('#item_detail_no').val())
+		formData.append('org_code_idx', $('#org_code_idx').val())
+		formData.append('possession_code_idx', $('#possession_code_idx').val())
+
+  	   	const form = await fetch('/searchItemNext.do', {
+  	   		method:'POST',
+  	   		headers: {
+  	               "Content-Type": "application/x-www-form-urlencoded",
+  	           },
+  	           body: new URLSearchParams(formData)
+  	   	})
+
+  		const list = await form.json();
+		console.log(list);
+		list.length == 0 ? alert('다음 데이터가 없습니다') : set_itemBase_input(list)
+	}
+	
+	const addValidation = () => {
+		 if($('#possession_code_idx').val() == 0) {
+			alert('소장구분을 선택해주세요.')
+			return;
+		}
+		if(!$('#item_no').val()) {
+			alert('자료번호를 입력해주세요.')
+			return;
+		}
+		if(!$('#item_nm').val()) {
+			alert('명칭을 입력해주세요.')
+			return;
+		}
+		if(!$('#qty').val()) {
+			alert('수량을 입력해주세요.')
+			return;
+		}
+		if($('#qty_unit_code_idx').val() == 0) {
+			alert('수량단위를 선택해주세요.')
+			return;
+		}
+		
+		<!-- 분류체계 체크 -->
+		for(let i = 0; i < $('select[name=class1_code_idx]').length; i++) {
+			if($('#class1_code_idx'+i).val() == 0) {
+				alert((i+1)+'번째 대분류 항목을 선택해주세요.')
+				return;
+			}
+		}
+		for(let i = 0; i < $('select[name=class2_code_idx]').length; i++) {
+			if($('#class2_code_idx'+i).val() == 0) {
+				alert((i+1)+'번째 중분류 항목을 선택해주세요.')
+				return;
+			}
+		}
+		for(let i = 0; i < $('select[name=class3_code_idx]').length; i++) {
+			if($('#class3_code_idx'+i).val() == 0) {
+				alert((i+1)+'번째 소분류 항목을 선택해주세요.')
+				return;
+			}
+		}
+		<!-- 분류체계 체크 끝-->
+		
+		for(let i = 0; i < $('select[name=country_code_idx]').length; i++) {
+			if($('#country-select'+i).val() == 0) {
+				alert((i+1)+'번째 국적 항목을 선택해주세요.')
+				return;
+			}
+		}
+		
+		for(let i = 0; i < $('select[name=material1_code_idx]').length; i++) {
+			if($('#material1_code_idx'+i).val() == 0) {
+				alert((i+1)+'번째 재질 항목을 선택해주세요.')
+				return;
+			}
+		}
+		
+		<!-- 크기 -->
+		for(let i = 0; i < $('input[name=measurement_item_type]').length; i++) {
+			if(!$('#measurement_item_type'+i).val()) {
+				alert((i+1)+'번째 크기 소장구분 항목을 입력해주세요.')
+				return;
+			}
+		}
+		
+		for(let i = 0; i < $('select[name=measurement_code_idx]').length; i++) {
+			if($('#measurement_code_idx'+i).val() == 0) {
+				alert((i+1)+'번째 크기 실측부위 항목을 선택해주세요.')
+				return;
+			}
+		}
+		
+		for(let i = 0; i < $('input[name=measurement_value]').length; i++) {
+			if(!$('#measurement_value'+i).val()) {
+				alert((i+1)+'번째 크기 실측치 항목을 입력해주세요.')
+				return;
+			}
+		}
+		
+		for(let i = 0; i < $('select[name=measurement_unit_code_idx]').length; i++) {
+			if($('#measurement_unit_code_idx'+i).val() == 0) {
+				alert((i+1)+'번째 크기 실단위 항목을 선택해주세요.')
+				return;
+			}
+		} 
+		
+		
+		<!-- 관련자료 -->
+		for(let i = 0; i < $('select[name=invol_possession_code_idx]').length; i++) {
+			if($('#invol_possession_code_idx'+i).val() != 0 || $('#invol_item_no'+i).val() || $('#invol_remark'+i).val() ) {
+				if($('#invol_possession_code_idx'+i).val() == 0) {
+					alert('관련자료 '+(i+1)+'번째 자료구분 항목을 입력해주세요.')
+					return;
+				}
+				if(!$('#invol_item_no'+i).val()) {
+					alert('관련자료 '+(i+1)+'번째 자료번호 항목을 입력해주세요.')
+					return;
+				}
+			}
+		}
+		
+		
+		<!-- 보험 관계기록 -->
+		for(let i = 0; i < $('input[name=insu_agreed_value]').length; i++) {
+			if($('#insu_agreed_value'+i).val() || $('#insu_price_unit_code_idx'+i).val() !=0 || $('#insu_start_date'+i).val() || $('#insu_end_date'+i).val() || $('#insu_rental_org'+i).val() || $('#insu_remark'+i).val() ) {
+				if(!$('#insu_agreed_value'+i).val()) {
+					alert('보험관계기록 '+(i+1)+'번째 평가액 항목을 입력해주세요.')
+					return;
+				}
+				if($('#insu_price_unit_code_idx'+i).val() == 0) {
+					alert('보험관계기록 '+(i+1)+'번째 가격단위 항목을 입력해주세요.')
+					return;
+				}
+				if(!$('#insu_start_date'+i).val() || !$('#insu_end_date'+i).val() ) {
+					alert('보험관계기록 '+(i+1)+'번째 대여기간 항목을 입력해주세요.')
+					return;
+				}
+				if(!$('#insu_rental_org'+i).val()) {
+					alert('보험관계기록 '+(i+1)+'번째 대여기관 항목을 입력해주세요.')
+					return;
+				}
+			}
+		}
+		
+		if($('#itembasekeyword').val()) {
+			let arr = $('#itembasekeyword').val().split(',').filter(e => e.length !== 0 );
+	  		if(arr.length < 5) {
+	  			alert("키워드 입력을 콤마 ', ' 단위로 5개 이상 입력해주세요.")
+	  			return
+	  		}
+		}
+		
+		
+		<!-- 저작권 -->
+		for(let i = 0; i < $('select[name=copy_copyright]').length; i++) {
+			if($('#copy_copyright'+i).val() != 0 || $('#copy_owner'+i).val() || $('#copy_expiry_date'+i).val() || $('#copy_usage_permission'+i).val() != 0 || $('#copy_copyright_transfer'+i).val() != 0 || $('#copy_remark'+i).val() ) {
+				if($('#copy_copyright'+i).val() == 0) {
+					alert('저작권 '+(i+1)+'번째 저작권 항목을 입력해주세요.')
+					return;
+				}
+				if(!$('#copy_owner'+i).val()) {
+					alert('저작권 '+(i+1)+'번째 저작권 소유자 항목을 입력해주세요.')
+					return;
+				}
+				if(!$('#copy_expiry_date'+i).val() ) {
+					alert('저작권 '+(i+1)+'번째 저작권 만료일자 항목을 입력해주세요.')
+					return;
+				}
+				if($('#copy_usage_permission'+i).val() == 0) {
+					alert('저작권 '+(i+1)+'번째 이용허락 여부 항목을 입력해주세요.')
+					return;
+				}
+				if($('#copy_copyright_transfer'+i).val() == 0) {
+					alert('저작권 '+(i+1)+'번째 저작권 양도 여부 항목을 입력해주세요.')
+					return;
+				}
+			}
+		}
+		
+		
+		submitForm();
+		
+	}
 
 
 
@@ -1863,14 +2066,13 @@
             <div class="mb-3 row fr_1">
               <div class="col-md-10">
               <label class="col-md-2 col-form-label">자료 구분</label>
-              <select class="search_select" name="org_code_idx" onchange="changeOrgCode(this.value)">
-                <option value="" selected>선택</option>
+              <select class="search_select" name="org_code_idx" id="org_code_idx">
                     <c:forEach var="list" items="${orgList}" varStatus="status">
-                           <option value="${list.org_code_idx}">${list.org_nm}</option>
+                           <option value="${list.org_code_idx}" <c:if test ="${list.org_nm eq '항공박물관'}">selected="selected"</c:if>>${list.org_nm}</option>
                      </c:forEach>
                   </select>
-                  <select class="search_select" name="possession_code_idx">
-                      <option value="" selected>선택</option>
+                  <select class="search_select" name="possession_code_idx" id="possession_code_idx">
+                      <option value="0" selected>선택</option>
                       		<c:forEach var="list" items="${posSessionList}" varStatus="status">
 		                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
 		                     </c:forEach>
@@ -1895,7 +2097,7 @@
                     <li class="page-item"><a class="page-link" href="#"><<</a></li>
                     <li class="page-item"><a class="page-link" href="#"><</a></li>
                     <li class="page-item"><a class="page-link" href="#">상세</a></li>
-                    <li class="page-item"><a class="page-link" href="#">></a></li>
+                    <li class="page-item" onclick="searchItemNext()"><a class="page-link" href="#">></a></li>
                     <li class="page-item"><a class="page-link" href="#">>></a></li>
                 </ul>
             </div>
@@ -1923,8 +2125,8 @@
                   <div class="text-muted">
                     <strong class="text-dark">
                       <ul>
-                        <li onclick="submitForm()"><a href="#">저장</a></li>
-                        <li><a href="#">자료 등록하기</a></li>
+                        <li onclick="addValidation()"><a href="#">저장</a></li>
+                        <li onclick="resetMetaData()"><a href="#">자료 등록하기</a></li>
                         <li data-bs-toggle="modal" data-bs-target="#getMetaDataInfoModal">자료 정보 가져오기</li>
 	                   	<li data-bs-toggle="modal" data-bs-target="#deleteItemInfo" >자료 정보 삭제 신청</li>
                         <li data-bs-toggle="modal" data-bs-target="#setItemNoModal">자료 번호 삽입</li>
@@ -2030,8 +2232,9 @@
                           </div>
                           <!--  -->
                           <div id="img-card-body">
-
-
+                          <div class="img-slider">
+								<img src="/assets/images/no_image.png" onerror=this.src="/assets/images/no_image.png">
+								</div>
                           </div>
 
                       </div>
@@ -2044,12 +2247,12 @@
                                   명칭
                                 </td>
                                   <td>
-                                    <input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="자료의 명칭을 입력해 주세요." name="item_nm">
+                                    <input class="form-control st_input" list="datalistOptions" id="item_nm" placeholder="자료의 명칭을 입력해 주세요." name="item_nm">
                                   </td>
                                   <td>
                                     이명칭
                                   <td>
-                                    <input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="자료의 명칭을 입력해 주세요." name="item_se_nm">
+                                    <input class="form-control st_input" list="datalistOptions" id="exampleDataList" placeholder="자료의 이명칭을 입력해 주세요." name="item_se_nm">
                                   </td>
                               </tr>
                               <!-- 2  -->
@@ -2072,8 +2275,8 @@
                                   수량
                                 </td>
                                   <td class="table_2nd_row_wrap">
-                                    <input class="form-control st_input pri" list="datalistOptions" id="exampleDataList" placeholder="수량을 입력해 주세요." name="qty" style="min-width:auto !important;">
-                                    <select class="form-select st_select pri" name="qty_unit_code_idx" style="min-width:auto !important; width:50% !important;">
+                                    <input class="form-control st_input pri" list="datalistOptions" id="qty" placeholder="수량을 입력해 주세요." name="qty" style="min-width:auto !important;">
+                                    <select class="form-select st_select pri" name="qty_unit_code_idx" id="qty_unit_code_idx" style="min-width:auto !important; width:50% !important;">
                                       <option value="" selected>단위선택</option>
                                       	<c:forEach var="list" items="${qtyUnitList}" varStatus="status">
 		                                    <option value="${list.qty_unit_code_idx}">${list.qty_unit_nm}</option>
@@ -2085,7 +2288,7 @@
                                   </td>
                                   <td>
                                     <select class="form-select st_select" name="icao_code_idx">
-                                      <option selected value="">선택안함</option>
+                                      <option selected value="0">선택</option>
                                       <c:forEach var="list" items="${IcaoList}" varStatus="status">
 		                                    <option value="${list.icao_code_idx}">${list.icao_nm}</option>
 		                                </c:forEach>
@@ -2099,7 +2302,7 @@
                                 </td>
                                   <td>
                                     <select class="form-select st_select" name="existence_code_idx">
-                                      <option selected value="">선택</option>
+                                      <option selected value="0">선택</option>
                                       <c:forEach var="list" items="${existenceList}" varStatus="status">
 		                                    <option value="${list.existence_code_idx}">${list.existence_nm}</option>
 		                               </c:forEach>
@@ -2140,7 +2343,7 @@
                   <div class="st_wrap">
                     <label class="col-md-2 col-form-label st_title">분류체계</label>
                     <button class="custom_btn btn_707070" type="button" >간편입력</button>
-                    <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('class-table', 'class-checkbox')">선택삭제</button>
+                    <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('class-tbody', 'class-checkbox')">선택삭제</button>
                     <button class="custom_btn btn_707070" type="button" onclick="addClassTd('class-table', 'class-tbody')">추가</button>
                   </div>
                   <div class="card-body">
@@ -2162,7 +2365,7 @@
 	                                    <th scope="row" id="row-number">1</th>
 	                                    <td>
 	                                      <select class="form-select st_select" id="class1_code_idx0" name="class1_code_idx">
-	                                        <option value="" selected>선택</option>
+	                                        <option value="0" selected>선택</option>
 	                                        <c:forEach var="list" items="${class1List}" varStatus="status">
 			                                    <option value="${list.class1_code_idx}">${list.class1_nm}</option>
 			                                </c:forEach>
@@ -2170,7 +2373,7 @@
 	                                    </td>
 	                                    <td>
 	                                      <select class="form-select st_select" id="class2_code_idx0" name="class2_code_idx">
-	                                        <option value="" selected>선택</option>
+	                                        <option value="0" selected>선택</option>
 	                                        <c:forEach var="list" items="${class2List}" varStatus="status">
 			                                    <option value="${list.class2_code_idx}">${list.class2_nm}</option>
 			                                </c:forEach>
@@ -2178,7 +2381,7 @@
 	                                    </td>
 	                                    <td>
 	                                      <select class="form-select st_select" id="class3_code_idx0" name="class3_code_idx">
-	                                        <option value="" selected>선택</option>
+	                                        <option value="0" selected>선택</option>
 	                                        <c:forEach var="list" items="${class3List}" varStatus="status">
 			                                    <option value="${list.class3_code_idx}">${list.class3_nm}</option>
 			                                </c:forEach>
@@ -2201,7 +2404,7 @@
                 <div class="st_wrap">
                   <label class="col-md-2 col-form-label st_title">국적</label>
                   <button class="custom_btn btn_707070" type="button" >간편입력</button>
-                  <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('country-table', 'country-checkbox')">선택삭제</button>
+                  <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('country-tbody', 'country-checkbox')">선택삭제</button>
                   <button class="custom_btn btn_707070" type="button" onclick="addClassTd('country-table', 'country-tbody')">추가</button>
                 </div>
                 <div class="card-body">
@@ -2222,7 +2425,7 @@
                                   <th scope="row">1</th>
                                   <td>
                                     <select class="form-select st_select" id="country-select0" onchange="changeCountry(this.value, 0)" name="country_code_idx">
-                                      <option value="" selected>선택</option>
+                                      <option value="0" selected>선택</option>
 		                               <c:forEach var="list" items="${countryList}" varStatus="status">
 		                                    <option value="${list.country_code_idx}">${list.country_nm}</option>
 		                                </c:forEach>
@@ -2230,7 +2433,7 @@
                                   </td>
                                   <td>
                                     <select class="form-select st_select" id="era-select0" name="era_code_idx">
-                                      <option value="" selected>선택</option>
+                                      <option value="0" selected>선택</option>
                                       <%-- <c:forEach var="list" items="${eraList}" varStatus="status">
 		                                    <option value="${list.era_code_idx}">${list.era_nm}</option>
 		                                </c:forEach> --%>
@@ -2250,7 +2453,7 @@
               <div class="st_wrap">
                 <label class="col-md-2 col-form-label st_title">재질</label>
                 <button class="custom_btn btn_707070" type="button" >간편입력</button>
-                <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('material-table', 'material-checkbox')">선택삭제</button>
+                <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('material-tbody', 'material-checkbox')">선택삭제</button>
                 <button class="custom_btn btn_707070" type="button" onclick="addClassTd('material-table', 'material-tbody')">추가</button>
               </div>
               <div class="card-body">
@@ -2271,7 +2474,7 @@
                                 <th scope="row">1</th>
                                 <td>
                                   <select class="form-select st_select" id="material1_code_idx0" onchange="changeMaterial(this.value, 0)" name="material1_code_idx">
-                                    <option value="" selected>선택</option>
+                                    <option value="0" selected>선택</option>
                                     <c:forEach var="list" items="${material1List}" varStatus="status">
 		                                    <option value="${list.material1_code_idx}">${list.material1_nm}</option>
 		                                </c:forEach>
@@ -2279,7 +2482,7 @@
                                 </td>
                                 <td>
                                   <select class="form-select st_select" id="material2_code_idx0" name="material2_code_idx">
-                                    <option value="" selected>선택</option>
+                                    <option value="0" selected>선택</option>
                                   </select>
                                 </td>
                                 <td>
@@ -2297,7 +2500,7 @@
               <div class="st_wrap">
                 <label class="col-md-2 col-form-label st_title">크기</label>
                 <button class="custom_btn btn_707070" type="button">간편입력</button>
-                <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('measurement-table', 'measurement-checkbox')">선택삭제</button>
+                <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('measurement-tbody', 'measurement-checkbox')">선택삭제</button>
                 <button class="custom_btn btn_707070" type="button" onclick="addClassTd('measurement-table', 'measurement-tbody')">추가</button>
               </div>
               <div class="card-body">
@@ -2322,7 +2525,7 @@
                                 </td>
                                 <td>
                                   <select class="form-select st_select" id="measurement_code_idx0" name="measurement_code_idx">
-                                    <option value="" selected>선택</option>
+                                    <option value="0" selected>선택</option>
                                     	<c:forEach var="list" items="${measurementList}" varStatus="status">
 		                                    <option value="${list.measurement_code_idx}">${list.measurement_nm}</option>
 		                                </c:forEach>
@@ -2332,7 +2535,7 @@
                                   <input class="form-control st_input" list="datalistOptions" id="measurement_value0" placeholder="실측치를 입력해 주세요." name="measurement_value">
                                 <td>
                                   <select class="form-select st_select" id="measurement_unit_code_idx0" name="measurement_unit_code_idx">
-                                    <option value="" selected>선택</option>
+                                    <option value="0" selected>선택</option>
                                    	 	<c:forEach var="list" items="${measurementUnitList}" varStatus="status">
 		                                    <option value="${list.measurement_unit_code_idx}">${list.measurement_unit_nm}</option>
 		                                </c:forEach>
@@ -2345,7 +2548,7 @@
             </div>
           </div>
           <div class="mb-0 btn_add_save_wrap">
-        	<button type="button" class="custom_btn btn_c58672" onclick="checkSubmitForm()">저장하기</button>
+        	<button type="button" class="custom_btn btn_c58672" onclick="addValidation()">저장하기</button>
         </div>
           <!-- 기본사항 - 크기 끝 -->
           <!--  -->
@@ -2367,7 +2570,7 @@
                                 입수연유
                               <td>
                                 <select class="form-select st_select" id="obt_obtainment_code_idx" name="obt_obtainment_code_idx">
-                                  <option value="" selected>선택</option>
+                                  <option value="0" selected>선택</option>
                                   		<c:forEach var="list" items="${obtainmentList}" varStatus="status">
 		                                    <option value="${list.obtainment_code_idx}">${list.obtainment_nm}</option>
 		                                </c:forEach>
@@ -2380,7 +2583,7 @@
                               구입구분1
                               <td>
                                 <select class="form-select st_select" id="obt_purchase1_code_idx" name="obt_purchase1_code_idx">
-                                  <option value="" selected>선택</option>
+                                  <option value="0" selected>선택</option>
                                   		<c:forEach var="list" items="${purchase1List}" varStatus="status">
 		                                    <option value="${list.purchase1_code_idx}">${list.purchase1_nm}</option>
 		                                </c:forEach>
@@ -2390,7 +2593,7 @@
                                 구입구분2
                               <td>
                                 <select class="form-select st_select" id="obt_purchase2_code_idx" name="obt_purchase2_code_idx">
-                                  <option value="" selected>선택</option>
+                                  <option value="0" selected>선택</option>
                                  		 <c:forEach var="list" items="${purchase2List}" varStatus="status">
 		                                    <option value="${list.purchase2_code_idx}">${list.purchase2_nm}</option>
 		                                </c:forEach>
@@ -2404,7 +2607,7 @@
                               <td class="table_2nd_row_wrap">
                                 <input class="form-control st_input pri" list="datalistOptions" id="obt_obtainment_price" placeholder="가격을 입력해 주세요." name="obt_obtainment_price">
                                 <select class="form-select st_select pri" name="obt_price_unit_code_idx" id="obt_price_unit_code_idx">
-                                  <option value="" selected>선택</option>
+                                  <option value="0" selected>선택</option>
                                   		<c:forEach var="list" items="${priceUnitList}" varStatus="status">
 		                                    <option value="${list.price_unit_code_idx}">${list.price_unit_nm}</option>
 		                                </c:forEach>
@@ -2412,7 +2615,9 @@
                               </td>
                               <td>
                                 원화환산
-                                <button class="custom_btn btn_707070">환율정보</button>
+                                <c:forEach var="list" items="${exchangeList}" varStatus="status">
+                                	<button class="custom_btn btn_707070" onclick="window.open('${list.service_url}')">환율정보</button>
+                                </c:forEach>
                               </td>
                               <td>
                                 <input class="form-control st_input" list="datalistOptions" id="obt_won_exchange" placeholder="원화환산 입력에 관하여 환률정보 클릭 시 도움을 받을 수 있습니다." name="obt_won_exchange">
@@ -2481,7 +2686,7 @@
                               </td>
                               <td>
                                 <select class="form-select st_select" name="obt_country_code_idx" id="obt_country_code_idx">
-                                  <option value="" selected>선택</option>
+                                  <option value="0" selected>선택</option>
                                   		<c:forEach var="list" items="${countryList}" varStatus="status">
 		                                    <option value="${list.country_code_idx}">${list.country_nm}</option>
 		                                </c:forEach>
@@ -2496,7 +2701,7 @@
                               <td>
                               <input class="form-control st_input pri" list="datalistOptions" id="obt_qty" placeholder="환수 수량을 입력해 주세요." name="obt_qty">
                                 <select class="form-select st_select pri" id="obt_qty_unit_code_idx" name="obt_qty_unit_code_idx">
-                                  <option value="" selected>문화재 환수 단위</option>
+                                  <option value="0" selected>문화재 환수 단위</option>
                                   		<c:forEach var="list" items="${qtyUnitList}" varStatus="status">
 		                                    <option value="${list.qty_unit_code_idx}">${list.qty_unit_nm}</option>
 		                                </c:forEach>
@@ -2538,7 +2743,7 @@
                               자료상태
                               <td>
                                 <select class="form-select st_select"  id="condition_code_idx" name="condition_code_idx">
-                                  <option value="" selected>선택</option>
+                                  <option value="0" selected>선택</option>
                                   		<c:forEach var="list" items="${conditionList}" varStatus="status">
 		                                    <option value="${list.condition_code_idx}">${list.condition_nm}</option>
 		                                </c:forEach>
@@ -2548,7 +2753,7 @@
                                 전시순위
                               <td>
                                 <select class="form-select st_select" id="ranking_code_idx" name="ranking_code_idx">
-                                  <option value="" selected>선택</option>
+                                  <option value="0" selected>선택</option>
                                   		<c:forEach var="list" items="${rankingList}" varStatus="status">
 		                                    <option value="${list.ranking_code_idx}">${list.ranking_nm}</option>
 		                                </c:forEach>
@@ -2569,7 +2774,7 @@
           <div class="mb-0">
             <div class="st_wrap">
               <label class="col-md-2 col-form-label st_title">관련자료</label>
-              <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('possession-table', 'possession-checkbox')">선택삭제</button>
+              <button class="custom_btn btn_707070" type="button" onclick="deleteClassTd('possession-tbody', 'possession-checkbox')">선택삭제</button>
               <button class="custom_btn btn_707070" type="button" onclick="addClassTd('possession-table', 'possession-tbody')">추가</button>
             </div>
             <div class="card-body">
@@ -2586,22 +2791,22 @@
                       </thead>
                       <tbody id="possession-tbody">
                           <tr>
-                          	<input type="hidden" name="invol_org_code_idx" id="invol_org_code_idx">
+                          	<input type="hidden" name="invol_org_code_idx" id="invol_org_code_idx0">
                             <td></td>
                               <th scope="row">1</th>
                               <td>
-                                <select class="form-select st_select" id="invol_possession_code_idx" name="invol_possession_code_idx">
-                                  <option value="" selected>선택</option>
+                                <select class="form-select st_select" id="invol_possession_code_idx0" name="invol_possession_code_idx">
+                                  <option value="0" selected>선택</option>
                                   		<c:forEach var="list" items="${posSessionList}" varStatus="status">
 		                                    <option value="${list.possession_code_idx}">${list.possession_nm}</option>
 		                                </c:forEach>
                                 </select>
                               </td>
                               <td>
-                                <input class="form-control st_input" list="datalistOptions" id="invol_item_no" placeholder="자료번호를 입력해 주세요." name="invol_item_no">
+                                <input class="form-control st_input" list="datalistOptions" id="invol_item_no0" placeholder="자료번호를 입력해 주세요." name="invol_item_no">
                               </td>
                               <td>
-                                <input class="form-control st_input" list="datalistOptions" id="invol_remark" placeholder="참고사항을 입력해 주세요." name="invol_remark">
+                                <input class="form-control st_input" list="datalistOptions" id="invol_remark0" placeholder="참고사항을 입력해 주세요." name="invol_remark">
                               </td>
                           </tr>
                       </tbody>
@@ -2615,7 +2820,7 @@
         <div class="mb-0">
           <div class="st_wrap">
             <label class="col-md-2 col-form-label st_title">보험 관계기록</label>
-            <button type="button" class="custom_btn btn_707070" onclick="deleteClassTd('insurance-table', 'insurance-checkbox')">선택삭제</button>
+            <button type="button" class="custom_btn btn_707070" onclick="deleteClassTd('insurance-tbody', 'insurance-checkbox')">선택삭제</button>
             <button type="button" class="custom_btn btn_707070" onclick="addClassTd('insurance-table', 'insurance-tbody')">추가</button>
           </div>
           <div class="card-body">
@@ -2637,12 +2842,12 @@
                           <td></td>
                             <th scope="row">1</th>
                             <td>
-                              <input class="form-control st_input" list="datalistOptions" id="insu_agreed_value" placeholder="평가액을 입력해 주세요." name="insu_agreed_value">
+                              <input class="form-control st_input" list="datalistOptions" id="insu_agreed_value0" placeholder="평가액을 입력해 주세요." name="insu_agreed_value">
 
                             </td>
                             <td>
-                              <select class="form-select st_select" name="insu_price_unit_code_idx" id="insu_price_unit_code_idx">
-                                <option value="" selected>선택</option>
+                              <select class="form-select st_select" name="insu_price_unit_code_idx" id="insu_price_unit_code_idx0">
+                                <option value="0" selected>선택</option>
                                 		<c:forEach var="list" items="${priceUnitList}" varStatus="status">
 		                                    <option value="${list.price_unit_code_idx}">${list.price_unit_nm}</option>
 		                                </c:forEach>
@@ -2650,13 +2855,13 @@
                             </td>
                             <td class="table_2nd_row_wrap">
                               <!-- 대여기간 캘린더 폼 -->
-                              <input class="form-control" type="date" id="insu_start_date" name="insu_start_date"> ~ <input class="form-control" type="date" id="insu_end_date" name="insu_end_date">
+                              <input class="form-control" type="date" id="insu_start_date0" name="insu_start_date"> ~ <input class="form-control" type="date" id="insu_end_date0" name="insu_end_date">
                             </td>
                             <td>
-                              <input class="form-control st_input" list="datalistOptions" id="insu_rental_org" placeholder="대여기관을 입력해 주세요." name="insu_rental_org">
+                              <input class="form-control st_input" list="datalistOptions" id="insu_rental_org0" placeholder="대여기관을 입력해 주세요." name="insu_rental_org">
                             </td>
                             <td>
-                              <input class="form-control st_input" list="datalistOptions" id="insu_remark" placeholder="참고사항을 입력해 주세요." name="insu_remark">
+                              <input class="form-control st_input" list="datalistOptions" id="insu_remark0" placeholder="참고사항을 입력해 주세요." name="insu_remark">
                             </td>
                         </tr>
                     </tbody>
@@ -2678,7 +2883,7 @@
         <div class="mb-0">
           <div class="st_wrap">
             <label class="col-md-2 col-form-label st_title">저작권</label>
-            <button type="button" class="custom_btn btn_707070" onclick="deleteClassTd('copyright-table', 'copyright-checkbox')">선택삭제</button>
+            <button type="button" class="custom_btn btn_707070" onclick="deleteClassTd('copyright-tbody', 'copyright-checkbox')">선택삭제</button>
             <button type="button" class="custom_btn btn_707070" onclick="addClassTd('copyright-table', 'copyright-tbody')">추가</button>
           </div>
           <div class="card-body">
@@ -2701,35 +2906,35 @@
                           <td></td>
                             <th scope="row">1</th>
                             <td>
-                              <select class="form-select st_select" id="copy_copyright" name="copy_copyright">
-                                <option value="" selected>선택</option>
+                              <select class="form-select st_select" id="copy_copyright0" name="copy_copyright">
+                                <option value="0" selected>선택</option>
                                 <option value="Y">예</option>
                                 <option value="N">아니요</option>
                               </select>
                             </td>
                             <td>
-                              <input class="form-control st_input" list="datalistOptions" id="copy_owner" placeholder="" name="copy_owner">
+                              <input class="form-control st_input" list="datalistOptions" id="copy_owner0" placeholder="" name="copy_owner">
                             </td>
                             <td>
                               <!-- 대여기간 캘린더 폼 -->
-                              <input class="form-control" type="date" id="copy_expiry_date" name="copy_expiry_date">
+                              <input class="form-control" type="date" id="copy_expiry_date0" name="copy_expiry_date">
                             </td>
                             <td>
-                              <select class="form-select st_select" id="copy_usage_permission" name="copy_usage_permission">
-                                <option value="" selected>선택</option>
+                              <select class="form-select st_select" id="copy_usage_permission0" name="copy_usage_permission">
+                                <option value="0" selected>선택</option>
                                 <option value="Y">예</option>
                                 <option value="N">아니요</option>
                               </select>
                             </td>
                             <td>
-                              <select class="form-select st_select" id="copy_copyright_transfer" name="copy_copyright_transfer">
-                                <option value="" selected>선택</option>
+                              <select class="form-select st_select" id="copy_copyright_transfer0" name="copy_copyright_transfer">
+                                <option value="0" selected>선택</option>
                                 <option value="Y">예</option>
                                 <option value="N">아니요</option>
                               </select>
                             </td>
                             <td>
-                              <input class="form-control st_input" list="datalistOptions" id="copy_remark" placeholder="참고사항을 입력해 주세요." name="copy_remark">
+                              <input class="form-control st_input" list="datalistOptions" id="copy_remark0" placeholder="참고사항을 입력해 주세요." name="copy_remark">
                             </td>
                         </tr>
                     </tbody>
@@ -2743,7 +2948,7 @@
         <div class="mb-0">
           <div class="st_wrap">
             <label class="col-md-2 col-form-label st_title">대국민 서비스</label>
-            <select class="form-select st_select ser_sel" id="public_service" name="public_service">
+            <select class="form-select st_select ser_sel" id="public_service" name="public_service" onchange="changePublicService()" >
               <option value="N" selected>비사용</option>
               <option value="Y">사용</option>
             </select>
@@ -2760,11 +2965,10 @@
                     <tbody>
                         <tr>
                             <td>
-                              <input class="form-control st_input" list="datalistOptions" id="reason" placeholder="서비스 불가 사유를 입력해 주세요." name="reason">
+                              <input class="form-control st_input" list="datalistOptions" id="reason" placeholder="서비스 불가 사유를 입력해 주세요." name="reason" disabled>
                             </td>
                             <td>
-                              <select class="form-select st_select" id="ggnuri_code_idx" name="ggnuri_code_idx">
-                                <option value="" selected>선택</option>
+                              <select class="form-select st_select" id="ggnuri_code_idx" name="ggnuri_code_idx" disabled>
                                 		<c:forEach var="list" items="${ggnuriList}" varStatus="status">
 		                                    <option value="${list.ggnuri_code_idx}">${list.ggnuri_nm}</option>
 		                                </c:forEach>
@@ -2778,51 +2982,6 @@
       </div>
         <!-- 기본사항 - 대국민 서비스 끝 -->
 
-        <!--  -->
-        <!-- 기본사항 - 자료정보변경이력 시작 -->
-        <div class="mb-0">
-          <div class="st_wrap">
-            <label class="col-md-2 col-form-label st_title">자료정보변경이력</label>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-                <table class="table mb-0">
-                    <thead>
-                        <tr class="tr_bgc">
-                            <th>번호</th>
-                            <th>기록자</th>
-                            <th>변경일</th>
-                            <th>변경항목</th>
-                            <th>변경내용</th>
-                            <th>비고</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>
-                             -
-                            </td>
-                            <td>
-                              -
-                             </td>
-                             <td>
-                              -
-                             </td>
-                             <td>
-                              -
-                             </td>
-                             <td>
-                              -
-                             </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-      </div>
-      <!--  -->
       <div class="mb-0">
         <div class="st_wrap">
           <label class="col-md-2 col-form-label st_title">키워드</label>
@@ -3058,7 +3217,7 @@
                     <!-- modalzone 모달 end -->
 
         <div class="mb-0 btn_add_save_wrap">
-        	<button type="button" class="custom_btn btn_c58672" onclick="checkSubmitForm()">저장하기</button>
+        	<button type="button" class="custom_btn btn_c58672" onclick="addValidation()">저장하기</button>
         </div>
       </div>
              <!-- End Page-content -->

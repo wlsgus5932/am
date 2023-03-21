@@ -27,7 +27,8 @@
     <script src="<c:url value='/assets/js/viewer.js'/>"></script>
     <script src="<c:url value='/dx5/dextuploadx5-configuration.js'/>"></script>
     <script src="<c:url value='/dx5/dextuploadx5.js'/>"></script>
-    <script src="<c:url value='/assets/js/metadata/metadataList.js'/>"></script>
+    <%-- <script src="<c:url value='/assets/js/metadata/metadataList.js'/>"></script> --%>
+    <script src="<c:url value='/assets/js/metadata/update.js'/>"></script>
     <script>
     const updateData = async () => {
     	if(confirm("수정하시겠습니까?")) {

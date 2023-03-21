@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,7 @@ import egovframework.aviation.metadata.vo.Class3VO;
 import egovframework.aviation.metadata.vo.ConditionVO;
 import egovframework.aviation.metadata.vo.CountryVO;
 import egovframework.aviation.metadata.vo.EraVO;
+import egovframework.aviation.metadata.vo.ExchangeVO;
 import egovframework.aviation.metadata.vo.ExistenceVO;
 import egovframework.aviation.metadata.vo.GgnuriVO;
 import egovframework.aviation.metadata.vo.IcaoVO;
@@ -42,14 +45,6 @@ import egovframework.aviation.metadata.vo.RankingVO;
 import egovframework.aviation.metadata.vo.StorageType1VO;
 import egovframework.aviation.metadata.vo.StorageType2VO;
 import egovframework.aviation.metadata.vo.StorageVO;
-import egovframework.aviation.metadata.vo.metadata.CopyrightVO;
-import egovframework.aviation.metadata.vo.metadata.CountryEraVO;
-import egovframework.aviation.metadata.vo.metadata.InsuranceVO;
-import egovframework.aviation.metadata.vo.metadata.InvolvementVO;
-import egovframework.aviation.metadata.vo.metadata.KeywordVO;
-import egovframework.aviation.metadata.vo.metadata.MaterialVO;
-import egovframework.aviation.metadata.vo.metadata.PublicServiceVO;
-import egovframework.aviation.metadata.vo.metadata.TaxonomyVO;
 import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
 import egovframework.aviation.metadata.vo.param.MovementParamVO;
 import egovframework.aviation.metadata.vo.speciality.SpecialityCodeVO;
@@ -91,6 +86,7 @@ public class AddController {
 			List<StorageType1VO> type1 = service.getStorageType1();
 			List<StorageVO> storage = service.getStorage(0);
 			List<SpecialityCodeVO> scCode = service2.getSpecialityCode();
+			List<ExchangeVO> exchange = service.getExchange();
 			
 			
 			model.addAttribute("countryList", country);
@@ -115,6 +111,7 @@ public class AddController {
 			model.addAttribute("storage1List", type1);
 			model.addAttribute("storageCodeList", storage);
 			model.addAttribute("specialityCodeList", scCode);
+			model.addAttribute("exchangeList", exchange);
 			
 			
 			return "metadata/add/add";
@@ -126,113 +123,150 @@ public class AddController {
 	}
 	
 	@PostMapping("/add.do")
-	public String addMetaForm(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
+	@ResponseBody
+	public String addMetaForm(@ModelAttribute MetaDataParamVO param, Model model, HttpServletRequest req) throws Exception {
 		try {
-			System.out.println(param);
-			 int x = service.setItemBase(param);
-			 
-			 if(x == 1) {
-				 HashMap<Integer, Object> classMap = new HashMap<Integer, Object>();
-				 HashMap<Integer, Object> countryMap = new HashMap<Integer, Object>();
-				 HashMap<Integer, Object> materialMap = new HashMap<Integer, Object>();
-				 HashMap<Integer, Object> measureMap = new HashMap<Integer, Object>();
-				 HashMap<Integer, Object> possessionMap = new HashMap<Integer, Object>();
-				 HashMap<Integer, Object> insuranceMap = new HashMap<Integer, Object>();
-				 HashMap<Integer, Object> copyrightMap = new HashMap<Integer, Object>();
+			String searchItemNo = service.searchItemNo(param);
+			if(searchItemNo == null) {
+				String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
+				param.setReg_user(userSessionId);
+				 int x = service.setItemBase(param);
+				 System.out.println(param);
 				 
-				 for (int i = 0; i < param.getClass1_code_idx().size(); i++) {
-						List<Object> item = new ArrayList<>();
-						item.add(param.getItem_idx());
-						item.add(param.getReg_user());
-						item.add(param.getClass1_code_idx().get(i));
-						item.add(param.getClass2_code_idx().get(i));
-						item.add(param.getClass3_code_idx().get(i));
-						classMap.put(i, item);
-						}
-				 for (int i = 0; i < param.getCountry_code_idx().size(); i++) {
-						List<Object> item = new ArrayList<>();
-						item.add(param.getItem_idx());
-						item.add(param.getReg_user());
-						item.add(param.getCountry_code_idx().get(i));
-						item.add(param.getEra_code_idx().get(i));
-						item.add(param.getDetail_year().get(i));
-						countryMap.put(i, item);
-						}
-				 for (int i = 0; i < param.getMaterial1_code_idx().size(); i++) {
-						List<Object> item = new ArrayList<>();
-						item.add(param.getItem_idx());
-						item.add(param.getReg_user());
-						item.add(param.getMaterial1_code_idx().get(i));
-						item.add(param.getMaterial2_code_idx().get(i));
-						item.add(param.getMaterial_detail().get(i));
-						materialMap.put(i, item);
-						}
-				 for (int i = 0; i < param.getMeasurement_value().size(); i++) {
-						List<Object> item = new ArrayList<>();
-						item.add(param.getItem_idx());
-						item.add(param.getReg_user());
-						item.add(param.getMeasurement_code_idx().get(i));
-						item.add(param.getMeasurement_unit_code_idx().get(i));
-						item.add(param.getMeasurement_value().get(i));
-						item.add(param.getMeasurement_item_type().get(i));
-						measureMap.put(i, item);
-						}
-				 for (int i = 0; i < param.getInvol_org_code_idx().size(); i++) {
-						List<Object> item = new ArrayList<>();
-						item.add(param.getItem_idx());
-						item.add(param.getReg_user());
-						item.add(param.getInvol_org_code_idx().get(i));
-						item.add(param.getInvol_possession_code_idx().get(i));
-						item.add(param.getInvol_item_no().get(i));
-						item.add(param.getInvol_remark().get(i));
-						possessionMap.put(i, item);
-				 		}
-				 for (int i = 0; i < param.getInsu_price_unit_code_idx().size(); i++) {
-						List<Object> item = new ArrayList<>();
-						item.add(param.getItem_idx());
-						item.add(param.getReg_user());
-						item.add(param.getInsu_agreed_value().get(i));
-						item.add(param.getInsu_price_unit_code_idx().get(i));
-						item.add(param.getInsu_start_date().get(i));
-						item.add(param.getInsu_end_date().get(i));
-						item.add(param.getInsu_rental_org().get(i));
-						item.add(param.getInsu_remark().get(i));
-						insuranceMap.put(i, item);
-				 		}
-				 for (int i = 0; i < param.getInsu_price_unit_code_idx().size(); i++) {
-						List<Object> item = new ArrayList<>();
-						item.add(param.getItem_idx());
-						item.add(param.getReg_user());
-						item.add(param.getCopy_copyright().get(i));
-						item.add(param.getCopy_owner().get(i));
-						item.add(param.getCopy_expiry_date().get(i));
-						item.add(param.getCopy_usage_permission().get(i));
-						item.add(param.getCopy_copyright_transfer().get(i));
-						item.add(param.getCopy_remark().get(i));
-						copyrightMap.put(i, item);
-				 		}
-				service.setTaxonomy(classMap);
-				service.setCountry(countryMap);
-				service.setMaterial(materialMap);
-				service.setMeasurement(measureMap);
-				service.setObtainment(param);
-				service.setInvolvement(possessionMap);
-				service.setInsurance(insuranceMap);
-				service.setCopyright(copyrightMap);
-				service.setGgnuri(param);
-				String[] arr = param.getItembasekeyword().get(0).split(",");
-				System.out.println("arr:::" + arr);
-				List<String> ddd = new ArrayList<String>();
-				for(int i=0; i<arr.length; i++) {
-					ddd.add(arr[i]);
-				}
-				param.setItembasekeyword(ddd);
-				service.setKeyword(param);
-				
-				model.addAttribute("item_idx", param.getItem_idx());
-			 }
-			 return param.getItem_idx(); 
-				
+				 if(x == 1) {
+					 HashMap<Integer, Object> classMap = new HashMap<Integer, Object>();
+					 HashMap<Integer, Object> countryMap = new HashMap<Integer, Object>();
+					 HashMap<Integer, Object> materialMap = new HashMap<Integer, Object>();
+					 HashMap<Integer, Object> measureMap = new HashMap<Integer, Object>();
+					 
+					 //필수
+					 for (int i = 0; i < param.getClass1_code_idx().size(); i++) {
+							List<Object> item = new ArrayList<>();
+							item.add(param.getItem_idx());
+							item.add(param.getReg_user());
+							item.add(param.getClass1_code_idx().get(i));
+							item.add(param.getClass2_code_idx().get(i));
+							item.add(param.getClass3_code_idx().get(i));
+							classMap.put(i, item);
+							}
+					 for (int i = 0; i < param.getCountry_code_idx().size(); i++) {
+							List<Object> item = new ArrayList<>();
+							item.add(param.getItem_idx());
+							item.add(param.getReg_user());
+							item.add(param.getCountry_code_idx().get(i));
+							item.add(param.getEra_code_idx().get(i));
+							item.add(param.getDetail_year().get(i));
+							countryMap.put(i, item);
+							}
+					 for (int i = 0; i < param.getMaterial1_code_idx().size(); i++) {
+							List<Object> item = new ArrayList<>();
+							item.add(param.getItem_idx());
+							item.add(param.getReg_user());
+							item.add(param.getMaterial1_code_idx().get(i));
+							item.add(param.getMaterial2_code_idx().get(i));
+							item.add(param.getMaterial_detail().get(i));
+							materialMap.put(i, item);
+							}
+					 for (int i = 0; i < param.getMeasurement_value().size(); i++) {
+							List<Object> item = new ArrayList<>();
+							item.add(param.getItem_idx());
+							item.add(param.getReg_user());
+							item.add(param.getMeasurement_code_idx().get(i));
+							item.add(param.getMeasurement_unit_code_idx().get(i));
+							item.add(param.getMeasurement_value().get(i));
+							item.add(param.getMeasurement_item_type().get(i));
+							measureMap.put(i, item);
+							}
+					 
+					 	service.setTaxonomy(classMap);
+						service.setCountry(countryMap);
+						service.setMaterial(materialMap);
+						service.setMeasurement(measureMap);
+						
+					 //
+					 if(!param.getObt_obtainment_date().isEmpty()|| !param.getObt_obtainment_code_idx().equals("0")
+						|| !param.getObt_purchase1_code_idx().equals("0") || !param.getObt_purchase2_code_idx().equals("0")
+						|| !param.getObt_obtainment_price().isEmpty() || !param.getObt_price_unit_code_idx().equals("0")
+						|| !param.getObt_won_exchange().isEmpty() || !param.getObt_obtainment_no().isEmpty()
+						|| !param.getObt_obtainment_place().isEmpty() || !param.getObt_record_date().isEmpty()
+						|| !param.getObt_designation().equals("N") || !param.getObt_redemption().equals("N")
+						|| !param.getObt_country_code_idx().equals("0") || !param.getObt_qty().isEmpty()
+						|| !param.getObt_qty_unit_code_idx().equals("0") || !param.getObt_redemption_date().isEmpty()) {
+						 
+						 service.setObtainment(param); 
+					 }
+					 
+					 if(!param.getInvol_item_no().get(0).isEmpty()) {
+						 System.out.println("값있음");
+						 HashMap<Integer, Object> possessionMap = new HashMap<Integer, Object>();
+						 for (int i = 0; i < param.getInvol_org_code_idx().size(); i++) {
+							 List<Object> item = new ArrayList<>();
+							 item.add(param.getItem_idx());
+							 item.add(param.getReg_user());
+							 item.add(param.getOrg_code_idx());
+							 item.add(param.getInvol_possession_code_idx().get(i));
+							 item.add(param.getInvol_item_no().get(i));
+							 item.add(param.getInvol_remark().get(i));
+							 possessionMap.put(i, item);
+						 }
+						 service.setInvolvement(possessionMap);
+					 }
+					 
+					 if(!param.getInsu_agreed_value().get(0).isEmpty()) {
+						 HashMap<Integer, Object> insuranceMap = new HashMap<Integer, Object>();
+						 for (int i = 0; i < param.getInsu_price_unit_code_idx().size(); i++) {
+								List<Object> item = new ArrayList<>();
+								item.add(param.getItem_idx());
+								item.add(param.getReg_user());
+								item.add(param.getInsu_agreed_value().get(i));
+								item.add(param.getInsu_price_unit_code_idx().get(i));
+								item.add(param.getInsu_start_date().get(i));
+								item.add(param.getInsu_end_date().get(i));
+								item.add(param.getInsu_rental_org().get(i));
+								item.add(param.getInsu_remark().get(i));
+								insuranceMap.put(i, item);
+						 }
+						 service.setInsurance(insuranceMap);
+					 }
+					 
+					 if(!param.getCopy_owner().get(0).isEmpty()) {
+						 HashMap<Integer, Object> copyrightMap = new HashMap<Integer, Object>();
+						 for (int i = 0; i < param.getCopy_owner().size(); i++) {
+								List<Object> item = new ArrayList<>();
+								item.add(param.getItem_idx());
+								item.add(param.getReg_user());
+								item.add(param.getCopy_copyright().get(i));
+								item.add(param.getCopy_owner().get(i));
+								item.add(param.getCopy_expiry_date().get(i));
+								item.add(param.getCopy_usage_permission().get(i));
+								item.add(param.getCopy_copyright_transfer().get(i));
+								item.add(param.getCopy_remark().get(i));
+								copyrightMap.put(i, item);
+						 }
+						 service.setCopyright(copyrightMap);
+					 }
+					 
+					 if(!param.getItembasekeyword().get(0).isEmpty()) {
+						 List<String> ddd = new ArrayList<String>();
+						 String[] arr = param.getItembasekeyword().get(0).split(",");
+						 System.out.println("arr:::" + arr);
+						 for(int i=0; i<arr.length; i++) {
+							 ddd.add(arr[i]);
+						 }
+						 param.setItembasekeyword(ddd);
+						 service.setKeyword(param);
+					 }
+					 
+					
+					service.setGgnuri(param);
+					
+				 }
+				 model.addAttribute("item_idx", param.getItem_idx());
+				 
+				 return param.getItem_idx(); 
+			} else {
+				return "not";
+			}
 		 } catch (Exception e) {
 			 return "error"; 
 		 }

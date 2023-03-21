@@ -14,6 +14,7 @@ import egovframework.aviation.metadata.vo.Class3VO;
 import egovframework.aviation.metadata.vo.ConditionVO;
 import egovframework.aviation.metadata.vo.CountryVO;
 import egovframework.aviation.metadata.vo.EraVO;
+import egovframework.aviation.metadata.vo.ExchangeVO;
 import egovframework.aviation.metadata.vo.ExistenceVO;
 import egovframework.aviation.metadata.vo.GgnuriVO;
 import egovframework.aviation.metadata.vo.IcaoVO;
@@ -438,6 +439,16 @@ public class MetaDataServiceImpl implements MetaDataService {
 	@Override
 	public int setItemNo(MetaDataParamVO param) {
 		return dao.setItemNo(param);
+	}
+
+	@Override
+	public List<ExchangeVO> getExchange() {
+		return dao.getExchange();
+	}
+
+	@Override
+	public List<ItemBaseVO> getSearchItemNext(MetaDataParamVO param) {
+		return dao.getSearchItemNext(param);
 	}
 
 

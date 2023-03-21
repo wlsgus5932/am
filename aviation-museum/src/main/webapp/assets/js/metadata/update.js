@@ -1283,7 +1283,7 @@ const set_itemBase_input = async (list) => {
 				
 	taxonomyList.forEach(async (e, i) => {
 		$('#class-tbody').children('tr:not(:first-child)').remove();
-		i != 0 ? addClassTd('class-table', 'class-tbody') : '';
+		i != 0 ? addClassTd2('class-table', 'class-tbody') : '';
 		$('#class1_code_idx'+i).val(e.class1_code_idx).prop("selected", true);
 		$('#class2_code_idx'+i).val(e.class2_code_idx).prop("selected", true);
 		$('#class3_code_idx'+i).val(e.class3_code_idx).prop("selected", true);
@@ -1299,7 +1299,7 @@ const set_itemBase_input = async (list) => {
 	
 	materialList.forEach(async (e, i) => {
 		$('#material-tbody').children('tr:not(:first-child)').remove();
-		if(i != 0) addClassTd('material-table', 'material-tbody');
+		if(i != 0) addClassTd2('material-table', 'material-tbody');
 		$('#material1_code_idx'+i).val(e.material1_code_idx).prop("selected", true);
 		await changeMaterial(e.material1_code_idx, i);
 		$('#material2_code_idx'+i).val(e.material2_code_idx).prop("selected", true);
@@ -1308,7 +1308,7 @@ const set_itemBase_input = async (list) => {
 	
 	measurementList.forEach((e, i) => {
 		$('#measurement-tbody').children('tr:not(:first-child)').remove();
-		if(i != 0) addClassTd('measurement-table', 'measurement-tbody');
+		if(i != 0) addClassTd2('measurement-table', 'measurement-tbody');
 		$('#measurement_item_type'+i).val(e.item_type);
 		$('#measurement_code_idx'+i).val(e.measurement_code_idx).prop("selected", true);
 		$('#measurement_value'+i).val(e.measurement_value);
@@ -1338,7 +1338,7 @@ const set_itemBase_input = async (list) => {
 	
 	involvementList.forEach((e,i) => {
 		$('#possession-tbody').children('tr:not(:first-child)').remove();
-		if(i != 0) addClassTd('possession-table', 'possession-tbody');
+		if(i != 0) addClassTd2('possession-table', 'possession-tbody');
 		$('#invol_possession_code_idx').val(e.possession_code_idx).prop("selected", true);
 		$('#invol_item_no').val(e.item_no);
 		$('#invol_remark').val(e.remark);
@@ -1346,7 +1346,7 @@ const set_itemBase_input = async (list) => {
 	
 	InsuranceList.forEach((e,i) => {
 		$('#insurance-tbody').children('tr:not(:first-child)').remove();
-		if(i != 0) addClassTd('insurance-table', 'insurance-tbody');
+		if(i != 0) addClassTd2('insurance-table', 'insurance-tbody');
 		$('#insu_agreed_value').val(e.agreed_value);
 		$('#insu_price_unit_code_idx').val(e.price_unit_code_idx).prop("selected", true);
 		$('#insu_start_date').val(e.start_date);
@@ -1357,7 +1357,7 @@ const set_itemBase_input = async (list) => {
 	
 	copyrightList.forEach((e,i) => {
 		$('#copyright-tbody').children('tr:not(:first-child)').remove();
-		if(i != 0) addClassTd('copyright-table', 'copyright-tbody');
+		if(i != 0) addClassTd2('copyright-table', 'copyright-tbody');
 		$('#copy_copyright').val(e.copyright).prop("selected", true);
 		$('#copy_owner').val(e.owner);
 		$('#copy_expiry_date').val(e.expiry_date);

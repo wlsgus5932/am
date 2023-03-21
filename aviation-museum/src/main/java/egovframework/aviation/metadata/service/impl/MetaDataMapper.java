@@ -13,6 +13,7 @@ import egovframework.aviation.metadata.vo.Class3VO;
 import egovframework.aviation.metadata.vo.ConditionVO;
 import egovframework.aviation.metadata.vo.CountryVO;
 import egovframework.aviation.metadata.vo.EraVO;
+import egovframework.aviation.metadata.vo.ExchangeVO;
 import egovframework.aviation.metadata.vo.ExistenceVO;
 import egovframework.aviation.metadata.vo.GgnuriVO;
 import egovframework.aviation.metadata.vo.IcaoVO;
@@ -207,4 +208,8 @@ public interface MetaDataMapper {
 	String searchItemNo(MetaDataParamVO param);
 
 	int setItemNo(MetaDataParamVO param);
+
+	List<ExchangeVO> getExchange();
+
+	List<ItemBaseVO> getSearchItemNext(MetaDataParamVO param);
 }
