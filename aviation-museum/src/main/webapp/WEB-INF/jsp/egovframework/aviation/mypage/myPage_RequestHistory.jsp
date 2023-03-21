@@ -8,9 +8,9 @@
     <input type="hidden" id="item_no2" name="item_no" value="" />
     <input type="hidden" id="item_detail_no2" name="item_detail_no" value="" />
   </form>
-  <div class="mb-0">
-    <!-- 요청내역조회 탭 시작 -->
-    <div class="st_wrap st_mv_wrap">
+  
+  
+      <div class="st_wrap st_mv_wrap">
       <!-- 자료구분 셀렉트 -->
       <div class="fr_wrap" style="margin: 0">
         <div class="mb-3 row fr_1">
@@ -60,6 +60,7 @@
       </div>
     </div>
 
+
     <div class="mb-0">
       <!-- 요청내역조회 탭 시작 -->
 
@@ -101,7 +102,7 @@
       </div>
       <!-- 수정 모달창 -->
       <div id="code_update_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
-        <div class="modal-dialog user-modal">
+        <div class="modal-dialog user-modal mypage_edit_modal_wrap">
           <div class="modal-content">
             <div class="modal-header mv-modal-header">
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="reasonKeywordModBtnClose"></button>
@@ -120,15 +121,19 @@
                         <tbody>
                           <tr>
                             <td id="mod_reason_keyword"></td>
-                            <td><input type="text" id="mod_reason_keyword2" name="" /></td>
+                            <td><input class="custom_search_input user_in_modal_input" type="text" id="mod_reason_keyword2" name="" /></td>
                           </tr>
                         </tbody>
                       </table>
-                      <button class="btn btn-secondary btn_save" id="reasonKeywordModBtn" type="button" onClick="reasonKeywordMod()">저장</button>
+
                     </div>
                   </div>
                 </form>
               </div>
+						<div class="user_in_modal_footer_wrap">
+                      		<button class="custom_btn btn_c58672 user_in_modal_footer_btn" id="reasonKeywordModBtn" type="button" onClick="reasonKeywordMod()">저장</button>
+	                        <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                    </div>              
             </div>
           </div>
         </div>
@@ -218,25 +223,25 @@
           </table>
           <ul class="btn-group pagination">
             <c:if test="${pageMaker.prev }">
-              <li>
-                <a href="javascript:;" onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+              <li class="page-item">
+                <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
               </li>
             </c:if>
             <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-              <li>
-                <a href="javascript:;" onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+              <li class="page-item">
+                <a  class="page-link" href="javascript:;" onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
               </li>
             </c:forEach>
             <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-              <li>
-                <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+              <li class="page-item">
+                <a  class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
               </li>
             </c:if>
           </ul>
         </div>
       </div>
     </div>
-  </div>
+
 
   <script>
     // 	    		$('input[type="text"]').keydown(function() {

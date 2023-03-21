@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             <!-- 등록 전문정보 탭 -->
             <div class="tab-pane" id="messages" role="tabpanel" style="display:block;">
-                <div class="mb-0">
-                  <!--  -->
                   <div class="st_wrap">
                     <label class="col-md-2 col-form-label st_title">전문정보검색</label>
                     <form id="rgstrSpecialitySearchForm" name="rgstrSpecialitySearchForm" method="post" class="form-horizontal" style="display: inline;" onsubmit="return false">
@@ -24,7 +22,11 @@
 	                    <button class="custom_btn btn_707070" type="button" onClick="rgstrSpecialitySearchList();">조회</button>
                     </form>
                     <button class="custom_btn btn_ex" type="button" onClick="rgstrSpecialityExcelList();">엑셀파일</button>
-                </div>
+                </div>              
+              
+                <div class="mb-0">
+                  <!--  -->
+
                 <!--  -->
                 
                 <!-- 설명 등록모달  -->
@@ -117,18 +119,18 @@
 	                    </table>
 	                    <ul class="btn-group pagination">
 						    <c:if test="${pageMaker.prev }">
-						    <li>
-						        <a href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+						    <li class="page-item">
+						        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
 						    </li>
 						    </c:if>
 						    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-						    <li>
-						        <a href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+						    <li class="page-item">
+						        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
 						    </li>
 						    </c:forEach>
 						    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-						    <li>
-						        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+						    <li class="page-item">
+						        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 						    </li>
 						    </c:if>
 						</ul> 

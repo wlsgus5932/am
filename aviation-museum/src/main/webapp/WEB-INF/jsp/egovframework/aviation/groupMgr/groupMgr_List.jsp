@@ -67,18 +67,18 @@
               <nav aria-label="Page navigation example">
                <ul class="btn-group pagination">
 				    <c:if test="${pageMaker.prev }">
-				    <li>
-				        <a href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+				    <li class="page-item">
+				        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
 				    </li>
 				    </c:if>
 				    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-				    <li>
-				        <a href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+				    <li class="page-item">
+				        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
 				    </li>
 				    </c:forEach>
 				    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-				    <li>
-				        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+				    <li class="page-item">
+				        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 				    </li>
 				    </c:if>
 				</ul>   
@@ -87,7 +87,7 @@
        </div>
          <!-- 그룹 등록 모달 -->
          <div id="GroupModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-           <div class="modal-dialog user-modal">
+           <div class="modal-dialog user-modal group_in_modal_wrap">
                <div class="modal-content">
                    <div class="modal-header mv-modal-header">
                        <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
@@ -110,29 +110,33 @@
 	                                       <tr>
 	                                         <td>그룹명</td>
 	                                           <td>
-	                                             <input type="text" name="group_nm" id="group_nm">
+	                                             <input class="custom_search_input user_in_modal_input" type="text" name="group_nm" id="group_nm">
 	                                           </td>
 	                                       </tr>
 	                                       <tr>
 	                                         <td>비고</td>
 	                                         <td>
-	                                           <input type="text" name="remark" id="remark">
+	                                           <input class="custom_search_input user_in_modal_input" type="text" name="remark" id="remark">
 	                                         </td>
 	                                       </tr>
 	                                       <tr>
 	                                         <td>관리자 여부</td>
 	                                         <td>
-	                                           <input class="custom_search_input" type="checkbox" name="admin" value="Y">관리자
-	                                           <input class="custom_search_input" type="checkbox" name="admin" value="N">일반
+	                                           <input type="radio" name="admin" value="Y">관리자
+	                                           <input type="radio" name="admin" value="N">일반
 	                                         </td>
 	                                       </tr>
 	                                   </tbody>
 	                               </table>
-                              	   <button class="btn btn-secondary btn_save" type="button" id="groupInsBtn">저장</button>
+                              	   
                                </form>
                            </div>
                            </div>
                        </div>
+	                              <div class="user_in_modal_footer_wrap">
+	                              	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" id="groupInsBtn">저장</button>
+	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                              </div>                           
                      </div>
                      <!--  -->
                    </div>
@@ -143,7 +147,7 @@
 
        <!-- 그룹 수정 모달 -->
        <div id="GroupModal-2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-         <div class="modal-dialog user-modal">
+         <div class="modal-dialog user-modal group_in_modal_wrap">
              <div class="modal-content">
                  <div class="modal-header mv-modal-header">
                      <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
@@ -164,29 +168,33 @@
 	                                     <tr>
 	                                       <td>그룹명</td>
 	                                         <td>
-	                                           <input type="text" name="group_nm" id="modGroupNm"></input>
+	                                           <input class="custom_search_input user_in_modal_input" type="text" name="group_nm" id="modGroupNm"></input>
 	                                         </td>
 	                                     </tr>
 	                                     <tr>
 	                                       <td>비고</td>
 	                                       <td>
-	                                         <input type="text" name="remark" id="modGroupRemark"></input>
+	                                         <input class="custom_search_input user_in_modal_input" type="text" name="remark" id="modGroupRemark"></input>
 	                                       </td>
 	                                     </tr>
 	                                     <tr>
 	                                       <td>관리자 여부</td>
 	                                       <td>
-	                                         <input type="checkbox" name="admin" id="modGroupY" value="Y">관리자</input>
-	                                         <input type="checkbox" name="admin" id="modGroupN" value="N">일반</input>
+	                                         <input type="radio" name="admin" id="modGroupY" value="Y">관리자</input>
+	                                         <input type="radio" name="admin" id="modGroupN" value="N">일반</input>
 	                                       </td>
 	                                     </tr>
 	                                 </tbody>
 	                             </table>
 	                             </form>
-                             <button class="btn btn-secondary btn_save" type="button" id="groupModBtn">저장</button>
+ 
                          </div>
                      </div>
                    </div>
+	                              <div class="user_in_modal_footer_wrap">
+                            		 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="groupModBtn">저장</button>
+	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                              </div>
                    <!--  -->
                  </div>
              </div>

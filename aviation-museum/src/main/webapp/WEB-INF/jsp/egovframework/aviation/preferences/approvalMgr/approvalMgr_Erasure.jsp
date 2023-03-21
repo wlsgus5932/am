@@ -240,12 +240,12 @@
 	                                    <c:choose>
                                  		   <c:when test="${erasureList.approval_state != 'Y'}">
 			                                   <td>
-			                                    <button class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#ReturnModal" type="button" onClick="returnModalBtn('${erasureList.request_idx}')">반려</button>
+			                                    <button class="custom_btn btn_c58672 btn_c58672_5028" data-bs-toggle="modal" data-bs-target="#ReturnModal" type="button" onClick="returnModalBtn('${erasureList.request_idx}')">반려</button>
 			                                   </td>
 	                                   	   </c:when>
 	                                   	   <c:otherwise>
 	                                   	   	   <td>
-			                                    <button>승인</button>
+			                                    <button class="custom_btn btn_edit btn_preferences_user_enabled">승인</button>
 			                                   </td>
 	                                   	   </c:otherwise>
 	                                   	</c:choose>
@@ -266,18 +266,18 @@
                       </table>
                       <ul class="btn-group pagination">
 						    <c:if test="${pageMaker.prev }">
-						    <li>
-						        <a href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+						    <li class="page-item">
+						        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
 						    </li>
 						    </c:if>
 						    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-						    <li>
-						        <a href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+						    <li class="page-item">
+						        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
 						    </li>
 						    </c:forEach>
 						    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-						    <li>
-						        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+						    <li class="page-item">
+						        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 						    </li>
 						    </c:if>
 						</ul> 

@@ -102,6 +102,7 @@ table {
   color: #7d7d7d;
   border: 1px solid #d2d2d2;
   width: 50px;
+  height: 28px;
 }
 
 .btn_user_registration,
@@ -137,6 +138,7 @@ table {
   background-color: #3d3d3d;
   color: #fff;
   width: 50px;
+  height: 28px;
 }
 
 .btn_code_upload {
@@ -205,7 +207,7 @@ table {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 2%;
+  margin-bottom: 1.5%;
 }
 
 .custom_prefernces_header_wrap {
@@ -237,14 +239,14 @@ table {
   padding: calc(70px + 24px) calc(24px / 2) 0 calc(45px / 2);
 }
 
-.pagination {
-  display: inline-flex;
-  float: right;
-}
+/* .pagination { */
+/*   display: inline-flex; */
+/*   float: right; */
+/* } */
 
 th,
 td {
-  text-align: center !important;
+/*   text-align: center !important; */
 }
 
 .main_left_menu {
@@ -392,7 +394,7 @@ td {
 }
 
 .col-md-2 {
-  font-size: 14px;
+  font-size: 18px;
   width: auto;
   font-weight: 600;
 }
@@ -471,6 +473,8 @@ td {
 
 .st_wrap {
   width: 100%;
+/*   margin: 1rem auto; */
+  display: inline-block;
 }
 
 .tr_bgc {
@@ -523,9 +527,9 @@ td {
   display: inline;
 } */
 
-th {
-  line-height: 2.2rem !important;
-}
+/* th { */
+/*   line-height: 2.2rem !important; */
+/* } */
 
 .ser_sel {
   display: inline-block;
@@ -1057,3 +1061,89 @@ th {
   width: 50px;
   height: 28px;
 }
+
+.view_border_1 {
+	width: 13%;
+}
+
+.view_border_1, .view_border_2 {
+	height: 58px;
+}
+
+.table>:not(caption)>*>* {
+	padding: 0.5rem 0.5rem;
+}
+
+/* .table > :not(caption) > * > * { */
+
+/* } */
+
+
+
+.user_in_modal_wrap {
+	width: 610px !important;
+	height: 652px !important;
+}
+
+
+.user_in_modal_input_1 {
+	float: left;
+    width: 342px;
+    height: 40px;
+}
+
+.user_in_modal_input {
+	width: 430px;
+	height: 40px;
+}
+
+.user_in_modal_footer_wrap {
+	display: flex;
+    justify-content: center;
+    margin: 3% auto 1%;
+}
+
+.user_in_modal_footer_btn {
+	width: 68px !important;
+	height: 40px !important;
+} 
+
+
+.group_in_modal_wrap,
+.mypage_edit_modal_wrap,
+.notice_edit_modal_wrap
+ {
+	width: 610px !important;
+	height: 459px !important;
+}
+
+
+.btn-group {
+	margin-top: 1rem;
+	display: flex;
+	justify-content: center;
+}
+
+/* .table>:not(:first-child) { */
+/* 	border-top: 0 solid #eff0f2 !important; */
+/* } */
+
+
+.user_mgt_btn {
+	width: 54px !important;
+	height: 22px !important;	
+}
+
+
+input[type="checkbox"]{
+        margin-right: 0.5rem;
+      }
+
+
+.btn_c58672_5028 {
+	width: 50px;
+	height: 28px;
+}
+
+
+

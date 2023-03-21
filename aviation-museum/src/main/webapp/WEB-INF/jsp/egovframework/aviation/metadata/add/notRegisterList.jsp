@@ -1559,11 +1559,11 @@
 	                        <table class="table mb-0" id="class-table">
 	                            <thead>
 	                                <tr class="tr_bgc">
-	                                    <td>선택</td>
-	                                    <td>번호</td>
-	                                    <td>대분류</td>
-	                                    <td>중분류</td>
-	                                    <td>소분류</td>
+	                                    <th style="width:5%;">선택</th>
+	                                    <th>번호</th>
+	                                    <th>대분류</th>
+	                                    <th>중분류</th>
+	                                    <th>소분류</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody id="class-tbody">
@@ -1619,11 +1619,11 @@
                       <table class="table mb-0" id="country-table">
                           <thead>
                               <tr class="tr_bgc">
-                                  <td>선택</td>
-                                  <td>번호</td>
-                                  <td>국적</td>
-                                  <td>국적별 시대</td>
-                                  <td>시대(상세)</td>
+                                  <th style="width:5%;">선택</th>
+                                  <th>번호</th>
+                                  <th>국적</th>
+                                  <th>국적별 시대</th>
+                                  <th>시대(상세)</th>
                               </tr>
                           </thead>
                           <tbody id="country-tbody">
@@ -1668,11 +1668,11 @@
                     <table class="table mb-0" id="material-table">
                         <thead>
                             <tr class="tr_bgc">
-                                <td>선택</td>
-                                <td>번호</td>
-                                <td>1단계</td>
-                                <td>2단계</td>
-                                <td>재질(상세)</td>
+                                <th style="width:5%;">선택</th>
+                                <th>번호</th>
+                                <th>1단계</th>
+                                <th>2단계</th>
+                                <th>재질(상세)</th>
                             </tr>
                         </thead>
                         <tbody id="material-tbody">
@@ -1715,12 +1715,12 @@
                     <table class="table mb-0" id="measurement-table">
                         <thead>
                             <tr class="tr_bgc">
-                                <td>선택</td>
-                                <td>번호</td>
-                                <td>소장구분</td>
-                                <td>실측부위</td>
-                                <td>실측치</td>
-                                <td>실단위</td>
+                                <th style="width:5%;">선택</th>
+                                <th>번호</th>
+                                <th>소장구분</th>
+                                <th>실측부위</th>
+                                <th>실측치</th>
+                                <th>실단위</th>
                             </tr>
                         </thead>
                         <tbody id="measurement-tbody">
@@ -1983,11 +1983,11 @@
                   <table class="table mb-0" id="possession-table">
                       <thead>
                           <tr class="tr_bgc">
-                              <td>선택</td>
-                              <td>번호</td>
-                              <td>자료구분</td>
-                              <td>자료번호</td>
-                              <td>비고</td>
+                              <th style="width:5%;">선택</th>
+                              <th>번호</th>
+                              <th>자료구분</th>
+                              <th>자료번호</th>
+                              <th>비고</th>
                           </tr>
                       </thead>
                       <tbody id="possession-tbody">
@@ -2029,13 +2029,13 @@
                 <table class="table mb-0" id="insurance-table">
                     <thead>
                         <tr class="tr_bgc">
-                            <td>선택</td>
-                            <td>번호</td>
-                            <td>평가액</td>
-                            <td>가격단위</td>
-                            <td>대여기간</td>
-                            <td>대여기관</td>
-                            <td>비고</td>
+                            <th style="width:5%;">선택</th>
+                            <th>번호</th>
+                            <th>평가액</th>
+                            <th>가격단위</th>
+                            <th>대여기간</th>
+                            <th>대여기관</th>
+                            <th>비고</th>
                         </tr>
                     </thead>
                     <tbody id="insurance-tbody">
@@ -2092,14 +2092,14 @@
                 <table class="table mb-0" id="copyright-table">
                     <thead>
                         <tr class="tr_bgc">
-                            <td>선택</td>
-                            <td>번호</td>
-                            <td>저작권</td>
-                            <td>저작권 소유자</td>
-                            <td>저작권만료일자</td>
-                            <td>이용허락 여부</td>
-                            <td>저작권 양도 여부</td>
-                            <td>비고</td>
+                            <th style="width:5%;">선택</th>
+                            <th>번호</th>
+                            <th>저작권</th>
+                            <th>저작권 소유자</th>
+                            <th>저작권만료일자</th>
+                            <th>이용허락 여부</th>
+                            <th>저작권 양도 여부</th>
+                            <th>비고</th>
                         </tr>
                     </thead>
                     <tbody id="copyright-tbody">

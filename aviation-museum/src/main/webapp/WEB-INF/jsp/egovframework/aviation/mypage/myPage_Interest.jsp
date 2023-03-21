@@ -24,7 +24,7 @@
               <!--  -->
               	<!-- 수정 모달창 -->
 	            <div id="interest_update_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
-	              <div class="modal-dialog user-modal">
+	              <div class="modal-dialog user-modal mypage_edit_modal_wrap">
 	                <div class="modal-content">
 	                  <div class="modal-header mv-modal-header">
 	                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="interestModBtnClose"></button>
@@ -42,15 +42,19 @@
 		                            <tbody>
 		                              <tr>
 		                                <td id="">설명</td>
-		                                <td><input type="text" id="expl" name="expl"/></td>
+		                                <td><input class="custom_search_input user_in_modal_input" type="text" id="expl" name="expl"/></td>
 		                              </tr>
 		                            </tbody>
 		                          </table>
-		                          <button class="btn btn-secondary btn_save" id="interestModBtn" type="button" onClick="interestMod()">저장</button>
+
 		                        </div>
 		                      </div>
 	                     	</form>
 	                    </div>
+									<div class="user_in_modal_footer_wrap">
+		                             <button class="custom_btn btn_c58672 user_in_modal_footer_btn" id="interestModBtn" type="button" onClick="interestMod()">저장</button>
+	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                                </div>	                    
 	                  </div>
 	                </div>
 	              </div>
@@ -117,18 +121,18 @@
                     </table>
                     <ul class="btn-group pagination">
 					    <c:if test="${pageMaker.prev }">
-					    <li>
-					        <a href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+					    <li class="page-item">
+					        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
 					    </li>
 					    </c:if>
 					    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-					    <li>
-					        <a href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+					    <li class="page-item">
+					        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
 					    </li>
 					    </c:forEach>
 					    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-					    <li>
-					        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+					    <li class="page-item">
+					        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 					    </li>
 					    </c:if>
 					</ul>

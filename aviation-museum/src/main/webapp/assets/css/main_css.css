@@ -49,7 +49,7 @@ body {
   width: 100%;
   max-width: 400px;
   height: 50px;
-  margin: 2% auto;
+  margin: auto;
   display: block;
 }
 
@@ -71,9 +71,12 @@ input::placeholder {
   color: #707070;
   font-weight: 500;
   transition: 0.3s;
-  border: none;
+/*   border: none; */
   background: none;
   font-size: 25px;
+  border-radius: 7px;
+  padding: 0 1% 0 1%;
+  border: 1px solid #707070;
 }
 
 .login_wrap button:hover {
