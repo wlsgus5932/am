@@ -32,6 +32,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 //        	String request_URI = request.getRequestURI();
 //        	System.out.println(request_URI);
 //        	
+//        	if(request_URI.equals("/dashBoard.do")) {
+//        		return true;
+//        	}
 //        	MenuAuthorityCodeJoinVO menuAuthorityCodeJoinVO = new MenuAuthorityCodeJoinVO();
 //        	menuAuthorityCodeJoinVO.setGroup_idx(userGroupIdx);
 //        	menuAuthorityCodeJoinVO.setMenu_pattern(request_URI);

@@ -17,9 +17,9 @@
                         </thead>
                         <tbody>                      
                           <tr class="setting_thead">
+                            <th>번호</th>
                             <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>코드</th>                          
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -28,9 +28,9 @@
                           </tr>
                           <c:forEach var="orgList" items="${orgList }" varStatus="varStatus">  
 	                          <tr>
-	                            <td onclick="orgPossessionList('${orgList.org_code_idx}','${orgList.org_nm}')">${orgList.org_nm}</td>
-	                            <td>${orgList.org_code}</td>
 	                            <td>${orgList.seq}</td>
+	                            <td onclick="orgPossessionList('${orgList.org_code_idx}','${orgList.org_nm}')">${orgList.org_nm}</td>
+	                            <td>${orgList.org_code}</td>	                            
 	                            <td>${orgList.mod_date}</td>
 	                            <td>${orgList.mod_user}</td>
 	                            <td>
@@ -85,9 +85,9 @@
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
+                            <th>번호</th>
                             <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>코드</th>                           
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -96,9 +96,9 @@
                           </tr>
                           <c:forEach var="possessionList" items="${possessionList }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${possessionList.possession_nm}</td>
-	                            <td>${possessionList.possession_code}</td>
 	                            <td>${possessionList.seq}</td>
+	                            <td>${possessionList.possession_nm}</td>
+	                            <td>${possessionList.possession_code}</td>	                            
 	                            <td>${possessionList.mod_date}</td>
 	                            <td>${possessionList.mod_user}</td>
 	                            <td>

@@ -17,8 +17,8 @@
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                            
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -27,8 +27,8 @@
                           </tr>
  						  <c:forEach var="countryList" items="${countryList }" varStatus="varStatus">  
 	                          <tr>
-	                            <td onclick="countryEraList('${countryList.country_code_idx}','${countryList.country_nm}')">${countryList.country_nm}</td>
 	                            <td>${countryList.seq}</td>
+	                            <td onclick="countryEraList('${countryList.country_code_idx}','${countryList.country_nm}')">${countryList.country_nm}</td>	                            
 	                            <td>${countryList.mod_date}</td>
 	                            <td>${countryList.mod_user}</td>
 	                            <td>
@@ -78,11 +78,12 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="6">시대코드</th>
+                            <th colspan="7">시대코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
+                            <th>번호</th>
                             <th>명칭</th>
                             <th>수정일</th>
                             <th>수정자</th>
@@ -92,6 +93,7 @@
                           </tr>
  						  <c:forEach var="eraList" items="${eraList }" varStatus="varStatus">  
 	                          <tr>
+	                          	<td>${varStatus.count}</td>
 	                            <td>${eraList.era_nm}</td>
 	                            <td>${eraList.mod_date}</td>
 	                            <td>${eraList.mod_user}</td>

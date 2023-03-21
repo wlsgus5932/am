@@ -16,8 +16,8 @@
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                            
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -26,8 +26,8 @@
                           </tr>
  						  <c:forEach var="material1List" items="${material1List }" varStatus="varStatus">  
 	                          <tr>
-	                            <td onclick="material12List('${material1List.material1_code_idx}','${material1List.material1_nm}')">${material1List.material1_nm}</td>
 	                            <td>${material1List.seq }</td>
+	                            <td onclick="material12List('${material1List.material1_code_idx}','${material1List.material1_nm}')">${material1List.material1_nm}</td>	                            
 	                            <td>${material1List.mod_date}</td>
 	                            <td>${material1List.mod_user}</td>
 	                            <td>
@@ -82,8 +82,8 @@
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                           
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -92,8 +92,8 @@
                           </tr>
  						  <c:forEach var="material2List" items="${material2List }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${material2List.material2_nm}</td>
-	                            <td>${material2List.seq }</td>
+	                          	<td>${material2List.seq }</td>
+	                            <td>${material2List.material2_nm}</td>	                            
 	                            <td>${material2List.mod_date}</td>
 	                            <td>${material2List.mod_user}</td>
 	                            <td>

@@ -138,7 +138,7 @@
  				
  				$('#allCheck').toggleClass("checked");
  				
- 				if(!$('#allCheck').attr('class')){
+ 				if($('#allCheck').attr('class').indexOf('checked') == -1){
  					val = false;
  				}
  				 $(':checkbox').each(function() {

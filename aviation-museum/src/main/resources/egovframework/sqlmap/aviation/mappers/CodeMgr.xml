@@ -376,7 +376,7 @@
                   , REG_USER
                   , REG_DATE )
            VALUES ( #{condition_nm}
-           	      , #{seq}
+           	      , (select count(*) from nam_condition_code b)+1
                   , #{enabled}
                   , #{reg_user}
                   , now())
@@ -392,7 +392,7 @@
                   , REG_USER
                   , REG_DATE )
            VALUES ( #{ranking_nm}
-           	      , #{seq}
+           	      , (select count(*) from nam_ranking_code b)+1
                   , #{enabled}
                   , #{reg_user}
                   , now())
@@ -408,7 +408,7 @@
                   , REG_USER
                   , REG_DATE )
            VALUES ( #{ggnuri_nm}
-           	      , #{seq}
+           	      , (select count(*) from nam_ggnuri_code b)+1
                   , #{enabled}
                   , #{reg_user}
                   , now())
@@ -424,7 +424,7 @@
                   , REG_USER
                   , REG_DATE )
            VALUES ( #{speciality_nm}
-           	      , #{seq}
+           	      , (select count(*) from nam_speciality_code b)+1
                   , #{enabled}
                   , #{reg_user}
                   , now())

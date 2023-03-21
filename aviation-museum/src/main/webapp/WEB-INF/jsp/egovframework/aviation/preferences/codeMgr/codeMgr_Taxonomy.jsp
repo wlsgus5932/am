@@ -17,9 +17,9 @@
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
+                            <th>번호</th>
                             <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>코드</th>                           
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -28,9 +28,9 @@
                           </tr>
  						  <c:forEach var="icaoList" items="${icaoList }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${icaoList.icao_nm}</td>
-	                            <td>${icaoList.icao_code}</td>
 	                            <td>${icaoList.seq}</td>
+	                            <td>${icaoList.icao_nm}</td>
+	                            <td>${icaoList.icao_code}</td>	                            
 	                            <td>${icaoList.mod_date}</td>
 	                            <td>${icaoList.mod_user}</td>
 	                            <td>
@@ -83,9 +83,9 @@
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
+                            <th>번호</th>
                             <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>코드</th>                           
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -94,9 +94,9 @@
                           </tr>
  						  <c:forEach var="class1List" items="${class1List }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${class1List.class1_nm}</td>
-	                            <td>${class1List.class1_code}</td>
 	                            <td>${class1List.seq}</td>
+	                            <td>${class1List.class1_nm}</td>
+	                            <td>${class1List.class1_code}</td>	                            
 	                            <td>${class1List.mod_date}</td>
 	                            <td>${class1List.mod_user}</td>
 	                            <td>
@@ -152,9 +152,9 @@
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
+                            <th>번호</th>
                             <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>코드</th>                            
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -163,9 +163,9 @@
                           </tr>
  						  <c:forEach var="class2List" items="${class2List }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${class2List.class2_nm}</td>
-	                            <td>${class2List.class2_code}</td>
 	                            <td>${class2List.seq}</td>
+	                            <td>${class2List.class2_nm}</td>
+	                            <td>${class2List.class2_code}</td>	                            
 	                            <td>${class2List.mod_date}</td>
 	                            <td>${class2List.mod_user}</td>
 	                            <td>
@@ -218,9 +218,9 @@
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
+                            <th>번호</th>
                             <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>코드</th>                           
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -229,9 +229,9 @@
                           </tr>
  						  <c:forEach var="class3List" items="${class3List }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${class3List.class3_nm}</td>
-	                            <td>${class3List.class3_code}</td>
 	                            <td>${class3List.seq}</td>
+	                            <td>${class3List.class3_nm}</td>
+	                            <td>${class3List.class3_code}</td>	                            
 	                            <td>${class3List.mod_date}</td>
 	                            <td>${class3List.mod_user}</td>
 	                            <td>
