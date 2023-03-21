@@ -285,4 +285,11 @@ public class CustomerCenterController {
         return "jsonView";
     }
 	
+	/** NICE 인증센터(임시) 메인**/
+	@GetMapping("/checkPlus.do")
+	public String checkPlus(HttpServletRequest req) throws Exception {
+
+		return "center/checkplus/checkplus_main";
+	}
+	
 }

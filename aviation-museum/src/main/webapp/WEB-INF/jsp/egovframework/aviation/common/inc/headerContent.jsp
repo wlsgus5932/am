@@ -432,6 +432,7 @@
             <li><a href="/notice.do" data-key="t-products">공지사항</a></li>
             <li><a href="/faq.do" data-key="t-product-detail">FAQ</a></li>
             <li><a href="/errorFix.do" data-key="t-orders">오류신고 / 개선사항</a></li>
+            <li><a href="/checkPlus.do" data-key="t-orders">NICE인증센터(임시)</a></li>
           </ul>
         </li>
         <li>
