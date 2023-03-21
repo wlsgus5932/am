@@ -105,7 +105,15 @@ public class MetaDataSearchController {
 	   
 	   @Autowired
 	   private SpecialityService specialityService;
-
+	   
+	   @PostMapping("/searchItemNext.do")
+	   public String searchItemNext(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
+		      List<ItemBaseVO> taxo = metaDataService.getSearchItemNext(param);
+		      //model.addAttribute("keywordList", key);
+		      
+		      return "jsonView";
+		   }
+	   
 	   @GetMapping("/searchItemBaseChild.do")
 	   public String searchClassCode(Model model, @RequestParam("item_idx") int item_idx) throws Exception {
 	      List<TaxonomyVO> taxo = service.getTaxonomy(item_idx);

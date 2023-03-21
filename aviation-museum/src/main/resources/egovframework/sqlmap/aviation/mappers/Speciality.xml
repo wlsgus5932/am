@@ -64,7 +64,7 @@
 	</select>
 	
 	<select id="getSpecialityCode" resultType="egovframework.aviation.metadata.vo.speciality.SpecialityCodeVO">
-			select * from nam_speciality_code
+			select * from nam_speciality_code where enabled = 'Y' order by seq;
 	</select>
 	
 	<insert id="setSpeciality" parameterType="egovframework.aviation.metadata.vo.param.SpecialityParamVO">

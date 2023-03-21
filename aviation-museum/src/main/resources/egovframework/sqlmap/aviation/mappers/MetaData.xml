@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.aviation.metadata.service.impl.MetaDataMapper">
 	
+	<select id="getSearchItemNext" resultType="egovframework.aviation.metadata.vo.ItemBaseVO">
+		select * from nam_item_base where item_no > #{item_no} order by item_no limit 1;
+	</select>
 	<select id="getDeletionList" resultType="egovframework.aviation.metadata.vo.metadata.DeletionVO">
 	select 
 			row_number() over(order by ib.item_no) as rownum,
@@ -343,10 +346,98 @@
 	
 	<insert id="setItemBase" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
 			insert into nam_item_base (
-				<include refid="metadata_columns1"><property name="alias" value=""/></include>
+				org_code_idx, 
+				possession_code_idx, 
+				item_no, 
+				item_detail_no, 
+				item_nm, 
+				item_se_nm, 
+				item_eng_nm,
+				author, 
+				qty, 
+				qty_unit_code_idx, 
+				icao_code_idx, 
+				existence_code_idx, 
+				management_no, 
+				preservation_need,
+				feature, 
+				condition_code_idx, 
+				ranking_code_idx, 
+				remark, 
+				reg_state, 
+				reg_user, 
+				reg_date,
+				mod_user, 
+				mod_date
 			)
 			values (
-				<include refid="metadata_columns2"><property name="alias" value=""/></include>
+				#{org_code_idx}, 
+			    #{possession_code_idx}, 
+			    #{item_no}, 
+			    #{item_detail_no},
+				#{item_nm}, 
+				#{item_se_nm}, 
+				#{item_eng_nm},
+				#{author}, 
+				#{qty}, 
+				#{qty_unit_code_idx}, 
+				#{icao_code_idx}, 
+				#{existence_code_idx}, 
+				#{management_no}, 
+				#{preservation_need},
+				#{feature}, 
+				#{condition_code_idx}, 
+				#{ranking_code_idx}, 
+				#{remark}, 
+				#{reg_state}, 
+				#{reg_user}, 
+				now(),
+				#{mod_user}, 
+				#{mod_date}
+				<!-- <include refid="metadata_columns2"><property name="alias" value=""/></include> -->
+				<!-- #{org_code_idx}, 
+			    #{possession_code_idx}, 
+			    #{item_no}, 
+				#{item_nm}, 
+				#{qty}, 
+				#{qty_unit_code_idx}, 
+				#{reg_state}, 
+				#{reg_user}, 
+				now(),
+				#{condition_code_idx}, 
+			    <if test=" item_detail_no != null and item_detail_no != '' ">
+			    	#{item_detail_no},
+			    </if>
+			    <if test=" item_se_nm != null and item_se_nm != '' ">
+					#{item_se_nm}, 
+				</if>
+				<if test=" item_eng_nm != null and item_eng_nm != '' ">
+				#{item_eng_nm},
+				</if>
+				<if test=" author != null and author != '' ">
+				#{author}, 
+				</if>
+				<if test=" icao_code_idx != null and icao_code_idx != '' ">
+				#{icao_code_idx}, 
+				</if>
+				<if test=" existence_code_idx != null and existence_code_idx != '' ">
+				#{existence_code_idx}, 
+				</if>
+				<if test=" management_no != null and management_no != '' ">
+				#{management_no}, 
+				</if>
+				<if test=" preservation_need != null and preservation_need != '' ">
+				#{preservation_need},
+				</if>
+				<if test=" feature != null and feature != '' ">
+				#{feature}, 
+				</if>
+				<if test=" ranking_code_idx != null and ranking_code_idx != '' ">
+				#{ranking_code_idx}, 
+				</if>
+				<if test=" remark != null and remark != '' ">
+				#{remark}
+				</if> -->
 			);
 			
 			<selectKey resultType="String" keyProperty="item_idx" order="AFTER">
@@ -773,6 +864,10 @@
 	
 	<select id="getOrg" resultMap="OrgResult">
 			SELECT * FROM nam_org_code where enabled = 'Y' order by seq;
+	</select>
+	
+	<select id="getExchange" resultType="egovframework.aviation.metadata.vo.ExchangeVO">
+			SELECT * FROM nam_exchange_rate where enabled = 'Y' order by seq;
 	</select>
 	
 	<select id="getStorageType1" resultType="egovframework.aviation.metadata.vo.StorageType1VO">

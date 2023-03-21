@@ -7,12 +7,12 @@
 							<c:when test="${mainImageList.size() > 0 }">
 	                          	<c:forEach var="list" items="${mainImageList}" varStatus="status">
 	                          		<div>
-								    	<img src="<c:url value='/images/${list.image_nm }'/>">
+								    	<img src="<c:url value='/images/${list.image_nm }'/>" onerror=this.src="/assets/images/no_image.png">
 								    </div>
                                 </c:forEach>
 	                         </c:when>
 							<c:otherwise>
-										<span>검색된 결과가 없습니다.</span>
+										<img src="/assets/images/no_image.png">
 								</c:otherwise>
 							</c:choose>
 						</div>
