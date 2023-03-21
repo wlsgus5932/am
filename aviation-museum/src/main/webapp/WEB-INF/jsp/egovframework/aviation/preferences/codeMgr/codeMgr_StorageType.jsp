@@ -16,8 +16,8 @@
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                            
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -26,8 +26,8 @@
                           </tr>
  						  <c:forEach var="storageType1List" items="${storageType1List }" varStatus="varStatus">  
 	                          <tr>
-	                            <td onclick="storageType12List('${storageType1List.storage_type1_code_idx}','${storageType1List.storage_type1_nm}')">${storageType1List.storage_type1_nm}</td>
-	                            <td>${storageType1List.seq }</td>
+	                          	<td>${storageType1List.seq }</td>
+	                            <td onclick="storageType12List('${storageType1List.storage_type1_code_idx}','${storageType1List.storage_type1_nm}')">${storageType1List.storage_type1_nm}</td>	                            
 	                            <td>${storageType1List.mod_date}</td>
 	                            <td>${storageType1List.mod_user}</td>
 	                            <td>
@@ -82,8 +82,8 @@
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                            
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -92,8 +92,8 @@
                           </tr>
  						  <c:forEach var="storageType2List" items="${storageType2List }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${storageType2List.storage_type2_nm}</td>
 	                            <td>${storageType2List.seq }</td>
+	                            <td>${storageType2List.storage_type2_nm}</td>	                            
 	                            <td>${storageType2List.mod_date}</td>
 	                            <td>${storageType2List.mod_user}</td>
 	                            <td>

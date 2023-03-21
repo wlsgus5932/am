@@ -42,16 +42,7 @@
 	</head>
 	<body>
 		<!-- list -->
-		<table summary="" class="sheetListA" style="width:150%; border: 1px solid;">
-			<caption>자료관리전환</caption>
-			<colgroup>
-				<col style="width:5%" />
-				<col style="width:5%" />
-				<col />
-				<col style="width:5%" />
-				<col style="width:5%" />
-				<col style="width:5%" />
-			</colgroup>
+		<table summary="" class="sheetListA" style="width:150%;" border="thin solid gray">
                 <thead>
                   <tr class="tr_bgc">
                                   <th>번호</th>
@@ -67,7 +58,6 @@
                   </tr>
                 </thead>
 			<tbody>
-				<!-- for -->
 				<c:choose>
 					<c:when test="${transformList.size() > 0 }">
 						<c:forEach var="list" items="${transformList}">
@@ -75,11 +65,11 @@
 	                                <td id="rownum">${list.rownum}</td>
 	                                <td>${list.possession_nm} - ${list.org_nm}</td>
 	                                <td>${list.item_no}</td>
-	                                <td>${list.item_detail_no}</td>
+	                                <td>${list.item_detail_no eq null ? "-" : list.item_detail_no}</td>
 	                                <td>${list.item_nm}</td>
 	                                <td>${list.item_se_nm}</td>
 	                                <td>${list.item_eng_nm}</td>
-	                                <td>-</td>
+	                                <td>${list.detail_year eq null ? "-" : list.detail_year}</td>
 	                                <td>${list.author}</td>
 	                                <td>${list.reg_state}</td>
 	                              </tr>

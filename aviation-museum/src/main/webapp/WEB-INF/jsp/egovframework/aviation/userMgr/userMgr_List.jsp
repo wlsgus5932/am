@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
      <div class="tab-pane" id="profile" role="tabpanel" style="display:block;">
-     <form id="userSearchForm" name="userSearchForm" method="post" class="form-horizontal">
+     <form id="userSearchForm" name="userSearchForm" method="post" class="form-horizontal" onsubmit="return false">
 	      <div class="user_top_wrap">
 	          <span>검색</span>
 	          <select class="search_select" id="search_type" name="search_type">
@@ -14,7 +14,7 @@
 		        <option value="remark">비고</option>
 		        <option value="enabled">사용여부</option>
 	          </select>
-	            <input class="custom_search_input" type="text" id="search_word" name="search_word" >
+	            <input class="custom_search_input" type="text" id="search_word" name="search_word" onkeypress="if( event.keyCode == 13 ){userSearchList();}">
 	            <button class="custom_btn btn_inquiry"  type="button" onClick="userSearchList();">조회</button>
 	      </div>
       </form>
@@ -25,7 +25,7 @@
       <div class="mb-0">
         <!-- 사용자 등록 모달 -->
         <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-          <div class="modal-dialog user-modal">
+          <div class="modal-dialog user-modal user_in_modal_wrap">
               <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                       <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
@@ -48,26 +48,26 @@
 	                                      <tr>
 	                                        <td>사용자ID</td>
 	                                          <td>
-	                                            <input class="custom_search_input" type="text" name="member_id" id="insUserId" oninput="userInsInputChange();">
-	                                            <button class="custom_btn btn_707070" type="button" id="userInsCheck" userInsCheck="" onclick="duplicateCheck();">중복체크</button>
+	                                            <input class="custom_search_input user_in_modal_input_1" type="text" name="member_id" id="insUserId" oninput="userInsInputChange();">
+	                                            <button class="custom_btn btn_707070" type="button" id="userInsCheck" userInsCheck="" onclick="duplicateCheck();" style=" height: 40px; width: 80px;">중복체크</button>
 	                                      	    </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>비밀번호</td>
 	                                          <td>
-	                                            <input class="custom_search_input" type="password" name="member_pw" id="insUserPw">
+	                                            <input class="custom_search_input user_in_modal_input" type="password" name="member_pw" id="insUserPw">
 	                                          </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>사용자명</td>
 	                                        <td>
-	                                          <input class="custom_search_input" type="text" name="member_nm" id="insUserNm">
+	                                          <input class="custom_search_input user_in_modal_input" type="text" name="member_nm" id="insUserNm">
 	                                        </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>그룹명</td>
 	                                        <td>
-	                                          <select class="search_select" name="group_idx" id="insGroupNm">
+	                                          <select class="search_select user_in_modal_input" name="group_idx" id="insGroupNm">
 <!-- 	                                            <option disabled selected>그룹 없음</option> -->
 		                                            <c:forEach var="groupList" items="${groupList}">
 			                                          <option value="${groupList.group_idx}">${groupList.group_nm}</option>
@@ -78,16 +78,21 @@
 	                                      <tr>
 	                                        <td>비고</td>
 	                                        <td>
-	                                          <input class="custom_search_input" type="text" name="remark" id="insUserRemark">
+	                                          <input class="custom_search_input user_in_modal_input" type="text" name="remark" id="insUserRemark">
 	                                        </td>
 	                                      </tr>
 	                                  </tbody>
 	                              </table>
-	                              <button class="btn btn-secondary btn_save" type="button" id="userInsBtn">저장</button>
+
                               </form>
                           </div>
+                         
                       </div>
                     </div>
+	                              <div class="user_in_modal_footer_wrap">
+	                              	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="userInsBtn">저장</button>
+	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                              </div>                     
                     <!--  -->
                   </div>
               </div>
@@ -95,7 +100,7 @@
       </div>
       <!-- 사용자 수정 모달 -->
       <div id="UserModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog user-modal">
+        <div class="modal-dialog user-modal user_in_modal_wrap">
             <div class="modal-content">
                 <div class="modal-header mv-modal-header">
                     <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
@@ -123,13 +128,13 @@
 	                                    <tr>
 	                                      <td>사용자명</td>
 	                                      <td>
-	                                        <input type="text" name="member_nm" id="modUserNm">
+	                                        <input class="custom_search_input user_in_modal_input" type="text" name="member_nm" id="modUserNm">
 	                                      </td>
 	                                    </tr>
 	                                    <tr>
 	                                      <td>그룹명</td>
 	                                      <td>
-	                                        <select class="form-select st_select" name="group_idx" id="modUserGroupidx">
+	                                        <select class="search_select user_in_modal_input" name="group_idx" id="modUserGroupidx">
 <!-- 	                                          <option disabled selected>그룹 없음</option> -->
 	                                           <c:forEach var="groupList" items="${groupList}">
 				                                    <option value="${groupList.group_idx}">${groupList.group_nm}</option>
@@ -140,23 +145,26 @@
 	                                    <tr>
 	                                      <td>비고</td>
 	                                      <td>
-	                                        <input type="text" name="remark" id="modUserRemark">
+	                                        <input class="custom_search_input user_in_modal_input" type="text" name="remark" id="modUserRemark">
 	                                      </td>
 	                                    </tr>
 	                                    <tr>
 	                                      <td>사용 여부</td>
 	                                      <td>
-	                                      	<input type="checkbox" name="enabled" id="modUserEnabledY" value="Y">사용
-	                                        <input type="checkbox" name="enabled" id="modUserEnabledN" value="N">미사용
+	                                      	<input type="radio" name="enabled" id="modUserEnabledY" value="Y">사용
+	                                        <input type="radio" name="enabled" id="modUserEnabledN" value="N">미사용
 	                                      </td>
 	                                    </tr>
 	                                </tbody>
 	                            </table>
-	                            <button class="btn btn-secondary btn_save" type="button" id="userModBtn">저장</button>
                       		</form>
                         </div>
                     </div>
                   </div>
+	                              <div class="user_in_modal_footer_wrap">
+	                              	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="userInsBtn">저장</button>
+	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                              </div>                     
                   <!--  -->
                 </div>
             </div>
@@ -219,18 +227,18 @@
               </table>
               <ul class="btn-group pagination">
 			    <c:if test="${pageMaker.prev }">
-			    <li>
-			        <a href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+			    <li class="page-item">
+			        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
 			    </li>
 			    </c:if>
 			    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-			    <li>
-			        <a href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+			    <li class="page-item">
+			        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
 			    </li>
 			    </c:forEach>
 			    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-			    <li>
-			        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+			    <li class="page-item">
+			        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 			    </li>
 			    </c:if>
 			</ul>            
@@ -322,15 +330,16 @@
 						$('#tab-content').empty().append(data);
 						$('#search_word').val(search_word);
 						$('#search_type').val(search_type);
+						$('#search_word').focus();
 					}
 				});
 		}
 		
-		$('input[type="text"]').keydown(function() {
-			  if (event.keyCode === 13) {
-			    event.preventDefault();
-			  };
-		});
+// 		$('input[type="text"]').keydown(function() {
+// 			  if (event.keyCode === 13) {
+// 			    event.preventDefault();
+// 			  };
+// 		});
 		
 		<%-- 사용자 페이지 이동 --%>
 		function goPage(value) {

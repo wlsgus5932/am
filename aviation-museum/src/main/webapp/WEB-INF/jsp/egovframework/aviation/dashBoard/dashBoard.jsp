@@ -57,7 +57,7 @@
                 <div class="col-xxl-3">
 
                   <div class="user-sidebar">
-                      <div class="card">
+                      <div class="card dash_main_frist_wrap">
                           <div class="card-body p-0">
                               <div class="user-profile-img">
                                   <img src="" class="profile-img profile-foreground-img rounded-top" style="height: 120px;" alt="">
@@ -79,10 +79,11 @@
                                   </div>
                               </div>
                               <!-- 팀공지 -->
-                              <div class="d-flex align-items-start">
+                              <div class="d-flex align-items-start dash_main_frist_text_margin">
                                 <div class="flex-grow-1">
-                                    <h5 class="card-title mb-3">팀공지</h5>
+                                    <h5 class="card-title mb-3 dash_text_bar_wrap">팀공지</h5>
                                 </div>
+<!--                                 <div class="dash_text_bar"></div> -->
                                 <div class="flex-shrink-0">
                                     <div class="dropdown">
                                         <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -93,13 +94,13 @@
                             </div>
                               <!-- 프로필, 팀공지 테이블 -->
                               <div class="table-responsive">
-                                <table class="table mb-0">
+                                <table class="table mb-0 dash_main_frist_table">
                                   <colgroup>
 	                                  <col style="width:20%;">
 	                                  <col style="width:30%;">
                                   </colgroup>
                                   <thead>
-                                    <tr class="tr_bgc">
+                                    <tr class="tr_bgc dash_main_wrap">
                                       <th>작성자</th>
                                       <th>날짜</th>
                                       <th>제목</th>
@@ -109,7 +110,7 @@
                                     <tr>
                                       <td>김항공</td>
                                       <td>2022.12.7</td>
-                                      <td>국립항공박물관 공지 예시</td>
+                                      <td>국립123항국립항공박물관국립항공박물관공박물관 공지 예시</td>
                                     </tr>
                                     <tr>
                                       <td>김항공</td>
@@ -135,9 +136,10 @@
                                 </table>
                               </div>
                               <!--  -->
-                              <div class="d-flex align-items-start">
-                                <div class="flex-grow-1">
-                                    <h5 class="card-title mb-3">작업자별 작업량</h5>
+                              <div class="d-flex align-items-start dash_main_frist_text_margin">
+                                <div class="flex-grow-1 flex-grow-1_custom">
+                                    <h5 class="card-title mb-3 dash_text_bar_wrap">작업자별 작업량</h5>
+<!--                                     <div class="dash_text_bar"></div> -->
                                 </div>
                                 <div class="flex-shrink-0">
                                     <div class="dropdown">
@@ -149,7 +151,7 @@
                             </div>
                               <!-- 프로필 그래프 -->
                               <div class="col-lg-6">
-                                <div class="card">
+                                <div class="card" style="background: none; box-shadow: none;">
                                     <!-- <div class="card-header">
                                         <h4 class="card-title">작업자별 작업량</h4>
                                      </div> -->
@@ -164,9 +166,12 @@
                               </div>
                               <!--  -->
                               <div class="table-responsive">                        
-                                <table class="table mb-0">
+                                <table class="table mb-0 dash_main_frist_table dash_main_frist_table_last_border">
+                                	<colgroup>
+	                                 <col style="width:50%;">
+	                                </colgroup>
                                   <thead>
-                                    <tr class="tr_bgc">
+                                    <tr class="tr_bgc dash_main_wrap">
                                       <th>작업자</th>
                                       <th>월</th>
                                       <th>주</th>
@@ -248,7 +253,9 @@
                                     <div class="data_info_text_wrap">
                                       <span>
                                         자료수량 : 2000
-                                      </span><br>
+                                      </span>
+                                      <br>
+                                      <br>
                                       <span>
                                         증감현황 : 1000
                                       </span>
@@ -275,7 +282,7 @@
                                       </div>
                                   </div>
                                   <div class="table-responsive">                                  
-                                    <table class="table mb-0">
+                                    <table class="table mb-0 dash_notice_border">
 	                                  <colgroup>
 		                                  <col style="width:20%;">
 		                                  <col style="width:30%;">
@@ -424,7 +431,7 @@
                                       </div>
                                   </div>
                                   <div class="table-responsive">                                 
-                                    <table class="table mb-0">
+                                    <table class="table mb-0 dash_notice_border">
 	                                  <colgroup>
 		                                  <col style="width:20%;">
 		                                  <col style="width:30%;">
@@ -490,23 +497,59 @@
                                     </div>
                                     <!-- 최근 작업한 자료 슬라이드 영역 -->
                                     <div class="dash_img_slider_wrap">
-                                      <div><img src="" alt="이미지1"></div>
-                                      <div><img src="" alt="이미지2"></div>
-                                      <div><img src="" alt="이미지3"></div>
-                                      <div><img src="" alt="이미지4"></div>
-                                      <div><img src="" alt="이미지5"></div>
-                                      <div><img src="" alt="이미지6"></div>
-                                      <div><img src="" alt="이미지7"></div>
-                                      <div><img src="" alt="이미지8"></div>
-                                      <div><img src="" alt="이미지9"></div>
-                                      <div><img src="" alt="이미지10"></div>
-                                      <div><img src="" alt="이미지11"></div>
-                                      <div><img src="" alt="이미지12"></div>
+                                      <div>
+                                      	<img src="assets/custom_img/intro-logo.png" alt="이미지1">
+                                      	<div class="dash_img_main_text">텍스트텍스트</div>
+                                      </div>
+                                      <div>
+                                      	<img src="" alt="이미지2">
+                                      	<div class="dash_img_main_text">텍스트텍스트</div>
+                                      </div>
+                                      <div>
+                                      	<img src="" alt="이미지3">
+                                      	<div class="dash_img_main_text">텍스트텍스트</div>
+                                      </div>
+                                      <div>
+                                      	<img src="" alt="이미지4">
+                                      	<div class="dash_img_main_text">텍스트텍스트</div>
+                                      </div>      
+                                      <div>
+                                      	<img src="" alt="이미지5">
+                                      	<div class="dash_img_main_text">텍스트텍스트</div>
+                                      </div>
+                                      <div>
+                                      	<img src="" alt="이미지6">
+                                      	<div class="dash_img_main_text">텍스트텍스트</div>
+                                      </div>
+                                      <div>
+                                      	<img src="" alt="이미지7">
+                                      	<div class="dash_img_main_text">텍스트텍스트</div>
+                                      </div>
+                                      <div>
+                                      	<img src="" alt="이미지8">
+                                      	<div class="dash_img_main_text">텍스트텍스트</div>
+                                      </div> 
+                                      <div>
+                                      	<img src="" alt="이미지9">
+                                      	<div class="dash_img_main_text">텍스트텍스트</div>
+                                      </div>
+                                      <div>
+                                      	<img src="" alt="이미지10">
+                                      	<div class="dash_img_main_text">텍스트텍스트</div>
+                                      </div>
+                                      <div>
+                                      	<img src="" alt="이미지11">
+                                      	<div class="dash_img_main_text">텍스트텍스트</div>
+                                      </div>
+                                      <div>
+                                      	<img src="" alt="이미지12">
+                                      	<div class="dash_img_main_text">텍스트텍스트</div>
+                                      </div>                                                                                                                                                   
                                     </div>
                                     <!--  -->
                                     <div class="last_data_info_wrap">
                                       <div class="table-responsive last_data_info_inbox">
-                                        <table class="table mb-0">
+                                        <table class="table mb-0 dash_recent_work_table">
 <%-- 		                                  <colgroup> --%>
 <%-- 			                                  <col style="width:20%;"> --%>
 <%-- 			                                  <col style="width:30%;"> --%>
@@ -515,7 +558,7 @@
                                             <tr class="tr_bgc">
                                               <th>자료명</th>
                                               <th>번호</th>
-                                              <th>자료내용</th>
+                                              <th style="width: 50%">자료내용</th>
                                             </tr>
                                           </thead>
                                           <tbody>
@@ -538,7 +581,7 @@
                                         </table>
                                       </div>
                                       <div class="table-responsive last_data_info_inbox">
-                                        <table class="table mb-0">
+                                        <table class="table mb-0 dash_recent_work_table">
 <%-- 		                                  <colgroup> --%>
 <%-- 			                                  <col style="width:20%;"> --%>
 <%-- 			                                  <col style="width:30%;"> --%>
@@ -547,7 +590,7 @@
                                             <tr class="tr_bgc">
                                               <th>자료명</th>
                                               <th>번호</th>
-                                              <th>자료내용</th>
+                                              <th style="width: 50%">자료내용</th>
                                             </tr>
                                           </thead>
                                           <tbody>
@@ -597,7 +640,7 @@
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
                                                     <div class="text-center">
-                                                        <h5 class="mb-0">12월</h5>
+                                                        <h5 class="mb-0 wrap_bgn">12월</h5>
                                                         <div>9일</div>
                                                     </div>
                                                 </div>
@@ -614,7 +657,7 @@
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
                                                     <div class="text-center">
-                                                        <h5 class="mb-0">11월</h5>
+                                                        <h5 class="mb-0 wrap_bgn">11월</h5>
                                                         <div>9일</div>
                                                     </div>
                                                 </div>
@@ -630,7 +673,7 @@
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
                                                     <div class="text-center">
-                                                        <h5 class="mb-0">10월</h5>
+                                                        <h5 class="mb-0 wrap_bgn">10월</h5>
                                                         <div>9일</div>
                                                     </div>
                                                 </div>
@@ -647,7 +690,7 @@
                                           <div class="flex-shrink-0 me-3">
                                               <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
                                                   <div class="text-center">
-                                                      <h5 class="mb-0">10월</h5>
+                                                      <h5 class="mb-0 wrap_bgn">10월</h5>
                                                       <div>9일</div>
                                                   </div>
                                               </div>
@@ -683,7 +726,7 @@
                                           <div class="flex-shrink-0 me-3">
                                               <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
                                                   <div class="text-center">
-                                                      <h5 class="mb-0">12월</h5>
+                                                      <h5 class="mb-0 wrap_bgn">12월</h5>
                                                       <div>9일</div>
                                                   </div>
                                               </div>
@@ -700,7 +743,7 @@
                                           <div class="flex-shrink-0 me-3">
                                               <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
                                                   <div class="text-center">
-                                                      <h5 class="mb-0">11월</h5>
+                                                      <h5 class="mb-0 wrap_bgn">11월</h5>
                                                       <div>9일</div>
                                                   </div>
                                               </div>
@@ -716,7 +759,7 @@
                                           <div class="flex-shrink-0 me-3">
                                               <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
                                                   <div class="text-center">
-                                                      <h5 class="mb-0">10월</h5>
+                                                      <h5 class="mb-0 wrap_bgn">10월</h5>
                                                       <div>9일</div>
                                                   </div>
                                               </div>
@@ -733,7 +776,7 @@
                                         <div class="flex-shrink-0 me-3">
                                             <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
                                                 <div class="text-center">
-                                                    <h5 class="mb-0">10월</h5>
+                                                    <h5 class="mb-0 wrap_bgn">10월</h5>
                                                     <div>9일</div>
                                                 </div>
                                             </div>

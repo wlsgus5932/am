@@ -208,7 +208,7 @@
             <!--  -->
           </div>
           <!-- 내용물 -->
-          <ul class="nav nav-tabs" role="tablist">
+          <ul class="nav nav-tabs" role="tablist" style="width:auto;">
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab" href="javascript():;" id="groupMgr">
                 <span class="d-block d-sm-none"><i class="far fa-user"></i></span>

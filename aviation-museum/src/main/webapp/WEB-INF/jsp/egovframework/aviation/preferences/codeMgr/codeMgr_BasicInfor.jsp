@@ -12,14 +12,13 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="8">수량단위코드</th>
+                            <th colspan="7">수량단위코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                          
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -28,9 +27,8 @@
                           </tr>
 						  <c:forEach var="qtyUnitList" items="${qtyUnitList }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${qtyUnitList.qty_unit_nm}</td>
-	                            <td></td>
 	                            <td>${qtyUnitList.seq }</td>
+	                            <td>${qtyUnitList.qty_unit_nm}</td>	                           
 	                            <td>${qtyUnitList.mod_date}</td>
 	                            <td>${qtyUnitList.mod_user}</td>
 	                            <td>
@@ -78,14 +76,13 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="8">현존여부코드</th>
+                            <th colspan="7">현존여부코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                                                       
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -94,9 +91,8 @@
                           </tr>
 						  <c:forEach var="existenceList" items="${existenceList }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${existenceList.existence_nm}</td>
-	                            <td></td>
 	                            <td>${existenceList.seq }</td>
+	                            <td>${existenceList.existence_nm}</td>	                            
 	                            <td>${existenceList.mod_date}</td>
 	                            <td>${existenceList.mod_user}</td>
 	                            <td>
@@ -147,14 +143,13 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="8">실측부위코드</th>
+                            <th colspan="7">실측부위코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                                                      
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -163,9 +158,8 @@
                           </tr>
 						  <c:forEach var="measurementList" items="${measurementList }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${measurementList.measurement_nm}</td>
-	                            <td></td>
 	                            <td>${measurementList.seq }</td>
+	                            <td>${measurementList.measurement_nm}</td>	                            
 	                            <td>${measurementList.mod_date}</td>
 	                            <td>${measurementList.mod_user}</td>
 	                            <td>
@@ -213,14 +207,13 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="8">실측단위코드</th>
+                            <th colspan="7">실측단위코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                                                       
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -229,9 +222,8 @@
                           </tr>
 						  <c:forEach var="measurementUnitList" items="${measurementUnitList }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${measurementUnitList.measurement_unit_nm}</td>
-	                            <td></td>
 	                            <td>${measurementUnitList.seq }</td>
+	                            <td>${measurementUnitList.measurement_unit_nm}</td>	                            
 	                            <td>${measurementUnitList.mod_date}</td>
 	                            <td>${measurementUnitList.mod_user}</td>
 	                            <td>
@@ -282,14 +274,13 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="8">자료상태코드</th>
+                            <th colspan="7">자료상태코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                           
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -298,9 +289,8 @@
                           </tr>
 						  <c:forEach var="conditionList" items="${conditionList }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${conditionList.condition_nm}</td>
-	                            <td></td>
 	                            <td>${conditionList.seq }</td>
+	                            <td>${conditionList.condition_nm}</td>	                            
 	                            <td>${conditionList.mod_date}</td>
 	                            <td>${conditionList.mod_user}</td>
 	                            <td>
@@ -348,14 +338,13 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="8">전시순위코드</th>
+                            <th colspan="7">전시순위코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                            
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -364,9 +353,8 @@
                           </tr>
 						  <c:forEach var="rankingList" items="${rankingList }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${rankingList.ranking_nm}</td>
-	                            <td></td>
 	                            <td>${rankingList.seq }</td>
+	                            <td>${rankingList.ranking_nm}</td>	                            
 	                            <td>${rankingList.mod_date}</td>
 	                            <td>${rankingList.mod_user}</td>
 	                            <td>
@@ -417,14 +405,13 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="8">공공누리서비스코드</th>
+                            <th colspan="7">공공누리서비스코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>코드</th>
                             <th>순서</th>
+                            <th>명칭</th>                          
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -433,9 +420,8 @@
                           </tr>
 						  <c:forEach var="ggnuriList" items="${ggnuriList }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${ggnuriList.ggnuri_nm}</td>
-	                            <td></td>
 	                            <td>${ggnuriList.seq }</td>
+	                            <td>${ggnuriList.ggnuri_nm}</td>	                            	                            
 	                            <td>${ggnuriList.mod_date}</td>
 	                            <td>${ggnuriList.mod_user}</td>
 	                            <td>
@@ -483,14 +469,13 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="8">전문정보코드</th>
+                            <th colspan="7">전문정보코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                           
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -499,9 +484,8 @@
                           </tr>
 						  <c:forEach var="specialityList" items="${specialityList }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${specialityList.speciality_nm}</td>
-	                            <td></td>
 	                            <td>${specialityList.seq }</td>
+	                            <td>${specialityList.speciality_nm}</td>	                            
 	                            <td>${specialityList.mod_date}</td>
 	                            <td>${specialityList.mod_user}</td>
 	                            <td>

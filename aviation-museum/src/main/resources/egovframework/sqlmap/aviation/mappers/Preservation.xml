@@ -36,6 +36,22 @@
 		    </selectKey>
 	</insert>
 	
+	<update id="updatePreservation" parameterType="egovframework.aviation.metadata.vo.param.PreservationParamVO">
+		update nam_preservation set
+				treatment_org = #{treatment_org},
+				processor = #{processor},
+				start_date = #{start_date},
+				end_date = #{end_date},
+				content = #{content},
+				remark = #{remark},
+				file_nm = #{file_nm},
+				file_path = #{file_path},
+				file_local_path = #{file_local_path},
+				mod_user = #{mod_user},
+				mod_date = now()
+		where preservation_idx = #{preservation_idx}
+	</update>
+	
 	<insert id="setPreservationImage" parameterType="java.util.HashMap">
 			insert into nam_preservation_image (
 				reg_date,

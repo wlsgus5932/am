@@ -18,5 +18,15 @@
 }
 
 .table > :not(caption) > * > * {
-  text-align: left;
+  text-align: left !important;
+  padding-left: 1rem;
+}
+
+.tr_right {
+	width: 60% !important;
+}
+
+.view_right {
+    width: 100%;
+    margin: auto;
 }

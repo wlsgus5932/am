@@ -26,7 +26,6 @@ public class ImageServiceImpl implements ImageService {
 
 	@Override
 	public int getImageListCnt(String item_idx) {
-		// TODO Auto-generated method stub
 		return dao.getImageListCnt(item_idx);
 	}
 
@@ -55,6 +54,16 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	public int getImageIUpdateListCnt(ImageParamVO param) {
 		return dao.getImageIUpdateListCnt(param);
+	}
+
+	@Override
+	public List<ImageVO> getImageExcel(ImageParamVO param) {
+		return dao.getImageExcel(param);
+	}
+
+	@Override
+	public List<ImageVO> getImageAll(ImageParamVO param) {
+		return dao.getImageAll(param);
 	}
 	
 

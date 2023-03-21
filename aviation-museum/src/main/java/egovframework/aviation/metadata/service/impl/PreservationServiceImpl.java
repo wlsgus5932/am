@@ -47,4 +47,9 @@ public class PreservationServiceImpl implements PreservationService {
 		return dao.deletePreservation(preservation_idx);
 	}
 
+	@Override
+	public int updatePreservation(PreservationParamVO param) {
+		return dao.updatePreservation(param);
+	}
+
 }

@@ -11,14 +11,13 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="8">입수연유코드</th>
+                            <th colspan="7">입수연유코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                           
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -27,9 +26,8 @@
                           </tr>
 						  <c:forEach var="obtainmentList" items="${obtainmentList }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${obtainmentList.obtainment_nm}</td>
-	                            <td></td>
-	                            <td>${obtainmentList.seq }</td>
+	                          	<td>${obtainmentList.seq }</td>
+	                            <td>${obtainmentList.obtainment_nm}</td>	                            
 	                            <td>${obtainmentList.mod_date}</td>
 	                            <td>${obtainmentList.mod_user}</td>
 	                            <td>
@@ -77,14 +75,13 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="8">가격단위코드</th>
+                            <th colspan="7">가격단위코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                            
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -93,9 +90,8 @@
                           </tr>
 						  <c:forEach var="priceUnitList" items="${priceUnitList }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${priceUnitList.price_unit_nm}</td>
-	                            <td></td>
 	                            <td>${priceUnitList.seq }</td>
+	                            <td>${priceUnitList.price_unit_nm}</td>	                            
 	                            <td>${priceUnitList.mod_date}</td>
 	                            <td>${priceUnitList.mod_user}</td>
 	                            <td>
@@ -146,14 +142,13 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="8">구입구분 1코드</th>
+                            <th colspan="7">구입구분 1코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                            
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -162,9 +157,8 @@
                           </tr>
 						  <c:forEach var="purchase1List" items="${purchase1List }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${purchase1List.purchase1_nm}</td>
-	                            <td></td>
-	                            <td>${purchase1List.seq }</td>
+	                          	<td>${purchase1List.seq }</td>
+	                            <td>${purchase1List.purchase1_nm}</td>	                            
 	                            <td>${purchase1List.mod_date}</td>
 	                            <td>${purchase1List.mod_user}</td>
 	                            <td>
@@ -212,14 +206,13 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="8">고입구분 2코드</th>
+                            <th colspan="7">고입구분 2코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
-                            <th>명칭</th>
-                            <th>코드</th>
-                            <th>순서</th>
+                            <th>번호</th>
+                            <th>명칭</th>                            
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -228,9 +221,8 @@
                           </tr>
 						  <c:forEach var="purchase2List" items="${purchase2List }" varStatus="varStatus">  
 	                          <tr>
-	                            <td>${purchase2List.purchase2_nm}</td>
-	                            <td></td>
-	                            <td>${purchase2List.seq }</td>
+	                        	<td>${purchase2List.seq }</td>
+	                            <td>${purchase2List.purchase2_nm}</td>	                            
 	                            <td>${purchase2List.mod_date}</td>
 	                            <td>${purchase2List.mod_user}</td>
 	                            <td>

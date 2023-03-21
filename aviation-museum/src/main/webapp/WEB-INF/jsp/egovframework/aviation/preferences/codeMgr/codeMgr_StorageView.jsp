@@ -7,11 +7,12 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="6">보관처 코드</th>
+                            <th colspan="7">보관처 코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
+                            <th>번호</th>
                             <th>명칭</th>
                             <th>수정일</th>
                             <th>수정자</th>
@@ -21,6 +22,7 @@
                           </tr>
                           <c:forEach var="storageCodeViewList" items="${storageCodeVO.storageCodeViewList }" varStatus="varStatus">
 	                          <tr>
+	                            <td>${varStatus.count }</td>
 	                            <td>${storageCodeViewList.storage_nm }</td>
 	                            <td>${storageCodeViewList.mod_user }</td>
 	                            <td>${storageCodeViewList.mod_date }</td>

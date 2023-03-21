@@ -151,7 +151,7 @@
 	               <input type="hidden" name="material1" id="material1_temp"/>
             <div class="tab-pane" id="profile" role="tabpanel" style="display:block;">
               <!-- 리스트 출력~ 분류별 검색 입력 창 -->
-              <form id="metaDataSearchListForm" name="metaDataSearchListForm" method="post" class="form-horizontal">              
+              <form id="metaDataSearchListForm" name="metaDataSearchListForm" method="post" class="form-horizontal" onsubmit="return false">              
 	              <div class="st_wrap st_mv_wrap search_input_wrap">
 	                <div class="search_left">
 	                  리스트 출력
@@ -162,7 +162,7 @@
 	                  </select>
 	                  결과내 재검색 <input type="checkbox" id="research_word" name="research_word"/>
 	                  <input type="hidden" id="researched_word" name="researched_word"/>
-	                  <input class="custom_search_input" list="datalistOptions" placeholder="검색어를 입력해 주세요." id="search_word" name="search_word" />
+	                  <input class="custom_search_input" list="datalistOptions" placeholder="검색어를 입력해 주세요." id="search_word" name="search_word" onkeypress="if( event.keyCode == 13 ){metaDataSearchList();}"/>
 	                  <input type="hidden" id="searched_word" name="searched_word"/>
 	                  <button class="custom_btn btn_707070" type="button" onClick="metaDataSearchList();">검색</button>
 	                  <button class="custom_btn btn_707070" type="button" data-bs-toggle="modal" data-bs-target="#TagModal-1">상세검색</button>
@@ -294,7 +294,14 @@
 		                          <td>${perPageNum + 1 - metaDataSearchList.rnum}</td>
 		                          <td>
 		                            <div class="search_img_wrap">
-		                              <img src="${metaDataSearchList.image_path}" alt="${metaDataSearchList.image_path}" />
+		                             	<c:choose>
+		                             		<c:when test="${metaDataSearchList.image_path ne null}">
+		                             		 	 <img src="${metaDataSearchList.image_path}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+		                            		</c:when>
+		                            		<c:otherwise>
+		                            			<img src="/assets/images/no_image.png" alt="이미지">
+		                            		</c:otherwise>
+		                            	</c:choose>
 		                            </div>
 		                          </td>
 		                          <td onclick="quickView('${metaDataSearchList.item_idx}');">${metaDataSearchList.possession_nm}</td>
@@ -358,6 +365,7 @@
             $(function(){
             	gallery = new Viewer(document.getElementById('gallery'));
             	qty();
+            	$('#search_word').focus();
             })
            
             function qty(){
@@ -658,5 +666,41 @@
 			$('#searchOperator2').on("change", function(){
 				$('#keyword3').css("display", "flex");
 			})
+						
+			$('#country').click(function() {
+ 				var val = true;
+ 				
+ 				$('#country').toggleClass("checked");
+ 				
+ 				if(!$('#country').attr('class')){
+ 					val = false;
+ 				}
+ 				 $('input[name=country]').each(function() {
+ 		            this.checked = val;
+ 		            if(val == true){
+ 		           	 	$('#country').addClass('checked');
+ 		            }else{
+ 		            	$('#country').removeClass('checked');
+ 		            }
+ 		        });
+		    });
+ 			
+ 			$('#material1').click(function() {
+ 				var val = true;
+ 				
+ 				$('#material1').toggleClass("checked");
+ 				
+ 				if(!$('#material1').attr('class')){
+ 					val = false;
+ 				}
+ 				 $('input[name=material1]').each(function() {
+ 		            this.checked = val;
+ 		            if(val == true){
+ 		           	 	$('#material1').addClass('checked');
+ 		            }else{
+ 		            	$('#material1').removeClass('checked');
+ 		            }
+ 		        });
+		    });
             </script>
             

@@ -1,4 +1,4 @@
-<%@ page contentType="application/vnd.ms-excel;charset=UTF-8" %>
+<%@ page contentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8" %>
 <%----------------------------------------------------------------------------------------------
 * 파일명 : photoBuy_list.jsp
 * 생성일 : 2015. 12. 29
@@ -30,7 +30,10 @@
 	if( !(request.getHeader("User-Agent").indexOf("MSIE") > -1) ){
 		file_name = new String(file_name.getBytes("UTF-8"), "ISO-8859-1");
 	}
-	
+	response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");  
+	HttpContext.Current.Response.AddHeader("Content-Disposition:", "attachment;filename=EXCEL"); 
+// 	response.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+	response.setHeader("Content-Description", "JSP Generated Data");  
     response.setHeader("Content-Disposition", "attachment; filename=\""+ file_name + "_" + DateUtils.getTime("yyyyMMddHHmmss") + ".xls\""); 
     response.setHeader("Pragma", "no-cache");
     response.setHeader("Cache-Control", "no-cache");

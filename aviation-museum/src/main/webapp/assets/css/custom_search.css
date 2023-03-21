@@ -29,11 +29,14 @@
 
 .search_img_wrap {
   margin: auto;
-  /* width: 100%; */
-  width: 130px;
-  height: 90px;
+  width: 90px;
+  height: 62px;
   border-radius: 0.5rem;
   border: 1px solid #D2D2D2;
+}
+
+.search_img_wrap img {
+	height: 100%;
 }
 
 .simple_view_wrap {

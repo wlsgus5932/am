@@ -49,7 +49,7 @@ body {
   width: 100%;
   max-width: 400px;
   height: 50px;
-  margin: 2% auto;
+  margin: auto;
   display: block;
 }
 
@@ -66,14 +66,20 @@ input::placeholder {
   margin: 5% auto;
 }
 
-.login_wrap a {
+.login_wrap button {
+  cursor:pointer;
   color: #707070;
-  font-size: 20px;
   font-weight: 500;
-  transition: 0.2s;
+  transition: 0.3s;
+/*   border: none; */
+  background: none;
+  font-size: 25px;
+  border-radius: 7px;
+  padding: 0 1% 0 1%;
+  border: 1px solid #707070;
 }
 
-.login_wrap a:hover {
+.login_wrap button:hover {
   color: #000;
 }
 
@@ -96,4 +102,9 @@ input::placeholder {
 
 .user_find_wrap li a span:hover {
   color: #000;
+}
+
+.login_main_logo_img {
+	text-align: center;
+	margin: 20% 0 0 0;
 }

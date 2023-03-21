@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
-     <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block;">
+     <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block; width:100%;">
      <form id="noticeSearchForm" name="noticeSearchForm" method="post" class="form-horizontal">
 	      <div class="user_top_wrap" style="margin-top:20px;">
 	          <span>검색</span>
@@ -15,7 +15,7 @@
 	            <button class="custom_btn btn_inquiry"  type="button" onClick="noticeSearchList();">조회</button>
 	      </div>
       </form>
-      <div class="custom_btn_wrap" style="margin-top: 50px;">
+      <div class="custom_btn_wrap" style="margin-top: 10px;">
           <button class="custom_btn btn_no_select" id="noticeListDeleteBtn">선택 삭제</button>
           <button type="button" class="custom_btn btn_user_registration" data-bs-toggle="modal" data-bs-target="#myModal">공지사항등록</button>
       </div>
@@ -47,7 +47,7 @@
       <div class="mb-0">
         <!-- 공지사항 등록 모달 -->
         <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-          <div class="modal-dialog user-modal">
+          <div class="modal-dialog user-modal notice_edit_modal_wrap">
               <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                       <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
@@ -67,22 +67,25 @@
 	                                      <tr>
 	                                        <td>제목</td>
 	                                          <td>
-	                                            <input type="text" name="notice_title" id="insNoticeTitle" required>
+	                                            <input class="custom_search_input user_in_modal_input" type="text" name="notice_title" id="insNoticeTitle" required>
 	                                      	  </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>내용</td>
 	                                          <td>
-	                                          <textarea name="notice_content" id="insNoticeContent" cols="70" rows="10" required></textarea>
+	                                          <textarea class="custom_search_input user_in_modal_input" name="notice_content" id="insNoticeContent" cols="70" rows="10" required style="height: 200px;"></textarea>
 	                                          </td>
 	                                      </tr>
 	                                  </tbody>
 	                              </table>
-	                              <button class="btn btn-secondary btn_save" type="button" id="noticeInsBtn">저장</button>
                               </form>
                           </div>
                       </div>
                     </div>
+						<div class="user_in_modal_footer_wrap">
+                    	   <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="noticeInsBtn">저장</button>
+	                       <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                     </div>
                     <!--  -->
                   </div>
               </div>
@@ -141,7 +144,7 @@
       
       <!-- 공지사항 수정 모달 -->
       <div id="NoticeModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog notice-modal">
+        <div class="modal-dialog notice-modal notice_edit_modal_wrap">
             <div class="modal-content">
                 <div class="modal-header mv-modal-header">
                     <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
@@ -162,23 +165,27 @@
 	                                    <tr>
 	                                      <td>제목</td>
 	                                        <td>
-	                                          <input type="text" name="notice_title" id="modNoticeTitle">
+	                                          <input class="custom_search_input user_in_modal_input" type="text" name="notice_title" id="modNoticeTitle">
 	                                        </td>
 	                                    </tr>
 	
 	                                    <tr>
 	                                      <td>내용</td>
 	                                      <td>
-	                                      	<textarea name="notice_content" id="modNoticeContent" cols="70" rows="10"></textarea>
+	                                      	<textarea class="custom_search_input user_in_modal_input" name="notice_content" id="modNoticeContent" cols="70" rows="10" style="height: 200px;"></textarea>
 	                                      </td>
 	                                    </tr>
 	                                </tbody>
 	                            </table>
-	                            <button class="btn btn-secondary btn_save" type="button" id="noticeModBtn">저장</button>
+	                          
                       		</form>
                         </div>
                     </div>
                   </div>
+					<div class="user_in_modal_footer_wrap">
+                   	   <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="noticeModBtn">저장</button>
+	                   <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                </div>
                   <!--  -->
                 </div>
             </div>
@@ -240,18 +247,18 @@
               
               <ul class="btn-group pagination">
 			    <c:if test="${pageMaker.prev }">
-			    <li>
-			        <a href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+			    <li class="page-item">
+			        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
 			    </li>
 			    </c:if>
 			    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-			    <li>
-			        <a href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+			    <li class="page-item">
+			        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
 			    </li>
 			    </c:forEach>
 			    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-			    <li>
-			        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+			    <li class="page-item">
+			        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 			    </li>
 			    </c:if>
 			</ul>            

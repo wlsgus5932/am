@@ -10,6 +10,7 @@ import egovframework.aviation.metadata.vo.Class3VO;
 import egovframework.aviation.metadata.vo.ConditionVO;
 import egovframework.aviation.metadata.vo.CountryVO;
 import egovframework.aviation.metadata.vo.EraVO;
+import egovframework.aviation.metadata.vo.ExchangeVO;
 import egovframework.aviation.metadata.vo.ExistenceVO;
 import egovframework.aviation.metadata.vo.GgnuriVO;
 import egovframework.aviation.metadata.vo.IcaoVO;
@@ -132,7 +133,7 @@ public interface MetaDataService {
 
 	int deleteMovement(int movement_idx);
 
-	List<MovementVO> getMovement(int item_idx);
+	List<MovementVO> getMovement(MovementParamVO param);
 
 	List<MovementInVO> getMovementOut(int movement_id);
 
@@ -189,6 +190,20 @@ public interface MetaDataService {
 	List<KeywordVO> getKeywordList(KeywordParamVO param);
 
 	List<MovementVO> getMovementData(int movement_idx);
+
+	List<MovementVO> getMovementExcel(MovementParamVO param);
+
+	int getMovementListCnt(MovementParamVO param);
+
+	Integer getMetaDataInfo(MetaDataParamVO param);
+
+	String searchItemNo(MetaDataParamVO param);
+
+	int setItemNo(MetaDataParamVO param);
+
+	List<ExchangeVO> getExchange();
+
+	List<ItemBaseVO> getSearchItemNext(MetaDataParamVO param);
 
 
 

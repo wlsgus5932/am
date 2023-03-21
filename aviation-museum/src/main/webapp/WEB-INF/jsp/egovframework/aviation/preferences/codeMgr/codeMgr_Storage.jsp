@@ -43,14 +43,14 @@
                         <label class="col-md-2 col-form-label st_title">코드찾기</label>
                       </div>
                       <div class="card-body">
-                      	<form id="storageSearchForm" name="storageSearchForm" method="post" class="form-horizontal">
+                      	<form id="storageSearchForm" name="storageSearchForm" method="post" class="form-horizontal" onsubmit="return false">
 	                        <div class="table-responsive">
 	                          <table class="table mb-0">
 	                            <tbody>
 	                              <tr>
 	                                <td>코드명</td>
 	                                <td>
-										<input type="text" id="search_word" name="search_word" >
+										<input type="text" id="search_word" name="search_word" onkeypress="if( event.keyCode == 13 ){storageSearchList();}">
 										<input type="hidden" id="search_type" name="search_type" value="storage_nm">
 										<button type="button" onClick="storageSearchList();">코드찾기</button>
 									</td>
@@ -170,11 +170,11 @@
 				  
 			});
     		
-			$('input[type="text"]').keydown(function() {
-	  			  if (event.keyCode === 13) {
-	  			    event.preventDefault();
-	  			  };
-			});
+// 			$('input[type="text"]').keydown(function() {
+// 	  			  if (event.keyCode === 13) {
+// 	  			    event.preventDefault();
+// 	  			  };
+// 			});
 			
             function getJson() {
 //             	var icon = "";

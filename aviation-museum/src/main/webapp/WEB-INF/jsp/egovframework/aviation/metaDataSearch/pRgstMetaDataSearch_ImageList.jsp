@@ -149,7 +149,7 @@
                
             <div class="tab-pane" id="messages" role="tabpanel" style="display:block;">
               <!-- 리스트 출력~ 분류별 검색 입력 창 -->
-              <form id="metaDataSearchImageListForm" name="metaDataSearchImageListForm" method="post" class="form-horizontal">
+              <form id="metaDataSearchImageListForm" name="metaDataSearchImageListForm" method="post" class="form-horizontal" onsubmit="return false">
 	              <div class="st_wrap st_mv_wrap search_input_wrap">
 	                <div class="search_left">
 		                  리스트 출력
@@ -160,7 +160,7 @@
 		                  </select>
 		                  결과내 재검색 <input type="checkbox" id="research_word" name="research_word"/>
 		                  <input type="hidden" id="researched_word" name="researched_word"/>
-		                  <input class="search_select" list="datalistOptions" placeholder="검색어를 입력해 주세요." id="search_word" name="search_word" />
+		                  <input class="search_select" list="datalistOptions" placeholder="검색어를 입력해 주세요." id="search_word" name="search_word" onkeypress="if( event.keyCode == 13 ){metaDataSearchImageList();}" />
 		                  <input type="hidden" id="searched_word" name="searched_word"/>
 		                  <button class="custom_btn btn_707070" type="button" onClick="metaDataSearchImageList();">검색</button>
 		                  <button class="custom_btn btn_707070" type="button" data-bs-toggle="modal" data-bs-target="#TagModal-1">상세검색</button>
@@ -449,6 +449,7 @@
         	  $(function(){
          		 gallery = new Viewer(document.getElementById('gallery'));
          		 qty();
+         		 $('#search_word').focus();
         	  })
         	  
         	  function qty(){

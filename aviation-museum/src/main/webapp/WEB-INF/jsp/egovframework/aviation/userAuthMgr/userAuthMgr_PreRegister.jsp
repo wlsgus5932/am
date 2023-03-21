@@ -12,19 +12,22 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th class="control_card_header">
-                              <span>그룹명</span>
-                              <select class="search_select" name="group_idx" id="group_select" onchange="groupChange(this)">
-	                              <c:forEach var="groupList" items="${groupList}">
-	                                 <option value="${groupList.group_idx}">${groupList.group_nm}</option>
-	                         	  </c:forEach>
-                              </select>
-                            </th>
+<!--                             <th class="control_card_header"> -->
+                            	<th style="text-align: left;">그룹명</th>
+<!--                               <span>그룹명</span> -->
+								<th>
+	                              <select class="search_select" name="group_idx" id="group_select" onchange="groupChange(this)" style="float: right;">
+		                              <c:forEach var="groupList" items="${groupList}">
+		                                 <option value="${groupList.group_idx}">${groupList.group_nm}</option>
+		                         	  </c:forEach>
+	                              </select>								
+								</th>
+<!--                             </th> -->
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <td>중앙 관리자 권한입니다(시스템 생성)</td>
+                            <td colspan="2">중앙 관리자 권한입니다(시스템 생성)</td>
                           </tr>
                         </tbody>
                       </table>
@@ -60,11 +63,11 @@
                 <!--  -->
                 <div class="user_control_right col-xl-6">
                   <h5 class="user_control_text">권한설정
-                   <form action="/menuAuthUpdate.do" method="post" name="menuAuthModform" id="menuAuthModform"> 
+                   <form action="/menuAuthUpdate.do" method="post" name="menuAuthModform" id="menuAuthModform" style="width: 20%;"> 
 				  	<input type="hidden" id="pGroup_idx" name="group_idx"/>   
 				  	<input type="hidden" id="pMenu_code_idx" name="possession_code_idx"/>
-				  	<button class="custom_btn btn_707070" type="button" id="allCheck">전체선택</button>  
-				  	<button class="custom_btn btn_707070" type="button" id="preRegisterModBtn">선택변경</button>     
+				  	<button class="custom_btn btn_707070 user_mgt_btn" type="button" id="allCheck">전체선택</button>  
+				  	<button class="custom_btn btn_707070 user_mgt_btn" type="button" id="preRegisterModBtn">선택변경</button>     
 				  </form>	                     	    
                   </h5>
                   <div class="user_control_card_wrap card">
@@ -73,6 +76,7 @@
                         <thead>
                           <tr class="tr_bgc">
                             <th colspan="3">소장구분 선택</th>
+                            <th colspan="3"></th>
                           </tr>
                         </thead>
                         <tbody class="user_control_bd user_control_bd2">
@@ -138,7 +142,7 @@
  				
  				$('#allCheck').toggleClass("checked");
  				
- 				if(!$('#allCheck').attr('class')){
+ 				if($('#allCheck').attr('class').indexOf('checked') == -1){
  					val = false;
  				}
  				 $(':checkbox').each(function() {

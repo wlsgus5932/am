@@ -55,6 +55,7 @@ const set_itemBase_input = async (list) => {
 	
 	countryList.forEach(async (e, i) => {
 		$('#country-tbody').children('tr:not(:first-child)').remove();
+		if(i != 0) addClassTd('country-table', 'country-tbody');
 		$('#country-select'+i).val(e.country_code_idx).prop("selected", true);
 		await changeCountry(e.country_code_idx, 0);
 		$('#era-select'+i).val(e.era_code_idx).prop("selected", true);
@@ -95,7 +96,9 @@ const set_itemBase_input = async (list) => {
 		$('#obt_designation').val(e.designation).prop("selected", true);
 		$('#obt_redemption').val(e.redemption).prop("selected", true);
 		$('#obt_country_code_idx').val(e.country_code_idx).prop("selected", true);
-		$('#obt_qty').val(e.qty);
+		if($('#obt_qty').val() != 0) {
+			$('#obt_qty').val(e.qty);
+		}
 		$('#obt_qty_unit_code_idx').val(e.qty_unit_code_idx).prop("selected", true);
 		$('#obt_redemption_date').val(e.redemption_date);
 	})
@@ -103,31 +106,32 @@ const set_itemBase_input = async (list) => {
 	involvementList.forEach((e,i) => {
 		$('#possession-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('possession-table', 'possession-tbody');
-		$('#invol_possession_code_idx').val(e.possession_code_idx).prop("selected", true);
-		$('#invol_item_no').val(e.item_no);
-		$('#invol_remark').val(e.remark);
+		$('#invol_org_code_idx'+i).val(e.org_code_idx).prop("selected", true);
+		$('#invol_possession_code_idx'+i).val(e.possession_code_idx).prop("selected", true);
+		$('#invol_item_no'+i).val(e.item_no);
+		$('#invol_remark'+i).val(e.remark);
 	})
 	
 	InsuranceList.forEach((e,i) => {
 		$('#insurance-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('insurance-table', 'insurance-tbody');
-		$('#insu_agreed_value').val(e.agreed_value);
-		$('#insu_price_unit_code_idx').val(e.price_unit_code_idx).prop("selected", true);
-		$('#insu_start_date').val(e.start_date);
-		$('#insu_end_date').val(e.end_date);
-		$('#insu_rental_org').val(e.rental_org);
-		$('#insu_remark').val(e.remark);
+		$('#insu_agreed_value'+i).val(e.agreed_value);
+		$('#insu_price_unit_code_idx'+i).val(e.price_unit_code_idx).prop("selected", true);
+		$('#insu_start_date'+i).val(e.start_date);
+		$('#insu_end_date'+i).val(e.end_date);
+		$('#insu_rental_org'+i).val(e.rental_org);
+		$('#insu_remark'+i).val(e.remark);
 	})
 	
 	copyrightList.forEach((e,i) => {
 		$('#copyright-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('copyright-table', 'copyright-tbody');
-		$('#copy_copyright').val(e.copyright).prop("selected", true);
-		$('#copy_owner').val(e.owner);
-		$('#copy_expiry_date').val(e.expiry_date);
-		$('#copy_usage_permission').val(e.usage_permission);
-		$('#copy_copyright_transfer').val(e.copyright_transfer);
-		$('#copy_remark').val(e.remark);
+		$('#copy_copyright'+i).val(e.copyright).prop("selected", true);
+		$('#copy_owner'+i).val(e.owner);
+		$('#copy_expiry_date'+i).val(e.expiry_date);
+		$('#copy_usage_permission'+i).val(e.usage_permission);
+		$('#copy_copyright_transfer'+i).val(e.copyright_transfer);
+		$('#copy_remark'+i).val(e.remark);
 	})
 	
 	publicServiceList.forEach((e,i) => {
@@ -135,29 +139,22 @@ const set_itemBase_input = async (list) => {
 		$('#reason').val(e.reason);
 		$('#ggnuri_code_idx').val(e.ggnuri_code_idx).prop("selected", true);
 	})
+					if(keywordList.length > 1) {
+	    	    		let keywordArr = [];
+
+	    				keywordList.forEach((e,i) => {
+	    	    			keywordArr.push(e.keyword);
+	    	    		 })
+	    	    		 keywordArr.join(',');
+	    				$('#itembasekeyword').val(keywordArr);
+	    				return;
+	    			} else if(!keywordList.length) {
+						return;
+					} else {
+	    				$('#itembasekeyword').val(keywordList[0].keyword);
+						
+					}
 	
-	keywordList.forEach((e,i) => {
-		$('#keyword').val(e.keyword);
-	})
-	
-	let item_idx = sessionStorage.getItem("item_idx");
-	
-	$.ajax({
-			type : 'POST',                 
-			url : '/getKeywordList.do',
-			data: {
-				item_idx: item_idx
-			},			
-			dataType : "html",           
-			contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-			error : function() {
-					alert('통신실패!');
-			},
-			success : function(data) {  
-				console.log(data);
-				$('#keywordZone').empty().append(data);
-			}
-		});
 }
 
 

@@ -39,6 +39,7 @@
 
 .user_control_bd tr td {
   border-bottom: 2px solid #ececec !important;
+  border-top : 2px solid #ececec !important;
 }
 
 .user_control_bd2 tr td {
