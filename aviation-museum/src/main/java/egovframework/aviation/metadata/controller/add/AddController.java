@@ -257,7 +257,6 @@ public class AddController {
 						 service.setKeyword(param);
 					 }
 					 
-					
 					service.setGgnuri(param);
 					
 				 }
