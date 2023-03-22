@@ -3551,9 +3551,6 @@
 
             <!-- 보존처리 -->
             <div class="tab-pane" id="settings" role="tabpanel">
-
-            <div class="mb-0">
-		     </div>
             <form id="preservation-form0" enctype="multipart/form-data">
             <div id="accordion-div">
               <div class="accordion-item" id="preservation-div">

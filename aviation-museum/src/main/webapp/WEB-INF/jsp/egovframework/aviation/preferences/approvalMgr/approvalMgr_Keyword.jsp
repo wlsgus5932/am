@@ -176,7 +176,7 @@
               <!-- -->
                <!-- 반려 사유 모달 -->
                 <div id="ReturnModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-modal="true" role="dialog">
-                  <div class="modal-dialog user-modal">
+                  <div class="modal-dialog user-modal preferences_deit_modal_wrap">
                       <div class="modal-content">
                           <div class="modal-header mv-modal-header">
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

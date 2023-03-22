@@ -21,9 +21,9 @@
                   </div>
                 </div>
               </div>
-              <!-- 태그등록 모달 -->
+              <!-- ㅎ 모달 -->
               <div id="TagModal-11" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog user-modal">
+                <div class="modal-dialog user-modal preferences_deit_modal_wrap">
                     <div class="modal-content">
                         <div class="modal-header mv-modal-header">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="exchnRateInsBtnClose"></button>
@@ -41,13 +41,13 @@
 	                                            <tr>
 	                                              <td>제공자이름</td>
 	                                                <td>
-	                                                  <input type="text" name="provider_nm" id="insExchnRateNm">
+	                                                  <input class="custom_search_input user_in_modal_input" type="text" name="provider_nm" id="insExchnRateNm">
 	                                                </td>
 	                                            </tr>
 	                                            <tr>
 	                                              <td>제공주소</td>
 	                                                <td>
-	                                                  <input type="text" name="service_url" id="insExchnRateServiceUrl">
+	                                                  <input class="custom_search_input user_in_modal_input" type="text" name="service_url" id="insExchnRateServiceUrl">
 	                                                </td>
 	                                            </tr>
 <!-- 	                                            <tr> -->
@@ -59,24 +59,28 @@
 	                                            <tr>
 	                                              <td>사용 여부</td>
 	                                              <td>
-	                                                <input type="checkbox" name="enabled" value="Y">사용
-	                                                <input type="checkbox" name="enabled" value="N">미사용
+	                                                <input type="radio" name="enabled" value="Y">사용
+	                                                <input type="radio" name="enabled" value="N">미사용
 	                                              </td>
 	                                            </tr>
 	                                        </tbody>
 	                                    </table>
-                                   		<button class="btn btn-secondary btn_save" type="button" id="exchnRateInsBtn">저장</button>
+                                   		
                                 	</form>
                                 </div>
                                 </div>
                             </div>
+                            	<div class="user_in_modal_footer_wrap">
+                          				 <button class="custom_btn btn_c58672 user_in_modal_footer_btn">저장</button>
+	                             	     <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                            </div>
                           </div>
                         </div>
                     </div>
                 </div>
               <!-- 태그수정 모달 -->
               <div id="TagModal-22" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog user-modal">
+                <div class="modal-dialog user-modal preferences_deit_modal_wrap">
                     <div class="modal-content">
                         <div class="modal-header mv-modal-header">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="exchnRateModBtnClose"></button>
@@ -95,13 +99,13 @@
 	                                          	<tr>
 	                                              <td>제공자이름</td>
 	                                                <td>
-	                                                  <input type="text" name="provider_nm" id="modExchnRateNm">
+	                                                  <input class="custom_search_input user_in_modal_input"  type="text" name="provider_nm" id="modExchnRateNm">
 	                                                </td>
 	                                            </tr>
 	                                            <tr>
 	                                              <td>제공주소</td>
 	                                                <td>
-	                                                  <input type="text" name="service_url" id="modExchnRateServiceUrl">
+	                                                  <input class="custom_search_input user_in_modal_input"  type="text" name="service_url" id="modExchnRateServiceUrl">
 	                                                </td>
 	                                            </tr>
 <!-- 	                                            <tr> -->
@@ -113,17 +117,22 @@
 	                                            <tr>
 	                                              <td>사용 여부</td>
 	                                              <td>
-	                                                <input type="checkbox" name="enabled"  id="modExchnRateEnabledY" value="Y">사용
-	                                                <input type="checkbox" name="enabled"  id="modExchnRateEnabledN" value="N">미사용
+	                                                <input type="radio" name="enabled"  id="modExchnRateEnabledY" value="Y">사용
+	                                                <input type="radio" name="enabled"  id="modExchnRateEnabledN" value="N">미사용
 	                                              </td>
 	                                            </tr>
 	                                        </tbody>
 	                                    </table>
-	                                    <button class="btn btn-secondary btn_save" type="button" id="exchnRateModBtn">저장</button>
+
                               		</form>
                                 </div>
                                 </div>
                             </div>
+                                 <div class="user_in_modal_footer_wrap">
+	                                    <button class="btn btn-secondary btn_save" type="button" id="exchnRateModBtn">저장</button>
+	                             	     <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                            </div>
+                            
                           </div>
                         </div>
                     </div>

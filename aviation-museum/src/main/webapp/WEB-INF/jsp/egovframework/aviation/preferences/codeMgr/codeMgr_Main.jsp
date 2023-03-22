@@ -20,6 +20,7 @@
     <link href="assets/css/custom.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="assets/css/custom_user_control.css" />
     <link rel="stylesheet" href="assets/css/custom_setting.css" />
+<!--     <link rel="stylesheet" href="assets/css/custom_view.css" /> -->
  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
   
   <script type="text/javascript">

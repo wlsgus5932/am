@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
-     <div class="tab-pane" id="profile" role="tabpanel" style="display:inline-block;">
+     <div class="tab-pane" id="profile" role="tabpanel" style="display:block;">
      <form id="errorFixSearchForm" name="errorFixSearchForm" method="post" class="form-horizontal">
 	      <div class="user_top_wrap" style="margin-top:20px;">
 	          <span>검색</span>
@@ -16,9 +16,9 @@
 	            <button class="custom_btn btn_inquiry"  type="button" onClick="errorFixSearchList();">조회</button>
 	      </div>
       </form>
-      <div class="custom_btn_wrap" style="margin-top: 50px;">
+      <div class="custom_btn_wrap" style="margin-top: 10px;">
           <button class="custom_btn btn_no_select" id="errorFixListDeleteBtn">선택 삭제</button>
-          <button type="button" class="custom_btn btn_user_registration" data-bs-toggle="modal" data-bs-target="#myModal">오류신고/개선사항등록</button>
+          <button type="button" class="custom_btn btn_user_registration" data-bs-toggle="modal" data-bs-target="#myModal">오류신고 / 개선사항등록</button>
       </div>
 <!--       <div id="DelModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-modal="true" role="dialog"> -->
 <!--                 <div class="modal-dialog modal-dialog-centered"> -->
@@ -48,7 +48,7 @@
       <div class="mb-0">
         <!-- 오류신고 & 개선사항 등록 모달 -->
         <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-          <div class="modal-dialog user-modal">
+          <div class="modal-dialog user-modal faq_edit_modal_wrap">
               <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                       <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
@@ -68,7 +68,7 @@
 	                                  	  <tr>
 	                                        <td>구분</td>
 	                                        <td>
-	                                        	<select class="search_select" name="board_type" id="BoardType">
+	                                        	<select class="search_select user_in_modal_input" name="board_type" id="BoardType">
 							                     	<option value="E">오류신고</option>
 							                        <option value="F">개선사항</option>
                     							</select>
@@ -77,28 +77,32 @@
 	                                      <tr>
 	                                        <td>기관명</td>
 	                                          <td>
-	                                            <input type="text" name="error_fix_org_nm" id="insErrorFixOrgNm">
+	                                            <input class="custom_search_input user_in_modal_input" type="text" name="error_fix_org_nm" id="insErrorFixOrgNm">
 	                                      	  </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>제목</td>
 	                                          <td>
-	                                            <input type="text" name="error_fix_title" id="insErrorFixTitle">
+	                                            <input class="custom_search_input user_in_modal_input" type="text" name="error_fix_title" id="insErrorFixTitle">
 	                                      	  </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>내용</td>
 	                                          <td>
-	                                          <textarea name="error_fix_content" id="insErrorFixContent" cols="70" rows="10"></textarea>
+	                                          <textarea style="height: 100px;" class="custom_search_input user_in_modal_input" name="error_fix_content" id="insErrorFixContent" cols="70" rows="10"></textarea>
 	                                          </td>
 	                                      </tr>
 	                                  </tbody>
 	                              </table>
-	                              <button class="btn btn-secondary btn_save" type="button" id="errorFixInsBtn">저장</button>
+	                              
                               </form>
                           </div>
                       </div>
                     </div>
+						<div class="user_in_modal_footer_wrap">
+                    		<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="errorFixInsBtn">저장</button>
+	                        <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                    </div>                    
                     <!--  -->
                   </div>
               </div>
@@ -167,9 +171,9 @@
           </div>
       </div>
       
-      <!-- 공지사항 수정 모달 -->
+      <!-- 오류신고 개선센터 수정 모달 -->
       <div id="ErrorFixModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog notice-modal">
+        <div class="modal-dialog notice-modal faq_edit_modal_wrap">
             <div class="modal-content">
                 <div class="modal-header mv-modal-header">
                     <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
@@ -190,7 +194,7 @@
 	                                	<tr>
 	                                      <td>구분</td>
 	                                        <td>
-	                                        	<select class="search_select" name="board_type" id="modBoardType">
+	                                        	<select class="search_select user_in_modal_input" name="board_type" id="modBoardType">
 							                     	<option value="E">오류신고</option>
 							                        <option value="F">개선사항</option>
                     							</select>
@@ -199,29 +203,33 @@
 	                                    <tr>
 	                                      <td>기관명</td>
 	                                        <td>
-	                                          <input type="text" name="error_fix_org_nm" id="modErrorFixOrgNm">
+	                                          <input class="custom_search_input user_in_modal_input" type="text" name="error_fix_org_nm" id="modErrorFixOrgNm">
 	                                        </td>
 	                                    </tr>
 	                                    <tr>
 	                                      <td>제목</td>
 	                                        <td>
-	                                          <input type="text" name="error_fix_title" id="modErrorFixTitle">
+	                                          <input class="custom_search_input user_in_modal_input" type="text" name="error_fix_title" id="modErrorFixTitle">
 	                                        </td>
 	                                    </tr>
 	
 	                                    <tr>
 	                                      <td>내용</td>
 	                                      <td>
-	                                      	<textarea name="error_fix_content" id="modErrorFixContent" cols="70" rows="10"></textarea>
+	                                      	<textarea class="custom_search_input user_in_modal_input" style="height: 100px;" name="error_fix_content" id="modErrorFixContent" cols="70" rows="10"></textarea>
 	                                      </td>
 	                                    </tr>
 	                                </tbody>
 	                            </table>
-	                            <button class="btn btn-secondary btn_save" type="button" id="errorFixModBtn">저장</button>
+
                       		</form>
                         </div>
                     </div>
                   </div>
+						<div class="user_in_modal_footer_wrap">
+		                              <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="errorFixModBtn">저장</button>
+	                             	  <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                    </div>                       
                   <!--  -->
                 </div>
             </div>

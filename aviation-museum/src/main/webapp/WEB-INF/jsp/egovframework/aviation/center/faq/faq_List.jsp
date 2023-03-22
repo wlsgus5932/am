@@ -15,11 +15,11 @@
 	            <button class="custom_btn btn_inquiry"  type="button" onClick="faqSearchList();">조회</button>
 	      </div>
       </form>
-      <div style="margin-top: 50px;">
+      <div style="margin-top: 15px;">
       	  <label class="custom_btn btn_no_select"><input type="checkbox" id="checkAll" onchange="checkAll()"style="display:none;">전체 선택</label>
 <!--           <button class="custom_btn btn_no_select" id="allCheck" onclick="allCheck()">전체 선택</button> -->
           <button class="custom_btn btn_no_select" id="faqListDeleteBtn">선택 삭제</button>
-          <button type="button" class="custom_btn btn_user_registration" data-bs-toggle="modal" data-bs-target="#myModal" style="float: right;">FAQ등록</button>
+          <button type="button" class="custom_btn btn_user_registration" data-bs-toggle="modal" data-bs-target="#myModal" style="float: right;">FAQ 등록</button>
       </div>
 <!--       <div id="DelModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-modal="true" role="dialog"> -->
 <!--                 <div class="modal-dialog modal-dialog-centered"> -->
@@ -46,10 +46,10 @@
 <!--                   </div> -->
 <!--                 </div> -->
 <!--       </div> -->
-      <div class="mb-0">
+      <div class="mb-0 faq_main_wrap">
         <!-- 공지사항 등록 모달 -->
         <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-          <div class="modal-dialog user-modal">
+          <div class="modal-dialog user-modal faq_edit_modal_wrap">
               <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                       <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
@@ -69,30 +69,37 @@
 	                                      <tr>
 	                                        <td>질문</td>
 	                                          <td>
-	                                            <textarea name="faq_content" id="insFaqContent" cols="70" rows="3" required></textarea>
+	                                            <textarea style="height: 80px;" class="custom_search_input user_in_modal_input" name="faq_content" id="insFaqContent" cols="70" rows="3" required></textarea>
 	                                      	  </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>답변</td>
 	                                          <td>
-	                                          	<textarea name="answer_contents" id="insAnswerContents" cols="70" rows="3" required></textarea>
+	                                          	<textarea style="height: 80px;" class="custom_search_input user_in_modal_input" name="answer_contents" id="insAnswerContents" cols="70" rows="3" required></textarea>
 	                                          </td>
 	                                      </tr>
 	                                  </tbody>
 	                              </table>
-	                              <button class="btn btn-secondary btn_save" type="button" id="faqInsBtn">저장</button>
+
                               </form>
                           </div>
                       </div>
                     </div>
+                    
+            						<div class="user_in_modal_footer_wrap">
+	                              		 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="faqInsBtn">저장</button>
+	                             	     <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                              </div>        
+                    
+                    
                     <!--  -->
                   </div>
               </div>
           </div>
       </div>
-       <div class="st_wrap st_mv_wrap" style="border-bottom: 2px solid; padding-bottom: 2%;">
+       <div class="st_wrap st_mv_wrap" style="border-bottom: 2px solid; padding-bottom: 1%; margin: auto;">
                 <div>
-                    <select class="form-select st_select img-select" id="perPageNum" name="perPageNum" onchange="changePerPageNum(value);">
+                    <select class="search_select" id="perPageNum" name="perPageNum" onchange="changePerPageNum(value);">
                      	<option value="10" <c:if test="${pageMaker.cri.perPageNum == 10}">selected</c:if>>10개씩 보기</option>
                         <option value="20" <c:if test="${pageMaker.cri.perPageNum == 20}">selected</c:if>>20개씩 보기</option>
                         <option value="30" <c:if test="${pageMaker.cri.perPageNum == 30}">selected</c:if>>30개씩 보기</option>
@@ -102,7 +109,7 @@
 
       <!-- FAQ 수정 모달 -->
       <div id="FaqModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog notice-modal">
+        <div class="modal-dialog notice-modal faq_edit_modal_wrap">
             <div class="modal-content">
                 <div class="modal-header mv-modal-header">
                     <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
@@ -123,23 +130,27 @@
 	                                    <tr>
 	                                      <td>질문</td>
 	                                        <td>
-	                                          <textarea name="faq_content" id="modFaqContent" cols="70" rows="3" required></textarea>
+	                                          <textarea style="height: 80px;" class="custom_search_input user_in_modal_input" name="faq_content" id="modFaqContent" cols="70" rows="3" required></textarea>
 	                                        </td>
 	                                    </tr>
 
 	                                    <tr>
 	                                      <td>답변</td>
 	                                      <td>
-	                                      	<textarea name="answer_contents" id="modAnswerContents" cols="70" rows="3" required></textarea>
+	                                      	<textarea style="height: 80px;" class="custom_search_input user_in_modal_input" name="answer_contents" id="modAnswerContents" cols="70" rows="3" required></textarea>
 	                                      </td>
 	                                    </tr>
 	                                </tbody>
 	                            </table>
-	                            <button class="btn btn-secondary btn_save" type="button" id="faqModBtn">저장</button>
+
                       		</form>
                         </div>
                     </div>
                   </div>
+						<div class="user_in_modal_footer_wrap">
+	                            <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="faqModBtn">저장</button>
+	                            <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                    </div>
                   <!--  -->
                 </div>
             </div>
@@ -148,11 +159,11 @@
       <!-- FAQ 목록 -->
         <div class="card-body">
           <div class="table-responsive">
-              <table class="table mb-0">
+              <table class="table mb-0 faq_table">
 
                   <tbody>
                       <c:forEach var="faqList" items="${faqList}">
-	                      <tr style="border-bottom: 2px solid;">
+	                      <tr style="border-bottom: 2px solid #d9d9d9;">
 	                          <td style="width: 5%;">
 	                            <input type="checkbox" name="faq_seqList" id="" class="check_temp" value="${faqList.faq_idx}">
 	                          </td>
