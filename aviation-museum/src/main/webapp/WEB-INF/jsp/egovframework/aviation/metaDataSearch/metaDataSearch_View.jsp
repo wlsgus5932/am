@@ -34,15 +34,15 @@
     <script src="<c:url value='/assets/js/metadata/metadataList.js'/>"></script>
     <script>
 		  $(function() {
-		  	$('.img-slider').slick();
+// 		  	$('.img-slider').slick();
 		  	
-			  var currentPosition = parseInt($('.quick_menu').css('top'))
-			  $(window).scroll(function () {
-			    var position = $(window).scrollTop()
-			    $('.quick_menu')
-			      .stop()
-			      .animate({ 'top': position + currentPosition + 'px' }, 500)
-			  })
+// 			  var currentPosition = parseInt($('.quick_menu').css('top'))
+// 			  $(window).scroll(function () {
+// 			    var position = $(window).scrollTop()
+// 			    $('.quick_menu')
+// 			      .stop()
+// 			      .animate({ 'top': position + currentPosition + 'px' }, 500)
+// 			  })
 	  
 	    	  $('#possession_code_idx').val(${possession_code_idx});
 	    	  $('#org_code_idx').val(${org_code_idx});
