@@ -188,7 +188,7 @@
                   <button class="custom_btn btn_707070">전체선택</button><button class="custom_btn btn_707070">선택해지</button>
                   <button class="custom_btn btn_c28876">항목 추가 및 삭제</button>
                 </div>
-                <div class="search_btn_right"><button class="custom_btn btn_707070">사용자 지정양식 인쇄</button><button class="custom_btn btn_707070">목록 인쇄</button></div>
+                <div class="search_btn_right"><button class="custom_btn btn_707070">사용자 지정양식 인쇄</button><button class="custom_btn btn_707070" onclick="content_print()">목록 인쇄</button></div>
               </div>
               <!-- 관심사료 모달창 -->
               <div id="Like2Modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
@@ -296,7 +296,7 @@
                     </table>
                   </div>
                   <!--  -->
-                  <div class="tab-pane fade active show" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                  <div class="tab-pane fade active show" id="dataDiv" role="tabpanel" aria-labelledby="pills-home-tab">
                     <div class="container text-center">
                       <div class="row row-cols-auto img-row" id="gallery">
                         
@@ -312,7 +312,14 @@
 <!-- 	                                <h4>이미지 설명</h4> -->
 <!-- 	                                <p>설명없음</p> -->
 <!-- 	                              </div> -->
-	                              <img src="${metaDataSearchImageList.image_path}" alt="이미지" />
+                              		<c:choose>
+	                             		<c:when test="${metaDataSearchImageList.image_path ne null}">
+	                             		 	 <img src="${metaDataSearchImageList.image_path}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+	                            		</c:when>
+	                            		<c:otherwise>
+	                            			<img src="/assets/images/no_image.png" alt="이미지">
+	                            		</c:otherwise>
+	                            	</c:choose>
 	                            </a>
 	                          </div>
 	                          <div class="img-col-info">
@@ -356,18 +363,18 @@
               </div>
 	           	<ul class="btn-group pagination">
 				    <c:if test="${pageMaker.prev }">
-				    <li>
-				        <a href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+				    <li class="page-item">
+				        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
 				    </li>
 				    </c:if>
 				    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-				    <li>
-				        <a href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+				    <li class="page-item">
+				        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
 				    </li>
 				    </c:forEach>
 				    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-				    <li>
-				        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+				    <li class="page-item">
+				        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 				    </li>
 				    </c:if>
 				</ul> 

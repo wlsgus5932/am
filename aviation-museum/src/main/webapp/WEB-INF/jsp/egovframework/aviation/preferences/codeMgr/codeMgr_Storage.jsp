@@ -32,7 +32,7 @@
             
             <!-- 코드찾기 모달창 -->
             <div id="code_find_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
-              <div class="modal-dialog user-modal">
+              <div class="modal-dialog user-modal preferences_deit_modal_wrap_2">
                 <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="subCodeSearchClose"></button>
@@ -48,11 +48,11 @@
 	                          <table class="table mb-0">
 	                            <tbody>
 	                              <tr>
-	                                <td>코드명</td>
+	                                <td style="width: 15%">코드명</td>
 	                                <td>
-										<input type="text" id="search_word" name="search_word" onkeypress="if( event.keyCode == 13 ){storageSearchList();}">
-										<input type="hidden" id="search_type" name="search_type" value="storage_nm">
-										<button type="button" onClick="storageSearchList();">코드찾기</button>
+										<input class="custom_search_input user_in_modal_input_4" type="text" id="search_word" name="search_word" onkeypress="if( event.keyCode == 13 ){storageSearchList();}">
+										<input class="custom_search_input user_in_modal_input_4" type="hidden" id="search_type" name="search_type" value="storage_nm">
+										<button class="custom_btn btn_707070 btn_707070_7040" type="button" onClick="storageSearchList();">코드찾기</button>
 									</td>
 	                              </tr>
 	                            </tbody>

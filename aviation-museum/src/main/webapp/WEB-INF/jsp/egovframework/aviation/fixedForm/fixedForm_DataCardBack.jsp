@@ -208,7 +208,7 @@
             </div>
             	<div id="dataDiv"> 
 	          	   <c:forEach var="dataCardBackPList" items="${dataCardBackPList}" varStatus="varStatus">
-		              <div class="card-body" id="${varStatus.count}">
+		              <div class="card-body dataDiv" id="${varStatus.count}" style="page-break-before:always">
 		               <input type="hidden" id="item_no" value="${dataCardBackPList.item_no}"/>
 	              	   <input type="hidden" id="item_detail_no" value="${dataCardBackPList.item_detail_no}"/>
 		                <div class="form_preview_wrap">양식 미리보기</div>

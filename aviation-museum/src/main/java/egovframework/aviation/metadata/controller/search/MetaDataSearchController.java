@@ -251,7 +251,7 @@ public class MetaDataSearchController {
 	@RequestMapping(value="/metaDataSearch.do")
 	public String MetaDataSearch( HttpServletRequest req, RedirectAttributes rttr) {
 		String all_search_word = req.getParameter("all_search_word");
-		System.out.println(all_search_word);
+//		System.out.println(all_search_word);
 		rttr.addFlashAttribute("all_search_word", all_search_word);
 	    return "metaDataSearch/metaDataSearch_Main";
 	}
@@ -473,7 +473,7 @@ public class MetaDataSearchController {
 	            		String filePath = board.getImage_path();
 	            		System.out.println("filePath1"+filePath);
             	        if (filePath == null || filePath.isEmpty()) {
-            	        	filePath = "/no_image.png";
+            	        	filePath = "/images/no_image.png";
             	            System.out.println("filePathnull2"+filePath);
             	        }
 	            	        	 		            

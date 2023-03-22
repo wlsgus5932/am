@@ -63,6 +63,9 @@ public class UserController {
 	public String Login(HttpServletRequest req) throws Exception {
 		
 		try {
+			HttpSession session1 = req.getSession();
+			session1.invalidate();
+			
 			KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
 			generator.initialize(1024);
 

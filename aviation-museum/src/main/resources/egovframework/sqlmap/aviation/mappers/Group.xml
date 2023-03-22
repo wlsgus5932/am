@@ -205,4 +205,12 @@
 			WHERE GROUP_IDX = #{group_idx}
 			AND nmc.MENU_PATTERN = #{menu_pattern}
 	</select>
+	
+	<select id="getMenuAuthFunction"  parameterType="egovframework.aviation.group.vo.MenuAuthorityCodeJoinVO" resultType="egovframework.aviation.group.vo.MenuAuthorityCodeJoinVO">
+			SELECT 
+				* 
+			from nam_menu_code nmc 
+			WHERE PATTERN_TYPE = 'function'
+			AND MENU_PATTERN = #{menu_pattern}
+	</select>
 </mapper>

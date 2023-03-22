@@ -1018,10 +1018,6 @@ td {
   border-bottom: 0 !important;
 }
 
-.a_warp {
-  margin-bottom: 2% !important;
-}
-
 .dash_notice_border,
 .rental_li,
 .dash_main_frist_table,
@@ -1097,6 +1093,11 @@ td {
 	height: 40px;
 }
 
+.tag_in_modal_input {
+	width: 348px;
+	height: 40px;
+}
+
 .user_in_modal_footer_wrap {
 	display: flex;
     justify-content: center;
@@ -1108,14 +1109,46 @@ td {
 	height: 40px !important;
 } 
 
+.btn_707070_7040 {
+	width: 70px;
+    height: 40px;
+}
+
 
 .group_in_modal_wrap,
 .mypage_edit_modal_wrap,
-.notice_edit_modal_wrap
- {
+.notice_edit_modal_wrap,
+.faq_edit_modal_wrap,
+.preferences_deit_modal_wrap_2 {
 	width: 610px !important;
 	height: 459px !important;
 }
+
+.preferences_deit_modal_wrap {
+	width: 620px !important;
+	height: 459px !important;
+}
+
+.tag_in_modal_input_2 {
+	width: 425px;
+	height: 40px;
+}
+
+.user_in_modal_input_3 {
+	width: 405px;
+	height: 40px;
+}
+
+.user_in_modal_input_4 {
+	width: 370px;
+	height: 40px;	
+}
+
+.btn_707070_5440 {
+	width: 54px;
+	height: 40px;
+}
+
 
 
 .btn-group {
@@ -1144,6 +1177,51 @@ input[type="checkbox"]{
 	width: 50px;
 	height: 28px;
 }
+
+
+/* 소장구분, 명칭 테이블 스타일 - 시작 */
+
+/* .tbh tbody tr td:nth-child(4) { */
+/*   transition: 0.2s; */
+/* } */
+
+/* .tbh tbody tr td:nth-child(4):hover { */
+/*   background-color: #707070; */
+/*   color: #fff; */
+/*   cursor: pointer; */
+/* } */
+
+.tbh tbody tr td:nth-child(7) {
+  font-weight: 600;
+  color: #3b76e1;
+  cursor: pointer;
+  transition: 0.2;
+}
+
+.tbh tbody tr td:nth-child(7):hover {
+  text-decoration: underline;
+   color: #1C52B4;
+}
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+  /*   font-family: 'GothicA1-Light'; */
+  font-weight: 400;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* 소장구분, 명칭 테이블 스타일 - end */
+
+
+.tbh tbody tr:hover {
+  background-color: #d0d0d0;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+
 
 
 

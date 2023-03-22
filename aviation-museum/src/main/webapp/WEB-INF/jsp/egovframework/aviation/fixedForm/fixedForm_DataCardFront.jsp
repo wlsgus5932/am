@@ -59,7 +59,16 @@
 		                <div class="card-body">
 		                  <div class="form_preview_wrap">양식 미리보기</div>
 		                  <div class="main_text">자 료 카 드(앞면)</div>
-		                  <div class="print_photo_wrap"><img src="${dataCardFrontList.image_path}"></div>
+		                  <div class="print_photo_wrap">
+                              		<c:choose>
+	                             		<c:when test="${dataCardFrontList.image_path ne null}">
+	                             		 	 <img src="${dataCardFrontList.image_path}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+	                            		</c:when>
+	                            		<c:otherwise>
+	                            			<img src="/assets/images/no_image.png" alt="이미지">
+	                            		</c:otherwise>
+	                            	</c:choose>
+		                  </div>
 		                  <table>
 		                    <thead>
 		                      <tr>

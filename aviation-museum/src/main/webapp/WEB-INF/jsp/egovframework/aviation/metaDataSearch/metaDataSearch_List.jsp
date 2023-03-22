@@ -189,7 +189,7 @@
                 <div class="search_btn_left">
                  <button class="custom_btn btn_c57283" type="button" data-bs-toggle="modal" data-bs-target="#LikeModal">관심자료등록</button><button class="custom_btn btn_c28876" type="button">항목 추가 및 삭제</button>
                 </div>
-                <div class="search_btn_right"><button type="button" class="custom_btn btn_707070">사용자 지정양식 인쇄</button><button type="button" class="custom_btn btn_707070">목록 인쇄</button><button class="custom_btn btn_ex" type="button" onClick="metaDataSearchListExcelList();">엑셀파일</button></div>
+                <div class="search_btn_right"><button type="button" class="custom_btn btn_707070">사용자 지정양식 인쇄</button><button type="button" class="custom_btn btn_707070" onclick="content_print()">목록 인쇄</button><button class="custom_btn btn_ex" type="button" onClick="metaDataSearchListExcelList();">엑셀파일</button></div>
               </div>
               <!-- 관심자료 모달창 -->
               <div id="LikeModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
@@ -269,12 +269,12 @@
                   </div>
                 </div>
                 <!--  -->
-                <div class="card-body">
+                <div class="card-body" id="dataDiv">
                   <div class="table-responsive">
-                    <table class="table mb-0">
+                    <table class="table mb-0 tbh">
                       <thead>
                         <tr class="tr_bgc">
-                          <th><input type="checkbox" id="allCheck" value="" onchange="agreeAllCheck();"></th>
+                          <th id="checkbox1"><input type="checkbox" id="allCheck" value="" onchange="agreeAllCheck();"></th>
                           <th>번호</th>
                           <th>대표이미지</th>
                           <th>소장구분</th>
@@ -288,7 +288,7 @@
                       <tbody id="gallery">
 	                       <c:forEach var="metaDataSearchList" items="${metaDataSearchList}">
 		                        <tr>
-		                          <td>
+		                          <td id="checkbox2">
 		                             <input type="checkbox" name="group_seqList" class="check_temp" id="" value="${metaDataSearchList.item_idx}">
 		                          </td>
 		                          <td>${perPageNum + 1 - metaDataSearchList.rnum}</td>
@@ -316,18 +316,18 @@
                     </table>
                     <ul class="btn-group pagination">
 					    <c:if test="${pageMaker.prev }">
-					    <li>
-					        <a href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+					    <li class="page-item">
+					        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
 					    </li>
 					    </c:if>
 					    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-					    <li>
-					        <a href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+					    <li class="page-item">
+					        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
 					    </li>
 					    </c:forEach>
 					    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-					    <li>
-					        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+					    <li class="page-item">
+					        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 					    </li>
 					    </c:if>
 					</ul> 

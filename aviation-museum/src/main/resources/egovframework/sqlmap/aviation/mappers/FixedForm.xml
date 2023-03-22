@@ -28,30 +28,30 @@
 					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_PATH
 					,(SELECT ni.IMAGE_NM from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_NM
 				FROM nam_item_base nib 
-				JOIN nam_material nm
+				LEFT JOIN nam_material nm
 				ON nib.ITEM_IDX = nm.ITEM_IDX
-				JOIN (SELECT MATERIAL2_CODE_IDX, MATERIAL1_NM, MATERIAL2_NM FROM nam_material1_code nmc JOIN nam_material2_code nmc2 ON nmc.MATERIAL1_CODE_IDX = nmc2.MATERIAL1_CODE_IDX) as a
-				ON nm.MATERIAL2_CODE_IDX = a.MATERIAL2_CODE_IDX						
-				JOIN nam_country_era nce 
+				LEFT JOIN (SELECT MATERIAL2_CODE_IDX, MATERIAL1_NM, MATERIAL2_NM FROM nam_material1_code nmc LEFT JOIN nam_material2_code nmc2 ON nmc.MATERIAL1_CODE_IDX = nmc2.MATERIAL1_CODE_IDX) as a
+				ON nm.MATERIAL2_CODE_IDX = a.MATERIAL2_CODE_IDX
+				LEFT JOIN nam_country_era nce 
 				ON nib.ITEM_IDX = nce.ITEM_IDX 
-				JOIN nam_era_code nec 
+				LEFT JOIN nam_era_code nec 
 				ON nec.ERA_CODE_IDX = nce.ERA_CODE_IDX
-				JOIN nam_country_code ncc 
+				LEFT JOIN nam_country_code ncc 
 				ON nec.COUNTRY_CODE_IDX = ncc.COUNTRY_CODE_IDX
-				JOIN nam_obtainment no2 
-				ON no2.ITEM_IDX =nib.ITEM_IDX
-				JOIN nam_obtainment_code noc 
-				ON no2.OBTAINMENT_CODE_IDX = noc.OBTAINMENT_CODE_IDX 
-				JOIN nam_measurement nm2 
-				ON nib.ITEM_IDX = nm2.ITEM_IDX 
-				JOIN nam_measurement_code nmc3 
-				ON nm2.MEASUREMENT_CODE_IDX = nmc3.MEASUREMENT_CODE_IDX 
-				JOIN nam_measurement_unit_code nmuc 
+				LEFT JOIN nam_obtainment no2
+				ON nib.ITEM_IDX = no2.ITEM_IDX
+				LEFT JOIN nam_obtainment_code noc
+				ON no2.OBTAINMENT_CODE_IDX = noc.OBTAINMENT_CODE_IDX
+				LEFT JOIN nam_measurement nm2 
+				ON nib.ITEM_IDX = nm2.ITEM_IDX
+				LEFT JOIN nam_measurement_code nmc3 
+				ON nm2.MEASUREMENT_CODE_IDX = nmc3.MEASUREMENT_CODE_IDX
+				LEFT JOIN nam_measurement_unit_code nmuc 
 				ON nm2.MEASUREMENT_UNIT_CODE_IDX = nmuc.MEASUREMENT_UNIT_CODE_IDX 
-				JOIN nam_possession_code npc 
+				LEFT JOIN nam_possession_code npc 
 				ON nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX
-				JOIN nam_org_code noc2 
-				ON nib.ORG_CODE_IDX = noc2.ORG_CODE_IDX 
+				LEFT JOIN nam_org_code noc2 
+				ON nib.ORG_CODE_IDX = noc2.ORG_CODE_IDX
 				WHERE 1=1
 				<if test="org_nm != null and org_nm != ''">AND
 	                org_nm = #{org_nm}

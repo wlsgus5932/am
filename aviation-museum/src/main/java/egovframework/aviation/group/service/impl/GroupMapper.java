@@ -38,4 +38,6 @@ public interface GroupMapper {
     public int insertPossessionAuthority(PossessionAuthorityVO possessionAuthorityVO);
     
     public List<MenuAuthorityCodeJoinVO> getMenuAuth(MenuAuthorityCodeJoinVO menuAuthorityCodeJoinVO);
+    
+    public List<MenuAuthorityCodeJoinVO> getMenuAuthFunction(MenuAuthorityCodeJoinVO menuAuthorityCodeJoinVO);
 }

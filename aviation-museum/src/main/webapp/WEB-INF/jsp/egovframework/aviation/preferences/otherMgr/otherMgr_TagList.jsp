@@ -23,7 +23,7 @@
               </div>
               <!-- 태그등록 모달 -->
               <div id="TagModal-1" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog user-modal">
+                <div class="modal-dialog user-modal preferences_deit_modal_wrap_2">
                     <div class="modal-content">
                         <div class="modal-header mv-modal-header">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="tagInsBtnClose"></button>
@@ -41,7 +41,7 @@
 	                                            <tr>
 	                                              <td>태그</td>
 	                                                <td>
-	                                                  <input type="text" name="tag_nm" id="insTagNm" oninput="tagInsInputChange();"><button type="button" id="tagInsCheck" tagInsCheck="" onclick="tagDuplicateCheck();">중복체크</button>
+	                                                  <input class="custom_search_input tag_in_modal_input" type="text" name="tag_nm" id="insTagNm" oninput="tagInsInputChange();"><button class="custom_btn btn_707070 btn_707070_7040" type="button" id="tagInsCheck" tagInsCheck="" onclick="tagDuplicateCheck();">중복체크</button>
 	                                                </td>
 	                                            </tr>
 	                                            <tr>
@@ -53,18 +53,22 @@
 	                                            </tr>
 	                                        </tbody>
 	                                    </table>
-	                                    <button class="btn btn-secondary btn_save" type="button" id="tagInsBtn">저장</button>
                                     </form>
                                 </div>
                                 </div>
                             </div>
+								  <div class="user_in_modal_footer_wrap">
+		                             <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="tagInsBtn">저장</button>
+	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                              </div>                            
+                            
                           </div>
                         </div>
                     </div>
                 </div>
-              <!-- URL 수정 모달 -->
+              <!-- 태그 수정 모달 -->
               <div id="TagModal-2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog user-modal">
+                <div class="modal-dialog user-modal preferences_deit_modal_wrap_2">
                     <div class="modal-content">
                         <div class="modal-header mv-modal-header">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="tagModBtnClose"></button>
@@ -84,7 +88,7 @@
 	                                            <tr>
 	                                              <td>태그</td>
 	                                                <td>
-	                                                  <input type="text" name="tag_nm" id="modTagNm" oninput="tagModInputChange();"><button type="button" id="tagModCheck" tagModCheck=""  onclick="tagModDuplicateCheck();">중복체크</button>
+	                                                  <input class="custom_search_input tag_in_modal_input" type="text" name="tag_nm" id="modTagNm" oninput="tagModInputChange();"><button class="custom_btn btn_707070 btn_707070_7040" type="button" id="tagModCheck" tagModCheck=""  onclick="tagModDuplicateCheck();">중복체크</button>
 	                                                </td>
 	                                            </tr>
 	                                            <tr>
@@ -96,11 +100,17 @@
 	                                            </tr>
 	                                        </tbody>
 	                                    </table>
-	                                    <button class="btn btn-secondary btn_save" type="button" id="tagModBtn">저장</button>
+	                                    
                                     </form>
                                 </div>
                                 </div>
                             </div>
+     							<div class="user_in_modal_footer_wrap">
+		                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="tagModBtn">저장</button>
+	                             	     <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                            </div>                       
+                            
+                            
                           </div>
                         </div>
                     </div>

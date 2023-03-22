@@ -217,6 +217,7 @@
          		*
 			from nam_menu_code
             where pattern_type = 'url'
+            ORDER BY PARENT_MENU, seq
 	</select>
 	    <!--   사용자 세부메뉴 관리권한 대분류   -->
 	<select id="getMenuCodeListLarge" parameterType="egovframework.aviation.group.vo.MenuCodeVO" resultType="egovframework.aviation.group.vo.MenuCodeVO">
@@ -226,6 +227,7 @@
 			FROM nam_menu_code
 			WHERE parent_menu is null
             AND pattern_type = 'url'
+            ORDER BY seq
 	</select>
 	
    	<select id="getGroupUserList" parameterType="egovframework.aviation.group.vo.GroupVO" resultType="egovframework.aviation.user.vo.UserVO">
@@ -256,6 +258,7 @@
 			AND nmc.PATTERN_TYPE = 'url'
 			AND
 				na.GROUP_IDX =#{group_idx}
+			ORDER BY nmc.seq	
             
 	</select>
 	<!--     -->

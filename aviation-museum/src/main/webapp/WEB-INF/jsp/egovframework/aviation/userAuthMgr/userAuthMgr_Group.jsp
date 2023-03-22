@@ -190,11 +190,13 @@
 
 							if($(this).is(":checked")){
 		     					val2 = true;
-		     				}
-		     				
-							if(!val2){
+		     					//미들체크박스 선택 시 상위 체크박스 선택
 		     					$(this).closest('tbody').find('input[type="checkbox"][name="menu_code_idx"]:first').prop('checked', val2);
-							}
+		     				}
+		     				// 미들체크박스 선택 시 상위 체크박스 해제
+// 							if(!val2){
+// 		     					$(this).closest('tbody').find('input[type="checkbox"][name="menu_code_idx"]:first').prop('checked', val2);
+// 							}
 		     				$(this).closest('tr').nextUntil("#menuCodeListMiddleTr").find('input[type="checkbox"][name="menu_code_idx"]').prop('checked', val2);
 		     				
 						}

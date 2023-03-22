@@ -317,7 +317,7 @@ public class PRgstMetaDataSearchController {
 	            		String filePath = board.getImage_path();
 	            		System.out.println("filePath1"+filePath);
             	        if (filePath == null || filePath.isEmpty()) {
-            	        	filePath = "/no_image.png";
+            	        	filePath = "/images/no_image.png";
             	            System.out.println("filePathnull2"+filePath);
             	        }
 	            	        	 		            
