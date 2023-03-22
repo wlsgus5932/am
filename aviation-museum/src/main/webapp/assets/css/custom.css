@@ -1181,13 +1181,15 @@ input[type="checkbox"]{
 
 /* 소장구분, 명칭 테이블 스타일 - 시작 */
 
-.tbh tbody tr td:nth-child(4) {
-  transition: 0.2s;
-}
+/* .tbh tbody tr td:nth-child(4) { */
+/*   transition: 0.2s; */
+/* } */
 
-.tbh tbody tr td:nth-child(4):hover {
-  background-color: #707070;
-}
+/* .tbh tbody tr td:nth-child(4):hover { */
+/*   background-color: #707070; */
+/*   color: #fff; */
+/*   cursor: pointer; */
+/* } */
 
 .tbh tbody tr td:nth-child(7) {
   font-weight: 600;
@@ -1210,4 +1212,16 @@ input[type="checkbox"]{
 }
 
 /* 소장구분, 명칭 테이블 스타일 - end */
+
+
+.tbh tbody tr:hover {
+  background-color: #d0d0d0;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+
+
+
 
