@@ -18,9 +18,9 @@
                           <c:forEach var="storageCodeViewList" items="${storageCodeVO.storageCodeViewList }">
 	                          <tr>
 	                            <td onclick="storageCodeViewList('${storageCodeViewList.storage_code_idx}','${storageCodeViewList.storage_nm}','${storageCodeViewList.parent_code}')">${storageCodeViewList.storage_nm }</td>
-	                            <td>${storageCodeViewList.mod_user }</td>
+	                            <td>${storageCodeViewList.mod_user }</td>	
 	                            <td>${storageCodeViewList.mod_date }</td>
-	                            <td><button>${storageCodeViewList.enabled}</button></td>
+	                            <td><button class="custom_btn btn_preferences_user_enabled">${storageCodeViewList.enabled}</button></td>
 	                          </tr>
                           </c:forEach>
                         </tbody>

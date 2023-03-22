@@ -144,9 +144,9 @@
               </div>
             </div>
             
-            <!-- 코드등록 모달창 -->
+            <!-- 코드 등록 모달창 -->
             <div id="code_insert_modal-1" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
-              <div class="modal-dialog user-modal">
+              <div class="modal-dialog user-modal preferences_deit_modal_wrap">
                 <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="codeInsClose"></button>
@@ -163,32 +163,36 @@
 	                          <table class="table mb-0">
 	                            <tbody>
 	                              <tr>
-	                                <td>코드</td>
+	                                <td style="width: 15%;">코드</td>
 	                                <td>
-	                                  <input type="text" name="" id="insCode" oninput="codeInsInputChange();"/>
-	                                  <button type="button" id="codeInsCheck" codeInsCheck="" >중복체크</button>
+	                                  <input class="custom_search_input tag_in_modal_input" type="text" name="" id="insCode" oninput="codeInsInputChange();"/>
+	                                  <button class="custom_btn btn_707070 btn_707070_7040" type="button" id="codeInsCheck" codeInsCheck="" >중복체크</button>
 	                                </td>
 	                              </tr>
 	                              <tr>
 	                                <td>명칭</td>
 	                                <td>
-	                                  <input type="text" name="" id="insNm"/>
+	                                  <input class="custom_search_input tag_in_modal_input" type="text" name="" id="insNm"/ style="width: 425px;">
 	                                </td>
 	                              </tr>
 	                              <tr>
 	                                <td>사용여부</td>
 	                                <td>
-	                                	 <input type="checkbox" name="enabled" value="Y" id="insCodeEnabledY">사용
-		                                 <input type="checkbox" name="enabled" value="N" id="insCodeEnabledN">미사용
+	                                	 <input type="radio" name="enabled" value="Y" id="insCodeEnabledY">사용
+		                                 <input type="radio" name="enabled" value="N" id="insCodeEnabledN">미사용
 	                                </td>
 	                              </tr>
 	                            </tbody>
 	                          </table>
-	                          <button class="btn btn-secondary btn_save" type="button" id="insBtn">저장</button>
+
                           </form>
                         </div>
                       </div>
                     </div>
+						<div class="user_in_modal_footer_wrap">
+						  <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="insBtn">저장</button>
+						  <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+						</div>
                   </div>
                 </div>
               </div>
@@ -250,9 +254,9 @@
               </div>
             </div>
             
-            <!-- 코드수정 모달창 -->
+            <!-- 코드 수정 모달창 -->
             <div id="code_modify_modal-1" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
-              <div class="modal-dialog user-modal">
+              <div class="modal-dialog user-modal preferences_deit_modal_wrap_2">
                 <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="codeModClose"></button>
@@ -270,25 +274,29 @@
 	                          <table class="table mb-0">
 	                            <tbody>
 	                              <tr>
-	                                <td>명칭</td>
+	                                <td style="width: 15%;">명칭</td>
 	                                <td>
-	                                  <input type="text" name="" id="modNm"/>
+	                                  <input class="custom_search_input user_in_modal_input" type="text" name="" id="modNm"/>
 	                                </td>
 	                              </tr>
 	                              <tr>
 	                                <td>사용여부</td>
 	                                <td>
-	                                	 <input type="checkbox" name="enabled" value="Y" id="modCodeEnabledY">사용
-		                                 <input type="checkbox" name="enabled" value="N" id="modCodeEnabledN">미사용
+	                                	 <input type="radio" name="enabled" value="Y" id="modCodeEnabledY">사용
+		                                 <input type="radio" name="enabled" value="N" id="modCodeEnabledN">미사용
 	                                </td>
 	                              </tr>
 	                            </tbody>
 	                          </table>
-	                          <button class="btn btn-secondary btn_save" type="button" id="modBtn">저장</button>
+
                           </form>
                         </div>
                       </div>
                     </div>
+						<div class="user_in_modal_footer_wrap">
+							<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="modBtn">저장</button>
+							<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+						</div>                 
                   </div>
                 </div>
               </div>
