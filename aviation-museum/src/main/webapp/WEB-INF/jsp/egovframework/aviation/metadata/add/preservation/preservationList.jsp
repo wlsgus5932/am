@@ -48,7 +48,7 @@
 	            <div class="mb-0">
 	            	<div class="st_wrap" id="resut-div">
 	            		<label class="col-md-2 col-form-label st_title">처리결과</label>
-	                    <label for="update-result-uploadFile" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">업로드</label>
+	                    <label for="update-result-uploadFile" class="custom_btn btn_6466ab btn_add_preservation_padding">업로드</label>
 	      				<input style="display:none" class="form-control st_input" type="file" name="result_uploadFile" id="update-result-uploadFile" onchange="updateresultImg(this, ${status.index})" accept="image/*"><br/>
 	                    
 						<div id="update-result-img-preview${status.index}">
@@ -62,12 +62,12 @@
 	             
 	             <div class="mb-0" id="before-div"><div class="st_wrap">
 	             	<label class="col-md-2 col-form-label st_title" style="display:inline">보존처리 전 이미지</label>
-	                <label for="update-before-uploadFile${status.index}" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" style="display:inline">업로드</label>
+	                <label for="update-before-uploadFile${status.index}" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
 	      			<input type="file" name="before_uploadFile" id="update-before-uploadFile${status.index}" onchange="updatebeforeImg(this, ${status.index})" multiple style="display:none;" accept="image/*">
-	                <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">다운로드</button>
-	                <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="allCheck(before, ${status.index})">전체선택</button>
-	                <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="cancelCheck(before, ${status.index})">선택해지</button>
-	                <%-- <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="preservationDeleteChecked(before, ${status.index})">선택삭제</button> --%>
+	                <button class="custom_btn btn_7288c5" type="button">다운로드</button>
+	                <button type="button" class="custom_btn btn_707070" onclick="allCheck(before, ${status.index})">전체선택</button>
+	                <button type="button" class="custom_btn btn_707070" onclick="cancelCheck(before, ${status.index})">선택해지</button>
+	                <%-- <button type="button" class="custom_btn btn_707070" onclick="preservationDeleteChecked(before, ${status.index})">선택삭제</button> --%>
 	                      
 	                 <div id="update-before-img-preview${status.index}">
 	                 	<c:forEach var="img" items="${list.image}" varStatus="imgStatus">
@@ -86,12 +86,12 @@
 	                 
 	                 <div class="mb-0" id="after-div">
 	                 	<div class="st_wrap"><label class="col-md-2 col-form-label st_title">보존처리 후 이미지</label>
-	                   	<label for="update-after-uploadFile${status.index}" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" style="display:inline">업로드</label>
+	                   	<label for="update-after-uploadFile${status.index}" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
 	      				<input type="file" name="after_uploadFile" id="update-after-uploadFile${status.index}" onchange="updateafterImg(this, ${status.index})" multiple style="display:none;" accept="image/*">
-	      				<button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">다운로드</button>
-	                    <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="allCheck(after, ${status.index})">전체선택</button>
-	                    <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="cancelCheck(after, ${status.index})">선택해지</button>
-	                    <%-- <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="preservationDeleteChecked(after, ${status.index})">선택삭제</button> --%>
+	      				<button class="custom_btn btn_7288c5" type="button">다운로드</button>
+	                    <button type="button" class="custom_btn btn_707070" onclick="allCheck(after, ${status.index})">전체선택</button>
+	                    <button type="button" class="custom_btn btn_707070" onclick="cancelCheck(after, ${status.index})">선택해지</button>
+	                    <%-- <button type="button" class="custom_btn btn_707070" onclick="preservationDeleteChecked(after, ${status.index})">선택삭제</button> --%>
 	                      
 	                    <div id="update-after-img-preview${status.index}">
 		                    <c:forEach var="img" items="${list.image}" varStatus="imgStatus">

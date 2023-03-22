@@ -189,9 +189,7 @@ public class AddController {
 						|| !param.getObt_obtainment_price().isEmpty() || !param.getObt_price_unit_code_idx().equals("0")
 						|| !param.getObt_won_exchange().isEmpty() || !param.getObt_obtainment_no().isEmpty()
 						|| !param.getObt_obtainment_place().isEmpty() || !param.getObt_record_date().isEmpty()
-						|| !param.getObt_designation().equals("N") || !param.getObt_redemption().equals("N")
-						|| !param.getObt_country_code_idx().equals("0") || !param.getObt_qty().isEmpty()
-						|| !param.getObt_qty_unit_code_idx().equals("0") || !param.getObt_redemption_date().isEmpty()) {
+						|| !param.getObt_designation().equals("N") || !param.getObt_redemption().equals("N")) {
 						 
 						 service.setObtainment(param); 
 					 }
@@ -229,7 +227,7 @@ public class AddController {
 						 service.setInsurance(insuranceMap);
 					 }
 					 
-					 if(!param.getCopy_owner().get(0).isEmpty()) {
+					 if(!param.getCopy_copyright().get(0).isEmpty()) {
 						 HashMap<Integer, Object> copyrightMap = new HashMap<Integer, Object>();
 						 for (int i = 0; i < param.getCopy_owner().size(); i++) {
 								List<Object> item = new ArrayList<>();
@@ -267,6 +265,7 @@ public class AddController {
 				return "not";
 			}
 		 } catch (Exception e) {
+			 System.out.println(e);
 			 return "error"; 
 		 }
 	}
