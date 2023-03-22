@@ -57,6 +57,7 @@
   let gallery = '';
   let mainImageViewer = '';
   let movement_idx = '';
+  let checkSearchState = 'N';
 
   const getImageList = () => {
   		let item_idx = sessionStorage.getItem("item_idx");
@@ -243,14 +244,26 @@
   const submitForm = async () => {
 	  	if(confirm("저장하시겠습니까?")) {
 	  	   	let formData = new FormData(document.getElementById('add-form'));
-	
-	  	   	const form = await fetch('/add.do', {
-	  	   		method:'POST',
-	  	   		headers: {
-	  	               "Content-Type": "application/x-www-form-urlencoded",
-	  	           },
-	  	           body: new URLSearchParams(formData)
-	  	   	})
+			const form = '';
+			
+	  	   	if(checkSearchState == 'N') {
+		  	   	form = await fetch('/add.do', {
+		  	   		method:'POST',
+		  	   		headers: {
+		  	               "Content-Type": "application/x-www-form-urlencoded",
+		  	           },
+		  	           body: new URLSearchParams(formData)
+		  	   	})
+	  	   	} else if(checkSearchState == 'Y') {
+	  	   		formData.append("item_idx", sessionStorage.getItem("item_idx"))
+		  	   	form = await fetch('/update.do', {
+		  	   		method:'POST',
+		  	   		headers: {
+		  	               "Content-Type": "application/x-www-form-urlencoded",
+		  	           },
+		  	           body: new URLSearchParams(formData)
+		  	   	})
+	  	   	}
 	
 	  		const res = await form.text();
 	  	   	//const { item_idx } = await form.json();
@@ -261,6 +274,7 @@
 	  	   	} else {
 		  	   	alert('등록완료'); 
 		  	   	sessionStorage.setItem("item_idx", res);
+		  	  	checkSearchState = 'Y';
 	  	   	}
 	  	} else {
 	  		return
@@ -2853,7 +2867,8 @@
             </div>
           </div>
           <div class="mb-0 btn_add_save_wrap">
-        	<button type="button" class="custom_btn btn_c58672" onclick="addValidation()">저장하기</button>
+        	<button type="button" class="custom_btn btn_c58672" onclick="addValidation()" id="first_add_btn">저장하기</button>
+        	<button type="button" class="custom_btn btn_c58672" onclick="updateValidation()" id="update_add_btn">수정하기</button>
         </div>
           <!-- 기본사항 - 크기 끝 -->
           <!--  -->

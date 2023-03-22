@@ -18,6 +18,7 @@ const search_item_base = async (reg_state) => {
 //자료기본사항 아래 항목들
 const set_itemBase_input = async (list) => {
 	sessionStorage.setItem("item_idx", list[0].item_idx);
+	checkSearchState = 'Y';
 	changeAddBtn();
 	getImageList();
 	getMovementList();
