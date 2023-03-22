@@ -6,7 +6,7 @@
 
     win.dextuploadx5Configuration = {
         // authkey: Authentication Key string
-        authkey: "3U5+R0bEdtxjxSVJaSuCdM23dR0sQnZ01AYn5NubNVJnHjv4K6ZU5nuQXSOMs8Yl8QYMPGXDfuSwPwu3DQtaMvSk2eOWEIjYT3+I+Ap/bra7hk81WhzLXQJrsbuorvw+0w+62VpNliaPdB3enbbjxU8r+c2jtsND9WOz0pgY80I=",
+        authkey: "VsS676g6Q3KToiqH2hYahZEYycSNF3y/XG6ms8STPxbWAClJ/yDs0V0NCnswb8kYKg+SdfYFBqXcwC5nBsEeCT+xzoZVdbj0DDKT0p8iP6oURAxtDFNlG/ESqZPGl3OUgQTelPYDWlJ2zf4iRlwvLSzsEIUT0lYDI+sgpsqNUcs=",
 
         version: "3.6.0.0",
 

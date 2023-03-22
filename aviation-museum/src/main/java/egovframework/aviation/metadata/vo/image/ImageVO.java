@@ -25,5 +25,6 @@ public class ImageVO {
 	private String org_nm;
 	private String item_no;
 	private String item_detail_no;
+	private String image_sv_path;
 	
 }

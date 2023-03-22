@@ -126,86 +126,147 @@ public class ImageController {
 		
 		return result;
 	}
-	
-	@PostMapping("/addImage.do")
-	@ResponseBody
-	public String addImage(@ModelAttribute ImageParamVO param, HttpServletRequest request) throws Exception {
-//		List<ImageVO> list = new ArrayList<ImageVO>();
-		ImageVO list = new ImageVO();
-		
-		System.out.println(param);
-		MultipartFile uploadFile = param.getImage_upload_file();
-		
-        BufferedImage image = ImageIO.read(uploadFile.getInputStream());
-        int width = image.getWidth();
-        int height = image.getHeight();
-        long file_size = uploadFile.getSize();
-        System.out.println(file_size);
-        Random random = new Random();
-        int ran = random.nextInt(10000);
-        
-        String fileNm = "test.png";
-        String thum_nm = "thum_test.png";
-        String originFileNm = "origin";
-        
-        String image_path = "http://localhost:8080/images/";
-        String thum_path = "http://localhost:8080/images/images/thumbnails/";
-        
-        String addImage = "D:\\uploadtest\\images\\";
-        String addThumImage = "D:\\uploadtest\\images\\thumbnails";
-        
-        list.setItem_idx(param.getItem_idx());
-        list.setImage_nm(ran+fileNm);
-        list.setOrignl_nm(originFileNm);
-        list.setImage_path(image_path);
-        list.setThumbnail_nm(thum_nm);
-        list.setImage_path(image_path);
-        list.setImage_width(width);
-        list.setImage_height(height);
-        list.setRep_image("N");
-        list.setFile_size(file_size);
-        list.setPublic_service("N");
-        //list.get(0).setReg_user(thum_nm);
-        System.out.println(list);
-        
-        int x = service.setImage(list);
-        
-//        uploadFile.transferTo(new File(image_path + ran + fileNm));
-        uploadFile.transferTo(new File(addImage + ran + fileNm));
-        uploadFile.transferTo(new File(addThumImage + ran + thum_nm));
-		try {
-			return "success";
-		}  catch (Exception e) {
-			 System.out.println(e);
-			 return "error";
-		}
-	}
-	
-	@PostMapping("/uploadImage.do")
-	   public void uploadImage(DEXTUploadX5Request x5, HttpServletResponse response) throws Exception {
-	      FileItem item = null;
-	      for (MultipartFile file : x5.getDEXTUploadX5_FileData()) {
-	         item = (FileItem) file;
+//	
+//	@PostMapping("/addImage.do")
+//	@ResponseBody
+//	public String addImage(@ModelAttribute ImageParamVO param, HttpServletRequest request) throws Exception {
+////		List<ImageVO> list = new ArrayList<ImageVO>();
+//		ImageVO list = new ImageVO();
+//		
+//		System.out.println(param);
+//		MultipartFile uploadFile = param.getImage_upload_file();
+//		
+//        BufferedImage image = ImageIO.read(uploadFile.getInputStream());
+//        int width = image.getWidth();
+//        int height = image.getHeight();
+//        long file_size = uploadFile.getSize();
+//        System.out.println(file_size);
+//        Random random = new Random();
+//        int ran = random.nextInt(10000);
+//        
+//        String fileNm = "test.png";
+//        String thum_nm = "thum_test.png";
+//        String originFileNm = "origin";
+//        
+//        String image_path = "http://localhost:8080/images/";
+//        String thum_path = "http://localhost:8080/images/images/thumbnails/";
+//        
+//        String addImage = "D:\\uploadtest\\images\\";
+//        String addThumImage = "D:\\uploadtest\\images\\thumbnails";
+//        
+//        list.setItem_idx(param.getItem_idx());
+//        list.setImage_nm(ran+fileNm);
+//        list.setOrignl_nm(originFileNm);
+//        list.setImage_path(image_path);
+//        list.setThumbnail_nm(thum_nm);
+//        list.setImage_path(image_path);
+//        list.setImage_width(width);
+//        list.setImage_height(height);
+//        list.setRep_image("N");
+//        list.setFile_size(file_size);
+//        list.setPublic_service("N");
+//        //list.get(0).setReg_user(thum_nm);
+//        System.out.println(list);
+//        
+//        int x = service.setImage(list);
+//        
+////        uploadFile.transferTo(new File(image_path + ran + fileNm));
+//        uploadFile.transferTo(new File(addImage + ran + fileNm));
+//        uploadFile.transferTo(new File(addThumImage + ran + thum_nm));
+//		try {
+//			return "success";
+//		}  catch (Exception e) {
+//			 System.out.println(e);
+//			 return "error";
+//		}
+//	}
 
-	         if (!item.isEmpty()) {
-	            item.save("D:\\uploadtest\\images");
-	         }
-	      }
-	   }
-
-	   // 대용량 파일 업로드
+	   // 대용량 파일 업로드 서버용
+//	   @PostMapping(value = "/extension-upload.ext")
+//	   public void extensionupload(DEXTUploadX5Request x5, @RequestParam("item_idx") String item_idx, @RequestParam("possession_code_idx") String possession_code_idx, @RequestParam("org_code_idx") String org_code_idx, HttpServletResponse response) throws IOException {
+//		  System.out.println("받은거::::"+item_idx+","+possession_code_idx+"," + org_code_idx);
+//	      String path = null;
+////		  String path2 = "/home/aviation_images/images/"+org_code_idx+"/"+possession_code_idx;
+////	      String thumbnailPath2 = "/home/avation_images/images/"+org_code_idx+"/"+possession_code_idx+"/thumbnails";
+//	      String path2 = File.separator+"images";
+//	      String thumbnailPath2 = File.separator+"images"+File.separator+"thumbnails";
+//	      Image image = null;
+//	      File dir = new File(path2);
+//	      File dir_thum = new File(thumbnailPath2);
+//	      
+//	      FileItem item = (FileItem) x5.getDEXTUploadX5_FileData().get(0);
+//	      FileSaveOption option = new FileSaveOption();
+//
+//	      if (!item.isEmpty()) {
+//	         option.setTargetDirectoryPath(path2);
+//	         boolean isImg = ImageTool.isImage(item);
+//	         path = item.save(option);
+//
+//	         if (isImg) {
+//	            image = new ImageIcon(item.getLastSavedFilePath()).getImage();
+//	            ImageTool oimg = ImageTool.getInstance(new File(item.getLastSavedFilePath()));
+//	            ImageTool dimg = oimg.resize(64, 64, RenderingHints.VALUE_INTERPOLATION_BILINEAR, true);
+//	            dimg.save(new File(thumbnailPath2, "thumbnail_".concat(item
+//	                  .getFilenameWithoutExtension().concat(".").concat(oimg.getFormat().toString().toLowerCase()))),
+//	                  oimg.getFormat());
+//	         }
+//	         ImageVO list = new ImageVO();   
+//	         list.setItem_idx(item_idx);
+//	         list.setImage_nm(item.getLastSavedFilename());
+//	         list.setOrignl_nm("origin");
+//	         list.setThumbnail_nm("thumbnail_"+item.getFilename());
+//	         list.setImage_path(path2);
+//	         list.setImage_width(image.getWidth(null));
+//	         list.setImage_height(image.getHeight(null));
+//	         list.setRep_image("N");
+//	         list.setFile_size(item.getFileSize());
+//	         list.setPublic_service("N");
+//
+//	         int x = service.setImage(list);
+//
+//	         response.setCharacterEncoding("UTF-8");
+//	         response.setContentType("text/plain");
+//	         // 파일의 키를 응답 데이터에 기록한다.
+//	         response.getWriter().write(path);
+//	      } else {
+//	         throw new IllegalStateException("올바른 요청이 아닙니다.");
+//	      }
+//	   }
+	   
+	// 대용량 파일 업로드 로컬용
 	   @PostMapping(value = "/extension-upload.ext")
-	   public void extensionupload(DEXTUploadX5Request x5, @RequestParam("item_idx") String item_idx, HttpServletResponse response) throws IOException {
+	   public void extensionupload(DEXTUploadX5Request x5, @RequestParam("item_idx") String item_idx, @RequestParam("possession_code_idx") String possession_code_idx, @RequestParam("org_code_idx") String org_code_idx, HttpServletResponse response) throws IOException {
+		   System.out.println("받은거::::"+item_idx+","+possession_code_idx+"," + org_code_idx);
+		   System.out.println("dx5:::"+x5);
+		      String path = null;
+//			  String path2 = "D:\\aviation_images\\images\\"+org_code_idx+"\\"+possession_code_idx;
+//		      String thumbnailPath2 = "D:\\aviation_images\\images\\"+org_code_idx+"\\"+possession_code_idx+"\\thumbnails";
+		      String path2 = "D:\\aviation_images\\images";
+		      String thumbnailPath2 = "D:\\aviation_images\\images\\thumbnails";
+		      Image image = null;
+		      File dir = new File(path2);
+		      File dir2 = new File(thumbnailPath2);
+		      //File dir_thum = new File(thumbnailPath2);
+		      
+		      FileItem item = (FileItem) x5.getDEXTUploadX5_FileData().get(0);
+		      FileSaveOption option = new FileSaveOption();
 
-	      String path = null;
-	      Image image = null;
-	      System.out.println(x5);
-	      
-	      FileItem item = (FileItem) x5.getDEXTUploadX5_FileData().get(0);
-	      FileSaveOption option = new FileSaveOption();
-
-	      if (!item.isEmpty()) {
-	         option.setTargetDirectoryPath("D:\\uploadTest\\images");
+		      if (!item.isEmpty()) {
+		    	  if(!dir.exists()) {
+		    		  try {
+		    			  boolean result = dir.mkdir();
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+		    	  }
+			    	  if(!dir2.exists()) {
+			    		  try {
+			    			  boolean result = dir2.mkdir();
+						} catch (Exception e) {
+							System.out.println(e);
+						}
+			    	  }
+	         option.setTargetDirectoryPath(path2);
 	         boolean isImg = ImageTool.isImage(item);
 	         path = item.save(option);
 
@@ -213,7 +274,7 @@ public class ImageController {
 	            image = new ImageIcon(item.getLastSavedFilePath()).getImage();
 	            ImageTool oimg = ImageTool.getInstance(new File(item.getLastSavedFilePath()));
 	            ImageTool dimg = oimg.resize(64, 64, RenderingHints.VALUE_INTERPOLATION_BILINEAR, true);
-	            dimg.save(new File("D:\\uploadtest\\images\\thumbnails", "thumbnail_".concat(item
+	            dimg.save(new File(thumbnailPath2, "thumbnail_".concat(item
 	                  .getFilenameWithoutExtension().concat(".").concat(oimg.getFormat().toString().toLowerCase()))),
 	                  oimg.getFormat());
 	         }
@@ -222,15 +283,13 @@ public class ImageController {
 	         list.setImage_nm(item.getLastSavedFilename());
 	         list.setOrignl_nm("origin");
 	         list.setThumbnail_nm("thumbnail_"+item.getFilename());
-	         list.setImage_path(item.getLastSavedFilePath());
+	         list.setImage_path(path2);
 	         list.setImage_width(image.getWidth(null));
 	         list.setImage_height(image.getHeight(null));
 	         list.setRep_image("N");
 	         list.setFile_size(item.getFileSize());
 	         list.setPublic_service("N");
 	         
-	         System.out.println(list);
-
 	         int x = service.setImage(list);
 
 	         response.setCharacterEncoding("UTF-8");

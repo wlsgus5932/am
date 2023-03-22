@@ -18,10 +18,12 @@ const search_item_base = async (reg_state) => {
 //자료기본사항 아래 항목들
 const set_itemBase_input = async (list) => {
 	sessionStorage.setItem("item_idx", list[0].item_idx);
+	changeAddBtn();
 	getImageList();
 	getMovementList();
 	getSpeciality();
 	getPreservation();
+	
 	//$('#add-form')[0].reset();
 	sessionStorage.setItem("item_idx", list[0].item_idx);
 	$('input[name=item_nm]').val(list[0].item_nm);
@@ -44,8 +46,8 @@ const set_itemBase_input = async (list) => {
 	const { taxonomyList, countryList, materialList, measurementList, obtainmentList, involvementList,
 				InsuranceList, copyrightList, publicServiceList, keywordList } = await form.json();
 				
+	$('#class-tbody').children('tr:not(:first-child)').remove();
 	taxonomyList.forEach(async (e, i) => {
-		$('#class-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('class-table', 'class-tbody');
 		/*i != 0 ? addClassTd('class-table', 'class-tbody') : '';*/
 		$('#class1_code_idx'+i).val(e.class1_code_idx).prop("selected", true);
@@ -53,17 +55,17 @@ const set_itemBase_input = async (list) => {
 		$('#class3_code_idx'+i).val(e.class3_code_idx).prop("selected", true);
 	})
 	
+	$('#country-tbody').children('tr:not(:first-child)').remove();
 	countryList.forEach(async (e, i) => {
-		$('#country-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('country-table', 'country-tbody');
 		$('#country-select'+i).val(e.country_code_idx).prop("selected", true);
-		await changeCountry(e.country_code_idx, 0);
+		await changeCountry(e.country_code_idx, i);
 		$('#era-select'+i).val(e.era_code_idx).prop("selected", true);
 		$('#detail_year'+i).val(e.detail_year);
 	})
 	
+	$('#material-tbody').children('tr:not(:first-child)').remove();
 	materialList.forEach(async (e, i) => {
-		$('#material-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('material-table', 'material-tbody');
 		$('#material1_code_idx'+i).val(e.material1_code_idx).prop("selected", true);
 		await changeMaterial(e.material1_code_idx, i);
@@ -71,8 +73,8 @@ const set_itemBase_input = async (list) => {
 		$('#material_detail'+i).val(e.material_detail);
 	})
 	
+	$('#measurement-tbody').children('tr:not(:first-child)').remove();
 	measurementList.forEach((e, i) => {
-		$('#measurement-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('measurement-table', 'measurement-tbody');
 		$('#measurement_item_type'+i).val(e.item_type);
 		$('#measurement_code_idx'+i).val(e.measurement_code_idx).prop("selected", true);
@@ -103,8 +105,8 @@ const set_itemBase_input = async (list) => {
 		$('#obt_redemption_date').val(e.redemption_date);
 	})
 	
+	$('#possession-tbody').children('tr:not(:first-child)').remove();
 	involvementList.forEach((e,i) => {
-		$('#possession-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('possession-table', 'possession-tbody');
 		$('#invol_org_code_idx'+i).val(e.org_code_idx).prop("selected", true);
 		$('#invol_possession_code_idx'+i).val(e.possession_code_idx).prop("selected", true);
@@ -112,8 +114,8 @@ const set_itemBase_input = async (list) => {
 		$('#invol_remark'+i).val(e.remark);
 	})
 	
+	$('#insurance-tbody').children('tr:not(:first-child)').remove();
 	InsuranceList.forEach((e,i) => {
-		$('#insurance-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('insurance-table', 'insurance-tbody');
 		$('#insu_agreed_value'+i).val(e.agreed_value);
 		$('#insu_price_unit_code_idx'+i).val(e.price_unit_code_idx).prop("selected", true);
@@ -123,8 +125,8 @@ const set_itemBase_input = async (list) => {
 		$('#insu_remark'+i).val(e.remark);
 	})
 	
+	$('#copyright-tbody').children('tr:not(:first-child)').remove();
 	copyrightList.forEach((e,i) => {
-		$('#copyright-tbody').children('tr:not(:first-child)').remove();
 		if(i != 0) addClassTd('copyright-table', 'copyright-tbody');
 		$('#copy_copyright'+i).val(e.copyright).prop("selected", true);
 		$('#copy_owner'+i).val(e.owner);
@@ -154,6 +156,7 @@ const set_itemBase_input = async (list) => {
 	    				$('#itembasekeyword').val(keywordList[0].keyword);
 						
 					}
+	
 	
 }
 
