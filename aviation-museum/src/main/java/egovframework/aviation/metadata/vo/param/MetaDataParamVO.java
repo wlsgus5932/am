@@ -12,7 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MetaDataParamVO {
-   private String item_idx;
+   private int item_idx;
    private String reg_user = "admin";
    
    //기본사항 html 테이블
