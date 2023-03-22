@@ -1863,8 +1863,8 @@
        <form id="add-form">
         <div class="page-content">
         <div class="tap_text">
-            <h2>자료 신규 등록</h2>
-            <p>자료 등록 > <span> 자료 신규 등록 </span></p>
+            <h2><c:if test="${reg_state eq 'N'}">가등록 </c:if>자료 정보 조회</h2>
+<!--             <p>자료 등록 > <span> 자료 신규 등록 </span></p> -->
           </div>
           <!-- 자료구분 셀렉트 -->
 <!--           <div class="fr_wrap"> -->
@@ -3066,7 +3066,7 @@
                     <!-- modalzone 모달 end -->
 
         <div class="mb-0 btn_add_save_wrap">
-        	<button type="button" class="custom_btn btn_c58672" onclick="checkSubmitForm()">저장하기</button>
+<!--         	<button type="button" class="custom_btn btn_c58672" onclick="checkSubmitForm()">저장하기</button> -->
         </div>
       </div>
              <!-- End Page-content -->

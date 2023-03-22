@@ -224,7 +224,16 @@
 			                      <td>${dataLedgerList.item_nm}</td>
 			                      <td>수&nbsp;&nbsp;량</td>
 			                      <td>${dataLedgerList.qty}</td>
-			                      <td colspan="5" rowspan="7"><img src="${dataLedgerList.image_path}"></td>
+			                      <td colspan="5" rowspan="7">
+                              		<c:choose>
+	                             		<c:when test="${dataLedgerList.image_path ne null}">
+	                             		 	 <img src="${dataLedgerList.image_path}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+	                            		</c:when>
+	                            		<c:otherwise>
+	                            			<img src="/assets/images/no_image.png" alt="이미지">
+	                            		</c:otherwise>
+	                            	</c:choose>
+								  </td>
 			                    </tr>
 			                    <tr>
 			                      <td>국적/시대</td>

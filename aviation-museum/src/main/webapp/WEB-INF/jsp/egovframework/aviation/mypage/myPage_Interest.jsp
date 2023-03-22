@@ -105,7 +105,14 @@
 	                          <td>${perPageNum + 1 - interestList.rnum}</td>
 	                          <td>
 	                            <div class="search_img_wrap">
-	                              <img src="${interestList.image_path}" alt="${interestList.image_path}">
+                              		<c:choose>
+	                             		<c:when test="${interestList.image_path ne null}">
+	                             		 	 <img src="${interestList.image_path}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+	                            		</c:when>
+	                            		<c:otherwise>
+	                            			<img src="/assets/images/no_image.png" alt="이미지">
+	                            		</c:otherwise>
+	                            	</c:choose>
 	                            </div>
 	                          </td>
 	                          <td>${interestList.possession_nm}</td>
@@ -122,17 +129,17 @@
                     <ul class="btn-group pagination">
 					    <c:if test="${pageMaker.prev }">
 					    <li class="page-item">
-					        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+					        <a class="page-link" href='javascript:;' onclick="goPage1('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
 					    </li>
 					    </c:if>
 					    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 					    <li class="page-item">
-					        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+					        <a class="page-link" href='javascript:;' onclick="goPage1('${pageNum}');"><i class="fa">${pageNum }</i></a>
 					    </li>
 					    </c:forEach>
 					    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 					    <li class="page-item">
-					        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+					        <a class="page-link" href="javascript:;" onclick="goPage1('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 					    </li>
 					    </c:if>
 					</ul>
@@ -148,7 +155,7 @@
 				<input type="hidden" name="reg_state" id="reg_state" />
 			</form>
               <!--  -->
-            </div>
+            
             <script>
             const gallery = new Viewer(document.getElementById('gallery'));
 	    		<%-- 관심자료 리스트 출력 갯수 --%>
@@ -183,7 +190,7 @@
 	    		}
 
 	    		<%-- 관심자료 페이지 이동 --%>
-	    		function goPage(value) {
+	    		function goPage1(value) {
 	    			var perPageNum = $('#perPageNum').val();
 	    			var search_word = $('#search_word').val();
 	    			var search_type = $('#search_type').val();
@@ -253,3 +260,4 @@
 
 	    		}
             </script>
+         </div>

@@ -338,7 +338,40 @@
 					}
 				});
 		});
+		function content_print(){
+			
+			 let $container = $("#dataDiv").clone()    // 프린트 할 특정 영역 복사
+			 	let cssText = ".pagination{ display:none !important;} #checkbox1{ display:none !important;} #checkbox2{ display:none !important;}"                            // 스타일 복사
+				for (const node of $("style")) {
+			        cssText += node.innerHTML
+			    }
+			    /** 팝업 */
+			    let innerHtml = $container[0].innerHTML
+			    console.log(innerHtml);
+			    let popupWindow = window.open("자료검색결과", "_blank", "width=650,height=600")
+			    popupWindow.document.write("<!DOCTYPE html>"+
+			      "<html>"+
+			        "<head>"+
+			        '<link href="assets/css/custom.css" rel="stylesheet" type="text/css" />'+
+			        '<link rel="stylesheet" href="assets/css/custom_search.css" />'+
+			        '<link rel="stylesheet" href="assets/css/custom_print.css">'+
+			        '<link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />'+
+			        '<link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />'+
+			        '<link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />'+
+			        "<style>"+cssText+"</style>"+
+			        "</head>"+
+			        "<body>"+innerHtml+"</body>"+
+			      "</html>")
+			   
+			    popupWindow.document.close()
+			    popupWindow.focus()
 
+			    /** 1초 지연 */
+			    setTimeout(() => {
+			        popupWindow.print()         // 팝업의 프린트 도구 시작
+			        popupWindow.close()         // 프린트 도구 닫혔을 경우 팝업 닫기
+			    }, 1000)
+		}  
     </script>
   </head>
 

@@ -69,5 +69,10 @@ public class GroupServiceImpl implements GroupService {
 	public List<MenuAuthorityCodeJoinVO> getMenuAuth(MenuAuthorityCodeJoinVO menuAuthorityCodeJoinVO) {
 		return groupMapper.getMenuAuth(menuAuthorityCodeJoinVO);
 	}
+
+	@Override
+	public List<MenuAuthorityCodeJoinVO> getMenuAuthFunction(MenuAuthorityCodeJoinVO menuAuthorityCodeJoinVO) {
+		return groupMapper.getMenuAuthFunction(menuAuthorityCodeJoinVO);
+	}
 	
 }

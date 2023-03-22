@@ -331,6 +331,7 @@
 	    					$('#end_date2').val(end_date);
 	    					$('#start_item_no2').val(start_item_no);
 	    					$('#end_item_no2').val(end_item_no);
+	    					$('#perPageNum').val(perPageNum);
 	    				}
 	    			});
 	    		}
