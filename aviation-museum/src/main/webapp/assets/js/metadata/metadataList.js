@@ -236,7 +236,7 @@ function metaDataListView(value1,value2,value3,value4,value5){
 		$('#reg_state').val(value5);
 		var pop_title = "popupOpener" ;
 		
-		window.open("", pop_title, 'width=1000, height=1000') ;
+		window.open("", pop_title, 'width=1500, height=1500') ;
 		
 		var frmData = document.metaDataListViewForm ;
 		frmData.target = pop_title ;
