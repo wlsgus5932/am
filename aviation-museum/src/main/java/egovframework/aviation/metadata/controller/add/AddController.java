@@ -259,8 +259,9 @@ public class AddController {
 					
 				 }
 				 model.addAttribute("item_idx", param.getItem_idx());
-				 
-				 return param.getItem_idx(); 
+				 String idx = Integer.toString(param.getItem_idx());
+				
+				 return idx;
 			} else {
 				return "not";
 			}
