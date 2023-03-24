@@ -27,4 +27,6 @@ public interface PreservationMapper {
 
 	int updatePreservation(PreservationParamVO param);
 
+	int deleteImageAll(String preservation_idx);
+
 }

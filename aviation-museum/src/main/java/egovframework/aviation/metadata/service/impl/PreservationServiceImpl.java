@@ -52,4 +52,9 @@ public class PreservationServiceImpl implements PreservationService {
 		return dao.updatePreservation(param);
 	}
 
+	@Override
+	public int deleteImageAll(String preservation_idx) {
+		return dao.deleteImageAll(preservation_idx);
+	}
+
 }

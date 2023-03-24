@@ -205,6 +205,20 @@ public interface MetaDataService {
 
 	List<ItemBaseVO> getSearchItemNext(MetaDataParamVO param);
 
+	void updateTaxonomy(HashMap<String, Object> classUdt);
+
+	void updateCountry(HashMap<String, Object> countryUdt);
+
+	void updateMaterial(HashMap<String, Object> materialUdt);
+
+	void updateMeasurement(HashMap<String, Object> measurementUdt);
+
+	void updateInvolvement(HashMap<String, Object> involvementUdt);
+
+	void updateInsurance(HashMap<String, Object> insuranceUdt);
+
+	void updateCopyright(HashMap<String, Object> copyrightUdt);
+
 
 
 }

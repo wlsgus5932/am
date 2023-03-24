@@ -123,7 +123,6 @@ public class AddController {
 	}
 	
 	@PostMapping("/add.do")
-	@ResponseBody
 	public String addMetaForm(@ModelAttribute MetaDataParamVO param, Model model, HttpServletRequest req) throws Exception {
 		try {
 			String searchItemNo = service.searchItemNo(param);
@@ -153,6 +152,7 @@ public class AddController {
 							List<Object> item = new ArrayList<>();
 							item.add(param.getItem_idx());
 							item.add(param.getReg_user());
+							
 							item.add(param.getCountry_code_idx().get(i));
 							item.add(param.getEra_code_idx().get(i));
 							item.add(param.getDetail_year().get(i));
@@ -194,10 +194,10 @@ public class AddController {
 						 service.setObtainment(param); 
 					 }
 					 
-					 if(!param.getInvol_item_no().get(0).isEmpty()) {
+					 if(param.getInvol_item_no() != null && !param.getInvol_item_no().get(0).isEmpty()) {
 						 System.out.println("값있음");
 						 HashMap<Integer, Object> possessionMap = new HashMap<Integer, Object>();
-						 for (int i = 0; i < param.getInvol_org_code_idx().size(); i++) {
+						 for (int i = 0; i < param.getInvol_item_no().size(); i++) {
 							 List<Object> item = new ArrayList<>();
 							 item.add(param.getItem_idx());
 							 item.add(param.getReg_user());
@@ -210,7 +210,7 @@ public class AddController {
 						 service.setInvolvement(possessionMap);
 					 }
 					 
-					 if(!param.getInsu_agreed_value().get(0).isEmpty()) {
+					 if(param.getInsu_agreed_value() != null && !param.getInsu_agreed_value().get(0).isEmpty()) {
 						 HashMap<Integer, Object> insuranceMap = new HashMap<Integer, Object>();
 						 for (int i = 0; i < param.getInsu_price_unit_code_idx().size(); i++) {
 								List<Object> item = new ArrayList<>();
@@ -227,7 +227,7 @@ public class AddController {
 						 service.setInsurance(insuranceMap);
 					 }
 					 
-					 if(!param.getCopy_copyright().get(0).isEmpty()) {
+					 if(param.getCopy_copyright() != null && !param.getCopy_copyright().get(0).isEmpty()) {
 						 HashMap<Integer, Object> copyrightMap = new HashMap<Integer, Object>();
 						 for (int i = 0; i < param.getCopy_owner().size(); i++) {
 								List<Object> item = new ArrayList<>();
@@ -244,7 +244,7 @@ public class AddController {
 						 service.setCopyright(copyrightMap);
 					 }
 					 
-					 if(!param.getItembasekeyword().get(0).isEmpty()) {
+					 if(param.getItembasekeyword() != null && !param.getItembasekeyword().get(0).isEmpty()) {
 						 List<String> ddd = new ArrayList<String>();
 						 String[] arr = param.getItembasekeyword().get(0).split(",");
 						 System.out.println("arr:::" + arr);
@@ -259,16 +259,18 @@ public class AddController {
 					
 				 }
 				 model.addAttribute("item_idx", param.getItem_idx());
-				 String idx = Integer.toString(param.getItem_idx());
-				
-				 return idx;
+				 model.addAttribute("result", "success");
+				 return "jsonView";
 			} else {
-				return "not";
+				model.addAttribute("result", "not");
+				return "jsonView";
 			}
 		 } catch (Exception e) {
 			 System.out.println(e);
-			 return "error"; 
+			 model.addAttribute("result", "error");
+			 return "jsonView";
 		 }
+		
 	}
 	
 	@PostMapping("/addMovement.do")

@@ -27,7 +27,8 @@
     <script src="<c:url value='/assets/js/viewer.js'/>"></script>
     <script src="<c:url value='/dx5/dextuploadx5-configuration.js'/>"></script>
     <script src="<c:url value='/dx5/dextuploadx5.js'/>"></script>
-    <script src="<c:url value='/assets/js/metadata/metadataList.js'/>"></script>
+    <%-- <script src="<c:url value='/assets/js/metadata/metadataList.js'/>"></script> --%>
+    <script src="<c:url value='/assets/js/metadata/update.js'/>"></script>
     <script>
     const updateData = async () => {
     	if(confirm("수정하시겠습니까?")) {
@@ -1327,7 +1328,7 @@
                         </div>
                     </div>
 
-          <div class="accordion" id="accordionExample">
+          <div class="accordion quick_menu" id="accordionExample">
 
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
@@ -1496,9 +1497,9 @@
                                 <td>
                                   수량
                                 </td>
-                                  <td>
+                                  <td class="table_2nd_row_wrap">
                                     <input class="form-control st_input pri" list="datalistOptions" id="exampleDataList" placeholder="수량을 입력해 주세요." name="qty" style="min-width:auto !important;">
-                                    <select class="form-select st_select pri" name="qty_unit_code_idx" style="min-width:auto !important;">
+                                    <select class="form-select st_select pri" name="qty_unit_code_idx" style="min-width:auto !important; width:50% !important;">
                                       <option value="" selected>단위선택</option>
                                       	<c:forEach var="list" items="${qtyUnitList}" varStatus="status">
 		                                    <option value="${list.qty_unit_code_idx}">${list.qty_unit_nm}</option>
@@ -1573,11 +1574,11 @@
 	                        <table class="table mb-0" id="class-table">
 	                            <thead>
 	                                <tr class="tr_bgc">
-	                                    <td>#</td>
-	                                    <td>번호</td>
-	                                    <td>대분류</td>
-	                                    <td>중분류</td>
-	                                    <td>소분류</td>
+	                                    <th style="width:5%">선택</th>
+	                                    <th>번호</th>
+	                                    <th>대분류</th>
+	                                    <th>중분류</th>
+	                                    <th>소분류</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody id="class-tbody">
@@ -1633,11 +1634,11 @@
                       <table class="table mb-0" id="country-table">
                           <thead>
                               <tr class="tr_bgc">
-                                  <td>#</td>
-                                  <td>번호</td>
-                                  <td>국적</td>
-                                  <td>국적별 시대</td>
-                                  <td>시대(상세)</td>
+                                  <th style="width:5%">선택</th>
+                                  <th>번호</th>
+                                  <th>국적</th>
+                                  <th>국적별 시대</th>
+                                  <th>시대(상세)</th>
                               </tr>
                           </thead>
                           <tbody id="country-tbody">
@@ -1682,11 +1683,11 @@
                     <table class="table mb-0" id="material-table">
                         <thead>
                             <tr class="tr_bgc">
-                                <td>#</td>
-                                <td>번호</td>
-                                <td>1단계</td>
-                                <td>2단계</td>
-                                <td>재질(상세)</td>
+                                <th style="width:5%">선택</th>
+                                <th>번호</th>
+                                <th>1단계</th>
+                                <th>2단계</th>
+                                <th>재질(상세)</th>
                             </tr>
                         </thead>
                         <tbody id="material-tbody">
@@ -1729,12 +1730,12 @@
                     <table class="table mb-0" id="measurement-table">
                         <thead>
                             <tr class="tr_bgc">
-                                <td>#</td>
-                                <td>번호</td>
-                                <td>소장구분</td>
-                                <td>실측부위</td>
-                                <td>실측치</td>
-                                <td>실단위</td>
+                                <th style="width:5%">선택</th>
+                                <th>번호</th>
+                                <th>소장구분</th>
+                                <th>실측부위</th>
+                                <th>실측치</th>
+                                <th>실단위</th>
                             </tr>
                         </thead>
                         <tbody id="measurement-tbody">
@@ -1767,6 +1768,9 @@
                     </table>
                 </div>
             </div>
+          </div>
+          <div class="mb-0 btn_add_save_wrap">
+        	<button type="button" class="custom_btn btn_c58672" onclick="checkSubmitForm()">저장하기</button>
           </div>
           <!-- 기본사항 - 크기 끝 -->
           <!--  -->
@@ -1822,7 +1826,7 @@
                           <tr>
                             <td>
                               가격
-                              <td>
+                              <td class="table_2nd_row_wrap">
                                 <input class="form-control st_input pri" list="datalistOptions" id="obt_obtainment_price" placeholder="가격을 입력해 주세요." name="obt_obtainment_price">
                                 <select class="form-select st_select pri" name="obt_price_unit_code_idx" id="obt_price_unit_code_idx">
                                   <option value="" selected>선택</option>
@@ -1954,7 +1958,7 @@
                   <table class="table mb-0">
                       <tbody>
                           <tr>
-                            <td>
+                            <td style="width: 10%;">
                               자료상태
                               <td>
                                 <select class="form-select st_select"  id="condition_code_idx" name="condition_code_idx">
@@ -1964,7 +1968,7 @@
 		                                </c:forEach>
                                 </select>
                               </td>
-                              <td>
+                              <td style="width: 10%;">
                                 전시순위
                               <td>
                                 <select class="form-select st_select" id="ranking_code_idx" name="ranking_code_idx">
@@ -1997,11 +2001,11 @@
                   <table class="table mb-0" id="possession-table">
                       <thead>
                           <tr class="tr_bgc">
-                              <td>#</td>
-                              <td>번호</td>
-                              <td>자료구분</td>
-                              <td>자료번호</td>
-                              <td>비고</td>
+                              <th style="width:5%">선택</th>
+                              <th>번호</th>
+                              <th>자료구분</th>
+                              <th>자료번호</th>
+                              <th>비고</th>
                           </tr>
                       </thead>
                       <tbody id="possession-tbody">
@@ -2043,13 +2047,13 @@
                 <table class="table mb-0" id="insurance-table">
                     <thead>
                         <tr class="tr_bgc">
-                            <td>#</td>
-                            <td>번호</td>
-                            <td>평가액</td>
-                            <td>가격단위</td>
-                            <td>대여기간</td>
-                            <td>대여기관</td>
-                            <td>비고</td>
+                            <th style="width:5%">선택</th>
+                            <th>번호</th>
+                            <th>평가액</th>
+                            <th>가격단위</th>
+                            <th>대여기간</th>
+                            <th>대여기관</th>
+                            <th>비고</th>
                         </tr>
                     </thead>
                     <tbody id="insurance-tbody">
@@ -2068,7 +2072,7 @@
 		                                </c:forEach>
                               </select>
                             </td>
-                            <td>
+                            <td class="table_2nd_row_wrap">
                               <!-- 대여기간 캘린더 폼 -->
                               <input class="form-control" type="date" id="insu_start_date" name="insu_start_date"> ~ <input class="form-control" type="date" id="insu_end_date" name="insu_end_date">
                             </td>
@@ -2106,14 +2110,14 @@
                 <table class="table mb-0" id="copyright-table">
                     <thead>
                         <tr class="tr_bgc">
-                            <td>#</td>
-                            <td>번호</td>
-                            <td>저작권</td>
-                            <td>저작권 소유자</td>
-                            <td>저작권만료일자</td>
-                            <td>이용허락 여부</td>
-                            <td>저작권 양도 여부</td>
-                            <td>비고</td>
+                            <th style="width:5%">선택</th>
+                            <th>번호</th>
+                            <th>저작권</th>
+                            <th>저작권 소유자</th>
+                            <th>저작권만료일자</th>
+                            <th>이용허락 여부</th>
+                            <th>저작권 양도 여부</th>
+                            <th>비고</th>
                         </tr>
                     </thead>
                     <tbody id="copyright-tbody">
@@ -2480,9 +2484,6 @@
 
             <!-- 보존처리 -->
             <div class="tab-pane" id="settings" role="tabpanel">
-
-            <div class="mb-0">
-		     </div>
             <form id="preservation-form0" enctype="multipart/form-data">
             <div id="accordion-div">
               <div class="accordion-item" id="preservation-div">
@@ -2552,14 +2553,17 @@
             <div class="mb-0" id="before-div">
               <div class="st_wrap">
                 <label class="col-md-2 col-form-label st_title" style="display:inline">보존처리 전 이미지</label>
+                
+<!--                 <div class="float_right_btn_wrap"> -->
+	                <label for="before-uploadFile" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
+					<input type="file" name="before_uploadFile" id="before-uploadFile" onchange="beforeImg(this, 0)" multiple style="display:none;" accept="image/*">
+	
+	                <button class="custom_btn btn_7288c5">다운로드</button>
+	                <button type="button" class="custom_btn btn_707070" onclick="allCheck('before', '0')">전체선택</button>
+	                <button type="button" class="custom_btn btn_707070" onclick="cancelCheck('before', '0')">선택해지</button>
+	                <button type="button" class="custom_btn btn_707070" onclick="deleteChecked('before', '0')">선택삭제</button>
+<!--                 </div> -->
 
-                <label for="before-uploadFile" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
-				<input type="file" name="before_uploadFile" id="before-uploadFile" onchange="beforeImg(this, 0)" multiple style="display:none;" accept="image/*">
-
-                <button class="custom_btn btn_7288c5">다운로드</button>
-                <button type="button" class="custom_btn btn_707070" onclick="allCheck('before', '0')">전체선택</button>
-                <button type="button" class="custom_btn btn_707070" onclick="cancelCheck('before', '0')">선택해지</button>
-                <button type="button" class="custom_btn btn_707070" onclick="deleteChecked('before', '0')">선택삭제</button>
 
                 <div id="before-img-preview0">
 

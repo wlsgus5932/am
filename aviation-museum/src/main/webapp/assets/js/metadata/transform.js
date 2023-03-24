@@ -4,6 +4,7 @@ const changeTabName = nm => {
 	nm == 'P' ? tabName='' : tabName=nm;
 	 $('#reg_state').val(nm);
 	$('#page').val(0);
+	getTransformList()
 }
 
 const changeReg = nm => {
