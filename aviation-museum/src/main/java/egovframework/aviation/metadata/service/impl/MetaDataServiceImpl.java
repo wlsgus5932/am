@@ -451,6 +451,42 @@ public class MetaDataServiceImpl implements MetaDataService {
 		return dao.getSearchItemNext(param);
 	}
 
+	@Override
+	public void updateTaxonomy(HashMap<String, Object> classUdt) {
+		dao.updateTaxonomy(classUdt);
+	}
+
+	@Override
+	public void updateCountry(HashMap<String, Object> countryUdt) {
+		dao.updateCountry(countryUdt);
+		
+	}
+
+	@Override
+	public void updateMaterial(HashMap<String, Object> materialUdt) {
+		dao.updateMaterial(materialUdt);
+	}
+
+	@Override
+	public void updateMeasurement(HashMap<String, Object> measurementUdt) {
+		dao.updateMeasurement(measurementUdt);
+	}
+
+	@Override
+	public void updateInvolvement(HashMap<String, Object> involvementUdt) {
+		dao.updateInvolvement(involvementUdt);
+	}
+
+	@Override
+	public void updateInsurance(HashMap<String, Object> insuranceUdt) {
+		dao.updateInsurance(insuranceUdt);
+	}
+
+	@Override
+	public void updateCopyright(HashMap<String, Object> copyrightUdt) {
+		dao.updateCopyright(copyrightUdt);
+	}
+
 
 
 

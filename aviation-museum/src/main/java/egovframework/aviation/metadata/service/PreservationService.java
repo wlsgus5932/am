@@ -18,5 +18,6 @@ public interface PreservationService {
 	int deletePreservationImage(List<String> image_idx);
 	int deletePreservation(String preservation_idx);
 	int updatePreservation(PreservationParamVO param);
+	int deleteImageAll(String preservation_idx);
 
 }

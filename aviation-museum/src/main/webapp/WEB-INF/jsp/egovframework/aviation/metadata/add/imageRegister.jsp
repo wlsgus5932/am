@@ -33,10 +33,6 @@
   let gallery;
 
   const checkInput = () => {
-  	if(!$('#org_code_idx > option:selected').val()) {
-      	alert("기관코드를 선택해주세요.");
-  		return false
-  	}
   	if(!$('#possession_code_idx > option:selected').val()) {
       	alert("소장구분을 선택해주세요.");
   		return false
@@ -252,20 +248,20 @@
               <div class="col-md-10">
               <form id="imageUpdateForm">
               <label class="col-md-2 col-form-label">자료 구분</label>
-              <select class="form-select" name="org_code_idx" id="org_code_idx">
-                    <option value="" selected>선택</option>
-                    		<c:forEach var="list" items="${orgList}" varStatus="status">
-		                           <option value="${list.org_code_idx}">${list.org_nm}</option>
-		                     </c:forEach>
-                </select>
-                  <select class="form-select" name="possession_code_idx" id="possession_code_idx">
-                      <option value="" selected>선택</option>
-                      		<c:forEach var="list" items="${posSessionList}" varStatus="status">
-		                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
-		                     </c:forEach>
-                  </select>
+
+	                                                    <select class="search_select" name="org_code_idx">
+										                    <c:forEach var="list" items="${orgList}" varStatus="status">
+										                           <option value="${list.org_code_idx}" <c:if test ="${list.org_nm eq '항공박물관'}">selected="selected"</c:if>>${list.org_nm}</option>
+										                     </c:forEach>
+										                  </select>
+										                  <select class="search_select" name="possession_code_idx" id="possession_code_idx">
+										                      <option value="" selected>선택</option>
+										                      		<c:forEach var="list" items="${posSessionList}" varStatus="status">
+												                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
+												                     </c:forEach>
+										                  </select>
                 
-                
+                <input type="hidden" name="reg_state" value="N"/>
                 <label class="col-md-2 col-form-label">자료 번호</label>
                   <!-- <div class="col-md-10"> -->
                     <input class="form-control" list="datalistOptions" id="item_no1" placeholder="자료 번호" name="item_no1">

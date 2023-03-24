@@ -45,6 +45,12 @@ public class ImageController {
 	@Autowired
 	private ImageService service;
 	
+//	String imagePath = "D:\\uploadtest\\images\\";
+// String thumbnailPath = "D:\\uploadtest\\images\\thumbnails";
+	String imagePath = "/images/";
+    String thumbnailPath = "/images/thumbnails/";
+    String DBimagepath = "/images/";
+    
 	@PostMapping("/getImage.do")
 	public String getImage(Model model, @ModelAttribute ImageParamVO param, @ModelAttribute Criteria cri) throws Exception {
 		int perPageNum = service.getImageListCnt(param.getItem_idx());		
@@ -239,13 +245,9 @@ public class ImageController {
 		   System.out.println("받은거::::"+item_idx+","+possession_code_idx+"," + org_code_idx);
 		   System.out.println("dx5:::"+x5);
 		      String path = null;
-//			  String path2 = "D:\\aviation_images\\images\\"+org_code_idx+"\\"+possession_code_idx;
-//		      String thumbnailPath2 = "D:\\aviation_images\\images\\"+org_code_idx+"\\"+possession_code_idx+"\\thumbnails";
-		      String path2 = "D:\\aviation_images\\images";
-		      String thumbnailPath2 = "D:\\aviation_images\\images\\thumbnails";
 		      Image image = null;
-		      File dir = new File(path2);
-		      File dir2 = new File(thumbnailPath2);
+		      File dir = new File(imagePath);
+		      File dir2 = new File(thumbnailPath);
 		      //File dir_thum = new File(thumbnailPath2);
 		      
 		      FileItem item = (FileItem) x5.getDEXTUploadX5_FileData().get(0);
@@ -266,7 +268,7 @@ public class ImageController {
 							System.out.println(e);
 						}
 			    	  }
-	         option.setTargetDirectoryPath(path2);
+	         option.setTargetDirectoryPath(imagePath);
 	         boolean isImg = ImageTool.isImage(item);
 	         path = item.save(option);
 
@@ -274,7 +276,7 @@ public class ImageController {
 	            image = new ImageIcon(item.getLastSavedFilePath()).getImage();
 	            ImageTool oimg = ImageTool.getInstance(new File(item.getLastSavedFilePath()));
 	            ImageTool dimg = oimg.resize(64, 64, RenderingHints.VALUE_INTERPOLATION_BILINEAR, true);
-	            dimg.save(new File(thumbnailPath2, "thumbnail_".concat(item
+	            dimg.save(new File(thumbnailPath, "thumbnail_".concat(item
 	                  .getFilenameWithoutExtension().concat(".").concat(oimg.getFormat().toString().toLowerCase()))),
 	                  oimg.getFormat());
 	         }
@@ -283,7 +285,7 @@ public class ImageController {
 	         list.setImage_nm(item.getLastSavedFilename());
 	         list.setOrignl_nm("origin");
 	         list.setThumbnail_nm("thumbnail_"+item.getFilename());
-	         list.setImage_path(path2);
+	         list.setImage_path(DBimagepath);
 	         list.setImage_width(image.getWidth(null));
 	         list.setImage_height(image.getHeight(null));
 	         list.setRep_image("N");

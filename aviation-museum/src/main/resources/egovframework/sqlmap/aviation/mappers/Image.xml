@@ -4,7 +4,7 @@
 
 	<select id="getImage" resultType="egovframework.aviation.metadata.vo.image.ImageVO" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO">
 		select 
-			row_number() over(order by reg_date) as rownum,
+			row_number() over(order by A.reg_date) as rownum,
 			item_idx,
 			image_idx,
 			image_nm,
@@ -31,7 +31,7 @@
 	
 	<select id="getImageAll" resultType="egovframework.aviation.metadata.vo.image.ImageVO" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO">
 		select 
-			row_number() over(order by reg_date) as rownum,
+			row_number() over(order by A.reg_date) as rownum,
 			item_idx,
 			image_idx,
 			image_nm,
@@ -106,10 +106,10 @@
 			nam_possession_code npc,
 			nam_org_code noc,
 			nam_image ni
-		where ns.item_no between ${item_no1} and ${item_no2}
+		where ns.item_no between convert(#{item_no1}, signed) and convert(#{item_no2}, signed)
 		and ns.reg_state = #{reg_state}
 		<if test="item_detail_no1 != '' and item_detail_no2 != null ">
-		and item_detail_no between ${item_detail_no1} and ${item_detail_no2}
+		and item_detail_no between convert(#{item_detail_no1}) and convert(#{item_detail_no2})
 		</if>
 		and ns.ORG_CODE_IDX = #{org_code_idx}
 		and ns.POSSESSION_CODE_IDX = #{possession_code_idx}
@@ -129,10 +129,10 @@
 			nam_possession_code npc,
 			nam_org_code noc,
 			nam_image ni
-		where ns.item_no between ${item_no1} and ${item_no2}
+		where ns.item_no between convert(#{item_no1}, signed) and convert(#{item_no2}, signed)
 		and ns.reg_state = #{reg_state}
 		<if test="item_detail_no1 != '' and item_detail_no2 != null ">
-		and item_detail_no between ${item_detail_no1} and ${item_detail_no2}
+		and item_detail_no between convert(#{item_detail_no1}) and convert(#{item_detail_no2})
 		</if>
 		and ns.ORG_CODE_IDX = #{org_code_idx}
 		and ns.POSSESSION_CODE_IDX = #{possession_code_idx}

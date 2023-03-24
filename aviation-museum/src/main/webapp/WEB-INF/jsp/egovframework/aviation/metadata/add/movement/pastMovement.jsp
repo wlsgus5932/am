@@ -18,7 +18,7 @@
 													               			<td>${list.storage_in} - ${list.storage_out}</td>
 													               			<td>${list.movement_qty}</td>
 																				<td>
-																					<select class="form-select st_select" onchange="change_Inout(this.value, '+i+')">
+																					<select class="form-select st_select" onchange="change_Inout(${list.movement_idx})">
 																						<option selected value="">선택</option>
 																						<option value="IN">보관처</option>
 																						<option value="OUT">반입처</option>
