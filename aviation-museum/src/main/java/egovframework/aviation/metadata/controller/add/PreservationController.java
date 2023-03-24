@@ -28,26 +28,31 @@ public class PreservationController {
 	@Autowired
 	private PreservationService service;
 	
+	//String result_path = "D:/uploadtest/images/preservation/result-img/";
+	String result_path = "/images/preservation/result-img/";
+	String db_result_path = "/images/preservation/result-img/";
+	
+	//String before_path = "D:/uploadtest/images/preservation/before-img/";
+	String before_path = "/images/preservation/before-img/";
+	String db_before_path = "/images/preservation/before-img/";
+	
+	//String after_path = "D:/uploadtest/images/preservation/after-img/";
+	String after_path = "/images/preservation/after-img/";
+	String db_after_path = "/images/preservation/after-img/";
+	
 	@PostMapping("/addPreservation.do")
 	@ResponseBody
 	public String addPreservation(@ModelAttribute PreservationParamVO param, HttpServletRequest req) throws Exception {
 		System.out.println(param);
 		MultipartFile uploadFile = null;
 		String fileName = null;
-		String result_path = "/images/preservation/result-img/";
-		String result_path2 = "/images/preservation/result-img/";
-		String before_path = "/images/preservation/before-img/";
-		String before_path2 = "/images/preservation/before-img/";
-		String after_path = "/images/preservation/after-img/";
-		String after_path2 = "/images/preservation/after-img/";
+		
 		String result = "error";
 		
-		System.out.println(param.getResult_uploadFile());
 		uploadFile = param.getResult_uploadFile();
 		fileName = uploadFile.getOriginalFilename();
 		param.setFile_nm(fileName);
-		param.setFile_path(result_path2);
-		param.setFile_local_path(result_path);
+		param.setFile_path(db_result_path);
 		uploadFile.transferTo(new File(result_path + fileName));
 		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 		param.setReg_user(userSessionId);
@@ -66,8 +71,7 @@ public class PreservationController {
 					
 					list.add(param.getPreservation_idx());
 					list.add(fileName);
-					list.add(before_path2);
-					list.add(before_path);
+					list.add(db_before_path);
 					list.add("B");
 					list.add(param.getReg_user());
 					
@@ -77,7 +81,6 @@ public class PreservationController {
 				int before_num = service.setPreservationImage(map);
 				
 				for(int i = 0; i<param.getAfter_uploadFile().size(); i++) {
-					System.out.println("aftersize:::"+param.getAfter_uploadFile());
 					List<Object> list = new ArrayList<Object>();
 					uploadFile = param.getAfter_uploadFile().get(i);
 					fileName = uploadFile.getOriginalFilename();
@@ -85,8 +88,7 @@ public class PreservationController {
 					
 					list.add(param.getPreservation_idx());
 					list.add(fileName);
-					list.add(after_path2);
-					list.add(after_path);
+					list.add(db_after_path);
 					list.add("A");
 					list.add(param.getReg_user());
 					
@@ -99,109 +101,27 @@ public class PreservationController {
 		return result;
 	}
 	
-	//로컬용
-//	@PostMapping("/addPreservation.do")
-//	@ResponseBody
-//	public String addPreservation(@ModelAttribute PreservationParamVO param, HttpServletRequest req) throws Exception {
-//		System.out.println(param);
-//		MultipartFile uploadFile = null;
-//		String fileName = null;
-//		String result_path = "D:\\uploadtest\\images\\preservation\\result-img\\";
-//		String result_path2 = "images\\preservation\\result-img\\";
-//		String before_path = "D:\\uploadtest\\images\\preservation\\before-img\\";
-//		String before_path2 = "images\\preservation\\before-img\\";
-//		String after_path = "D:\\uploadtest\\images\\preservation\\after-img\\";
-//		String after_path2 = "images\\preservation\\after-img\\";
-//		String result = "error";
-//		
-//		System.out.println(param.getResult_uploadFile());
-//		uploadFile = param.getResult_uploadFile();
-//		fileName = uploadFile.getOriginalFilename();
-//		param.setFile_nm(fileName);
-//		param.setFile_path(result_path2);
-//		param.setFile_local_path(result_path);
-//		uploadFile.transferTo(new File(result_path + fileName));
-//		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
-//		param.setReg_user(userSessionId);
-//		int x = service.setPreservation(param);
-//		
-//		System.out.println(fileName);
-//			if(x > 0) {
-//				Map<Integer, Object> map = new HashMap<Integer, Object>();
-//				
-//				for(int i = 0; i<param.getBefore_uploadFile().size(); i++) {
-//					System.out.println("beforesize:::"+param.getBefore_uploadFile().size());
-//					List<Object> list = new ArrayList<Object>();
-//					uploadFile = param.getBefore_uploadFile().get(i);
-//					fileName = uploadFile.getOriginalFilename();
-//					uploadFile.transferTo(new File(before_path + fileName));
-//					
-//					list.add(param.getPreservation_idx());
-//					list.add(fileName);
-//					list.add(before_path2);
-//					list.add(before_path);
-//					list.add("B");
-//					list.add(param.getReg_user());
-//					
-//					map.put(i, list);
-//				}
-//				
-//				int before_num = service.setPreservationImage(map);
-//				
-//				for(int i = 0; i<param.getAfter_uploadFile().size(); i++) {
-//					System.out.println("aftersize:::"+param.getAfter_uploadFile());
-//					List<Object> list = new ArrayList<Object>();
-//					uploadFile = param.getAfter_uploadFile().get(i);
-//					fileName = uploadFile.getOriginalFilename();
-//					uploadFile.transferTo(new File(after_path + fileName));
-//					
-//					list.add(param.getPreservation_idx());
-//					list.add(fileName);
-//					list.add(after_path2);
-//					list.add(after_path);
-//					list.add("A");
-//					list.add(param.getReg_user());
-//					
-//					map.put(i, list);
-//				}
-//				
-//				int after_num = service.setPreservationImage(map);
-//				result = "success";
-//			}
-//		return result;
-//	}
-	
 	@PostMapping("/updatePreservation.do")
 	@ResponseBody
 	public String updatePreservation(@ModelAttribute PreservationParamVO param,  HttpServletRequest req) throws Exception {
 		System.out.println(param);
 		MultipartFile uploadFile = null;
 		String fileName = null;
-		String result_path = "D:\\uploadtest\\images\\preservation\\result-img\\";
-		String result_path2 = "images\\preservation\\result-img\\";
-		String before_path = "D:\\uploadtest\\images\\preservation\\before-img\\";
-		String before_path2 = "images\\preservation\\before-img\\";
-		String after_path = "D:\\uploadtest\\images\\preservation\\after-img\\";
-		String after_path2 = "images\\preservation\\after-img\\";
 		String result = "error";
 		
-		System.out.println(param.getResult_uploadFile());
 		uploadFile = param.getResult_uploadFile();
 		fileName = uploadFile.getOriginalFilename();
 		param.setFile_nm(fileName);
-		param.setFile_path(result_path2);
-		param.setFile_local_path(result_path);
+		param.setFile_path(db_result_path);
 		uploadFile.transferTo(new File(result_path + fileName));
+		
 		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 		param.setMod_user(userSessionId);
 		int x = service.updatePreservation(param);
-		
-		System.out.println(fileName);
 			if(x > 0) {
 				Map<Integer, Object> map = new HashMap<Integer, Object>();
 				
 				for(int i = 0; i<param.getBefore_uploadFile().size(); i++) {
-					System.out.println("beforesize:::"+param.getBefore_uploadFile().size());
 					List<Object> list = new ArrayList<Object>();
 					uploadFile = param.getBefore_uploadFile().get(i);
 					fileName = uploadFile.getOriginalFilename();
@@ -209,7 +129,6 @@ public class PreservationController {
 					
 					list.add(param.getPreservation_idx());
 					list.add(fileName);
-					list.add(before_path2);
 					list.add(before_path);
 					list.add("B");
 					list.add(param.getReg_user());
@@ -220,7 +139,6 @@ public class PreservationController {
 				int before_num = service.setPreservationImage(map);
 				
 				for(int i = 0; i<param.getAfter_uploadFile().size(); i++) {
-					System.out.println("aftersize:::"+param.getAfter_uploadFile());
 					List<Object> list = new ArrayList<Object>();
 					uploadFile = param.getAfter_uploadFile().get(i);
 					fileName = uploadFile.getOriginalFilename();
@@ -228,7 +146,6 @@ public class PreservationController {
 					
 					list.add(param.getPreservation_idx());
 					list.add(fileName);
-					list.add(after_path2);
 					list.add(after_path);
 					list.add("A");
 					list.add(param.getReg_user());
@@ -274,6 +191,7 @@ public class PreservationController {
 		System.out.println(preservation_idx);
 		List<PreservationImageVO> vo = service.getPreservationImageList(preservation_idx);
 		int x = service.deletePreservation(preservation_idx);
+		int y = service.deleteImageAll(preservation_idx);
 		
 		for(int i=0; i<vo.size(); i++) {
 			File file = new File("D:\\uploadtest\\"+vo.get(i).getImage_path()+vo.get(i).getImage_nm());

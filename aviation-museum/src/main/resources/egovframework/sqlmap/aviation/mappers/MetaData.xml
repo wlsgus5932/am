@@ -18,13 +18,15 @@
 			nam_involvement ni,
 			nam_possession_code npc, 
 			nam_org_code noc
-		where ib.item_no between #{item_no1} and #{item_no2}
+		where ib.item_no between convert(#{item_no1}, signed) and convert(#{item_no2}, signed)
 		<if test="item_detail_no1 != '' and item_detail_no1 != null">
-			and ib.item_detail_no between #{item_detail_no1} and #{item_detail_no2}
+			and ib.item_detail_no between convert(#{item_detail_no1}, signed) and convert(#{item_detail_no2}, signed)
 		</if>
 		and ib.item_idx = ni.item_idx
 		and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
 		and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX
+		group by ib.item_idx
+		order by rownum desc
 		LIMIT #{perPageNum} OFFSET #{pageStart};
 	</select>
 	
@@ -34,13 +36,14 @@
 			nam_involvement ni,
 			nam_possession_code npc, 
 			nam_org_code noc
-		where ib.item_no between ${item_no1} and ${item_no2}
+		where ib.item_no between convert(#{item_no1}, signed) and convert(#{item_no2}, signed)
 		<if test="item_detail_no1 != '' and item_detail_no1 != null">
-		and ib.item_detail_no between ${item_detail_no1} and ${item_detail_no2}
+		and ib.item_detail_no between convert(#{item_detail_no1}, unsigned) and convert(#{item_detail_no2}, signed)
 		</if>
 		and ib.item_idx = ni.item_idx
 		and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
 		and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX
+		group by ib.item_idx
 	</select>
 	
 	<insert id="deleteDeletion" parameterType="java.util.Map">
@@ -440,7 +443,7 @@
 				</if> -->
 			);
 			
-			<selectKey resultType="String" keyProperty="item_idx" order="AFTER">
+			<selectKey resultType="int" keyProperty="item_idx" order="AFTER">
 		        SELECT LAST_INSERT_ID()
 		    </selectKey>
 	</insert>
@@ -742,6 +745,69 @@
 				remark = #{remark},
 				reg_user = #{reg_user}
 			where movement_idx = #{movement_idx}
+	</update>
+	
+	<update id="updateTaxonomy" parameterType="hashmap">
+			update nam_taxonomy set
+				class1_code_idx = ${class1_code_idx},
+				class2_code_idx = ${class2_code_idx},
+				class3_code_idx = ${class3_code_idx}
+			where taxonomy_idx = ${taxonomy_idx}
+	</update>
+	
+	<update id="updateCountry" parameterType="hashmap">
+			update nam_country_era set
+				country_code_idx = #{country_code_idx},
+				era_code_idx = #{era_code_idx},
+				detail_year = #{detail_year}
+			where country_era_idx = ${country_idx}
+	</update>
+	
+	<update id="updateMaterial" parameterType="hashmap">
+			update nam_material set
+				material1_code_idx = #{material1_code_idx},
+				material2_code_idx = #{material2_code_idx},
+				material_detail = #{material_detail}
+			where material_idx = ${material_idx}
+	</update>
+	
+	<update id="updateMeasurement" parameterType="hashmap">
+			update nam_measurement set
+				item_type = #{measurement_item_type},
+				measurement_unit_code_idx = #{measurement_unit_code_idx},
+				measurement_value = #{measurement_value},
+				measurement_code_idx = #{measurement_code_idx}
+			where measurement_idx = ${measurement_idx}
+	</update>
+	
+	<update id="updateInvolvement" parameterType="hashmap">
+			update nam_involvement set
+				possession_code_idx = #{invol_possession_code_idx},
+				item_no = #{invol_item_no},
+				remark = #{invol_remark}
+			where involvement_idx = ${involvement_idx}
+	</update>
+	
+	<update id="updateInsurance" parameterType="hashmap">
+			update nam_insurance set
+				agreed_value = #{agreed_value},
+				price_unit_code_idx = #{price_unit_code_idx},
+				start_date = #{start_date},
+				end_date = #{end_date},
+				rental_org = #{rental_org},
+				remark = #{remark}
+			where insurance_idx = ${insurance_idx}
+	</update>
+	
+	<update id="updateCopyright" parameterType="hashmap">
+			update nam_copyright set
+				copyright = #{copyright},
+				owner = #{owner},
+				expiry_date = #{expiry},
+				usage_permission = #{permission},
+				copyright_transfer = #{transfer},
+				remark = #{remark}
+			where copyright_idx = ${copyright_idx}
 	</update>
 	
 	<insert id="setStorage" parameterType="egovframework.aviation.metadata.vo.param.MovementParamVO">

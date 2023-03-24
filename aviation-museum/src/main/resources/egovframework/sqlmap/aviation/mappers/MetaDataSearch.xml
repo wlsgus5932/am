@@ -10,6 +10,7 @@
 					,lag(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as PREV
 					,lead(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as NEXT
 					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_IDX 
+					,(SELECT ni.IMAGE_NM from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_NM
 					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_PATH 
 					,nib.ORG_CODE_IDX 
 					,nib.POSSESSION_CODE_IDX
@@ -46,9 +47,9 @@
 					,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS3_NM
 					,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 				from nam_item_base nib
-				join nam_country_era nce2 
+				LEFT join nam_country_era nce2 
 				on nib.ITEM_IDX = nce2.ITEM_IDX
-				join nam_material nm3 
+				LEFT join nam_material nm3 
 				on nib.ITEM_IDX = nm3.ITEM_IDX 
 				WHERE 1=1
 				AND REG_STATE = #{reg_state}
@@ -173,6 +174,7 @@
 					,lag(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as PREV
 					,lead(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as NEXT
 					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_IDX 
+					,(SELECT ni.IMAGE_NM from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_NM
 					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_PATH 
 					,nib.ORG_CODE_IDX 
 					,nib.POSSESSION_CODE_IDX
@@ -209,9 +211,9 @@
 					,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS3_NM
 					,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 				from nam_item_base nib
-				join nam_country_era nce2 
+				LEFT join nam_country_era nce2 
 				on nib.ITEM_IDX = nce2.ITEM_IDX
-				join nam_material nm3 
+				LEFT join nam_material nm3 
 				on nib.ITEM_IDX = nm3.ITEM_IDX 
 				WHERE 1=1
 				AND REG_STATE = #{reg_state}
@@ -329,6 +331,7 @@
 					,lag(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as PREV
 					,lead(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as NEXT
 					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_IDX 
+					,(SELECT ni.IMAGE_NM from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_NM
 					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_PATH 
 					,nib.ORG_CODE_IDX 
 					,nib.POSSESSION_CODE_IDX
@@ -365,9 +368,9 @@
 					,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS3_NM
 					,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 				from nam_item_base nib
-				join nam_country_era nce2 
+				LEFT join nam_country_era nce2 
 				on nib.ITEM_IDX = nce2.ITEM_IDX
-				join nam_material nm3 
+				LEFT join nam_material nm3 
 				on nib.ITEM_IDX = nm3.ITEM_IDX 
 				WHERE 1=1
 				AND REG_STATE = #{reg_state}
@@ -515,11 +518,11 @@
 						,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 					FROM 
 						nam_image ni
-					join nam_item_base nib 
+					left join nam_item_base nib 
 					on ni.ITEM_IDX = nib.ITEM_IDX 
-					join nam_country_era nce2 
+					left join nam_country_era nce2 
 					on nib.ITEM_IDX = nce2.ITEM_IDX
-					join nam_material nm3 
+					left join nam_material nm3 
 					on nib.ITEM_IDX = nm3.ITEM_IDX 
 					WHERE 1=1
 					AND nib.REG_STATE = #{reg_state}
@@ -623,7 +626,7 @@
 							#{material1_seq}
 						</foreach>
 					</if>
-					GROUP BY item_idx
+					GROUP BY image_idx
 					ORDER BY rnum
             ) R1
             <if test=" '' != image_idx and null != image_idx">
@@ -665,11 +668,11 @@
 						,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 					FROM 
 						nam_image ni
-					join nam_item_base nib 
+					left join nam_item_base nib 
 					on ni.ITEM_IDX = nib.ITEM_IDX 
-					join nam_country_era nce2 
+					left join nam_country_era nce2 
 					on nib.ITEM_IDX = nce2.ITEM_IDX
-					join nam_material nm3 
+					left join nam_material nm3 
 					on nib.ITEM_IDX = nm3.ITEM_IDX 
 					WHERE 1=1
 					AND nib.REG_STATE = #{reg_state}
@@ -773,7 +776,7 @@
 							#{material1_seq}
 						</foreach>
 					</if>
-					GROUP BY item_idx
+					GROUP BY image_idx
 					ORDER BY rnum
             ) R1
             <if test=" '' != image_idx and null != image_idx">
@@ -816,11 +819,11 @@
 						,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 					FROM 
 						nam_image ni
-					join nam_item_base nib 
+					left join nam_item_base nib 
 					on ni.ITEM_IDX = nib.ITEM_IDX 
-					join nam_country_era nce2 
+					left join nam_country_era nce2 
 					on nib.ITEM_IDX = nce2.ITEM_IDX
-					join nam_material nm3 
+					left join nam_material nm3 
 					on nib.ITEM_IDX = nm3.ITEM_IDX 
 					WHERE 1=1
 					AND nib.REG_STATE = #{reg_state}
@@ -924,7 +927,7 @@
 						#{material1_seq}
 					</foreach>
 				</if>
-				GROUP BY item_idx
+				GROUP BY image_idx
 				ORDER BY rnum
             ) R1
 	</select>

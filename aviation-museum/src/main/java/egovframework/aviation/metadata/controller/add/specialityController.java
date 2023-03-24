@@ -28,8 +28,9 @@ public class specialityController {
 	@Autowired
 	private SpecialityService service;
 	
-	String local_path = "D:\\uploadtest\\";
-	String path = "files/speciality/";
+	String filePath = "/files/speciality/";
+	String DB_filepath = "/files/speciality/";
+	//String filePath = "/files/";
 	
 	@GetMapping("/getSpeciality.do")
 	public String getSpeciality(ModelMap model, @ModelAttribute SpecialityParamVO param, @ModelAttribute Criteria cri) throws Exception {
@@ -98,7 +99,6 @@ public class specialityController {
 		try {
 			System.out.println("param::"+param);
 			String fileName = null;
-			String filePath = "files\\speciality\\";
 	        MultipartFile uploadFile = param.getSpc_uploadFile();
 	        
 	        if (!uploadFile.isEmpty()) {
@@ -107,9 +107,9 @@ public class specialityController {
 	            //String ext = FilenameUtils.getExtension(originalFileName); // 확장자 구하기
 	            //UUID uuid = UUID.randomUUID(); // UUID 구하기
 	            //fileName = uuid + "." + ext;
-	            uploadFile.transferTo(new File("D:\\uploadtest\\"+filePath + fileName));
+	            uploadFile.transferTo(new File(filePath + fileName));
 	            param.setSpc_file_nm(fileName);
-	            param.setSpc_file_path(filePath);
+	            param.setSpc_file_path(DB_filepath);
 	        }
 	        
 	        
@@ -128,18 +128,16 @@ public class specialityController {
 		System.out.println(param);
 		try {
 			String fileName = null;
-			String filePath = "D:\\uploadtest\\";
 	        MultipartFile uploadFile = param.getSpc_uploadFile();
 	        
 	        if (!uploadFile.isEmpty()) {
 	        	File file = new File(param.getSpc_file_path()+param.getSpc_file_nm());
-				boolean delete = file.delete();
+				 file.delete();
 				
 	            fileName = uploadFile.getOriginalFilename();
-	            System.out.println("ori:::"+fileName);
 	            uploadFile.transferTo(new File(filePath + fileName));
 	            param.setSpc_file_nm(fileName);
-	            param.setSpc_file_path(filePath);
+	            param.setSpc_file_path(DB_filepath);
 	        }
 	        
 	        
@@ -161,8 +159,9 @@ public class specialityController {
 		try {
 			int x = service.deleteSpeciality(param);
 			
-			if(x != 0) {
-				File file = new File(local_path+param.getSpc_file_path()+param.getSpc_file_nm());
+			if(x > 0) {
+				File file = new File(filePath+param.getSpc_file_nm());
+				//서버용 File file = new File(param.getSpc_file_path()+param.getSpc_file_nm());
 				file.delete();
 				result = "success";
 			}

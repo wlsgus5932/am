@@ -102,6 +102,7 @@ public class UserController {
 		String securedPassword = req.getParameter("securedPassword");
 
 		HttpSession session = req.getSession();
+		session.setMaxInactiveInterval(60*60); 
 		PrivateKey privateKey = (PrivateKey) session.getAttribute("__rsaPrivateKey__");
 		session.removeAttribute("__rsaPrivateKey__"); // 키의 재사용을 막는다. 항상 새로운 키를 받도록 강제.
 

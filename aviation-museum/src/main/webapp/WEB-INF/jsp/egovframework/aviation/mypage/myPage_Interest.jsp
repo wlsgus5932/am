@@ -106,8 +106,8 @@
 	                          <td>
 	                            <div class="search_img_wrap">
                               		<c:choose>
-	                             		<c:when test="${interestList.image_path ne null}">
-	                             		 	 <img src="${interestList.image_path}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+	                             		<c:when test="${interestList.image_nm ne null}">
+	                             		 	 <img src="<c:url value='/images/${interestList.image_nm }'/>" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
 	                            		</c:when>
 	                            		<c:otherwise>
 	                            			<img src="/assets/images/no_image.png" alt="이미지">
@@ -157,7 +157,9 @@
               <!--  -->
             
             <script>
-            const gallery = new Viewer(document.getElementById('gallery'));
+            $(function() {
+            	const gallery = new Viewer(document.getElementById('gallery'));
+            })
 	    		<%-- 관심자료 리스트 출력 갯수 --%>
 	    		function interestPageNum() {
 	    			var perPageNum = $('#perPageNum').val();

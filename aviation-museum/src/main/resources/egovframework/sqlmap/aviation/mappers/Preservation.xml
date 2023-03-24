@@ -13,7 +13,6 @@
 				remark,
 				file_nm,
 				file_path,
-				file_local_path,
 				reg_user,
 				reg_date
 			)
@@ -27,7 +26,6 @@
 				#{remark},
 				#{file_nm},
 				#{file_path},
-				#{file_local_path},
 				#{reg_user},
 				now()
 			)
@@ -46,7 +44,6 @@
 				remark = #{remark},
 				file_nm = #{file_nm},
 				file_path = #{file_path},
-				file_local_path = #{file_local_path},
 				mod_user = #{mod_user},
 				mod_date = now()
 		where preservation_idx = #{preservation_idx}
@@ -58,7 +55,6 @@
 				preservation_idx,
 				image_nm,
 				image_path,
-				image_local_path,
 				image_state,
 				reg_user
 			)
@@ -91,6 +87,10 @@
 	
 	<delete id="deletePreservation">
 		delete from nam_preservation where preservation_idx = #{preservation_idx}
+	</delete>
+	
+	<delete id="deleteImageAll">
+		delete from nam_preservation_image where preservation_idx = #{preservation_idx}
 	</delete>
 	
 </mapper>

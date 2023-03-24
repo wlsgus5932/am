@@ -229,10 +229,10 @@
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${mesurementUnitList.enabled != 'Y'}">  
-	                            			<button class="custom_btn btn_preferences_user_enabled">미사용</button>
+	                            			<button class="custom_btn btn_preferences_user_enabled">사용</button>
 	                          			</c:when>
 	                          			<c:otherwise>
-	                          				<button class="custom_btn btn_preferences_user_enabled">사용</button>
+	                          				<button class="custom_btn btn_preferences_user_enabled">미사용</button>
 	                          			</c:otherwise>
 	                          		</c:choose>
 	                            </td>

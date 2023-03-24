@@ -55,10 +55,8 @@ public class UpdateController {
 	private SpecialityService service2;
 	
 	@PostMapping("/update.do")
-	@ResponseBody
 	public String updateData(@ModelAttribute MetaDataParamVO param, Model model, HttpServletRequest req) throws Exception {
 		System.out.println(param);
-		String result = "error";
 		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 		param.setReg_user(userSessionId);
 		try {
@@ -66,14 +64,10 @@ public class UpdateController {
 			service.updateGgnuri(param);
 			//service.updateKeyword(param);
 			
-			if(x == 1) {
-				 HashMap<Integer, Object> classMap = new HashMap<Integer, Object>();
-				 HashMap<Integer, Object> countryMap = new HashMap<Integer, Object>();
-				 HashMap<Integer, Object> materialMap = new HashMap<Integer, Object>();
-				 HashMap<Integer, Object> measureMap = new HashMap<Integer, Object>();
-				 
+			if(x > 0) {
 				 //필수
-				 if(!param.getUpdate_class1_code_idx().get(0).isEmpty()) {
+				 if(param.getUpdate_class1_code_idx() != null && !param.getUpdate_class1_code_idx().get(0).isEmpty()) {
+					 HashMap<Integer, Object> classMap = new HashMap<Integer, Object>();
 						for (int i = 0; i < param.getUpdate_class1_code_idx().size(); i++) {
 							List<Object> item = new ArrayList<>();
 							item.add(param.getItem_idx());
@@ -85,8 +79,19 @@ public class UpdateController {
 						}
 						service.setTaxonomy(classMap);
 					}
+				 if(param.getClass1_code_idx() != null && !param.getClass1_code_idx().get(0).isEmpty()) {
+					 HashMap<String, Object> classUdt = new HashMap<String, Object>();
+					 for(int i=0; i<param.getClass1_code_idx().size(); i++) {
+						 classUdt.put("class1_code_idx", param.getClass1_code_idx().get(i));
+						 classUdt.put("class2_code_idx", param.getClass2_code_idx().get(i));
+						 classUdt.put("class3_code_idx", param.getClass3_code_idx().get(i));
+						 classUdt.put("taxonomy_idx", param.getTaxonomy_idx().get(i));
+						 service.updateTaxonomy(classUdt);
+					 }
+				 }
 				 
-				 if(!param.getUpdate_country_code_idx().get(0).isEmpty()) {
+				 if(param.getUpdate_country_code_idx() != null && !param.getUpdate_country_code_idx().get(0).isEmpty()) {
+					 HashMap<Integer, Object> countryMap = new HashMap<Integer, Object>();
 						for (int i = 0; i < param.getUpdate_country_code_idx().size(); i++) {
 							List<Object> item = new ArrayList<>();
 							item.add(param.getItem_idx());
@@ -98,8 +103,19 @@ public class UpdateController {
 						}
 						service.setCountry(countryMap);
 					}
+				 if(param.getCountry_code_idx() != null && !param.getCountry_code_idx().get(0).isEmpty()) {
+					 HashMap<String, Object> countryUdt = new HashMap<String, Object>();
+					 for(int i=0; i<param.getCountry_code_idx().size(); i++) {
+						 countryUdt.put("country_code_idx", param.getCountry_code_idx().get(i));
+						 countryUdt.put("era_code_idx", param.getEra_code_idx().get(i));
+						 countryUdt.put("detail_year", param.getDetail_year().get(i));
+						 countryUdt.put("country_idx", param.getCountry_idx().get(i));
+						 service.updateCountry(countryUdt);
+					 }
+				 }
 				 
-				 if(!param.getUpdate_material1_code_idx().get(0).isEmpty()) {
+				 if(param.getUpdate_material1_code_idx() != null && !param.getUpdate_material1_code_idx().get(0).isEmpty()) {
+					 HashMap<Integer, Object> materialMap = new HashMap<Integer, Object>();
 					 for (int i = 0; i < param.getUpdate_material1_code_idx().size(); i++) {
 							List<Object> item = new ArrayList<>();
 							item.add(param.getItem_idx());
@@ -109,10 +125,22 @@ public class UpdateController {
 							item.add(param.getUpdate_material_detail().get(i));
 							materialMap.put(i, item);
 					}
-					 service.setTaxonomy(classMap);
+					 service.setMaterial(materialMap);
 				 }
 				 
-				 if(!param.getUpdate_measurement_item_type().get(0).isEmpty()) {
+				 if(param.getMaterial1_code_idx() != null && !param.getMaterial1_code_idx().isEmpty()) {
+					 HashMap<String, Object> materialUdt = new HashMap<String, Object>();
+					 for(int i=0; i<param.getMaterial1_code_idx().size(); i++) {
+						 materialUdt.put("material1_code_idx", param.getMaterial1_code_idx().get(i));
+						 materialUdt.put("material2_code_idx", param.getMaterial2_code_idx().get(i));
+						 materialUdt.put("material_detail", param.getMaterial_detail().get(i));
+						 materialUdt.put("material_idx", param.getMaterial_idx().get(i));
+						 service.updateMaterial(materialUdt);
+					 }
+				 }
+				 
+				 if(param.getUpdate_measurement_item_type() != null && !param.getUpdate_measurement_item_type().get(0).isEmpty()) {
+					 HashMap<Integer, Object> measureMap = new HashMap<Integer, Object>();
 					 for (int i = 0; i < param.getUpdate_measurement_item_type().size(); i++) {
 							List<Object> item = new ArrayList<>();
 							item.add(param.getItem_idx());
@@ -126,9 +154,21 @@ public class UpdateController {
 					 service.setMeasurement(measureMap);
 				 }
 				 
-				 if(!param.getUpdate_invol_possession_code_idx().get(0).isEmpty()) {
+				 if(param.getMeasurement_code_idx() != null && !param.getMeasurement_code_idx().get(0).isEmpty()) {
+	 				 HashMap<String, Object> measurementUdt = new HashMap<String, Object>();
+					 for(int i=0; i<param.getMaterial1_code_idx().size(); i++) {
+						 measurementUdt.put("measurement_item_type", param.getMeasurement_item_type().get(i));
+						 measurementUdt.put("measurement_unit_code_idx", param.getMeasurement_unit_code_idx().get(i));
+						 measurementUdt.put("measurement_value", param.getMeasurement_value().get(i));
+						 measurementUdt.put("measurement_code_idx", param.getMeasurement_code_idx().get(i));
+						 measurementUdt.put("measurement_idx", param.getMeasurement_idx().get(i));
+						 service.updateMeasurement(measurementUdt);
+					 }
+				 }
+				 
+				 if(param.getUpdate_invol_item_no() != null && !param.getUpdate_invol_item_no().get(0).isEmpty()) {
 					 HashMap<Integer, Object> possessionMap = new HashMap<Integer, Object>();
-					 for (int i = 0; i < param.getInvol_org_code_idx().size(); i++) {
+					 for (int i = 0; i < param.getUpdate_invol_item_no().size(); i++) {
 						 List<Object> item = new ArrayList<>();
 						 item.add(param.getItem_idx());
 						 item.add(param.getReg_user());
@@ -140,8 +180,18 @@ public class UpdateController {
 					 }
 					 service.setInvolvement(possessionMap);
 				 }
+				 if(param.getInvol_item_no() != null && !param.getInvol_item_no().get(0).isEmpty()) {
+					 HashMap<String, Object> involvementUdt = new HashMap<String, Object>();
+					 for(int i=0; i<param.getInvol_item_no().size(); i++) {
+						 involvementUdt.put("invol_possession_code_idx", param.getInvol_possession_code_idx().get(i));
+						 involvementUdt.put("invol_item_no", param.getInvol_item_no().get(i));
+						 involvementUdt.put("invol_remark", param.getInvol_remark().get(i));
+						 involvementUdt.put("involvement_idx", param.getInvolvement_idx().get(i));
+						 service.updateInvolvement(involvementUdt);
+					 }
+				 }
 				 
-				 if(!param.getUpdate_insu_agreed_value().get(0).isEmpty()) {
+				 if(param.getUpdate_insu_agreed_value() != null && !param.getUpdate_insu_agreed_value().get(0).isEmpty()) {
 					 HashMap<Integer, Object> insuranceMap = new HashMap<Integer, Object>();
 					 for (int i = 0; i < param.getUpdate_insu_agreed_value().size(); i++) {
 							List<Object> item = new ArrayList<>();
@@ -157,8 +207,21 @@ public class UpdateController {
 					 }
 					 service.setInsurance(insuranceMap);
 				 }
+				 if(param.getInsu_agreed_value() != null && !param.getInsu_agreed_value().isEmpty()) {
+					 HashMap<String, Object> insuranceUdt = new HashMap<String, Object>();
+					 for(int i=0; i<param.getInsu_agreed_value().size(); i++) {
+						 insuranceUdt.put("agreed_value", param.getInsu_agreed_value().get(i));
+						 insuranceUdt.put("price_unit_code_idx", param.getInsu_price_unit_code_idx().get(i));
+						 insuranceUdt.put("start_date", param.getInsu_start_date().get(i));
+						 insuranceUdt.put("end_date", param.getInsu_end_date().get(i));
+						 insuranceUdt.put("rental_org", param.getInsu_rental_org().get(i));
+						 insuranceUdt.put("remark", param.getInsu_remark().get(i));
+						 insuranceUdt.put("insurance_idx", param.getInsurance_idx().get(i));
+						 service.updateInsurance(insuranceUdt);
+					 }
+				 }
 				 
-				 if(!param.getUpdate_copy_copyright().get(0).isEmpty()) {
+				 if(param.getUpdate_copy_copyright() != null && !param.getUpdate_copy_copyright().get(0).isEmpty()) {
 					 HashMap<Integer, Object> copyrightMap = new HashMap<Integer, Object>();
 					 for (int i = 0; i < param.getUpdate_copy_copyright().size(); i++) {
 							List<Object> item = new ArrayList<>();
@@ -174,11 +237,25 @@ public class UpdateController {
 					 }
 					 service.setCopyright(copyrightMap);
 				 }
+				 if(param.getCopy_copyright() != null && !param.getCopy_copyright().get(0).isEmpty()) {
+					 HashMap<String, Object> copyrightUdt = new HashMap<String, Object>();
+					 for(int i=0; i<param.getCopy_copyright().size(); i++) {
+						 copyrightUdt.put("copyright", param.getCopy_copyright().get(i));
+						 copyrightUdt.put("owner", param.getCopy_owner().get(i));
+						 copyrightUdt.put("expiry", param.getCopy_expiry_date().get(i));
+						 copyrightUdt.put("permission", param.getCopy_usage_permission().get(i));
+						 copyrightUdt.put("transfer", param.getCopy_copyright_transfer().get(i));
+						 copyrightUdt.put("remark", param.getCopy_remark().get(i));
+						 copyrightUdt.put("copyright_idx", param.getCopyright_idx().get(i));
+						 service.updateCopyright(copyrightUdt);
+					 }
+				 }
 				 
 				 List<ObtainmentVO> ob = service.getObtainmentList(param.getItem_idx());
-				 if(ob.size() > 0) {
+				 System.out.println("ob:::"+ob);
+				 if(!ob.isEmpty()) {
 					 service.updateObtainment(param);
-				 } else if(ob.size() == 0){
+				 } else if(ob.isEmpty()) {
 					 if(!param.getObt_obtainment_date().isEmpty()|| !param.getObt_obtainment_code_idx().equals("0")
 								|| !param.getObt_purchase1_code_idx().equals("0") || !param.getObt_purchase2_code_idx().equals("0")
 								|| !param.getObt_obtainment_price().isEmpty() || !param.getObt_price_unit_code_idx().equals("0")
@@ -190,10 +267,14 @@ public class UpdateController {
 					 	}
 				 }
 			}
-			result = "success";
-			return result;
+			
+			model.addAttribute("item_idx", param.getItem_idx());
+			model.addAttribute("result", "success");
+			return "jsonView";
 		} catch (Exception e) {
-			return result;
+			System.out.println(e);
+			model.addAttribute("result", "error");
+			return "jsonView";
 		}
 	}
 		

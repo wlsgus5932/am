@@ -313,8 +313,8 @@
 <!-- 	                                <p>설명없음</p> -->
 <!-- 	                              </div> -->
                               		<c:choose>
-	                             		<c:when test="${metaDataSearchImageList.image_path ne null}">
-	                             		 	 <img src="${metaDataSearchImageList.image_path}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+	                             		<c:when test="${metaDataSearchImageList.image_nm ne null}">
+	                             		 	 <img src="<c:url value='/images/${metaDataSearchImageList.image_nm }'/>" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
 	                            		</c:when>
 	                            		<c:otherwise>
 	                            			<img src="/assets/images/no_image.png" alt="이미지">
@@ -349,7 +349,7 @@
 	                            </dl>
 	                            <dl>
 	                              <button class="img-info_btn" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xll">설명등록</button>
-	                              <button class="img-info_btn" onclick="javasctript:gallery.view(${varStatus.index});">원문보기</button>
+<%-- 	                              <button class="img-info_btn" onclick="javasctript:gallery.view(${varStatus.index});">원문보기</button> --%>
 	                            </dl>
 	                          </div>
 	                        </div>

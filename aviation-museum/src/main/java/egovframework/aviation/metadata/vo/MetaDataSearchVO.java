@@ -8,6 +8,7 @@ public class MetaDataSearchVO {
 	private String prev;
 	private String next;
 	private String image_idx;
+	private String image_nm;
 	private String image_path;
 	private String org_code_idx;
 	private String possession_code_idx;
@@ -399,15 +400,21 @@ public class MetaDataSearchVO {
 	public void setCurrent_qty(String current_qty) {
 		this.current_qty = current_qty;
 	}
+	public String getImage_nm() {
+		return image_nm;
+	}
+	public void setImage_nm(String image_nm) {
+		this.image_nm = image_nm;
+	}
 	@Override
 	public String toString() {
 		return "MetaDataSearchVO [rnum=" + rnum + ", item_idx=" + item_idx + ", prev=" + prev + ", next=" + next
-				+ ", image_idx=" + image_idx + ", image_path=" + image_path + ", org_code_idx=" + org_code_idx
-				+ ", possession_code_idx=" + possession_code_idx + ", possession_nm=" + possession_nm + ", item_no="
-				+ item_no + ", item_detail_no=" + item_detail_no + ", item_nm=" + item_nm + ", item_se_nm=" + item_se_nm
-				+ ", item_eng_nm=" + item_eng_nm + ", author=" + author + ", qty=" + qty + ", qty_unit_code_idx="
-				+ qty_unit_code_idx + ", icao_code_idx=" + icao_code_idx + ", icao_nm=" + icao_nm
-				+ ", existence_code_idx=" + existence_code_idx + ", management_no=" + management_no
+				+ ", image_idx=" + image_idx + ", image_nm=" + image_nm + ", image_path=" + image_path
+				+ ", org_code_idx=" + org_code_idx + ", possession_code_idx=" + possession_code_idx + ", possession_nm="
+				+ possession_nm + ", item_no=" + item_no + ", item_detail_no=" + item_detail_no + ", item_nm=" + item_nm
+				+ ", item_se_nm=" + item_se_nm + ", item_eng_nm=" + item_eng_nm + ", author=" + author + ", qty=" + qty
+				+ ", qty_unit_code_idx=" + qty_unit_code_idx + ", icao_code_idx=" + icao_code_idx + ", icao_nm="
+				+ icao_nm + ", existence_code_idx=" + existence_code_idx + ", management_no=" + management_no
 				+ ", preservation_need=" + preservation_need + ", feature=" + feature + ", condition_code_idx="
 				+ condition_code_idx + ", ranking_code_idx=" + ranking_code_idx + ", remark=" + remark + ", reg_state="
 				+ reg_state + ", reg_user=" + reg_user + ", reg_date=" + reg_date + ", mod_user=" + mod_user
@@ -422,4 +429,5 @@ public class MetaDataSearchVO {
 				+ ", end_item_no=" + end_item_no + ", country=" + country + ", material1=" + material1 + ", perPageNum="
 				+ perPageNum + ", pageStart=" + pageStart + "]";
 	}
+
 }
