@@ -27,36 +27,42 @@ public class AuthInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession(false);
         
         
-        if(session.getAttribute("userSession") != null) {  
-
-        	if(session.getAttribute("userSessionId").equals("test")||session.getAttribute("userSessionId").equals("TEST")) {
-        		return true;
-        	}
-        	String userGroupIdx = (String) session.getAttribute("userSessionGroupIdx");
-        	String request_URI = request.getRequestURI();
-
-        	MenuAuthorityCodeJoinVO menuAuthorityCodeJoinVO = new MenuAuthorityCodeJoinVO();
-        	menuAuthorityCodeJoinVO.setGroup_idx(userGroupIdx);
-        	menuAuthorityCodeJoinVO.setMenu_pattern(request_URI);
-        	
-        	//일단 function은 전부 작동//
-        	List<MenuAuthorityCodeJoinVO> getMenuAuthFunction = groupService.getMenuAuthFunction(menuAuthorityCodeJoinVO);
-    	    
-        	if(getMenuAuthFunction.size() == 1) {
-    			return true;
-        	}      	
-        	/////////////////////////
-        	
-        	List<MenuAuthorityCodeJoinVO> getMenuAuth = groupService.getMenuAuth(menuAuthorityCodeJoinVO);
-
-        	if(getMenuAuth.size() == 0) {
-        		response.sendRedirect("/authorityOk.do");
+        if(session != null) {  
+        	if(session.getAttribute("userSessionId") != null) {
+	        	if(session.getAttribute("userSessionId").equals("test")||session.getAttribute("userSessionId").equals("TEST")) {
+	        		return true;
+	        	}
+	        	String userGroupIdx = (String) session.getAttribute("userSessionGroupIdx");
+	        	String request_URI = request.getRequestURI();
+	
+	        	MenuAuthorityCodeJoinVO menuAuthorityCodeJoinVO = new MenuAuthorityCodeJoinVO();
+	        	menuAuthorityCodeJoinVO.setGroup_idx(userGroupIdx);
+	        	menuAuthorityCodeJoinVO.setMenu_pattern(request_URI);
+	        	
+	        	//일단 function은 전부 작동//
+	        	List<MenuAuthorityCodeJoinVO> getMenuAuthFunction = groupService.getMenuAuthFunction(menuAuthorityCodeJoinVO);
+	    	    
+	        	if(getMenuAuthFunction.size() == 1) {
+	    			return true;
+	        	}      	
+	        	/////////////////////////
+	        	
+	        	List<MenuAuthorityCodeJoinVO> getMenuAuth = groupService.getMenuAuth(menuAuthorityCodeJoinVO);
+	
+	        	if(getMenuAuth.size() == 0) {
+	        		response.sendRedirect("/authorityOk.do");
+	    			return false;
+	        	}
+        	}else {
+    			session.invalidate();
+        		response.sendRedirect("/login.do");
     			return false;
         	}
 
         	return true; 
         	
 		} else {
+			System.out.println("null");
 			response.sendRedirect("/login.do");
 			return false;
 		}

@@ -127,7 +127,7 @@
 					,nkr.APPROVAL_STATE 
 					,nkr.REFUSAL_REASON 
 				FROM nam_keyword_request nkr 
-				join nam_item_base nib 
+				LEFT join nam_item_base nib 
 				on nkr.ITEM_IDX = nib.ITEM_IDX 
 				WHERE 1=1
 				ORDER by REG_DATE DESC
@@ -182,7 +182,7 @@
 					,nkr.APPROVAL_STATE 
 					,nkr.REFUSAL_REASON 
 				FROM nam_keyword_request nkr 
-				join nam_item_base nib 
+				LEFT join nam_item_base nib 
 				on nkr.ITEM_IDX = nib.ITEM_IDX 
 				WHERE 1=1
 				ORDER by REG_DATE DESC

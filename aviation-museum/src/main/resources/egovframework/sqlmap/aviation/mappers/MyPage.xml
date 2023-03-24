@@ -11,6 +11,7 @@
 	            	, ni.EXPL
 	            	, ni.REG_USER
 		           	, ni.REG_DATE
+		           	, (SELECT IMAGE_NM FROM nam_image ni2 WHERE ni2.ITEM_IDX = ni.ITEM_IDX limit 1) AS IMAGE_NM
 		           	, (SELECT IMAGE_PATH FROM nam_image ni2 WHERE ni2.ITEM_IDX = ni.ITEM_IDX limit 1) AS IMAGE_PATH
 		           	, nib.ITEM_NO 
 		           	, nib.ITEM_DETAIL_NO 
@@ -21,9 +22,9 @@
 		           	, nib.REG_STATE
 		           	, npc.POSSESSION_NM 
 	            FROM nam_interest ni
-	            join nam_item_base nib
+	            LEFT join nam_item_base nib
 	            on ni.ITEM_IDX = nib.ITEM_IDX 
-	            join nam_possession_code npc 
+	            LEFT join nam_possession_code npc 
 	            on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
 	            WHERE 1=1 
 	            <if test="reg_user != null">AND
@@ -37,9 +38,9 @@
 	            SELECT 
 					count(*)
 	            FROM nam_interest ni
-	            join nam_item_base nib
+	            LEFT join nam_item_base nib
 	            on ni.ITEM_IDX = nib.ITEM_IDX 
-	            join nam_possession_code npc 
+	            LEFT join nam_possession_code npc 
 	            on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
 	            WHERE 1=1 
 	            <if test="reg_user != null">AND
@@ -70,7 +71,7 @@
 		           	, nib.QTY 
 		           	, (SELECT SPECIALITY_NM FROM nam_speciality_code nsc WHERE nsc.SPECIALITY_CODE_IDX = ns.SPECIALITY_CODE_IDX) AS SPECIALITY_NM
 	            FROM nam_speciality ns
-	            join nam_item_base nib
+	            LEFT join nam_item_base nib
 	            on ns.ITEM_IDX = nib.ITEM_IDX 
 	            WHERE 1=1 
 	            <if test="reg_user != null">AND
@@ -101,7 +102,7 @@
 	            SELECT 
 	          		 count(*)
 	            FROM nam_speciality ns
-	            join nam_item_base nib
+	            LEFT join nam_item_base nib
 	            on ns.ITEM_IDX = nib.ITEM_IDX 
 	            WHERE 1=1 
 	            <if test="reg_user != null">AND
@@ -155,7 +156,7 @@
 					,nkr.KEYWORD_LIST
 					,nkr.REFUSAL_REASON 
 				FROM nam_keyword_request nkr 
-				join nam_item_base nib 
+				LEFT join nam_item_base nib 
 				on nkr.ITEM_IDX = nib.ITEM_IDX 
 				WHERE 1=1
 				AND nkr.REG_USER = #{reg_user}
@@ -219,7 +220,7 @@
 					,nkr.APPROVAL_STATE 
 					,nkr.REFUSAL_REASON 
 				FROM nam_keyword_request nkr 
-				join nam_item_base nib 
+				LEFT join nam_item_base nib 
 				on nkr.ITEM_IDX = nib.ITEM_IDX 
 				WHERE 1=1
 				AND nkr.REG_USER = #{reg_user}

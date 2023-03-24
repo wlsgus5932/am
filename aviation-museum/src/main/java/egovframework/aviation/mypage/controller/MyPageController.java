@@ -357,11 +357,13 @@ public class MyPageController {
 	            for (InterestVO board : interestList) {
 	            	
 	            	 try {
-	            		String filePath = board.getImage_path();
+	            		String filePath = board.getImage_nm();
 	            		System.out.println("filePath1"+filePath);
             	        if (filePath == null || filePath.isEmpty()) {
             	        	filePath = "/images/no_image.png";
             	            System.out.println("filePathnull2"+filePath);
+            	        }else {
+            	        	filePath = "/images"+board.getImage_nm();
             	        }
 	            	        	 		            
 	 		            InputStream is = new FileInputStream(filePath);

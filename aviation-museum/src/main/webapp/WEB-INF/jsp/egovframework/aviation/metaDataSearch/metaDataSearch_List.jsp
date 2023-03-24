@@ -295,8 +295,8 @@
 		                          <td>
 		                            <div class="search_img_wrap">
 		                              	<c:choose>
-		                             		<c:when test="${metaDataSearchList.image_path ne null}">
-		                             		 	 <img src="${metaDataSearchList.image_path}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+		                             		<c:when test="${metaDataSearchList.image_nm ne null}">
+		                             		 	 <img src="<c:url value='/images/${metaDataSearchList.image_nm }'/>" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
 		                            		</c:when>
 		                            		<c:otherwise>
 		                            			<img src="/assets/images/no_image.png" alt="이미지">
@@ -307,7 +307,7 @@
 		                          <td onclick="quickView('${metaDataSearchList.item_idx}');">${metaDataSearchList.possession_nm}</td>
 		                          <td>${metaDataSearchList.item_no}</td>
 		                          <td>${metaDataSearchList.item_detail_no}</td>
-		                          <td onclick="metaDataListView('${metaDataSearchList.possession_code_idx}','${metaDataSearchList.org_code_idx}','${metaDataSearchList.item_no}','${metaDataSearchList.item_detail_no}','Y')">${metaDataSearchList.item_nm}</td>
+		                          <td><a onclick="metaDataListView('${metaDataSearchList.possession_code_idx}','${metaDataSearchList.org_code_idx}','${metaDataSearchList.item_no}','${metaDataSearchList.item_detail_no}','Y')">${metaDataSearchList.item_nm}</a></td>
 		                          <td>${metaDataSearchList.icao_nm}</td>
 		                          <td>${metaDataSearchList.qty}</td>
 		                        </tr>
