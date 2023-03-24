@@ -2411,7 +2411,7 @@
                       <option>더미2</option>
                       <option>더미3</option>
                   </select> -->
-                   <ul class="pagination">
+                   <ul class="pagination" style="float:right;">
                     <li class="page-item"><a class="page-link" href="#"><<</a></li>
                     <li class="page-item"><a class="page-link" href="#"><</a></li>
                     <li class="page-item"><a class="page-link" href="#">상세</a></li>
@@ -2551,7 +2551,7 @@
                             <button type="button" class="custom_btn btn_707070" onclick="downloadMainImage()">다운로드</button>
                           </div>
                           <!--  -->
-                          <div id="img-card-body">
+                          <div class="img-card-body_wrap" id="img-card-body">
                           <div class="img-slider">
 								<img src="/assets/images/no_image.png" onerror=this.src="/assets/images/no_image.png">
 								</div>
@@ -2560,13 +2560,13 @@
                       </div>
                   </div>
                   <div class="table-responsive tr_right">
-                      <table class="table mb-0">
+                      <table class="table mb-0 data_table_wrap_left_2">
                           <tbody>
                               <tr>
-                                <td>
+                                <td stlye="width: 12%;">
                                   명칭
                                 </td>
-                                  <td>
+                                  <td style="width: 38%;">
                                     <input class="form-control st_input" list="datalistOptions" id="item_nm" placeholder="자료의 명칭을 입력해 주세요." name="item_nm">
                                   </td>
                                   <td>
@@ -2594,7 +2594,7 @@
                                 <td>
                                   수량
                                 </td>
-                                  <td class="table_2nd_row_wrap">
+                                  <td class="table_2nd_row_wrap table_2nd_row_wrap_2">
                                     <input class="form-control st_input pri" list="datalistOptions" id="qty" placeholder="수량을 입력해 주세요." name="qty" style="min-width:auto !important;"  type="number">
                                     <select class="form-select st_select pri" name="qty_unit_code_idx" id="qty_unit_code_idx" style="min-width:auto !important; width:50% !important;">
                                       <option value="" selected>단위선택</option>
@@ -2879,15 +2879,17 @@
             <div class="card-body">
               <div class="table-responsive">
                   <table class="table mb-0">
-                      <tbody>
+                      <tbody class="data_table_wrap_left">
                           <tr>
-                            <td>
+                            <td style="width: 12%">
                               입수일자
-                              <td>
+                              </td>
+                              <td style="width: 38%">
                                 <input class="form-control in_date" type="date" id="obt_obtainment_date" name="obt_obtainment_date">
                               </td>
                               <td>
                                 입수연유
+                              </td>
                               <td>
                                 <select class="form-select st_select" id="obt_obtainment_code_idx" name="obt_obtainment_code_idx">
                                   <option value="0" selected>선택</option>
@@ -2901,6 +2903,7 @@
                           <tr>
                             <td>
                               구입구분1
+                              </td>
                               <td>
                                 <select class="form-select st_select" id="obt_purchase1_code_idx" name="obt_purchase1_code_idx">
                                   <option value="0" selected>선택</option>
@@ -2911,6 +2914,7 @@
                               </td>
                               <td>
                                 구입구분2
+                              </td>
                               <td>
                                 <select class="form-select st_select" id="obt_purchase2_code_idx" name="obt_purchase2_code_idx">
                                   <option value="0" selected>선택</option>
@@ -2924,7 +2928,8 @@
                           <tr>
                             <td>
                               가격
-                              <td class="table_2nd_row_wrap">
+                              </td>
+                              <td class="table_2nd_row_wrap table_2nd_row_wrap_2">
                                 <input class="form-control st_input pri" list="datalistOptions" id="obt_obtainment_price" placeholder="가격을 입력해 주세요." name="obt_obtainment_price" type="number">
                                 <select class="form-select st_select pri" name="obt_price_unit_code_idx" id="obt_price_unit_code_idx">
                                   <option value="0" selected>선택</option>
@@ -2947,6 +2952,7 @@
                           <tr>
                             <td>
                               일괄구입번호
+                              </td>
                               <td>
                                 <input class="form-control st_input" list="datalistOptions" id="obt_obtainment_no" placeholder="일괄구입번호를 입력해 주세요." name="obt_obtainment_no">
                               </td>
@@ -3018,7 +3024,7 @@
                             <td>
                               문화재 환수 수량
                             </td>
-                              <td>
+                              <td class="table_2nd_row_wrap table_2nd_row_wrap_2">
                               <input class="form-control st_input pri" list="datalistOptions" id="obt_qty" placeholder="환수 수량을 입력해 주세요." name="obt_qty" disabled  type="number">
                                 <select class="form-select st_select pri" id="obt_qty_unit_code_idx" name="obt_qty_unit_code_idx" disabled>
                                   <option value="0" selected>문화재 환수 단위</option>
@@ -3045,7 +3051,7 @@
             <div class="st_wrap">
               <label class="col-md-2 col-form-label st_title">특징</label>
             </div>
-              <input type="text" class="st_inp_tbox" placeholder="특징에 관하여 입력해 주세요." id="feature" name="feature">
+              <textarea class="st_inp_tbox" placeholder="특징에 관하여 입력해 주세요." id="feature" name="feature"></textarea>
           </div>
           <!-- 기본사항 특징 끝 -->
           <!--  -->
@@ -3177,7 +3183,7 @@
                             </td>
                             <td class="table_2nd_row_wrap">
                               <!-- 대여기간 캘린더 폼 -->
-                              <input class="form-control" type="date" id="insu_start_date0" name="insu_start_date"> ~ <input class="form-control" type="date" id="insu_end_date0" name="insu_end_date">
+                              <input class="form-control" type="date" id="insu_start_date0" name="insu_start_date">~<input class="form-control" type="date" id="insu_end_date0" name="insu_end_date">
                             </td>
                             <td>
                               <input class="form-control st_input" list="datalistOptions" id="insu_rental_org0" placeholder="대여기관을 입력해 주세요." name="insu_rental_org">
@@ -3197,7 +3203,7 @@
           <div class="st_wrap">
             <label class="col-md-2 col-form-label st_title">비고</label>
           </div>
-            <input type="text" class="st_inp_tbox" placeholder="참고사항을 입력해 주세요." id="remark" name="remark">
+            <textarea class="st_inp_tbox" placeholder="참고사항을 입력해 주세요." id="remark" name="remark"></textarea>
         </div>
         <!-- 기본사항 - 비고 끝 -->
         <!--  -->
@@ -3310,7 +3316,7 @@
         <div class="st_wrap">
           <label class="col-md-2 col-form-label st_title">키워드</label>
         </div>
-          <input type="text" class="st_inp_tbox" placeholder="키워드를 입력해 주세요. 콤마 단위로 입력해주세요." id="itembasekeyword" name="itembasekeyword">
+          <textarea class="st_inp_tbox" placeholder="키워드를 입력해 주세요. 콤마 단위로 입력해주세요." id="itembasekeyword" name="itembasekeyword"></textarea>
       </div>
       </form>
 
@@ -3330,8 +3336,18 @@
             <!--  -->
             <!-- 이동 사항 -->
             <div class="tab-pane" id="profile" role="tabpanel">
+                <div class="st_wrap st_mv_wrap">
+                  <div class="st_title_wrap">
+                    <label class="col-md-2 col-form-label st_title">이동사항 내역</label>
+                    <label class="col-md-2 col-form-label st_sub_title">| 수주량 : 0</label>
+                  </div>
+                  <div class="move_btn">
+                    <button type="button" class="custom_btn btn_ex" onclick="MovementExcelDownload()">엑셀파일</button>
+                    <button class="custom_btn btn_707070" type="button" data-bs-toggle="modal" data-bs-target="#myModal" onclick="btn_control(0)">이동사항 등록</button>
+                  </div>
+                </div>
               <div class="mb-0">
-                <!-- 엑셀 모달 -->
+                <!-- 이동사항 등록 및 수정 모달 -->
                 <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
                   <div class="modal-dialog">
                       <div class="modal-content">
@@ -3350,7 +3366,7 @@
                                       <table class="table mb-0">
                                           <tbody>
                                               <tr>
-                                                <td>이동일자</td>
+                                                <td style="width: 20%;">이동일자</td>
                                                   <td>
                                                    	<input class="form-control st_input" type="date" name="movement_date">
                                                   </td>
@@ -3365,7 +3381,7 @@
 					                                </c:forEach>
                                                   </td>
                                                   <td>
-                                                    <select class="form-select st_select" name="storage_type2_code_idx" id="storage_type2_code_idx">
+                                                    <select class="form-select st_select" name="storage_type2_code_idx" id="storage_type2_code_idx" style="width: auto">
                                                     <option selected value="0">선택</option>
                                                     </select>
                                                   </td>
@@ -3418,7 +3434,7 @@
                                           </tbody>
                                       </table>
                                       </form>
-                                      <button id="add-movement-btn" type="button" class="btn btn-secondary btn_save" onClick="submitAddMovement();">저장</button>
+                                      <button id="add-movement-btn" type="button" class="custom_btn btn_c58672 btn_c58672_6840" onClick="submitAddMovement();" style="margin:1% auto; display: block;">저장</button>
                                       <button id="modify-movement-btn2" type="button" class="btn btn-secondary btn_save" onClick="submitModifyMovement()">수정</button>
                                   </div>
                               </div>
@@ -3450,17 +3466,8 @@
                       </div>
                   </div>
               </div>
-                <!-- 이동사항 -->
-                <div class="st_wrap st_mv_wrap">
-                  <div class="st_title_wrap">
-                    <label class="col-md-2 col-form-label st_title">이동사항 내역</label>
-                    <label class="col-md-2 col-form-label st_sub_title">| 수주량 : 0</label>
-                  </div>
-                  <div class="move_btn">
-                    <button type="button" class="custom_btn btn_ex" onclick="MovementExcelDownload()">엑셀파일</button>
-                    <button class="custom_btn btn_707070" type="button" data-bs-toggle="modal" data-bs-target="#myModal" onclick="btn_control(0)">이동사항 등록</button>
-                  </div>
-                </div>
+                <!-- 이동사항 -->	
+
                 <div class="card-body">
                   <div class="table-responsive" id="movementZone">
                       <table class="table mb-0">
@@ -3570,52 +3577,85 @@
             <div id="accordion-div">
               <div class="accordion-item" id="preservation-div">
                 <h2 class="accordion-header" id="flush-headingOne">
-                  <button class="accordion-button fw-medium ac_btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                <div class="preservation_into_wrap_left">
+	                <div class="table-responsive">
+	                            <table class="table mb-0">
+	                                <tbody>
+	                                    <tr>
+	                                      <td>처리기관</td>
+	                                        <td>
+	                                          <input class="form-control" list="datalistOptions" id="treatment_org0" name="treatment_org" placeholder="처리기관을 입력해 주세요." style="width: 100%">
+	                                        </td>
+	                                        <td>
+	                                         처리자
+	                                        </td>
+	                                        <td>
+	                                          <input class="form-control" list="datalistOptions" id="processor0" name="processor" placeholder="처리자 명을 입력해 주세요." style="width: 100%">
+	                                        </td>
+	                                        <td>
+	                                          처리기간
+	                                        </td>
+	                                        <td>
+	                                          <!-- 대여기간 캘린더 폼 -->
+	                                          <input class="form-control" type="date" name="start_date" id="start_date0"> ~ <input class="form-control" type="date" name="end_date" id="end_date0">
+	                                        </td>
+	                                        <td>
+	                                          <button type="button" class="custom_btn btn_c58672 btn_c58672_6840" id="addPreservationBtn0" onclick="addPreservation(0)">저장</button>
+											  <button type="button" class="custom_btn btn_c58672 btn_c58672_6840" id="" onclick="">삭제</button>
+	                                        </td>
+	                                    </tr>
+	                                </tbody>
+	                            </table>
+	                        </div>
+                </div>
+                  <div class="preservation_btn_wrap_right">
+	                  <button class="accordion-button fw-medium ac_btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+	                  </button>                  
+                  </div>
 
-                  </button>
                 </h2>
                 <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                   <div class="accordion-body text-muted">
                     <!--  -->
-                    <div class="mb-0">
-                      <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <tbody>
-                                    <tr>
-                                      <td>처리기관</td>
-                                        <td>
-                                          <input class="form-control" list="datalistOptions" id="treatment_org0" name="treatment_org" placeholder="처리기관을 입력해 주세요.">
-                                        </td>
-                                        <td>
-                                         처리자
-                                        </td>
-                                        <td>
-                                          <input class="form-control" list="datalistOptions" id="processor0" name="processor" placeholder="처리자 명을 입력해 주세요.">
-                                        <td>
-                                          처리기간
-                                        </td>
-                                        <td>
-                                          <!-- 대여기간 캘린더 폼 -->
-                                          <input class="form-control" type="date" name="start_date" id="start_date0"> ~ <input class="form-control" type="date" name="end_date" id="end_date0">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                  </div>
-                    <div class="mb-0">
+<!--                     <div class="mb-0"> -->
+<!--                       <div class="card-body"> -->
+<!--                         <div class="table-responsive"> -->
+<!--                             <table class="table mb-0"> -->
+<!--                                 <tbody> -->
+<!--                                     <tr> -->
+<!--                                       <td>처리기관</td> -->
+<!--                                         <td> -->
+<!--                                           <input class="form-control" list="datalistOptions" id="treatment_org0" name="treatment_org" placeholder="처리기관을 입력해 주세요."> -->
+<!--                                         </td> -->
+<!--                                         <td> -->
+<!--                                          처리자 -->
+<!--                                         </td> -->
+<!--                                         <td> -->
+<!--                                           <input class="form-control" list="datalistOptions" id="processor0" name="processor" placeholder="처리자 명을 입력해 주세요."> -->
+<!--                                         <td> -->
+<!--                                           처리기간 -->
+<!--                                         </td> -->
+<!--                                         <td> -->
+<!--                                           대여기간 캘린더 폼 -->
+<!--                                           <input class="form-control" type="date" name="start_date" id="start_date0"> ~ <input class="form-control" type="date" name="end_date" id="end_date0"> -->
+<!--                                         </td> -->
+<!--                                     </tr> -->
+<!--                                 </tbody> -->
+<!--                             </table> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                   </div> -->
+                    <div class="mb-0 preservation_wrap">
                       <div class="st_wrap">
                         <label class="col-md-2 col-form-label st_title">처리내용</label>
                       </div>
-                        <input type="text" class="st_inp_tbox" name="content" placeholder="처리내용을 입력해 주세요." id="content0">
+                        <textarea class="st_inp_tbox" name="content" placeholder="처리내용을 입력해 주세요." id="content0"></textarea>
                     </div>
-                    <div class="mb-0">
+                    <div class="mb-0 preservation_wrap">
                       <div class="st_wrap">
                         <label class="col-md-2 col-form-label st_title">비고</label>
                       </div>
-                        <input type="text" class="st_inp_tbox" name="remark" placeholder="참고사항을 입력해 주세요." id="remark0">
+                        <textarea type="text" class="st_inp_tbox" name="remark" placeholder="참고사항을 입력해 주세요." id="remark0"></textarea>
                     </div>
                     <!--  -->
                   </div>
@@ -3636,7 +3676,6 @@
             <div class="mb-0" id="before-div">
               <div class="st_wrap">
                 <label class="col-md-2 col-form-label st_title" style="display:inline">보존처리 전 이미지</label>
-
                 <label for="before-uploadFile0" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
 				<input type="file" name="before_uploadFile" id="before-uploadFile0" onchange="beforeImg(this, 0)" multiple style="display:none;" accept="image/*">
 
@@ -3668,9 +3707,8 @@
                   </div>
               </div>
               </div>
-              <div class="mb-0">
-                  <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" id="addPreservationBtn0" onclick="addPreservation(0)">저장</button>
-               </div>
+<!--               <div class="mb-0"> -->
+<!--                </div> -->
               <!-- <div class="mb-0">
               <div class="st_wrap">
             	<button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="addPreservation()">저장</button>

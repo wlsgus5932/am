@@ -189,37 +189,37 @@
           </div>
           <!-- 탭 -->
           <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item">
+            <li class="nav-item nav-item_2">
                 <a class="nav-link" data-bs-toggle="tab" href="#datareview_1" role="tab" id="dataPurchaseMgrSellReceiver">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                     <span class="d-none d-sm-block">매도신청<br>(접수자별 N건)</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item nav-item_2">
                 <a class="nav-link" data-bs-toggle="tab" href="#datareview_2" role="tab" id="dataPurchaseMgrSellData">
                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                     <span class="d-none d-sm-block">매도신청<br>(자료별 N건)</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item nav-item_2">
               <a class="nav-link" data-bs-toggle="tab" href="#datareview_3" role="tab" id="dataPurchaseMgrPracticalReview">
                   <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                   <span class="d-none d-sm-block">실무검토<br>(N건)</span>
               </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item nav-item_2">
               <a class="nav-link" data-bs-toggle="tab" href="#datareview_4" role="tab" id="dataPurchaseMgrDataReception">
                   <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                   <span class="d-none d-sm-block">자료접수<br>(N건)</span>
               </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item nav-item_2">
             <a class="nav-link" data-bs-toggle="tab" href="#datareview_5" role="tab" id="dataPurchaseMgrPurchaseAppraaisal">
                 <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                 <span class="d-none d-sm-block">구입감정<br>(N건)</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item nav-item_2">
             <a class="nav-link" data-bs-toggle="tab" href="#datareview_6" role="tab" id="dataPurchaseMgrPurchaseReview">
                 <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                 <span class="d-none d-sm-block">구입심의<br>(N건)</span>

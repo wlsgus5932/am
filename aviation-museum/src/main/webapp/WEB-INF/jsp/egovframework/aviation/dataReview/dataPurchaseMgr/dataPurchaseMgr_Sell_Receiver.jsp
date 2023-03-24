@@ -23,9 +23,9 @@
               <!-- -->
               <div class="st_wrap st_mv_wrap">
                 <p>| 심의 현황 : 접수자 1,000건, 총 건수 1,000건</p>
-                <div>
-                  리스트 출력 갯수 :
-                    <select class="form-select st_select img-select">
+                <div class="">
+                    리스트 출력 갯수 :
+                    <select class="search_select">
                       <option disabled="" selected="">50개</option>
                       <option>더미1</option>
                       <option>더미2</option>
@@ -218,8 +218,8 @@
                                 <td>010-1234-1234</td>
                                 <td>abcd@naver.com</td>
                                 <td>N건</td>
-                                <td><button onclick="window.open('자료구입 관리 상세조회-자료심의.html')">상세보기</button></td>
-                                <td><button>삭제</button></td>
+                                <td><button class="custom_btn btn_232323" type=button onclick="window.open('자료구입 관리 상세조회-자료심의.html')">상세보기</button></td>
+                                <td><button class="custom_btn btn_edit" type=button>삭제</button></td>
                                 <td>심사대기</td>
                               </tr>
                           </tbody>

@@ -48,20 +48,20 @@
                               </div>
                                 <div class="img-col-info">
                                   <dl>
-                                    <dt>명칭:</dt>
+                                    <dt>명칭 :</dt>
                                     <dd>${list.image_nm }</dd>
                                   </dl>
                                   <dl>
-                                    <dt>시간:</dt>
+                                    <dt>시간 :</dt>
                                     <dd>${list.reg_date }</dd>
                                   </dl>
                                   <dl>
-                                    <dt>사이즈:</dt>
+                                    <dt>사이즈 :</dt>
                                     <dd>${list.image_width} x ${list.image_height}</dd>
                                   </dl>
                                   <dl>
-                                    <dt>태그:</dt>
-                                    <dd><button type="button" class="img-tag"><a href="#">태그</a></button></dd>
+                                    <dt>태그 :</dt>
+                                    <dd><button type="button" class="custom_btn btn_c28876 img-tag"><a href="#">태그</a></button></dd>
                                   </dl>
                                   <dl>
                                     <dt><input type="checkbox" id="req_image${status.index}" value="${list.image_idx}" colunmName="rep_image" onclick="publicRepCheck(this)" ${list.rep_image == "Y" ? "CHECKED" : ""}/></dt>
@@ -70,8 +70,8 @@
                                     <dd>대국민 서비스</dd>
                                   </dl>
                                   <dl>
-                                  	<button class="img-info_btn" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xll" type="button" onclick="setImageIdx(${list.image_idx})">설명등록</button>
-                                  	<button class="img-info_btn" type="button" onclick="gallery.view(${status.index})">원문보기</button>
+                                  	<button class="img-info_btn custom_btn btn_edit" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xll" type="button" onclick="setImageIdx(${list.image_idx})">설명등록</button>
+                                  	<button class="img-info_btn custom_btn btn_edit" type="button" onclick="gallery.view(${status.index})">원문보기</button>
                                   </dl>
                                 </div>
                                 

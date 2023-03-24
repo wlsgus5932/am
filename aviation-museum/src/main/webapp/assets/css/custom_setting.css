@@ -27,11 +27,13 @@ table {
 }
 
 .code_find_wrap {
-  width: 80%;
+  width: 95%;
   height: 300px;
   border: 1px solid #f4f4f4;
   border-radius: 5px;
   margin: 1% auto;
+  overflow: scroll;
+  overflow-x: auto;
 }
 /* 보관처 구조 트리메뉴 */
 .tree {
