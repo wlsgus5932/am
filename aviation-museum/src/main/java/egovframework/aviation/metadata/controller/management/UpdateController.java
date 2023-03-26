@@ -65,8 +65,17 @@ public class UpdateController {
 			//service.updateKeyword(param);
 			
 			if(x > 0) {
-				 //필수
-				 if(param.getUpdate_class1_code_idx() != null && !param.getUpdate_class1_code_idx().get(0).isEmpty()) {
+					if(param.getClass1_code_idx() != null && !param.getClass1_code_idx().get(0).isEmpty() && !param.getClass1_code_idx().get(0).equals("0")) {
+						HashMap<String, Object> classUdt = new HashMap<String, Object>();
+						 for(int i=0; i<param.getClass1_code_idx().size(); i++) {
+							 classUdt.put("class1_code_idx", param.getClass1_code_idx().get(i));
+							 classUdt.put("class2_code_idx", param.getClass2_code_idx().get(i));
+							 classUdt.put("class3_code_idx", param.getClass3_code_idx().get(i));
+							 classUdt.put("taxonomy_idx", param.getTaxonomy_idx().get(i));
+							 service.updateTaxonomy(classUdt);
+						 }
+					}
+					if(param.getUpdate_class1_code_idx() != null && !param.getUpdate_class1_code_idx().get(0).isEmpty() && !param.getUpdate_class1_code_idx().equals("0")) {
 					 HashMap<Integer, Object> classMap = new HashMap<Integer, Object>();
 						for (int i = 0; i < param.getUpdate_class1_code_idx().size(); i++) {
 							List<Object> item = new ArrayList<>();
@@ -78,19 +87,19 @@ public class UpdateController {
 							classMap.put(i, item);
 						}
 						service.setTaxonomy(classMap);
-					}
-				 if(param.getClass1_code_idx() != null && !param.getClass1_code_idx().get(0).isEmpty()) {
-					 HashMap<String, Object> classUdt = new HashMap<String, Object>();
-					 for(int i=0; i<param.getClass1_code_idx().size(); i++) {
-						 classUdt.put("class1_code_idx", param.getClass1_code_idx().get(i));
-						 classUdt.put("class2_code_idx", param.getClass2_code_idx().get(i));
-						 classUdt.put("class3_code_idx", param.getClass3_code_idx().get(i));
-						 classUdt.put("taxonomy_idx", param.getTaxonomy_idx().get(i));
-						 service.updateTaxonomy(classUdt);
-					 }
 				 }
 				 
-				 if(param.getUpdate_country_code_idx() != null && !param.getUpdate_country_code_idx().get(0).isEmpty()) {
+				if(param.getCountry_code_idx() != null && !param.getCountry_code_idx().get(0).isEmpty() && !param.getCountry_code_idx().get(0).equals("0")) {
+					 HashMap<String, Object> countryUdt = new HashMap<String, Object>();
+					 for(int i=0; i<param.getCountry_code_idx().size(); i++) {
+						 countryUdt.put("country_code_idx", param.getCountry_code_idx().get(i));
+						 countryUdt.put("era_code_idx", param.getEra_code_idx().get(i));
+						 countryUdt.put("detail_year", param.getDetail_year().get(i));
+						 countryUdt.put("country_idx", param.getCountry_idx().get(i));
+						 service.updateCountry(countryUdt);
+					 }
+					}
+				if(param.getUpdate_country_code_idx() != null && !param.getUpdate_country_code_idx().get(0).isEmpty() && !param.getUpdate_country_code_idx().get(0).equals("0")) {
 					 HashMap<Integer, Object> countryMap = new HashMap<Integer, Object>();
 						for (int i = 0; i < param.getUpdate_country_code_idx().size(); i++) {
 							List<Object> item = new ArrayList<>();
@@ -102,19 +111,9 @@ public class UpdateController {
 							countryMap.put(i, item);
 						}
 						service.setCountry(countryMap);
-					}
-				 if(param.getCountry_code_idx() != null && !param.getCountry_code_idx().get(0).isEmpty()) {
-					 HashMap<String, Object> countryUdt = new HashMap<String, Object>();
-					 for(int i=0; i<param.getCountry_code_idx().size(); i++) {
-						 countryUdt.put("country_code_idx", param.getCountry_code_idx().get(i));
-						 countryUdt.put("era_code_idx", param.getEra_code_idx().get(i));
-						 countryUdt.put("detail_year", param.getDetail_year().get(i));
-						 countryUdt.put("country_idx", param.getCountry_idx().get(i));
-						 service.updateCountry(countryUdt);
-					 }
 				 }
 				 
-				 if(param.getUpdate_material1_code_idx() != null && !param.getUpdate_material1_code_idx().get(0).isEmpty()) {
+				 if(param.getUpdate_material1_code_idx() != null && !param.getUpdate_material1_code_idx().get(0).isEmpty() && !param.getUpdate_material1_code_idx().get(0).equals("0")) {
 					 HashMap<Integer, Object> materialMap = new HashMap<Integer, Object>();
 					 for (int i = 0; i < param.getUpdate_material1_code_idx().size(); i++) {
 							List<Object> item = new ArrayList<>();
@@ -128,18 +127,18 @@ public class UpdateController {
 					 service.setMaterial(materialMap);
 				 }
 				 
-				 if(param.getMaterial1_code_idx() != null && !param.getMaterial1_code_idx().isEmpty()) {
+				 if(param.getMaterial1_code_idx() != null && !param.getMaterial1_code_idx().get(0).isEmpty() && !param.getMaterial1_code_idx().get(0).equals("0")) {
 					 HashMap<String, Object> materialUdt = new HashMap<String, Object>();
 					 for(int i=0; i<param.getMaterial1_code_idx().size(); i++) {
 						 materialUdt.put("material1_code_idx", param.getMaterial1_code_idx().get(i));
 						 materialUdt.put("material2_code_idx", param.getMaterial2_code_idx().get(i));
 						 materialUdt.put("material_detail", param.getMaterial_detail().get(i));
 						 materialUdt.put("material_idx", param.getMaterial_idx().get(i));
-						 service.updateMaterial(materialUdt);
 					 }
+					 service.updateMaterial(materialUdt);
 				 }
 				 
-				 if(param.getUpdate_measurement_item_type() != null && !param.getUpdate_measurement_item_type().get(0).isEmpty()) {
+				 if(param.getUpdate_measurement_item_type() != null && !param.getUpdate_measurement_item_type().get(0).isEmpty() && !param.getUpdate_measurement_item_type().get(0).equals("")) {
 					 HashMap<Integer, Object> measureMap = new HashMap<Integer, Object>();
 					 for (int i = 0; i < param.getUpdate_measurement_item_type().size(); i++) {
 							List<Object> item = new ArrayList<>();
@@ -154,9 +153,9 @@ public class UpdateController {
 					 service.setMeasurement(measureMap);
 				 }
 				 
-				 if(param.getMeasurement_code_idx() != null && !param.getMeasurement_code_idx().get(0).isEmpty()) {
+				 if(param.getMeasurement_code_idx() != null && !param.getMeasurement_code_idx().get(0).isEmpty() && !param.getMeasurement_code_idx().get(0).equals("0")) {
 	 				 HashMap<String, Object> measurementUdt = new HashMap<String, Object>();
-					 for(int i=0; i<param.getMaterial1_code_idx().size(); i++) {
+					 for(int i=0; i<param.getMeasurement_code_idx().size(); i++) {
 						 measurementUdt.put("measurement_item_type", param.getMeasurement_item_type().get(i));
 						 measurementUdt.put("measurement_unit_code_idx", param.getMeasurement_unit_code_idx().get(i));
 						 measurementUdt.put("measurement_value", param.getMeasurement_value().get(i));
@@ -166,7 +165,7 @@ public class UpdateController {
 					 }
 				 }
 				 
-				 if(param.getUpdate_invol_item_no() != null && !param.getUpdate_invol_item_no().get(0).isEmpty()) {
+				 if(param.getUpdate_invol_item_no() != null && !param.getUpdate_invol_item_no().get(0).isEmpty() && !param.getUpdate_invol_item_no().get(0).equals("")) {
 					 HashMap<Integer, Object> possessionMap = new HashMap<Integer, Object>();
 					 for (int i = 0; i < param.getUpdate_invol_item_no().size(); i++) {
 						 List<Object> item = new ArrayList<>();
@@ -180,7 +179,7 @@ public class UpdateController {
 					 }
 					 service.setInvolvement(possessionMap);
 				 }
-				 if(param.getInvol_item_no() != null && !param.getInvol_item_no().get(0).isEmpty()) {
+				 if(param.getInvol_item_no() != null && !param.getInvol_item_no().get(0).isEmpty() && !param.getInvol_possession_code_idx().get(0).equals("0")) {
 					 HashMap<String, Object> involvementUdt = new HashMap<String, Object>();
 					 for(int i=0; i<param.getInvol_item_no().size(); i++) {
 						 involvementUdt.put("invol_possession_code_idx", param.getInvol_possession_code_idx().get(i));
@@ -191,7 +190,7 @@ public class UpdateController {
 					 }
 				 }
 				 
-				 if(param.getUpdate_insu_agreed_value() != null && !param.getUpdate_insu_agreed_value().get(0).isEmpty()) {
+				 if(param.getUpdate_insu_agreed_value() != null && !param.getUpdate_insu_agreed_value().get(0).isEmpty() && !param.getUpdate_insu_agreed_value().equals("")) {
 					 HashMap<Integer, Object> insuranceMap = new HashMap<Integer, Object>();
 					 for (int i = 0; i < param.getUpdate_insu_agreed_value().size(); i++) {
 							List<Object> item = new ArrayList<>();
@@ -207,7 +206,7 @@ public class UpdateController {
 					 }
 					 service.setInsurance(insuranceMap);
 				 }
-				 if(param.getInsu_agreed_value() != null && !param.getInsu_agreed_value().isEmpty()) {
+				 if(param.getInsu_agreed_value() != null && !param.getInsu_agreed_value().get(0).isEmpty() && !param.getInsu_agreed_value().get(0).equals("")) {
 					 HashMap<String, Object> insuranceUdt = new HashMap<String, Object>();
 					 for(int i=0; i<param.getInsu_agreed_value().size(); i++) {
 						 insuranceUdt.put("agreed_value", param.getInsu_agreed_value().get(i));
@@ -221,7 +220,7 @@ public class UpdateController {
 					 }
 				 }
 				 
-				 if(param.getUpdate_copy_copyright() != null && !param.getUpdate_copy_copyright().get(0).isEmpty()) {
+				 if(param.getUpdate_copy_copyright() != null && !param.getUpdate_copy_copyright().get(0).isEmpty() && !param.getUpdate_copy_copyright().get(0).equals("0")) {
 					 HashMap<Integer, Object> copyrightMap = new HashMap<Integer, Object>();
 					 for (int i = 0; i < param.getUpdate_copy_copyright().size(); i++) {
 							List<Object> item = new ArrayList<>();
@@ -234,10 +233,11 @@ public class UpdateController {
 							item.add(param.getUpdate_copy_copyright_transfer().get(i));
 							item.add(param.getUpdate_copy_remark().get(i));
 							copyrightMap.put(i, item);
+							
 					 }
 					 service.setCopyright(copyrightMap);
 				 }
-				 if(param.getCopy_copyright() != null && !param.getCopy_copyright().get(0).isEmpty()) {
+				 if(param.getCopy_copyright() != null && !param.getCopy_copyright().get(0).isEmpty() && !param.getCopy_copyright().get(0).equals("0")) {
 					 HashMap<String, Object> copyrightUdt = new HashMap<String, Object>();
 					 for(int i=0; i<param.getCopy_copyright().size(); i++) {
 						 copyrightUdt.put("copyright", param.getCopy_copyright().get(i));
@@ -252,7 +252,6 @@ public class UpdateController {
 				 }
 				 
 				 List<ObtainmentVO> ob = service.getObtainmentList(param.getItem_idx());
-				 System.out.println("ob:::"+ob);
 				 if(!ob.isEmpty()) {
 					 service.updateObtainment(param);
 				 } else if(ob.isEmpty()) {

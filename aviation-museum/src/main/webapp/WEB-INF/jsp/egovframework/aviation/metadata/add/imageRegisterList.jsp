@@ -30,7 +30,8 @@
 				                        <td>${list.image_nm }</td>
 				                        <td>${list.image_path }</td>
 				                        <td><input type="checkbox" id="public_service${status.index}" name="public_service" value="${list.image_idx}" onclick="publicRepCheck(this)" ${list.public_service == "Y" ? "CHECKED" : ""}/></td>
-				                        <td><button type="button" onclick="gallery.view(${status.index})">원본보기</button></td>
+				                        <%-- <td><button type="button" onclick="gallery.view(${status.index})">원본보기</button></td> --%>
+				                        <td><button type="button" onclick="createGallery(${status.index})">원본보기</button></td>
 				                   </tr>
 				                   </c:forEach>
 					             </ul>
@@ -43,20 +44,22 @@
 							</c:choose>
 							</tbody>
                     </table>
+                    <div>
 					<ul class="btn-group pagination">
 					    <c:if test="${pageMaker.prev }">
 					    <li>
-					        <a href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+					        <a href='javascript:;' onclick="imageRegistergoPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
 					    </li>
 					    </c:if>
 					    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
 					    <li>
-					        <a href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+					        <a href='javascript:;' onclick="imageRegistergoPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
 					    </li>
 					    </c:forEach>
 					    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 					    <li>
-					        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+					        <a href="javascript:;" onclick="imageRegistergoPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 					    </li>
 					    </c:if>
 					</ul> 
+					</div>

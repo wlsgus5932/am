@@ -65,6 +65,12 @@ public class ImageServiceImpl implements ImageService {
 	public List<ImageVO> getImageAll(ImageParamVO param) {
 		return dao.getImageAll(param);
 	}
+
+	@Override
+	public int updateRep(int image_idx, String val) {
+		// TODO Auto-generated method stub
+		return dao.updateRep(image_idx, val);
+	}
 	
 
 }

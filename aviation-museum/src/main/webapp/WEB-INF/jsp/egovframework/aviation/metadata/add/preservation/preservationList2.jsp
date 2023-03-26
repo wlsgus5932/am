@@ -4,7 +4,7 @@
 <c:forEach var="list" items="${preservationList}" varStatus="status">
 <form id="update-preservation-form${status.index}" enctype="multipart/form-data">
 <div id="accordion-div">
-
+<hr/>
 <div class="accordion-item" id="preservation-div">
    <h2 class="accordion-header" id="flush-headingOne">
       <div class="preservation_into_wrap_left">
@@ -22,8 +22,8 @@
                               <td><input class="form-control" type="date" name="start_date" id="start_date${status.index}" value="${list.start_date }"> ~ 
                                     <input class="form-control" type="date" name="end_date" id="end_date${status.index}" value="${list.end_date }"></td>
                               <td>
-                              <button class="custom_btn btn_c58672 btn_c58672_6840" id="updatePreservationBtn${status.index}" onclick="updatePreservation(${status.index}, ${list.preservation_idx})" type="button">수정</button>
-                              <button class="custom_btn btn_c58672 btn_c58672_6840" onclick="deletePreservation(${status.index}, ${list.preservation_idx})" id="updatedeletePreservationBtn${status.index}" type="button">삭제</button>                              
+                              <button class="custom_btn btn_c58672 btn_c58672_6840" id="updatePreservationBtn${status.index}" onclick="updatePreservation(${status.index}, ${list.preservation_idx}) type="button"">수정</button>
+                              <button class="custom_btn btn_c58672 btn_c58672_6840" onclick="deletePreservation(${status.index}, ${list.preservation_idx})" id="updatedeletePreservationBtn${status.index} type="button"">삭제</button>                              
                               </td>      
                            </tr>
                        </tbody>
@@ -58,8 +58,8 @@
                <div class="mb-0">
                   <div class="st_wrap" id="resut-div">
                      <label class="col-md-2 col-form-label st_title">처리결과</label>
-                       <label for="update-result-uploadFile${status.index }" class="custom_btn btn_6466ab btn_add_preservation_padding">업로드</label>
-                     <input style="display:none" class="form-control st_input" type="file" name="result_uploadFile" id="update-result-uploadFile${status.index }" onchange="updateresultImg(this, ${status.index})" accept="image/*"><br/>
+                       <label for="update-result-uploadFile" class="custom_btn btn_6466ab btn_add_preservation_padding">업로드</label>
+                     <input style="display:none" class="form-control st_input" type="file" name="result_uploadFile" id="update-result-uploadFile" onchange="updateresultImg(this, ${status.index})" accept="image/*"><br/>
                        
                   <div id="update-result-img-preview${status.index}">
                   <c:if test= "${not empty list.file_nm }">
