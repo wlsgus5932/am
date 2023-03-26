@@ -51,9 +51,8 @@
               <div class="col-md-10">
                 <label class="col-md-2 col-form-label">자료 구분</label>
                 <select class="search_select" id="org_code_idx" name="org_code_idx">
-                    <option value="" selected>선택</option>
                     		<c:forEach var="list" items="${orgList}" varStatus="status">
-		                           <option value="${list.org_code_idx}">${list.org_nm}</option>
+		                           <option value="${list.org_code_idx}" <c:if test ="${list.org_nm eq '항공박물관'}">selected="selected"</c:if>>${list.org_nm}</option>
 		                     </c:forEach>
                 </select>
                   <select class="search_select" id="possession_code_idx" name="possession_code_idx">

@@ -65,8 +65,7 @@
   }
 
   const getImageUpdateList = () => {
-  	if(!checkInput()) {return}
-  	gallery = '';
+	  $('#imageRegisterPage').val(0);
   	let form = $('#imageUpdateForm').serialize();
   	$.ajax({
                 url :'/getImageRegisterList.do',
@@ -82,6 +81,29 @@
            });
   	gallery = new Viewer(document.getElementById('imageUpdateZone'));
   	console.log(gallery)
+  }
+  
+  const imageRegistergoPage = page => {
+	  	$('#imageRegisterPage').val(page);
+	  	let form = $('#imageUpdateForm').serialize();
+	  	$.ajax({
+	                url :'/getImageRegisterList.do',
+	                type : 'POST',
+	                dataType : 'html',
+	                data : form,
+	  			  async: false,
+	                success: function(data) {
+	  				$('#imageUpdateZone').empty().append(data);
+	                },
+	                error: function(xhr, ajaxOptions, thrownError) {
+	                }
+	           });
+	  }
+  
+  const createGallery = (num) => {
+	  	gallery = new Viewer(document.getElementById('imageUpdateZone'));
+	  	console.log(gallery)
+	  	gallery.show(num);
   }
 
   const publicRepCheck = box => {
@@ -248,7 +270,7 @@
               <div class="col-md-10">
               <form id="imageUpdateForm">
               <label class="col-md-2 col-form-label">자료 구분</label>
-
+				<input id="imageRegisterPage" name="page" type="hidden" value="0"/>
 	                                                    <select class="search_select" name="org_code_idx">
 										                    <c:forEach var="list" items="${orgList}" varStatus="status">
 										                           <option value="${list.org_code_idx}" <c:if test ="${list.org_nm eq '항공박물관'}">selected="selected"</c:if>>${list.org_nm}</option>

@@ -27,4 +27,6 @@ public interface ImageService {
 
 	List<ImageVO> getImageAll(ImageParamVO param);
 
+	int updateRep(int image_idx, String val);
+
 }

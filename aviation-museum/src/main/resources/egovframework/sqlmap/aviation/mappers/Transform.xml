@@ -35,7 +35,23 @@
 				nam_involvement ni,
 				nam_possession_code npc, 
 				nam_org_code noc
-			where ib.item_no BETWEEN ${item_no1} and ${item_no2}
+			where 
+				ib.org_code_idx = #{org_code_idx}
+				<if test="possession_code_idx != '' ">
+					and ib.possession_code_idx = #{possession_code_idx}
+				</if>
+				<if test="item_no1 != ''">
+					and ib.ITEM_NO <![CDATA[>=]]> convert(#{item_no1}, signed) 
+				</if>
+				<if test="item_no2 != ''">
+					and ib.ITEM_NO <![CDATA[<=]]> convert(#{item_no2}, signed)
+				</if>
+				<if test="item_detail_no1 != ''">
+					and ib.ITEM_DETAIL_NO <![CDATA[>=]]> convert(#{item_detail_no1}, signed) 
+				</if>
+				<if test="item_detail_no2 != ''">
+					and ib.ITEM_DETAIL_NO <![CDATA[<=]]> convert(#{item_detail_no2}, signed)
+				</if>
 				<if test='reg_state == "N" '>
 					and ib.reg_state = #{reg_state}
 				</if>
@@ -46,7 +62,9 @@
 			and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
 			and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX 
 			) ib
+			order by rownum desc
 			LIMIT #{perPageNum} OFFSET #{pageStart} 
+			
 </select> 
 
 <select id="getTransformAllList" resultType="egovframework.aviation.metadata.vo.metadata.TransformVO">
@@ -82,7 +100,23 @@
 				nam_involvement ni,
 				nam_possession_code npc, 
 				nam_org_code noc
-			where ib.item_no BETWEEN ${item_no1} and ${item_no2}
+			where 
+				ib.org_code_idx = #{org_code_idx}
+				<if test="possession_code_idx != '' ">
+					and ib.possession_code_idx = #{possession_code_idx}
+				</if>
+				<if test="item_no1 != ''">
+					and ib.ITEM_NO <![CDATA[>=]]> convert(#{item_no1}, signed) 
+				</if>
+				<if test="item_no2 != ''">
+					and ib.ITEM_NO <![CDATA[<=]]> convert(#{item_no2}, signed)
+				</if>
+				<if test="item_detail_no1 != ''">
+					and ib.ITEM_DETAIL_NO <![CDATA[>=]]> convert(#{item_detail_no1}, signed) 
+				</if>
+				<if test="item_detail_no2 != ''">
+					and ib.ITEM_DETAIL_NO <![CDATA[<=]]> convert(#{item_detail_no2}, signed)
+				</if>
 				<if test='reg_state == "N" '>
 					and ib.reg_state = #{reg_state}
 				</if>
@@ -93,6 +127,8 @@
 			and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
 			and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX 
 			) ib
+			order by rownum desc
+			LIMIT #{perPageNum} OFFSET #{pageStart} 
 </select> 
 
 <select id="getTransformListCnt" resultType="int">
@@ -115,17 +151,32 @@
 				nam_involvement ni,
 				nam_possession_code npc, 
 				nam_org_code noc
-			where ib.item_no BETWEEN ${item_no1} and ${item_no2}
+			where 
+				ib.org_code_idx = #{org_code_idx}
+				<if test="possession_code_idx != '' ">
+					and ib.possession_code_idx = #{possession_code_idx}
+				</if>
+				<if test="item_no1 != ''">
+					and ib.ITEM_NO <![CDATA[>=]]> convert(#{item_no1}, signed) 
+				</if>
+				<if test="item_no2 != ''">
+					and ib.ITEM_NO <![CDATA[<=]]> convert(#{item_no2}, signed)
+				</if>
+				<if test="item_detail_no1 != ''">
+					and ib.ITEM_DETAIL_NO <![CDATA[>=]]> convert(#{item_detail_no1}, signed) 
+				</if>
+				<if test="item_detail_no2 != ''">
+					and ib.ITEM_DETAIL_NO <![CDATA[<=]]> convert(#{item_detail_no2}, signed)
+				</if>
 				<if test='reg_state == "N" '>
 					and ib.reg_state = #{reg_state}
-				</if>	
+				</if>
 				<if test='reg_state == "Y" '>
 					and ib.reg_state = #{reg_state}
 				</if>
 			and ib.item_idx = ni.item_idx
 			and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
 			and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX 
-			order by ib.item_no*1, ib.item_detail_no*1
 			) ib
 </select> 
 

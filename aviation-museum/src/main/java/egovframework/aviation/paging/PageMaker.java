@@ -71,4 +71,11 @@ public class PageMaker {
 	    public void setDisplayPageNum(int displayPageNum) {
 	        this.displayPageNum = displayPageNum;
 	    }
+		@Override
+		public String toString() {
+			return "PageMaker [cri=" + cri + ", totalCount=" + totalCount + ", startPage=" + startPage + ", endPage="
+					+ endPage + ", prev=" + prev + ", next=" + next + ", displayPageNum=" + displayPageNum + "]";
+		}
+	    
+	    
 }

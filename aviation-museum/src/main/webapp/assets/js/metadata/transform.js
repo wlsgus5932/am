@@ -38,32 +38,32 @@ const changeReg = nm => {
 };
 
 const changeRegAll = nm => {
-	if(confirm("검색조건에 맞는 자료를 전체 변환하시겠습니까?")) {
+	let item_idx = [];
 	let reg_state =  $('#reg_state').val();
-	let item_no1 = $('#item_no1').val();
-	let item_detail_no1 = $('#item_detail_no1').val();
-	let item_no2 = $('#item_no2').val();
-	let item_detail_no2 = $('#item_detail_no2').val();
-	$.ajax({
-				type : 'POST',                 
-				url : '/changeTransformRegAll.do',
-				dataType : "text",
-				data: {
-					reg_state: reg_state,
-					item_no1: item_no1,
-					item_detail_no1: item_detail_no1,
-					item_no2: item_no2,
-					item_detail_no2: item_detail_no2
-				},			
-				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-				error : function() {        
-					alert('통신실패!');
-				},
-				success : function(data) {  
-					data == 'success' ? 
-					(alert('변경되었습니다.'), getTransformList()) : alert('오류가 발생했습니다. 다시 시도해주세요.')
-				}
-			});
+	if(confirm("검색조건에 맞는 자료를 전체 변환하시겠습니까?")) {
+		
+		$('input[id='+nm+'Checkbox').prop("checked", true);
+		$('input:checkbox[id='+nm+'Checkbox]:checked').each(function() {
+			item_idx.push($(this).val());
+		})
+		
+		$.ajax({
+					type : 'POST',                 
+					url : '/changeTransformReg.do',
+					dataType : "text",
+					data: {
+						reg_state: reg_state,
+						item_idx: item_idx
+					},			
+					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+					error : function() {        
+						alert('통신실패!');
+					},
+					success : function(data) {  
+						data == 'success' ? 
+						(alert('변경되었습니다.'), getTransformList()) : alert('오류가 발생했습니다. 다시 시도해주세요.')
+					}
+				});
 		} else {
 			return false
 		}
@@ -145,7 +145,6 @@ const checkInput = () => {
 }
 
 const getTransformList = async () => {
-		if(checkInput()) {
 			let formData = $('#getTransform').serialize();
 			$.ajax({
 						type : 'POST',                 
@@ -166,15 +165,11 @@ const getTransformList = async () => {
 							}
 						}
 					});
-		}
 }
 
 function excelDownload() {
-	if(checkInput()) {
 		let $form = $('#getTransform');
 		$form.attr("action", "/transformListExcel.do");
 		$form.attr("method", "post");
 	    $form.submit();
-	}
-		
 }

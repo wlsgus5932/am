@@ -4,7 +4,7 @@
 
 	<select id="getImage" resultType="egovframework.aviation.metadata.vo.image.ImageVO" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO">
 		select 
-			row_number() over(order by A.reg_date) as rownum,
+			row_number() over(order by reg_date, image_nm) as rownum,
 			item_idx,
 			image_idx,
 			image_nm,
@@ -31,7 +31,7 @@
 	
 	<select id="getImageAll" resultType="egovframework.aviation.metadata.vo.image.ImageVO" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO">
 		select 
-			row_number() over(order by A.reg_date) as rownum,
+			row_number() over(order by reg_date, image_nm) as rownum,
 			item_idx,
 			image_idx,
 			image_nm,
@@ -90,6 +90,40 @@
 	
 	<select id="getImageIUpdateList" resultType="egovframework.aviation.metadata.vo.image.ImageVO" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO">
 		select 
+			row_number() over(order by nib.reg_date, ni.image_nm) as rownum,
+					nib.item_idx as item_idx,
+					npc.POSSESSION_NM,
+					noc.ORG_NM,
+					nib.ITEM_NO as item_no,
+					nib.ITEM_DETAIL_NO as ITEM_DETAIL_NO,
+					ni.IMAGE_NM,
+					ni.IMAGE_PATH,
+					ni.PUBLIC_SERVICE ,
+					ni.image_idx
+		from nam_item_base nib, nam_image ni, nam_org_code noc, nam_possession_code npc 
+		where nib.REG_STATE = #{reg_state}
+		and nib.org_code_idx = #{org_code_idx}
+		<if test="possession_code_idx != '' ">
+		and nib.possession_code_idx = #{possession_code_idx}
+		</if>
+		<if test="item_no1 != ''">
+		and nib.ITEM_NO <![CDATA[>=]]> convert(#{item_no1}, signed) 
+		</if>
+		<if test="item_no2 != ''">
+		and nib.ITEM_NO <![CDATA[<=]]> convert(#{item_no2}, signed)
+		</if>
+		<if test="item_detail_no1 != ''">
+		and nib.ITEM_DETAIL_NO <![CDATA[>=]]> convert(#{item_detail_no1}, signed) 
+		</if>
+		<if test="item_detail_no2 != ''">
+		and nib.ITEM_DETAIL_NO <![CDATA[<=]]> convert(#{item_detail_no2}, signed)
+		</if>
+		and noc.ORG_CODE_IDX = nib.ORG_CODE_IDX 
+		and npc.POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX 
+		and nib.ITEM_IDX = ni.ITEM_IDX
+		order by rownum desc
+		LIMIT #{perPageNum} OFFSET #{pageStart};
+		<!-- select 
 			row_number() over(order by ns.reg_date) as rownum,
 			ns.item_idx as item_idx,
 			npc.POSSESSION_NM,
@@ -106,40 +140,80 @@
 			nam_possession_code npc,
 			nam_org_code noc,
 			nam_image ni
-		where ns.item_no between convert(#{item_no1}, signed) and convert(#{item_no2}, signed)
-		and ns.reg_state = #{reg_state}
-		<if test="item_detail_no1 != '' and item_detail_no2 != null ">
+		where 
+		ns.reg_state = #{reg_state}
+		and ns.ORG_CODE_IDX = #{org_code_idx}
+		and nv.ORG_CODE_IDX = noc.ORG_CODE_IDX
+		<if test="item_no1 != ''">
+		and ns.item_no &gt; convert(#{item_no1}, signed) 
+		</if>
+		<if test="item_no2 != '' ">
+		and ns.item_no &lt; convert(#{item_no2}, signed)
+		</if>
+		<if test="item_detail_no1 != '' and item_detail_no2 != '' ">
 		and item_detail_no between convert(#{item_detail_no1}) and convert(#{item_detail_no2})
 		</if>
-		and ns.ORG_CODE_IDX = #{org_code_idx}
-		and ns.POSSESSION_CODE_IDX = #{possession_code_idx}
-		and ns.ITEM_IDX = nv.ITEM_IDX
-		and nv.ORG_CODE_IDX = noc.ORG_CODE_IDX
+		<if test="possession_code_idx != '' and possession_code_idx != null ">
+		and npc.POSSESSION_CODE_IDX = #{possession_code_idx}
+		</if>
 		and nv.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+		and ns.ITEM_IDX = nv.ITEM_IDX
 		and ni.ITEM_IDX = nv.ITEM_IDX
-		LIMIT #{perPageNum} OFFSET #{pageStart};
+		GROUP by ni.image_idx
+		order by rownum desc
+		LIMIT #{perPageNum} OFFSET #{pageStart}; -->
 	</select>
 	
 	<select id="getImageIUpdateListCnt" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO" resultType="int">
-		select 
-			count(*)
+	select count(*)
+		from nam_item_base nib, nam_image ni, nam_org_code noc, nam_possession_code npc 
+		where nib.REG_STATE = #{reg_state}
+		and nib.org_code_idx = #{org_code_idx}
+		<if test="possession_code_idx != '' ">
+		and nib.possession_code_idx = #{possession_code_idx}
+		</if>
+		<if test="item_no1 != ''">
+		and nib.ITEM_NO <![CDATA[>=]]> convert(#{item_no1}, signed) 
+		</if>
+		<if test="item_no2 != ''">
+		and nib.ITEM_NO <![CDATA[<=]]> convert(#{item_no2}, signed)
+		</if>
+		<if test="item_detail_no1 != ''">
+		and nib.ITEM_DETAIL_NO <![CDATA[>=]]> convert(#{item_detail_no1}, signed) 
+		</if>
+		<if test="item_detail_no2 != ''">
+		and nib.ITEM_DETAIL_NO <![CDATA[<=]]> convert(#{item_detail_no2}, signed)
+		</if>
+		and noc.ORG_CODE_IDX = nib.ORG_CODE_IDX 
+		and npc.POSSESSION_CODE_IDX = nib.POSSESSION_CODE_IDX 
+		and nib.ITEM_IDX = ni.ITEM_IDX
+		<!-- select 
+			count(DISTINCT(ni.image_idx))
 		from 
 			nam_item_base ns,
 			nam_involvement nv,
 			nam_possession_code npc,
 			nam_org_code noc,
 			nam_image ni
-		where ns.item_no between convert(#{item_no1}, signed) and convert(#{item_no2}, signed)
-		and ns.reg_state = #{reg_state}
-		<if test="item_detail_no1 != '' and item_detail_no2 != null ">
+		where
+		ns.reg_state = #{reg_state}
+		and ns.ORG_CODE_IDX = #{org_code_idx}
+		and nv.ORG_CODE_IDX = noc.ORG_CODE_IDX
+		<if test="item_no1 != ''">
+		and ns.item_no &gt; convert(#{item_no1}, signed) 
+		</if>
+		<if test="item_no2 != '' ">
+		and ns.item_no &lt; convert(#{item_no2}, signed)
+		</if>
+		<if test="item_detail_no1 != '' and item_detail_no2 != '' ">
 		and item_detail_no between convert(#{item_detail_no1}) and convert(#{item_detail_no2})
 		</if>
-		and ns.ORG_CODE_IDX = #{org_code_idx}
-		and ns.POSSESSION_CODE_IDX = #{possession_code_idx}
-		and ns.ITEM_IDX = nv.ITEM_IDX
-		and nv.ORG_CODE_IDX = noc.ORG_CODE_IDX
+		<if test="possession_code_idx != '' and possession_code_idx != null ">
+		and npc.POSSESSION_CODE_IDX = #{possession_code_idx}
+		</if>
 		and nv.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
-		and ni.ITEM_IDX = nv.ITEM_IDX
+		and ns.ITEM_IDX = nv.ITEM_IDX
+		and ni.ITEM_IDX = nv.ITEM_IDX -->
 	</select>
 	
 	<insert id="setImage" parameterType="egovframework.aviation.metadata.vo.image.ImageVO">
@@ -180,6 +254,18 @@
 			where image_idx = #{image_idx}
 	</update>
 	
+	<update id="updateNoRep">
+		update nam_image set
+			rep_image = 'N'
+	</update>
+	
+	<update id="updateRep">
+		update nam_image set
+			rep_image = #{val},
+			mod_date = now()
+			where image_idx = #{image_idx}
+	</update>
+	
 	<delete id="deleteImage" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO">
 		delete from nam_image
 		where image_idx in (
@@ -188,6 +274,8 @@
 			</foreach>
 			)
 	</delete>
+	
+	
 	
 	<update id="updateImageDesc" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO">
 		update nam_image set
