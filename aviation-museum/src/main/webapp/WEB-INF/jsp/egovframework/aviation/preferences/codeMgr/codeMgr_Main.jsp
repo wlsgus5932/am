@@ -1362,7 +1362,7 @@
             </div>
             <!-- 코드등록 모달창 2 -->
             <div id="code_insert_modal-2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
-              <div class="modal-dialog user-modal">
+              <div class="modal-dialog user-modal preferences_deit_modal_wrap_2">
                 <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1377,7 +1377,7 @@
                           <table class="table mb-0">
                             <tbody>
                               <tr>
-                                <td>상위코드</td>
+                                <td style="width: 15%">상위코드</td>
                                 <td>테스트</td>
                               </tr>
                               <tr>
@@ -1409,7 +1409,7 @@
             </div>
             <!-- 코드등록 모달창 3-1 (국적,재질,기본정보,입수정보,보관구분 1단계) -->
             <div id="code_insert_modal-3-1" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
-              <div class="modal-dialog user-modal">
+              <div class="modal-dialog user-modal preferences_deit_modal_wrap_2">
                 <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1424,7 +1424,7 @@
                           <table class="table mb-0">
                             <tbody>
                               <tr>
-                                <td>명칭</td>
+                                <td style="width: 15%">명칭</td>
                                 <td>
                                   <input type="text" />
                                 </td>
@@ -1445,7 +1445,7 @@
             </div>
             <!-- 코드등록 모달창 3-2 -->
             <div id="code_insert_modal-3-2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
-              <div class="modal-dialog user-modal">
+              <div class="modal-dialog user-modal preferences_deit_modal_wrap_2">
                 <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1460,7 +1460,7 @@
                           <table class="table mb-0">
                             <tbody>
                               <tr>
-                                <td>상위코드</td>
+                                <td style="width: 15%">상위코드</td>
                                 <td>테스트</td>
                               </tr>
                               <tr>
@@ -1483,6 +1483,8 @@
                         </div>
                       </div>
                     </div>
+                    
+                    
                   </div>
                 </div>
               </div>

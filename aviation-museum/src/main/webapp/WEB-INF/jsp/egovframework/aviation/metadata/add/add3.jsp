@@ -1333,18 +1333,14 @@
   	    	$('#add-tab-btn').remove();
   	    	tabCnt ++;
   	          $('#settings').append('<form id="preservation-form'+tabCnt+'" enctype="multipart/form-data"><div id="accordion-div"><hr/><div class="accordion-item" id="preservation-div"><h2 class="accordion-header" id="flush-headingOne">' +
-  	                        '<div class="preservation_into_wrap_left"><div class="table-responsive"><table class="table mb-0"><tbody>' +
+  	                        '<button class="accordion-button fw-medium ac_btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne'+tabCnt+'" aria-expanded="true" aria-controls="flush-collapseOne"></button></h2>' +
+  	                      	'<div id="flush-collapseOne'+tabCnt+'" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">' +
+  	                        '<div class="accordion-body text-muted"><div class="mb-0"><div class="card-body"><div class="table-responsive"><table class="table mb-0"><tbody>' +
   	                        '<tr><td>처리기관</td><td><input class="form-control st_input" list="datalistOptions" id="treatment_org'+tabCnt+'" name="treatment_org" placeholder="처리기관을 입력해 주세요."></td>' +
   	                        '<td>처리자</td><td><input class="form-control st_input" list="datalistOptions" id="processor'+tabCnt+'" name="processor" placeholder="처리자 명을 입력해 주세요.">' +
-  	                        '<td>처리기간</td><td><input class="form-control" type="date" name="start_date" id="start_date'+tabCnt+'"> ~ <input class="form-control" type="date" name="end_date" id="end_date'+tabCnt+'"></td>' +
-  	                        '<td style="display: flex; justify-content: space-around;"><button type="button" class="custom_btn btn_c58672 btn_c58672_6840" id="addPreservationBtn'+tabCnt+'" onclick="addPreservation('+tabCnt+')">저장</button>' +
-  	                        '<button class="custom_btn btn_c58672 btn_c58672_6840" onclick="deleteForm('+tabCnt+')" id="deletePreservationBtn'+tabCnt+'">삭제</button></td>'+
-  	                        '</tr></tbody></table></div></div>' +
-  	                        '<div class="preservation_btn_wrap_right"><button class="accordion-button fw-medium ac_btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne'+tabCnt+'" aria-expanded="true" aria-controls="flush-collapseOne"></button></div></h2>' +
-  	                      	'<div id="flush-collapseOne'+tabCnt+'" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">' +
-  	                        '<div class="accordion-body text-muted">' +
-  	                        '<div class="mb-0 preservation_wrap"><div class="st_wrap"><label class="col-md-2 col-form-label st_title">처리내용</label></div><textarea class="st_inp_tbox" id="content'+tabCnt+'" name="content" placeholder="처리내용을 입력해 주세요."></textarea></div>' +
-  	                        '<div class="mb-0 preservation_wrap"><div class="st_wrap"><label class="col-md-2 col-form-label st_title">비고</label></div><textarea class="st_inp_tbox" id="remark'+tabCnt+'" name="remark" placeholder="참고사항을 입력해 주세요."></textarea></div></div>' +
+  	                        '<td>처리기간</td><td><input class="form-control" type="date" name="start_date" id="start_date'+tabCnt+'"> ~ <input class="form-control" type="date" name="end_date" id="end_date'+tabCnt+'"></td></tr></tbody></table></div></div></div>' +
+  	                        '<div class="mb-0"><div class="st_wrap"><label class="col-md-2 col-form-label st_title">처리내용</label></div><textarea class="st_inp_tbox" id="content'+tabCnt+'" name="content" placeholder="처리내용을 입력해 주세요."></textarea></div>' +
+  	                        '<div class="mb-0"><div class="st_wrap"><label class="col-md-2 col-form-label st_title">비고</label></div><textarea class="st_inp_tbox" id="remark'+tabCnt+'" name="remark" placeholder="참고사항을 입력해 주세요."></textarea></div></div>' +
   	                    	'<div class="mb-0"><div class="st_wrap" id="resut-div"><label class="col-md-2 col-form-label st_title">처리결과</label>' +
 
   	                        '<label for="result-uploadFile'+tabCnt+'" class="custom_btn btn_6466ab btn_add_preservation_padding">업로드</label>' +
@@ -1367,7 +1363,7 @@
   	                      '<div id="before-img-preview'+tabCnt+'"></div>' +
   	                   	  '</div></div><div class="mb-0" id="after-div"><div class="st_wrap"><label class="col-md-2 col-form-label st_title">보존처리 후 이미지</label>' +
 
-  	                   	
+
 
   	                      '<label for="after-uploadFile'+tabCnt+'" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>' +
   	      				  '<input type="file" name="after_uploadFile" id="after-uploadFile'+tabCnt+'" onchange="afterImg(this, '+tabCnt+')" multiple style="display:none;" accept="image/*">' +
@@ -1379,7 +1375,7 @@
 
   	                      '<div id="after-img-preview'+tabCnt+'"></div></div></div>' +
   	                  	  '' +
-  						  '</div></div></div></div></div></div></form></div>'+
+  						  '<div class="mb-0"><button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" id="addPreservationBtn'+tabCnt+'" onclick="addPreservation('+tabCnt+')">저장</button><button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteForm('+tabCnt+')" id="deletePreservationBtn'+tabCnt+'">삭제</button></div></div></div></div></div></div></div></form>'+
 
   	                 	  '<button type="button" class="mb-0" id="add-tab-btn" onclick="cloneDiv()"><div class="st_wrap"><label class="col-md-2 col-form-label st_title" style="cursor: pointer"> + 보존처리 추가</label></div>' +
   	                  	  '</button>');
@@ -3882,7 +3878,7 @@
 	                                          <!-- 대여기간 캘린더 폼 -->
 	                                          <input class="form-control" type="date" name="start_date" id="start_date0"> ~ <input class="form-control" type="date" name="end_date" id="end_date0">
 	                                        </td>
-	                                        <td style="display: flex; justify-content: space-around;">
+	                                        <td>
 	                                          <button type="button" class="custom_btn btn_c58672 btn_c58672_6840" id="addPreservationBtn0" onclick="addPreservation(0)">저장</button>
 											  <button type="button" class="custom_btn btn_c58672 btn_c58672_6840" id="" onclick="">삭제</button>
 	                                        </td>

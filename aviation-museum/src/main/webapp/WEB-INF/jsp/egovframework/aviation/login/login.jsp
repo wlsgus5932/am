@@ -83,10 +83,15 @@
     <form action="" method="post" name="form" onsubmit="return false">
       <input type="hidden" id="rsaPublicKeyModulus" value="<%=publicKeyModulus%>" />          
       <input type="hidden" id="rsaPublicKeyExponent" value="<%=publicKeyExponent%>" />
-      <div class="main_wrap">
+      <div class="main_wrap">      
         <div class="content_wrap">
-          <h2 class="main_text">항공박물관</h2>
-          <h3 class="sub_text">회원 서비스 이용을 위해 로그인 해주세요.</h3>
+          <div class="login_main_logo_img">
+            <img src="assets/custom_img/main_login_logo.png" alt=""/ >
+          </div>        
+        
+          <p class="sub_text_2">가장 높은 꿈을 가장 가깝게 만나는 곳</p>
+          <h2 class="main_text">국립항공박물관</h2>
+          <p class="sub_text">회원 서비스 이용을 위해 로그인 해주세요.</p>
           <input
             type="text"
             name="member_id"
@@ -108,9 +113,7 @@
           <div class="login_wrap">
             <button type="button" onClick="validateEncryptedForm()">로그인</button>
           </div>
-          <div class="login_main_logo_img">
-            <img src="assets/custom_img/logo-black.png" alt="" height="22" />
-          </div>
+
         </div>
       </div>
     </form>

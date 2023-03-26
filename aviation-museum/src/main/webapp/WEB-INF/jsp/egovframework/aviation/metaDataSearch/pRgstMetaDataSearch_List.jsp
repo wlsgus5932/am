@@ -185,7 +185,7 @@
 	              </div>
               </form>
               <!--  -->
-              <div class="search_btn_wrap">
+              <div class="search_btn_wrap" style="width: 1200px;">
                 <div class="search_btn_left">
                  <button class="custom_btn btn_c57283" data-bs-toggle="modal" data-bs-target="#LikeModal">관심자료등록</button ><button class="custom_btn btn_c28876">항목 추가 및 삭제</button>
                 </div>
@@ -209,7 +209,7 @@
                 </div>
               </div>
               <!--  -->
-              <div class="mb-0">
+              <div class="mb-0" style="width: 1200px;">
                 <div id="UserModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
                   <div class="modal-dialog user-modal">
                     <div class="modal-content">

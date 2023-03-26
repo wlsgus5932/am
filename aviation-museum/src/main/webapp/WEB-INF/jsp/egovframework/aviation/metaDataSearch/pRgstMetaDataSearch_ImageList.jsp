@@ -183,7 +183,7 @@
             	  </div>	
               </form>
               <!--  -->
-              <div class="search_btn_wrap">
+              <div class="search_btn_wrap" style="width: 1200px;">
                 <div class="search_btn_left">
                   <button class="custom_btn btn_707070">전체선택</button><button class="custom_btn btn_707070">선택해지</button>
                   <button class="custom_btn btn_c28876">항목 추가 및 삭제</button>
@@ -208,7 +208,7 @@
                 </div>
               </div>
               <!--  -->
-              <div class="mb-0">
+              <div class="mb-0" style="width: 1200px;">
                 <!--  -->
 <!--                 <div class="st_wrap st_mv_wrap"> -->
 <!--                    -->
@@ -301,7 +301,7 @@
                       <div class="row row-cols-auto img-row" id="gallery">
                         
                         <c:forEach var="metaDataSearchImageList" items="${metaDataSearchImageList}" varStatus="varStatus">
-	                        <div class="col img-col">
+	                        <div class="col img-col img-col_2">
 	                          <div class="img-col-header">
 	                             <input type="checkbox" name="group_seqList" class="check_temp" name="" id="" value="${metaDataSearchImageList.image_idx}">
 	                            ${metaDataSearchImageList.image_nm}

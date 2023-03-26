@@ -39,17 +39,17 @@
                               </div>
                               <div class="img-col-img-wrap">
                                 <a href="#">
-                                  <div class="img-hover-info">
-                                    <h4>이미지 설명</h4>
-                                    <p>${list.image_desc}</p>
-                                  </div>
+<!--                                   <div class="img-hover-info"> -->
+<!--                                     <h4>이미지 설명</h4> -->
+<%--                                     <p>${list.image_desc}</p> --%>
+<!--                                   </div> -->
                                   <img src="<c:url value="images/${list.image_nm}"/>" alt="이미지">
                                 </a>
                               </div>
                                 <div class="img-col-info">
                                   <dl>
                                     <dt>명칭 :</dt>
-                                    <dd>${list.image_nm }</dd>
+                                    <dd class="img-col-info-title">${list.image_nm }</dd>
                                   </dl>
                                   <dl>
                                     <dt>시간 :</dt>
@@ -63,15 +63,15 @@
                                     <dt>태그 :</dt>
                                     <dd><button type="button" class="custom_btn btn_c28876 img-tag"><a href="#">태그</a></button></dd>
                                   </dl>
-                                  <dl>
+                                  <dl class="img-col-info-check-wrap">
                                     <dt><input type="checkbox" id="req_image${status.index}" value="${list.image_idx}" colunmName="rep_image" onclick="publicRepCheck(this)" ${list.rep_image == "Y" ? "CHECKED" : ""}/></dt>
                                     <dd>대표</dd>
-                                    <dt><input type="checkbox" id="public_service${status.index}" value="${list.image_idx}" colunmName="public_service" onclick="publicRepCheck(this)" ${list.public_service == "Y" ? "CHECKED" : ""}></dt>
+                                    <dt stlye="margin-left: 0.5rem;"><input type="checkbox" id="public_service${status.index}" value="${list.image_idx}" colunmName="public_service" onclick="publicRepCheck(this)" ${list.public_service == "Y" ? "CHECKED" : ""}></dt>
                                     <dd>대국민 서비스</dd>
                                   </dl>
                                   <dl>
                                   	<button class="img-info_btn custom_btn btn_edit" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xll" type="button" onclick="setImageIdx(${list.image_idx})">설명등록</button>
-                                  	<button class="img-info_btn custom_btn btn_edit" type="button" onclick="gallery.view(${status.index})">원문보기</button>
+                                  	<button class="img-info_btn custom_btn btn_edit" type="button" onclick="gallery.view(${status.index})">원본보기</button>
                                   </dl>
                                 </div>
                                 
@@ -88,18 +88,18 @@
 							</div>
 					<ul class="btn-group pagination">
 					    <c:if test="${pageMaker.prev }">
-					    <li>
-					        <a href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+					    <li class="page-item">
+					        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
 					    </li>
 					    </c:if>
 					    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-					    <li>
-					        <a href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+					    <li class="page-item">
+					        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
 					    </li>
 					    </c:forEach>
 					    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-					    <li>
-					        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+					    <li class="page-item">
+					        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 					    </li>
 					    </c:if>
 					</ul> 
