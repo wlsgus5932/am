@@ -185,10 +185,14 @@
               <!--  -->
               <div class="search_btn_wrap">
                 <div class="search_btn_left">
-                  <button class="custom_btn btn_707070">전체선택</button><button class="custom_btn btn_707070">선택해지</button>
-                  <button class="custom_btn btn_c28876">항목 추가 및 삭제</button>
+<!--                   <button class="custom_btn btn_707070">전체선택</button> -->
+<!--                   <button class="custom_btn btn_707070">선택해지</button> -->
+<!--                   <button class="custom_btn btn_c28876">항목 추가 및 삭제</button> -->
                 </div>
-                <div class="search_btn_right"><button class="custom_btn btn_707070">사용자 지정양식 인쇄</button><button class="custom_btn btn_707070" onclick="content_print()">목록 인쇄</button></div>
+                <div class="search_btn_right">
+<!--                 <button class="custom_btn btn_707070">사용자 지정양식 인쇄</button> -->
+                <button class="custom_btn btn_707070" onclick="content_print()">목록 인쇄</button>
+                </div>
               </div>
               <!-- 관심사료 모달창 -->
               <div id="Like2Modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">

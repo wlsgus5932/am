@@ -141,7 +141,7 @@
             	
             	$('.dataDiv').css('display', 'none');
             	$('#'+current_num).css('display', 'block');
-
+				
             })
             function pageBtn(value) {
             	var type = value;

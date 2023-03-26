@@ -148,7 +148,7 @@
 			$("#insTagNm").focus();
 			return false;
 		}			
-		if (!$('input[type="checkbox"][name="enabled"]').is(":checked")) {
+		if (!$('input[type="radio"][name="enabled"]').is(":checked")) {
 			alert("사용 여부를 체크해주세요.");
 			return false;
 		}
@@ -236,7 +236,7 @@
 			$("#modTagNm").focus();
 			return false;
 		}			
-		if (!$('input[type="checkbox"][name="enabled"]').is(":checked")) {
+		if (!$('input[type="radio"][name="enabled"]').is(":checked")) {
 			alert("사용 여부를 체크해주세요.");
 			return false;
 		}
@@ -254,7 +254,7 @@
 				$("#modTagNm").focus();
 				return false;
 			}			
-			if (!$('input[type="checkbox"][name="enabled"]').is(":checked")) {
+			if (!$('input[type="radio"][name="enabled"]').is(":checked")) {
 				alert("사용 여부를 체크해주세요.");
 				return false;
 			}
@@ -450,7 +450,7 @@
 // 			$("#insExchnRateSeq").focus();
 // 			return false;
 // 		}	
-		if (!$('input[type="checkbox"][name="enabled"]').is(":checked")) {
+		if (!$('input[type="radio"][name="enabled"]').is(":checked")) {
 			alert("사용 여부를 체크해주세요.");
 			return false;
 		}
@@ -507,7 +507,7 @@
 			$("#modExchnRateServiceUrl").focus();
 			return false;
 		}		
-		if (!$('input[type="checkbox"][name="enabled"]').is(":checked")) {
+		if (!$('input[type="radio"][name="enabled"]').is(":checked")) {
 			alert("사용 여부를 체크해주세요.");
 			return false;
 		}

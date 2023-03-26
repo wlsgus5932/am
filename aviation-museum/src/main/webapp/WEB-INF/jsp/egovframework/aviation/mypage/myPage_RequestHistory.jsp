@@ -200,7 +200,7 @@
                   <td>${requestHistoryList.keyword_list}</td>
 
                   <c:choose>
-                    <c:when test="${requestHistoryList.approval_state eq 'N' or requestHistoryList.approval_state eq 'F'}">
+                    <c:when test="${requestHistoryList.approval_state eq 'F'}">
                       <td>
                         <button
                           data-bs-toggle="modal"

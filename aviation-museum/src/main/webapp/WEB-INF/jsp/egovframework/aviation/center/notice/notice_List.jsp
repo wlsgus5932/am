@@ -84,7 +84,7 @@
                     </div>
 						<div class="user_in_modal_footer_wrap">
                     	   <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="noticeInsBtn">저장</button>
-	                       <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                       <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
 	                     </div>
                     <!--  -->
                   </div>
@@ -184,7 +184,7 @@
                   </div>
 					<div class="user_in_modal_footer_wrap">
                    	   <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="noticeModBtn">저장</button>
-	                   <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                   <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
 	                </div>
                   <!--  -->
                 </div>

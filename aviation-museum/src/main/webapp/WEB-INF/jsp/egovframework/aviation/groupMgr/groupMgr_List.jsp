@@ -40,7 +40,7 @@
                       <c:forEach var="groupList" items="${groupList}">
 	                       <tr>
 	                           <td>
-	                             <input type="checkbox" name="group_seqList" id="" class="check_temp"  value="${groupList.group_idx}">
+		                           <input type="checkbox" name="group_seqList" id="${groupList.group_idx}" class="check_temp" value="${groupList.group_idx}"/>
 	                           </td>
 	                           <td>
 	                             ${perPageNum + 1 - groupList.rnum}
@@ -58,7 +58,14 @@
 	                             ${groupList.reg_date}
 	                           </td>
 	                            <td>
-	                             <button type="button" class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#GroupModal-2" onclick="groupModPopup('${groupList.group_idx}');">수정</button>
+	                             <c:choose>
+		                           	 <c:when test="${groupList.group_idx eq 1}">
+	                            		 <button type="button" class="custom_btn btn_edit">수정</button>
+	                          		 </c:when>
+		                             <c:otherwise>
+		                             	<button type="button" class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#GroupModal-2" onclick="groupModPopup('${groupList.group_idx}');">수정</button>
+		                             </c:otherwise>
+	                             </c:choose>                       
 	                            </td>
 	                       </tr>
 						</c:forEach>	
@@ -122,8 +129,8 @@
 	                                       <tr>
 	                                         <td>관리자 여부</td>
 	                                         <td>
-	                                           <input type="radio" name="admin" value="Y">관리자
-	                                           <input type="radio" name="admin" value="N">일반
+	                                           <input type="radio" name="admin" id="insGroupY"  value="Y">관리자
+	                                           <input type="radio" name="admin" id="insGroupN"  value="N">일반
 	                                         </td>
 	                                       </tr>
 	                                   </tbody>
@@ -135,7 +142,7 @@
                        </div>
 	                              <div class="user_in_modal_footer_wrap">
 	                              	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" id="groupInsBtn">저장</button>
-	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
 	                              </div>                           
                      </div>
                      <!--  -->
@@ -193,7 +200,7 @@
                    </div>
 	                              <div class="user_in_modal_footer_wrap">
                             		 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="groupModBtn">저장</button>
-	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
 	                              </div>
                    <!--  -->
                  </div>
@@ -217,8 +224,8 @@ var groupInsValidation = function() {
 		return false;
 	}
 	
-	if (!$('input[type="checkbox"][name="admin"]').is(":checked")) {
-		alert("관리자 여부를 체크해주세요.");
+	if (!$('#insGroupY').is(":checked") && !$('#insGroupN').is(":checked")) {
+		alert("사용 여부를 체크해주세요.");
 		return false;
 	}
 
@@ -234,24 +241,25 @@ var groupModValidation = function() {
 		return false;
 	}
 	
-	if (!$('input[type="checkbox"][name="admin"]').is(":checked")) {
-		alert("관리자 여부를 체크해주세요.");
+	if (!$('#modGroupY').is(":checked") && !$('#modGroupN').is(":checked")) {
+		alert("사용 여부를 체크해주세요.");
 		return false;
 	}
+
 
 	return true;
 }
 <%-- 그룹등록 관리자 여부 체크박스 단일선택 --%>
-$('input[type="checkbox"][name="admin"]').click(function(){
-	  if($(this).prop('checked')){
+// $('input[type="checkbox"][name="admin"]').click(function(){
+// 	  if($(this).prop('checked')){
 	 
-	     $('input[type="checkbox"][name="admin"]').prop('checked',false);
+// 	     $('input[type="checkbox"][name="admin"]').prop('checked',false);
 	 
-	     $(this).prop('checked',true);
+// 	     $(this).prop('checked',true);
 	 
-	    }
+// 	    }
 	  
-});
+// });
 
 <%-- 그룹 조건 검색 --%>
 function groupSearchList(){

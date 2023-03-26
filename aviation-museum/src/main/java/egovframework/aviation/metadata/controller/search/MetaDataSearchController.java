@@ -514,17 +514,17 @@ public class MetaDataSearchController {
 	                row.createCell(5).setCellValue(board.getItem_nm());
 	                row.createCell(6).setCellValue(board.getIcao_nm());
 	                row.createCell(7).setCellValue(board.getQty());
-	                row.setHeight((short) 3000);
+	                row.setHeight((short) 1500);
 	            }
 	 
-	            sheet.setColumnWidth(0, 5000);
-	            sheet.setColumnWidth(1, 8000);
-	            sheet.setColumnWidth(2, 5000);
-	            sheet.setColumnWidth(3, 5000);
-	            sheet.setColumnWidth(4, 5000);
-	            sheet.setColumnWidth(5, 5000);
-	            sheet.setColumnWidth(6, 5000);
-	            sheet.setColumnWidth(7, 5000);
+	            sheet.setColumnWidth(0, 4500);
+	            sheet.setColumnWidth(1, 4000);
+	            sheet.setColumnWidth(2, 4500);
+	            sheet.setColumnWidth(3, 4500);
+	            sheet.setColumnWidth(4, 4500);
+	            sheet.setColumnWidth(5, 4500);
+	            sheet.setColumnWidth(6, 4500);
+	            sheet.setColumnWidth(7, 4500);
 	            
 	            File tmpFile = File.createTempFile("TMP~", ".xlsx");
 	            try (OutputStream fos = new FileOutputStream(tmpFile);) {

@@ -9,7 +9,16 @@
               <div class="modal-body mv-modal-body">
                 <div class="mb-0 user-wrap">
                   <div class="st_wrap" style="display: flex; justify-content: space-between;">
-                    <label class="col-md-2 col-form-label st_title">작업 내역상세</label>
+                    <label class="col-md-2 col-form-label st_title">
+                   		 작업 내역상세 - 
+                   		 <c:forEach var="workHistoryViewList2" items="${workHistoryViewList}" end="0">
+                   		 	${workHistoryViewList2.org_nm} /
+                   		 	${workHistoryViewList2.possession_nm} /
+                   		 	${workHistoryViewList2.item_nm} /
+                   		 	${workHistoryViewList2.item_no} /
+                   		 	${workHistoryViewList2.item_detail_no}
+                   		 </c:forEach>
+                    </label>
                    	<form id="workHistoryViewSearchForm" name="workHistoryViewSearchForm" method="post" class="form-horizontal">
 						<input type="hidden" id="item_idx" name="item_idx" value="" />
 					</form>

@@ -141,7 +141,7 @@
     <update id="updateUserGroup" parameterType="egovframework.aviation.group.vo.GroupVO">
           
            UPDATE nam_member
-			SET GROUP_IDX = '2'
+			SET GROUP_IDX = '1'
 	        WHERE 1=1
 	        <if test="org_code_idx != null">AND
                 ORG_CODE_IDX = #{org_code_idx}
