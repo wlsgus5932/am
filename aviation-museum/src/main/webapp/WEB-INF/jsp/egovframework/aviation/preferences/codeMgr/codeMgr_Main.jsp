@@ -808,6 +808,38 @@
 			$('#subModCodeEnabledY').prop('checked',false);
 		}
 	}
+	
+	// 국적/시대 하위코드 수정폼
+
+	function modEraSubFormBtn(value, value2, value3, value4, value5, value6){	
+		var code = value;
+		var type;
+		var idx = value2;
+		var nm = value3;
+		var enabled = value4;
+		var start_year = value5;
+		var end_year = value6;
+		
+		if(code.indexOf('_')){
+			type = code.replace('_', '-');
+		}else{
+			type = code;
+		}
+
+		$('#subModType').val(type);
+		$('#subModNm').attr('name',code+'_nm');
+		$('#subModIdx').val(idx);
+		$('#subModStart').val(start_year);
+		$('#subModEnd').val(end_year);
+		$('#subModNm').val(nm);
+		if(enabled == 'Y'){
+			$('#subModCodeEnabledY').prop('checked',true);
+			$('#subModCodeEnabledN').prop('checked',false);
+		}else{
+			$('#subModCodeEnabledN').prop('checked',true);
+			$('#subModCodeEnabledY').prop('checked',false);
+		}
+	}
 	// 하위코드 수정
 	$(document).on('click', '#subModBtn', function(){
 		var subParentCode = $('#subModParentCode').val();

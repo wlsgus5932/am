@@ -26,7 +26,7 @@
 				                        <td>${list.image_nm}</td>
 				                        <td>${list.image_width} x ${list.image_height}</td>
 				                        <td>${list.image_path}</td>
-				                        <td><input type="checkbox" id="req_image${status.index}" value="${list.image_idx}" colunmName="rep_image" onclick="publicRepCheck(this)" ${list.rep_image == "Y" ? "CHECKED" : ""}/></td>
+				                        <td><input type="checkbox" id="req_image${status.index}" value="${list.image_idx}" colunmName="rep_image" onclick="changeRep(this)" ${list.rep_image == "Y" ? "CHECKED" : ""}/></td>
 				                        <td>
 				                       		<input type="checkbox" id="public_service${status.index}" value="${list.image_idx}" colunmName="public_service" onclick="publicRepCheck(this)" ${list.public_service == "Y" ? "CHECKED" : ""}>
 				                        </td>

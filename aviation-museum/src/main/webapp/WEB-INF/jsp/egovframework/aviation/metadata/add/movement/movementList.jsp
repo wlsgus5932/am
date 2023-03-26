@@ -33,7 +33,7 @@
 																				 <td>${list.remark}</td>
 																				 <td>${list.requester}</td>
 																				 <td>
-																				 <button id="modify-movement-btn" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_wh" data-bs-toggle="modal" data-bs-target="#myModal" value="${list.movement_idx}" onclick="btn_control(1), getMovementData(this)">수정</button>
+																				 <button id="modify-movement-btn" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_wh" data-bs-toggle="modal" data-bs-target="#myModal" value="${list.movement_idx}" onclick="btn_control(1), getMovementData(${list.movement_idx})">수정</button>
 																				 </td>
 																				 <td><button id="delete-movement-btn" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_wh" value="${list.movement_idx}" onclick="deleteMovement(this)">삭제</button></td>
 																			</tr>

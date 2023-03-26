@@ -219,8 +219,8 @@
 	                              <tr>
 	                                <td>사용여부</td>
 	                                <td>
-	                                	 <input type="checkbox" name="enabled" value="Y" id="insCodeEnabledY">사용
-		                                 <input type="checkbox" name="enabled" value="N" id="insCodeEnabledN">미사용
+	                                	 <input type="radio" name="enabled" value="Y" id="insCodeEnabledY">사용
+		                                 <input type="radio" name="enabled" value="N" id="insCodeEnabledN">미사용
 	                                </td>
 	                              </tr>
 	                            </tbody>
@@ -321,13 +321,16 @@
 	                              <tr>
 	                                <td>사용여부</td>
 	                                <td>
-	                                	 <input type="checkbox" name="enabled" value="Y" id="subModCodeEnabledY">사용
-		                                 <input type="checkbox" name="enabled" value="N" id="subModCodeEnabledN">미사용
+	                                	 <input type="radio" name="enabled" value="Y" id="subModCodeEnabledY">사용
+		                                 <input type="radio" name="enabled" value="N" id="subModCodeEnabledN">미사용
 	                                </td>
 	                              </tr>
 	                            </tbody>
 	                          </table>
-	                          <button class="btn btn-secondary btn_save" type="button" id="subModBtn">저장</button>
+	                          <div class="user_in_modal_footer_wrap">
+		                      	   <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="subModBtn">저장</button>
+		                           <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
+							 </div> 
                           </form>
                         </div>
                       </div>

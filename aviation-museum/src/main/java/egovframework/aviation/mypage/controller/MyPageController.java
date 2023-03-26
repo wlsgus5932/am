@@ -401,17 +401,17 @@ public class MyPageController {
 	                row.createCell(5).setCellValue(board.getItem_nm());
 	                row.createCell(6).setCellValue(board.getExpl());
 	                row.createCell(7).setCellValue(board.getQty());
-	                row.setHeight((short) 3000);
+	                row.setHeight((short) 1500);
 	            }
 	 
-	            sheet.setColumnWidth(0, 5000);
-	            sheet.setColumnWidth(1, 8000);
-	            sheet.setColumnWidth(2, 5000);
-	            sheet.setColumnWidth(3, 5000);
-	            sheet.setColumnWidth(4, 5000);
-	            sheet.setColumnWidth(5, 5000);
-	            sheet.setColumnWidth(6, 5000);
-	            sheet.setColumnWidth(7, 5000);
+	            sheet.setColumnWidth(0, 4500);
+	            sheet.setColumnWidth(1, 4500);
+	            sheet.setColumnWidth(2, 4500);
+	            sheet.setColumnWidth(3, 4500);
+	            sheet.setColumnWidth(4, 4500);
+	            sheet.setColumnWidth(5, 4500);
+	            sheet.setColumnWidth(6, 4500);
+	            sheet.setColumnWidth(7, 4500);
 	            
 	            File tmpFile = File.createTempFile("TMP~", ".xlsx");
 	            try (OutputStream fos = new FileOutputStream(tmpFile);) {
@@ -510,17 +510,17 @@ public class MyPageController {
 	                row.createCell(5).setCellValue(board.getItem_nm());
 	                row.createCell(6).setCellValue(board.getSpeciality_nm());
 	                row.createCell(7).setCellValue(board.getTitle());
-	                row.setHeight((short) 3000);
+	                row.setHeight((short) 1500);
 	            }
 	 
-	            sheet.setColumnWidth(0, 5000);
-	            sheet.setColumnWidth(1, 8000);
-	            sheet.setColumnWidth(2, 5000);
-	            sheet.setColumnWidth(3, 5000);
-	            sheet.setColumnWidth(4, 5000);
-	            sheet.setColumnWidth(5, 5000);
-	            sheet.setColumnWidth(6, 5000);
-	            sheet.setColumnWidth(7, 5000);
+	            sheet.setColumnWidth(0, 4500);
+	            sheet.setColumnWidth(1, 4500);
+	            sheet.setColumnWidth(2, 4500);
+	            sheet.setColumnWidth(3, 4500);
+	            sheet.setColumnWidth(4, 4500);
+	            sheet.setColumnWidth(5, 4500);
+	            sheet.setColumnWidth(6, 4500);
+	            sheet.setColumnWidth(7, 4500);
 	            
 	            File tmpFile = File.createTempFile("TMP~", ".xlsx");
 	            try (OutputStream fos = new FileOutputStream(tmpFile);) {
@@ -615,16 +615,16 @@ public class MyPageController {
 	                row.createCell(4).setCellValue(board.getItem_no());
 	                row.createCell(5).setCellValue(board.getItem_detail_no());
 	                row.createCell(6).setCellValue(board.getReg_date());
-	                row.setHeight((short) 3000);
+	                row.setHeight((short) 1500);
 	            }
 	 
-	            sheet.setColumnWidth(0, 5000);
-	            sheet.setColumnWidth(1, 8000);
-	            sheet.setColumnWidth(2, 5000);
-	            sheet.setColumnWidth(3, 5000);
-	            sheet.setColumnWidth(4, 5000);
-	            sheet.setColumnWidth(5, 5000);
-	            sheet.setColumnWidth(6, 5000);
+	            sheet.setColumnWidth(0, 4500);
+	            sheet.setColumnWidth(1, 4500);
+	            sheet.setColumnWidth(2, 4500);
+	            sheet.setColumnWidth(3, 4500);
+	            sheet.setColumnWidth(4, 4500);
+	            sheet.setColumnWidth(5, 4500);
+	            sheet.setColumnWidth(6, 4500);
 	            
 	            File tmpFile = File.createTempFile("TMP~", ".xlsx");
 	            try (OutputStream fos = new FileOutputStream(tmpFile);) {
@@ -697,12 +697,17 @@ public class MyPageController {
 	 
 	            Row headerRow = sheet.createRow(rowNo++);
 	            headerRow.createCell(0).setCellValue("번호");
-	            headerRow.createCell(1).setCellValue("작업명");
-	            headerRow.createCell(2).setCellValue("작업자");
-	            headerRow.createCell(3).setCellValue("작업날짜");
+	            headerRow.createCell(1).setCellValue("기관이름");
+	            headerRow.createCell(2).setCellValue("소장구분이름");
+	            headerRow.createCell(3).setCellValue("자료명칭");
+	            headerRow.createCell(4).setCellValue("자료번호");
+	            headerRow.createCell(5).setCellValue("새부번호");
+	            headerRow.createCell(6).setCellValue("작업명");
+	            headerRow.createCell(7).setCellValue("작업자");
+	            headerRow.createCell(8).setCellValue("작업날짜");
 	            headerRow.setHeight((short) 700);
 	            
-	            for(int i=0; i<=3; i++){
+	            for(int i=0; i<=8; i++){
 	                headerRow.getCell(i).setCellStyle(headStyle);
 	            }
 	                    
@@ -710,16 +715,26 @@ public class MyPageController {
 	               		       	     
 	            	Row row = sheet.createRow(rowNo++);
 	                row.createCell(0).setCellValue(board.getRnum());
-	                row.createCell(1).setCellValue(board.getWork_nm());
-	                row.createCell(2).setCellValue(board.getReg_user());
-	                row.createCell(3).setCellValue(board.getReg_date());
-	                row.setHeight((short) 3000);
+	                row.createCell(1).setCellValue(board.getOrg_nm());
+	                row.createCell(2).setCellValue(board.getPossession_nm());
+	                row.createCell(3).setCellValue(board.getItem_nm());
+	                row.createCell(4).setCellValue(board.getItem_no());
+	                row.createCell(5).setCellValue(board.getItem_detail_no());
+	                row.createCell(6).setCellValue(board.getWork_nm());
+	                row.createCell(7).setCellValue(board.getReg_user());
+	                row.createCell(8).setCellValue(board.getReg_date());
+	                row.setHeight((short) 1500);
 	            }
 	 
-	            sheet.setColumnWidth(0, 5000);
-	            sheet.setColumnWidth(1, 8000);
-	            sheet.setColumnWidth(2, 5000);
-	            sheet.setColumnWidth(3, 5000);
+	            sheet.setColumnWidth(0, 4500);
+	            sheet.setColumnWidth(1, 4000);
+	            sheet.setColumnWidth(2, 4500);
+	            sheet.setColumnWidth(3, 4500);
+	            sheet.setColumnWidth(4, 4500);
+	            sheet.setColumnWidth(5, 4500);
+	            sheet.setColumnWidth(6, 4500);
+	            sheet.setColumnWidth(7, 4500);
+	            sheet.setColumnWidth(8, 4500);
 	            
 	            File tmpFile = File.createTempFile("TMP~", ".xlsx");
 	            try (OutputStream fos = new FileOutputStream(tmpFile);) {

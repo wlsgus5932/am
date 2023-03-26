@@ -31,7 +31,7 @@
                         <div class="modal-body mv-modal-body">
                             <div class="mb-0 user-wrap">
                               <div class="st_wrap">
-                                <label class="col-md-2 col-form-label st_title">URL 등록</label>
+                                <label class="col-md-2 col-form-label st_title">태그 등록</label>
                               </div>
                               <div class="card-body">
                                 <div class="table-responsive">
@@ -47,8 +47,8 @@
 	                                            <tr>
 	                                              <td>사용 여부</td>
 	                                              <td>
-	                                               	  <input type="checkbox" name="enabled" value="Y">사용
-	                                           		  <input type="checkbox" name="enabled" value="N">미사용
+	                                               	  <input type="radio" name="enabled" value="Y">사용
+	                                           		  <input type="radio" name="enabled" value="N">미사용
 	                                              </td>
 	                                            </tr>
 	                                        </tbody>
@@ -59,7 +59,7 @@
                             </div>
 								  <div class="user_in_modal_footer_wrap">
 		                             <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="tagInsBtn">저장</button>
-	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
 	                              </div>                            
                             
                           </div>
@@ -94,8 +94,8 @@
 	                                            <tr>
 	                                              <td>사용 여부</td>
 	                                              <td>
-	                                                  <input type="checkbox" name="enabled" id="modTagEnabledY" value="Y">사용
-	                                      			  <input type="checkbox" name="enabled" id="modTagEnabledN" value="N">미사용
+	                                                  <input type="radio" name="enabled" id="modTagEnabledY" value="Y">사용
+	                                      			  <input type="radio" name="enabled" id="modTagEnabledN" value="N">미사용
 	                                              </td>
 	                                            </tr>
 	                                        </tbody>
@@ -107,7 +107,7 @@
                             </div>
      							<div class="user_in_modal_footer_wrap">
 		                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="tagModBtn">저장</button>
-	                             	     <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                             	     <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
 	                            </div>                       
                             
                             

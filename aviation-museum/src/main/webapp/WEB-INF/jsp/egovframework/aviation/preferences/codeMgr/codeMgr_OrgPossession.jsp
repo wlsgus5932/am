@@ -191,7 +191,7 @@
                     </div>
 						<div class="user_in_modal_footer_wrap">
 						  <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="insBtn">저장</button>
-						  <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+						  <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
 						</div>
                   </div>
                 </div>
@@ -238,13 +238,16 @@
 	                              <tr>
 	                                <td>사용여부</td>
 	                                <td>
-	                                	 <input type="checkbox" name="enabled" value="Y" id="subInsCodeEnabledY">사용
-		                                 <input type="checkbox" name="enabled" value="N" id="subInsCodeEnabledN">미사용
+	                                	 <input type="radio" name="enabled" value="Y" id="subInsCodeEnabledY">사용
+		                                 <input type="radio" name="enabled" value="N" id="subInsCodeEnabledN">미사용
 	                                </td>
 	                              </tr>
 	                            </tbody>
 	                          </table>
-	                          <button class="btn btn-secondary btn_save" type="button" id="subInsBtn">저장</button>
+	                          <div class="user_in_modal_footer_wrap">
+		                          <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="subInsBtn">저장</button>
+	                          	  <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
+                          	  </div>
                           </form>
                         </div>
                       </div>
@@ -295,7 +298,7 @@
                     </div>
 						<div class="user_in_modal_footer_wrap">
 							<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="modBtn">저장</button>
-							<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+							<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
 						</div>                 
                   </div>
                 </div>
@@ -336,8 +339,8 @@
 	                              <tr>
 	                                <td>사용여부</td>
 	                                <td>
-	                                	 <input type="checkbox" name="enabled" value="Y" id="subModCodeEnabledY">사용
-		                                 <input type="checkbox" name="enabled" value="N" id="subModCodeEnabledN">미사용
+	                                	 <input type="radio" name="enabled" value="Y" id="subModCodeEnabledY">사용
+		                                 <input type="radio" name="enabled" value="N" id="subModCodeEnabledN">미사용
 	                                </td>
 	                              </tr>
 	                            </tbody>
@@ -349,7 +352,7 @@
                     </div>
 						<div class="user_in_modal_footer_wrap">
 	                        <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="subModBtn">저장</button>
-							<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+							<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
 						</div>
                   </div>
                 </div>
@@ -357,16 +360,16 @@
             </div>
             <script>
 			<%-- 코드 사용 여부 체크박스 단일선택 --%>
-			$('input[type="checkbox"][name="enabled"]').click(function(){
-				  if($(this).prop('checked')){
+// 			$('input[type="checkbox"][name="enabled"]').click(function(){
+// 				  if($(this).prop('checked')){
 				 
-				     $('input[type="checkbox"][name="enabled"]').prop('checked',false);
+// 				     $('input[type="checkbox"][name="enabled"]').prop('checked',false);
 				 
-				     $(this).prop('checked',true);
+// 				     $(this).prop('checked',true);
 				 
-				    }
+// 				    }
 				  
-			});
+// 			});
     		$('input[type="text"]').keydown(function() {
 	  			  if (event.keyCode === 13) {
 	  			    event.preventDefault();

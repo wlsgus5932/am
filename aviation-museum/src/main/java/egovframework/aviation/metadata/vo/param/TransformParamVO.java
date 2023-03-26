@@ -16,7 +16,7 @@ public class TransformParamVO {
 	private String org_code_idx;
 	private String item_detail_no1;
 	private String item_no1;
-	private String item_detail_no12;
+	private String item_detail_no2;
 	private String item_no2;
 	private String page_no;
 	private String reg_state;

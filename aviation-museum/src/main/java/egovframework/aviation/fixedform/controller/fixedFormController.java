@@ -42,7 +42,7 @@ public class fixedFormController {
 		
 		List<OrgVO> getOrgList = metaDataService.getOrg();
 		List<FixedFormVO> dataCardFrontList = fixedFormService.getDataCardFrontList(fixedFormVO);
-
+		model.addAttribute("userSessionOrgCodeIdx",req.getSession().getAttribute("userSessionOrgCodeIdx"));
 		model.addAttribute("getOrgList", getOrgList);
     	model.addAttribute("dataCardFrontList", dataCardFrontList);
     	model.addAttribute("dataCardFrontListTotal", dataCardFrontList.size());
@@ -60,7 +60,7 @@ public class fixedFormController {
 		List<OrgVO> getOrgList = metaDataService.getOrg();
 		List<FixedFormVO> dataCardBackPList = fixedFormService.getDataCardBackPList(dataCardBackVO);
 		List<FixedFormVO> dataCardBackList = fixedFormService.getDataCardBackList(dataCardBackVO);
-
+		model.addAttribute("userSessionOrgCodeIdx",req.getSession().getAttribute("userSessionOrgCodeIdx"));
 		model.addAttribute("getOrgList", getOrgList);
 		model.addAttribute("dataCardBackPList", dataCardBackPList);
     	model.addAttribute("dataCardBacktList", dataCardBackList);
@@ -82,7 +82,7 @@ public class fixedFormController {
 		int cnt =  dataLedgerList.size();
  		int pageSize = 5;
  		int pageCount = cnt/pageSize +(cnt%pageSize==0?0:1);
-
+ 		model.addAttribute("userSessionOrgCodeIdx",req.getSession().getAttribute("userSessionOrgCodeIdx"));
  		model.addAttribute("getOrgList", getOrgList);
     	model.addAttribute("dataLedgerList", dataLedgerList);
     	model.addAttribute("dataLedgerListTotal", dataLedgerList.size());

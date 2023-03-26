@@ -326,7 +326,7 @@
 						$('#interestInsBtnClose').click();
 						$.ajax({
 							type : 'POST',                 
-							url : '/metaDataSearchListAjax.do',   
+							url : '/pRgstMetaDataSearchListAjax.do',   
 							dataType : "html",           
 							contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 							error : function() {        

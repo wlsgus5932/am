@@ -139,49 +139,57 @@ public class AddController {
 					 HashMap<Integer, Object> measureMap = new HashMap<Integer, Object>();
 					 
 					 //필수
-					 for (int i = 0; i < param.getClass1_code_idx().size(); i++) {
-							List<Object> item = new ArrayList<>();
-							item.add(param.getItem_idx());
-							item.add(param.getReg_user());
-							item.add(param.getClass1_code_idx().get(i));
-							item.add(param.getClass2_code_idx().get(i));
-							item.add(param.getClass3_code_idx().get(i));
-							classMap.put(i, item);
+					 System.out.println("ddd:::"+param.getClass1_code_idx().get(0));
+					 if(param.getClass1_code_idx() != null && !param.getClass1_code_idx().get(0).isEmpty() && !param.getClass1_code_idx().get(0).equals("0")) {
+						 for (int i = 0; i < param.getClass1_code_idx().size(); i++) {
+								List<Object> item = new ArrayList<>();
+								item.add(param.getItem_idx());
+								item.add(param.getReg_user());
+								item.add(param.getClass1_code_idx().get(i));
+								item.add(param.getClass2_code_idx().get(i));
+								item.add(param.getClass3_code_idx().get(i));
+								classMap.put(i, item);
 							}
-					 for (int i = 0; i < param.getCountry_code_idx().size(); i++) {
-							List<Object> item = new ArrayList<>();
-							item.add(param.getItem_idx());
-							item.add(param.getReg_user());
-							
-							item.add(param.getCountry_code_idx().get(i));
-							item.add(param.getEra_code_idx().get(i));
-							item.add(param.getDetail_year().get(i));
-							countryMap.put(i, item);
+						 service.setTaxonomy(classMap);
+					 }
+					 if(param.getCountry_code_idx() != null && !param.getCountry_code_idx().get(0).isEmpty() && !param.getCountry_code_idx().get(0).equals("0")) {
+						 for (int i = 0; i < param.getCountry_code_idx().size(); i++) {
+								List<Object> item = new ArrayList<>();
+								item.add(param.getItem_idx());
+								item.add(param.getReg_user());
+								 
+								item.add(param.getCountry_code_idx().get(i));
+								item.add(param.getEra_code_idx().get(i));
+								item.add(param.getDetail_year().get(i));
+								countryMap.put(i, item);
 							}
-					 for (int i = 0; i < param.getMaterial1_code_idx().size(); i++) {
-							List<Object> item = new ArrayList<>();
-							item.add(param.getItem_idx());
-							item.add(param.getReg_user());
-							item.add(param.getMaterial1_code_idx().get(i));
-							item.add(param.getMaterial2_code_idx().get(i));
-							item.add(param.getMaterial_detail().get(i));
-							materialMap.put(i, item);
+						 service.setCountry(countryMap);
+					 }
+					 if(param.getMaterial1_code_idx() != null && !param.getMaterial1_code_idx().get(0).isEmpty() && !param.getMaterial1_code_idx().get(0).equals("0")) {
+						 for (int i = 0; i < param.getMaterial1_code_idx().size(); i++) {
+								List<Object> item = new ArrayList<>();
+								item.add(param.getItem_idx());
+								item.add(param.getReg_user());
+								item.add(param.getMaterial1_code_idx().get(i));
+								item.add(param.getMaterial2_code_idx().get(i));
+								item.add(param.getMaterial_detail().get(i));
+								materialMap.put(i, item);
 							}
-					 for (int i = 0; i < param.getMeasurement_value().size(); i++) {
-							List<Object> item = new ArrayList<>();
-							item.add(param.getItem_idx());
-							item.add(param.getReg_user());
-							item.add(param.getMeasurement_code_idx().get(i));
-							item.add(param.getMeasurement_unit_code_idx().get(i));
-							item.add(param.getMeasurement_value().get(i));
-							item.add(param.getMeasurement_item_type().get(i));
-							measureMap.put(i, item);
+						 service.setMaterial(materialMap);
+					 }
+					 if(param.getMeasurement_code_idx() != null && !param.getMeasurement_code_idx().get(0).isEmpty() && !param.getMeasurement_code_idx().get(0).equals("0")) {
+						 for (int i = 0; i < param.getMeasurement_value().size(); i++) {
+								List<Object> item = new ArrayList<>();
+								item.add(param.getItem_idx());
+								item.add(param.getReg_user());
+								item.add(param.getMeasurement_code_idx().get(i));
+								item.add(param.getMeasurement_unit_code_idx().get(i));
+								item.add(param.getMeasurement_value().get(i));
+								item.add(param.getMeasurement_item_type().get(i));
+								measureMap.put(i, item);
 							}
-					 
-					 	service.setTaxonomy(classMap);
-						service.setCountry(countryMap);
-						service.setMaterial(materialMap);
-						service.setMeasurement(measureMap);
+						 service.setMeasurement(measureMap);
+					 }
 						
 					 //
 					 if(!param.getObt_obtainment_date().isEmpty()|| !param.getObt_obtainment_code_idx().equals("0")
@@ -227,7 +235,7 @@ public class AddController {
 						 service.setInsurance(insuranceMap);
 					 }
 					 
-					 if(param.getCopy_copyright() != null && !param.getCopy_copyright().get(0).isEmpty()) {
+					 if(param.getCopy_copyright() != null && !param.getCopy_copyright().get(0).isEmpty() && !param.getCopy_copyright().get(0).equals("0")) {
 						 HashMap<Integer, Object> copyrightMap = new HashMap<Integer, Object>();
 						 for (int i = 0; i < param.getCopy_owner().size(); i++) {
 								List<Object> item = new ArrayList<>();

@@ -55,71 +55,78 @@ const set_itemBase_input = async (list) => {
 	const { taxonomyList, countryList, materialList, measurementList, obtainmentList, involvementList,
 				InsuranceList, copyrightList, publicServiceList, keywordList } = await form.json();
 	
-	if(taxonomyList.length == 0) {
+	//$('#class-tbody').children('tr:not(:first-child)').remove();
+	if(taxonomyList.length) {
 		$('#class-tbody').children().remove();
-		addUpdateTd2('class-country', 'class-tbody');
+		taxonomyList.forEach(async (e, i) => {
+			addClassTd('class-table', 'class-tbody');
+			$('#class1_code_idx'+i).val(e.class1_code_idx).prop("selected", true);
+			$('#class2_code_idx'+i).val(e.class2_code_idx).prop("selected", true);
+			$('#class3_code_idx'+i).val(e.class3_code_idx).prop("selected", true);
+			$('#taxonomy_idx'+i).val(e.taxonomy_idx);
+			$('#input_taxonomy_idx'+i).val(e.taxonomy_idx);
+		})
 	} else {
-		$('#class-tbody').children('tr:not(:first-child)').remove();
+		$('#class1_code_idx0').attr('name', 'update_class1_code_idx0');
+		$('#class2_code_idx0').attr('name', 'update_class2_code_idx0');
+		$('#class3_code_idx0').attr('name', 'update_class3_code_idx0');
 	}
-	taxonomyList.forEach(async (e, i) => {
-		if(i != 0) addClassTd('class-table', 'class-tbody');
-		/*i != 0 ? addClassTd('class-table', 'class-tbody') : '';*/
-		$('#class1_code_idx'+i).val(e.class1_code_idx).prop("selected", true);
-		$('#class2_code_idx'+i).val(e.class2_code_idx).prop("selected", true);
-		$('#class3_code_idx'+i).val(e.class3_code_idx).prop("selected", true);
-		$('#taxonomy_idx'+i).val(e.taxonomy_idx);
-		$('#input_taxonomy_idx'+i).val(e.taxonomy_idx);
-	})
 	
-	if(countryList.length == 0) {
+	//$('#country-tbody').children('tr:not(:first-child)').remove();
+	if(countryList.length) {
 		$('#country-tbody').children().remove();
-		addUpdateTd2('material-country', 'country-tbody');
+		countryList.forEach(async (e, i) => {
+			addClassTd('country-table', 'country-tbody');
+			$('#country-select'+i).val(e.country_code_idx).prop("selected", true);
+			await changeCountry(e.country_code_idx, i);
+			$('#era-select'+i).val(e.era_code_idx).prop("selected", true);
+			$('#detail_year'+i).val(e.detail_year);
+			$('#country_idx'+i).val(e.country_era_idx);
+			$('#input_country_idx'+i).val(e.country_era_idx);
+		})
 	} else {
-		$('#country-tbody').children('tr:not(:first-child)').remove();
+		$('#country-select0').attr('name', 'update_country_code_idx');
+		$('#era-select0').attr('name', 'update_era_code_idx');
+		$('#detail_year0').attr('name', 'update_detail_year');
+		
 	}
-	countryList.forEach(async (e, i) => {
-		if(i != 0) addClassTd('country-table', 'country-tbody');
-		$('#country-select'+i).val(e.country_code_idx).prop("selected", true);
-		await changeCountry(e.country_code_idx, i);
-		$('#era-select'+i).val(e.era_code_idx).prop("selected", true);
-		$('#detail_year'+i).val(e.detail_year);
-		$('#country_idx'+i).val(e.country_era_idx);
-		$('#input_country_idx'+i).val(e.country_era_idx);
-	})
 	
-	if(materialList.length == 0) {
+	//$('#material-tbody').children('tr:not(:first-child)').remove();
+	if(materialList.length) {
 		$('#material-tbody').children().remove();
-		addUpdateTd2('material-table', 'material-tbody');
+		materialList.forEach(async (e, i) => {
+			addClassTd('material-table', 'material-tbody');
+			$('#material1_code_idx'+i).val(e.material1_code_idx).prop("selected", true);
+			await changeMaterial(e.material1_code_idx, i);
+			$('#material2_code_idx'+i).val(e.material2_code_idx).prop("selected", true);
+			$('#material_detail'+i).val(e.material_detail);
+			$('#material_idx'+i).val(e.material_idx);
+			$('#input_material_idx'+i).val(e.material_idx);
+		})
 	} else {
-		$('#material-tbody').children('tr:not(:first-child)').remove();
+		$('#material1_code_idx0').attr('name', 'update_material1_code_idx');
+		$('#material2_code_idx0').attr('name', 'update_material2_code_idx');
+		$('#material_detail0').attr('name', 'update_material_detail');
 	}
-	$('#material-tbody').children('tr:not(:first-child)').remove();
-	materialList.forEach(async (e, i) => {
-		if(i != 0) addClassTd('material-table', 'material-tbody');
-		$('#material1_code_idx'+i).val(e.material1_code_idx).prop("selected", true);
-		await changeMaterial(e.material1_code_idx, i);
-		$('#material2_code_idx'+i).val(e.material2_code_idx).prop("selected", true);
-		$('#material_detail'+i).val(e.material_detail);
-		$('#material_idx'+i).val(e.material_idx);
-		$('#input_material_idx'+i).val(e.material_idx);
-	})
 	
-	if(measurementList.length == 0) {
-		console.log(measurementList);
+	//$('#measurement-tbody').children('tr:not(:first-child)').remove();
+	if(measurementList.length) {
 		$('#measurement-tbody').children().remove();
-		addClassTd2('measurement-table', 'measurement-tbody');
+		measurementList.forEach((e, i) => {
+			addClassTd('measurement-table', 'measurement-tbody');
+			$('#measurement_item_type'+i).val(e.item_type);
+			$('#measurement_code_idx'+i).val(e.measurement_code_idx).prop("selected", true);
+			$('#measurement_value'+i).val(e.measurement_value);
+			$('#measurement_unit_code_idx'+i).val(e.measurement_unit_code_idx).prop("selected", true);
+			$('#measurement_idx'+i).val(e.measurement_idx);
+			$('#input_measurement_idx'+i).val(e.measurement_idx);
+		})
 	} else {
-		$('#measurement-tbody').children('tr:not(:first-child)').remove();
+		$('#measurement_item_type0').attr('name', 'update_measurement_item_type');
+		$('#measurement_code_idx0').attr('name', 'update_measurement_code_idx');
+		$('#measurement_value0').attr('name', 'update_measurement_value');
+		$('#measurement_unit_code_idx0').attr('name', 'update_measurement_unit_code_idx');
 	}
-	measurementList.forEach((e, i) => {
-		if(i != 0) addClassTd('measurement-table', 'measurement-tbody');
-		$('#measurement_item_type'+i).val(e.item_type);
-		$('#measurement_code_idx'+i).val(e.measurement_code_idx).prop("selected", true);
-		$('#measurement_value'+i).val(e.measurement_value);
-		$('#measurement_unit_code_idx'+i).val(e.measurement_unit_code_idx).prop("selected", true);
-		$('#measurement_idx'+i).val(e.measurement_idx);
-		$('#input_measurement_idx'+i).val(e.measurement_idx);
-	})
 	
 	obtainmentList.forEach((e, i) => {
 		$('#obt_obtainment_date').val(e.obtainment_date);
@@ -144,58 +151,69 @@ const set_itemBase_input = async (list) => {
 		$('#obt_redemption_date').val(e.redemption_date);
 	})
 	
-	if(involvementList.length == 0) {
-		console.log(involvementList);
+	//$('#possession-tbody').children('tr:not(:first-child)').remove();
+	if(involvementList.length) {
 		$('#possession-tbody').children().remove();
-		addClassTd2('possession-table', 'possession-tbody');
+		involvementList.forEach((e,i) => {
+			addClassTd('possession-table', 'possession-tbody');
+			$('#invol_org_code_idx'+i).val(e.org_code_idx).prop("selected", true);
+			$('#invol_possession_code_idx'+i).val(e.possession_code_idx).prop("selected", true);
+			$('#invol_item_no'+i).val(e.item_no);
+			$('#invol_remark'+i).val(e.remark);
+			$('#involvement_idx'+i).val(e.involvement_idx);
+			$('#input_involvement_idx'+i).val(e.involvement_idx);
+		})
 	} else {
-		$('#possession-tbody').children('tr:not(:first-child)').remove();
+		$('#invol_possession_code_idx0').attr('name', 'update_invol_possession_code_idx');
+		$('#invol_item_no0').attr('name', 'update_invol_item_no');
+		$('#invol_remark0').attr('name', 'update_invol_remark');
 	}
-	involvementList.forEach((e,i) => {
-		if(i != 0) addClassTd('possession-table', 'possession-tbody');
-		$('#invol_org_code_idx'+i).val(e.org_code_idx).prop("selected", true);
-		$('#invol_possession_code_idx'+i).val(e.possession_code_idx).prop("selected", true);
-		$('#invol_item_no'+i).val(e.item_no);
-		$('#invol_remark'+i).val(e.remark);
-		$('#involvement_idx'+i).val(e.involvement_idx);
-		$('#input_involvement_idx'+i).val(e.involvement_idx);
-	})
 	
-	if(InsuranceList.length == 0) {
+	//$('#insurance-tbody').children('tr:not(:first-child)').remove();
+	if(InsuranceList.length) {
 		$('#insurance-tbody').children().remove();
-		addClassTd2('insurance-table', 'insurance-tbody');
+		InsuranceList.forEach((e,i) => {
+			addClassTd('insurance-table', 'insurance-tbody');
+			$('#insu_agreed_value'+i).val(e.agreed_value);
+			$('#insu_price_unit_code_idx'+i).val(e.price_unit_code_idx).prop("selected", true);
+			$('#insu_start_date'+i).val(e.start_date);
+			$('#insu_end_date'+i).val(e.end_date);
+			$('#insu_rental_org'+i).val(e.rental_org);
+			$('#insu_remark'+i).val(e.remark);
+			$('#insurance_idx'+i).val(e.insurance_idx);
+			$('#input_insurance_idx'+i).val(e.insurance_idx);
+		})
 	} else {
-		$('#insurance-tbody').children('tr:not(:first-child)').remove();
+		$('#insu_agreed_value0').attr('name', 'update_insu_agreed_value');
+		$('#insu_price_unit_code_idx0').attr('name', 'update_insu_price_unit_code_idx');
+		$('#insu_start_date0').attr('name', 'update_insu_start_date');
+		$('#insu_end_date0').attr('name', 'update_insu_end_date');
+		$('#insu_rental_org0').attr('name', 'update_insu_rental_org');
+		$('#insu_remark0').attr('name', 'update_insu_remark');
 	}
-	InsuranceList.forEach((e,i) => {
-		if(i != 0) addClassTd('insurance-table', 'insurance-tbody');
-		$('#insu_agreed_value'+i).val(e.agreed_value);
-		$('#insu_price_unit_code_idx'+i).val(e.price_unit_code_idx).prop("selected", true);
-		$('#insu_start_date'+i).val(e.start_date);
-		$('#insu_end_date'+i).val(e.end_date);
-		$('#insu_rental_org'+i).val(e.rental_org);
-		$('#insu_remark'+i).val(e.remark);
-		$('#insurance_idx'+i).val(e.insurance_idx);
-		$('#input_insurance_idx'+i).val(e.insurance_idx);
-	})
 	
-	if(copyrightList.length == 0) {
+	//$('#copyright-tbody').children('tr:not(:first-child)').remove();
+	if(copyrightList.length) {
 		$('#copyright-tbody').children().remove();
-		addClassTd2('copyright-table', 'copyright-tbody');
+		copyrightList.forEach((e,i) => {
+			addClassTd('copyright-table', 'copyright-tbody');
+			$('#copy_copyright'+i).val(e.copyright).prop("selected", true);
+			$('#copy_owner'+i).val(e.owner);
+			$('#copy_expiry_date'+i).val(e.expiry_date);
+			$('#copy_usage_permission'+i).val(e.usage_permission).prop("selected", true);
+			$('#copy_copyright_transfer'+i).val(e.copyright_transfer).prop("selected", true);
+			$('#copy_remark'+i).val(e.remark);
+			$('#copyright_idx'+i).val(e.copyright_idx);
+			$('#input_copyright_idx'+i).val(e.copyright_idx);
+		})
 	} else {
-		$('#copyright-tbody').children('tr:not(:first-child)').remove();
+		$('#copy_copyright0').attr('name', 'update_copy_copyright');
+		$('#copy_owner0').attr('name', 'update_copy_owner');
+		$('#copy_expiry_date0').attr('name', 'update_copy_expiry_date');
+		$('#copy_usage_permission0').attr('name', 'update_copy_usage_permission');
+		$('#copy_copyright_transfer0').attr('name', 'update_copy_copyright_transfer');
+		$('#copy_remark0').attr('name', 'update_copy_remark');
 	}
-	copyrightList.forEach((e,i) => {
-		if(i != 0) addClassTd('copyright-table', 'copyright-tbody');
-		$('#copy_copyright'+i).val(e.copyright).prop("selected", true);
-		$('#copy_owner'+i).val(e.owner);
-		$('#copy_expiry_date'+i).val(e.expiry_date);
-		$('#copy_usage_permission'+i).val(e.usage_permission);
-		$('#copy_copyright_transfer'+i).val(e.copyright_transfer);
-		$('#copy_remark'+i).val(e.remark);
-		$('#copyright_idx'+i).val(e.copyright_idx);
-		$('#input_copyright_idx'+i).val(e.copyright_idx);
-	})
 	
 	publicServiceList.forEach((e,i) => {
 		$('#public_service').val(e.public_service).prop("selected", true);

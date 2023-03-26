@@ -8,15 +8,16 @@
                   <label class="col-md-2 col-form-label">자료 구분</label>
                     <select class="search_select search_select_2">
                         <option disabled selected>국립항공박물관</option>
-                        <option>더미1</option>
-                        <option>더미2</option>
-                        <option>더미3</option>
                     </select>
                   <select class="search_select search_select_2">
-                      <option disabled selected>선택</option>
-                      <option>더미1</option>
-                      <option>더미2</option>
-                      <option>더미3</option>
+                      <option disabled selected>항정</option>
+                      <option>항기</option>
+                      <option>기증</option>
+                      <option>구입</option>
+                      <option>복제</option>
+                      <option>항복</option>
+                      <option>아카이브</option>
+                      <option>참고</option>
                   </select>
                     <label class="col-md-2 col-form-label">자료 번호</label>
                     <!-- <div class="col-md-10"> -->
@@ -200,25 +201,13 @@
                       <tr>
                         <td>1</td>
                         <td>이미지 없음</td>
-                        <td>0 / null</td>
-                        <td>0 / 0</td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>이미지 없음</td>
-                        <td>0 / null</td>
-                        <td>0 / 0</td>
-                      </tr>
-                      <tr>
-                        <td>1</td>
-                        <td>이미지 없음</td>
-                        <td>0 / null</td>
-                        <td>0 / 0</td>
+                        <td>5 / 29</td>
+                        <td>5 / 29</td>
                       </tr>
                       <tr>
                         <td colspan="2">합계</td>
-                        <td>1</td>
-                        <td>1</td>
+                        <td>29</td>
+                        <td>29</td>
                       </tr>
                     </tbody>
                   </table>

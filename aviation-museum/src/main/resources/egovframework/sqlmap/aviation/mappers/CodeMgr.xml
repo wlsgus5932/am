@@ -813,6 +813,8 @@
         
             UPDATE nam_era_code 
                SET ERA_NM=#{era_nm}
+              	 , START_YEAR=#{start_year}
+               	 , END_YEAR=#{end_year}
                  , ENABLED=#{enabled}
                  , MOD_USER=#{mod_user}
                  , MOD_DATE=now()

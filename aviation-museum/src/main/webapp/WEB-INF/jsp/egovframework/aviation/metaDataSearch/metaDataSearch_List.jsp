@@ -187,9 +187,14 @@
               <!--  -->
               <div class="search_btn_wrap">
                 <div class="search_btn_left">
-                 <button class="custom_btn btn_c57283" type="button" data-bs-toggle="modal" data-bs-target="#LikeModal">관심자료등록</button><button class="custom_btn btn_c28876" type="button">항목 추가 및 삭제</button>
+                 <button class="custom_btn btn_c57283" type="button" data-bs-toggle="modal" data-bs-target="#LikeModal">관심자료등록</button>
+<!--                  <button class="custom_btn btn_c28876" type="button">항목 추가 및 삭제</button> -->
                 </div>
-                <div class="search_btn_right"><button type="button" class="custom_btn btn_707070">사용자 지정양식 인쇄</button><button type="button" class="custom_btn btn_707070" onclick="content_print()">목록 인쇄</button><button class="custom_btn btn_ex" type="button" onClick="metaDataSearchListExcelList();">엑셀파일</button></div>
+                <div class="search_btn_right">
+                	<button type="button" class="custom_btn btn_707070" style="display:none;">사용자 지정양식 인쇄</button>
+	                <button type="button" class="custom_btn btn_707070" onclick="content_print()">목록 인쇄</button>
+	                <button class="custom_btn btn_ex" type="button" onClick="metaDataSearchListExcelList();">엑셀파일</button>
+                </div>
               </div>
               <!-- 관심자료 모달창 -->
               <div id="LikeModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">

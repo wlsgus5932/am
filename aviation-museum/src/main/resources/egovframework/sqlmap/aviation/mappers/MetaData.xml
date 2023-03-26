@@ -6,7 +6,7 @@
 		select * from nam_item_base where item_no > #{item_no} order by item_no limit 1;
 	</select>
 	<select id="getDeletionList" resultType="egovframework.aviation.metadata.vo.metadata.DeletionVO">
-	select 
+		select 
 			row_number() over(order by ib.item_no) as rownum,
 			ib.item_idx,
 			ib.item_no,
@@ -14,36 +14,51 @@
 			ib.item_nm,
 			npc.POSSESSION_NM,
 			noc.ORG_NM 
-		from nam_item_base ib,
+		from 
+			nam_item_base ib,
 			nam_involvement ni,
 			nam_possession_code npc, 
 			nam_org_code noc
-		where ib.item_no between convert(#{item_no1}, signed) and convert(#{item_no2}, signed)
+		where 
+			ib.item_idx = ni.item_idx
+		<if test="item_no1 != '' and item_no2 != '' ">
+			and ib.item_no between convert(#{item_no1}, signed) and convert(#{item_no2}, signed)
+		</if>
 		<if test="item_detail_no1 != '' and item_detail_no1 != null">
 			and ib.item_detail_no between convert(#{item_detail_no1}, signed) and convert(#{item_detail_no2}, signed)
 		</if>
-		and ib.item_idx = ni.item_idx
+		<if test="possession_code_idx != '' and possession_code_idx != null ">
+			and npc.possession_code_idx = #{possession_code_idx}
+		</if>
 		and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
 		and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX
-		group by ib.item_idx
-		order by rownum desc
-		LIMIT #{perPageNum} OFFSET #{pageStart};
+		and ib.ITEM_IDX not in (select erasure_item from nam_erasure_request)
+	GROUP by ib.item_idx
+	order by rownum desc
+	LIMIT #{perPageNum} OFFSET #{pageStart};
 	</select>
 	
 	<select id="getDeletionCnt" resultType="int">
-		select count(ib.item_idx)
+		select count(DISTINCT  ib.item_idx)
 		from nam_item_base ib,
 			nam_involvement ni,
 			nam_possession_code npc, 
 			nam_org_code noc
-		where ib.item_no between convert(#{item_no1}, signed) and convert(#{item_no2}, signed)
-		<if test="item_detail_no1 != '' and item_detail_no1 != null">
-		and ib.item_detail_no between convert(#{item_detail_no1}, unsigned) and convert(#{item_detail_no2}, signed)
+		where 
+			ib.item_idx = ni.item_idx
+		<if test="item_no1 != '' and item_no1 != null ">
+			and ib.item_no between convert(#{item_no1}, signed) and convert(#{item_no2}, signed)
 		</if>
-		and ib.item_idx = ni.item_idx
+		<if test="item_detail_no1 != '' and item_detail_no1 != null">
+			and ib.item_detail_no > convert(#{item_detail_no1}, signed) and convert(#{item_detail_no2}, signed)
+		</if>
+		
+		<if test="possession_code_idx != '' and possession_code_idx != null ">
+			and npc.possession_code_idx = #{possession_code_idx}
+		</if>
 		and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
 		and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX
-		group by ib.item_idx
+		and ib.ITEM_IDX not in (select erasure_item from nam_erasure_request)
 	</select>
 	
 	<insert id="deleteDeletion" parameterType="java.util.Map">

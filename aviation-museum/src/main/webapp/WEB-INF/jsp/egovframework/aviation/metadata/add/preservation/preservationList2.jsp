@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <c:forEach var="list" items="${preservationList}" varStatus="status">
 <form id="update-preservation-form${status.index}" enctype="multipart/form-data">
 <div id="accordion-div">
-
+<hr/>
 <div class="accordion-item" id="preservation-div">
    <h2 class="accordion-header" id="flush-headingOne">
       <div class="preservation_into_wrap_left">
@@ -14,23 +14,23 @@
                            <tr>
                               <td>처리기관</td>
                               <td><input class="form-control st_input" list="datalistOptions" id="treatment_org${status.index}" name="treatment_org" placeholder="처리기관을 입력해 주세요." value="${list.treatment_org}"></td>
-
+                              
                               <td>처리자</td>
                               <td><input class="form-control st_input" list="datalistOptions" id="processor${status.index}" name="processor" placeholder="처리자 명을 입력해 주세요." value="${list.processor}"></td>
-
+                              
                               <td>처리기간</td>
-                              <td><input class="form-control" type="date" name="start_date" id="start_date${status.index}" value="${list.start_date }"> ~
+                              <td><input class="form-control" type="date" name="start_date" id="start_date${status.index}" value="${list.start_date }"> ~ 
                                     <input class="form-control" type="date" name="end_date" id="end_date${status.index}" value="${list.end_date }"></td>
                               <td>
-                              <button class="custom_btn btn_c58672 btn_c58672_6840" id="updatePreservationBtn${status.index}" onclick="updatePreservation(${status.index}, ${list.preservation_idx})" type="button">수정</button>
-                              <button class="custom_btn btn_c58672 btn_c58672_6840" onclick="deletePreservation(${status.index}, ${list.preservation_idx})" id="updatedeletePreservationBtn${status.index}" type="button">삭제</button>
-                              </td>
+                              <button class="custom_btn btn_c58672 btn_c58672_6840" id="updatePreservationBtn${status.index}" onclick="updatePreservation(${status.index}, ${list.preservation_idx}) type="button"">수정</button>
+                              <button class="custom_btn btn_c58672 btn_c58672_6840" onclick="deletePreservation(${status.index}, ${list.preservation_idx})" id="updatedeletePreservationBtn${status.index} type="button"">삭제</button>                              
+                              </td>      
                            </tr>
                        </tbody>
                      </table>
                    </div>
-                 </div>
-
+                 </div>      
+      
       </div>
       <div class="preservation_btn_wrap_right">
          <button class="accordion-button fw-medium ac_btn" type="button" data-bs-toggle="collapse" data-bs-target="#update-flush-collapseOne${status.index}" aria-expanded="true" aria-controls="flush-collapseOne"></button>
@@ -54,13 +54,13 @@
                      <input type="text" class="st_inp_tbox" id="remark${status.index}" name="remark" placeholder="참고사항을 입력해 주세요." value="${list.remark }">
                </div>
                </div>
-
+               
                <div class="mb-0">
                   <div class="st_wrap" id="resut-div">
                      <label class="col-md-2 col-form-label st_title">처리결과</label>
-                       <label for="update-result-uploadFile${status.index }" class="custom_btn btn_6466ab btn_add_preservation_padding">업로드</label>
-                     <input style="display:none" class="form-control st_input" type="file" name="result_uploadFile" id="update-result-uploadFile${status.index }" onchange="updateresultImg(this, ${status.index})" accept="image/*"><br/>
-
+                       <label for="update-result-uploadFile" class="custom_btn btn_6466ab btn_add_preservation_padding">업로드</label>
+                     <input style="display:none" class="form-control st_input" type="file" name="result_uploadFile" id="update-result-uploadFile" onchange="updateresultImg(this, ${status.index})" accept="image/*"><br/>
+                       
                   <div id="update-result-img-preview${status.index}">
                   <c:if test= "${not empty list.file_nm }">
                      <div style="width:70px; height:70px; margin: 5px 5px 5px 5px; display:inline-block;">
@@ -71,7 +71,7 @@
                   </div>
                     </div>
                 </div>
-
+                
                 <div class="mb-0" id="before-div"><div class="st_wrap">
                    <label class="col-md-2 col-form-label st_title" style="display:inline">보존처리 전 이미지</label>
                    <label for="update-before-uploadFile${status.index}" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
@@ -80,7 +80,7 @@
                    <button type="button" class="custom_btn btn_707070" onclick="allCheck(before, ${status.index})">전체선택</button>
                    <button type="button" class="custom_btn btn_707070" onclick="cancelCheck(before, ${status.index})">선택해지</button>
                    <%-- <button type="button" class="custom_btn btn_707070" onclick="preservationDeleteChecked(before, ${status.index})">선택삭제</button> --%>
-
+                         
                     <div id="update-before-img-preview${status.index}">
                        <c:forEach var="img" items="${list.image}" varStatus="imgStatus">
                           <c:if test="${img.image_state eq 'B' && not empty list.file_nm }">
@@ -92,10 +92,10 @@
                      </c:if>
                   </c:forEach>
                     </div>
-
+                    
                     </div>
                     </div>
-
+                    
                     <div class="mb-0" id="after-div">
                        <div class="st_wrap"><label class="col-md-2 col-form-label st_title">보존처리 후 이미지</label>
                          <label for="update-after-uploadFile${status.index}" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
@@ -104,7 +104,7 @@
                        <button type="button" class="custom_btn btn_707070" onclick="allCheck(after, ${status.index})">전체선택</button>
                        <button type="button" class="custom_btn btn_707070" onclick="cancelCheck(after, ${status.index})">선택해지</button>
                        <%-- <button type="button" class="custom_btn btn_707070" onclick="preservationDeleteChecked(after, ${status.index})">선택삭제</button> --%>
-
+                         
                        <div id="update-after-img-preview${status.index}">
                           <c:forEach var="img" items="${list.image}" varStatus="imgStatus">
                              <c:if test="${img.image_state eq 'A' && not empty list.file_nm }">
@@ -117,11 +117,11 @@
                      </c:forEach>
                        </div>
                        </div></div>
-
-
+                          
+                  
 
                   </div></div></div></div></div></div></form>
-
+                          
               </c:forEach>
                        <button type="button" class="mb-0" id="add-tab-btn" onclick="cloneDiv()">
                        <div class="st_wrap">

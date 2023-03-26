@@ -25,7 +25,14 @@
 									<td>${list.speciality_nm}</td>
 									<td>${list.title}</td>
 									<td>
-										<a href="${list.file_path}${list.file_nm}">${list.file_nm}</a>
+										<c:choose>
+											<c:when test="${list.file_nm eq 'null'}">
+												-
+											</c:when>
+											<c:otherwise>
+												<a href="${list.file_path}${list.file_nm}">${list.file_nm}</a>
+											</c:otherwise>
+										</c:choose>
 									</td>
 									<td>${list.copyright}</td>
 									<td><button id="modify-speciality-btn" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_wh" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" onclick="modifySpeciality(${list.speciality_idx})">수정</button></td>

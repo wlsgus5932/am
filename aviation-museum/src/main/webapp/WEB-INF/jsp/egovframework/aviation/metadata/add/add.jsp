@@ -46,8 +46,8 @@
 			      .animate({ 'top': position + currentPosition + 'px' }, 500)
 			  })
 		  });
-		  
-		  
+
+
 
 </script>
   </head>
@@ -428,49 +428,49 @@
        	 switch (r) {
        	  case 'class-table':
        	  	 cell =  '<tr id="class-tr"><td><input type="checkbox" name="class-checkbox"></td>' +
-    			 '<th scope="row">'+(count2+1)+'</th>' +
-    			 '<td><select class="form-select st_select" id="class1_code_idx'+count2+'" name="update_class1_code_idx"><option value="" selected>선택</option>' +
+    			 '<th scope="row">'+(count2+1)+'</th>' + '<input type="hidden" name="taxonomy_idx" id="input_taxonomy_idx'+count+'"/>' +
+    			 '<td><select class="form-select st_select" id="class1_code_idx'+count2+'" name="update_class1_code_idx"><option value="0" selected>선택</option>' +
     			 '<c:forEach var="list" items="${class1List}" varStatus="status"><option value="${list.class1_code_idx}">${list.class1_nm}</option></c:forEach></select></td>' +
-    			 '<td><select class="form-select st_select" id="class2_code_idx'+count2+'" name="update_class2_code_idx"><option value="" selected>선택</option>' +
+    			 '<td><select class="form-select st_select" id="class2_code_idx'+count2+'" name="update_class2_code_idx"><option value="0" selected>선택</option>' +
     			 '<c:forEach var="list" items="${class2List}" varStatus="status"><option value="${list.class2_code_idx}">${list.class2_nm}</option></c:forEach></select></td>' +
-    			 '<td><select class="form-select st_select" id="class3_code_idx'+count2+'" name="update_class3_code_idx"><option value="" selected>선택</option> ' +
+    			 '<td><select class="form-select st_select" id="class3_code_idx'+count2+'" name="update_class3_code_idx"><option value="0" selected>선택</option> ' +
     			 '<c:forEach var="list" items="${class3List}" varStatus="status"><option value="${list.class3_code_idx}">${list.class3_nm}</option></c:forEach></select></td></tr>';
        	    break;
 
        	  case 'country-table':
        	    cell = '<tr><td><input type="checkbox" name="country-checkbox"></td>' +
-       	    '<th scope="row">'+(count2+1)+'</th>'+
-               '<td><select class="form-select st_select" id="country-select'+count2+'" onchange="udtchangeCountry(this.value, '+count2+')" name="update_country_code_idx"><option value="" selected>선택</option>' +
+       	    '<th scope="row">'+(count2+1)+'</th>'+ '<input type="hidden" name="country_idx" id="input_country_idx'+count+'"/>' +
+               '<td><select class="form-select st_select" id="country-select'+count2+'" onchange="changeCountry(this.value, '+count2+')" name="update_country_code_idx"><option value="0" selected>선택</option>' +
                '<c:forEach var="list" items="${countryList}" varStatus="status"><option value="${list.country_code_idx}">${list.country_nm}</option></c:forEach></select></td>'+
-               '<td><select class="form-select st_select" id="era-select'+count2+'" name="update_era_code_idx"><option value="" selected>선택</option></select></td>' +
+               '<td><select class="form-select st_select" id="era-select'+count2+'" name="update_era_code_idx"><option value="0" selected>선택</option></select></td>' +
                '<td><input class="form-control st_input" list="datalistOptions" name="update_detail_year" placeholder="상세 시대를 입력해 주세요." id=detail_year'+count2+'></td></tr>';
        	    break;
 
        	  case 'material-table':
        		  cell =  '<tr><td><input type="checkbox" name="material-checkbox"></td>' +
-                 '<th scope="row">'+(count2+1)+'</th>' +
-                 '<td><select class="form-select st_select" onchange="udtchangeMaterial(this.value, '+count2+')" id="material1_code_idx'+count2+'" name="update_material1_code_idx"><option value="" selected>선택</option>' +
+                 '<th scope="row">'+(count2+1)+'</th>' + '<input type="hidden" name="material_idx" id="input_material_idx'+count+'"/>' +
+                 '<td><select class="form-select st_select" onchange="changeMaterial(this.value, '+count2+')" id="material1_code_idx'+count2+'" name="update_material1_code_idx"><option value="0" selected>선택</option>' +
                  '<c:forEach var="list" items="${material1List}" varStatus="status"><option value="${list.material1_code_idx}">${list.material1_nm}</option></c:forEach></select></td>' +
-                 '<td><select class="form-select st_select" id="material2_code_idx'+count2+'" name="update_material2_code_idx"><option value="" selected>선택</option></select></td>' +
+                 '<td><select class="form-select st_select" id="material2_code_idx'+count2+'" name="update_material2_code_idx"><option value="0" selected>선택</option></select></td>' +
                  '<td><input class="form-control st_input" list="datalistOptions" placeholder="상세 재질을 입력해 주세요." id="material_detail'+count2+'" name="update_material_detail"></td></tr>';
                  break;
 
        	  case 'measurement-table':
        		  cell = '<tr><td><input type="checkbox" name="measurement-checkbox"></td>' +
-                 '<th scope="row">'+(count2+1)+'</th>' +
+                 '<th scope="row">'+(count2+1)+'</th>' + '<input type="hidden" name="measurement_idx" id="input_measurement_idx'+count+'"/>' +
                  '<td><input class="form-control st_input" list="datalistOptions" id="measurement_item_type'+count2+'" placeholder="소장구분을 입력해 주세요." name="update_measurement_item_type"></td>' +
-                 '<td><select class="form-select st_select" id="measurement_code_idx'+count2+'" name="update_measurement_code_idx"><option value="" selected>선택</option>' +
+                 '<td><select class="form-select st_select" id="measurement_code_idx'+count2+'" name="update_measurement_code_idx"><option value="0" selected>선택</option>' +
                  '<c:forEach var="list" items="${measurementList}" varStatus="status"><option value="${list.measurement_code_idx}">${list.measurement_nm}</option></c:forEach></select></td>' +
                  '<td><input class="form-control st_input" list="datalistOptions" id="measurement_value'+count2+'" placeholder="실측치를 입력해 주세요." name="update_measurement_value" type="number"><td>' +
-                 '<select class="form-select st_select" id="measurement_unit_code_idx'+count2+'" name="update_measurement_unit_code_idx"><option value="" selected>선택</option>' +
+                 '<select class="form-select st_select" id="measurement_unit_code_idx'+count2+'" name="update_measurement_unit_code_idx"><option value="0" selected>선택</option>' +
                  '<c:forEach var="list" items="${measurementUnitList}" varStatus="status"><option value="${list.measurement_unit_code_idx}">${list.measurement_unit_nm}</option></c:forEach>' +
                  '</select></td></tr>';
                  break;
 
        	  case 'possession-table':
        		  cell = '<tr><td><input type="checkbox" name="possession-checkbox">' +
-                 '<th scope="row">'+(count2+1)+'</th>' +
-                 '<td><select class="form-select st_select" name="update_invol_possession_code_idx" id="invol_possession_code_idx'+count2+'"><option value="" selected>선택</option>' +
+                 '<th scope="row">'+(count2+1)+'</th>' + '<input type="hidden" name="involvement_idx" id="input_involvement_idx'+count+'"/>' +
+                 '<td><select class="form-select st_select" name="update_invol_possession_code_idx" id="invol_possession_code_idx'+count2+'"><option value="0" selected>선택</option>' +
                  '<c:forEach var="list" items="${posSessionList}" varStatus="status"><option value="${list.possession_code_idx}">${list.possession_nm}</option></c:forEach></select>' +
                  '</td><td><input class="form-control st_input" list="datalistOptions" name="update_invol_item_no" placeholder="자료번호를 입력해 주세요." id="invol_item_no'+count2+'"></td>' +
                  '<td><input class="form-control st_input" list="datalistOptions" name="update_invol_remark" placeholder="참고사항을 입력해 주세요." id="invol_remark'+count2+'"></td></tr>';
@@ -478,9 +478,9 @@
 
        	  case 'insurance-table':
        		cell = '<tr><td><input type="checkbox" name="insurance-checkbox"></td>' +
-             '<th scope="row">'+(count2+1)+'</th> ' +
+             '<th scope="row">'+(count2+1)+'</th> ' + '<input type="hidden" name="insurance_idx" id="input_insurance_idx'+count+'"/>' +
              '<td><input class="form-control st_input" list="datalistOptions" name="update_insu_agreed_value" id="insu_agreed_value'+count2+'" placeholder="평가액을 입력해 주세요." ></td>' +
-             '<td><select class="form-select st_select" name="update_insu_price_unit_code_idx" id="insu_price_unit_code_idx'+count2+'"><option value="" selected>선택</option>' +
+             '<td><select class="form-select st_select" name="update_insu_price_unit_code_idx" id="insu_price_unit_code_idx'+count2+'"><option value="0" selected>선택</option>' +
              '<c:forEach var="list" items="${priceUnitList}" varStatus="status"><option value="${list.price_unit_code_idx}">${list.price_unit_nm}</option></c:forEach></select></td>' +
              '<td><input class="form-control" type="date" name="update_insu_start_date" id="insu_start_date'+count2+'"> ~ <input class="form-control" type="date" name="update_insu_end_date" id="insu_end_date'+count2+'"></td>' +
              '<td><input class="form-control st_input" list="datalistOptions" placeholder="대여기관을 입력해 주세요." id="insu_rental_org'+count2+'" name="update_insu_rental_org"></td>' +
@@ -489,13 +489,13 @@
 
        	  case 'copyright-table':
        		  cell = '<tr><td><input type="checkbox" name="copyright-checkbox"></td>' +
-                 '<th scope="row">'+(count2+1)+'</th>' +
-                 '<td><select class="form-select st_select" name="update_copy_copyright" id="copy_copyright'+count2+'"><option value="" selected>선택</option><option value="Y">예</option>' +
+                 '<th scope="row">'+(count2+1)+'</th>' + '<input type="hidden" name="copyright_idx" id="input_copyright_idx'+count+'"/>' +
+                 '<td><select class="form-select st_select" name="update_copy_copyright" id="copy_copyright'+count2+'"><option value="0" selected>선택</option><option value="Y">예</option>' +
                  '<option value="N">아니요</option></select></td>' +
                  '<td><input class="form-control st_input" list="datalistOptions" name="update_copy_owner" placeholder="" id="copy_owner'+count2+'"></td>' +
                  '<td><input class="form-control" type="date" name="update_copy_expiry_date" id="copy_expiry_date'+count2+'"></td>' +
-                 '<td><select class="form-select st_select" name="update_copy_usage_permission" id="copy_usage_permission'+count2+'"><option value="" selected>선택</option><option value="Y">예</option><option value="N">아니요</option>' +
-                 '</select></td><td><select class="form-select st_select" name="update_copy_copyright_transfer" id="copy_copyright_transfer'+count2+'"><option value="" selected>선택</option><option value="Y">예</option>' +
+                 '<td><select class="form-select st_select" name="update_copy_usage_permission" id="copy_usage_permission'+count2+'"><option value="0" selected>선택</option><option value="Y">예</option><option value="N">아니요</option>' +
+                 '</select></td><td><select class="form-select st_select" name="update_copy_copyright_transfer" id="copy_copyright_transfer'+count2+'"><option value="0" selected>선택</option><option value="Y">예</option>' +
                  '<option value="N">아니요</option></select></td>' +
                  '<td><input class="form-control st_input" list="datalistOptions" name="update_copy_remark" placeholder="참고사항을 입력해 주세요." id="copy_remark'+count2+'"></td></tr>';
                  break;
@@ -594,86 +594,81 @@
               count++;
            }; */
 
-        const addUpdateTd = (r, b) => {
+        /* const addUpdateTd = (r, b) => {
           	 let cell = '';
           	 switch (r) {
           	  case 'class-table':
-          		$('#class-tbody').children().remove();
-          	  	 cell =  '<tr id="class-tr"><td></td>' +
-       			 '<th scope="row">1</th>' + '<input type="hidden" name="taxonomy_idx" id="taxonomy_idx0"/>' +
-       			 '<td><select class="form-select st_select" id="update_class1_code_idx0" name="update_class1_code_idx"><option value="" selected>선택</option>' +
+          	  	 cell =  '<tr id="class-tr"><td><input type="checkbox" name="class-checkbox"></td>' +
+       			 '<th scope="row">1</th>' +
+       			 '<td><select class="form-select st_select" id="class1_code_idx0" name="update_class1_code_idx"><option value="0" selected>선택</option>' +
        			 '<c:forEach var="list" items="${class1List}" varStatus="status"><option value="${list.class1_code_idx}">${list.class1_nm}</option></c:forEach></select></td>' +
-       			 '<td><select class="form-select st_select" id="update_class2_code_idx0" name="update_class2_code_idx"><option value="" selected>선택</option>' +
+       			 '<td><select class="form-select st_select" id="class2_code_idx0" name="update_class2_code_idx"><option value="0" selected>선택</option>' +
        			 '<c:forEach var="list" items="${class2List}" varStatus="status"><option value="${list.class2_code_idx}">${list.class2_nm}</option></c:forEach></select></td>' +
-       			 '<td><select class="form-select st_select" id="update_class3_code_idx0" name="update_class3_code_idx"><option value="" selected>선택</option> ' +
+       			 '<td><select class="form-select st_select" id="class3_code_idx0" name="update_class3_code_idx"><option value="0" selected>선택</option> ' +
        			 '<c:forEach var="list" items="${class3List}" varStatus="status"><option value="${list.class3_code_idx}">${list.class3_nm}</option></c:forEach></select></td></tr>';
           	    break;
 
           	  case 'country-table':
-          		$('#country-tbody').children().remove();
-          	    cell = '<tr><td></td>' +
+          	    cell = '<tr><td><input type="checkbox" name="country-checkbox"></td>' +
           	    '<th scope="row">1</th>'+
-                  '<td><select class="form-select st_select" id="update_country-select0" onchange="udtchangeCountry(this.value, 0)" name="update_country_code_idx"><option value="" selected>선택</option>' +
+                  '<td><select class="form-select st_select" id="country-select0" onchange="udtchangeCountry(this.value, 0)" name="update_country_code_idx"><option value="0" selected>선택</option>' +
                   '<c:forEach var="list" items="${countryList}" varStatus="status"><option value="${list.country_code_idx}">${list.country_nm}</option></c:forEach></select></td>'+
-                  '<td><select class="form-select st_select" id="update_era-select0" name="update_era_code_idx"><option value="" selected>선택</option></select></td>' +
+                  '<td><select class="form-select st_select" id="era-select0" name="update_era_code_idx"><option value="0" selected>선택</option></select></td>' +
                   '<td><input class="form-control st_input" list="datalistOptions" name="update_detail_year" placeholder="상세 시대를 입력해 주세요." id=detail_year0></td></tr>';
           	    break;
 
           	  case 'material-table':
-          		$('#material-tbody').children().remove();
-          		  cell =  '<tr><td></td>' +
+          		  cell =  '<tr><td><input type="checkbox" name="material-checkbox"></td>' +
                     '<th scope="row">1</th>' +
-                    '<td><select class="form-select st_select" onchange="udtchangeMaterial(this.value, 0)" id="update_material1_code_idx0" name="update_material1_code_idx"><option value="" selected>선택</option>' +
+                    '<td><select class="form-select st_select" onchange="udtchangeMaterial(this.value, 0)" id="material1_code_idx0" name="update_material1_code_idx"><option value="0" selected>선택</option>' +
                     '<c:forEach var="list" items="${material1List}" varStatus="status"><option value="${list.material1_code_idx}">${list.material1_nm}</option></c:forEach></select></td>' +
-                    '<td><select class="form-select st_select" id="update_material2_code_idx0" name="update_material2_code_idx"><option value="" selected>선택</option></select></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" placeholder="상세 재질을 입력해 주세요." id="update_material_detail0" name="update_material_detail"></td></tr>';
+                    '<td><select class="form-select st_select" id="material2_code_idx0" name="update_material2_code_idx"><option value="0" selected>선택</option></select></td>' +
+                    '<td><input class="form-control st_input" list="datalistOptions" placeholder="상세 재질을 입력해 주세요." id="material_detail0" name="update_material_detail"></td></tr>';
                     break;
 
           	  case 'measurement-table':
-          		$('#measurement-tbody').children().remove();
-          		  cell = '<tr><td></td>' +
+          		  cell = '<tr><td><input type="checkbox" name="measurement-checkbox"></td>' +
                     '<th scope="row">1</th>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" id="update_measurement_item_type0" placeholder="소장구분을 입력해 주세요." name="update_measurement_item_type"></td>' +
-                    '<td><select class="form-select st_select" id="update_measurement_code_idx0" name="update_measurement_code_idx"><option value="" selected>선택</option>' +
+                    '<td><input class="form-control st_input" list="datalistOptions" id="measurement_item_type0" placeholder="소장구분을 입력해 주세요." name="update_measurement_item_type"></td>' +
+                    '<td><select class="form-select st_select" id="measurement_code_idx0" name="update_measurement_code_idx"><option value="0" selected>선택</option>' +
                     '<c:forEach var="list" items="${measurementList}" varStatus="status"><option value="${list.measurement_code_idx}">${list.measurement_nm}</option></c:forEach></select></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" id="update_measurement_value0" placeholder="실측치를 입력해 주세요." name="update_measurement_value" type="number"><td>' +
-                    '<select class="form-select st_select" id="update_measurement_unit_code_idx0" name="update_measurement_unit_code_idx"><option value="" selected>선택</option>' +
+                    '<td><input class="form-control st_input" list="datalistOptions" id="measurement_value0" placeholder="실측치를 입력해 주세요." name="update_measurement_value" type="number"><td>' +
+                    '<select class="form-select st_select" id="measurement_unit_code_idx0" name="update_measurement_unit_code_idx"><option value="0" selected>선택</option>' +
                     '<c:forEach var="list" items="${measurementUnitList}" varStatus="status"><option value="${list.measurement_unit_code_idx}">${list.measurement_unit_nm}</option></c:forEach>' +
                     '</select></td></tr>';
                     break;
 
           	  case 'possession-table':
-          		$('#possession-tbody').children().remove();
-          		  cell = '<tr><td></td>' +
+          		  cell = '<tr><td><input type="checkbox" name="possession-checkbox">' +
                     '<th scope="row">1</th>' +
-                    '<td><select class="form-select st_select" name="update_invol_possession_code_idx" id="update_invol_possession_code_idx0"><option value="" selected>선택</option>' +
+                    '<td><select class="form-select st_select" name="update_invol_possession_code_idx" id="invol_possession_code_idx0"><option value="0" selected>선택</option>' +
                     '<c:forEach var="list" items="${posSessionList}" varStatus="status"><option value="${list.possession_code_idx}">${list.possession_nm}</option></c:forEach></select>' +
-                    '</td><td><input class="form-control st_input" list="datalistOptions" name="update_invol_item_no" placeholder="자료번호를 입력해 주세요." id="update_invol_item_no0"></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" name="update_invol_remark" placeholder="참고사항을 입력해 주세요." id="update_invol_remark0"></td></tr>';
+                    '</td><td><input class="form-control st_input" list="datalistOptions" name="update_invol_item_no" placeholder="자료번호를 입력해 주세요." id="invol_item_no0"></td>' +
+                    '<td><input class="form-control st_input" list="datalistOptions" name="update_invol_remark" placeholder="참고사항을 입력해 주세요." id="invol_remark0"></td></tr>';
                     break;
 
           	  case 'insurance-table':
-          		$('#insurance-tbody').children().remove();
-          		cell = '<tr><td></td>' +
-                '<th scope="row">1</th><td><input class="form-control st_input" list="datalistOptions" name="update_insu_agreed_value" id="update_insu_agreed_value0" placeholder="평가액을 입력해 주세요." ></td>' +
-                '<td><select class="form-select st_select" name="update_insu_price_unit_code_idx" id="update_insu_price_unit_code_idx0"><option value="" selected>선택</option>' +
+          		cell = '<tr><td><input type="checkbox" name="insurance-checkbox"></td>' +
+                '<th scope="row">1</th> ' +
+                '<td><input class="form-control st_input" list="datalistOptions" name="update_insu_agreed_value" id="insu_agreed_value0" placeholder="평가액을 입력해 주세요." ></td>' +
+                '<td><select class="form-select st_select" name="update_insu_price_unit_code_idx" id="insu_price_unit_code_idx0"><option value="0" selected>선택</option>' +
                 '<c:forEach var="list" items="${priceUnitList}" varStatus="status"><option value="${list.price_unit_code_idx}">${list.price_unit_nm}</option></c:forEach></select></td>' +
-                '<td><input class="form-control" type="date" name="update_insu_start_date" id="update_insu_start_date0"> ~ <input class="form-control" type="date" name="update_insu_end_date" id="update_insu_end_date0"></td>' +
-                '<td><input class="form-control st_input" list="datalistOptions" placeholder="대여기관을 입력해 주세요." id="update_insu_rental_org0" name="update_insu_rental_org"></td>' +
+                '<td><input class="form-control" type="date" name="update_insu_start_date" id="insu_start_date0"> ~ <input class="form-control" type="date" name="update_insu_end_date" id="insu_end_date0"></td>' +
+                '<td><input class="form-control st_input" list="datalistOptions" placeholder="대여기관을 입력해 주세요." id="insu_rental_org0" name="update_insu_rental_org"></td>' +
                 '<td><input class="form-control st_input" list="datalistOptions" placeholder="참고사항을 입력해 주세요." id=update_"insu_remark0" name="update_insu_remark"></td></tr>';
                 break;
 
           	  case 'copyright-table':
-          		$('#copyright-tbody').children().remove();
-          		  cell = '<tr><td></td>' +
-                    '<th scope="row">1</th><td><select class="form-select st_select" name="update_copy_copyright" id="update_copy_copyright0"><option value="" selected>선택</option><option value="Y">예</option>' +
+          		  cell = '<tr><td><input type="checkbox" name="copyright-checkbox"></td>' +
+                    '<th scope="row">1</th>' +
+                    '<td><select class="form-select st_select" name="update_copy_copyright" id="copy_copyright0"><option value="0" selected>선택</option><option value="Y">예</option>' +
                     '<option value="N">아니요</option></select></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" name="update_copy_owner" placeholder="" id="update_copy_owner0"></td>' +
-                    '<td><input class="form-control" type="date" name="update_copy_expiry_date" id="update_copy_expiry_date0"></td>' +
-                    '<td><select class="form-select st_select" name="update_copy_usage_permission" id="update_copy_usage_permission0"><option value="" selected>선택</option><option value="Y">예</option><option value="N">아니요</option>' +
-                    '</select></td><td><select class="form-select st_select" name="update_copy_copyright_transfer" id="update_copy_copyright_transfer0"><option value="" selected>선택</option><option value="Y">예</option>' +
+                    '<td><input class="form-control st_input" list="datalistOptions" name="update_copy_owner" placeholder="" id="copy_owner0"></td>' +
+                    '<td><input class="form-control" type="date" name="update_copy_expiry_date" id="copy_expiry_date0"></td>' +
+                    '<td><select class="form-select st_select" name="update_copy_usage_permission" id="copy_usage_permission0"><option value="0" selected>선택</option><option value="Y">예</option><option value="N">아니요</option>' +
+                    '</select></td><td><select class="form-select st_select" name="update_copy_copyright_transfer" id="copy_copyright_transfer0"><option value="0" selected>선택</option><option value="Y">예</option>' +
                     '<option value="N">아니요</option></select></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" name="update_copy_remark" placeholder="참고사항을 입력해 주세요." id="update_copy_remark0"></td></tr>';
+                    '<td><input class="form-control st_input" list="datalistOptions" name="update_copy_remark" placeholder="참고사항을 입력해 주세요." id="copy_remark0"></td></tr>';
                     break;
 
           	  default:
@@ -682,7 +677,7 @@
 
               $("#"+b).append(cell);
               count++;
-           };
+           }; */
 
       const deleteClassTd = async (e, v, name) => {
     	  let idxArr = [];
@@ -705,19 +700,19 @@
     		             body: new URLSearchParams(formData)
     		     	})
     		     	const res = form.text();
-    		     	console.log(res);
+    		     	search_item_base()
 
-
-    			  	const check = 'input[name='+v+']:checked';
+    			  	/* const check = 'input[name='+v+']:checked';
     	  	   		const selected = document.querySelectorAll(check);
 
     	  	        for(let i =0;i<selected.length;i++) {
     	  	            selected[i].parentElement.parentElement.remove();
     	  	        }
     	  	    	count -= selected.length;
-    	  	    	sortNumber(e);
+    	  	    	sortNumber(e); */
     		  }
-    	  } else {
+    	  }
+    	  /* else {
   	    	const check = 'input[name='+v+']:checked';
   	   		const selected = document.querySelectorAll(check);
 
@@ -727,9 +722,7 @@
   	    	count -= selected.length;
   	    	sortNumber(e);
 
-    	  }
-
-
+    	  } */
     };
 
     const sortNumber = e => {
@@ -756,6 +749,10 @@
     let movementTr = '';
 
     const submitAddMovement = async () => {
+    	if(!sessionStorage.getItem("item_idx")) {
+    		alert('자료등록이나 조회를 먼저 진행해주세요.')
+    		return;
+    	}
   	    let formData = new FormData(document.getElementById('addMovement'));
   	    formData.append('item_idx', sessionStorage.getItem('item_idx'));
 
@@ -766,9 +763,7 @@
   	           },
   	           body: new URLSearchParams(formData)
   	   	})
-
-  	   	//const res = await form.text();
-  	   	const { movement_idx } = await form.json();
+  	   	const { movement_idx } = await form.json()
   	   	sessionStorage.setItem("movement_idx", movement_idx);
 
   	   	movement_idx ? (alert('등록완료'),
@@ -863,9 +858,9 @@
   }
 
   	const getMovementData = async(btn) => {
-  		movement_idx = btn.value;
+  		sessionStorage.setItem("movement_idx", btn);
   		$.ajax({
-                url : '/getMovementData.do?movement_idx=' + btn.value,
+                url : '/getMovementData.do?movement_idx=' + btn,
                 type : 'Get',
                 dataType : 'json',
                 success: async function(data) {
@@ -883,8 +878,8 @@
   	      	$('input[name=movement_date]').val(data.movementList[0].movement_date);
   	      	$('input[name=movement_idx]').val(data.movementList[0].nmMovement_idx);
   	      	$('input[name=storage_idx]').val(data.movementList[0].storage_idx)
-  	      	change_Inout('IN', data.movementList[0].storage_in_code_idx);
-  	      	change_Inout('OUT', data.movementList[0].storage_out_code_idx);
+  	      	change_Inout('IN', data.movementList[0].movement_idx);
+  	      	change_Inout('OUT', data.movementList[0].movement_idx);
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                    console.log(xhr.status);
@@ -894,59 +889,56 @@
     }
 
      const change_storage1 = async(v, num) => {
-     	if(v == 'null') { $('#movement-in-tr > td').eq(num+1).remove(); return }
+    	 let td_length = $('#movement-in-tr > td').length;
+    	 if(v == '0') {
+   			for(i=num+1; i<=td_length; i++) {
+ 	  			$('#in_td'+i).remove();
+   			}
+   		} else {
+      	const res = await fetch('/getStorageCode.do?storage=' + v);
+      	const { storageCodeList } = await res.json();
 
-  	    let td_length = $('#movement-in-tr > td').length;
-     	const res = await fetch('/getStorageCode.do?storage=' + v);
-     	const { storageCodeList } = await res.json();
-
-     	if(!storageCodeList.length) {
-     	  	$('#movement-in-tr > td').eq(num+1).remove();
-     	  		return
-     	};
-
-     	if(!$('#movement-in-tr > td:eq('+(num+1)+')').length) {
-     	  	$('#movement-in-tr').append('<td><select class="form-select st_select" name="storage1_code_idx" onchange="change_storage1(this.value, '+td_length+')"><option selected value="null">선택</option></select></td>');
-     	} else {
-     	  	$('#movement-in-tr > td:eq('+(num+1)+')' + '> select').children('option:not(:first)').remove();
-     	};
-
-     	storageCodeList.forEach((e) => {
-  			 $('#movement-in-tr > td:eq('+(num+1)+')' + '> select').append("<option value="+e.storage_code_idx+">"+e.storage_nm+"</option>");
-  	    });
+ 	     	if(storageCodeList.length) {
+ 		     	if(!$('#movement-in-tr > td:eq('+(num+1)+')').length) {
+ 		     	  	$('#movement-in-tr').append('<td  id="in_td'+td_length+'"><select class="form-select st_select" name="storage1_code_idx" onchange="change_storage1(this.value, '+td_length+')"><option selected value="0">선택</option></select></td>');
+ 		     	} else {
+ 		     	  	$('#movement-in-tr > td:eq('+(num+1)+')' + '> select').children('option:not(:first)').remove();
+ 		     	}
+ 	     	};
+ 	     	storageCodeList.forEach((e) => {
+ 	  			 $('#movement-in-tr > td:eq('+(num+1)+')' + '> select').append("<option value="+e.storage_code_idx+">"+e.storage_nm+"</option>");
+ 	  	    });
+   		}
      }
 
      const change_storage2 = async(v, num) => {
-  		if(v == 'null') {
-  			$('#movement-out-tr > td').eq(num+1).remove();
-  			return
-  		}
-
   	    let td_length = $('#movement-out-tr > td').length;
-
+  		if(v == '0') {
+  			for(i=num+1; i<=td_length; i++) {
+	  			$('#out_td'+i).remove();
+  			}
+  		} else {
      	const res = await fetch('/getStorageCode.do?storage=' + v);
      	const { storageCodeList } = await res.json();
 
-     	if(!storageCodeList.length) {
-     	  	$('#movement-out-tr > td').eq(num+1).remove();
-     	  		return
-     	};
-
-     	if(!$('#movement-out-tr > td:eq('+(num+1)+')').length) {
-     	  	$('#movement-out-tr').append('<td><select class="form-select st_select" name="storage2_code_idx" onchange="change_storage2(this.value, '+td_length+')"><option selected value="null">선택</option></select></td>');
-     	} else {
-     	  	$('#movement-out-tr > td:eq('+(num+1)+')' + '> select').children('option:not(:first)').remove();
-     	};
-
-     	storageCodeList.forEach((e) => {
-  			 $('#movement-out-tr > td:eq('+(num+1)+')' + '> select').append("<option value="+e.storage_code_idx+">"+e.storage_nm+"</option>");
-  	    });
+	     	if(storageCodeList.length) {
+		     	if(!$('#movement-out-tr > td:eq('+(num+1)+')').length) {
+		     	  	$('#movement-out-tr').append('<td  id="out_td'+td_length+'"><select class="form-select st_select" name="storage2_code_idx" onchange="change_storage2(this.value, '+td_length+')"><option selected value="0">선택</option></select></td>');
+		     	} else {
+		     	  	$('#movement-out-tr > td:eq('+(num+1)+')' + '> select').children('option:not(:first)').remove();
+		     	}
+	     	};
+	     	storageCodeList.forEach((e) => {
+	  			 $('#movement-out-tr > td:eq('+(num+1)+')' + '> select').append("<option value="+e.storage_code_idx+">"+e.storage_nm+"</option>");
+	  	    });
+  		}
      }
 
      const change_Inout = async (v, num) => {
+    	const res = await fetch('/getMovementData.do?movement_idx=' + num);
+      	const { movementList } = await res.json();
      	if(v == 'IN') {
-     		let data = num.split(',');
-  		console.log(data);
+     		let data = movementList[0].storage_in_code_idx.split(',');
 
      		let td_length = $('#movement-in-tr > td').length;
      		$('#movement-in-tr > td:eq(1) > select').val(data[0]).prop("selected", true);
@@ -965,8 +957,7 @@
      	}
 
      	else if(v=='OUT') {
-  		let data = num.split(',');
-  		console.log(data);
+  		let data = movementList[0].storage_out_code_idx.split(',');
 
      		let td_length = $('#movement-out-tr > td').length;
      		$('#movement-out-tr > td:eq(1) > select').val(data[0]).prop("selected", true);
@@ -986,8 +977,8 @@
 
      const submitModifyMovement = async () => {
   		let formData = new FormData(document.getElementById('addMovement'));
+  		formData.append("movement_idx", sessionStorage.getItem("movement_idx"));
 
-  		formData.append("movement_idx", movement_idx);
      	const form = await fetch('/modifyMovement.do', {
      		method:'POST',
      		headers: {
@@ -1004,6 +995,9 @@
      }
 
      const btn_control = (num) => {
+    	 $("#addMovement")[0].reset()
+    	 //$('#movement-in-tr > td:not(:nth-child(2)').remove();
+
      	if(num == 0) {
   	    	$("#add-movement-btn").show();
   	    	$("#modify-movement-btn2").hide();
@@ -1013,37 +1007,14 @@
      	$("#modify-movement-btn2").show();
      }
 
-    /* $(document).on('click', '#modify-movement-btn', async function() {
-  	    	let index = $(this).parent().parent().index();
-  	    	movementTr = index;
-  	      	const item_idx = sessionStorage.getItem("item_idx");
-  	      	const res = await fetch('/getMovementData.do?item_idx=' + item_idx);
-  			const { movementList } = await res.json();
-
-  			$("select[name=storage_type1_code_idx]").val(movementData[index].storage_type1_code_idx).prop("selected", true);
-  	      	await change_storageType2(movementData[index].storage_type1_code_idx);
-  	      	$("select[name=storage_type2_code_idx]").val(movementData[index].storage_type2_code_idx).prop("selected", true);
-  	      	change_Inout('IN', index, JSON.stringify(movementData[index]));
-  	      	change_Inout('OUT', index, JSON.stringify(movementData[index]));
-  	      	$('input[name=movement_qty]').val(movementData[index].movement_qty);
-  	      	$('input[name=current_qty]').val(movementData[index].current_qty);
-  	      	$('input[name=requester]').val(movementData[index].requester);
-  	      	$('input[name=remark]').val(movementData[index].remark);
-  	      	$('input[name=movement_date]').val(movementData[index].movement_date);
-  	      	$('input[name=movement_idx]').val(movementData[index].nmMovement_idx);
-  	      	$('input[name=storage_idx]').val(movementData[index].storage_idx);
-     	})*/
-
-     	/*$(document).on('click', '#modify-movement-btn2', async function() {
-  	    	submitModifyMovement();
-     	})*/
-
   		const deleteMovement = async (btn) => {
-  			const res = await fetch('/deleteMovement.do?movement=' + btn.value);
-  	    	const msg = await res.text();
-  	    	msg == 'success' ? (
-  	    			alert('삭제 되었습니다'), getMovementList()
-  	    			) : alert('오류입니다');
+  			if(confirm('삭제하시겠습니까?')) {
+	  			const res = await fetch('/deleteMovement.do?movement=' + btn.value);
+	  	    	const msg = await res.text();
+	  	    	msg == 'success' ? (
+	  	    			alert('삭제 되었습니다'), getMovementList()
+	  	    			) : alert('오류입니다');
+  			}
   		}
 
 
@@ -1051,6 +1022,7 @@
   	   let tabCnt = 0;
 
   	   const addPreservation = async (num) => {
+  		   if(confirm('저장하시겠습니까?')) {
   		   	/* document.querySelector('#before-uploadFile').files = beforeImgList.files;
   		 	document.querySelector('#after-uploadFile').files = afterImgList.files; */
   			let formData = new FormData(document.getElementById('preservation-form'+num));
@@ -1062,15 +1034,15 @@
   		    let res = await form.text();
   		   	res == 'success' ? (
   		   								alert('등록완료'),
-  		   								$('#addPreservationBtn'+num).html('저장완료'),
+  		   								getPreservation(),
   		   								$('#addPreservationBtn'+num).attr('disabled', true),
   		   								$('#deletePreservationBtn'+num).attr('disabled', true)
   										 ) : alert('오류입니다');
   	   }
+  	   }
 
   	 const updatePreservation = async (num, preservation_idx) => {
-		   	/* document.querySelector('#before-uploadFile').files = beforeImgList.files;
-		 	document.querySelector('#after-uploadFile').files = afterImgList.files; */
+  		 if(confirm('수정하시겠습니까?')) {
 			let formData = new FormData(document.getElementById('update-preservation-form'+num));
 		 	formData.append("preservation_idx", preservation_idx);
 		   	let form = await fetch('/updatePreservation.do', {
@@ -1080,11 +1052,12 @@
 		    let res = await form.text();
 		   	res == 'success' ? (
 		   								alert('수정완료'),
-		   								$('#updatePreservationBtn'+num).html('수정완료'),
+		   								getPreservation(),
 		   								$('#updatePreservationBtn'+num).attr('disabled', true),
 		   								$('#updatedeletePreservationBtn'+num).attr('disabled', true)
 										 ) : alert('오류입니다');
 	   }
+  	 }
 
   	   let beforeArr = [];
   	   let afterArr = [];
@@ -1106,7 +1079,7 @@
   				    	 imgTag.setAttribute('width', '200');
   				    	 imgTag.setAttribute('height', '200');
   			    		 $('#result-img-preview'+num).children().remove();
-  				    	 $('#result-img-preview'+num).append('<div style="width:100px; height:100px; margin: 5px 5px 5px 5px; display:inline-block;"><img id="result-img'+num+'" style="width: 100px; height: 100px;"/><p style="text-align:center;">'+input.files[0].name+'</p></div>');
+  				    	 $('#result-img-preview'+num).append('<div style="width:70px; height:70px; margin: 5px 5px 5px 5px; display:inline-block;"><img id="result-img'+num+'" style="width: 70px; height: 70px;"/><p style="text-align:center;">'+input.files[0].name+'</p></div>');
   				    	 document.getElementById('result-img'+num).src = e.target.result;
 
   			    	 //document.querySelector('#result-img-preview').appendChild(imgTag);
@@ -1139,10 +1112,10 @@
   				const reader = new FileReader();
   				reader.onload = e => {
   					$('#before-img-preview'+num).append(
-  							'<div id="before'+num+'Div'+i+'" style="width:100px; height:100px; margin: 10px 10px 10px 10px; display:inline-block;">'+
-  							/* '<input type="checkbox" value="'+i+'" id="before'+num+'checkbox'+i+'" name="before'+num+'checkbox" class="before'+num+'checkbox" style="position: relative; top: 20px; z-index: 1; width:15px; height:15px;"/>' + */
+  							'<div id="before'+num+'Div'+i+'" style="width:70px; height:70px; margin: 10px 10px 10px 10px; display:inline-block;">'+
+  							'<input type="checkbox" value="'+i+'" id="before'+num+'checkbox'+i+'" name="before'+num+'checkbox" class="before'+num+'checkbox" style="position: relative; top: 20px; z-index: 1; width:15px; height:15px; border:none;"/>' +
   							'<button type="button" onclick="deleteImage('+addTransfer[num][0].files[i].lastModified+', '+before+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1; float:right;">x</button>' +
-  						    '<img id="before'+num+'img'+i+'" style="width: 100px; height: 100px;"/></label>'+
+  						    '<img id="before'+num+'img'+i+'" style="width: 70px; height: 70px;"/></label>'+
   						    '<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+addTransfer[num][0].files[i].name+'</p></div>');
 
   					document.getElementById('before'+num+'img'+i).src = e.target.result;
@@ -1172,9 +1145,10 @@
   				const reader = new FileReader();
   				reader.onload = e => {
   					$('#after-img-preview'+num).append(
-  					'<div id="after'+num+'Div'+i+'" style="width:100px; height:100px; margin: 10px 10px 10px 10px; display:inline-block;">' +
-  					'<button type="button" onclick="deleteImage('+addTransfer[num][1].files[i].lastModified+', '+after+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1;">x</button>' +
-  					'<img id="after'+num+'img'+i+'" style="width: 100px; height: 100px;"/></label>' +
+  					'<div id="after'+num+'Div'+i+'" style="width:70px; height:70px; margin: 10px 10px 10px 10px; display:inline-block;">' +
+  					'<input type="checkbox" value="'+i+'" id="after'+num+'checkbox'+i+'" name="before'+num+'checkbox" class="after'+num+'checkbox" style="position: relative; top: 20px; z-index: 1; width:15px; height:15px; border:none;"/>' +
+  					'<button type="button" onclick="deleteImage('+addTransfer[num][1].files[i].lastModified+', '+after+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1; float:right;">x</button>' +
+  					'<img id="after'+num+'img'+i+'" style="width: 70px; height: 70px;"/></label>' +
   					'<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+addTransfer[num][1].files[i].name+'</p></div>');
 
   					document.getElementById('after'+num+'img'+i).src = e.target.result;
@@ -1224,7 +1198,7 @@
 				    	 imgTag.setAttribute('width', '200');
 				    	 imgTag.setAttribute('height', '200');
 			    		 $('#update-result-img-preview'+num).children().remove();
-				    	 $('#update-result-img-preview'+num).append('<div style="width:100px; height:100px; margin: 5px 5px 5px 5px; display:inline-block;"><img id="result-img'+num+'" style="width: 100px; height: 100px;"/><p style="text-align:center;">'+input.files[0].name+'</p></div>');
+				    	 $('#update-result-img-preview'+num).append('<div style="width:70px; height:70px; margin: 5px 5px 5px 5px; display:inline-block;"><img id="result-img'+num+'" style="width: 70px; height: 70px;"/><p style="text-align:center;">'+input.files[0].name+'</p></div>');
 				    	 document.getElementById('result-img'+num).src = e.target.result;
 
 			    	 //document.querySelector('#result-img-preview').appendChild(imgTag);
@@ -1256,9 +1230,9 @@
 				$('#update-upload-before'+num+'Div'+i).remove();
 				reader.onload = e => {
 					$('#update-before-img-preview'+num).append(
-							'<div id="update-upload-before'+num+'Div'+i+'" style="width:100px; height:100px; margin: 10px 10px 10px 10px; display:inline-block;">'+
+							'<div id="update-upload-before'+num+'Div'+i+'" style="width:70px; height:70px; margin: 10px 10px 10px 10px; display:inline-block;">'+
 							'<button type="button" onclick="updatedeleteImage('+updateTransfer[num][0].files[i].lastModified+', '+before+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1;">x</button>' +
-						    '<img id="before'+num+'img'+i+'" style="width: 100px; height: 100px;"/></label>'+
+						    '<img id="before'+num+'img'+i+'" style="width: 70px; height: 70px;"/></label>'+
 						    '<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+updateTransfer[num][0].files[i].name+'</p></div>');
 
 					document.getElementById('before'+num+'img'+i).src = e.target.result;
@@ -1289,9 +1263,9 @@
 				$('#update-upload-after'+num+'Div'+i).remove();
 				reader.onload = e => {
 					$('#update-after-img-preview'+num).append(
-							'<div id="update-upload-after'+num+'Div'+i+'" style="width:100px; height:100px; margin: 10px 10px 10px 10px; display:inline-block;">'+
+							'<div id="update-upload-after'+num+'Div'+i+'" style="width:70px; height:70px; margin: 10px 10px 10px 10px; display:inline-block;">'+
 							'<button type="button" onclick="updatedeleteImage('+updateTransfer[num][1].files[i].lastModified+', '+after+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1;">x</button>' +
-						    '<img id="after'+num+'img'+i+'" style="width: 100px; height: 100px;"/></label>'+
+						    '<img id="after'+num+'img'+i+'" style="width: 70px; height: 70px;"/></label>'+
 						    '<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+updateTransfer[num][1].files[i].name+'</p></div>');
 
 					document.getElementById('after'+num+'img'+i).src = e.target.result;
@@ -1330,60 +1304,96 @@
 	  }
 
   	    const cloneDiv = () => {
+
   	    	$('#add-tab-btn').remove();
   	    	tabCnt ++;
-  	          $('#settings').append('<form id="preservation-form'+tabCnt+'" enctype="multipart/form-data"><div id="accordion-div"><hr/><div class="accordion-item" id="preservation-div"><h2 class="accordion-header" id="flush-headingOne">' +
-  	                        '<div class="preservation_into_wrap_left"><div class="table-responsive"><table class="table mb-0"><tbody>' +
-  	                        '<tr><td>처리기관</td><td><input class="form-control st_input" list="datalistOptions" id="treatment_org'+tabCnt+'" name="treatment_org" placeholder="처리기관을 입력해 주세요."></td>' +
-  	                        '<td>처리자</td><td><input class="form-control st_input" list="datalistOptions" id="processor'+tabCnt+'" name="processor" placeholder="처리자 명을 입력해 주세요.">' +
-  	                        '<td>처리기간</td><td><input class="form-control" type="date" name="start_date" id="start_date'+tabCnt+'"> ~ <input class="form-control" type="date" name="end_date" id="end_date'+tabCnt+'"></td>' +
-  	                        '<td style="display: flex; justify-content: space-around;"><button type="button" class="custom_btn btn_c58672 btn_c58672_6840" id="addPreservationBtn'+tabCnt+'" onclick="addPreservation('+tabCnt+')">저장</button>' +
-  	                        '<button class="custom_btn btn_c58672 btn_c58672_6840" onclick="deleteForm('+tabCnt+')" id="deletePreservationBtn'+tabCnt+'">삭제</button></td>'+
-  	                        '</tr></tbody></table></div></div>' +
-  	                        '<div class="preservation_btn_wrap_right"><button class="accordion-button fw-medium ac_btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne'+tabCnt+'" aria-expanded="true" aria-controls="flush-collapseOne"></button></div></h2>' +
-  	                      	'<div id="flush-collapseOne'+tabCnt+'" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">' +
-  	                        '<div class="accordion-body text-muted">' +
-  	                        '<div class="mb-0 preservation_wrap"><div class="st_wrap"><label class="col-md-2 col-form-label st_title">처리내용</label></div><textarea class="st_inp_tbox" id="content'+tabCnt+'" name="content" placeholder="처리내용을 입력해 주세요."></textarea></div>' +
-  	                        '<div class="mb-0 preservation_wrap"><div class="st_wrap"><label class="col-md-2 col-form-label st_title">비고</label></div><textarea class="st_inp_tbox" id="remark'+tabCnt+'" name="remark" placeholder="참고사항을 입력해 주세요."></textarea></div></div>' +
-  	                    	'<div class="mb-0"><div class="st_wrap" id="resut-div"><label class="col-md-2 col-form-label st_title">처리결과</label>' +
+  	    	$('#settings').append('<form id="preservation-form'+tabCnt+'" enctype="multipart/form-data"><div id="accordion-div"><div class="accordion-item" id="preservation-div"><h2 class="accordion-header" id="flush-headingOne">' +
+                    '<div class="preservation_into_wrap_left"><div class="table-responsive"><table class="table mb-0"><tbody>' +
+                    '<tr><td>처리기관</td><td><input class="form-control st_input" list="datalistOptions" id="treatment_org'+tabCnt+'" name="treatment_org" placeholder="처리기관을 입력해 주세요."></td>' +
+                    '<td>처리자</td><td><input class="form-control st_input" list="datalistOptions" id="processor'+tabCnt+'" name="processor" placeholder="처리자 명을 입력해 주세요.">' +
+                    '<td>처리기간</td><td><input class="form-control" type="date" name="start_date" id="start_date'+tabCnt+'"> ~ <input class="form-control" type="date" name="end_date" id="end_date'+tabCnt+'"></td>' +
+                    '<td style="display: flex; justify-content: space-around;"><button type="button" class="custom_btn btn_c58672 btn_c58672_6840" id="addPreservationBtn'+tabCnt+'" onclick="addPreservation('+tabCnt+')">저장</button>' +
+                    '<button class="custom_btn btn_c58672 btn_c58672_6840" onclick="deleteForm('+tabCnt+')" id="deletePreservationBtn'+tabCnt+'">삭제</button></td>'+
+                    '</tr></tbody></table></div></div>' +
+                    '<div class="preservation_btn_wrap_right"><button class="accordion-button fw-medium ac_btn" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne'+tabCnt+'" aria-expanded="true" aria-controls="flush-collapseOne"></button></div></h2>' +
+                     '<div id="flush-collapseOne'+tabCnt+'" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">' +
+                    '<div class="accordion-body text-muted">' +
+                    '<div class="mb-0 preservation_wrap"><div class="st_wrap"><label class="col-md-2 col-form-label st_title">처리내용</label></div><textarea class="st_inp_tbox" id="content'+tabCnt+'" name="content" placeholder="처리내용을 입력해 주세요."></textarea></div>' +
+                    '<div class="mb-0 preservation_wrap"><div class="st_wrap"><label class="col-md-2 col-form-label st_title">비고</label></div><textarea class="st_inp_tbox" id="remark'+tabCnt+'" name="remark" placeholder="참고사항을 입력해 주세요."></textarea></div></div>' +
+                   '<div class="mb-0"><div class="st_wrap" id="resut-div"><label class="col-md-2 col-form-label st_title">처리결과</label>' +
 
-  	                        '<label for="result-uploadFile'+tabCnt+'" class="custom_btn btn_6466ab btn_add_preservation_padding">업로드</label>' +
-  	      					'<input style="display:none" class="form-control st_input" type="file" name="result_uploadFile" id="result-uploadFile'+tabCnt+'" onchange="resultImg(this, '+tabCnt+')" accept="image/*"><br/>' +
+                    '<label for="result-uploadFile'+tabCnt+'" class="custom_btn btn_6466ab btn_add_preservation_padding">업로드</label>' +
+                 '<input style="display:none" class="form-control st_input" type="file" name="result_uploadFile" id="result-uploadFile'+tabCnt+'" onchange="resultImg(this, '+tabCnt+')" accept="image/*"><br/>' +
 
-  	                        '<div id="result-img-preview'+tabCnt+'"></div>' +
+                    '<div id="result-img-preview'+tabCnt+'"></div>' +
 
 
-  	                      	'</div></div>' +
-  	                  		'<div class="mb-0" id="before-div"><div class="st_wrap"><label class="col-md-2 col-form-label st_title" style="display:inline">보존처리 전 이미지</label>' +
+                     '</div></div>' +
+                    '<div class="mb-0" id="before-div"><div class="st_wrap"><label class="col-md-2 col-form-label st_title" style="display:inline">보존처리 전 이미지</label>' +
 
-  	                      	'<label for="before-uploadFile'+tabCnt+'" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>' +
-  	      					'<input type="file" name="before_uploadFile" id="before-uploadFile'+tabCnt+'" onchange="beforeImg(this, '+tabCnt+')" multiple style="display:none;" accept="image/*">' +
+                     '<label for="before-uploadFile'+tabCnt+'" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>' +
+                 '<input type="file" name="before_uploadFile" id="before-uploadFile'+tabCnt+'" onchange="beforeImg(this, '+tabCnt+')" multiple style="display:none;" accept="image/*">' +
 
-  	                      '<button class="custom_btn btn_7288c5" type="button">다운로드</button>' +
-  	                      '<button type="button" class="custom_btn btn_707070" onclick="allCheck(before, '+tabCnt+')">전체선택</button>' +
-  	                      '<button type="button" class="custom_btn btn_707070" onclick="cancelCheck(before, '+tabCnt+')">선택해지</button>' +
-  	                      '<button type="button" class="custom_btn btn_707070" onclick="deleteChecked(before, '+tabCnt+')">선택삭제</button>' +
+                  '<button class="custom_btn btn_7288c5" type="button">다운로드</button>' +
+                  '<button type="button" class="custom_btn btn_707070" onclick="allCheck(before, '+tabCnt+')">전체선택</button>' +
+                  '<button type="button" class="custom_btn btn_707070" onclick="cancelCheck(before, '+tabCnt+')">선택해지</button>' +
+                 /*  '<button type="button" class="custom_btn btn_707070" onclick="deleteChecked(before, '+tabCnt+')">선택삭제</button>' + */
 
-  	                      '<div id="before-img-preview'+tabCnt+'"></div>' +
-  	                   	  '</div></div><div class="mb-0" id="after-div"><div class="st_wrap"><label class="col-md-2 col-form-label st_title">보존처리 후 이미지</label>' +
+                  '<div id="before-img-preview'+tabCnt+'"></div>' +
+                    '</div></div><div class="mb-0" id="after-div"><div class="st_wrap"><label class="col-md-2 col-form-label st_title">보존처리 후 이미지</label>' +
 
-  	                   	
 
-  	                      '<label for="after-uploadFile'+tabCnt+'" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>' +
-  	      				  '<input type="file" name="after_uploadFile" id="after-uploadFile'+tabCnt+'" onchange="afterImg(this, '+tabCnt+')" multiple style="display:none;" accept="image/*">' +
 
-  	                      '<button class="custom_btn btn_7288c5" type="button">다운로드</button>' +
-  	                      '<button type="button" class="custom_btn btn_707070" onclick="allCheck(after, '+tabCnt+')">전체선택</button>' +
-  	                      '<button type="button" class="custom_btn btn_707070" onclick="cancelCheck(after, '+tabCnt+')">선택해지</button>' +
-  	                      '<button type="button" class="custom_btn btn_707070" onclick="deleteChecked(after, '+tabCnt+')">선택삭제</button>' +
+                  '<label for="after-uploadFile'+tabCnt+'" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>' +
+                '<input type="file" name="after_uploadFile" id="after-uploadFile'+tabCnt+'" onchange="afterImg(this, '+tabCnt+')" multiple style="display:none;" accept="image/*">' +
 
-  	                      '<div id="after-img-preview'+tabCnt+'"></div></div></div>' +
-  	                  	  '' +
-  						  '</div></div></div></div></div></div></form></div>'+
+                  '<button class="custom_btn btn_7288c5" type="button">다운로드</button>' +
+                  '<button type="button" class="custom_btn btn_707070" onclick="allCheck(after, '+tabCnt+')">전체선택</button>' +
+                  '<button type="button" class="custom_btn btn_707070" onclick="cancelCheck(after, '+tabCnt+')">선택해지</button>' +
+                  /* '<button type="button" class="custom_btn btn_707070" onclick="deleteChecked(after, '+tabCnt+')">선택삭제</button>' + */
 
-  	                 	  '<button type="button" class="mb-0" id="add-tab-btn" onclick="cloneDiv()"><div class="st_wrap"><label class="col-md-2 col-form-label st_title" style="cursor: pointer"> + 보존처리 추가</label></div>' +
-  	                  	  '</button>');
+                  '<div id="after-img-preview'+tabCnt+'"></div></div></div>' +
+                   '' +
+             '</div></div></div></div></div></div></form></div>'+
+
+                  '<button type="button" class="mb-0" id="add-tab-btn" onclick="cloneDiv()"><div class="st_wrap"><label class="col-md-2 col-form-label st_title" style="cursor: pointer"> + 보존처리 추가</label></div>' +
+                   '</button>');
   	    }
+
+  	  const downloadPreservaitionImage = async (name, num) => {
+        let path_arr = [];
+        console.log(name,num)
+
+        if($('input:checkbox[name='+name+num+'checkbox]:checked').length == 0) {
+           alert("다운로드할 항목을 선택해주세요.")
+           return;
+        }
+        if(confirm("다운하시겠습니까?")) {
+        	$('input:checkbox[name='+name+num+'checkbox]:checked').each(function() {
+              console.log($(this).attr("value2"))
+              path_arr.push($(this).attr("value2"));
+           })
+           $.ajax({
+                url :'./perservaition-zip-download.do',
+                type : 'POST',
+                dataType : 'text',
+                data : {
+                   img_path : path_arr
+                },
+                async : false,
+                success: function(data) {
+                   console.log('성공');
+                   location.href = encodeURI("./perservaition-zip-download.do?compresskey="+data);
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                   console.log(xhr.status);
+                   console.log(thrownError);
+                }
+           });
+         } else {
+             return false;
+         }
+     }
 
   	    const allCheck = (name, num) => {
   	    	$('input[class='+name+num+'checkbox').prop("checked", true);
@@ -1394,9 +1404,9 @@
   	    }
 
   	  $(document).on('click', '#spc-add-button', async function() {
-			$("#speciality-form")[0].reset();
-		   $('#spc-add-btn').show();
-		   $('#spc-update-btn').hide();
+		    $("#speciality-form")[0].reset();
+		   	$('#spc-add-btn').show();
+		  	$('#spc-update-btn').hide();
  		})
 
   	    /* const deleteChecked = async (name, num) => {
@@ -1478,6 +1488,7 @@
   	}
 
   	const deletePreservation = (num, idx) => {
+  		if(confirm('등록되어있는 보존처리 정보입니다. 삭제하시겠습니까? ')) {
   		$.ajax({
   				type : 'get',
   				url : '/deletePreservation.do?idx=' + idx,
@@ -1488,9 +1499,10 @@
   				},
   				success : function(data) {
   					data == 'success' ?
-  					(deleteForm(num), alert('삭제되었습니다.')) : alert('오류가 발생했습니다. 다시 시도해주세요.')
+  					(getPreservation(), alert('삭제되었습니다.')) : alert('오류가 발생했습니다. 다시 시도해주세요.')
   				}
   			});
+  		}
   	}
 
   	   //전문정보 -------------------------------------------------------------------------------------------------------------------------------
@@ -1498,6 +1510,18 @@
   	   let spc_tr = '';
 
   	   const submitSpc = async () => {
+  		   if(!sessionStorage.getItem('item_idx')) {
+  			   alert('자료등록이나 조회를 먼저 진행해주세요.')
+  			   return;
+  		   }
+  		   if($('#speciality_code_idx').val() == 0) {
+  			   alert('전문정보 구분을 선택해주세요.')
+  			   return;
+  		   }
+  		   if(!$('#spc_title').val()) {
+  			   alert('제목을 입력해주세요.')
+  			   return;
+  		   }
   		   if(confirm('등록하시겠습니까?')) {
   		    let formData = new FormData(document.getElementById('speciality-form'));
   		    formData.append('item_idx', sessionStorage.getItem('item_idx'));
@@ -1506,7 +1530,7 @@
   	            body: formData
   	    	})
   	    	const res = await form.text();
-  	    	res == 'success' ? (alert('등록완료'),  getSpeciality()) : alert('오류입니다');
+  	    	res == 'success' ? (getSpeciality()) : alert('오류입니다');
   		   } else {
   			   return;
   		   }
@@ -1571,34 +1595,44 @@
   	}
 
   	const deleteSpeciality = (btn) => {
-  		let formData = new FormData();
-  		console.log(btn.getAttribute("idx"));
-  		formData.append("spc_file_path", btn.getAttribute("file_path"));
-  		formData.append("spc_file_nm", btn.getAttribute("file_nm"));
-  		formData.append("speciality_idx", btn.getAttribute("idx"));
-  /*		formData.append("spc_file_path", $('#delete-speciality-btn').attr('file_path'));
-  		formData.append("spc_file_nm", $('#delete-speciality-btn').attr('file_nm'));
-  		formData.append("speciality_idx", $('#delete-speciality-btn').attr('idx'));*/
-  		$.ajax({
-                url :'/deleteSpeciality.do',
-                type : 'post',
-  			  datatype: 'text',
-  			  data: formData,
-  			  contentType: false,
-  			  processData: false,
-                success: function(data) {
-  				/*$('#specialityZone').empty().append(data);*/
-  				console.log(data);
-  				data == 'success' ? (alert('삭제완료'), getSpeciality()) : alert('오류가 발생했습니다. 다시 시도해주세요.')
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                   console.log(xhr.status);
-                   console.log(thrownError);
-                }
-           });
+  		if(confirm('삭제하시겠습니까?')) {
+	  		let formData = new FormData();
+	  		console.log(btn.getAttribute("idx"));
+	  		formData.append("spc_file_path", btn.getAttribute("file_path"));
+	  		formData.append("spc_file_nm", btn.getAttribute("file_nm"));
+	  		formData.append("speciality_idx", btn.getAttribute("idx"));
+	  /*		formData.append("spc_file_path", $('#delete-speciality-btn').attr('file_path'));
+	  		formData.append("spc_file_nm", $('#delete-speciality-btn').attr('file_nm'));
+	  		formData.append("speciality_idx", $('#delete-speciality-btn').attr('idx'));*/
+	  		$.ajax({
+	                url :'/deleteSpeciality.do',
+	                type : 'post',
+	  			  datatype: 'text',
+	  			  data: formData,
+	  			  contentType: false,
+	  			  processData: false,
+	                success: function(data) {
+	  				/*$('#specialityZone').empty().append(data);*/
+	  				console.log(data);
+	  				data == 'success' ? (alert('삭제완료'), getSpeciality()) : alert('오류가 발생했습니다. 다시 시도해주세요.')
+	                },
+	                error: function(xhr, ajaxOptions, thrownError) {
+	                   console.log(xhr.status);
+	                   console.log(thrownError);
+	                }
+	           });
+  		}
   	}
 
   	   const updateSpeciality = async () => {
+  		 if($('#speciality_code_idx').val() == 0) {
+			   alert('전문정보 구분을 선택해주세요.')
+			   return;
+		   }
+		   if(!$('#spc_title').val()) {
+			   alert('제목을 입력해주세요.')
+			   return;
+		   }
   		   let formData = new FormData($('#speciality-form')[0]);
   		    formData.append('item_idx', sessionStorage.getItem('item_idx'));
   		    formData.append('speciality_idx', specialityData.speciality_idx);
@@ -1704,6 +1738,16 @@
 
     	const setPublicRep = async (idx, colunm, val) => {
     		const res = await fetch('/setPublicrep.do?image_idx=' + idx + '&colunm=' + colunm + '&val=' + val);
+    		await res.text() == 'success' ? getImageList() : alert('오류입니다.');
+    	}
+
+    	const changeRep = box => {
+    		console.log(box)
+    		box.checked ? changeRepFetch(box.value, 'Y') : changeRepFetch(box.value, 'N')
+    	}
+
+    	const changeRepFetch = async (idx, val) => {
+    		const res = await fetch('/updateRep.do?image_idx=' + idx + '&val=' + val);
     		await res.text() == 'success' ? getImageList() : alert('오류입니다.');
     	}
 
@@ -2018,7 +2062,6 @@
 
 	<!-- 자료정보삭제신청 -->
 	const getDeletion = () => {
-		if(!checkInput()) { return }
 		$('#deletion_page').val(1);
 		let formData = $('#deletionForm').serialize();
 					$.ajax({
@@ -2091,10 +2134,10 @@
 
 	const checkDelete = () => {
 		let checkbox = $('input:checkbox[id=deletionCheckbox]:checked');
-		if($('#deletionCheckbox').is(":checked") == false){
-			alert("삭제신청하실 자료를 1개이상 선택해주세요.");
-			return;
-		}
+		if($('input:checkbox[id=deletionCheckbox]:checked').length == 0) {
+	           alert("삭제할 항목을 선택해주세요.")
+	           return;
+	        }
 
 
 		if(confirm("선택하신 자료 삭제신청을 하시겠습니까?")) {
@@ -2361,7 +2404,7 @@
 			}
 		}
 		deleteItemBaseTr()
-		//submitForm();
+		submitForm();
 	}
 
 	const deleteItemBaseTr = () => {
@@ -2467,7 +2510,6 @@
                                                   <td>자료구분</td>
                                                     <td>
 	                                                    <select class="search_select" name="org_code_idx">
-										                	<option value="" selected>선택</option>
 										                    <c:forEach var="list" items="${orgList}" varStatus="status">
 										                           <option value="${list.org_code_idx}" <c:if test ="${list.org_nm eq '항공박물관'}">selected="selected"</c:if>>${list.org_nm}</option>
 										                     </c:forEach>
@@ -2589,9 +2631,8 @@
 					            <div class="col-md-10">
 					              <label class="col-md-2 col-form-label">자료구분</label>
 					              <select class="form-select" id="deletion_org_code_idx" name="org_code_idx">
-					                    <option value="" selected>선택</option>
 					                    		<c:forEach var="list" items="${orgList}" varStatus="status">
-							                           <option value="${list.org_code_idx}">${list.org_nm}</option>
+							                           <option value="${list.org_code_idx}" <c:if test ="${list.org_nm eq '항공박물관'}">selected="selected"</c:if>>${list.org_nm}</option>
 							                     </c:forEach>
 					                </select>
 					              <select class="form-select" id="deletion_possession_code_idx" name="possession_code_idx">
@@ -2609,7 +2650,7 @@
 					              <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="getDeletion()">조회</button>
 					            </div>
 					          </div>
-					          <select class="form-select" name="perPageNum">
+					          <select class="form-select" name="perPageNum" onchange="getDeletion()">
 					              <option selected value="10">10개</option>
 					              <option value="20">20개</option>
 					              <option value="30">30개</option>
@@ -2646,7 +2687,9 @@
 					        </div>
 					        </form>
 					        <!--  -->
-					        <div class="custom_modal_footer"><button type="button" onclick="checkDelete()">삭제신청</button><button>닫기</button></div>
+					        <div class="custom_modal_footer">
+					        <button type="button" onclick="checkDelete()">삭제신청</button>
+					        <button type="button" data-bs-dismiss="modal" aria-label="Close">닫기</button></div>
 					      </div>
 					    </div>
 					  </div>
@@ -2745,7 +2788,7 @@
         </ul>
 
 
-        <!-- Tab panes -->     
+        <!-- Tab panes -->
         <div class="quick_menu_right_wrap">
           <div class="accordion quick_menu" id="accordionExample">
 
@@ -2820,7 +2863,7 @@
               <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 </div>
               </div>
-            </div>        
+            </div>
         </div>
         <div class="tab-content p-3 text-muted">
           <!-- 기본 사항 시작 -->
@@ -3225,7 +3268,7 @@
                               <td>
                                 원화환산
                                 <c:forEach var="list" items="${exchangeList}" varStatus="status">
-                                	<button class="custom_btn btn_707070" onclick="window.open('${list.service_url}')">환율정보</button>
+                                	<button class="custom_btn btn_707070" onclick="window.open('${list.service_url}')" type="button">환율정보</button>
                                 </c:forEach>
                               </td>
                               <td>
@@ -3602,7 +3645,7 @@
           <textarea class="st_inp_tbox" placeholder="키워드를 입력해 주세요. 콤마 단위로 입력해주세요." id="itembasekeyword" name="itembasekeyword"></textarea>
       </div>
       </form>
-      
+
         <div class="mb-0 btn_add_save_wrap">
         	<button type="button" class="custom_btn btn_c58672" onclick="addValidation()">저장하기</button>
         </div>
@@ -3673,7 +3716,7 @@
                                                 <td>보관처</td>
                                                 <td>
                                                   <select class="form-select st_select" name="storage1_code_idx" id="storage1_code1" onchange="change_storage1(this.value, 1)">
-                                                    <option selected value="null">선택</option>
+                                                    <option selected value="0">선택</option>
                                                     <c:forEach var="list" items="${storageCodeList}" varStatus="status">
 					                                    <option value="${list.storage_code_idx}">${list.storage_nm}</option>
 					                                </c:forEach>
@@ -3684,7 +3727,7 @@
                                                 <td>반입처</td>
                                                 <td>
                                                   <select class="form-select st_select" name="storage2_code_idx" id="storage2_code1" onchange="change_storage2(this.value, 1)">
-                                                    <option value="null">선택</option>
+                                                    <option value="0">선택</option>
                                                     <c:forEach var="list" items="${storageCodeList}" varStatus="status">
 					                                    <option value="${list.storage_code_idx}">${list.storage_nm}</option>
 					                                </c:forEach>
@@ -3884,7 +3927,7 @@
 	                                        </td>
 	                                        <td style="display: flex; justify-content: space-around;">
 	                                          <button type="button" class="custom_btn btn_c58672 btn_c58672_6840" id="addPreservationBtn0" onclick="addPreservation(0)">저장</button>
-											  <button type="button" class="custom_btn btn_c58672 btn_c58672_6840" id="" onclick="">삭제</button>
+											  <button type="button" class="custom_btn btn_c58672 btn_c58672_6840" id="deletePreservationBtn0" onclick="deleteForm(0)">삭제</button>
 	                                        </td>
 	                                    </tr>
 	                                </tbody>
@@ -3947,6 +3990,7 @@
                   <label class="col-md-2 col-form-label st_title">처리결과</label>
                     <label for="result-uploadFile" class="custom_btn btn_6466ab btn_add_preservation_padding">업로드</label>
 					<input style="display:none" class="form-control st_input" type="file" name="result_uploadFile" id="result-uploadFile" onchange="resultImg(this, 0)" accept="image/*"><br/>
+
                   <!-- <input type="file" name="uploadFile" onchange="resultImg(this)"><br/> -->
                   <div id="result-img-preview0">
 
@@ -3962,10 +4006,9 @@
                 <label for="before-uploadFile0" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
 				<input type="file" name="before_uploadFile" id="before-uploadFile0" onchange="beforeImg(this, 0)" multiple style="display:none;" accept="image/*">
 
-                <button class="custom_btn btn_7288c5" type="button">다운로드</button>
-               <!--  <button type="button" class="custom_btn btn_707070"" onclick="allCheck('before', '0')">전체선택</button>
+                <button class="custom_btn btn_7288c5" type="button" onclick="downloadPreservaitionImage('before', '0')">다운로드</button>
+               <button type="button" class="custom_btn btn_707070"" onclick="allCheck('before', '0')">전체선택</button>
                 <button type="button" class="custom_btn btn_707070" onclick="cancelCheck('before', '0')">선택해지</button>
-                <button type="button" class="custom_btn btn_707070" onclick="deleteChecked('before', '0')">선택삭제</button> -->
 
                 <div id="before-img-preview0">
 
@@ -3980,10 +4023,9 @@
                 <label for="after-uploadFile0" class="custom_btn btn_6466ab btn_add_preservation_padding" style="display:inline">업로드</label>
 				<input type="file" name="after_uploadFile" id="after-uploadFile0" onchange="afterImg(this, 0)" multiple style="display:none;" accept="image/*">
 
-                <button class="custom_btn btn_7288c5" type="button">다운로드</button>
-                <!-- <button type="button" class="custom_btn btn_707070" onclick="allCheck('after', '0')">전체선택</button>
+                 <button class="custom_btn btn_7288c5" type="button" onclick="downloadPreservaitionImage('after', '0')">다운로드</button>
+                 <button type="button" class="custom_btn btn_707070" onclick="allCheck('after', '0')">전체선택</button>
                 <button type="button" class="custom_btn btn_707070" onclick="cancelCheck('after', '0')">선택해지</button>
-                <button type="button" class="custom_btn btn_707070" onclick="deleteChecked('after', '0')">선택삭제</button> -->
 
                 <div id="after-img-preview0">
 
@@ -4012,7 +4054,7 @@
             <div class="tab-pane" id="settings22" role="tabpanel">
                   <div class="st_wrap">
                       <label class="col-md-2 col-form-label st_title">전문정보검색</label>
-                      <select class="search_select" name="speciality_code_idx_search">
+                      <select class="search_select" name="speciality_code_idx_search" >
                          <option selected value="">전체</option>
                          <c:forEach var="list" items="${specialityCodeList}" varStatus="status">
 							<option value="${list.speciality_code_idx}">${list.speciality_nm}</option>
@@ -4044,7 +4086,7 @@
                                                 <tr>
                                                   <td>제목</td>
                                                     <td>
-                                                      <select class="form-select st_select" name="speciality_code_idx">
+                                                      <select class="form-select st_select" name="speciality_code_idx" id="speciality_code_idx">
                                                         <option selected value="0">선택</option>
                                                         <c:forEach var="list" items="${specialityCodeList}" varStatus="status">
 									                           <option value="${list.speciality_code_idx}">${list.speciality_nm}</option>
@@ -4052,7 +4094,7 @@
                                                       </select>
                                                     </td>
                                                     <td>
-                                                      <input class="form-control st_input" type="text" name="spc_title">
+                                                      <input class="form-control st_input" type="text" name="spc_title" id="spc_title">
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -4100,7 +4142,7 @@
                         </div>
                         </div>
                     </div>
-                  </div>            
+                  </div>
                 <div class="mb-0">
 
                   <div class="card-body">

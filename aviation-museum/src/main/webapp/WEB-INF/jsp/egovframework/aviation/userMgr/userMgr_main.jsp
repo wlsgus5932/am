@@ -387,6 +387,10 @@
 				alert("선택하신 그룹이 없습니다.");
 				return false;
 			}
+			if($('#1').is(':checked')){
+				alert("default 그룹은 삭제 불가합니다.");
+				return false;
+			}
 			var group_seqList = [];
 			
 			$('.check_temp:checked').each(function(i){

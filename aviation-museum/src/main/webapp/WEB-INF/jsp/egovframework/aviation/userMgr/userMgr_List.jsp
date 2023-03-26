@@ -91,7 +91,7 @@
                     </div>
 	                              <div class="user_in_modal_footer_wrap">
 	                              	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="userInsBtn">저장</button>
-	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
 	                              </div>                     
                     <!--  -->
                   </div>
@@ -162,8 +162,8 @@
                     </div>
                   </div>
 	                              <div class="user_in_modal_footer_wrap">
-	                              	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="userInsBtn">저장</button>
-	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                              	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="userModBtn">저장</button>
+	                             	 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
 	                              </div>                     
                   <!--  -->
                 </div>
@@ -292,7 +292,7 @@
 				$("#modUserNm").focus();
 				return false;
 			}
-			if (!$('input[type="checkbox"][name="enabled"]').is(":checked")) {
+			if (!$('input[type="radio"][name="enabled"]').is(":checked")) {
 				alert("사용 여부를 체크해주세요.");
 				return false;
 			}
@@ -300,16 +300,16 @@
 		}
 		
 		<%-- 사용자 수정 사용 여부 체크박스 단일선택 --%>
-		$('input[type="checkbox"][name="enabled"]').click(function(){
-			  if($(this).prop('checked')){
+// 		$('input[type="checkbox"][name="enabled"]').click(function(){
+// 			  if($(this).prop('checked')){
 			 
-			     $('input[type="checkbox"][name="enabled"]').prop('checked',false);
+// 			     $('input[type="checkbox"][name="enabled"]').prop('checked',false);
 			 
-			     $(this).prop('checked',true);
+// 			     $(this).prop('checked',true);
 			 
-			    }
+// 			    }
 			  
-		});
+// 		});
 		
 		<%-- 사용자 조건 검색 --%>
 		function userSearchList(){

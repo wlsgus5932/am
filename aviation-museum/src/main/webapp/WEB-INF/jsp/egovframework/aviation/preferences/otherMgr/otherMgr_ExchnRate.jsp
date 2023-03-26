@@ -31,7 +31,7 @@
                         <div class="modal-body mv-modal-body">
                             <div class="mb-0 user-wrap">
                               <div class="st_wrap">
-                                <label class="col-md-2 col-form-label st_title">URL 등록</label>
+                                <label class="col-md-2 col-form-label st_title">환율 등록</label>
                               </div>
                               <div class="card-body">
                                 <div class="table-responsive">
@@ -71,8 +71,8 @@
                                 </div>
                             </div>
                             	<div class="user_in_modal_footer_wrap">
-                          				 <button class="custom_btn btn_c58672 user_in_modal_footer_btn">저장</button>
-	                             	     <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+                          				 <button class="custom_btn btn_c58672 user_in_modal_footer_btn" id="exchnRateInsBtn">저장</button>
+	                             	     <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
 	                            </div>
                           </div>
                         </div>
@@ -88,7 +88,7 @@
                         <div class="modal-body mv-modal-body">
                             <div class="mb-0 user-wrap">
                               <div class="st_wrap">
-                                <label class="col-md-2 col-form-label st_title">URL 수정</label>
+                                <label class="col-md-2 col-form-label st_title">환율 수정</label>
                               </div>
                               <div class="card-body">
                                 <div class="table-responsive">
@@ -129,8 +129,8 @@
                                 </div>
                             </div>
                                  <div class="user_in_modal_footer_wrap">
-	                                    <button class="btn btn-secondary btn_save" type="button" id="exchnRateModBtn">저장</button>
-	                             	     <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                                    <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="exchnRateModBtn">저장</button>
+	                             	     <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
 	                            </div>
                             
                           </div>
@@ -222,16 +222,16 @@
             <script>
     		
 	    		<%-- 환율정보 수정 사용 여부 체크박스 단일선택 --%>
-	    		$('input[type="checkbox"][name="enabled"]').click(function(){
-	    			  if($(this).prop('checked')){
+// 	    		$('input[type="checkbox"][name="enabled"]').click(function(){
+// 	    			  if($(this).prop('checked')){
 	    			 
-	    			     $('input[type="checkbox"][name="enabled"]').prop('checked',false);
+// 	    			     $('input[type="checkbox"][name="enabled"]').prop('checked',false);
 	    			 
-	    			     $(this).prop('checked',true);
+// 	    			     $(this).prop('checked',true);
 	    			 
-	    			    }
+// 	    			    }
 	    			  
-	    		});
+// 	    		});
 	    		
 	    		$('input[type="text"]').keydown(function() {
 		  			  if (event.keyCode === 13) {

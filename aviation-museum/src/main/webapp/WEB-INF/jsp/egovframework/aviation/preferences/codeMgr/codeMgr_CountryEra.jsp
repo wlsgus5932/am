@@ -78,13 +78,15 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="7">시대코드</th>
+                            <th colspan="9">시대코드</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr class="setting_thead">
                             <th>번호</th>
                             <th>명칭</th>
+                            <th>시작연도</th>
+                            <th>종료연도</th>
                             <th>수정일</th>
                             <th>수정자</th>
                             <th>사용여부</th>
@@ -95,6 +97,8 @@
 	                          <tr>
 	                          	<td>${varStatus.count}</td>
 	                            <td>${eraList.era_nm}</td>
+	                            <td>${eraList.start_year}</td>
+	                            <td>${eraList.end_year}</td>	                            
 	                            <td>${eraList.mod_date}</td>
 	                            <td>${eraList.mod_user}</td>
 	                            <td>
@@ -107,7 +111,7 @@
 	                          			</c:otherwise>
 	                          		</c:choose>
 	                            </td>
-	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modSubFormBtn('era', '${eraList.era_code_idx}', '${eraList.era_nm}', '${eraList.enabled}')">수정</button></td>
+	                            <td><button class="custom_btn btn_edit" type="button" data-bs-toggle="modal" data-bs-target="#code_modify_modal-2" onclick="modEraSubFormBtn('era', '${eraList.era_code_idx}', '${eraList.era_nm}', '${eraList.enabled}', '${eraList.start_year}', '${eraList.end_year}')">수정</button></td>
 	                            <td>
 	                            	<c:choose>
 			                            <c:when test="${varStatus.first}">  
@@ -222,13 +226,16 @@
 	                              <tr>
 	                                <td>사용여부</td>
 	                                <td>
-	                                  	 <input type="checkbox" name="enabled" value="Y" id="subInsCodeEnabledY">사용
-		                                 <input type="checkbox" name="enabled" value="N" id="subInsCodeEnabledN">미사용
+	                                  	 <input type="radio" name="enabled" value="Y" id="subInsCodeEnabledY">사용
+		                                 <input type="radio" name="enabled" value="N" id="subInsCodeEnabledN">미사용
 	                                </td>
 	                              </tr>
 	                            </tbody>
 	                          </table>
-	                          <button class="btn btn-secondary btn_save" type="button" id="subInsBtn">저장</button>
+	                          <div class="user_in_modal_footer_wrap">
+	                          	<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="subInsBtn">저장</button>
+                       			<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
+							  </div>
                           </form>
                         </div>
                       </div>
@@ -318,15 +325,23 @@
 	                                </td>
 	                              </tr>
 	                              <tr>
+	                                <td>연도</td>
+	                                <td><input type="text" name="start_year" id="subModStart"/>~<input type="text" name="end_year" id="subModEnd"/></td>
+	                              </tr>
+	                              <tr>
 	                                <td>사용여부</td>
 	                                <td>
-	                                	 <input type="checkbox" name="enabled" value="Y" id="subModCodeEnabledY">사용
-		                                 <input type="checkbox" name="enabled" value="N" id="subModCodeEnabledN">미사용
+	                                	 <input type="radio" name="enabled" value="Y" id="subModCodeEnabledY">사용
+		                                 <input type="radio" name="enabled" value="N" id="subModCodeEnabledN">미사용
 	                                </td>
 	                              </tr>
 	                            </tbody>
 	                          </table>
-	                          <button class="btn btn-secondary btn_save" type="button" id="subModBtn">저장</button>
+	                        <div>
+	                        <div class="user_in_modal_footer_wrap">
+	                          <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="subModBtn">저장</button>
+                       		  <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
+							</div> 
                           </form>
                         </div>
                       </div>

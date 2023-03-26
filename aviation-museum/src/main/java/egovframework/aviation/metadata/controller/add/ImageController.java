@@ -2,15 +2,12 @@ package egovframework.aviation.metadata.controller.add;
 
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.ImageIcon;
@@ -23,7 +20,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import devpia.dextuploadnj.CompressUtil;
@@ -33,6 +29,7 @@ import devpia.dextuploadnj.media.ImageTool;
 import devpia.dextuploadnj.support.spring.DEXTUploadNJFileDownloadView;
 import egovframework.aviation.metadata.service.FileRepository;
 import egovframework.aviation.metadata.service.ImageService;
+import egovframework.aviation.metadata.service.impl.ImageMapper;
 import egovframework.aviation.metadata.vo.DEXTUploadX5Request;
 import egovframework.aviation.metadata.vo.image.FileEntity;
 import egovframework.aviation.metadata.vo.image.ImageVO;
@@ -44,6 +41,9 @@ import egovframework.aviation.paging.PageMaker;
 public class ImageController {
 	@Autowired
 	private ImageService service;
+	
+	@Autowired
+	private ImageMapper mapper;
 	
 //	String imagePath = "D:\\uploadtest\\images\\";
 // String thumbnailPath = "D:\\uploadtest\\images\\thumbnails";
@@ -121,9 +121,27 @@ public class ImageController {
 	@ResponseBody
 	public String setPublicrep(Model model, @RequestParam("image_idx") int image_idx, 
 			@RequestParam("colunm") String colunm, @RequestParam("val") String val) throws Exception {
-		System.out.println(image_idx);
+		System.out.println(image_idx + val + colunm);
 		String result = "error";
 		int x = service.setPublicrep(image_idx, colunm, val);
+		
+		if(x != 0) {
+			result = "success";
+			return result;
+		}
+		
+		return result;
+	}
+	
+	@GetMapping("/updateRep.do")
+	@ResponseBody
+	public String updateRep(Model model, @RequestParam("image_idx") int image_idx, @RequestParam("val") String val) throws Exception {
+		System.out.println();
+		String result = "error";
+		if(val.equals("Y")) {
+			int y = mapper.updateNoRep();			
+		}
+		int x = service.updateRep(image_idx, val);
 		
 		if(x != 0) {
 			result = "success";
