@@ -213,18 +213,17 @@
 	            
 	              
 <%-- 	              <c:if test="${varStatus.index % 5 == 0}"> --%>
-	              <div class="dataDiv" id="" style="page-break-before:always">
+	              <div class="dataDiv" id="" >
 	             	<c:forEach var="dataLedgerList" items="${dataLedgerList}" varStatus="varStatus"> 
 		              <div class="card-body" id="${varStatus.count}">	               			                					                	  	
-			                <table>
-			                  <thead>		                  
+			                <table>                  
 			                    <tr>
-			                      <td rowspan="4">자료번호/${dataLedgerList.item_no}</td>
-			                      <td>명&nbsp;&nbsp;칭</td>
+			                      <td rowspan="4" style="width: 15%;">자료번호 : ${dataLedgerList.item_no}</td>
+			                      <td>명칭</td>
 			                      <td>${dataLedgerList.item_nm}</td>
-			                      <td>수&nbsp;&nbsp;량</td>
+			                      <td style="width:10%;">수량</td>
 			                      <td>${dataLedgerList.qty}</td>
-			                      <td colspan="5" rowspan="7">
+			                      <td class="data_ledger_img_wrap" colspan="5" rowspan="7" style="padding: 0;">
                               		<c:choose>
 	                             		<c:when test="${dataLedgerList.image_path ne null}">
 	                             		 	 <img src="${dataLedgerList.image_path}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
@@ -238,30 +237,21 @@
 			                    <tr>
 			                      <td>국적/시대</td>
 			                      <td>${dataLedgerList.country_nm}/${dataLedgerList.era_nm}${dataLedgerList.detail_year}</td>
-			                      <td>재&nbsp;&nbsp;질</td>
+			                      <td>재질</td>
 			                      <td>${dataLedgerList.material1_nm}/${dataLedgerList.material2_nm}/${dataLedgerList.material_detail}</td>
 			                    </tr>
 			                    <tr>
-			                      <td>입수일자/연유/처/가격</td>
-			                      <td colspan="2">${dataLedgerList.obtainment_date}/${dataLedgerList.obtainment_nm}</td>
-			                      <td>${dataLedgerList.obtainment_place}/${dataLedgerList.obtainment_price}</td>
+			                      <td style="width: 25%;">입수일자/연유/처/가격</td>
+			                      <td colspan="3">${dataLedgerList.obtainment_date}/${dataLedgerList.obtainment_nm}/${dataLedgerList.obtainment_place}/${dataLedgerList.obtainment_price}</td>
 			                    </tr>
 			                    <tr>
-			                      <td>크&nbsp;&nbsp;기</td>
-			                      <td colspan="2">${dataLedgerList.measurement_nm}</td>
-			                      <td>${dataLedgerList.measurement_value}${dataLedgerList.measurement_unit_nm}</td>
+			                      <td>크기</td>
+			                      <td colspan="3">${dataLedgerList.measurement_nm}/${dataLedgerList.measurement_value}${dataLedgerList.measurement_unit_nm}</td>
 			                    </tr>
 			                    <tr>
-			                      <td>특 징 :</td>
+			                      <td>특 징</td>
 			                      <td colspan="4">${dataLedgerList.feature}</td>
 			                    </tr>
-			                    <tr>
-			                      <td colspan="5"></td>
-			                    </tr>
-			                    <tr>
-			                      <td colspan="5"></td>
-			                    </tr>		                    
-		                  </thead>
 		                </table>
 		              </div>
 		              	 <c:if test="${varStatus.count % 5 == 0 and varStatus.count != 1}">

@@ -2550,7 +2550,7 @@
                       <option>더미2</option>
                       <option>더미3</option>
                   </select> -->
-                   <ul class="pagination">
+                   <ul class="pagination" style="float: right;">
                     <li class="page-item"><a class="page-link" href="#"><<</a></li>
                     <li class="page-item"><a class="page-link" href="#"><</a></li>
                     <li class="page-item"><a class="page-link" href="#">상세</a></li>

@@ -70,12 +70,6 @@
 	                            	</c:choose>
 		                  </div>
 		                  <table>
-		                    <thead>
-		                      <tr>
-		                        <th></th>
-		                        <th colspan="4"></th>
-		                      </tr>
-		                    </thead>
 		                    <tbody>
 		                      <tr>
 		                        <td></td>
@@ -85,11 +79,8 @@
 		                        <td>${dataCardFrontList.era_nm}/${dataCardFrontList.detail_year}</td>
 		                      </tr>
 		                      <tr>
-		                        <td rowspan="2">수장연유</td>
+		                        <td rowspan="1" style="width: 15%;">수장연유</td>
 		                        <td colspan="4">${dataCardFrontList.obtainment_nm}</td>
-		                      </tr>
-		                      <tr>
-		                        <td colspan="4"></td>
 		                      </tr>
 		                      <tr>
 		                        <td rowspan="2">크기</td>
@@ -99,30 +90,10 @@
 		                        <td colspan="4"></td>
 		                      </tr>
 		                      <tr>
-		                        <td rowspan="8">특징</td>
+		                        <td rowspan="1">특징</td>
 		                        <td colspan="4">${dataCardFrontList.feature}</td>
 		                      </tr>
-		                      <tr>
-		                        <td colspan="4"></td>
-		                      </tr>
-		                      <tr>
-		                        <td colspan="4"></td>
-		                      </tr>
-		                      <tr>
-		                        <td colspan="4"></td>
-		                      </tr>
-		                      <tr>
-		                        <td colspan="4"></td>
-		                      </tr>
-		                      <tr>
-		                        <td colspan="4"></td>
-		                      </tr>
-		                      <tr>
-		                        <td colspan="4"></td>
-		                      </tr>
-		                      <tr>
-		                        <td colspan="4"></td>
-		                      </tr>
+
 		                      <tr>
 		                        <td>사진번호</td>
 		                        <td colspan="4">${dataCardFrontList.image_nm}</td>

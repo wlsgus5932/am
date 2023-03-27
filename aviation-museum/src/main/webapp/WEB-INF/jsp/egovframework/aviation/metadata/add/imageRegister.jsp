@@ -267,7 +267,7 @@
           </div>
           <!-- 간략보기 창 -->
           <div class="mb-3 row fr_1">
-              <div class="col-md-10">
+              <div class="col-md-10 imageRegister_input_wrap">
               <form id="imageUpdateForm">
               <label class="col-md-2 col-form-label">자료 구분</label>
 				<input id="imageRegisterPage" name="page" type="hidden" value="0"/>
@@ -286,11 +286,11 @@
                 <input type="hidden" name="reg_state" value="N"/>
                 <label class="col-md-2 col-form-label">자료 번호</label>
                   <!-- <div class="col-md-10"> -->
-                    <input class="form-control" list="datalistOptions" id="item_no1" placeholder="자료 번호" name="item_no1">
-                    <input class="form-control" list="datalistOptions" id="item_detail_no1" placeholder="세부" name="item_detail_no1">
+                    <input class="form-control imageRegister_input" list="datalistOptions" id="item_no1" placeholder="자료 번호" name="item_no1">
+                    <input class="form-control imageRegister_input" list="datalistOptions" id="item_detail_no1" placeholder="세부" name="item_detail_no1">
                     ~ 
-                    <input class="form-control" list="datalistOptions" id="item_no2" placeholder="자료 번호" name="item_no2">
-                    <input class="form-control" list="datalistOptions" id="item_detail_no2" placeholder="세부" name="item_detail_no2">
+                    <input class="form-control imageRegister_input" list="datalistOptions" id="item_no2" placeholder="자료 번호" name="item_no2">
+                    <input class="form-control imageRegister_input" list="datalistOptions" id="item_detail_no2" placeholder="세부" name="item_detail_no2">
                     <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="getImageUpdateList()">조회</button>
                     <!--  -->
                     </form>

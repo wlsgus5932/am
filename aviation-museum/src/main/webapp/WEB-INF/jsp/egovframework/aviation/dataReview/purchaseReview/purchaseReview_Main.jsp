@@ -110,12 +110,12 @@
                   </a>
               </li>
             </ul>
-            <div class="wr_rigth_btn_wrap" style="display: flex; justify-content: space-around;">
-              <button>전체 적정처리</button>
-              <button>전체 부적정처리</button>
-              <button>선택 적정처리</button>
-              <button>선택 부적정처리</button>
-              <button data-bs-toggle="modal" data-bs-target="#practical_review_modal_2">구입심의서 서명하기</button>
+            <div class="wr_rigth_btn_wrap" style="display: flex; justify-content: left;">
+              <button class="custom_btn btn_000000" type="button">전체 적정처리</button>
+              <button class="custom_btn btn_b95d40" type="button">전체 부적정처리</button>
+              <button class="custom_btn btn_707070" type="button">선택 적정처리</button>
+              <button class="custom_btn btn_c57283" type="button">선택 부적정처리</button>
+              <button class="custom_btn btn_707070 type="button" data-bs-toggle="modal" data-bs-target="#practical_review_modal_2">구입심의서 서명하기</button>
             </div>
           </div>
           <!-- 구입감정확인서 서명하기 모달 -->

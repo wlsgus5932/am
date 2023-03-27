@@ -189,7 +189,7 @@
                                 <td>1800년도, 대한민국</td>
                                 <td>W300 x H200 x D100</td>
                                 <td>36,000,000원</td>
-                                <td><button data-bs-toggle="modal" data-bs-target="#working_review_modal_1">작성하기</button></td>
+                                <td><button class="custom_btn btn_232323" type="button" data-bs-toggle="modal" data-bs-target="#working_review_modal_1">작성하기</button></td>
                               </tr>
                               <tr>
                                 <td><input type="checkbox" name="" id=""></td>
@@ -200,7 +200,7 @@
                                 <td>1800년도, 대한민국</td>
                                 <td>W300 x H200 x D100</td>
                                 <td>36,000,000원</td>
-                                <td><button>작성완료</button></td>
+                                <td><button class="custom_btn btn_c58672" type="button">작성완료</button></td>
                               </tr>
                           </tbody>
                       </table>
@@ -209,19 +209,18 @@
             </div>
             </div>
             <!-- 페이지 버튼 -->
-            <ul class="pagination">
-              <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                      <i class="mdi mdi-chevron-left"></i>
-                  </a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                      <i class="mdi mdi-chevron-right"></i>
-                  </a>
-              </li>
-          </ul>
+				<ul class="btn-group pagination">
+				  <li class="page-item">
+				    <a class="page-link" href="javascript:;" onclick="goPage('1');"><i class="fa">1</i></a>
+				  </li>
+				
+				  <li class="page-item">
+				    <a class="page-link" href="javascript:;" onclick="goPage('2');"><i class="fa">2</i></a>
+				  </li>
+				
+				  <li class="page-item">
+				    <a class="page-link" href="javascript:;" onclick="goPage('3');"><i class="fa">3</i></a>
+				  </li>
+				</ul>
+
           <!--  -->

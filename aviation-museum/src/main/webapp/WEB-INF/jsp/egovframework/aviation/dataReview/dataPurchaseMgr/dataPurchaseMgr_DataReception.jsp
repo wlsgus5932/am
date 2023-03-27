@@ -266,15 +266,15 @@
                 </div>
               <!--  -->
               <div class="st_wrap st_mv_wrap">
-                <p>| 심의 현황 : 접수자 1,000건, 총 건수 1,000건
-                  <button>전체선택</button>
-                  <button>선택해제</button>
-                  <button>선택 구입감정요청</button>
-                  <button>전체 구입감정요청</button>
+                <p style="width: 50%;">| 심의 현황 : 접수자 1,000건, 총 건수 1,000건
+                  <button class="custom_btn btn_000000" type="button">전체선택</button>
+                  <button class="custom_btn btn_b95d40" type="button">선택해제</button>
+                  <button class="custom_btn btn_707070" type="button">선택 구입감정요청</button>
+                  <button class="custom_btn btn_707070" type="button">전체 구입감정요청</button>
                 </p>
                 <div>
                   리스트 출력 갯수 :
-                    <select class="form-select st_select img-select">
+                    <select class="form-select st_select img-select select_width_auto">
                       <option disabled="" selected="">50개</option>
                       <option>더미1</option>
                       <option>더미2</option>
@@ -316,29 +316,27 @@
                             <td>적정</td>
                             <td>10,000원</td>
                             <td>심의중</td>
-                            <td><button data-bs-toggle="modal" data-bs-target="#data_buy_management_modal_2">상세보기</button></td>
-                            <td><button>요청</button></td>
+                            <td><button class="custom_btn btn_232323" type="button" data-bs-toggle="modal" data-bs-target="#data_buy_management_modal_2">상세보기</button></td>
+                            <td><button class="custom_btn btn_edit" type="button">요청</button></td>
                           </tr>
                       </tbody>
                   </table>
                   </div>
               </div>
+                          <ul class="btn-group pagination">
+				  <li class="page-item">
+				    <a class="page-link" href="javascript:;" onclick="goPage('1');"><i class="fa">1</i></a>
+				  </li>
+				
+				  <li class="page-item">
+				    <a class="page-link" href="javascript:;" onclick="goPage('2');"><i class="fa">2</i></a>
+				  </li>
+				
+				  <li class="page-item">
+				    <a class="page-link" href="javascript:;" onclick="goPage('3');"><i class="fa">3</i></a>
+				  </li>
+				</ul>
             </div>
-              <!-- 페이지 버튼 -->
-              <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <i class="mdi mdi-chevron-left"></i>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <i class="mdi mdi-chevron-right"></i>
-                    </a>
-                </li>
-              </ul>
+
             </div>
             <!--  -->

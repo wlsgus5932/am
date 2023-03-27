@@ -96,7 +96,7 @@
 		function content_print(){
 			
  			 let $container = $("#dataDiv").clone()    // 프린트 할 특정 영역 복사
- 			    let cssText = ".dataDiv{ display:block !important;}"                            // 스타일 복사
+ 			    let cssText = ".dataDiv{ display:block !important;} .form_preview_wrap{ display:none;} .print_photo_wrap, table{ width:700px;} "                            // 스타일 복사
  			    for (const node of $("style")) {
  			        cssText += node.innerHTML
  			    }
@@ -128,7 +128,7 @@
 		function ledger_print(){
 			
 			 let $container = $("#dataDiv").clone()    // 프린트 할 특정 영역 복사
-			    let cssText = ".card-body{ display:block !important;}"                            // 스타일 복사
+			    let cssText = ".card-body{ display:block !important;} .form_preview_wrap{ display:none;} table{ width: 800px;} "                            // 스타일 복사
 			    for (const node of $("style")) {
 			        cssText += node.innerHTML
 			    }

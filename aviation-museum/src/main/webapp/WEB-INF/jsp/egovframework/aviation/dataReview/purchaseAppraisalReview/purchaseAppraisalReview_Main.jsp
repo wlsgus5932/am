@@ -110,7 +110,7 @@
                   </a>
               </li>
             </ul>
-            <div class="wr_rigth_btn_wrap" ><button data-bs-toggle="modal" data-bs-target="#practical_review_modal_2">구입감정확인서 서명하기</button></div>
+            <div class="wr_rigth_btn_wrap" ><button class="custom_btn btn_707070" type="button" data-bs-toggle="modal" data-bs-target="#practical_review_modal_2">구입감정확인서 서명하기</button></div>
           </div>
           <!-- 구입감정확인서 서명하기 모달 -->
           <div id="practical_review_modal_2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">

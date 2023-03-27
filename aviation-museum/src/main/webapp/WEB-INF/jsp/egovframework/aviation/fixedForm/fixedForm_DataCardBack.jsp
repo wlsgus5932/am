@@ -219,14 +219,14 @@
 		                      <th colspan="10" class="print_header_text">자료이동현황</th>
 		                    </tr>
 		                    <tr>
-		                      <th>년</th>
-		                      <th>월</th>
-		                      <th>일</th>
-		                      <th>수량</th>
-		                      <th>보관구분</th>
-		                      <th colspan="3">격납처</th>
-		                      <th>보관처</th>
-		                      <th>현수량</th>
+		                      <th style="width:5%">년</th>
+		                      <th style="width:5%">월</th>
+		                      <th style="width:5%">일</th>
+		                      <th style="width:5%">수량</th>
+		                      <th style="width:15%">보관구분</th>
+		                      <th colspan="3" style="width:20%">격납처</th>
+		                      <th style="width:10%">보관처</th>
+		                      <th style="width:10%">현수량</th>
 		                    </tr>
 		                  </thead>
 		                  <tbody>	                  	

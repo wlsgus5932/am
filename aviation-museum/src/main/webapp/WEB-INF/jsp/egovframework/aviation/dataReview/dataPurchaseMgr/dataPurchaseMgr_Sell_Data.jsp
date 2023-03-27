@@ -7,7 +7,7 @@
                 <p>| 심의 현황 : 접수자 1,000건, 총 건수 1,000건</p>
                 <div>
                   리스트 출력 갯수 :
-                    <select class="form-select st_select img-select">
+                    <select class="form-select st_select img-select select_width_auto">
                       <option disabled="" selected="">50개</option>
                       <option>더미1</option>
                       <option>더미2</option>
@@ -49,30 +49,28 @@
                                 <td>적정</td>
                                 <td>10,000원</td>
                                 <td>심의중</td>
-                                <td><button onclick="window.open('자료구입 관리 상세조회-자료심의.html')">상세보기</button></td>
-                                <td><button>삭제</button></td>
+                                <td><button class="custom_btn btn_232323" type="button" onclick="window.open('자료구입 관리 상세조회-자료심의.html')">상세보기</button></td>
+                                <td><button class="custom_btn btn_edit" type="button">삭제</button></td>
                                 <td>심사대기</td>
                               </tr>
                           </tbody>
                       </table>
                   </div>
               </div>
+				<ul class="btn-group pagination">
+				  <li class="page-item">
+				    <a class="page-link" href="javascript:;" onclick="goPage('1');"><i class="fa">1</i></a>
+				  </li>
+				
+				  <li class="page-item">
+				    <a class="page-link" href="javascript:;" onclick="goPage('2');"><i class="fa">2</i></a>
+				  </li>
+				
+				  <li class="page-item">
+				    <a class="page-link" href="javascript:;" onclick="goPage('3');"><i class="fa">3</i></a>
+				  </li>
+				</ul>              
             </div>
               <!-- 페이지 버튼 -->
-              <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <i class="mdi mdi-chevron-left"></i>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <i class="mdi mdi-chevron-right"></i>
-                    </a>
-                </li>
-              </ul>
             </div>
             <!--  -->
