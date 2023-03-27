@@ -35,4 +35,6 @@ public interface ImageMapper {
 
 	int updateNoRep();
 
+	List<ImageVO> getImageData(ImageParamVO param);
+
 }
