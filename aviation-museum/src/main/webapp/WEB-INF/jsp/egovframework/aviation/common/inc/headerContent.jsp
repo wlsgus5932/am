@@ -361,7 +361,7 @@
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="/dataUpdate.do" data-key="t-products">자료 정보수정</a></li>
             <li><a href="/imageUpdate.do" data-key="t-product-detail">이미지 수정</a></li>
-            <li><a href="ecommerce-orders.html" data-key="t-orders">이동사항 자동등록</a></li>
+<!--             <li><a href="ecommerce-orders.html" data-key="t-orders">이동사항 자동등록</a></li> -->
           </ul>
         </li>
 
@@ -375,7 +375,7 @@
             <li><a href="/notRegister.do" data-key="t-orders">가등록 자료 정보조회</a></li>
             <li><a href="/pRgstMetaDataSearch.do" data-key="t-customers">가등록 자료 정보검색</a></li>
             <li><a href="/getTransform.do" data-key="t-checkout">자료관리전환</a></li>
-            <li><a href="ecommerce-add-product.html" data-key="t-add-product">신규자료 자동등록</a></li>
+<!--             <li><a href="ecommerce-add-product.html" data-key="t-add-product">신규자료 자동등록</a></li> -->
           </ul>
         </li>
 
@@ -388,7 +388,7 @@
             <li><a href="/practicalReview.do" data-key="t-product-detail">실무검토 심의</a></li>
             <li><a href="/purchaseAppraisalReview.do" data-key="t-orders">구입감정 심의</a></li>
             <li><a href="/purchaseReview.do" data-key="t-customers">구입 심의</a></li>
-            <li><a href="ecommerce-orders.html" data-key="t-checkout">자료구입 공고관리</a></li>
+<!--             <li><a href="ecommerce-orders.html" data-key="t-checkout">자료구입 공고관리</a></li> -->
           </ul>
         </li>
 
@@ -419,7 +419,7 @@
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="/codeMgr.do" data-key="t-products">코드관리</a></li>
             <li><a href="/otherMgr.do" data-key="t-product-detail">기타관리</a></li>
-            <li><a href="ecommerce-orders.html" data-key="t-orders">로그관리</a></li>
+<!--             <li><a href="ecommerce-orders.html" data-key="t-orders">로그관리</a></li> -->
             <li><a href="/approvalMgr.do" data-key="t-cart">승인관리</a></li>
           </ul>
         </li>

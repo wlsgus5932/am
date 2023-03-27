@@ -53,6 +53,9 @@
 				LEFT JOIN nam_org_code noc2 
 				ON nib.ORG_CODE_IDX = noc2.ORG_CODE_IDX
 				WHERE 1=1
+				<if test="reg_state != null and reg_state != ''">AND
+	                reg_state = #{reg_state}
+	            </if>
 				<if test="org_nm != null and org_nm != ''">AND
 	                org_nm = #{org_nm}
 	            </if>
@@ -99,6 +102,9 @@
 			JOIN nam_storage_type1_code nstc2 
 			ON nstc2.STORAGE_TYPE1_CODE_IDX = nstc.STORAGE_TYPE1_CODE_IDX
 			WHERE 1=1
+			<if test="reg_state != null and reg_state != ''">AND
+                reg_state = #{reg_state}
+            </if>
 			<if test="org_nm != null and org_nm != ''">AND
                 org_nm = #{org_nm}
             </if>
@@ -127,6 +133,9 @@
 			JOIN nam_org_code noc2 
 			ON nib.ORG_CODE_IDX = noc2.ORG_CODE_IDX
 			WHERE 1=1
+			<if test="reg_state != null and reg_state != ''">AND
+                reg_state = #{reg_state}
+            </if>
 			<if test="org_nm != null and org_nm != ''">AND
                 org_nm = #{org_nm}
             </if>

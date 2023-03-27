@@ -491,13 +491,13 @@ public class MetaDataSearchController {
 	            for (MetaDataSearchVO board : metaDataSearchList) {
 	            	
 	            	 try {
-	            		String filePath = board.getImage_nm();
+	            		String filePath = board.getThumbnail_nm();
 	            		System.out.println("filePath1"+filePath);
             	        if (filePath == null || filePath.isEmpty()) {
             	        	filePath = "/images/no_image.png";
             	            System.out.println("filePathnull2"+filePath);
             	        }else {
-            	        	filePath = board.getImage_path()+board.getImage_nm();
+            	        	filePath = board.getImage_path()+"thumbnails/"+board.getThumbnail_nm();
             	        }
 	            	        	 		            
 	 		            InputStream is = new FileInputStream(filePath);
