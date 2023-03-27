@@ -1060,7 +1060,27 @@
 	</select>
 	
 	<select id="getTaxonomy" resultType="egovframework.aviation.metadata.vo.metadata.TaxonomyVO">
-			SELECT * FROM nam_taxonomy where item_idx = #{item_idx} 
+			SELECT 
+				nt.taxonomy_idx,
+				nt.item_idx,
+				nt.class1_code_idx,
+				nt.class2_code_idx,
+				nt.class3_code_idx,
+				n1.class1_nm,
+				n2.class2_nm,
+				n3.class3_nm,
+				nt.reg_user,
+				nt.reg_date
+			FROM 
+				nam_taxonomy nt, 
+				nam_class1_code n1, 
+				nam_class2_code n2, 
+				nam_class3_code n3 
+			where 
+				nt.item_idx = #{item_idx}
+			and nt.CLASS1_CODE_IDX = n1.CLASS1_CODE_IDX
+			and nt.CLASS2_CODE_IDX = n2.CLASS2_CODE_IDX 
+			and nt.CLASS3_CODE_IDX = n3.CLASS3_CODE_IDX;
 	</select>
 	
 	<select id="getCountryEra" resultType="egovframework.aviation.metadata.vo.metadata.CountryEraVO">

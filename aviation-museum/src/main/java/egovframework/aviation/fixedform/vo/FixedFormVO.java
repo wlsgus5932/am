@@ -24,6 +24,7 @@ public class FixedFormVO {
 	private String item_no;
 	private String item_detail_no;
 	private String qty;
+	private String reg_state;
 	
 	private String org_nm;
 	private String possession_nm;
@@ -206,6 +207,12 @@ public class FixedFormVO {
 	public void setItem_detail_no(String item_detail_no) {
 		this.item_detail_no = item_detail_no;
 	}
+	public String getReg_state() {
+		return reg_state;
+	}
+	public void setReg_state(String reg_state) {
+		this.reg_state = reg_state;
+	}
 	@Override
 	public String toString() {
 		return "FixedFormVO [rnum=" + rnum + ", item_idx=" + item_idx + ", feature=" + feature + ", material1_nm="
@@ -215,10 +222,10 @@ public class FixedFormVO {
 				+ obtainment_place + ", obtainment_price=" + obtainment_price + ", measurement_nm=" + measurement_nm
 				+ ", measurement_value=" + measurement_value + ", measurement_unit_nm=" + measurement_unit_nm
 				+ ", image_idx=" + image_idx + ", image_path=" + image_path + ", image_nm=" + image_nm + ", item_nm="
-				+ item_nm + ", item_no=" + item_no + ", item_detail_no=" + item_detail_no + ", qty=" + qty + ", org_nm="
-				+ org_nm + ", possession_nm=" + possession_nm + ", start_item_no=" + start_item_no + ", end_item_no="
-				+ end_item_no + ", start_detail_item_no=" + start_detail_item_no + ", end_detail_item_no="
-				+ end_detail_item_no + "]";
+				+ item_nm + ", item_no=" + item_no + ", item_detail_no=" + item_detail_no + ", qty=" + qty
+				+ ", reg_state=" + reg_state + ", org_nm=" + org_nm + ", possession_nm=" + possession_nm
+				+ ", start_item_no=" + start_item_no + ", end_item_no=" + end_item_no + ", start_detail_item_no="
+				+ start_detail_item_no + ", end_detail_item_no=" + end_detail_item_no + "]";
 	}
 
 }

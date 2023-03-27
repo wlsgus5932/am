@@ -7,6 +7,12 @@
                 <div class="mb-3 row fr_1">
                 	<form id="dataCardFrontSearchForm" name="dataCardFrontSearchForm" method="post" class="form-horizontal">           
 	                  <div class="col-md-10">
+	                 		<label class="col-md-2 col-form-label">등록상태</label>
+	                 		<select class="search_select custom_search_input_2" name="reg_state" id="reg_state">
+	                 			<option value="">전체</option>
+	                 			<option value="Y">등록</option>
+	                 			<option value="N">가등록</option>
+	                 		</select>
 	               	        <label class="col-md-2 col-form-label">자료구분</label>
 	                         <select class="search_select" name="org_nm" id="org_nm" onChange="orgCodeChange();">
 	                         	<option value="">전체</option>

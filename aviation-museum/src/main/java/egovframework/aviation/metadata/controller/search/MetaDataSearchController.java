@@ -87,53 +87,53 @@ import egovframework.aviation.user.vo.UserVO;
 public class MetaDataSearchController {
 	@Autowired
 	   private MetaDataSearchService metaDataSearchService;
-	   
+
 	   @Autowired
 	   private MetaDataService service;
-	   
+
 	   @Autowired
 	   private SpecialityService service2;
-	   
+
 	   @Autowired
 	   private MetaDataService metaDataService;
-	   
+
 	   @Autowired
 	   private SpecialityService specialityService;
-	   
+
 	   @Autowired
 	   private MetaDataMapper mapper;
-	   
+
 	   @PostMapping("/searchItemNext.do")
 	   public String searchItemNext(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
 		      List<ItemBaseVO> list = metaDataService.getSearchItemNext(param);
 		      model.addAttribute("itemBaseList", list);
-		      
+
 		      return "jsonView";
 		   }
 	   @PostMapping("/searchItemPrev.do")
 	   public String searchItemPrev(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
 		      List<ItemBaseVO> list = mapper.getSearchItemPrev(param);
 		      model.addAttribute("itemBaseList", list);
-		      
+
 		      return "jsonView";
 		   }
-	   
+
 	   @PostMapping("/searchItemNextMax.do")
 	   public String searchItemNextMax(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
 		      List<ItemBaseVO> list = mapper.searchItemNextMax(param);
 		      model.addAttribute("itemBaseList", list);
-		      
+
 		      return "jsonView";
 		   }
-	   
+
 	   @PostMapping("/searchItemNextMin.do")
 	   public String searchItemNextMin(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
 		      List<ItemBaseVO> list = mapper.searchItemNextMin(param);
 		      model.addAttribute("itemBaseList", list);
-		      
+
 		      return "jsonView";
 		   }
-	   
+
 	   @GetMapping("/searchItemBaseChild.do")
 	   public String searchClassCode(Model model, @RequestParam("item_idx") int item_idx) throws Exception {
 	      List<TaxonomyVO> taxo = service.getTaxonomy(item_idx);
@@ -146,8 +146,8 @@ public class MetaDataSearchController {
 	      List<CopyrightVO> copy = service.getCopyrightList(item_idx);
 	      List<PublicServiceVO> ps = service.getPublicService(item_idx);
 	      List<KeywordVO> key = service.getKewordList(item_idx);
-	      
-	      
+
+
 	      model.addAttribute("taxonomyList", taxo);
 	      model.addAttribute("countryList", country);
 	      model.addAttribute("materialList", mate);
@@ -158,34 +158,70 @@ public class MetaDataSearchController {
 	      model.addAttribute("copyrightList", copy);
 	      model.addAttribute("publicServiceList", ps);
 	      model.addAttribute("keywordList", key);
-	      
+
 	      return "jsonView";
 	   }
-	   
+
 	   @PostMapping("/searchItemBase.do")
 	   public String searchItemBase(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
 	      List<ItemBaseVO> list = service.getItemBase(param);
 	      model.addAttribute("itemBaseList", list);
-	      
+
 	      return "jsonView";
 	   }
-	   
+
+	   @PostMapping("/searchItemBaseHtml.do")
+	   public String searchItemBaseHtml(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
+	      List<ItemBaseVO> list = service.getItemBase(param);
+	      model.addAttribute("itemBaseList", list);
+
+	     if(!list.isEmpty()) {
+	    	 param.setItem_idx(Integer.parseInt(list.get(0).getItem_idx()));
+	    	 System.out.println(list);
+	    	 System.out.println(param.getItem_idx());
+	    	  List<TaxonomyVO> taxo = service.getTaxonomy(param.getItem_idx());
+		      List<CountryEraVO> country = service.getCountryEra(param.getItem_idx());
+		      List<MaterialVO> mate = service.getMaterial(param.getItem_idx());
+		      List<MeasurementVO> mea = service.getMeasure(param.getItem_idx());
+		      List<ObtainmentVO> obta = service.getObtainmentList(param.getItem_idx());
+		      List<InvolvementVO> invol = service.getInvolvementList(param.getItem_idx());
+		      List<InsuranceVO> insu = service.getInsuranceList(param.getItem_idx());
+		      List<CopyrightVO> copy = service.getCopyrightList(param.getItem_idx());
+		      List<PublicServiceVO> ps = service.getPublicService(param.getItem_idx());
+		      List<KeywordVO> key = service.getKewordList(param.getItem_idx());
+		      System.out.println(taxo);
+
+		      model.addAttribute("taxonomyList", taxo);
+		      model.addAttribute("countryList", country);
+		      model.addAttribute("materialList", mate);
+		      model.addAttribute("measurementList", mea);
+		      model.addAttribute("obtainmentList", obta);
+		      model.addAttribute("involvementList", invol);
+		      model.addAttribute("InsuranceList", insu);
+		      model.addAttribute("copyrightList", copy);
+		      model.addAttribute("publicServiceList", ps);
+		      model.addAttribute("keywordList", key);
+	     }
+
+	      return "metadata/search/searchMetaDataList";
+	   }
+
 	   @PostMapping("/getKeywordList.do")
 	   public String getKeywordList(Model model, @ModelAttribute KeywordParamVO param) throws Exception {
 	      List<KeywordVO> list = metaDataSearchService.getKeywordList(param);
 	      model.addAttribute("keywordList", list);
-	      
+
 	      return "metadata/search/keywordList";
 	   }
-	   
+
 	   @PostMapping("/getKeyword.do")
 	   public String getKeyword(Model model, @ModelAttribute KeywordParamVO param) throws Exception {
 	      List<KeywordVO> list = metaDataSearchService.getKeywordList(param);
 	      model.addAttribute("keywordList", list);
-	      
+
 	      return "jsonView";
 	   }
-	   
+
 	   @PostMapping("/addKeyword.do")
 	   @ResponseBody
 	   public String addKeyword(Model model, @ModelAttribute KeywordParamVO param, HttpServletRequest req) throws Exception {
@@ -194,7 +230,7 @@ public class MetaDataSearchController {
 		   param.setReg_user(userSessionId);
 		   try {
 			   int x = metaDataSearchService.addKeyword(param);
-			   
+
 			   if(x > 0) {
 				   result = "success";
 			   }
@@ -203,7 +239,7 @@ public class MetaDataSearchController {
 		   }
 		   return result;
 	   }
-	   
+
 	   @GetMapping("/metaDataList.do")
 	   public String getMetaDataList(Model model) throws Exception {
 	      try {
@@ -229,8 +265,8 @@ public class MetaDataSearchController {
 	         List<StorageType1VO> type1 = service.getStorageType1();
 	         List<StorageVO> storage = service.getStorage(0);
 	         List<SpecialityCodeVO> scCode = service2.getSpecialityCode();
-	         
-	         
+
+
 	         model.addAttribute("countryList", country);
 	         model.addAttribute("material1List", material);
 	         model.addAttribute("IcaoList", icao);
@@ -253,8 +289,8 @@ public class MetaDataSearchController {
 	         model.addAttribute("storage1List", type1);
 	         model.addAttribute("storageCodeList", storage);
 	         model.addAttribute("specialityCodeList", scCode);
-	         
-	         
+
+
 	         return "metadata/search/searchMetaData";
 	      }  catch (Exception e) {
 	          System.out.println(e);
@@ -268,7 +304,7 @@ public class MetaDataSearchController {
 		rttr.addFlashAttribute("all_search_word", all_search_word);
 		return "redirect:/metaDataSearch.do";
 	}
-	
+
 	@RequestMapping(value="/metaDataSearch.do")
 	public String MetaDataSearch( HttpServletRequest req, RedirectAttributes rttr) {
 		String all_search_word = req.getParameter("all_search_word");
@@ -276,15 +312,15 @@ public class MetaDataSearchController {
 		rttr.addFlashAttribute("all_search_word", all_search_word);
 	    return "metaDataSearch/metaDataSearch_Main";
 	}
- 
+
 	/** 자료검색리스트 */
 	@RequestMapping("/metaDataSearchListAjax.do")
 	public String MetaDataSearchListAjax(@ModelAttribute("metaDataSearchVO") MetaDataSearchVO metaDataSearchVO, @ModelAttribute("material1VO") Material1VO material1VO, @ModelAttribute("countryVO") CountryVO countryVO, @ModelAttribute("userVO") UserVO userVO, @ModelAttribute("posSessionVO") PosSessionVO posSessionVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
 //		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 //		metaDataSearchVO.setReg_user(userSessionId);
-//		 
+//
 		metaDataSearchVO.setReg_state("Y");
-    	int perPageNum = metaDataSearchService.getMetaDataSearchListCnt(metaDataSearchVO);		
+    	int perPageNum = metaDataSearchService.getMetaDataSearchListCnt(metaDataSearchVO);
 		if(metaDataSearchVO.getPerPageNum() != 0) {
 			int criPerPageNum = metaDataSearchVO.getPerPageNum();
 			cri.setPerPageNum(criPerPageNum);
@@ -292,18 +328,18 @@ public class MetaDataSearchController {
 		PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
 	    pageMaker.setTotalCount(perPageNum);
-		    
+
 	    metaDataSearchVO.setPageStart(cri.getPageStart());
 	    metaDataSearchVO.setPerPageNum(cri.getPerPageNum());
 
 		List<MetaDataSearchVO> metaDataSearchList = metaDataSearchService.getMetaDataSearchList(metaDataSearchVO);
-		
+
 		List<Material1VO> material1List = metaDataService.getMaterial1();
 		List<CountryVO> countryList = metaDataService.getCountry();
 		List<PosSessionVO> possesionList = metaDataService.getPosSession();
-		
+
 		List<MetaDataSearchVO> metaDataSearchList2 = metaDataSearchService.getMetaDataSearchListCurrentQty(metaDataSearchVO);
-		
+
 		model.addAttribute("possesionList", possesionList);
 		model.addAttribute("material1List", material1List);
 		model.addAttribute("countryList", countryList);
@@ -313,15 +349,15 @@ public class MetaDataSearchController {
     	model.addAttribute("pageMaker", pageMaker);
 		return "metaDataSearch/metaDataSearch_List";
 	}
-	
+
 	/** 자료검색이미지리스트 */
 	@RequestMapping("/metaDataSearchImageListAjax.do")
 	public String MetaDataSearchImageListAjax(@ModelAttribute("metaDataSearchImageVO") MetaDataSearchImageVO metaDataSearchImageVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
 //		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 //		interestVO.setReg_user(userSessionId);
-//		 
+//
 		metaDataSearchImageVO.setReg_state("Y");
-    	int perPageNum = metaDataSearchService.getMetaDataSearchImageListCnt(metaDataSearchImageVO);		
+    	int perPageNum = metaDataSearchService.getMetaDataSearchImageListCnt(metaDataSearchImageVO);
 		if(metaDataSearchImageVO.getPerPageNum() != 0) {
 			int criPerPageNum = metaDataSearchImageVO.getPerPageNum();
 			cri.setPerPageNum(criPerPageNum);
@@ -329,16 +365,16 @@ public class MetaDataSearchController {
 		PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
 	    pageMaker.setTotalCount(perPageNum);
-		    
+
 	    metaDataSearchImageVO.setPageStart(cri.getPageStart());
 	    metaDataSearchImageVO.setPerPageNum(cri.getPerPageNum());
 
 		List<MetaDataSearchImageVO> metaDataSearchImageList = metaDataSearchService.getMetaDataSearchImageList(metaDataSearchImageVO);
-		
+
 		List<Material1VO> material1List = metaDataService.getMaterial1();
 		List<CountryVO> countryList = metaDataService.getCountry();
 		List<PosSessionVO> possesionList = metaDataService.getPosSession();
-		
+
 		List<MetaDataSearchImageVO> metaDataSearchImageList2 = metaDataSearchService.getMetaDataSearchImageListCurrentQty(metaDataSearchImageVO);
 
 		model.addAttribute("metaDataSearchImageList2", metaDataSearchImageList2);
@@ -350,15 +386,15 @@ public class MetaDataSearchController {
     	model.addAttribute("pageMaker", pageMaker);
 		return "metaDataSearch/metaDataSearch_ImageList";
 	}
-	
+
 	/** 간략보기 */
 	@RequestMapping("/metaDataSearchQuickViewAjax.do")
 	public String MetaDataSearchQuickViewAjax(@ModelAttribute("metaDataSearchVO") MetaDataSearchVO metaDataSearchVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
 //		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 //		interestVO.setReg_user(userSessionId);
-//		 
+//
 		metaDataSearchVO.setReg_state("Y");
-    	int perPageNum = metaDataSearchService.getMetaDataSearchListCnt(metaDataSearchVO);		
+    	int perPageNum = metaDataSearchService.getMetaDataSearchListCnt(metaDataSearchVO);
 		if(metaDataSearchVO.getPerPageNum() != 0) {
 			int criPerPageNum = metaDataSearchVO.getPerPageNum();
 			cri.setPerPageNum(criPerPageNum);
@@ -366,25 +402,25 @@ public class MetaDataSearchController {
 		PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
 	    pageMaker.setTotalCount(perPageNum);
-		    
+
 	    metaDataSearchVO.setPageStart(cri.getPageStart());
 	    metaDataSearchVO.setPerPageNum(cri.getPerPageNum());
 
 		List<MetaDataSearchVO> metaDataSearchQuickView = metaDataSearchService.getMetaDataSearchList(metaDataSearchVO);
-		
+
     	model.addAttribute("metaDataSearchQuickView", metaDataSearchQuickView);
 
 		return "metaDataSearch/metaDataSearch_QuickView";
 	}
-	
+
 	/** 간략보기 */
 	@RequestMapping("/metaDataSearchImageQuickViewAjax.do")
 	public String MetaDataSearchImageQuickViewAjax(@ModelAttribute("metaDataSearchImageVO") MetaDataSearchImageVO metaDataSearchImageVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, @ModelAttribute("criteria") Criteria cri) throws Exception {
 //		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 //		interestVO.setReg_user(userSessionId);
-//		 
+//
 		metaDataSearchImageVO.setReg_state("Y");
-    	int perPageNum = metaDataSearchService.getMetaDataSearchImageListCnt(metaDataSearchImageVO);		
+    	int perPageNum = metaDataSearchService.getMetaDataSearchImageListCnt(metaDataSearchImageVO);
 		if(metaDataSearchImageVO.getPerPageNum() != 0) {
 			int criPerPageNum = metaDataSearchImageVO.getPerPageNum();
 			cri.setPerPageNum(criPerPageNum);
@@ -392,27 +428,27 @@ public class MetaDataSearchController {
 		PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
 	    pageMaker.setTotalCount(perPageNum);
-		    
+
 	    metaDataSearchImageVO.setPageStart(cri.getPageStart());
 	    metaDataSearchImageVO.setPerPageNum(cri.getPerPageNum());
 
 		List<MetaDataSearchImageVO> metaDataSearchQuickView = metaDataSearchService.getMetaDataSearchImageList(metaDataSearchImageVO);
-		
+
     	model.addAttribute("metaDataSearchQuickView", metaDataSearchQuickView);
     	model.addAttribute("image","image");
 		return "metaDataSearch/metaDataSearch_QuickView";
 	}
-	
+
 	/** 관심자료 등록 */
 	@RequestMapping(value = "/interestInsert.do")
-    public String InterestInsert(HttpServletRequest req, @ModelAttribute("interestVO") InterestVO interestVO, Model model) throws Exception {		
+    public String InterestInsert(HttpServletRequest req, @ModelAttribute("interestVO") InterestVO interestVO, Model model) throws Exception {
 		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 		interestVO.setReg_user(userSessionId);
-		
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();		
-		
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
 		String[] arrStr = req.getParameterValues("group_seqList");
-		
+
 		int result = 0;
 		 try {
 		       if(arrStr !=null && arrStr.length > 0) {
@@ -422,29 +458,29 @@ public class MetaDataSearchController {
 		               interestVO.setItem_idx(arrStr[i]);
 		               result = metaDataSearchService.insertInterest(interestVO);
 		       	    }
-		       	   
+
 		       	} else {
 		      	    resultMap.put("result", "false");
 		      	}
 		    } catch (Exception e) {
 		        e.printStackTrace();
-		   }	  
-				
+		   }
+
 		String success = "";
-		
+
 		if(result > 0) {
 			 success = "success";
 		}
         return "jsonView";
-    } 
-	
+    }
+
 	@RequestMapping(value = "/metaDataSearchListExcelDownload.do" )
 	public void MetaDataSearchListExcelDownload(@ModelAttribute("metaDataSearchVO") MetaDataSearchVO metaDataSearchVO, @ModelAttribute("userVO") UserVO userVO, Model model, HttpServletRequest req, HttpServletResponse response, @ModelAttribute("criteria") Criteria cri) throws Exception {
 
 		 try (Workbook workbook = new XSSFWorkbook()) {
 	            Sheet sheet = workbook.createSheet("자료정보검색");
 	            int rowNo = 0;
-	 
+
 	            CellStyle headStyle = workbook.createCellStyle();
 	            headStyle.setFillForegroundColor(HSSFColor.HSSFColorPredefined.GREY_40_PERCENT.getIndex());
 	            headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
@@ -455,7 +491,7 @@ public class MetaDataSearchController {
 	            headStyle.setFont(font);
 	            headStyle.setAlignment(HorizontalAlignment.CENTER);
 	            headStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-	 
+
 	            Row headerRow = sheet.createRow(rowNo++);
 	            headerRow.createCell(0).setCellValue("번호");
 	            headerRow.createCell(1).setCellValue("대표이미지");
@@ -466,12 +502,12 @@ public class MetaDataSearchController {
 	            headerRow.createCell(6).setCellValue("ICAO");
 	            headerRow.createCell(7).setCellValue("주수량");
 	            headerRow.setHeight((short) 1000);
-	            
+
 	            for(int i=0; i<=7; i++){
 	                headerRow.getCell(i).setCellStyle(headStyle);
 	            }
 	            metaDataSearchVO.setReg_state("Y");
-	        	int perPageNum = metaDataSearchService.getMetaDataSearchListCnt(metaDataSearchVO);		
+	        	int perPageNum = metaDataSearchService.getMetaDataSearchListCnt(metaDataSearchVO);
 	    		if(metaDataSearchVO.getPerPageNum() != 0) {
 	    			int criPerPageNum = metaDataSearchVO.getPerPageNum();
 	    			cri.setPerPageNum(criPerPageNum);
@@ -479,36 +515,36 @@ public class MetaDataSearchController {
 	    		PageMaker pageMaker = new PageMaker();
 	    	    pageMaker.setCri(cri);
 	    	    pageMaker.setTotalCount(perPageNum);
-	    		    
+
 	    	    metaDataSearchVO.setPageStart(cri.getPageStart());
 	    	    metaDataSearchVO.setPerPageNum(cri.getPerPageNum());
-	    	  
+
 	    	    metaDataSearchVO.setPageStart(0);
 	    	    metaDataSearchVO.setPerPageNum(100000);
-	    	    
+
 	            List<MetaDataSearchVO> metaDataSearchList = metaDataSearchService.getMetaDataSearchList(metaDataSearchVO);
-	                   
+
 	            for (MetaDataSearchVO board : metaDataSearchList) {
-	            	
+
 	            	 try {
-	            		String filePath = board.getImage_nm();
+	            		String filePath = board.getThumbnail_nm();
 	            		System.out.println("filePath1"+filePath);
             	        if (filePath == null || filePath.isEmpty()) {
             	        	filePath = "/images/no_image.png";
             	            System.out.println("filePathnull2"+filePath);
             	        }else {
-            	        	filePath = board.getImage_path()+board.getImage_nm();
+            	        	filePath = board.getImage_path()+"thumbnails/"+board.getThumbnail_nm();
             	        }
-	            	        	 		            
+
 	 		            InputStream is = new FileInputStream(filePath);
 	 		            byte[] bytes = IOUtils.toByteArray(is);
 	 		            int picIdx = workbook.addPicture(bytes, XSSFWorkbook.PICTURE_TYPE_PNG);
 	 		            is.close();
-	 		            
+
 	 		            CreationHelper helper = workbook.getCreationHelper();
 	 		            Drawing drawing = sheet.createDrawingPatriarch();
 	 		            ClientAnchor anchor = helper.createClientAnchor();
-	 		            
+
 	 		            anchor.setDx1(100);
 	 		            anchor.setDx2(0);
 	 		            anchor.setDy1(0);
@@ -518,14 +554,14 @@ public class MetaDataSearchController {
 	 		            anchor.setCol1(1);
 	 		            anchor.setRow2(rowNo+1);
 	 		            anchor.setCol2(2);
-	 		            
+
 	 		            Picture pic = drawing.createPicture(anchor, picIdx);
 //	 		            pic.resize();
-	 		            
+
 	 	            } catch(Exception e) {
 	 	            	e.printStackTrace();
 	 	            }
-	               		       	     
+
 	            	Row row = sheet.createRow(rowNo++);
 	                row.createCell(0).setCellValue(board.getRnum());
 //	                row.createCell(1).setCellValue("");
@@ -537,7 +573,7 @@ public class MetaDataSearchController {
 	                row.createCell(7).setCellValue(board.getQty());
 	                row.setHeight((short) 1500);
 	            }
-	 
+
 	            sheet.setColumnWidth(0, 4500);
 	            sheet.setColumnWidth(1, 4000);
 	            sheet.setColumnWidth(2, 4500);
@@ -546,7 +582,7 @@ public class MetaDataSearchController {
 	            sheet.setColumnWidth(5, 4500);
 	            sheet.setColumnWidth(6, 4500);
 	            sheet.setColumnWidth(7, 4500);
-	            
+
 	            File tmpFile = File.createTempFile("TMP~", ".xlsx");
 	            try (OutputStream fos = new FileOutputStream(tmpFile);) {
 	                workbook.write(fos);
@@ -563,24 +599,24 @@ public class MetaDataSearchController {
 	            };
 	    	    java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
 	            String today = formatter.format(new java.util.Date());
-	            
+
 	            String fileName = "자료정보검색";
-	            
-	            // 브라우저에 따른 파일명 인코딩	         
+
+	            // 브라우저에 따른 파일명 인코딩
 	            String userAgent = req.getHeader("User-Agent");
 	            if (userAgent.indexOf("MSIE") > -1) {
 	                fileName = URLEncoder.encode(fileName, "UTF-8");
 	            } else {
 	                fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
 	            }
-	            
+
 		        response.setContentType("ms-vnd/excel");
 		        response.setHeader("Content-Disposition", "attachment;filename="+fileName+"_"+today+".xlsx");
-		 
+
 		        workbook.write(response.getOutputStream());
 		        workbook.close();
 	        }
-	
+
 	}
 
 	@RequestMapping("/metaDataListView.do")
@@ -590,7 +626,7 @@ public class MetaDataSearchController {
 		System.out.println(req.getParameter("item_no"));
 		System.out.println(req.getParameter("item_detail_no"));
 		System.out.println(req.getParameter("reg_state"));
-		
+
 		try {
 			List<CountryVO> country = metaDataService.getCountry();
 			List<Material1VO> material = metaDataService.getMaterial1();
@@ -614,8 +650,8 @@ public class MetaDataSearchController {
 			List<StorageType1VO> type1 = metaDataService.getStorageType1();
 			List<StorageVO> storage = metaDataService.getStorage(0);
 			List<SpecialityCodeVO> scCode = specialityService.getSpecialityCode();
-			
-			
+
+
 			model.addAttribute("countryList", country);
 			model.addAttribute("material1List", material);
 			model.addAttribute("IcaoList", icao);

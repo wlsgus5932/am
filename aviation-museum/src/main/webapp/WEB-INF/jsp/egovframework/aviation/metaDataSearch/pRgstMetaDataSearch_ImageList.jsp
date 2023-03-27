@@ -317,8 +317,8 @@
 <!-- 	                                <p>설명없음</p> -->
 <!-- 	                              </div> -->
                               		<c:choose>
-	                             		<c:when test="${metaDataSearchImageList.image_nm ne null}">
-	                             		 	 <img src="<c:url value='/images/${metaDataSearchImageList.image_nm }'/>" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+	                             		<c:when test="${metaDataSearchImageList.thumbnail_nm ne null}">
+	                             		 	 <img src="<c:url value='${metaDataSearchImageList.image_path}thumbnails/${metaDataSearchImageList.thumbnail_nm}'/>" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
 	                            		</c:when>
 	                            		<c:otherwise>
 	                            			<img src="/assets/images/no_image.png" alt="이미지">

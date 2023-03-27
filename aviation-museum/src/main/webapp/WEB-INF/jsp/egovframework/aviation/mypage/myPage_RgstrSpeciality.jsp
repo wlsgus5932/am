@@ -56,8 +56,9 @@
                                                 <tr>
                                                   <td>첨부파일</td>
                                                     <td>
-                                                    	<img src="" id="file_path"/>
-                                                    </td>                                                    
+	                                                    <a id="file_path">
+	                                                    </a>   
+	                                                </td>                                                 
                                                 </tr>
                                                 <tr>
                                                   <td>저작권자</td>
@@ -110,7 +111,7 @@
 		                          <td>${specialityList.possession_nm}</td>
 		                          <td>${specialityList.item_no}</td>
 		                          <td>${specialityList.item_detail_no}</td>
-		                          <td onclick="rgstrSpecialityListView('${specialityList.speciality_nm}','${specialityList.title}','${specialityList.file_path}','${specialityList.copyright}','${specialityList.content}');">${specialityList.item_nm}</button></td>
+		                          <td onclick="rgstrSpecialityListView('${specialityList.speciality_nm}','${specialityList.title}','${specialityList.file_nm}','${specialityList.file_path}','${specialityList.copyright}','${specialityList.content}');">${specialityList.item_nm}</button></td>
 		                          <td>${specialityList.speciality_nm}</td>
 		                          <td>${specialityList.title}</td>
 		                        </tr>
@@ -222,12 +223,13 @@
 	    			});
 	    		}
 	    		
-	    		function rgstrSpecialityListView(value1, value2, value3, value4, value5){
+	    		function rgstrSpecialityListView(value1, value2, value3, value4, value5, value6){
 	    			$('#speciality_nm').html(value1);
 	    			$('#title').html(value2);
-	    			$('#file_path').attr('src', value3);
-	    			$('#copyright').html(value4);
-	    			$('#content').html(value5);
+	    			$('#file_path').html(value3);
+	    			$('#file_path').attr('onclick', "location.href='"+value4+value3+"'");
+	    			$('#copyright').html(value5);
+	    			$('#content').html(value6);
 	    			
 	    			$('#rgstrBtn').click();
 	    		}

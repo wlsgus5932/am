@@ -29,6 +29,14 @@
 		LIMIT #{perPageNum} OFFSET #{pageStart}
 	</select>
 	
+	<select id="getImageData" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO" resultType="egovframework.aviation.metadata.vo.image.ImageVO">
+		select * from nam_image where image_idx in (
+			<foreach item="item" index="index" collection="image_idx" separator=",">
+				#{item}
+			</foreach>
+			)
+	</select>
+	
 	<select id="getImageAll" resultType="egovframework.aviation.metadata.vo.image.ImageVO" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO">
 		select 
 			row_number() over(order by reg_date, image_nm) as rownum,

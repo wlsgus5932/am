@@ -11,6 +11,7 @@
 					,lead(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as NEXT
 					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_IDX 
 					,(SELECT ni.IMAGE_NM from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_NM
+					,(SELECT ni.THUMBNAIL_NM from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as THUMBNAIL_NM
 					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_PATH 
 					,nib.ORG_CODE_IDX 
 					,nib.POSSESSION_CODE_IDX
@@ -175,6 +176,7 @@
 					,lead(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as NEXT
 					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_IDX 
 					,(SELECT ni.IMAGE_NM from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_NM
+					,(SELECT ni.THUMBNAIL_NM from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as THUMBNAIL_NM
 					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_PATH 
 					,nib.ORG_CODE_IDX 
 					,nib.POSSESSION_CODE_IDX
@@ -332,6 +334,7 @@
 					,lead(nib.ITEM_IDX, 1) over (order by REG_DATE DESC) as NEXT
 					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_IDX 
 					,(SELECT ni.IMAGE_NM from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_NM
+					,(SELECT ni.THUMBNAIL_NM from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as THUMBNAIL_NM
 					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_PATH 
 					,nib.ORG_CODE_IDX 
 					,nib.POSSESSION_CODE_IDX

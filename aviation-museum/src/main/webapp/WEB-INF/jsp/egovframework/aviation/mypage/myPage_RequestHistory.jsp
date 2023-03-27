@@ -132,7 +132,7 @@
               </div>
 						<div class="user_in_modal_footer_wrap">
                       		<button class="custom_btn btn_c58672 user_in_modal_footer_btn" id="reasonKeywordModBtn" type="button" onClick="reasonKeywordMod()">저장</button>
-	                        <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="">닫기</button>
+	                        <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
 	                    </div>              
             </div>
           </div>

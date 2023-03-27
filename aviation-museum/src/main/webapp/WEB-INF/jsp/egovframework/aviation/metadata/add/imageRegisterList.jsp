@@ -19,7 +19,7 @@
 						<c:choose>
 							<c:when test="${imageList.size() > 0 }">
 	                          	<c:forEach var="list" items="${imageList}" varStatus="status">
-				                   <img style="display:none;" src="<c:url value="images/${list.image_nm}"/>" alt="이미지">
+				                   <img style="display:none;" src="<c:url value="images/thumbnails/${list.thumbnail_nm}"/>" alt="이미지">
 					                    
 				 					<tr>
 				 						<td colspan="1"><input type="checkbox" name="imageUpdateListCheckbox" id="imageCheckbox${status.index}" value="${list.image_idx}" value2="${list.image_path }"></td>
