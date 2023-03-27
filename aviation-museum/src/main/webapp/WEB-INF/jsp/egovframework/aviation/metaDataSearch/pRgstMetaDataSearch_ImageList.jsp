@@ -352,7 +352,7 @@
 	                              <dd>대국민 서비스</dd>
 	                            </dl>
 	                            <dl>
-	                              <button class="img-info_btn" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xll">설명등록</button>
+	                              <button class="custom_btn btn_707070" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xll">설명등록</button>
 <%-- 	                              <button class="img-info_btn" onclick="javasctript:gallery.view(${varStatus.index});">원문보기</button> --%>
 	                            </dl>
 	                          </div>

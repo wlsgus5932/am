@@ -8,7 +8,7 @@
                	<form id="dataLedgerSearchForm" name="dataLedgerSearchForm" method="post" class="form-horizontal">           
                   <div class="col-md-10">
                	        <label class="col-md-2 col-form-label">자료구분</label>
-                         <select class="search_select" name="org_nm" onChange="orgCodeChange();">
+                         <select class="search_select" name="org_nm" id="org_nm" onChange="orgCodeChange();">
                          	<option value="">전체</option>
                              <c:forEach var="getOrgList" items="${getOrgList}">
                             		 <option value="${getOrgList.org_nm}">${getOrgList.org_nm}</option>
@@ -226,8 +226,8 @@
 			                      <td>${dataLedgerList.qty}</td>
 			                      <td colspan="5" rowspan="7">
                               		<c:choose>
-	                             		<c:when test="${dataLedgerList.image_path ne null}">
-	                             		 	 <img src="${dataLedgerList.image_path}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+	                             		<c:when test="${dataLedgerList.image_nm ne null}">
+	                             		 	 <img src="/images/${dataLedgerList.image_nm}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
 	                            		</c:when>
 	                            		<c:otherwise>
 	                            			<img src="/assets/images/no_image.png" alt="이미지">
@@ -281,6 +281,11 @@
          		var cnt = ${dataLedgerListTotal};
          		var pageSize = 5;
          		var pageCount = parseInt(cnt/pageSize) +(cnt%pageSize==0?0:1);
+         		
+            	// 자료구분 선택
+            	$('#org_nm').val('${sessionScope.userSessionOrgCodeNm}');
+            	orgCodeChange();
+            	////////////
          		
          		$('#page_total_num').html(pageCount);
          		

@@ -8,7 +8,7 @@
                 	<form id="dataCardFrontSearchForm" name="dataCardFrontSearchForm" method="post" class="form-horizontal">           
 	                  <div class="col-md-10">
 	               	        <label class="col-md-2 col-form-label">자료구분</label>
-	                         <select class="search_select" name="org_nm" onChange="orgCodeChange();">
+	                         <select class="search_select" name="org_nm" id="org_nm" onChange="orgCodeChange();">
 	                         	<option value="">전체</option>
 	                             <c:forEach var="getOrgList" items="${getOrgList}">
 	                            		 <option value="${getOrgList.org_nm}">${getOrgList.org_nm}</option>
@@ -61,8 +61,8 @@
 		                  <div class="main_text">자 료 카 드(앞면)</div>
 		                  <div class="print_photo_wrap">
                               		<c:choose>
-	                             		<c:when test="${dataCardFrontList.image_path ne null}">
-	                             		 	 <img src="${dataCardFrontList.image_path}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+	                             		<c:when test="${dataCardFrontList.image_nm ne null}">
+	                             		 	 <img src="/images/${dataCardFrontList.image_nm}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
 	                            		</c:when>
 	                            		<c:otherwise>
 	                            			<img src="/assets/images/no_image.png" alt="이미지">
@@ -138,7 +138,10 @@
             <script>
             $(function() {
             	var current_num = Number($('#page_current_num').html());
-            	
+            	// 자료구분 선택
+            	$('#org_nm').val('${sessionScope.userSessionOrgCodeNm}');
+            	orgCodeChange();
+            	////////////
             	$('.dataDiv').css('display', 'none');
             	$('#'+current_num).css('display', 'block');
 				

@@ -9,7 +9,7 @@
                	<form id="dataCardBackSearchForm" name="dataCardBackSearchForm" method="post" class="form-horizontal">           
                   <div class="col-md-10">
                	        <label class="col-md-2 col-form-label">자료구분</label>
-                         <select class="search_select" name="org_nm" onChange="orgCodeChange();">
+                         <select class="search_select" name="org_nm" id="org_nm" onChange="orgCodeChange();">
                          	<option value="">전체</option>
                              <c:forEach var="getOrgList" items="${getOrgList}">
                             		 <option value="${getOrgList.org_nm}">${getOrgList.org_nm}</option>
@@ -260,7 +260,10 @@
 	          	
 	          	$('.dataDiv').css('display', 'none');
 	          	$('#'+current_num).css('display', 'block');
-
+            	// 자료구분 선택
+            	$('#org_nm').val('${sessionScope.userSessionOrgCodeNm}');
+            	orgCodeChange();
+            	////////////
 	          	$('#firstItemNo').val($('#'+current_num).find('#item_no').val());
 				$('#firstItemDetailNo').val($('#'+current_num).find('#item_detail_no').val());		
 	          })

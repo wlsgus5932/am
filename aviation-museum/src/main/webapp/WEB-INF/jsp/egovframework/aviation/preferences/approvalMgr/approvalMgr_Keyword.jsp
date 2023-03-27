@@ -326,6 +326,12 @@
             </div>
             
             <script>
+            $(function() {
+            	// 자료구분 선택
+            	$('#org_nm').val('${sessionScope.userSessionOrgCodeNm}');
+            	orgCodeChange();
+            	////////////
+            })
 	    		<%-- 페이지 이동 --%>
 	    		function goPage(value) {
 	    			var perPageNum = $('#perPageNum').val();
