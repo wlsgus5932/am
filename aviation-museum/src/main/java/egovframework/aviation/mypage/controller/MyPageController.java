@@ -363,7 +363,7 @@ public class MyPageController {
             	        	filePath = "/images/no_image.png";
             	            System.out.println("filePathnull2"+filePath);
             	        }else {
-            	        	filePath = "/images"+board.getImage_nm();
+            	        	filePath = board.getImage_path()+board.getImage_nm();
             	        }
 	            	        	 		            
 	 		            InputStream is = new FileInputStream(filePath);

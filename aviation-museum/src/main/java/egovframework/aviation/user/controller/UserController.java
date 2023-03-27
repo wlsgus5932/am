@@ -145,6 +145,7 @@ public class UserController {
 					String strDate2 = simpleDateFormat2.format(list.get(0).getMod_date()); 
 					session.setAttribute("userSessionModDate", strDate2);
 					session.setAttribute("userSessionOrgCodeIdx", list2.get(0).getOrg_code_idx());
+					session.setAttribute("userSessionOrgCodeNm", list2.get(0).getOrg_nm());
 					model.addAttribute("list", list);
 					model.addAttribute("session", session.getId());
 				return "jsonView";

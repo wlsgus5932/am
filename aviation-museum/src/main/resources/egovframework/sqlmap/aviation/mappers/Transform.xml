@@ -31,8 +31,7 @@
 				npc.possession_nm,
 				noc.org_nm 
 			from 
-				nam_item_base ib, 
-				nam_involvement ni,
+				nam_item_base ib,
 				nam_possession_code npc, 
 				nam_org_code noc
 			where 
@@ -52,15 +51,11 @@
 				<if test="item_detail_no2 != ''">
 					and ib.ITEM_DETAIL_NO <![CDATA[<=]]> convert(#{item_detail_no2}, signed)
 				</if>
-				<if test='reg_state == "N" '>
+				<if test='reg_state != "P" '>
 					and ib.reg_state = #{reg_state}
 				</if>
-				<if test='reg_state == "Y" '>
-					and ib.reg_state = #{reg_state}
-				</if>
-			and ib.item_idx = ni.item_idx
-			and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
-			and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+			and ib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+			and ib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
 			) ib
 			order by rownum desc
 			LIMIT #{perPageNum} OFFSET #{pageStart} 
@@ -96,8 +91,7 @@
 				npc.possession_nm,
 				noc.org_nm 
 			from 
-				nam_item_base ib, 
-				nam_involvement ni,
+				nam_item_base ib,
 				nam_possession_code npc, 
 				nam_org_code noc
 			where 
@@ -117,15 +111,11 @@
 				<if test="item_detail_no2 != ''">
 					and ib.ITEM_DETAIL_NO <![CDATA[<=]]> convert(#{item_detail_no2}, signed)
 				</if>
-				<if test='reg_state == "N" '>
+				<if test='reg_state != "P" '>
 					and ib.reg_state = #{reg_state}
 				</if>
-				<if test='reg_state == "Y" '>
-					and ib.reg_state = #{reg_state}
-				</if>
-			and ib.item_idx = ni.item_idx
-			and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
-			and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+			and ib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+			and ib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
 			) ib
 			order by rownum desc
 			LIMIT #{perPageNum} OFFSET #{pageStart} 
@@ -147,8 +137,7 @@
 				npc.possession_nm,
 				noc.org_nm 
 			from 
-				nam_item_base ib, 
-				nam_involvement ni,
+				nam_item_base ib,
 				nam_possession_code npc, 
 				nam_org_code noc
 			where 
@@ -168,15 +157,11 @@
 				<if test="item_detail_no2 != ''">
 					and ib.ITEM_DETAIL_NO <![CDATA[<=]]> convert(#{item_detail_no2}, signed)
 				</if>
-				<if test='reg_state == "N" '>
+				<if test='reg_state != "P" '>
 					and ib.reg_state = #{reg_state}
 				</if>
-				<if test='reg_state == "Y" '>
-					and ib.reg_state = #{reg_state}
-				</if>
-			and ib.item_idx = ni.item_idx
-			and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
-			and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+			and ib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+			and ib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
 			) ib
 </select> 
 

@@ -358,7 +358,6 @@ td {
 
 .slick-arrow {
   position: absolute;
-  z-index: 99999999;
 }
 
 .slick-next {

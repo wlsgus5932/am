@@ -61,6 +61,7 @@
 					,nm.enabled
 					,ng.group_nm
 					,ng.admin
+					,(select noc.org_nm from nam_org_code noc WHERE noc.ORG_CODE_IDX = nm.ORG_CODE_IDX) as org_nm
 				FROM nam_member nm
 				left join nam_group ng 
 				on nm.GROUP_IDX =ng.GROUP_IDX

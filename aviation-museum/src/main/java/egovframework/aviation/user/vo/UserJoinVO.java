@@ -7,6 +7,7 @@ public class UserJoinVO {
 	private String member_idx;
 	private String member_id;
 	private int org_code_idx;
+	private String org_nm;
 	private int group_idx;
 	private String member_pw;
 	private String member_nm;
@@ -149,14 +150,21 @@ public class UserJoinVO {
 	public void setPageStart(int pageStart) {
 		this.pageStart = pageStart;
 	}
+	public String getOrg_nm() {
+		return org_nm;
+	}
+	public void setOrg_nm(String org_nm) {
+		this.org_nm = org_nm;
+	}
 	@Override
 	public String toString() {
 		return "UserJoinVO [rnum=" + rnum + ", member_idx=" + member_idx + ", member_id=" + member_id
-				+ ", org_code_idx=" + org_code_idx + ", group_idx=" + group_idx + ", member_pw=" + member_pw
-				+ ", member_nm=" + member_nm + ", remark=" + remark + ", reg_user=" + reg_user + ", reg_date="
-				+ reg_date + ", mod_user=" + mod_user + ", mod_date=" + mod_date + ", enabled=" + enabled
-				+ ", group_nm=" + group_nm + ", admin=" + admin + ", result=" + result + ", search_word=" + search_word
-				+ ", search_type=" + search_type + ", perPageNum=" + perPageNum + ", pageStart=" + pageStart + "]";
+				+ ", org_code_idx=" + org_code_idx + ", org_nm=" + org_nm + ", group_idx=" + group_idx + ", member_pw="
+				+ member_pw + ", member_nm=" + member_nm + ", remark=" + remark + ", reg_user=" + reg_user
+				+ ", reg_date=" + reg_date + ", mod_user=" + mod_user + ", mod_date=" + mod_date + ", enabled="
+				+ enabled + ", group_nm=" + group_nm + ", admin=" + admin + ", result=" + result + ", search_word="
+				+ search_word + ", search_type=" + search_type + ", perPageNum=" + perPageNum + ", pageStart="
+				+ pageStart + "]";
 	}
 
 }

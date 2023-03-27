@@ -80,7 +80,6 @@
                 }
            });
   	gallery = new Viewer(document.getElementById('imageUpdateZone'));
-  	console.log(gallery)
   }
   
   const imageRegistergoPage = page => {

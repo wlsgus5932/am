@@ -226,4 +226,12 @@ public interface MetaDataMapper {
 	void updateInsurance(HashMap<String, Object> insuranceUdt);
 
 	void updateCopyright(HashMap<String, Object> copyrightUdt);
+
+	void deleteKeyword(MetaDataParamVO param);
+
+	List<ItemBaseVO> getSearchItemPrev(MetaDataParamVO param);
+
+	List<ItemBaseVO> searchItemNextMax(MetaDataParamVO param);
+
+	List<ItemBaseVO> searchItemNextMin(MetaDataParamVO param);
 }

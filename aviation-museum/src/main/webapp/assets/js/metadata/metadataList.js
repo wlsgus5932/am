@@ -26,6 +26,8 @@ const search_item_base = async (reg_state) => {
 //자료기본사항 아래 항목들
 const set_itemBase_input = async (list) => {
 	sessionStorage.setItem("item_idx", list[0].item_idx);
+	$('#item_no').val(list[0].item_no);
+	$('#item_detail_no').val(list[0].item_detail_no);
 	checkSearchState = 'Y';
 	changeAddBtn();
 	getImageList();
@@ -268,15 +270,16 @@ const searchKeyword = () => {
 
 const addKeyword = () => {
 	let item_idx = sessionStorage.getItem("item_idx");
-	let arr = $('#addKeyword').val().split(',').filter(e => e.length !== 0 );
+	let arr = $('#addKeyword').val().split(',').filter(e => e.length !== 0);
+	let val = arr.join(',');
 		
 	if(!$('#item_nm').val()) { 
 		alert('자료조회를 먼저 진행해주세요.'); 
 		return; 
 	}
 	
-	if(arr.length < 5) {
-			alert("콤마 ', ' 단위로 5개 이상 입력해주세요.")
+	if(arr.length > 5) {
+			alert("콤마 ', ' 단위로 5개 이하 입력해주세요.")
 			return
 		}
 	
@@ -287,7 +290,7 @@ const addKeyword = () => {
 					url : '/addKeyword.do',
 					data: {
 						item_idx: item_idx,
-						keywordList: arr
+						addKeyword: val
 					},			
 					dataType : "text",
 					contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -296,7 +299,7 @@ const addKeyword = () => {
 					},
 					success : function(data) {  
 						data == 'success' ? (
-							alert('키워드 신청이 완료되었습니다.'), $('#addKeyword').val('')
+							alert('키워드 신청이 완료되었습니다.'), $('#addKeyword').val(''), $('#searchKeyword').val(), searchKeyword()
 						) : alert('오류가 발생했습니다. 다시 시도해주세요.')
 					}
 				});

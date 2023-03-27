@@ -191,7 +191,7 @@
                       </td>
                     </c:when>
                     <c:when test="${requestHistoryList.approval_state eq 'F'}">
-                      <td><button>미승인</button></td>
+                      <td><button class="custom_btn btn_707070 btn_mypage" type="button">미승인</button></td>
                     </c:when>
                     <c:otherwise>
                       <td><button class="custom_btn btn_3d3d3d btn_mypage">승인</button></td>
@@ -249,7 +249,12 @@
     // 		  			    event.preventDefault();
     // 		  			  };
     // 				});
-
+            $(function() {
+            	// 자료구분 선택
+            	$('#org_nm').val('${sessionScope.userSessionOrgCodeNm}');
+            	orgCodeChange();
+            	////////////
+            })
     	            function orgCodeChange() {
 
     	    			var queryString = $("form[name=requestHistorySearchForm]").serialize();

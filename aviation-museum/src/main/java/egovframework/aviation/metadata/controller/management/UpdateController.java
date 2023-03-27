@@ -265,6 +265,17 @@ public class UpdateController {
 								 service.setObtainment(param); 
 					 	}
 				 }
+				 
+				 if(param.getItembasekeyword() != null && !param.getItembasekeyword().get(0).isEmpty()) {
+					 List<String> ddd = new ArrayList<String>();
+					 String[] arr = param.getItembasekeyword().get(0).split(",");
+					 for(int i=0; i<arr.length; i++) {
+						 ddd.add(arr[i]);
+					 }
+					 param.setItembasekeyword(ddd);
+					 service.deleteKeyword(param);
+					 service.setKeyword(param);
+				 }
 			}
 			
 			model.addAttribute("item_idx", param.getItem_idx());

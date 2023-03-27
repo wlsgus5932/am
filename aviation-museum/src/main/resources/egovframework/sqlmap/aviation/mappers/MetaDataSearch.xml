@@ -969,15 +969,13 @@
                   , REG_DATE 
                   )
            VALUES 
-           <foreach separator="," item="item" collection="keywordList">
            ( 
-                  	#{item}
+                  	#{addKeyword}
            		  , #{item_idx}
-                  , 'N'
+                  , 'F'
                   ,  ''
                   , #{reg_user}
                   , now()
             )
-           </foreach>
     </insert>
 </mapper>

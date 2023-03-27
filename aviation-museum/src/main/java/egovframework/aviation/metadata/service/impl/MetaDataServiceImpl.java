@@ -487,6 +487,11 @@ public class MetaDataServiceImpl implements MetaDataService {
 		dao.updateCopyright(copyrightUdt);
 	}
 
+	@Override
+	public void deleteKeyword(MetaDataParamVO param) {
+		dao.deleteKeyword(param);
+	}
+
 
 
 
