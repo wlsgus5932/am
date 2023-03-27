@@ -20,6 +20,7 @@ public class FixedFormVO {
 	private String image_idx;
 	private String image_path;
 	private String image_nm;
+	private String thumbnail_nm;
 	private String item_nm;
 	private String item_no;
 	private String item_detail_no;
@@ -213,6 +214,12 @@ public class FixedFormVO {
 	public void setReg_state(String reg_state) {
 		this.reg_state = reg_state;
 	}
+	public String getThumbnail_nm() {
+		return thumbnail_nm;
+	}
+	public void setThumbnail_nm(String thumbnail_nm) {
+		this.thumbnail_nm = thumbnail_nm;
+	}
 	@Override
 	public String toString() {
 		return "FixedFormVO [rnum=" + rnum + ", item_idx=" + item_idx + ", feature=" + feature + ", material1_nm="
@@ -221,11 +228,12 @@ public class FixedFormVO {
 				+ ", obtainment_nm=" + obtainment_nm + ", obtainment_date=" + obtainment_date + ", obtainment_place="
 				+ obtainment_place + ", obtainment_price=" + obtainment_price + ", measurement_nm=" + measurement_nm
 				+ ", measurement_value=" + measurement_value + ", measurement_unit_nm=" + measurement_unit_nm
-				+ ", image_idx=" + image_idx + ", image_path=" + image_path + ", image_nm=" + image_nm + ", item_nm="
-				+ item_nm + ", item_no=" + item_no + ", item_detail_no=" + item_detail_no + ", qty=" + qty
-				+ ", reg_state=" + reg_state + ", org_nm=" + org_nm + ", possession_nm=" + possession_nm
-				+ ", start_item_no=" + start_item_no + ", end_item_no=" + end_item_no + ", start_detail_item_no="
-				+ start_detail_item_no + ", end_detail_item_no=" + end_detail_item_no + "]";
+				+ ", image_idx=" + image_idx + ", image_path=" + image_path + ", image_nm=" + image_nm
+				+ ", thumbnail_nm=" + thumbnail_nm + ", item_nm=" + item_nm + ", item_no=" + item_no
+				+ ", item_detail_no=" + item_detail_no + ", qty=" + qty + ", reg_state=" + reg_state + ", org_nm="
+				+ org_nm + ", possession_nm=" + possession_nm + ", start_item_no=" + start_item_no + ", end_item_no="
+				+ end_item_no + ", start_detail_item_no=" + start_detail_item_no + ", end_detail_item_no="
+				+ end_detail_item_no + "]";
 	}
 
 }

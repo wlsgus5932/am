@@ -27,6 +27,7 @@
 					,(SELECT ni.IMAGE_IDX from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_IDX 
 					,(SELECT ni.IMAGE_PATH from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_PATH
 					,(SELECT ni.IMAGE_NM from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as IMAGE_NM
+					,(SELECT ni.THUMBNAIL_NM from nam_image ni WHERE ni.ITEM_IDX = nib.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as THUMBNAIL_NM
 				FROM nam_item_base nib 
 				LEFT JOIN nam_material nm
 				ON nib.ITEM_IDX = nm.ITEM_IDX

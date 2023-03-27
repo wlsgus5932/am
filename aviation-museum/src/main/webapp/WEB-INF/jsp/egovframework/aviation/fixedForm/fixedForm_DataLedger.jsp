@@ -231,8 +231,8 @@
 			                      <td>${dataLedgerList.qty}</td>
 			                      <td class="data_ledger_img_wrap" colspan="5" rowspan="7" style="padding: 0;">
                               		<c:choose>
-	                             		<c:when test="${dataLedgerList.image_nm ne null}">
-	                             		 	 <img src="/images/${dataLedgerList.image_nm}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+	                             		<c:when test="${dataLedgerList.thumbnail_nm ne null}">
+	                             		 	 <img src="<c:url value='${dataLedgerList.image_path}thumbnails/${dataLedgerList.thumbnail_nm}'/>" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
 	                            		</c:when>
 	                            		<c:otherwise>
 	                            			<img src="/assets/images/no_image.png" alt="이미지">
