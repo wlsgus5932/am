@@ -2896,7 +2896,7 @@
                   aria-expanded="true"
                   aria-controls="collapseOne"
                 >
-                  퀵메뉴dd
+                  퀵메뉴
                 </button>
               </h2>
               <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
