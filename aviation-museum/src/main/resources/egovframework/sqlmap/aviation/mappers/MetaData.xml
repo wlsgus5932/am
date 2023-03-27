@@ -2,9 +2,92 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.aviation.metadata.service.impl.MetaDataMapper">
 	
-	<select id="getSearchItemNext" resultType="egovframework.aviation.metadata.vo.ItemBaseVO">
-		select * from nam_item_base where item_no > #{item_no} order by item_no limit 1;
+	<select id="getSearchItemNext" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO" resultType="egovframework.aviation.metadata.vo.ItemBaseVO">
+		select * from nam_item_base 
+		where
+		org_code_idx = #{org_code_idx}
+		and possession_code_idx = #{possession_code_idx}
+		and reg_state = #{reg_state}
+		<if test='detail_btn == "N" '>
+		and item_no > CONVERT(#{item_no}, SIGNED)
+		</if>
+		<if test='detail_btn == "Y" '>
+		and item_no = CONVERT(#{item_no}, SIGNED)
+		and item_detail_no > CONVERT(#{item_detail_no}, SIGNED)
+		</if>
+		order by item_no *1 limit 1;
 	</select>
+	
+	<select id="getSearchItemPrev" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO" resultType="egovframework.aviation.metadata.vo.ItemBaseVO">
+		select * from nam_item_base 
+		where
+		org_code_idx = #{org_code_idx}
+		and possession_code_idx = #{possession_code_idx}
+		and reg_state = #{reg_state}
+		<if test='detail_btn == "N" '>
+		and item_no <![CDATA[<]]> CONVERT(#{item_no}, SIGNED)
+		</if>
+		<if test='detail_btn == "Y" '>
+		and item_no = CONVERT(#{item_no}, SIGNED)
+		and item_detail_no <![CDATA[<]]> CONVERT(#{item_detail_no}, SIGNED)
+		</if>
+		order by item_no *1 desc limit 1;
+	</select>
+	
+	<select id="searchItemNextMax" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO" resultType="egovframework.aviation.metadata.vo.ItemBaseVO">
+		select * from nam_item_base 
+		where 
+		org_code_idx = #{org_code_idx}
+		and possession_code_idx = #{possession_code_idx}
+		and reg_state = #{reg_state}
+		<if test='detail_btn == "N" '>
+		and item_no = (
+		select MAX(convert(item_no, signed)) from nam_item_base
+		where
+		org_code_idx = #{org_code_idx}
+		and possession_code_idx = #{possession_code_idx}
+		and reg_state = #{reg_state}
+		)
+		</if>
+		<if test='detail_btn == "Y" '>
+		and item_no = CONVERT(#{item_no}, SIGNED)
+		and item_detail_no = (
+		select MAX(convert(item_detail_no, signed)) from nam_item_base
+		where
+		org_code_idx = #{org_code_idx}
+		and possession_code_idx = #{possession_code_idx}
+		and reg_state = #{reg_state}
+		)
+		</if>
+	</select>
+	
+	<select id="searchItemNextMin" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO" resultType="egovframework.aviation.metadata.vo.ItemBaseVO">
+		select * from nam_item_base 
+		where 
+		org_code_idx = #{org_code_idx}
+		and possession_code_idx = #{possession_code_idx}
+		and reg_state = #{reg_state}
+		<if test='detail_btn == "N" '>
+		and item_no = (
+		select MIN(convert(item_no, signed)) from nam_item_base
+		where
+		org_code_idx = #{org_code_idx}
+		and possession_code_idx = #{possession_code_idx}
+		and reg_state = #{reg_state}
+		)
+		</if>
+		<if test='detail_btn == "Y" '>
+		and item_no = CONVERT(#{item_no}, SIGNED)
+		and item_detail_no = (
+		select MIN(convert(item_detail_no, signed)) from nam_item_base
+		where
+		org_code_idx = #{org_code_idx}
+		and possession_code_idx = #{possession_code_idx}
+		and reg_state = #{reg_state}
+		)
+		</if>
+	</select>
+	
 	<select id="getDeletionList" resultType="egovframework.aviation.metadata.vo.metadata.DeletionVO">
 		select 
 			row_number() over(order by ib.item_no) as rownum,
@@ -16,22 +99,27 @@
 			noc.ORG_NM 
 		from 
 			nam_item_base ib,
-			nam_involvement ni,
 			nam_possession_code npc, 
 			nam_org_code noc
 		where 
-			ib.item_idx = ni.item_idx
-		<if test="item_no1 != '' and item_no2 != '' ">
-			and ib.item_no between convert(#{item_no1}, signed) and convert(#{item_no2}, signed)
-		</if>
-		<if test="item_detail_no1 != '' and item_detail_no1 != null">
-			and ib.item_detail_no between convert(#{item_detail_no1}, signed) and convert(#{item_detail_no2}, signed)
-		</if>
+			ib.org_code_idx = #{org_code_idx}
 		<if test="possession_code_idx != '' and possession_code_idx != null ">
-			and npc.possession_code_idx = #{possession_code_idx}
+			and ib.possession_code_idx = #{possession_code_idx}
 		</if>
-		and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
-		and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX
+		<if test="item_no1 != '' ">
+			and ib.item_no <![CDATA[>=]]> convert(#{item_no1}, signed) 
+		</if>
+		<if test="item_no2 != '' ">
+			and ib.item_no <![CDATA[<=]]> convert(#{item_no2}, signed)
+		</if>
+		<if test="item_detail_no1 != '' ">
+			and ib.item_detail_no <![CDATA[>=]]> convert(#{item_detail_no1}, signed) 
+		</if>
+		<if test="item_detail_no2 != ''">
+			and ib.item_detail_no <![CDATA[<=]]> convert(#{item_detail_no2}, signed)
+		</if>
+		and ib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+		and ib.ORG_CODE_IDX = noc.ORG_CODE_IDX
 		and ib.ITEM_IDX not in (select erasure_item from nam_erasure_request)
 	GROUP by ib.item_idx
 	order by rownum desc
@@ -41,23 +129,27 @@
 	<select id="getDeletionCnt" resultType="int">
 		select count(DISTINCT  ib.item_idx)
 		from nam_item_base ib,
-			nam_involvement ni,
 			nam_possession_code npc, 
 			nam_org_code noc
 		where 
-			ib.item_idx = ni.item_idx
-		<if test="item_no1 != '' and item_no1 != null ">
-			and ib.item_no between convert(#{item_no1}, signed) and convert(#{item_no2}, signed)
-		</if>
-		<if test="item_detail_no1 != '' and item_detail_no1 != null">
-			and ib.item_detail_no > convert(#{item_detail_no1}, signed) and convert(#{item_detail_no2}, signed)
-		</if>
-		
+			ib.org_code_idx = #{org_code_idx}
 		<if test="possession_code_idx != '' and possession_code_idx != null ">
-			and npc.possession_code_idx = #{possession_code_idx}
+			and ib.possession_code_idx = #{possession_code_idx}
 		</if>
-		and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
-		and ni.ORG_CODE_IDX = noc.ORG_CODE_IDX
+		<if test="item_no1 != '' ">
+			and ib.item_no <![CDATA[>=]]> convert(#{item_no1}, signed) 
+		</if>
+		<if test="item_no2 != '' ">
+			and ib.item_no <![CDATA[<=]]> convert(#{item_no2}, signed)
+		</if>
+		<if test="item_detail_no1 != '' ">
+			and ib.item_detail_no <![CDATA[>=]]> convert(#{item_detail_no1}, signed) 
+		</if>
+		<if test="item_detail_no2 != ''">
+			and ib.item_detail_no <![CDATA[<=]]> convert(#{item_detail_no2}, signed)
+		</if>
+		and ib.ORG_CODE_IDX = noc.ORG_CODE_IDX
+		and ib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
 		and ib.ITEM_IDX not in (select erasure_item from nam_erasure_request)
 	</select>
 	
@@ -718,6 +810,10 @@
 		keyword = #{keyword}
 		where item_idx = #{item_idx}
 	</update>
+	
+	<delete id="deleteKeyword" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
+		delete from nam_keyword where item_idx = #{item_idx}
+	</delete>
 	
 	<insert id="setMovement" parameterType="egovframework.aviation.metadata.vo.param.MovementParamVO">
 			insert into nam_movement (

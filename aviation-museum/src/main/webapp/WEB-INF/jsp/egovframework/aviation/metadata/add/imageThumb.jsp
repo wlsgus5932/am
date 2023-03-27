@@ -33,7 +33,7 @@
 
     				<div class="col img-col">
                               <div class="img-col-header">
-                                <input type="checkbox" name="imageCheckbox" id="imageCheckbox${status.index}" value="${list.image_idx}" value2="${list.image_path }" onclick="imageCheckboxChecked(this)">
+                                <input type="checkbox" name="imageCheckbox" id="imageCheckbox${status.index}" value="${list.image_idx}" value2="${list.image_path}${list.image_nm}" onclick="imageCheckboxChecked(this)">
                                 ${list.image_nm}
                               </div>
                               <div class="img-col-img-wrap"  onclick="gallery.view(${status.index})">
@@ -41,7 +41,8 @@
                                   <div class="img-hover-info">
                                     <p>${list.image_desc}</p>
                                   </div>
-                                  <img src="<c:url value="images/${list.image_nm}"/>" alt="이미지">
+                                 <%--  <img src="<c:url value="${list.image_path}thumbnails/${list.thumbnail_nm}"/>" alt="이미지"> --%>
+                                  <img src="<c:url value="images/thumbnails/${list.thumbnail_nm}"/>" alt="이미지">
                                 </a>
                               </div>
                                 <div class="img-col-info">

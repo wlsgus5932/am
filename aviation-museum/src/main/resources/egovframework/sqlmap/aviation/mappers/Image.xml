@@ -90,7 +90,7 @@
 	
 	<select id="getImageIUpdateList" resultType="egovframework.aviation.metadata.vo.image.ImageVO" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO">
 		select 
-			row_number() over(order by nib.reg_date, ni.image_nm) as rownum,
+			row_number() over(order by convert(item_no, signed) desc) as rownum,
 					nib.item_idx as item_idx,
 					npc.POSSESSION_NM,
 					noc.ORG_NM,

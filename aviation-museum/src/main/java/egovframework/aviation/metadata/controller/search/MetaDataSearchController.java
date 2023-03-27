@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -15,9 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.ClientAnchor;
@@ -33,9 +29,6 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +42,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import egovframework.aviation.metadata.service.MetaDataSearchService;
 import egovframework.aviation.metadata.service.MetaDataService;
 import egovframework.aviation.metadata.service.SpecialityService;
+import egovframework.aviation.metadata.service.impl.MetaDataMapper;
 import egovframework.aviation.metadata.vo.Class1VO;
 import egovframework.aviation.metadata.vo.Class2VO;
 import egovframework.aviation.metadata.vo.Class3VO;
@@ -106,10 +100,36 @@ public class MetaDataSearchController {
 	   @Autowired
 	   private SpecialityService specialityService;
 	   
+	   @Autowired
+	   private MetaDataMapper mapper;
+	   
 	   @PostMapping("/searchItemNext.do")
 	   public String searchItemNext(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
-		      List<ItemBaseVO> taxo = metaDataService.getSearchItemNext(param);
-		      //model.addAttribute("keywordList", key);
+		      List<ItemBaseVO> list = metaDataService.getSearchItemNext(param);
+		      model.addAttribute("itemBaseList", list);
+		      
+		      return "jsonView";
+		   }
+	   @PostMapping("/searchItemPrev.do")
+	   public String searchItemPrev(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
+		      List<ItemBaseVO> list = mapper.getSearchItemPrev(param);
+		      model.addAttribute("itemBaseList", list);
+		      
+		      return "jsonView";
+		   }
+	   
+	   @PostMapping("/searchItemNextMax.do")
+	   public String searchItemNextMax(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
+		      List<ItemBaseVO> list = mapper.searchItemNextMax(param);
+		      model.addAttribute("itemBaseList", list);
+		      
+		      return "jsonView";
+		   }
+	   
+	   @PostMapping("/searchItemNextMin.do")
+	   public String searchItemNextMin(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
+		      List<ItemBaseVO> list = mapper.searchItemNextMin(param);
+		      model.addAttribute("itemBaseList", list);
 		      
 		      return "jsonView";
 		   }
@@ -144,7 +164,6 @@ public class MetaDataSearchController {
 	   
 	   @PostMapping("/searchItemBase.do")
 	   public String searchItemBase(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
-	      System.out.println(param);
 	      List<ItemBaseVO> list = service.getItemBase(param);
 	      model.addAttribute("itemBaseList", list);
 	      
@@ -169,8 +188,10 @@ public class MetaDataSearchController {
 	   
 	   @PostMapping("/addKeyword.do")
 	   @ResponseBody
-	   public String addKeyword(Model model, @ModelAttribute KeywordParamVO param) throws Exception {
+	   public String addKeyword(Model model, @ModelAttribute KeywordParamVO param, HttpServletRequest req) throws Exception {
 		   String result = "error";
+		   String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
+		   param.setReg_user(userSessionId);
 		   try {
 			   int x = metaDataSearchService.addKeyword(param);
 			   

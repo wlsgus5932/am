@@ -11,5 +11,6 @@ public class KeywordParamVO {
 	private String item_idx;
 	private String keyword;
 	private List<String> keywordList;
-	private String reg_user = "admin";
+	private String reg_user;
+	private String addKeyword;
 }

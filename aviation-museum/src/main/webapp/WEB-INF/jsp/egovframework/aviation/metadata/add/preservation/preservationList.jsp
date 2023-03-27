@@ -85,7 +85,7 @@
                        <c:forEach var="img" items="${list.image}" varStatus="imgStatus">
                           <c:if test="${img.image_state eq 'B' && not empty list.file_nm }">
                              <div id="updatebefore${status.index}Div${imgStatus.index}" style="width:70px; height:70px; margin: 10px 10px 10px 10px; display:inline-block;">
-                                <button type="button" onclick="preservationDeleteChecked(before, ${img.preservation_image_idx},${status.index},${imgStatus.index })" style="position: relative; top:20px; z-index: 1;">X</button>
+                                <button type="button" onclick="preservationDeleteChecked(before, ${img.preservation_image_idx},${status.index},${imgStatus.index })" style="position: relative; top:20px; z-index: 1; border:none;">X</button>
                            <img id="updatebefore${status.index}img${imgStatus.index}" style="width: 70px; height: 70px;" src="<c:url value="${img.image_path}${img.image_nm}"/>"/>
                            <p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">${img.image_nm }</p>
                         </div>
@@ -109,7 +109,7 @@
                           <c:forEach var="img" items="${list.image}" varStatus="imgStatus">
                              <c:if test="${img.image_state eq 'A' && not empty list.file_nm }">
                                 <div id="updateafter${status.index}Div${imgStatus.index}" style="width:70px; height:70px; margin: 10px 10px 10px 10px; display:inline-block;">
-                                   <button type="button" onclick="preservationDeleteChecked(after, ${img.preservation_image_idx},${status.index},${imgStatus.index })" style="position: relative; top:20px; z-index: 1;">X</button>
+                                   <button type="button" onclick="preservationDeleteChecked(after, ${img.preservation_image_idx},${status.index},${imgStatus.index })" style="position: relative; top:20px; z-index: 1; border:none;">X</button>
                               <img id="updateafter${status.index}img${imgStatus.index}" style="width: 70px; height: 70px;" src="<c:url value="${img.image_path}${img.image_nm}"/>"/>
                               <p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">${img.image_nm }</p>
                            </div>

@@ -30,7 +30,8 @@
 												-
 											</c:when>
 											<c:otherwise>
-												<a href="${list.file_path}${list.file_nm}">${list.file_nm}</a>
+												<%-- <a href="${list.file_path}${list.file_nm}">${list.file_nm}</a> --%>
+												<a href="<c:url value="${list.file_path}${list.file_nm}"/>">${list.file_nm}</a>
 											</c:otherwise>
 										</c:choose>
 									</td>
