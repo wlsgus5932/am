@@ -39,7 +39,7 @@
         <!-- 신규자료 자동등록 시작 -->
         <form id="getTransform">
         <input type="hidden" name="page" id="page" value="1">
-        <input type="hidden" name="reg_state" id="reg_state" value="All">
+        <input type="hidden" name="reg_state" id="reg_state" value="P">
         <div class="page-content">
           <div class="tap_text">
             <h2>자료 관리 전환</h2>

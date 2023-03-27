@@ -219,6 +219,8 @@ public interface MetaDataService {
 
 	void updateCopyright(HashMap<String, Object> copyrightUdt);
 
+	void deleteKeyword(MetaDataParamVO param);
+
 
 
 }

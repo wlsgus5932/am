@@ -223,7 +223,7 @@ public class PreservationController {
 		int y = service.deleteImageAll(preservation_idx);
 		
 		for(int i=0; i<vo.size(); i++) {
-			File file = new File("D:\\uploadtest\\"+vo.get(i).getImage_path()+vo.get(i).getImage_nm());
+			File file = new File(vo.get(i).getImage_path()+vo.get(i).getImage_nm());
 			file.delete();
 			System.out.println("삭제되었습니다");
 		}

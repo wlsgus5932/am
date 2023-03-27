@@ -7,7 +7,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Dashboard | Borex - Admin & Dashboard Template</title>
+    <title>자료신규등록 | 항공박물관</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -65,6 +65,9 @@
   const getImageList = () => {
   		let item_idx = sessionStorage.getItem("item_idx");
   		let perPageNum = $('#ImageperPageNum').val();
+  		if(!perPageNum) {
+  			perPageNum = 10;
+  		}
   		$.ajax({
   						type : 'POST',
   						url : '/getImage.do',
@@ -1114,7 +1117,7 @@
   					$('#before-img-preview'+num).append(
   							'<div id="before'+num+'Div'+i+'" style="width:70px; height:70px; margin: 10px 10px 10px 10px; display:inline-block;">'+
   							'<input type="checkbox" value="'+i+'" id="before'+num+'checkbox'+i+'" name="before'+num+'checkbox" class="before'+num+'checkbox" style="position: relative; top: 20px; z-index: 1; width:15px; height:15px; border:none;"/>' +
-  							'<button type="button" onclick="deleteImage('+addTransfer[num][0].files[i].lastModified+', '+before+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1; float:right;">x</button>' +
+  							'<button type="button" onclick="deleteImage('+addTransfer[num][0].files[i].lastModified+', '+before+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1; float:right; border:none;">x</button>' +
   						    '<img id="before'+num+'img'+i+'" style="width: 70px; height: 70px;"/></label>'+
   						    '<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+addTransfer[num][0].files[i].name+'</p></div>');
 
@@ -1147,7 +1150,7 @@
   					$('#after-img-preview'+num).append(
   					'<div id="after'+num+'Div'+i+'" style="width:70px; height:70px; margin: 10px 10px 10px 10px; display:inline-block;">' +
   					'<input type="checkbox" value="'+i+'" id="after'+num+'checkbox'+i+'" name="before'+num+'checkbox" class="after'+num+'checkbox" style="position: relative; top: 20px; z-index: 1; width:15px; height:15px; border:none;"/>' +
-  					'<button type="button" onclick="deleteImage('+addTransfer[num][1].files[i].lastModified+', '+after+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1; float:right;">x</button>' +
+  					'<button type="button" onclick="deleteImage('+addTransfer[num][1].files[i].lastModified+', '+after+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1; float:right; border:none;">x</button>' +
   					'<img id="after'+num+'img'+i+'" style="width: 70px; height: 70px;"/></label>' +
   					'<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+addTransfer[num][1].files[i].name+'</p></div>');
 
@@ -1231,7 +1234,7 @@
 				reader.onload = e => {
 					$('#update-before-img-preview'+num).append(
 							'<div id="update-upload-before'+num+'Div'+i+'" style="width:70px; height:70px; margin: 10px 10px 10px 10px; display:inline-block;">'+
-							'<button type="button" onclick="updatedeleteImage('+updateTransfer[num][0].files[i].lastModified+', '+before+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1;">x</button>' +
+							'<button type="button" onclick="updatedeleteImage('+updateTransfer[num][0].files[i].lastModified+', '+before+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1; border:none;">x</button>' +
 						    '<img id="before'+num+'img'+i+'" style="width: 70px; height: 70px;"/></label>'+
 						    '<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+updateTransfer[num][0].files[i].name+'</p></div>');
 
@@ -1264,7 +1267,7 @@
 				reader.onload = e => {
 					$('#update-after-img-preview'+num).append(
 							'<div id="update-upload-after'+num+'Div'+i+'" style="width:70px; height:70px; margin: 10px 10px 10px 10px; display:inline-block;">'+
-							'<button type="button" onclick="updatedeleteImage('+updateTransfer[num][1].files[i].lastModified+', '+after+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1;">x</button>' +
+							'<button type="button" onclick="updatedeleteImage('+updateTransfer[num][1].files[i].lastModified+', '+after+','+num+', '+i+')" style="position: relative; top:20px; z-index: 1; border:none;">x</button>' +
 						    '<img id="after'+num+'img'+i+'" style="width: 70px; height: 70px;"/></label>'+
 						    '<p style="text-align:center; text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">'+updateTransfer[num][1].files[i].name+'</p></div>');
 
@@ -2243,20 +2246,25 @@
 																)
 	}
 
-	<!-- 번호 조회 페이징-->
-	const searchItemPrev = () => {
-
-
-	}
 
 	const searchItemNext = async() => {
+		console.log()
+		if($('#possession_code_idx').val() == 0) {
+			alert('자료구분을 선택해주세요');
+			return;
+		}
+		if(!$('#item_no').val()) {
+			alert('자료번호를 입력해주세요');
+			return;
+		}
 		let formData = new FormData();
-
-		formData.append('item_no', $('#item_no').val())
-		formData.append('item_detail_no', $('#item_detail_no').val())
-		formData.append('org_code_idx', $('#org_code_idx').val())
-		formData.append('possession_code_idx', $('#possession_code_idx').val())
-
+			formData.append('item_no', $('#item_no').val())
+			formData.append('item_detail_no', $('#item_detail_no').val())
+			formData.append('org_code_idx', $('#org_code_idx').val())
+			formData.append('possession_code_idx', $('#possession_code_idx').val())
+			formData.append('detail_btn', $('#detail_btn').val());
+			formData.append('reg_state', $('#reg_state').val());
+		
   	   	const form = await fetch('/searchItemNext.do', {
   	   		method:'POST',
   	   		headers: {
@@ -2265,9 +2273,101 @@
   	           body: new URLSearchParams(formData)
   	   	})
 
-  		const list = await form.json();
-		console.log(list);
-		list.length == 0 ? alert('다음 데이터가 없습니다') : set_itemBase_input(list)
+  		const {itemBaseList} = await form.json();
+		console.log(itemBaseList);
+		itemBaseList.length == 0 ? alert('다음 자료가 없습니다') : set_itemBase_input(itemBaseList)
+	}
+	
+	const searchItemPrev = async() => {
+		if($('#possession_code_idx').val() == 0) {
+			alert('자료구분을 선택해주세요');
+			return;
+		}
+		if(!$('#item_no').val()) {
+			alert('자료번호를 입력해주세요');
+			return;
+		}
+		let formData = new FormData();
+			formData.append('item_no', $('#item_no').val())
+			formData.append('item_detail_no', $('#item_detail_no').val())
+			formData.append('org_code_idx', $('#org_code_idx').val())
+			formData.append('possession_code_idx', $('#possession_code_idx').val())
+			formData.append('detail_btn', $('#detail_btn').val());
+			formData.append('reg_state', $('#reg_state').val());
+		
+  	   	const form = await fetch('/searchItemPrev.do', {
+  	   		method:'POST',
+  	   		headers: {
+  	               "Content-Type": "application/x-www-form-urlencoded",
+  	           },
+  	           body: new URLSearchParams(formData)
+  	   	})
+  		const {itemBaseList} = await form.json();
+		console.log(itemBaseList);
+		itemBaseList.length == 0 ? alert('이전 자료가 없습니다') : set_itemBase_input(itemBaseList)
+	}
+	
+	const searchItemNextMax = async() => {
+		if($('#possession_code_idx').val() == 0) {
+			alert('자료구분을 선택해주세요');
+			return;
+		}
+  		let formData = new FormData();
+  		formData.append('item_no', $('#item_no').val())
+		formData.append('item_detail_no', $('#item_detail_no').val())
+		formData.append('org_code_idx', $('#org_code_idx').val())
+		formData.append('possession_code_idx', $('#possession_code_idx').val())
+		formData.append('detail_btn', $('#detail_btn').val());
+  		formData.append('reg_state', $('#reg_state').val());
+  		
+    	   	const form = await fetch('/searchItemNextMax.do', {
+    	   		method:'POST',
+    	   		headers: {
+    	               "Content-Type": "application/x-www-form-urlencoded",
+    	           },
+    	           body: new URLSearchParams(formData)
+    	   	})
+
+    		const {itemBaseList} = await form.json();
+  		console.log(itemBaseList);
+  		itemBaseList.length == 0 ? alert('다음 자료가 없습니다') : set_itemBase_input(itemBaseList)
+  	}
+	
+	const searchItemNextMin = async() => {
+		if($('#possession_code_idx').val() == 0) {
+			alert('자료구분을 선택해주세요');
+			return;
+		}
+		
+  		let formData = new FormData();
+  		formData.append('item_no', $('#item_no').val())
+		formData.append('item_detail_no', $('#item_detail_no').val())
+		formData.append('org_code_idx', $('#org_code_idx').val())
+		formData.append('possession_code_idx', $('#possession_code_idx').val())
+		formData.append('detail_btn', $('#detail_btn').val());
+  		formData.append('reg_state', $('#reg_state').val());
+  		
+    	   	const form = await fetch('/searchItemNextMin.do', {
+    	   		method:'POST',
+    	   		headers: {
+    	               "Content-Type": "application/x-www-form-urlencoded",
+    	           },
+    	           body: new URLSearchParams(formData)
+    	   	})
+
+    		const {itemBaseList} = await form.json();
+  		console.log(itemBaseList);
+  		itemBaseList.length == 0 ? alert('이전 자료가 없습니다') : set_itemBase_input(itemBaseList)
+  	}
+	
+	const changePrevNext = () => {
+		if($('#detail_btn').val() == 'N') {
+			$('#detail_btn').val('Y');
+			$('#detail_prevnext').css({"color": "#eee", "background-color": "#707070"});
+		} else if($('#detail_btn').val() == 'Y') {
+			$('#detail_btn').val('N');
+			$('#detail_prevnext').removeAttr("style");
+		}
 	}
 
 	const addValidation = () => {
@@ -2385,15 +2485,6 @@
 			}
 		}
 
-		if($('#itembasekeyword').val()) {
-			let arr = $('#itembasekeyword').val().split(',').filter(e => e.length !== 0 );
-	  		if(arr.length < 5) {
-	  			alert("키워드 입력을 콤마 ', ' 단위로 5개 이상 입력해주세요.")
-	  			return
-	  		}
-		}
-
-
 		<!-- 저작권 -->
 		for(let i = 0; i < $('#copyright-tbody > tr').length; i++) {
 			if($('#copy_copyright'+i).val() != 0 || $('#copy_owner'+i).val() || $('#copy_expiry_date'+i).val() || $('#copy_usage_permission'+i).val() != 0 || $('#copy_copyright_transfer'+i).val() != 0 || $('#copy_remark'+i).val() ) {
@@ -2402,6 +2493,14 @@
 					return;
 				}
 			}
+		}
+		
+		if($('#itembasekeyword').val()) {
+			let arr = $('#itembasekeyword').val().split(',').filter(e => e.length !== 0 );
+	  		if(arr.length > 5) {
+	  			alert("키워드 입력을 콤마 ', ' 단위로 5개 이하로 입력해주세요.")
+	  			return
+	  		}
 		}
 		deleteItemBaseTr()
 		submitForm();
@@ -2451,20 +2550,14 @@
 			}
 		}
 
-		/*
-
-
-		if($('#itembasekeyword').val()) {
+		/* if($('#itembasekeyword').val()) {
 			let arr = $('#itembasekeyword').val().split(',').filter(e => e.length !== 0 );
-	  		if(arr.length < 5) {
-	  			alert("키워드 입력을 콤마 ', ' 단위로 5개 이상 입력해주세요.")
+	  		if(arr.length > 5) {
+	  			alert("키워드 입력을 콤마 ', ' 단위로 5개 이하로 입력해주세요.")
 	  			return
 	  		}
-		}
-
-
-		<!-- 저작권 -->
-		 */
+		} */
+		 
 	}
 
 	const changeAddBtn = () => {
@@ -2738,11 +2831,12 @@
                       <option>더미3</option>
                   </select> -->
                    <ul class="pagination" style="float:right;">
-                    <li class="page-item"><a class="page-link" href="#"><<</a></li>
-                    <li class="page-item"><a class="page-link" href="#"><</a></li>
-                    <li class="page-item"><a class="page-link" href="#">상세</a></li>
+                    <li class="page-item" onclick="searchItemNextMin()"><a class="page-link" href="#"><<</a></li>
+                    <li class="page-item" onclick="searchItemPrev()"><a class="page-link" href="#"><</a></li>
+                    <li class="page-item" onclick="changePrevNext()"><a class="page-link" id="detail_prevnext" href="#">상세</a></li>
                     <li class="page-item" onclick="searchItemNext()"><a class="page-link" href="#">></a></li>
-                    <li class="page-item"><a class="page-link" href="#">>></a></li>
+                    <li class="page-item" onclick="searchItemNextMax()"><a class="page-link" href="#">>></a></li>
+                    <input type="hidden" id="detail_btn" value="N">
                 </ul>
             </div>
           </div>
@@ -2882,7 +2976,7 @@
                           <!--  -->
                           <div class="img-card-body_wrap" id="img-card-body">
                           <div class="img-slider">
-								<img src="/assets/images/no_image.png" onerror=this.src="/assets/images/no_image.png">
+								<img src="/assets/images//no_image.png" onerror=this.src="/assets/images/no_image.png">
 								</div>
                           </div>
 
@@ -3419,7 +3513,7 @@
           </div>
 
           <input type="hidden" id="gameToken" name="reg_user" value="jinhyun">
-          <input type="hidden" id="gameToken" name="reg_state" value="N">
+          <input type="hidden" id="reg_state" name="reg_state" value="N">
         </div>
           <!-- 기본사항 - 자료상태 및 전시순위 끝 -->
           <!--  -->

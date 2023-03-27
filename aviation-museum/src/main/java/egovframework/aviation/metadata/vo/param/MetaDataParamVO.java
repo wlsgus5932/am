@@ -160,4 +160,6 @@ public class MetaDataParamVO {
    
    //키워드 html 테이블 - keyword
    private String keyword; //키워드
+   
+   private String detail_btn;
 }
