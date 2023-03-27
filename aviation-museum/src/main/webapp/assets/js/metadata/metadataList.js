@@ -23,6 +23,33 @@ const search_item_base = async (reg_state) => {
     	itemBaseList.length ? (set_itemBase_input(itemBaseList), item_number = itemBaseList[0].item_no) : (alert('검색하신 데이터가 없습니다.'), item_number ? $('#item_no').val(item_number) : '') 
 }
 
+const search_item_base_html = () => {
+	if($('#possession_code_idx').val() == 0) {
+		alert('자료구분을 선택해주세요');
+		return
+	}
+	if($('#item_no').val() == '') {
+		alert('자료번호를 입력해주세요.');
+		return;
+	}
+	$('#item_idx').val(sessionStorage.getItem("item_idx"));
+	let formData = $('#add-form').serialize();
+					$.ajax({
+						type : 'POST',                 
+						url : '/searchItemBaseHtml.do',
+						data: formData,
+						dataType : "html",           
+						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+						error : function() {
+							alert('통신실패!');
+						},
+						success : function(data) {
+							$('#home').empty().append(data);
+						}
+					})
+}
+
+
 //자료기본사항 아래 항목들
 const set_itemBase_input = async (list) => {
 	sessionStorage.setItem("item_idx", list[0].item_idx);

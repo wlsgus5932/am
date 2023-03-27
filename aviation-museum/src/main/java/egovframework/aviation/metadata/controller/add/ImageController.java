@@ -45,10 +45,10 @@ public class ImageController {
 	@Autowired
 	private ImageMapper mapper;
 	
-	String imagePath = "D:\\uploadtest\\images\\";
- String thumbnailPath = "D:\\uploadtest\\images\\thumbnails";
-//	String imagePath = "/images/";
-//    String thumbnailPath = "/images/thumbnails/";
+//	String imagePath = "D:\\uploadtest\\images\\";
+// String thumbnailPath = "D:\\uploadtest\\images\\thumbnails";
+	String imagePath = "/images/";
+    String thumbnailPath = "/images/thumbnails/";
     String DBimagepath = "/images/";
     
 	@PostMapping("/getImage.do")
@@ -181,34 +181,35 @@ public class ImageController {
 	         option.setTargetDirectoryPath(imagePath);
 	         boolean isImg = ImageTool.isImage(item);
 	         path = item.save(option);
-
 	         if (isImg) {
 	            image = new ImageIcon(item.getLastSavedFilePath()).getImage();
 	            ImageTool oimg = ImageTool.getInstance(new File(item.getLastSavedFilePath()));
-	            //800, 600 넘는거 
-	            float per = 0.0F;
-	            int widthPer = 0;
-	            int heightPer = 0;
-	            if(image.getWidth(null) > 800) {
-	            	per = image.getWidth(null)/800;
-	            	widthPer = (int) (image.getWidth(null)/per);
-	            	heightPer = (int) (image.getHeight(null)/per);
-	            	System.out.println(widthPer + "," + heightPer);
-	            } else if(image.getHeight(null) > 600) {
-	            	per = image.getHeight(null)/600;
-	            	widthPer = (int) (image.getWidth(null)/heightPer);
-	            	heightPer = (int) (image.getHeight(null)/per);
+	            int final_width = image.getWidth(null);
+	            int final_height = image.getHeight(null);
+	            if(final_width > 800 && final_height > 600) {
+	            	final_height = 600;
+	            	final_width = 800;
 	            }
-	            ImageTool dimg = oimg.resize(widthPer, heightPer, RenderingHints.VALUE_INTERPOLATION_BILINEAR, true);
+	            if(final_width > 800) {
+	            	double per = 800.0/(double)final_width;
+	            	final_width = 800;
+	            	final_height = (int)(per * final_height);
+	            } else if (final_height > 600) {
+	            	double per = 600/(double)final_height;
+	            	final_height = 600;
+	            	final_width = (int)(per * final_width);
+	            };
+	            
+	            ImageTool dimg = oimg.resize(final_width, final_height, RenderingHints.VALUE_INTERPOLATION_BILINEAR, true);
 	            dimg.save(new File(thumbnailPath, "thumbnail_".concat(item.getLastSavedFilename())),
-	                  oimg.getFormat());
+	            oimg.getFormat());
 	         }
 	         System.out.println("image::::"+image.getWidth(null));
 	         ImageVO list = new ImageVO();
 	         list.setItem_idx(item_idx);
 	         list.setImage_nm(item.getLastSavedFilename());
 	         list.setOrignl_nm("origin");
-	         list.setThumbnail_nm("thumbnail_"+item.getFilename());
+	         list.setThumbnail_nm("thumbnail_"+item.getLastSavedFilename());
 	         list.setImage_path(DBimagepath);
 	         list.setImage_width(image.getWidth(null));
 	         list.setImage_height(image.getHeight(null));
@@ -225,6 +226,26 @@ public class ImageController {
 	      } else {
 	         throw new IllegalStateException("올바른 요청이 아닙니다.");
 	      }
+		      
+
+	            //800, 600 넘는거 
+//	            float per = 0.0F;
+//	            int widthPer = 0;
+//	            int heightPer = 0;
+//	            System.out.println(image.getWidth(null) +", "+image.getHeight(null));
+//	            if(image.getWidth(null) > 800) {
+//	            	per = 800/image.getWidth(null)*100;
+//	            	widthPer = (int) (image.getWidth(null)*per/100);
+//	            	heightPer = (int) (image.getHeight(null)*per/100);
+//	            	System.out.println("위::"+widthPer + "," + heightPer);
+//	            	System.out.println("위per:::"+per);
+//	            } else if(image.getHeight(null) > 600) {
+//	            	per = 600/image.getHeight(null)*100;
+//	            	System.out.println("밑per:::"+per);
+//	            	widthPer = (int) (image.getWidth(null)*per/100);
+//	            	heightPer = (int) (image.getHeight(null)*per/100);
+//	            	System.out.println("밑::"+widthPer + "," + heightPer);
+//	            }
 	   }
 	   
 	   
@@ -248,7 +269,7 @@ public class ImageController {
 //	      DEXTUploadNJFilesToZipDownloadView view = new DEXTUploadNJFilesToZipDownloadView();
 //	      view.setEntries(files);
 //	      view.setCharsetName("UTF-8");
-	      File zippedFiles = zipper.zip(files, new File("D://uploadtest/images/zip"), "UTF-8", false, true);
+	      File zippedFiles = zipper.zip(files, new File("/images/zip"), "UTF-8", false, true);
 	      
 	      FileEntity target = new FileEntity();
 	      target.setMime("application/x-zip-compressed");
@@ -287,8 +308,10 @@ public class ImageController {
 	@PostMapping("/deleteImage.do")
 	@ResponseBody
 	public String deleteImage(@ModelAttribute ImageParamVO param) throws Exception {
-		String result = "error";
 		System.out.println(param);
+		String result = "error";
+		List<ImageVO> list = mapper.getImageData(param);
+		System.out.println(list);
 		try {
 			int x = service.deleteImage(param);
 			if(x > 0) {

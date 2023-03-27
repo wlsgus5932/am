@@ -2820,7 +2820,7 @@
                   <!-- <div class="col-md-10"> -->
                     <input class="custom_search_input" list="datalistOptions" id="item_no" placeholder="자료 번호" name="item_no" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                     <input class="custom_search_input" list="datalistOptions" id="item_detail_no" placeholder="세부" name="item_detail_no" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                    <button type="button" class="custom_btn btn_707070" onclick="search_item_base()">조회</button>
+                    <button type="button" class="custom_btn btn_707070" onclick="search_item_base_html()">조회</button>
                     <!--  -->
 
                     <button class="custom_btn btn_707070">인쇄</button>
@@ -2982,10 +2982,8 @@
                             <button>원본보기</button><button>다운로드</button><button>★관심사료등록</button>
                           </div>
                           <!--  -->
-                          <div class="img-slider">
+                          <div class="img-slider">	
                             <div><img src="assets/custom_img/msJLHGdyoMkjM9jZWJ4Reso_4BTZqoxBMm2OU1M1PQiFrXA2i0JPnarpIo23uCJ0sngZNlJBG2ZqujuxH64i9Js-H92aG0z0m-O3k_h-kL306cxjtelCQpypWURTRsnHT3TrkYwF1NJl8n73Mj4MYg.jpg" alt="이미지1"></div>
-                            <div><img src="" alt="이미지2"></div>
-                            <div><img src="" alt="이미지3"></div>
                           </div>
                           <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                               <div class="carousel-inner slider_wrap" role="listbox">
@@ -3653,6 +3651,8 @@
                                 <div class="card-body">
                                   <div class="table-responsive">
                                       <form id="addMovement">
+                                      
+                                      <input type="hidden" id="item_idx" value=""/>
                                       <table class="table mb-0">
                                           <tbody>
                                               <tr>
