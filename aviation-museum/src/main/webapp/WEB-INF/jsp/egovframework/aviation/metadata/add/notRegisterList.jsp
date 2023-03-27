@@ -2512,7 +2512,7 @@
                     <!-- modalzone 모달 end -->
                     
         <!-- 자료등록 시작 -->
-       <form id="add-form">
+       <form class="main_1550px" id="add-form">
         <div class="page-content">
         <div class="tap_text">
             <h2>가등록 자료 정보 조회</h2>
@@ -2561,7 +2561,7 @@
           </div>
           <!--  -->
           <!-- 퀵메뉴 -->
-
+		  <div class="quick_menu_right_wrap"">
           <div class="accordion quick_menu" id="accordionExample">
 
             <div class="accordion-item">
@@ -2635,6 +2635,7 @@
               <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 </div>
               </div>
+            </div>
             </div>
           </div>
           <!--  -->
