@@ -48,11 +48,11 @@ tr {
   box-sizing: border-box;
   text-align: center;
 /*   line-height: 400px; */
-  border-bottom: none;
+/*   border-bottom: none; */
 }
 
 .print_photo_wrap img {
-	height: 398px;
+	height: 396px;
 }
 
 .form_preview_wrap {
@@ -60,6 +60,10 @@ tr {
   padding: 0.5%;
   background-color: #3d3d3d;
   color: #fff;
+}
+
+.data_ledger_img_wrap {
+	width: 16%;
 }
 
 .data_ledger_img_wrap img {

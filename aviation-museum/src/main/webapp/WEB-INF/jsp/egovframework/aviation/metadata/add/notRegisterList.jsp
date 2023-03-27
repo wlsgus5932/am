@@ -2550,7 +2550,7 @@
                       <option>더미2</option>
                       <option>더미3</option>
                   </select> -->
-                   <ul class="pagination">
+                   <ul class="pagination" style="float: right;">
                     <li class="page-item"><a class="page-link" href="#"><<</a></li>
                     <li class="page-item"><a class="page-link" href="#"><</a></li>
                     <li class="page-item"><a class="page-link" href="#">상세</a></li>
@@ -2577,7 +2577,7 @@
                   퀵메뉴
                 </button>
               </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                   <div class="text-muted">
                     <strong class="text-dark">
@@ -2605,7 +2605,7 @@
                   고정메뉴
                 </button>
               </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+              <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                   <div class="text-muted">
                     <strong class="text-dark">

@@ -20,6 +20,7 @@
     <link href="<c:url value='/assets/css/app.min.css'/>" id="app-style" rel="stylesheet" type="text/css" />
     <!-- 커스텀 css -->
     <link href="<c:url value='/assets/css/custom.css'/>" rel="stylesheet" type="text/css" />
+    <link href="<c:url value='/assets/css/custom_view.css'/>" rel="stylesheet" type="text/css" />
     <link href="<c:url value='/assets/css/viewer.css'/>" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="<c:url value="/assets/libs/slick/slick.css"/>">
 	<link rel="stylesheet" href="<c:url value="/assets/libs/slick/slick-theme.css"/> ">
@@ -2979,10 +2980,10 @@
                           1/10
                         </div>
                           <div class="card-title-desc">
-                            <button>원본보기</button><button>다운로드</button><button>★관심사료등록</button>
+                            <button class="custom_btn btn_707070" type="button">원본보기</button><button class="custom_btn btn_707070" type="button">다운로드</button><button class="custom_btn btn_c57283" type="button">★관심사료등록</button>
                           </div>
                           <!--  -->
-                          <div class="img-slider">
+                          <div class="img-slider img-card-body_wrap" style="width: 256px;">
                             <div><img src="assets/custom_img/msJLHGdyoMkjM9jZWJ4Reso_4BTZqoxBMm2OU1M1PQiFrXA2i0JPnarpIo23uCJ0sngZNlJBG2ZqujuxH64i9Js-H92aG0z0m-O3k_h-kL306cxjtelCQpypWURTRsnHT3TrkYwF1NJl8n73Mj4MYg.jpg" alt="이미지1"></div>
                             <div><img src="" alt="이미지2"></div>
                             <div><img src="" alt="이미지3"></div>
@@ -3018,8 +3019,8 @@
 	                                </colgroup> -->
                       </div>
                   </div>
-                  <div class="table-responsive tr_right view_right">
-                      <table class="table mb-0 ">
+                  <div class="table-responsive tr_right">
+                      <table class="table mb-0 data_table_wrap_left_2">
                           <tbody>
                               <tr>
                                 <td>
@@ -3258,7 +3259,7 @@
             <div class="card-body">
               <div class="table-responsive">
                   <table class="table mb-0">
-                      <tbody>
+                      <tbody class="data_table_wrap_left">
                           <tr>
                             <td class="view_border_1">
                               입수일자
@@ -3294,7 +3295,7 @@
                               </td>
                               <td class="view_border_1">
                                 원화환산
-                                <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">환률정보</button>
+                                <button class="custom_btn btn_707070">환률정보</button>
                               </td>
                               <td class="view_border_2">
                                 원화환산
