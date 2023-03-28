@@ -13,22 +13,18 @@
                           1/10
                         </div>
                           <div class="card-title-desc">
-                            <button type="button" class="custom_btn btn_707070" style="margin-right: 1%;" onclick="mainImageClick()">원본보기</button>
-                            <button type="button" class="custom_btn btn_707070" onclick="downloadMainImage()">다운로드</button>
-                            <button class="custom_btn btn_c57283" type="button" onclick="addLike()">★관심자료등록</button>
+                            <button>dddddddddddddd</button><button>다운로드</button><button>★관심사료등록</button>
                           </div>
                           <!--  -->
-                          <div class="img-card-body_wrap" id="img-card-body">
-                          	<div class="img-slider">
-								<img src="/assets/images/no_image.png" onerror=this.src="/assets/images/no_image.png">
-							</div>
+                          <div class="img-slider">	
+                            <div><img src="assets/custom_img/msJLHGdyoMkjM9jZWJ4Reso_4BTZqoxBMm2OU1M1PQiFrXA2i0JPnarpIo23uCJ0sngZNlJBG2ZqujuxH64i9Js-H92aG0z0m-O3k_h-kL306cxjtelCQpypWURTRsnHT3TrkYwF1NJl8n73Mj4MYg.jpg" alt="이미지1"></div>
                           </div>
                       </div>
                   </div>
-                  <div class="table-responsive tr_right">
-                      <table class="table mb-0 data_table_wrap_left_2">
+                  <div class="table-responsive tr_right view_right">
+                      <table class="table mb-0 ">
+                          <tbody>
                           <c:forEach var="list" items="${itemBaseList}" varStatus="status">
-                  			<input type="hidden" id="item_idx" value="${list.item_idx }"/>
                               <tr>
                                 <td>
                                   명칭
@@ -102,6 +98,7 @@
                                   </td>
                               </tr>
                               </c:forEach>
+                          </tbody>
                       </table>
                   </div>
               </div>
@@ -121,7 +118,8 @@
                                     <th>소분류</th>
                                 </tr>
                             </thead>
-                            <c:forEach var="list" items="${taxonomyList}" varStatus="status">
+                            <tbody>
+                           <c:forEach var="list" items="${taxonomyList}" varStatus="status">
                                 <tr>
                                     <th scope="row">${status.index+1 }</th>
                                     <td>
@@ -194,19 +192,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="list" items="${materialList}" varStatus="status">
                             <tr>
-                                <th scope="row">${status.index+1 }</th>
+                                <th scope="row">1</th>
                                 <td>
-                                  ${list.material1_nm }
+                                  선택선택
                                 </td>
                                 <td>
-                                  ${list.material2_nm }
+                                  선택
                                 </td>
                                 <td>
-                                  ${list.material_detail }
+                                  상세 재질
                             </tr>
-                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -231,22 +227,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="list" items="${measurementList}" varStatus="status">
                             <tr>
-                                <th scope="row">${status.index+1 }</th>
+                                <th scope="row">1</th>
                                 <td>
-                                  ${list.item_type}
+                                  소장구분
                                 </td>
                                 <td>
-                                  ${list.measurement_nm }
+                                  선택
                                 </td>
                                 <td>
-                                  ${list.measurement_value }
+                                  실측치
                                 <td>
-                                  ${list.measurement_unit_nm }
+                                  선택
                                 </td>
                             </tr>
-                            </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -261,12 +255,12 @@
             <div class="card-body">
               <div class="table-responsive">
                   <table class="table mb-0">
-                      <tbody class="data_table_wrap_left">
-                      <c:forEach var="list" items="${obtainmentList}" varStatus="status">
+                      <tbody>
                           <tr>
                             <td class="view_border_1">
                               입수일자
                               <td class="view_border_2">
+                                2022-12-14
                               </td>
                               <td class="view_border_1">
                                 입수연유
@@ -297,7 +291,7 @@
                               </td>
                               <td class="view_border_1">
                                 원화환산
-                                <button class="custom_btn btn_707070">환률정보</button>
+                                <button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">환률정보</button>
                               </td>
                               <td class="view_border_2">
                                 원화환산
@@ -379,7 +373,6 @@
                                 문화재 환수 연도
                               </td>
                           </tr>
-                          </c:forEach>
                       </tbody>
                   </table>
               </div>
@@ -391,9 +384,7 @@
             <div class="st_wrap">
               <label class="col-md-2 col-form-label st_title">특징</label>
             </div>
-            <c:forEach var="list" items="${itemBaseList}" varStatus="status">
-              <p>${list.feature }</p>
-             </c:forEach>
+              <p>특징</p>
           </div>
           <!-- 기본사항 특징 끝 -->
           <!--  -->
@@ -406,208 +397,21 @@
               <div class="table-responsive">
                   <table class="table mb-0">
                       <tbody>
-                      <c:forEach var="list" items="${ranconList}" varStatus="status">
                           <tr>
                             <td>
                               자료상태
                               <td>
-                                ${list.condition_nm }
+                                선택
                               </td>
                               <td>
                                 전시순위
                               <td>
-                                ${list.ranking_nm }
+                                선택
                               </td>
                           </tr>
-                          </c:forEach>
                       </tbody>
                   </table>
               </div>
           </div>
 
         </div>
-        
-        <div class="mb-0">
-            <div class="st_wrap">
-              <label class="col-md-2 col-form-label st_title">관련자료</label>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                  <table class="table mb-0">
-                      <thead>
-                          <tr class="tr_bgc">
-                              <th>번호</th>
-                              <th>자료구분</th>
-                              <th>자료번호</th>
-                              <th>비고</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                      <c:forEach var="list" items="${involvementList}" varStatus="status">
-                          <tr>
-                              <th scope="row">${status.index+1 }</th>
-                              <td>
-                                ${list.possession_nm }
-                              </td>
-                              <td>
-                                ${list.item_no }
-                              </td>
-                              <td>
-                                ${list.remark }
-                              </td>
-                          </tr>
-                          </c:forEach>
-                      </tbody>
-                  </table>
-              </div>
-          </div>
-        </div>
-        <!-- 기본사항 - 관련자료 끝 -->
-        <!--  -->
-        <!--  -->
-        <div class="mb-0">
-          <div class="st_wrap">
-            <label class="col-md-2 col-form-label st_title">보험 관계기록</label>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-                <table class="table mb-0">
-                    <thead>
-                        <tr class="tr_bgc">
-                            <th>번호</th>
-                            <th>평가액</th>
-                            <th>가격단위</th>
-                            <th>대여기간</th>
-                            <th>대여기관</th>
-                            <th>비고</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="list" items="${InsuranceList}" varStatus="status">
-                        <tr>
-                            <th scope="row">${status.index+1 }</th>
-                            <td>
-                              ${list.agreed_value }
-                            </td>
-                            <td>
-                              ${list.price_unit_nm }
-                            </td>
-                            <td>
-                              ${list.start_date } = ${list.end_date }
-                            </td>
-                            <td>
-                              ${list.rental_org }
-                            </td>
-                            <td>
-                              ${list.remark }
-                            </td>
-                        </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-      </div>
-        <!--  -->
-        <!-- 기본사항 - 비고 시작 -->
-        <div class="mb-0">
-          <div class="st_wrap">
-            <label class="col-md-2 col-form-label st_title">비고</label>
-          </div>
-          <c:forEach var="list" items="${itemBaseList}" varStatus="status">
-            <p>${list.remark }</p>
-            </c:forEach>
-        </div>
-        <!-- 기본사항 - 비고 끝 -->
-        <!--  -->
-        <!-- 기본사항 - 저작권 시작 -->
-        <div class="mb-0">
-          <div class="st_wrap">
-            <label class="col-md-2 col-form-label st_title">저작권</label>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-                <table class="table mb-0">
-                    <thead>
-                        <tr class="tr_bgc">
-                            <th>번호</th>
-                            <th>저작권</th>
-                            <th>저작권 소유자</th>
-                            <th>저작권만료일자</th>
-                            <th>이용허락 여부</th>
-                            <th>저각권 양도 여부</th>
-                            <th>비고</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="list" items="${copyrightList}" varStatus="status">
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>
-                              ${list.copyright }
-                            </td>
-                            <td>
-                              ${list.owner }
-                            </td>
-                            <td>
-                              <!-- 대여기간 캘린더 폼 -->
-                              ${list.expiry_date }
-                            </td>
-                            <td>
-                              ${list.usage_permission }
-                            </td>
-                            <td>
-                              ${list.copyright_transfer }
-                            </td>
-                            <td>
-                              ${list.remark }
-                            </td>
-                        </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-      </div>
-        <!-- 기본사항 - 저작권 끝 -->
-        <!--  -->
-        <!-- 기본사항 - 대국민 서비스 시작 -->
-        <div class="mb-0">
-          <div class="st_wrap">
-            <label class="col-md-2 col-form-label st_title">대국민 서비스</label>
-            선택내용
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-                <table class="table mb-0">
-                    <thead>
-                        <tr class="tr_bgc">
-                            <th>서비스 불가 사유</th>
-                            <th>공공누리 서비스 유형</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                     <c:forEach var="list" items="${publicServiceList}" varStatus="status">
-                        <tr>
-                            <td>
-                              ${list.reason }
-                            </td>
-                            <td>
-                              ${list.public_service }
-                            </td>
-                        </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-      </div>
-        <!-- 기본사항 - 대국민 서비스 끝 -->
-      <!--  -->
-      <div class="mb-0">
-        <div class="st_wrap">
-          <label class="col-md-2 col-form-label st_title">키워드</label>
-        </div>
-          <p>${keys }</p>
-      </div>
-            </div>

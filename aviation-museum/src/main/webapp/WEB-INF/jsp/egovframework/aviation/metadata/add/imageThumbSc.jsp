@@ -58,20 +58,17 @@
                                     <dt>사이즈 :</dt>
                                     <dd>${list.image_width} x ${list.image_height}</dd>
                                   </dl>
-                                 <!--  <dl>
+                                  <!-- <dl>
                                     <dt>태그 :</dt>
                                     <dd><button type="button" class="custom_btn btn_c28876 img-tag"><a href="#">태그</a></button></dd>
                                   </dl> -->
                                   <dl>
-                                    <dt><input type="checkbox" id="req_image${status.index}" value="${list.image_idx}" colunmName="rep_image" onclick="changeRep(this)" ${list.rep_image == "Y" ? "CHECKED" : ""}/></dt>
+                                    <dt><input type="checkbox" id="req_image${status.index}" value="${list.image_idx}" colunmName="rep_image" onclick="changeRep(this)" ${list.rep_image == "Y" ? "CHECKED" : ""} disabled/></dt>
                                     <dd>대표</dd>
-                                    <dt stlye="margin-left: 0.5rem;"><input type="checkbox" id="public_service${status.index}" value="${list.image_idx}" colunmName="public_service" onclick="publicRepCheck(this)" ${list.public_service == "Y" ? "CHECKED" : ""}></dt>
+                                    <dt stlye="margin-left: 0.5rem;"><input type="checkbox" id="public_service${status.index}" value="${list.image_idx}" colunmName="public_service" onclick="publicRepCheck(this)" ${list.public_service == "Y" ? "CHECKED" : ""} disabled></dt>
                                     <dd>대국민 서비스</dd>
                                   </dl>
-                                  <dl>
-                                  	<button class="img-info_btn custom_btn btn_edit" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xll" type="button" onclick="setImageIdx(${list.image_idx})">설명등록</button>
-                                  	<%-- <button class="img-info_btn custom_btn btn_edit" type="button" onclick="gallery.view(${status.index})">원문보기</button> --%>
-                                  </dl>
+                                 
                                 </div>
 
                             </div>

@@ -172,6 +172,54 @@ public class specialityController {
 		}
 	}
 	
+	@GetMapping("/getSpecialitySc.do")
+	public String getSpecialitySc(ModelMap model, @ModelAttribute SpecialityParamVO param, @ModelAttribute Criteria cri) throws Exception {
+		try {
+			int perPageNum = service.getSpecialityCnt(param);
+			if(param.getPerPageNum() != 0) {
+				int criPerPageNum = param.getPerPageNum();
+				cri.setPerPageNum(criPerPageNum);
+			}
+			PageMaker pageMaker = new PageMaker();
+		    pageMaker.setCri(cri);
+		    pageMaker.setTotalCount(perPageNum);
+		    param.setPageStart(cri.getPageStart());
+		    param.setPerPageNum(cri.getPerPageNum());
+			
+			List<SpecialityVO> list = service.getSpeciality(param);
+			model.addAttribute("specialityList", list);
+			model.addAttribute("perPageNum", perPageNum);
+			model.addAttribute("pageMaker", pageMaker);
+		} catch (Exception e) {
+			
+		}
+		return "metadata/add/speciality/specialityListSc";
+	}
+	
+	@GetMapping("/getSpecialitySearchSc.do")
+	public String getSpecialitySearchSc(ModelMap model, @ModelAttribute SpecialityParamVO param, @ModelAttribute Criteria cri) throws Exception {
+		try {
+			int perPageNum = service.getSpecialityCnt(param);
+			if(param.getPerPageNum() != 0) {
+				int criPerPageNum = param.getPerPageNum();
+				cri.setPerPageNum(criPerPageNum);
+			}
+			PageMaker pageMaker = new PageMaker();
+		    pageMaker.setCri(cri);
+		    pageMaker.setTotalCount(perPageNum);
+		    param.setPageStart(cri.getPageStart());
+		    param.setPerPageNum(cri.getPerPageNum());
+			
+			List<SpecialityVO> list = service.getSpeciality(param);
+			model.addAttribute("specialityList", list);
+			model.addAttribute("perPageNum", perPageNum);
+			model.addAttribute("pageMaker", pageMaker);
+		} catch (Exception e) {
+			
+		}
+		return "metadata/add/speciality/specialitySearchListSc";
+	}
+	
 	
 	
 

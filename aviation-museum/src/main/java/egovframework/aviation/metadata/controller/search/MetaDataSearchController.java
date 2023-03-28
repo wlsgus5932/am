@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -172,35 +173,41 @@ public class MetaDataSearchController {
 
 	   @PostMapping("/searchItemBaseHtml.do")
 	   public String searchItemBaseHtml(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
+		   System.out.println(param);
 	      List<ItemBaseVO> list = service.getItemBase(param);
 	      model.addAttribute("itemBaseList", list);
+	      param.setItem_idx(Integer.parseInt(list.get(0).getItem_idx()));
 
-	     if(!list.isEmpty()) {
-	    	 param.setItem_idx(Integer.parseInt(list.get(0).getItem_idx()));
-	    	 System.out.println(list);
-	    	 System.out.println(param.getItem_idx());
+	     if(list.get(0) != null || !list.isEmpty()) {
 	    	  List<TaxonomyVO> taxo = service.getTaxonomy(param.getItem_idx());
 		      List<CountryEraVO> country = service.getCountryEra(param.getItem_idx());
 		      List<MaterialVO> mate = service.getMaterial(param.getItem_idx());
 		      List<MeasurementVO> mea = service.getMeasure(param.getItem_idx());
 		      List<ObtainmentVO> obta = service.getObtainmentList(param.getItem_idx());
+		      List<ItemBaseVO> rancon = mapper.getRankingCondition(param.getItem_idx());
 		      List<InvolvementVO> invol = service.getInvolvementList(param.getItem_idx());
 		      List<InsuranceVO> insu = service.getInsuranceList(param.getItem_idx());
 		      List<CopyrightVO> copy = service.getCopyrightList(param.getItem_idx());
 		      List<PublicServiceVO> ps = service.getPublicService(param.getItem_idx());
 		      List<KeywordVO> key = service.getKewordList(param.getItem_idx());
-		      System.out.println(taxo);
-
+		      
+		     
 		      model.addAttribute("taxonomyList", taxo);
 		      model.addAttribute("countryList", country);
 		      model.addAttribute("materialList", mate);
 		      model.addAttribute("measurementList", mea);
 		      model.addAttribute("obtainmentList", obta);
+		      model.addAttribute("ranconList", rancon);
 		      model.addAttribute("involvementList", invol);
 		      model.addAttribute("InsuranceList", insu);
 		      model.addAttribute("copyrightList", copy);
 		      model.addAttribute("publicServiceList", ps);
-		      model.addAttribute("keywordList", key);
+		      List<String> ddd = new ArrayList<>();
+		      for(int i=0; i<key.size(); i++) {
+		    	  ddd.add(key.get(i).getKeyword());
+		      }
+		      String keys = String.join(",", ddd);
+		      model.addAttribute("keys", keys);
 	     }
 
 	      return "metadata/search/searchMetaDataList";

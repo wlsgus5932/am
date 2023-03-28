@@ -7,7 +7,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>자료신규등록 | 항공박물관</title>
+    <title>자료정보조회 | 항공박물관</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -27,12 +27,12 @@
     <!--  -->
     <link rel="stylesheet" href="<c:url value='/assets/libs/swiper/swiper-bundle.min.css'/>" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="<c:url value='/assets/libs/slick/slick.js'/>"></script>
     <script src="<c:url value='/assets/js/viewer.js'/>"></script>
     <script src="<c:url value='/dx5/dextuploadx5-configuration.js'/>"></script>
     <script src="<c:url value='/dx5/dextuploadx5.js'/>"></script>
-    <script src="<c:url value='/assets/libs/slick/slick.js'/>"></script>
-    <%-- <script src="<c:url value='/assets/js/metadata/add.js'/>"></script> --%>
     <script src="<c:url value='/assets/js/metadata/metadataList.js'/>"></script>
+    <%-- <script src="<c:url value='/assets/js/metadata/add.js'/>"></script> --%>
     <script>
 		  $(function() {
 			sessionStorage.clear();
@@ -71,7 +71,7 @@
   		}
   		$.ajax({
   						type : 'POST',
-  						url : '/getImage.do',
+  						url : '/getImageSc.do',
   						data: {
   							item_idx: item_idx,
   							perPageNum: perPageNum
@@ -88,7 +88,7 @@
   					});
   	$.ajax({
   						type : 'POST',
-  						url : '/getImageList.do',
+  						url : '/getImageListSc.do',
   						data: {
   							item_idx: item_idx,
   							perPageNum: perPageNum
@@ -122,6 +122,10 @@
   	}
 
   const downloadMainImage = async () => {
+	  if(!sessionStorage.getItem("item_idx")) {
+		  alert('자료조회를 먼저 진행해주세요.')
+		  return;
+	  }
      let path_arr = [];
 
 	  $.ajax({
@@ -785,7 +789,7 @@
      const getMovementList = async () => {
      	let item_idx = sessionStorage.getItem("item_idx");
   		$.ajax({
-                url : '/getMovementList.do',
+                url : '/getMovementListSc.do',
                 type : 'POST',
                 dataType : 'html',
                 data: { item_idx: sessionStorage.getItem("item_idx") },
@@ -800,7 +804,7 @@
            });
 
   		$.ajax({
-                url : '/getPastMovementList.do',
+                url : '/getPastMovementListSc.do',
                 type : 'post',
                 dataType : 'html',
                 data: { item_idx: sessionStorage.getItem("item_idx") },
@@ -1478,7 +1482,7 @@
   	const getPreservation = () => {
   		$.ajax({
   				type : 'get',
-  				url : '/getPreservation.do?item_idx=' + sessionStorage.getItem("item_idx"),
+  				url : '/getPreservationSc.do?item_idx=' + sessionStorage.getItem("item_idx"),
   				dataType : "html",
   				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
   				error : function() {
@@ -1542,7 +1546,7 @@
 
   	   const getSpeciality = async () => {
   		 $.ajax({
-                url :'/getSpeciality.do?item_idx=' + sessionStorage.getItem("item_idx"),
+                url :'/getSpecialitySc.do?item_idx=' + sessionStorage.getItem("item_idx"),
                 type : 'Get',
                 dataType : 'html',
                 async : false,
@@ -1558,7 +1562,7 @@
 
   	const getSpecialitySearch = async () => {
   		 $.ajax({
-                url :'/getSpecialitySearch.do?item_idx=' + sessionStorage.getItem("item_idx") + '&speciality_code_idx_search=' + $("select[name=speciality_code_idx_search]").val() + '&speciality_title_search=' + $("#speciality_title_search").val(),
+                url :'/getSpecialitySearchSc.do?item_idx=' + sessionStorage.getItem("item_idx") + '&speciality_code_idx_search=' + $("select[name=speciality_code_idx_search]").val() + '&speciality_title_search=' + $("#speciality_title_search").val(),
                 type : 'Get',
                 dataType : 'html',
                 async : false,
@@ -1751,7 +1755,8 @@
     	}
 
     	const changeRepFetch = async (idx, val) => {
-    		const res = await fetch('/updateRep.do?image_idx=' + idx + '&val=' + val);
+    		let item_idx = sessionStorage.getItem("item_idx");
+    		const res = await fetch('/updateRep.do?image_idx=' + idx + '&val=' + val + '&idx=' + item_idx);
     		await res.text() == 'success' ? getImageList() : alert('오류입니다.');
     	}
 
@@ -2568,6 +2573,8 @@
 			$('#update_'+e+'_btn').show();
 		})
 	}
+	
+	
 
 
 
@@ -2796,8 +2803,8 @@
        <form class="main_1550px" id="add-form">
         <div class="page-content">
         <div class="tap_text">
-            <h2>자료 신규 등록</h2>
-            <p>자료 등록 > <span> 자료 신규 등록 </span></p>
+            <h2>자료 정보 조회</h2>
+            <p>자료 검색 > <span> 자료 정보 조회 </span></p>
           </div>
           <!-- 자료구분 셀렉트 -->
           <div class="fr_wrap">
@@ -2825,6 +2832,7 @@
                     <!--  -->
 
                     <button class="custom_btn btn_707070">인쇄</button>
+                    <input type="hidden" id="reg_state" name="reg_state" value="Y">
                     <!-- <select class="search_select">
                       <option disabled selected>한글</option>
                       <option>더미1</option>
@@ -2905,11 +2913,8 @@
                   <div class="text-muted">
                     <strong class="text-dark">
                       <ul>
-                        <li onclick="addValidation()"><a href="#">저장</a></li>
-                        <li onclick="resetMetaData()"><a href="#">자료 등록하기</a></li>
-                        <li data-bs-toggle="modal" data-bs-target="#getMetaDataInfoModal"><a href="#">자료 정보 가져오기</a></li>
-	                   	<li data-bs-toggle="modal" data-bs-target="#deleteItemInfo" ><a href="#">자료 정보 삭제 신청</a></li>
-                        <li data-bs-toggle="modal" data-bs-target="#setItemNoModal"><a href="#">자료 번호 삽입</a></li>
+                        <li data-bs-toggle="modal" data-bs-target="#keyword_modal" onclick="searchKeyword()"><a href="#">키워드 신청</a></li>
+                        <li onclick="addLike()"><a href="#">관심 자료 등록하기</a></li>
                       </ul>
                   </div>
                 </div>
@@ -2976,45 +2981,17 @@
                   <div class="tr_left">
                     <!-- 이미지 슬라이드 -->
                       <div class="card-body">
-                        <div class="slider_count_wrap">
-                          1/10
-                        </div>
                           <div class="card-title-desc">
-                            <button class="custom_btn btn_707070" type="button">원본보기</button><button class="custom_btn btn_707070" type="button">다운로드</button><button class="custom_btn btn_c57283" type="button">★관심사료등록</button>
+                            <button type="button" class="custom_btn btn_707070" style="margin-right: 1%;" onclick="mainImageClick()">원본보기</button>
+                            <button type="button" class="custom_btn btn_707070" onclick="downloadMainImage()">다운로드</button>
+                            <button class="custom_btn btn_c57283" type="button" onclick="addLike()">★관심자료등록</button>
                           </div>
                           <!--  -->
-                          <div class="img-slider img-card-body_wrap" style="width: 256px;">
-                            <div><img src="assets/custom_img/msJLHGdyoMkjM9jZWJ4Reso_4BTZqoxBMm2OU1M1PQiFrXA2i0JPnarpIo23uCJ0sngZNlJBG2ZqujuxH64i9Js-H92aG0z0m-O3k_h-kL306cxjtelCQpypWURTRsnHT3TrkYwF1NJl8n73Mj4MYg.jpg" alt="이미지1"></div>
+                          <div class="img-card-body_wrap" id="img-card-body">
+                          	<div class="img-slider">
+								<img src="/assets/images/no_image.png" onerror=this.src="/assets/images/no_image.png">
+							</div>
                           </div>
-                          <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                              <div class="carousel-inner slider_wrap" role="listbox">
-                                <div class="slider_count_wrap">
-                                  1/10
-                                </div>
-                                  <div class="carousel-item active">
-                                      <img class="d-block img-fluid" src="assets/images/small/img-3.jpg" alt="First slide">
-                                  </div>
-                                  <div class="carousel-item">
-                                      <img class="d-block img-fluid" src="assets/images/small/img-2.jpg" alt="Second slide">
-                                  </div>
-                                  <div class="carousel-item">
-                                      <img class="d-block img-fluid" src="assets/images/small/img-1.jpg" alt="Third slide">
-                                  </div>
-                              </div>
-                              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
-                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                  <span class="sr-only">Previous</span>
-                              </a>
-                              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
-                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                  <span class="sr-only">Next</span>
-                              </a>
-                          </div> -->	                               <!--  <colgroup>
-	                                 <col style="width:70%;>
-	                                 <col style="width:10%">
-	                                 <col style="width:10%">
-	                                 <col style="width:10%">
-	                                </colgroup> -->
                       </div>
                   </div>
                   <div class="table-responsive tr_right">
@@ -3025,12 +3002,12 @@
                                   명칭
                                 </td>
                                   <td>
-                                    명칭
+                                    -
                                   </td>
                                   <td>
                                     이명칭
                                   <td>
-                                    이명칭
+                                    -
                                   </td>
                               </tr>
                               <!-- 2  -->
@@ -3039,12 +3016,12 @@
                                   영문 명칭
                                 </td>
                                   <td>
-                                    영문명칭
+                                    -
                                   </td>
                                   <td>
                                     작가
                                   <td>
-                                    홍길동
+                                    -
                                   </td>
                               </tr>
                               <!-- 3 -->
@@ -3053,13 +3030,13 @@
                                   수량
                                 </td>
                                   <td>
-                                    1정
+                                    -
                                   </td>
                                   <td>
                                      ICAO
                                   </td>
                                   <td>
-                                    선택안함
+                                    -
                                   </td>
                               </tr>
                               <!-- 4 -->
@@ -3068,13 +3045,13 @@
                                   현존여부
                                 </td>
                                   <td>
-                                    선택
+                                    -
                                   </td>
                                   <td>
                                     관리번호
                                   </td>
                                   <td>
-                                    11-11
+                                   -
                                   </td>
                               </tr>
                               <!-- 5 -->
@@ -3083,13 +3060,13 @@
                                   보존처리필요
                                 </td>
                                   <td>
-                                    필
+                                    -
                                   </td>
                                   <td>
                                     보존처리자
                                   </td>
                                   <td>
-                                    고길동
+                                    -
                                   </td>
                               </tr>
                           </tbody>
@@ -3116,25 +3093,13 @@
                                 <tr>
                                     <th scope="row">1</th>
                                     <td>
-                                      선택
+                                      -
                                     </td>
                                     <td>
-                                      선택
+                                      -
                                     </td>
                                     <td>
-                                      선택
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>
-                                      선택
-                                    </td>
-                                    <td>
-                                      선택
-                                    </td>
-                                    <td>
-                                      선택
+                                      -
                                     </td>
                                 </tr>
                             </tbody>
@@ -3163,13 +3128,13 @@
                               <tr>
                                   <th scope="row">1</th>
                                   <td>
-                                    선택
+                                    -
                                   </td>
                                   <td>
-                                    선택
+                                    -
                                   </td>
                                   <td>
-                                    상세 시대
+                                    -
                               </tr>
                           </tbody>
                       </table>
@@ -3197,13 +3162,13 @@
                             <tr>
                                 <th scope="row">1</th>
                                 <td>
-                                  선택선택
+                                  -
                                 </td>
                                 <td>
-                                  선택
+                                  -
                                 </td>
                                 <td>
-                                  상세 재질
+                                  -
                             </tr>
                         </tbody>
                     </table>
@@ -3232,15 +3197,15 @@
                             <tr>
                                 <th scope="row">1</th>
                                 <td>
-                                  소장구분
+                                  -
                                 </td>
                                 <td>
-                                  선택
+                                  -
                                 </td>
                                 <td>
-                                  실측치
+                                  -
                                 <td>
-                                  선택
+                                  -
                                 </td>
                             </tr>
                         </tbody>
@@ -3262,12 +3227,12 @@
                             <td class="view_border_1">
                               입수일자
                               <td class="view_border_2">
-                                2022-12-14
+                                -
                               </td>
                               <td class="view_border_1">
                                 입수연유
                               <td class="view_border_2">
-                                선택
+                                -
                               </td>
                           </tr>
                           <!-- 2  -->
@@ -3275,13 +3240,13 @@
                             <td class="view_border_1">
                               구입구분1
                               <td class="view_border_2">
-                                선택
+                                -
                               </td>
                               <td class="view_border_1">
                                 구입구분2
                               </td>
                               <td class="view_border_2">
-                                선택
+                                -
                               </td>
                           </tr>
                           <!-- 3 -->
@@ -3296,7 +3261,7 @@
                                 <button class="custom_btn btn_707070">환률정보</button>
                               </td>
                               <td class="view_border_2">
-                                원화환산
+                                -
                               </td>
                           </tr>
                           <!-- 4 -->
@@ -3305,13 +3270,13 @@
                               일괄구입번호
                             </td>
                             <td class="view_border_2">
-                              일괄구입번호
+                              -
                             </td>
                             <td class="view_border_1">
                               입수처
                             </td>
                             <td class="view_border_2">
-                              선택
+                              -
                             </td>
                           </tr>
                           <!-- 5 -->
@@ -3320,7 +3285,7 @@
                               입수주소
                             </td>
                               <td class="view_border_2">
-                                입수주소
+                                -
                               </td>
                               <td class="view_border_1">
                                 입수 내용
@@ -3372,7 +3337,7 @@
                                 문화재 환수 연도
                               </td>
                               <td class="view_border_2">
-                                문화재 환수 연도
+                                -
                               </td>
                           </tr>
                       </tbody>
@@ -3386,7 +3351,7 @@
             <div class="st_wrap">
               <label class="col-md-2 col-form-label st_title">특징</label>
             </div>
-              <p>특징</p>
+              <p> - </p>
           </div>
           <!-- 기본사항 특징 끝 -->
           <!--  -->
@@ -3403,12 +3368,12 @@
                             <td>
                               자료상태
                               <td>
-                                선택
+                                -
                               </td>
                               <td>
                                 전시순위
                               <td>
-                                선택
+                                -
                               </td>
                           </tr>
                       </tbody>
@@ -3463,13 +3428,13 @@
                           <tr>
                               <th scope="row">1</th>
                               <td>
-                                선택
+                                -
                               </td>
                               <td>
-                                자료번호
+                                -
                               </td>
                               <td>
-                                참고사항
+                                -
                               </td>
                           </tr>
                       </tbody>
@@ -3501,20 +3466,19 @@
                         <tr>
                             <th scope="row">1</th>
                             <td>
-                              평가액
+                              -
                             </td>
                             <td>
-                              선택
+                              -
                             </td>
                             <td>
-                              <!-- 대여기간 캘린더 폼 -->
-                              2022-12-14~2022-12-14
+                              -
                             </td>
                             <td>
-                              대여기관
+                              -
                             </td>
                             <td>
-                              참고사항
+                              -
                             </td>
                         </tr>
                     </tbody>
@@ -3528,7 +3492,7 @@
           <div class="st_wrap">
             <label class="col-md-2 col-form-label st_title">비고</label>
           </div>
-            <p>참고사항</p>
+            <p>-</p>
         </div>
         <!-- 기본사항 - 비고 끝 -->
         <!--  -->
@@ -3555,23 +3519,22 @@
                         <tr>
                             <th scope="row">1</th>
                             <td>
-                              저작권 선택
+                              -
                             </td>
                             <td>
-                              소유자
+                              -
                             </td>
                             <td>
-                              <!-- 대여기간 캘린더 폼 -->
-                              2022-12-14
+                              -
                             </td>
                             <td>
-                              선택 내용
+                              -
                             </td>
                             <td>
-                              선택 내용
+                              -
                             </td>
                             <td>
-                              참고사항
+                              -
                             </td>
                         </tr>
                     </tbody>
@@ -3599,10 +3562,10 @@
                     <tbody>
                         <tr>
                             <td>
-                              서비스 불가 사유 입력내용
+                              -
                             </td>
                             <td>
-                              선택 내용
+                              -
                             </td>
                         </tr>
                     </tbody>
@@ -3614,9 +3577,9 @@
       <!--  -->
       <div class="mb-0">
         <div class="st_wrap">
-          <label class="col-md-2 col-form-label st_title">색인어</label>
+          <label class="col-md-2 col-form-label st_title">키워드</label>
         </div>
-          <p>색인어 입력 내용</p>
+          <p>-</p>
       </div>
             </div>
         <!-- 기본사항 - 자료정보변경이력 끝 -->
@@ -3632,7 +3595,7 @@
                   </div>
                   <div class="move_btn">
                     <button type="button" class="custom_btn btn_ex" onclick="MovementExcelDownload()">엑셀파일</button>
-                    <button class="custom_btn btn_707070" type="button" data-bs-toggle="modal" data-bs-target="#myModal" onclick="btn_control(0)">이동사항 등록</button>
+                    <!-- <button class="custom_btn btn_707070" type="button" data-bs-toggle="modal" data-bs-target="#myModal" onclick="btn_control(0)">이동사항 등록</button> -->
                   </div>
                 </div>
               <div class="mb-0">
@@ -3653,7 +3616,6 @@
                                   <div class="table-responsive">
                                       <form id="addMovement">
 
-                                      <input type="hidden" id="item_idx" value=""/>
                                       <table class="table mb-0">
                                           <tbody>
                                               <tr>
@@ -3835,12 +3797,12 @@
                         <!--
 	                     <label for="image-upload-file" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">업로드</label> -->
 <!--                     <input style="display:none" id="image-upload-file" name="image_upload_file" class="form-control st_input" type="file" accept="image/*" onchange="change_img_info(this)" multiple> -->
-						 <button type="button" class="custom_btn btn_6466ab" data-bs-toggle="modal" data-bs-target="#imageUploadModal" onclick="createdx5()">업로드</button>
                          <button type="button" class="custom_btn btn_7288c5" onclick="downloadImageChecked()">다운로드</button>
+                         <button type="button" class="custom_btn btn_ex" onclick="getImageListExcel()" >엑셀파일</button>
                          <button type="button" class="custom_btn btn_707070" onclick="imageAllCheck()">전체선택</button>
                          <button type="button" class="custom_btn btn_707070" onclick="imageCancelCheck()">선택해지</button>
-                         <button type="button" class="custom_btn btn_707070" onclick="deleteImageChecked()">선택삭제</button>
-                         <button type="button" class="custom_btn btn_ex" onclick="getImageListExcel()" >엑셀파일</button>
+                         <!-- <button type="button" class="custom_btn btn_707070" onclick="deleteImageChecked()">선택삭제</button>
+						 <button type="button" class="custom_btn btn_6466ab" data-bs-toggle="modal" data-bs-target="#imageUploadModal" onclick="createdx5()">업로드</button> -->
 
                     </div>
                   </div>
@@ -3869,7 +3831,7 @@
               <div class="accordion-item" id="preservation-div">
                 <h2 class="accordion-header" id="flush-headingOne">
                 <div class="preservation_into_wrap_left">
-	                <div class="table-responsive">
+	                <%-- <div class="table-responsive">
 	                            <table class="table mb-0">
 	                                <tbody>
 	                                    <tr>
@@ -4005,12 +3967,12 @@
             	<button class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteForm(0)">삭제</button>
               </div>
               </div> -->
+            <button type="button" class="btn_add_preservation_wrap" id="add-tab-btn" onclick="cloneDiv()">
+                <label class="col-md-2 col-form-label st_title" style="cursor: pointer"> + 보존처리 추가</label>
+            </button>--%>
               </div>
             </div>
 
-            <button type="button" class="btn_add_preservation_wrap" id="add-tab-btn" onclick="cloneDiv()">
-                <label class="col-md-2 col-form-label st_title" style="cursor: pointer"> + 보존처리 추가</label>
-            </button>
             </div>
           </div>
           </form>
@@ -4027,7 +3989,7 @@
                       </select>
                       <input class="custom_search_input" list="datalistOptions" id="speciality_title_search" placeholder="제목을 입력해 주세요.">
                       <button type="button" class="custom_btn btn_707070" onclick="getSpecialitySearch()">조회</button>
-                      <button type="button" class="custom_btn btn_689e97" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" id="spc-add-button">자료등록</button>
+                      <!-- <button type="button" class="custom_btn btn_689e97" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xl" id="spc-add-button">자료등록</button> -->
                       <!--전문정보 자료등록 버튼 모달창 -->
                       <div class="modal fade bs-example-modal-xl" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
                         <div class="modal-dialog modal-xl">
@@ -4121,7 +4083,56 @@
           <!--  -->
 
         </div>
+<!-- 키워드 신청  모달 -->
 
+          <!--  -->
+          <div id="keyword_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
+          <input type="hidden" id="keywordPage" value="1"/>
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header mv-modal-header">
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mv-modal-body">
+                  <!--  -->
+                  <div class="mb-0 user-wrap">
+                    <div class="st_wrap">
+                      <label class="col-md-2 col-form-label st_title">키워드 신청</label>
+                    </div>
+                    <!--  -->
+                    <div class="">
+                      <input type="text" id="searchKeyword"><button type="button" onclick="searchKeyword()">조회</button>
+                    </div>
+                    <!--  -->
+                    <div class="card-body" id="keywordZone">
+
+                    <div class="table-responsive" style="overflow-y:scroll; height:300px; padding:4px; border:1 solid #000000;">
+                        <table class="table mb-0">
+                          <thead>
+                            <tr class="tr_bgc">
+                              <th>번호</th>
+                              <th>키워드</th>
+                            </tr>
+                          </thead>
+                          <tbody id="keyword_tbody">
+	    						  <td colspan="2">키워드 정보가 없습니다.</td>
+                          </tbody>
+                        </table>
+                      </div>
+
+                    </div>
+                    <!--  -->
+                    <div class="" style="border-top: 1px solid;">
+                      추가키워드<input type="text" id="addKeyword"><button type="button" onclick="addKeyword()">+ 추가</button>
+                    </div>
+                  </div>
+                  <!--  -->
+                  <div class="custom_modal_footer">
+                    <button type="button">닫기</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
         <footer class="footer">
           <div class="container-fluid">

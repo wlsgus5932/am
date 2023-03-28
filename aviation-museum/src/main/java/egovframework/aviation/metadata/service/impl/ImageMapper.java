@@ -33,8 +33,8 @@ public interface ImageMapper {
 
 	int updateRep(@Param("image_idx") int image_idx, @Param("val") String val);
 
-	int updateNoRep();
-
 	List<ImageVO> getImageData(ImageParamVO param);
+
+	int updateNoRep(int item_idx);
 
 }

@@ -1061,11 +1061,7 @@
 	
 	<select id="getTaxonomy" resultType="egovframework.aviation.metadata.vo.metadata.TaxonomyVO">
 			SELECT 
-				nt.taxonomy_idx,
-				nt.item_idx,
-				nt.class1_code_idx,
-				nt.class2_code_idx,
-				nt.class3_code_idx,
+				nt.*,
 				n1.class1_nm,
 				n2.class2_nm,
 				n3.class3_nm,
@@ -1084,15 +1080,61 @@
 	</select>
 	
 	<select id="getCountryEra" resultType="egovframework.aviation.metadata.vo.metadata.CountryEraVO">
-			SELECT * FROM nam_country_era where item_idx = #{item_idx}
+			select 
+				nce.*,
+				ncc.COUNTRY_NM,
+				nec.ERA_NM,
+				nce.DETAIL_YEAR 
+				from 
+				nam_country_era nce, 
+				nam_country_code ncc, 
+				nam_era_code nec
+			where nce.ITEM_IDX = #{item_idx}
+				and nce.COUNTRY_CODE_IDX = ncc.COUNTRY_CODE_IDX
+				and nce.ERA_CODE_IDX = nec.ERA_CODE_IDX
 	</select>
 	
 	<select id="getMaterial" resultType="egovframework.aviation.metadata.vo.metadata.MaterialVO">
-			SELECT * FROM nam_material where item_idx = #{item_idx}
+			select
+				nm.*,
+				material1_nm,
+				material2_nm,
+				material_detail
+			FROM 
+				nam_material nm,
+				nam_material1_code nmc,
+				nam_material2_code nmc2
+			where nm.ITEM_IDX = #{item_idx}
+				and nm.MATERIAL1_CODE_IDX = nmc.MATERIAL1_CODE_IDX
+				and nm.MATERIAL2_CODE_IDX = nmc2.MATERIAL2_CODE_IDX;
 	</select>
 	
 	<select id="getMeasure" resultType="egovframework.aviation.metadata.vo.metadata.MeasurementVO">
-			SELECT * FROM nam_measurement where item_idx = #{item_idx}
+			select
+				nm.*,
+				nmc.measurement_nm ,
+				nmuc.measurement_unit_nm 
+				from
+				nam_measurement nm,
+				nam_measurement_code nmc,
+				nam_measurement_unit_code nmuc 
+				where nm.ITEM_IDX = #{item_idx}
+				and nm.MEASUREMENT_CODE_IDX = nmc.MEASUREMENT_CODE_IDX 
+				and nm.MEASUREMENT_UNIT_CODE_IDX = nmuc.MEASUREMENT_UNIT_CODE_IDX ;
+	</select>
+	
+	<select id="getRankingCondition" resultType="egovframework.aviation.metadata.vo.ItemBaseVO">
+		select
+			nib.*,
+			nrc.ranking_nm,
+			ncc.condition_nm
+			FROM 
+			nam_item_base nib,
+			nam_ranking_code nrc,
+			nam_condition_code ncc
+			where nib.ITEM_IDX = #{item_idx}
+			and nib.RANKING_CODE_IDX = nrc.RANKING_CODE_IDX 
+			and nib.CONDITION_CODE_IDX = ncc.CONDITION_CODE_IDX ;
 	</select>
 	
 	<select id="getObtainmentList" resultType="egovframework.aviation.metadata.vo.metadata.ObtainmentVO">
@@ -1100,11 +1142,25 @@
 	</select>
 	
 	<select id="getInvolvementList" resultType="egovframework.aviation.metadata.vo.metadata.InvolvementVO">
-			SELECT * FROM nam_involvement where item_idx = #{item_idx}
+			select
+				ni.*,
+				npc.possession_nm
+				FROM 
+				nam_involvement ni,
+				nam_possession_code npc
+				where ni.ITEM_IDX = #{item_idx}
+				and ni.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX ;
 	</select>
 	
 	<select id="getInsuranceList" resultType="egovframework.aviation.metadata.vo.metadata.InsuranceVO">
-			SELECT * FROM nam_insurance where item_idx = #{item_idx}
+			SELECT 
+				ni.*,
+				npuc.price_unit_nm
+			FROM 
+			nam_insurance ni,
+			nam_price_unit_code npuc 
+			where ni.ITEM_IDX = 465
+			and ni.PRICE_UNIT_CODE_IDX = npuc.PRICE_UNIT_CODE_IDX ;
 	</select>
 	
 	<select id="getCopyrightList" resultType="egovframework.aviation.metadata.vo.metadata.CopyrightVO">

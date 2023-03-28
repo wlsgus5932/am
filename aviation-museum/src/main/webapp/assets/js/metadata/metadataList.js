@@ -32,7 +32,6 @@ const search_item_base_html = () => {
 		alert('자료번호를 입력해주세요.');
 		return;
 	}
-	$('#item_idx').val(sessionStorage.getItem("item_idx"));
 	let formData = $('#add-form').serialize();
 					$.ajax({
 						type : 'POST',                 
@@ -40,13 +39,22 @@ const search_item_base_html = () => {
 						data: formData,
 						dataType : "html",           
 						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+						async: false,
 						error : function() {
-							alert('통신실패!');
+							alert('자료가 없습니다!');
 						},
 						success : function(data) {
+							console.log(data)
 							$('#home').empty().append(data);
+							let num = $('#item_idx').val()
+							sessionStorage.setItem("item_idx", num);
+							getImageList();
+							getMovementList();
+							getSpeciality();
+							getPreservation();
 						}
 					})
+					
 }
 
 
@@ -300,7 +308,7 @@ const addKeyword = () => {
 	let arr = $('#addKeyword').val().split(',').filter(e => e.length !== 0);
 	let val = arr.join(',');
 		
-	if(!$('#item_nm').val()) { 
+	if(!$('#item_no').val()) { 
 		alert('자료조회를 먼저 진행해주세요.'); 
 		return; 
 	}
@@ -352,5 +360,33 @@ function metaDataListView(value1,value2,value3,value4,value5){
 		frmData.action = "/metaDataListView.do" ;
 		
 		frmData.submit() ;
+}
+
+const addLike = () => {
+	if(!sessionStorage.getItem('item_idx')) {
+		alert("자료 조회를 먼저 진행해주세요")
+		return;
+	}
+	if(confirm('관심자료로 등록하시겠습니까?')) {
+		let group_seqList = [];
+		group_seqList.push(sessionStorage.getItem("item_idx"))
+		$.ajax({
+	               type : 'POST',                 
+	               url : '/interestInsert.do',   
+	               dataType : "json",         
+	               traditional : true,
+	               data:{
+	                  group_seqList : group_seqList
+	               },
+	               contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+	               error : function() {          
+	                  alert('통신실패!');
+	               },
+	               success : function(success) {   
+	                  alert("관심자료가 등록되었습니다.");
+	               }
+	            });
+}
+	
 }
 
