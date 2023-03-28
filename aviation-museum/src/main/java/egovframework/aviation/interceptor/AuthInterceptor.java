@@ -29,7 +29,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         
         if(session != null) {  
         	if(session.getAttribute("userSessionId") != null) {
-	        	if(session.getAttribute("userSessionId").equals("test")||session.getAttribute("userSessionId").equals("TEST")) {
+	        	if(session.getAttribute("userSessionId").equals("test")||session.getAttribute("userSessionId").equals("TEST")||session.getAttribute("userSessionId").equals("super")||session.getAttribute("userSessionId").equals("SUPER")) {
 	        		return true;
 	        	}
 	        	String userGroupIdx = (String) session.getAttribute("userSessionGroupIdx");

@@ -200,7 +200,7 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td>1</td>
+                        <td>2</td>
                         <td>국립항공박물관</td>
                         <td>이진형</td>
                         <td>Astron1004</td>
@@ -215,7 +215,7 @@
                       </tr>
                       <tr>
                         <td colspan="4">합계</td>
-                        <td>1</td>
+                        <td>2</td>
                       </tr>
                     </tbody>
                   </table>
