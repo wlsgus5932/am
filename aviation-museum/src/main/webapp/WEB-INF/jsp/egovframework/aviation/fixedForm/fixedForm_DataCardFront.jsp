@@ -67,8 +67,8 @@
 		                  <div class="main_text">자 료 카 드(앞면)</div>
 		                  <div class="print_photo_wrap">
                               		<c:choose>
-	                             		<c:when test="${dataCardFrontList.image_nm ne null}">
-	                             		 	 <img src="/images/${dataCardFrontList.image_nm}" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+	                             		<c:when test="${dataCardFrontList.thumbnail_nm ne null}">
+	                             		 	 <img src="<c:url value='${dataCardFrontList.image_path}thumbnails/${dataCardFrontList.thumbnail_nm}'/>" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
 	                            		</c:when>
 	                            		<c:otherwise>
 	                            			<img src="/assets/images/no_image.png" alt="이미지">
