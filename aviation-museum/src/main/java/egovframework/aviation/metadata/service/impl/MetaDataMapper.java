@@ -234,4 +234,6 @@ public interface MetaDataMapper {
 	List<ItemBaseVO> searchItemNextMax(MetaDataParamVO param);
 
 	List<ItemBaseVO> searchItemNextMin(MetaDataParamVO param);
+
+	List<ItemBaseVO> getRankingCondition(int item_idx);
 }

@@ -1750,7 +1750,8 @@
     	}
 
     	const changeRepFetch = async (idx, val) => {
-    		const res = await fetch('/updateRep.do?image_idx=' + idx + '&val=' + val);
+    		let item_idx = sessionStorage.getItem("item_idx");
+    		const res = await fetch('/updateRep.do?image_idx=' + idx + '&val=' + val + '&idx=' + item_idx);
     		await res.text() == 'success' ? getImageList() : alert('오류입니다.');
     	}
 
@@ -2976,8 +2977,8 @@
                           <!--  -->
                           <div class="img-card-body_wrap" id="img-card-body">
                           <div class="img-slider">
-								<img src="/assets/images//no_image.png" onerror=this.src="/assets/images/no_image.png">
-								</div>
+								<img src="/assets/images/no_image.png" onerror=this.src="/assets/images/no_image.png">
+							</div>
                           </div>
 
                       </div>
@@ -3512,7 +3513,7 @@
               </div>
           </div>
 
-          <input type="hidden" id="gameToken" name="reg_user" value="jinhyun">
+          <input type="hidden" id="gameToken" name="reg_user" value="admin">
           <input type="hidden" id="reg_state" name="reg_state" value="N">
         </div>
           <!-- 기본사항 - 자료상태 및 전시순위 끝 -->

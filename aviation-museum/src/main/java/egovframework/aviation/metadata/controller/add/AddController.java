@@ -441,4 +441,33 @@ public class AddController {
 		return result;
 	}
 	
+	@PostMapping("/getMovementListSc.do")
+	public String getMovementListSc(ModelMap model, @ModelAttribute MovementParamVO param, @ModelAttribute Criteria cri) throws Exception {
+		int perPageNum = service.getMovementListCnt(param);		
+		if(param.getPerPageNum() != 0) {
+			int criPerPageNum = param.getPerPageNum();
+			cri.setPerPageNum(criPerPageNum);
+		}
+		PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    pageMaker.setTotalCount(perPageNum);
+		    
+	    param.setPageStart(cri.getPageStart());
+	    param.setPerPageNum(cri.getPerPageNum());
+	    
+		List<MovementVO> list = service.getMovement(param);
+		model.addAttribute("movementList", list);
+		model.addAttribute("perPageNum", perPageNum);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "metadata/add/movement/movementListSc";
+	}
+	
+	@PostMapping("/getPastMovementListSc.do")
+	public String getPastMovementListSc(ModelMap model, @ModelAttribute MovementParamVO param) throws Exception {
+		List<MovementVO> list = service.getMovement(param);
+		model.addAttribute("movementList", list);
+		
+		return "metadata/add/movement/pastMovementSc";
+	}
 }

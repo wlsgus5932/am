@@ -304,12 +304,12 @@
                   <span class="d-none d-sm-block">이미지 리스트</span>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link " data-bs-toggle="tab" href="#addAllImage" role="tab" id="addAllImage">
                   <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                   <span class="d-none d-sm-block">일괄등록</span>
                 </a>
-              </li>
+              </li> -->
             </ul>
             <div class="search_top_text">
               <label class="col-md-2 col-form-label st_title" id="totalNum"></label>

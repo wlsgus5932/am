@@ -201,6 +201,19 @@ public class PreservationController {
 		return "metadata/add/preservation/preservationList";
 	}
 	
+	@GetMapping("/getPreservationSc.do")
+	public String getPreservationSc(Model model, @RequestParam("item_idx") int item_idx) throws Exception {
+		List<PreservationVO> list = service.getPreservationList(item_idx);
+		for(int i=0; i<list.size(); i++) {
+			List<PreservationImageVO> vo = service.getPreservationImageList(list.get(i).getPreservation_idx());
+			list.get(i).setImage(vo);
+		}
+		model.addAttribute("preservationList", list);
+		System.out.println(list);
+		
+		return "metadata/add/preservation/preservationListSc";
+	}
+	
 	@PostMapping("/deletePreservationImage.do")
 	@ResponseBody
 	public String deletePreservationImage(Model model, @RequestParam("image_idx[]") List<String> image_idx) throws Exception {

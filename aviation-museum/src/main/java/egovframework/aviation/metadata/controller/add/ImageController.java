@@ -1,3 +1,4 @@
+
 package egovframework.aviation.metadata.controller.add;
 
 import java.awt.Image;
@@ -5,6 +6,7 @@ import java.awt.RenderingHints;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class ImageController {
 	private ImageMapper mapper;
 	
 //	String imagePath = "D:\\uploadtest\\images\\";
-// String thumbnailPath = "D:\\uploadtest\\images\\thumbnails";
+// String thumbnailPath = "D:\\uploadtest\\images\\thumbnails\\";
 	String imagePath = "/images/";
     String thumbnailPath = "/images/thumbnails/";
     String DBimagepath = "/images/";
@@ -97,6 +99,7 @@ public class ImageController {
 	public String getMainImageList(Model model, @ModelAttribute ImageParamVO param) throws Exception {
 		List<ImageVO> list = service.getImageAll(param);
 		model.addAttribute("mainImageList", list);
+		System.out.println("main:::"+list);
 		
 		return "metadata/add/mainImageList";
 	}
@@ -135,11 +138,11 @@ public class ImageController {
 	
 	@GetMapping("/updateRep.do")
 	@ResponseBody
-	public String updateRep(Model model, @RequestParam("image_idx") int image_idx, @RequestParam("val") String val) throws Exception {
-		System.out.println();
+	public String updateRep(Model model, @RequestParam("image_idx") int image_idx, @RequestParam("idx") int item_idx, @RequestParam("val") String val) throws Exception {
+		System.out.println("dddd"+image_idx+","+item_idx);
 		String result = "error";
 		if(val.equals("Y")) {
-			int y = mapper.updateNoRep();			
+			int y = mapper.updateNoRep(item_idx);			
 		}
 		int x = service.updateRep(image_idx, val);
 		
@@ -226,26 +229,6 @@ public class ImageController {
 	      } else {
 	         throw new IllegalStateException("올바른 요청이 아닙니다.");
 	      }
-		      
-
-	            //800, 600 넘는거 
-//	            float per = 0.0F;
-//	            int widthPer = 0;
-//	            int heightPer = 0;
-//	            System.out.println(image.getWidth(null) +", "+image.getHeight(null));
-//	            if(image.getWidth(null) > 800) {
-//	            	per = 800/image.getWidth(null)*100;
-//	            	widthPer = (int) (image.getWidth(null)*per/100);
-//	            	heightPer = (int) (image.getHeight(null)*per/100);
-//	            	System.out.println("위::"+widthPer + "," + heightPer);
-//	            	System.out.println("위per:::"+per);
-//	            } else if(image.getHeight(null) > 600) {
-//	            	per = 600/image.getHeight(null)*100;
-//	            	System.out.println("밑per:::"+per);
-//	            	widthPer = (int) (image.getWidth(null)*per/100);
-//	            	heightPer = (int) (image.getHeight(null)*per/100);
-//	            	System.out.println("밑::"+widthPer + "," + heightPer);
-//	            }
 	   }
 	   
 	   
@@ -312,6 +295,19 @@ public class ImageController {
 		String result = "error";
 		List<ImageVO> list = mapper.getImageData(param);
 		System.out.println(list);
+		
+	     
+	     for(int i=0; i<list.size(); i++) {
+	    	 System.out.println("진입");
+	    	 File deleteFile = new File(imagePath+list.get(i).getImage_nm());
+	    	 File deleteThumb = new File(thumbnailPath+list.get(i).getThumbnail_nm());
+	    	 // 파일이 존재하는지 체크 존재할경우 true, 존재하지않을경우 false
+	    	 
+	    	 boolean delete1 = deleteFile.delete();
+	    	 boolean delete2 = deleteThumb.delete();
+	    	 System.out.println(delete1+","+delete2);
+	    	 
+	     }
 		try {
 			int x = service.deleteImage(param);
 			if(x > 0) {
@@ -339,6 +335,48 @@ public class ImageController {
 			 System.out.println(e);
 			 return result;
 		}
+	}
+	
+	@PostMapping("/getImageSc.do")
+	public String getImageSc(Model model, @ModelAttribute ImageParamVO param, @ModelAttribute Criteria cri) throws Exception {
+		int perPageNum = service.getImageListCnt(param.getItem_idx());		
+		if(param.getPerPageNum() != 0) {
+			int criPerPageNum = param.getPerPageNum();
+			cri.setPerPageNum(criPerPageNum);
+		}
+		PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    pageMaker.setTotalCount(perPageNum);
+		    
+	    param.setPageStart(cri.getPageStart());
+	    param.setPerPageNum(cri.getPerPageNum());
+		List<ImageVO> list = service.getImage(param);
+		model.addAttribute("imageList", list);
+		model.addAttribute("perPageNum", perPageNum);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "metadata/add/imageThumbSc";
+	}
+	
+	@PostMapping("/getImageListSc.do")
+	public String getImageListSc(Model model, @ModelAttribute ImageParamVO param, @ModelAttribute Criteria cri) throws Exception {
+		int perPageNum = service.getImageListCnt(param.getItem_idx());		
+		if(param.getPerPageNum() != 0) {
+			int criPerPageNum = param.getPerPageNum();
+			cri.setPerPageNum(criPerPageNum);
+		}
+		PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    pageMaker.setTotalCount(perPageNum);
+		    
+	    param.setPageStart(cri.getPageStart());
+	    param.setPerPageNum(cri.getPerPageNum());
+		List<ImageVO> list = service.getImage(param);
+		model.addAttribute("imageList", list);
+		model.addAttribute("perPageNum", perPageNum);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "metadata/add/imageListSc";
 	}
 
 }

@@ -262,9 +262,10 @@
 			where image_idx = #{image_idx}
 	</update>
 	
-	<update id="updateNoRep">
+	<update id="updateNoRep" parameterType="int">
 		update nam_image set
 			rep_image = 'N'
+			where item_idx = #{item_idx}
 	</update>
 	
 	<update id="updateRep">
