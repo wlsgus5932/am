@@ -99,7 +99,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 75%;
+  width: 230px;
 }
 
 .simple_view_footer {
