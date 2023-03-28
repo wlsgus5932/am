@@ -13,7 +13,7 @@
                           1/10
                         </div>
                           <div class="card-title-desc">
-                            <button>dddddddddddddd</button><button>다운로드</button><button>★관심사료등록</button>
+                          <button class="custom_btn btn_707070">다운로드</button><button class="custom_btn btn_c57283">★관심사료등록</button>
                           </div>
                           <!--  -->
                           <div class="img-slider">	
