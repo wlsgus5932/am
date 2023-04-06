@@ -3,7 +3,7 @@ package egovframework.aviation.statistics.vo;
 public class StatisticsImagesVO {
 	private String count;
 	private String sum;
-	
+	private String imagecount;
 	private String org_nm;
 	private String possession_nm;
 	private String start_item_no;
@@ -23,6 +23,12 @@ public class StatisticsImagesVO {
 	}
 	public void setSum(String sum) {
 		this.sum = sum;
+	}
+	public String getImagecount() {
+		return imagecount;
+	}
+	public void setImagecount(String imagecount) {
+		this.imagecount = imagecount;
 	}
 	public String getOrg_nm() {
 		return org_nm;
@@ -74,10 +80,10 @@ public class StatisticsImagesVO {
 	}
 	@Override
 	public String toString() {
-		return "StatisticsImagesVO [count=" + count + ", sum=" + sum + ", org_nm=" + org_nm + ", possession_nm="
-				+ possession_nm + ", start_item_no=" + start_item_no + ", end_item_no=" + end_item_no
-				+ ", start_detail_item_no=" + start_detail_item_no + ", end_detail_item_no=" + end_detail_item_no
-				+ ", start_reg_date=" + start_reg_date + ", end_reg_date=" + end_reg_date + "]";
+		return "StatisticsImagesVO [count=" + count + ", sum=" + sum + ", imagecount=" + imagecount + ", org_nm="
+				+ org_nm + ", possession_nm=" + possession_nm + ", start_item_no=" + start_item_no + ", end_item_no="
+				+ end_item_no + ", start_detail_item_no=" + start_detail_item_no + ", end_detail_item_no="
+				+ end_detail_item_no + ", start_reg_date=" + start_reg_date + ", end_reg_date=" + end_reg_date + "]";
 	}
 	
 }
