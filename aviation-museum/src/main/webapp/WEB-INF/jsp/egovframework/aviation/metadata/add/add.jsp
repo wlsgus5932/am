@@ -1041,8 +1041,8 @@
   		   								$('#addPreservationBtn'+num).attr('disabled', true),
   		   								$('#deletePreservationBtn'+num).attr('disabled', true)
   										 ) : alert('오류입니다');
-  	   }
-  	   }
+  	   	}
+  	 }
 
   	 const updatePreservation = async (num, preservation_idx) => {
   		 if(confirm('수정하시겠습니까?')) {
@@ -1277,7 +1277,7 @@
 				console.log(updateTransfer[num])
 
 				document.querySelector('#update-after-uploadFile'+num).files = updateTransfer[num][1].files;
-				console.log(document.querySelector('#update-after-uploadFile'+num).files = updateTransfer[num][1].files)
+				console.log(updateTransfer[num][1].files)
 
 			}
 		}
@@ -1288,7 +1288,9 @@
 	    	if(name == 'before') {
 		    	const files = document.querySelector('#update-before-uploadFile'+num).files;
 		    	let returnArr = Array.from(updateTransfer[num][0].files).filter(file => file.lastModified != lastModified);
+		    	console.log(returnArr);
 		    	updateTransfer[num][0] = new DataTransfer();
+		    	
 		    	returnArr.forEach(e=> updateTransfer[num][0].items.add(e))
 		    	$('#'+divName).remove();
 		    	document.querySelector('#update-before-uploadFile'+num).files = updateTransfer[num][0].files;
@@ -1298,6 +1300,8 @@
 		    	else if (name == 'after') {
 		    		const files = document.querySelector('#update-after-uploadFile'+num).files;
 			    	let returnArr = Array.from(updateTransfer[num][1].files).filter(file => file.lastModified != lastModified);
+			    	console.log(returnArr);
+			    	
 			    	updateTransfer[num][1] = new DataTransfer();
 			    	returnArr.forEach(e=> updateTransfer[num][1].items.add(e))
 			    	$('#'+divName).remove();
@@ -1484,7 +1488,7 @@
   						alert('통신실패!');
   				},
   				success : function(data) {
-  					console.log(data);
+  					updateTransfer = [];
   					$('#settings').empty().append(data);
   				}
   			});
@@ -1894,7 +1898,7 @@
     	    	})
 
     			const { itemBaseList } = await form.json();
-    	    	itemBaseList.length ? $('#metadata_item_nm').val(itemBaseList[0].item_nm) : alert('검색하신 데이터가 없습니다.');
+    	    	itemBaseList.length ? $('#metadata_item_nm').val(itemBaseList[0].item_nm)  : alert('검색하신 데이터가 없습니다.');
      }
 
      const setMetaDataInfo = async (list) => {
@@ -2568,6 +2572,90 @@
 			$('#update_'+e+'_btn').show();
 		})
 	}
+	
+	const itemChange = val => {
+		let item1 = [
+				{name: '수량단위', value:"qty"}, 
+				{name: '국적', value:"country"}, 
+				{name: '재질', value:"material"}, 
+				{name: '분류체계', value:"taxonomy"}, 
+				{name: '지정문화재', value:"dd"},
+				{name: '실측부위', value:"dd"}
+		];
+		let item2 = [
+			{name: '전시순위', value:"ranking" }, 
+			{name: '입수연유', value:"obtainment" }, 
+			{name: '구입구분1', value:"purchase1" }, 
+			{name: '구입구분2', value:"purchase2"}, 
+			{name: '가격단위', value:"price_qty" },
+			{name: '현존여부', value:"dd"}
+		];
+		$('#itemChangeSelect').children('option:not(:first)').remove();
+		if(val == '1') {
+			item1.forEach(e=>{
+				$('#itemChangeSelect').append('<option value="'+e.value+'">'+e.name+'</option>')
+			});
+		} else if(val == '2') {
+			item2.forEach(e=> {
+				$('#itemChangeSelect').append('<option value="'+e.value+'">'+e.name+'</option>')
+			})
+		}
+	}
+	
+	const itemChange2 = async val => {
+		const res = await fetch('/getChangeItem.do?idx=' + val);
+		$('#beforeChange').children('option:not(:first)').remove();
+		$('#afterChange').children('option:not(:first)').remove();
+		/* $('#beforeChangeTd select:gt(0)').remove();
+		$('#afterChangeTd select:gt(0)').remove(); */
+		$('#beforeChangeTd').children().remove();
+		$('#afterChangeTd').children().remove();
+		
+		switch(val) {
+		case "country":
+			$('#beforeChangeTd').append('<select id="beforeChange" class="search_select"><option selected>선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange" class="search_select"><option selected>선택</option></select>');
+			const { countryList } = await res.json();
+			countryList.forEach(e=> {
+				$('#beforeChange').append('<option value="'+e.country_code_idx+'">'+e.country_nm+'</option>');
+				$('#afterChange').append('<option value="'+e.country_code_idx+'">'+e.country_nm+'</option>');
+			})
+			break;
+			
+		case "material":
+			$('#beforeChangeTd').append('<select id="beforeChange" class="search_select"><option selected>선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange" class="search_select"><option selected>선택</option></select>');
+			const { material1List } = await res.json();
+			material1List.forEach(e=> {
+				$('#beforeChange').append('<option value="'+e.material1_code_idx+'">'+e.material1_nm+'</option>');
+				$('#afterChange').append('<option value="'+e.material1_code_idx+'">'+e.material1_nm+'</option>');
+			})
+			break;
+			
+		case "taxonomy":
+			const { class1List, class2List, class3List } = await res.json();
+			$('#beforeChangeTd').append('<select id="beforeChange" class="search_select"><option selected>선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange" class="search_select"><option selected>선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange1" class="search_select"><option selected>선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange1" class="search_select"><option selected>선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange2" class="search_select"><option selected>선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange2" class="search_select"><option selected>선택</option></select>');
+			
+			class1List.forEach(e=> {
+				$('#beforeChange').append('<option value="'+e.class1_code_idx+'">'+e.class1_nm+'</option>');
+				$('#afterChange').append('<option value="'+e.class1_code_idx+'">'+e.class1_nm+'</option>');
+			})
+			class2List.forEach(e=> {
+				$('#beforeChange1').append('<option value="'+e.class2_code_idx+'">'+e.class2_nm+'</option>');
+				$('#afterChange1').append('<option value="'+e.class2_code_idx+'">'+e.class2_nm+'</option>');
+			})
+			class3List.forEach(e=> {
+				$('#beforeChange2').append('<option value="'+e.class3_code_idx+'">'+e.class3_nm+'</option>');
+				$('#afterChange2').append('<option value="'+e.class3_code_idx+'">'+e.class3_nm+'</option>');
+			})
+			break;
+		}
+	}
 
 
 
@@ -2585,8 +2673,6 @@
       <div class="main-content">
 
       <!-- modalzone 모달 -->
-
-
            <div id="getMetaDataInfoModal" class="modal fade" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
                         <div class="modal-dialog modal-xl">
                           <div class="modal-content pro-modal-content">
@@ -2595,7 +2681,6 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body mv-modal-body">
-
 				                  <div class="table-responsive">
                                         <table class="table mb-0">
                                             <tbody>
@@ -2788,6 +2873,108 @@
 					    </div>
 					  </div>
 					</div>
+					
+					<!-- 일괄변경 모달 -->
+					<div id="allChange" class="modal fade" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                          <div class="modal-content pro-modal-content">
+                            <div class="modal-header mv-modal-header">
+                                <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body mv-modal-body">
+
+				                  <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <tbody>
+                                            <form id="getMetaDataInfo">
+                                             <tr>
+                                                  <td>자료구분</td>
+                                                    <td>
+	                                                    <select class="search_select" name="org_code_idx">
+										                    <c:forEach var="list" items="${orgList}" varStatus="status">
+										                           <option value="${list.org_code_idx}" <c:if test ="${list.org_nm eq '항공박물관'}">selected="selected"</c:if>>${list.org_nm}</option>
+										                     </c:forEach>
+										                  </select>
+										                  <select class="search_select" name="possession_code_idx">
+										                      <option value="" selected>선택</option>
+										                      		<c:forEach var="list" items="${posSessionList}" varStatus="status">
+												                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
+												                     </c:forEach>
+										                  </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                  <td>자료번호</td>
+                                                    <td id="item_base_td">
+                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_no" placeholder="자료번호" style="width:100px;">
+                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_detail_no" placeholder="세부번호" style="width:100px;">
+                                                      ~
+                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_no" placeholder="자료번호" style="width:100px;">
+                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_detail_no" placeholder="세부번호" style="width:100px;">
+                                                      <!-- <button type="button" class="btn btn-secondary btn_save" onclick="getMetaDataInfo()">조회</button> -->
+                                                    </td>
+                                                </tr>
+                                               </form>
+
+                                                <tr>
+                                                  <td>변경항목</td>
+                                                    <td>
+                                                    	<select class="search_select" name="" onchange="itemChange(this.value)">
+                                                    		<option selected>선택</option>
+                                                    		<option value="1">필수항목</option>
+                                                    		<option value="2">관리항목</option>
+                                                    		<option value="3">이동항목</option>
+                                                    	</select>
+                                                    	<select class="search_select" id="itemChangeSelect" onchange="itemChange2(this.value)">
+                                                    		<option selected>선택</option>
+                                                    	</select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                  <td>변경옵션</td>
+                                                  <td>
+                                                  	<label for="copyDefault">
+                                                  		선택항목조건변경
+	                                                    <input type="checkbox" id="copyDefault" >
+                                                  	</label>
+                                                  	<label for="copyDetail">
+                                                  		선택항목 값 모두 변경
+                                                    	<input type="checkbox" id="copyDetail" >
+                                                    </label>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td>변경전값</td>
+                                                    <td id="beforeChangeTd">
+                                                    	<!-- <select class="search_select" id="beforeChange">
+                                                    		<option selected>선택</option>
+                                                    	</select>
+                                                    	<select class="search_select" id="beforeChange">
+                                                    		<option selected>선택</option>
+                                                    	</select> -->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                  <td>변경후값</td>
+                                                    <td id="afterChangeTd">
+                                                    	<!-- <select class="search_select" id="afterChange">
+                                                    		<option selected>선택</option>
+                                                    	</select>
+                                                    	<select class="search_select" id="beforeChange">
+                                                    		<option selected>선택</option>
+                                                    	</select> -->
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <button type="button" class="btn btn-secondary btn_save" onclick="setMetaDataInfo()">가져오기</button>
+                                        <button type="button" class="btn btn-secondary btn_save"  data-bs-dismiss="modal" aria-label="Close">닫기</button>
+                                    </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
 
 
                     <!-- modalzone 모달 end -->
@@ -2910,6 +3097,7 @@
                         <li data-bs-toggle="modal" data-bs-target="#getMetaDataInfoModal"><a href="#">자료 정보 가져오기</a></li>
 	                   	<li data-bs-toggle="modal" data-bs-target="#deleteItemInfo" ><a href="#">자료 정보 삭제 신청</a></li>
                         <li data-bs-toggle="modal" data-bs-target="#setItemNoModal"><a href="#">자료 번호 삽입</a></li>
+                        <li data-bs-toggle="modal" data-bs-target="#allChange"><a href="#">자료 정보 일괄 변경</a></li>
                       </ul>
                   </div>
                 </div>
@@ -3033,7 +3221,7 @@
                                   <td>
                                     <select class="form-select st_select" name="icao_code_idx">
                                       <option selected value="0">선택</option>
-                                      <c:forEach var="list" items="${IcaoList}" varStatus="status">
+                                      	<c:forEach var="list" items="${IcaoList}" varStatus="status">
 		                                    <option value="${list.icao_code_idx}">${list.icao_nm}</option>
 		                                </c:forEach>
                                     </select>

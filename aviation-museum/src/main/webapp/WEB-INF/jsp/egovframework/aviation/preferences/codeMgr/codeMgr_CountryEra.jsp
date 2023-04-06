@@ -365,11 +365,11 @@
 				    }
 				  
 			});
-    		$('input[type="text"]').keydown(function() {
-	  			  if (event.keyCode === 13) {
-	  			    event.preventDefault();
-	  			  };
-			});
+//     		$('input[type="text"]').keydown(function() {
+// 	  			  if (event.keyCode === 13) {
+// 	  			    event.preventDefault();
+// 	  			  };
+// 			});
     		<%-- 시대코드 조회 --%>
     		function countryEraList(value, value2) {
     			var country_code_idx = value;

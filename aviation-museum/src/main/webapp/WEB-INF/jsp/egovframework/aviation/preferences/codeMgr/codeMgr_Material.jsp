@@ -353,11 +353,11 @@
 				    }
 				  
 			});
-    		$('input[type="text"]').keydown(function() {
-	  			  if (event.keyCode === 13) {
-	  			    event.preventDefault();
-	  			  };
-			});
+//     		$('input[type="text"]').keydown(function() {
+// 	  			  if (event.keyCode === 13) {
+// 	  			    event.preventDefault();
+// 	  			  };
+// 			});
     		<%-- 재질분류2코드 조회 --%>
     		function material12List(value, value2) {
     			var material1_code_idx = value;

@@ -227,11 +227,11 @@
 </head>
 <body data-sidebar="dark">
   <!-- <body data-layout="horizontal"> -->
-
+<jsp:include page="../../common/inc/headerContent.jsp" />
     <!-- Begin page -->
     <div id="layout-wrapper">
  
- 	<jsp:include page="../../common/inc/headerContent.jsp" />
+ 	
  
       <div class="main-content">
         <!-- 자료등록 시작 -->

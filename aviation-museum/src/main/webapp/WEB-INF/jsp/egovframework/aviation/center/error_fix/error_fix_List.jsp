@@ -342,11 +342,11 @@
 				});
 		}
 		
-		$('input[type="text"]').keydown(function() {
-			  if (event.keyCode === 13) {
-			    event.preventDefault();
-			  };
-		});
+// 		$('input[type="text"]').keydown(function() {
+// 			  if (event.keyCode === 13) {
+// 			    event.preventDefault();
+// 			  };
+// 		});
 		
 		function goPage(value) {
 			var search_word = $('#search_word').val();

@@ -9,7 +9,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-	<script src="assets/libs/jquery/jquery-3.6.3.min.js"></script>
+	
     <!-- Bootstrap Css -->
     <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="assets/css/custom_setting.css" />
 <!--     <link rel="stylesheet" href="assets/css/custom_view.css" /> -->
  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-  
+  <script src="assets/libs/jquery/jquery-3.6.3.min.js"></script>
   <script type="text/javascript">
   	
 	$(function() {
@@ -1270,6 +1270,7 @@
   </head>
 
   <body data-sidebar="dark">
+  <jsp:include page="../../common/inc/headerContent.jsp" />
     <!-- <body data-layout="horizontal"> -->
 	<form action="" method="post" name="seqModForm">
 		<input type="hidden" name="" id="seqModCodeIdx"/>
@@ -1280,7 +1281,7 @@
     <!-- Begin page -->
     <div id="layout-wrapper">
  	
- 	<jsp:include page="../../common/inc/headerContent.jsp" />
+ 	
       <!-- ============================================================== -->
       <div class="main-content">
         <!-- 환경설정 코드관리 시작 -->
