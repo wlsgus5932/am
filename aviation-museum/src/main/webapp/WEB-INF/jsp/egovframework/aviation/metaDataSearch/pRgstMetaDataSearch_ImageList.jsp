@@ -329,7 +329,7 @@
 	                          <div class="img-col-info">
 	                            <dl onclick="imageQuickView('${metaDataSearchImageList.image_idx}');">
 	                              <dt>명칭:</dt>
-	                              <dd>${metaDataSearchImageList.item_nm}</dd>
+	                              <dd class="img-col-info-title">${metaDataSearchImageList.item_nm}</dd>
 	                            </dl>
 	                            <dl>
 	                              <dt>시간:</dt>
@@ -342,7 +342,7 @@
 	                            <dl>
 	                              <dt>태그:</dt>
 	                              <dd>
-	                                <button class="img-tag"><a href="#">${metaDataSearchImageList.tag_nm}</a></button>
+	                                <button class="custom_btn btn_c28876 img-tag"><a href="#">${metaDataSearchImageList.tag_nm}</a></button>
 	                              </dd>
 	                            </dl>
 	                            <dl>
@@ -352,7 +352,7 @@
 	                              <dd>대국민 서비스</dd>
 	                            </dl>
 	                            <dl>
-	                              <button class="custom_btn btn_707070" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xll">설명등록</button>
+	                              <button class="img-info_btn custom_btn btn_edit" data-bs-toggle="modal" data-bs-target=".bs-example-modal-xll">설명등록</button>
 <%-- 	                              <button class="img-info_btn" onclick="javasctript:gallery.view(${varStatus.index});">원문보기</button> --%>
 	                            </dl>
 	                          </div>

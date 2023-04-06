@@ -218,7 +218,7 @@
                                 <td>010-1234-1234</td>
                                 <td>abcd@naver.com</td>
                                 <td>N건</td>
-                                <td><button class="custom_btn btn_232323" type=button onclick="window.open('자료구입 관리 상세조회-자료심의.html')">상세보기</button></td>
+                                <td><button class="custom_btn btn_232323" type=button>상세보기</button></td>
                                 <td><button class="custom_btn btn_edit" type=button>삭제</button></td>
                                 <td>심사대기</td>
                               </tr>

@@ -27,7 +27,7 @@
     <script src="<c:url value='/dx5/dextuploadx5-configuration.js'/>"></script>
     <script src="<c:url value='/dx5/dextuploadx5.js'/>"></script>
     <%-- <script src="<c:url value='/assets/js/metadata/imageRegister.js'/>"></script> --%>
-   
+
   </head>
   <script>
   let gallery;
@@ -81,7 +81,7 @@
            });
   	gallery = new Viewer(document.getElementById('imageUpdateZone'));
   }
-  
+
   const imageRegistergoPage = page => {
 	  	$('#imageRegisterPage').val(page);
 	  	let form = $('#imageUpdateForm').serialize();
@@ -98,7 +98,7 @@
 	                }
 	           });
 	  }
-  
+
   const createGallery = (num) => {
 	  	gallery = new Viewer(document.getElementById('imageUpdateZone'));
 	  	console.log(gallery)
@@ -108,7 +108,7 @@
   const publicRepCheck = box => {
     		box.checked ? setPublicRep(box.value, box.name, 'Y') : setPublicRep(box.value, box.name, 'N')
     	}
-    	
+
   const setPublicRep = async (idx, colunm, val) => {
     	const res = await fetch('/setPublicrep.do?image_idx=' + idx + '&colunm=' + colunm + '&val=' + val);
     	await res.text() == 'success' ? getImageUpdateList() : alert('오류입니다.');
@@ -128,7 +128,7 @@
   		dx.setUploadMode("EXNJ");
   	   	dx5.get(id).openFileDialog();
   	 }
-  	
+
   	 function uploadFrom(id) {
   	   var dx = dx5.get(id);
   	   if (dx.hasUploadableItems()) {
@@ -138,31 +138,31 @@
   	   } else {
   	     alert("업로드할 대상이 없다.");
   	   }
-  	 } 
-    	
+  	 }
+
     	/** 일반 업로드 **/
       /** DEXTUPLOADX5 설정 **/
-      dx5.create({ 
+      dx5.create({
          mode: "multi", id: "dext5", parentId: "dext5-container" , btnFile: "btn-add-files",
          btnUploadAuto: "btn-upload-auto"
       });
-  	
+
   	 /** 대용량 업로드 **/
   	 function onDX5Error(id, code, msg) {
   	//     alert(id + " => " +  code + "\n" + msg);
   	 }
-  	 
+
   	 function onDX5Created(id) {
   	    var dx = dx5.get(id);
-  	    
+
   	    // 대용량 파일 업로드 방식으로 설정한다.
   	    dx.setUploadURL(dx5.canonicalize('./extension-upload.ext?item_idx='+sessionStorage.getItem('item_idx')));
   	    dx.setUploadMode("EXNJ");
   	    dx.setUploadBlockSize(10 * 1024 * 1024);
   	 }
-  	 
+
   	 function onDX5UploadStopped(id) { alert("업로드가 중단되었습니다."); }
-  	 
+
   	 function onDX5UploadCompleted(id) {
   	    // 대용량 업로드는 개별 파일마다 응답 데이터를 따로 받으므로, ';' 문자를 구분자로 하는 하나의 문자열로 생성하여 전달한다.
   	    var responses = dx5.get(id).getResponses();
@@ -226,18 +226,18 @@
            })
 
   			$.ajax({
-  						type : 'POST',                 
+  						type : 'POST',
   						url : '/deleteImage.do',
   						data: {
   							image_idx: idx_arr,
   						},
-  						dataType : "html",           
+  						dataType : "html",
   						contentType : "application/x-www-form-urlencoded;charset=UTF-8",
   						error : function() {
   							alert('통신실패!');
   						},
   						success : function(data) {
-  							data == 'success' ? 
+  							data == 'success' ?
   							(alert('삭제되었습니다.'), getImageUpdateList()) : alert('오류가 발생했습니다. 다시 시도해주세요.')
   						}
   					});
@@ -252,7 +252,7 @@
 
     <!-- Begin page -->
     <div id="layout-wrapper">
-    
+
      	<jsp:include page="../../../common/inc/headerContent.jsp" />
 
       <!-- ============================================================== -->
@@ -281,13 +281,13 @@
 												                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
 												                     </c:forEach>
 										                  </select>
-                
+
                 <input type="hidden" name="reg_state" value="Y"/>
                 <label class="col-md-2 col-form-label">자료 번호</label>
                   <!-- <div class="col-md-10"> -->
                     <input class="form-control imageRegister_input" list="datalistOptions" id="item_no1" placeholder="자료 번호" name="item_no1">
                     <input class="form-control imageRegister_input" list="datalistOptions" id="item_detail_no1" placeholder="세부" name="item_detail_no1">
-                    ~ 
+                    ~
                     <input class="form-control imageRegister_input" list="datalistOptions" id="item_no2" placeholder="자료 번호" name="item_no2">
                     <input class="form-control imageRegister_input" list="datalistOptions" id="item_detail_no2" placeholder="세부" name="item_detail_no2">
                     <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="getImageUpdateList()">조회</button>

@@ -2743,11 +2743,11 @@
 							                     </c:forEach>
 					                  </select>
 					              <label class="col-md-2 col-form-label">자료번호</label>
-					              <input class="form-control" placeholder="자료번호" name="item_no1" id="deletion_item_no1">
-					              <input class="form-control" placeholder="세부번호" name="item_detail_no1" id="deletion_item_detail_no1"/>
+					              <input class="form-control custom_search_input_2" placeholder="자료번호" name="item_no1" id="deletion_item_no1">
+					              <input class="form-control custom_search_input_2" placeholder="세부번호" name="item_detail_no1" id="deletion_item_detail_no1"/>
 					              ~
-					              <input class="form-control" placeholder="자료번호" name="item_no2" id="deletion_item_no2"/>
-					              <input class="form-control" placeholder="세부번호" name="item_detail_no2"  id="deletion_item_detail_no2"/>
+					              <input class="form-control custom_search_input_2" placeholder="자료번호" name="item_no2" id="deletion_item_no2"/>
+					              <input class="form-control custom_search_input_2" placeholder="세부번호" name="item_detail_no2"  id="deletion_item_detail_no2"/>
 					              <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="getDeletion()">조회</button>
 					            </div>
 					          </div>
@@ -2789,8 +2789,8 @@
 					        </form>
 					        <!--  -->
 					        <div class="custom_modal_footer">
-					        <button type="button" onclick="checkDelete()">삭제신청</button>
-					        <button type="button" data-bs-dismiss="modal" aria-label="Close">닫기</button></div>
+					        <button class="custom_btn btn_707070" type="button" onclick="checkDelete()">삭제신청</button>
+					        <button class="custom_btn btn_707070" type="button" data-bs-dismiss="modal" aria-label="Close">닫기</button></div>
 					      </div>
 					    </div>
 					  </div>

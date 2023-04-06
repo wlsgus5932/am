@@ -85,7 +85,7 @@
                           <tr class="setting_thead">
                             <th>번호</th>
                             <th>명칭</th>
-                            <th>시작연도</th>
+                            <th style="width: 5%;">시작연도</th>
                             <th>종료연도</th>
                             <th>수정일</th>
                             <th>수정자</th>

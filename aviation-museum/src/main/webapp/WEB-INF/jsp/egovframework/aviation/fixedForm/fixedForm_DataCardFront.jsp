@@ -27,11 +27,11 @@
 	                       </select>
 	                      <label class="col-md-2 col-form-label">자료 번호</label>
 	                      <!-- <div class="col-md-10"> -->
-	                        <input class="custom_search_input" list="datalistOptions" id="exampleDataList" placeholder=""  name="start_item_no">
-	                        <input class="custom_search_input" list="datalistOptions" id="exampleDataList" placeholder=""  name="start_detail_item_no">
+	                        <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="exampleDataList" placeholder=""  name="start_item_no">
+	                        <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="exampleDataList" placeholder=""  name="start_detail_item_no">
 	                        ~
-	                        <input class="custom_search_input" list="datalistOptions" id="exampleDataList" placeholder="" name="end_item_no">
-	                        <input class="custom_search_input" list="datalistOptions" id="exampleDataList" placeholder="" name="end_detail_item_no">
+	                        <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="exampleDataList" placeholder="" name="end_item_no">
+	                        <input class="custom_search_input custom_search_input_2" list="datalistOptions" id="exampleDataList" placeholder="" name="end_detail_item_no">
 	                        <button class="custom_btn btn_707070" type="button" onClick="dataCardFrontSearchList();">검색</button>
 	                  </div>
                   </form>

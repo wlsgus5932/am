@@ -31,7 +31,7 @@
 				                        <td>${list.image_path }</td>
 				                        <td><input type="checkbox" id="public_service${status.index}" name="public_service" value="${list.image_idx}" onclick="publicRepCheck(this)" ${list.public_service == "Y" ? "CHECKED" : ""}/></td>
 				                        <%-- <td><button type="button" onclick="gallery.view(${status.index})">원본보기</button></td> --%>
-				                        <td><button type="button" onclick="gallery.view(${status.index})">원본보기</button></td>
+				                        <td><button class="custom_btn btn_edit btn_ori_view" type="button" onclick="gallery.view(${status.index})">원본보기</button></td>
 				                   </tr>
 				                   </c:forEach>
 					             </ul>
