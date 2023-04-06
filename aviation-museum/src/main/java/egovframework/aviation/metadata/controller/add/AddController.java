@@ -203,7 +203,6 @@ public class AddController {
 					 }
 					 
 					 if(param.getInvol_item_no() != null && !param.getInvol_item_no().get(0).isEmpty()) {
-						 System.out.println("값있음");
 						 HashMap<Integer, Object> possessionMap = new HashMap<Integer, Object>();
 						 for (int i = 0; i < param.getInvol_item_no().size(); i++) {
 							 List<Object> item = new ArrayList<>();
@@ -255,7 +254,6 @@ public class AddController {
 					 if(param.getItembasekeyword() != null && !param.getItembasekeyword().get(0).isEmpty()) {
 						 List<String> ddd = new ArrayList<String>();
 						 String[] arr = param.getItembasekeyword().get(0).split(",");
-						 System.out.println("arr:::" + arr);
 						 for(int i=0; i<arr.length; i++) {
 							 ddd.add(arr[i]);
 						 }
@@ -470,4 +468,31 @@ public class AddController {
 		
 		return "metadata/add/movement/pastMovementSc";
 	}
+	
+	@GetMapping("/getChangeItem.do")
+	public String getChangeItem(ModelMap model, @RequestParam("idx") String idx) throws Exception {
+		System.out.println(idx);
+		
+		switch(idx) {
+		case "country":
+			List<CountryVO> country = service.getCountry();
+			model.addAttribute("countryList", country);
+			break;
+		case "material":
+			List<Material1VO> material = service.getMaterial1();
+			model.addAttribute("material1List", material);
+			break;
+		case "taxonomy":
+			List<Class1VO> class1 = service.getClass1();
+			List<Class2VO> class2 = service.getClass2();
+			List<Class3VO> class3 = service.getClass3();
+			model.addAttribute("class1List", class1);
+			model.addAttribute("class2List", class2);
+			model.addAttribute("class3List", class3);
+			break;
+		}
+		
+		return "jsonView";
+	}
+	
 }
