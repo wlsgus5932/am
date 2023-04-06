@@ -4,6 +4,7 @@
  	
  	<c:choose>
    		<c:when test="${getPosSessionList.size() != 0}">
+   				<option value="">전체</option>
 	    	<c:forEach var="getPosSessionList" items="${getPosSessionList}">
 	    		<option value="${getPosSessionList.possession_nm}">${getPosSessionList.possession_nm}</option>        
 	    	</c:forEach>               

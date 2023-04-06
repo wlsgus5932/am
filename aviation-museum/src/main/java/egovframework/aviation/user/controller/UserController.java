@@ -141,9 +141,11 @@ public class UserController {
 					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일"); 
 					String strDate = simpleDateFormat.format(list.get(0).getReg_date()); 
 					session.setAttribute("userSessionRegDate", strDate);
-					SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy년 MM월 dd일"); 
-					String strDate2 = simpleDateFormat2.format(list.get(0).getMod_date()); 
-					session.setAttribute("userSessionModDate", strDate2);
+					if(list.get(0).getMod_date() != null) {
+						SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy년 MM월 dd일"); 
+						String strDate2 = simpleDateFormat2.format(list.get(0).getMod_date()); 
+						session.setAttribute("userSessionModDate", strDate2);
+					}					
 					session.setAttribute("userSessionOrgCodeIdx", list2.get(0).getOrg_code_idx());
 					session.setAttribute("userSessionOrgCodeNm", list2.get(0).getOrg_nm());
 					model.addAttribute("list", list);
@@ -234,6 +236,8 @@ public class UserController {
     public String UserInsert(HttpServletRequest req, @ModelAttribute("UserVO") UserVO userVO, Model model) throws Exception {
 		int userSessionOrgCodeIdx =  (int) req.getSession().getAttribute("userSessionOrgCodeIdx");
 		userVO.setOrg_code_idx(userSessionOrgCodeIdx);
+		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
+		userVO.setReg_user(userSessionId);
 		
 		int result = userService.insertUser(userVO);
 		String success = "";
@@ -266,8 +270,10 @@ public class UserController {
 	/** 사용자 수정 */
 	@RequestMapping(value = "/userupdate.do")
     public String UserUpdate(HttpServletRequest req, @ModelAttribute("userVO") UserVO userVO, Model model) throws Exception {
-		int userSessionOrgCodeIdx =  (int) req.getSession().getAttribute("userSessionOrgCodeIdx");
-		userVO.setOrg_code_idx(userSessionOrgCodeIdx);
+//		int userSessionOrgCodeIdx =  (int) req.getSession().getAttribute("userSessionOrgCodeIdx");
+//		userVO.setOrg_code_idx(userSessionOrgCodeIdx);
+		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
+		userVO.setMod_user(userSessionId);
 		
 		int result = userService.updateUser(userVO);
 		String success = "";

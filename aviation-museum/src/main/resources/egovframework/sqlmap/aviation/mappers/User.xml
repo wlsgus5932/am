@@ -181,12 +181,12 @@
     <update id="updateUser" parameterType="egovframework.aviation.user.vo.UserVO">
         
             UPDATE nam_member 
-               SET ORG_CODE_IDX=#{org_code_idx}
-                 , GROUP_IDX=#{group_idx}
+               SET 
+                   GROUP_IDX=#{group_idx}
                  , MEMBER_NM=#{member_nm}
                  , REMARK=#{remark}
                  , MOD_USER=#{mod_user}
-                 , MOD_DATE=#{mod_date}
+                 , MOD_DATE=now()
                  , ENABLED=#{enabled}
              WHERE MEMBER_IDX=#{member_idx}
     </update>

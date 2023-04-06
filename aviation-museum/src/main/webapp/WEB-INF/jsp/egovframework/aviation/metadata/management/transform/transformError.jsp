@@ -10,22 +10,22 @@
                       <table class="table mb-0">
                           <thead>
                               <tr class="tr_bgc">
-                                  <th>#</th>
-                                  <th>번호</th>
-                                  <th>소장구분</th>
-                                  <th>자료번호</th>
-                                  <th>세부번호</th>
+                                  <th style="width: 3%;">#</th>
+                                  <th style="width: 5%;">번호</th>
+                                  <th style="width: 6%;">소장구분</th>
+                                  <th style="width: 6%;">자료번호</th>
+                                  <th style="width: 6%;">세부번호</th>
                                   <th>명칭</th>
                                   <th>이명칭</th>
                                   <th>영문명칭</th>
-                                  <th>시대(상세)</th>
-                                  <th>작가</th>
-                                  <th>상태</th>
+                                  <th style="width: 5%;">시대</th>
+                                  <th style="width: 5%;">작가</th>
+                                  <th style="width: 5%;">상태</th>
                               </tr>
                           </thead>
                           <tbody>
                               <tr>
-                                <td>검색된 결과가 없습니다.</td>
+                                <td colspan="11">검색된 결과가 없습니다.</td>
                               </tr>
                           </tbody>
                       </table>

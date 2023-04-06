@@ -83,7 +83,7 @@ button {
 }
 
 .custom_search_input_2 {
-  width: 5%;
+  width: 10% !important;
 }
 
 .search_select_2 {
@@ -765,7 +765,7 @@ td {
 }
 
 .img-col-info dl dd {
-/*   float: left; */
+  float: left;
   margin-bottom: 0 !important;
   margin-left: 0.2rem;
 }
@@ -1342,6 +1342,10 @@ input[type="checkbox"]{
 	width: 80px;
 }
 
+.img-tag {
+	width: 40px;
+}
+
 .img-tag a {
 	color: #fff;
 }
@@ -1428,3 +1432,24 @@ input::-webkit-inner-spin-button {
 .wr_rigth_btn_wrap {
 	margin: 10px auto;
 }
+
+.search_img_wrap img {
+	width: 100%;
+}
+
+.search_img_wrap {
+	width: 140px;
+	margin: auto;
+}
+
+.data_reivew_modtal_img_wrap div {
+	border: 1px solid #D2D2D2;
+	width:89px;
+	height: 89px;
+	border-radius: 6px;
+	margin: 0.25%;
+}
+}
+
+
+

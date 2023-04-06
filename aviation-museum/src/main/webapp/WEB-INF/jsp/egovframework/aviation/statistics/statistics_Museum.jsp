@@ -214,15 +214,15 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td>1</td>
+                          <td>2</td>
                           <td>국립2</td>
                           <td>서울특별시</td>
                           <td>국립항공박물관</td>
                           <td>1</td>
+                          <td>2</td>
                           <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
+                          <td>2</td>
+                          <td>2</td>
                         </tr>
                         <tr>
                           <td>1</td>
@@ -230,9 +230,9 @@
                           <td>서울특별시</td>
                           <td>국립항공박물관</td>
                           <td>1</td>
+                          <td>2</td>
                           <td>1</td>
-                          <td>1</td>
-                          <td>1</td>
+                          <td>2</td>
                           <td>1</td>
                         </tr>
                       </tbody>
@@ -242,11 +242,11 @@
                           <th></th>
                           <th></th>
                           <th></th>
-                          <th>1</th>
-                          <th>1</th>
-                          <th>1</th>
-                          <th>1</th>
-                          <th>1</th>
+                          <th>2</th>
+                          <th>4</th>
+                          <th>2</th>
+                          <th>4</th>
+                          <th>3</th>
                         </tr>
                       </thead>
                     </table>

@@ -586,7 +586,7 @@ public class MetaDataSearchController {
 	            sheet.setColumnWidth(2, 4500);
 	            sheet.setColumnWidth(3, 4500);
 	            sheet.setColumnWidth(4, 4500);
-	            sheet.setColumnWidth(5, 4500);
+	            sheet.setColumnWidth(5, 12000);
 	            sheet.setColumnWidth(6, 4500);
 	            sheet.setColumnWidth(7, 4500);
 

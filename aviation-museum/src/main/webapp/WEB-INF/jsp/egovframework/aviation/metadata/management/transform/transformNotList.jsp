@@ -10,17 +10,17 @@
                       <table class="table mb-0">
                           <thead>
                               <tr class="tr_bgc">
-                              	  <th>#</th>
-                                  <th>번호</th>
-                                  <th>소장구분</th>
-                                  <th>자료번호</th>
-                                  <th>세부번호</th>
+                                  <th style="width: 3%;">#</th>
+                                  <th style="width: 5%;">번호</th>
+                                  <th style="width: 6%;">소장구분</th>
+                                  <th style="width: 6%;">자료번호</th>
+                                  <th style="width: 6%;">세부번호</th>
                                   <th>명칭</th>
                                   <th>이명칭</th>
                                   <th>영문명칭</th>
-                                  <th>시대(상세)</th>
-                                  <th>작가</th>
-                                  <th>상태</th>
+                                  <th style="width: 5%;">시대</th>
+                                  <th style="width: 5%;">작가</th>
+                                  <th style="width: 5%;">상태</th>
                               </tr>
                           </thead>
                           <tbody>
@@ -53,18 +53,18 @@
                   </div>
                   <ul class="btn-group pagination">
 					    <c:if test="${pageMaker.prev }">
-					    <li>
-					        <a href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+					    <li class="page-item">
+					        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
 					    </li>
 					    </c:if>
 					    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-					    <li>
-					        <a href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+					    <li class="page-item">
+					        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
 					    </li>
 					    </c:forEach>
 					    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-					    <li>
-					        <a href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+					    <li class="page-item">
+					        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 					    </li>
 					    </c:if>
 					</ul> 
