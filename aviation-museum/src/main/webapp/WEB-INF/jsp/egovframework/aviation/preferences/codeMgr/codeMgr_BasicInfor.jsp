@@ -11,7 +11,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="7">수량단위코드</th>
                           </tr>
                         </thead>
@@ -75,7 +75,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="7">현존여부코드</th>
                           </tr>
                         </thead>
@@ -142,7 +142,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="7">실측부위코드</th>
                           </tr>
                         </thead>
@@ -206,7 +206,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="7">실측단위코드</th>
                           </tr>
                         </thead>
@@ -273,7 +273,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="7">자료상태코드</th>
                           </tr>
                         </thead>
@@ -337,7 +337,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="7">전시순위코드</th>
                           </tr>
                         </thead>
@@ -404,7 +404,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="7">공공누리서비스코드</th>
                           </tr>
                         </thead>
@@ -468,7 +468,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="7">전문정보코드</th>
                           </tr>
                         </thead>

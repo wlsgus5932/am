@@ -140,7 +140,7 @@
               <!--  -->
               <div class="st_wrap st_mv_wrap">
 	             <form id="exchnRateSearchForm" name="exchnRateSearchForm" method="post" class="form-horizontal"> 
-	                <div>
+	                <div style="width: 250px;">
 	                  리스트 출력 갯수 :
 	                    <select class="search_select" id="perPageNum" name="perPageNum" onchange="exchnRateperPageNum();">	                      
 	                      <option value="10">10</option>
