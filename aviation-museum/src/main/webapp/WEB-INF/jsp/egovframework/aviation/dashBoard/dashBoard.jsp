@@ -51,10 +51,10 @@
         <!-- 대시보드 시작 -->
         <div class="page-content">
           <div class="container-fluid">
-			  <div class="dash_back_img">
-			  <img alt="" src="/assets/custom_img/dash_back_img.png">
-			  </div>
-              <div class="row" style="display: none;">
+<!-- 			  <div class="dash_back_img"> -->
+<!-- 			  <img alt="" src="/assets/custom_img/dash_back_img.png"> -->
+<!-- 			  </div> -->
+              <div class="row">
                 <!--  -->
                 <div class="col-xxl-3">
 

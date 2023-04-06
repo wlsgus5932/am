@@ -96,9 +96,9 @@
     </script>
   </head>
 <body data-sidebar="dark">
-
+   <jsp:include page="../common/inc/headerContent.jsp" />
    <div id="layout-wrapper">
- 	<jsp:include page="../common/inc/headerContent.jsp" />
+ 	
       <!-- ============================================================== -->
       <div class="main-content">
         <div class="page-content">
@@ -148,7 +148,17 @@
         </footer>
       </div>
       <!-- end main content-->
-      
+      	<form id="specialityExcelForm" name="specialityExcelForm" method="post" class="form-horizontal">
+		 	   <input type="hidden" name="org_nm" id="search_org_nm" />
+          	   <input type="hidden" name="possession_nm" id="search_possession_nm" />			  
+			   <input type="hidden" name="start_item_no" id="search_start_item_no" />   
+               <input type="hidden" name="end_item_no" id="search_end_item_no" />                    
+               <input type="hidden" name="start_detail_item_no" id="search_start_detail_item_no" />   
+               <input type="hidden" name="end_detail_item_no" id="search_end_detail_item_no" />                     
+               <input type="hidden" name="start_reg_date" id="search_start_reg_date" />   
+               <input type="hidden" name="end_reg_date" id="search_end_reg_date" />  	               
+		</form>
+
           <!-- JAVASCRIPT -->
     <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/libs/metismenujs/metismenujs.min.js"></script>

@@ -351,11 +351,11 @@
 				    }
 				  
 			});
-    		$('input[type="text"]').keydown(function() {
-	  			  if (event.keyCode === 13) {
-	  			    event.preventDefault();
-	  			  };
-			});
+//     		$('input[type="text"]').keydown(function() {
+// 	  			  if (event.keyCode === 13) {
+// 	  			    event.preventDefault();
+// 	  			  };
+// 			});
     		<%-- 보관구분 페이지 이동 --%>
     		function storageType12List(value , value2) {
     			var storage_type1_code_idx = value;

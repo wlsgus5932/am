@@ -1,5 +1,524 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.aviation.statistics.service.impl.StatisticsMapper">
-
+    <select id="getMuseumList" parameterType="egovframework.aviation.statistics.vo.StatisticsMuseumVO" resultType="egovframework.aviation.statistics.vo.StatisticsMuseumVO">
+   	SELECT reg.POSSESSION_CODE_IDX, reg.POSSESSION_NM, CNT, TOTAL, P_CNT, P_TOTAL, I_CNT
+	FROM 
+		(SELECT POSSESSION_CODE_IDX, POSSESSION_NM, COALESCE(COUNT(QTY), 0) AS CNT, COALESCE(SUM(QTY), 0) AS TOTAL
+		FROM 
+			(SELECT b.POSSESSION_CODE_IDX, b.POSSESSION_NM, a.QTY FROM nam_item_base AS a 
+			 RIGHT JOIN 
+			 (SELECT POSSESSION_CODE_IDX, POSSESSION_NM FROM nam_possession_code
+			  WHERE ORG_CODE_IDX = 1
+	 		  <if test="possession_nm != null and possession_nm != ''">AND
+                  possession_nm = #{possession_nm}
+              </if>
+			 ) AS b 
+			 ON a.POSSESSION_CODE_IDX = b.POSSESSION_CODE_IDX
+			 WHERE 1=1
+			 <if test="chk_info != null and chk_info != ''">
+		 		<if test="chk_info == 'reg_date'">
+			 		<if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+		                (a.reg_date like CONCAT('%', #{start_reg_date}, '-', #{end_reg_date}, '%'))
+		            </if>
+	            </if>
+	            <if test="chk_info == 'reg_date2'">
+			 		<if test="start_reg_date2 != null and start_reg_date2 != '' and end_reg_date2 != null and end_reg_date2 != ''">AND
+		                (a.reg_date BETWEEN #{start_reg_date2} and #{end_reg_date2})
+		            </if>
+	            </if>
+	         </if>   
+			 ) AS c
+		GROUP BY POSSESSION_NM) AS reg
+		INNER JOIN
+		(SELECT d.POSSESSION_CODE_IDX, d.POSSESSION_NM, COALESCE(COUNT(c.QTY), 0) AS P_CNT, COALESCE(SUM(c.QTY), 0) AS P_TOTAL
+		FROM 
+			(SELECT a.POSSESSION_CODE_IDX, a.QTY FROM nam_item_base AS a 
+			 INNER JOIN (SELECT ITEM_IDX, PUBLIC_SERVICE FROM nam_public_service WHERE PUBLIC_SERVICE = 'Y') AS b
+			 ON a.ITEM_IDX = b.ITEM_IDX
+			 WHERE 1=1
+			 <if test="chk_info != null and chk_info != ''">
+				 <if test="chk_info == 'reg_date'">
+			 		<if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+		                (a.reg_date like CONCAT('%', #{start_reg_date}, '-', #{end_reg_date}, '%'))
+		            </if>
+	            </if>
+	            <if test="chk_info == 'reg_date2'">
+			 		<if test="start_reg_date2 != null and start_reg_date2 != '' and end_reg_date2 != null and end_reg_date2 != ''">AND
+		                (a.reg_date BETWEEN #{start_reg_date2} and #{end_reg_date2})
+		            </if>
+	            </if>
+	         </if>
+			 ) AS c
+			RIGHT JOIN 
+			(SELECT POSSESSION_CODE_IDX, POSSESSION_NM FROM nam_possession_code
+			 WHERE ORG_CODE_IDX = 1
+			 <if test="possession_nm != null and possession_nm != ''">AND
+                  possession_nm = #{possession_nm}
+             </if>
+			) AS d
+			ON c.POSSESSION_CODE_IDX = d.POSSESSION_CODE_IDX
+		GROUP BY POSSESSION_NM) AS pub
+		INNER JOIN
+		(SELECT d.POSSESSION_CODE_IDX, d.POSSESSION_NM, COALESCE(COUNT(c.IMAGE_NM), 0) AS I_CNT
+		FROM 
+			(SELECT a.ITEM_IDX, a.POSSESSION_CODE_IDX, b.IMAGE_NM FROM nam_item_base AS a 
+			 INNER JOIN (SELECT ITEM_IDX, IMAGE_NM FROM nam_image) AS b
+			 ON a.ITEM_IDX = b.ITEM_IDX
+			 WHERE 1=1
+			 <if test="chk_info != null and chk_info != ''">
+				<if test="chk_info == 'reg_date'">
+			 		<if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+		                (a.reg_date like CONCAT('%', #{start_reg_date}, '-', #{end_reg_date}, '%'))
+		            </if>
+	            </if>
+	            <if test="chk_info == 'reg_date2'">
+			 		<if test="start_reg_date2 != null and start_reg_date2 != '' and end_reg_date2 != null and end_reg_date2 != ''">AND
+		                (a.reg_date BETWEEN #{start_reg_date2} and #{end_reg_date2})
+		            </if>
+	            </if>
+	         </if>
+			 ) AS c
+			RIGHT JOIN 
+			(SELECT POSSESSION_CODE_IDX, POSSESSION_NM FROM nam_possession_code 
+			 WHERE ORG_CODE_IDX = 1
+	 		 <if test="possession_nm != null and possession_nm != ''">AND
+                 possession_nm = #{possession_nm}
+             </if>			
+			) AS d
+			ON c.POSSESSION_CODE_IDX = d.POSSESSION_CODE_IDX
+		GROUP BY POSSESSION_NM) AS img
+		ON reg.POSSESSION_CODE_IDX = pub.POSSESSION_CODE_IDX AND pub.POSSESSION_CODE_IDX = img.POSSESSION_CODE_IDX
+   	</select>
+    <select id="getImagesList" parameterType="egovframework.aviation.statistics.vo.StatisticsImagesVO" resultType="egovframework.aviation.statistics.vo.StatisticsImagesVO">
+				SELECT 
+					 count(*) as count
+					,SUM(count) as sum
+				FROM
+				(
+					SELECT 
+						 nib.ITEM_IDX 
+						,COUNT(ni.ITEM_IDX) as count
+					from nam_item_base nib 
+					left join nam_image ni 
+					on nib.ITEM_IDX = ni.ITEM_IDX 
+					left join nam_org_code noc 
+					on nib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+					left join nam_possession_code npc 
+					on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+					WHERE 1=1
+					<if test="org_nm != null and org_nm != ''">AND
+		                noc.org_nm = #{org_nm}
+		            </if>
+		            <if test="possession_nm != null and possession_nm != ''">AND
+		                npc.possession_nm = #{possession_nm}
+		            </if>
+		            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+		                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+		            </if>
+		            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+		                (nib.item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+		            </if>
+		            <if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+		                (nib.reg_date BETWEEN #{start_reg_date} and #{end_reg_date})
+		            </if>
+					group by ni.ITEM_IDX
+				)R1				
+				WHERE 1=1
+				AND R1.count = 0
+	            UNION ALL
+				SELECT 
+					 count(*)
+					,SUM(count) as sum
+				FROM
+				(
+					SELECT 
+						 nib.ITEM_IDX 
+						,COUNT(ni.ITEM_IDX) as count
+					from nam_item_base nib 
+					left join nam_image ni 
+					on nib.ITEM_IDX = ni.ITEM_IDX 
+					left join nam_org_code noc 
+					on nib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+					left join nam_possession_code npc 
+					on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+					WHERE 1=1
+					<if test="org_nm != null and org_nm != ''">AND
+		                noc.org_nm = #{org_nm}
+		            </if>
+		            <if test="possession_nm != null and possession_nm != ''">AND
+		                npc.possession_nm = #{possession_nm}
+		            </if>
+		            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+		                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+		            </if>
+		            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+		                (nib.item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+		            </if>
+		            <if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+		                (nib.reg_date BETWEEN #{start_reg_date} and #{end_reg_date})
+		            </if>					
+					group by ni.ITEM_IDX
+				)R1
+				WHERE 1=1
+				AND R1.count BETWEEN 1 and 2
+	            UNION ALL
+				SELECT 
+					 count(*)
+					,SUM(count) as sum
+				FROM
+				(
+					SELECT 
+						 nib.ITEM_IDX 
+						,COUNT(ni.ITEM_IDX) as count
+					from nam_item_base nib 
+					left join nam_image ni 
+					on nib.ITEM_IDX = ni.ITEM_IDX 
+					left join nam_org_code noc 
+					on nib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+					left join nam_possession_code npc 
+					on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+					WHERE 1=1
+					<if test="org_nm != null and org_nm != ''">AND
+		                noc.org_nm = #{org_nm}
+		            </if>
+		            <if test="possession_nm != null and possession_nm != ''">AND
+		                npc.possession_nm = #{possession_nm}
+		            </if>
+		            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+		                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+		            </if>
+		            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+		                (nib.item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+		            </if>
+		            <if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+		                (nib.reg_date BETWEEN #{start_reg_date} and #{end_reg_date})
+		            </if>							
+					group by ni.ITEM_IDX
+				)R1
+				WHERE 1=1
+				AND R1.count BETWEEN 3 and 5
+				UNION ALL
+				SELECT 
+					 count(*)
+					,SUM(count) as sum
+				FROM
+				(
+					SELECT 
+						 nib.ITEM_IDX 
+						,COUNT(ni.ITEM_IDX) as count
+					from nam_item_base nib 
+					left join nam_image ni 
+					on nib.ITEM_IDX = ni.ITEM_IDX 
+					left join nam_org_code noc 
+					on nib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+					left join nam_possession_code npc 
+					on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+					WHERE 1=1
+					<if test="org_nm != null and org_nm != ''">AND
+		                noc.org_nm = #{org_nm}
+		            </if>
+		            <if test="possession_nm != null and possession_nm != ''">AND
+		                npc.possession_nm = #{possession_nm}
+		            </if>
+		            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+		                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+		            </if>
+		            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+		                (nib.item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+		            </if>
+		            <if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+		                (nib.reg_date BETWEEN #{start_reg_date} and #{end_reg_date})
+		            </if>							
+					group by ni.ITEM_IDX
+				)R1
+				WHERE 1=1
+				AND R1.count BETWEEN 6 and 10
+				UNION ALL
+				SELECT 
+					 count(*)
+					,SUM(count) as sum
+				FROM
+				(
+					SELECT 
+						 nib.ITEM_IDX 
+						,COUNT(ni.ITEM_IDX) as count
+					from nam_item_base nib 
+					left join nam_image ni 
+					on nib.ITEM_IDX = ni.ITEM_IDX 
+					left join nam_org_code noc 
+					on nib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+					left join nam_possession_code npc 
+					on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+					WHERE 1=1
+					<if test="org_nm != null and org_nm != ''">AND
+		                noc.org_nm = #{org_nm}
+		            </if>
+		            <if test="possession_nm != null and possession_nm != ''">AND
+		                npc.possession_nm = #{possession_nm}
+		            </if>
+		            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+		                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+		            </if>
+		            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+		                (nib.item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+		            </if>
+		            <if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+		                (nib.reg_date BETWEEN #{start_reg_date} and #{end_reg_date})
+		            </if>							
+					group by ni.ITEM_IDX
+				)R1
+				WHERE 1=1
+				AND R1.count BETWEEN 11 and 20
+				UNION ALL
+				SELECT 
+					 count(*)
+					,SUM(count) as sum
+				FROM
+				(
+					SELECT 
+						 nib.ITEM_IDX 
+						,COUNT(ni.ITEM_IDX) as count
+					from nam_item_base nib 
+					left join nam_image ni 
+					on nib.ITEM_IDX = ni.ITEM_IDX 
+					left join nam_org_code noc 
+					on nib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+					left join nam_possession_code npc 
+					on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+					WHERE 1=1
+					<if test="org_nm != null and org_nm != ''">AND
+		                noc.org_nm = #{org_nm}
+		            </if>
+		            <if test="possession_nm != null and possession_nm != ''">AND
+		                npc.possession_nm = #{possession_nm}
+		            </if>
+		            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+		                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+		            </if>
+		            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+		                (nib.item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+		            </if>
+		            <if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+		                (nib.reg_date BETWEEN #{start_reg_date} and #{end_reg_date})
+		            </if>							
+					group by ni.ITEM_IDX
+				)R1
+				WHERE 1=1
+				AND R1.count BETWEEN 21 and 30
+				UNION ALL
+				SELECT 
+					 count(*)
+					,SUM(count) as sum
+				FROM
+				(
+					SELECT 
+						 nib.ITEM_IDX 
+						,COUNT(ni.ITEM_IDX) as count
+					from nam_item_base nib 
+					left join nam_image ni 
+					on nib.ITEM_IDX = ni.ITEM_IDX 
+					left join nam_org_code noc 
+					on nib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+					left join nam_possession_code npc 
+					on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+					WHERE 1=1
+					<if test="org_nm != null and org_nm != ''">AND
+		                noc.org_nm = #{org_nm}
+		            </if>
+		            <if test="possession_nm != null and possession_nm != ''">AND
+		                npc.possession_nm = #{possession_nm}
+		            </if>
+		            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+		                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+		            </if>
+		            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+		                (nib.item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+		            </if>
+		            <if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+		                (nib.reg_date BETWEEN #{start_reg_date} and #{end_reg_date})
+		            </if>							
+					group by ni.ITEM_IDX
+				)R1
+				WHERE 1=1
+				AND R1.count BETWEEN 31 and 50
+			    UNION ALL
+				SELECT 
+					 count(*)
+					,SUM(count) as sum
+				FROM
+				(
+					SELECT 
+						 nib.ITEM_IDX 
+						,COUNT(ni.ITEM_IDX) as count
+					from nam_item_base nib 
+					left join nam_image ni 
+					on nib.ITEM_IDX = ni.ITEM_IDX 
+					left join nam_org_code noc 
+					on nib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+					left join nam_possession_code npc 
+					on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+					WHERE 1=1
+					<if test="org_nm != null and org_nm != ''">AND
+		                noc.org_nm = #{org_nm}
+		            </if>
+		            <if test="possession_nm != null and possession_nm != ''">AND
+		                npc.possession_nm = #{possession_nm}
+		            </if>
+		            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+		                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+		            </if>
+		            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+		                (nib.item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+		            </if>
+		            <if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+		                (nib.reg_date BETWEEN #{start_reg_date} and #{end_reg_date})
+		            </if>							
+					group by ni.ITEM_IDX
+				)R1
+				WHERE 1=1
+				AND R1.count BETWEEN 51 and 100
+				UNION ALL
+				SELECT 
+					 count(*)
+					,SUM(count) as sum
+				FROM
+				(
+					SELECT 
+						 nib.ITEM_IDX 
+						,COUNT(ni.ITEM_IDX) as count
+					from nam_item_base nib 
+					left join nam_image ni 
+					on nib.ITEM_IDX = ni.ITEM_IDX 
+					left join nam_org_code noc 
+					on nib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+					left join nam_possession_code npc 
+					on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+					WHERE 1=1
+					<if test="org_nm != null and org_nm != ''">AND
+		                noc.org_nm = #{org_nm}
+		            </if>
+		            <if test="possession_nm != null and possession_nm != ''">AND
+		                npc.possession_nm = #{possession_nm}
+		            </if>
+		            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+		                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+		            </if>
+		            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+		                (nib.item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+		            </if>
+		            <if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+		                (nib.reg_date BETWEEN #{start_reg_date} and #{end_reg_date})
+		            </if>							
+					group by ni.ITEM_IDX
+				)R1
+				WHERE 1=1
+				AND R1.count BETWEEN 101 and 200
+				UNION ALL
+				SELECT 
+					 count(*)
+					,SUM(count) as sum
+				FROM
+				(
+					SELECT 
+						 nib.ITEM_IDX 
+						,COUNT(ni.ITEM_IDX) as count
+					from nam_item_base nib 
+					left join nam_image ni 
+					on nib.ITEM_IDX = ni.ITEM_IDX 
+					left join nam_org_code noc 
+					on nib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+					left join nam_possession_code npc 
+					on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+					WHERE 1=1
+					<if test="org_nm != null and org_nm != ''">AND
+		                noc.org_nm = #{org_nm}
+		            </if>
+		            <if test="possession_nm != null and possession_nm != ''">AND
+		                npc.possession_nm = #{possession_nm}
+		            </if>
+		            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+		                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+		            </if>
+		            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+		                (nib.item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+		            </if>
+		            <if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+		                (nib.reg_date BETWEEN #{start_reg_date} and #{end_reg_date})
+		            </if>							
+					group by ni.ITEM_IDX
+				)R1
+				WHERE 1=1
+				AND R1.count BETWEEN 201 and 300
+				UNION ALL
+				SELECT 
+					 count(*)
+					,SUM(count) as sum
+				FROM
+				(
+					SELECT 
+						 nib.ITEM_IDX 
+						,COUNT(ni.ITEM_IDX) as count
+					from nam_item_base nib 
+					left join nam_image ni 
+					on nib.ITEM_IDX = ni.ITEM_IDX 
+					left join nam_org_code noc 
+					on nib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+					left join nam_possession_code npc 
+					on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+					WHERE 1=1
+					<if test="org_nm != null and org_nm != ''">AND
+		                noc.org_nm = #{org_nm}
+		            </if>
+		            <if test="possession_nm != null and possession_nm != ''">AND
+		                npc.possession_nm = #{possession_nm}
+		            </if>
+		            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+		                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+		            </if>
+		            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+		                (nib.item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+		            </if>
+		            <if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+		                (nib.reg_date BETWEEN #{start_reg_date} and #{end_reg_date})
+		            </if>							
+					group by ni.ITEM_IDX
+				)R1
+				WHERE 1=1
+				AND R1.count > 301
+	</select>
+    <select id="getSpecialityList" parameterType="egovframework.aviation.statistics.vo.StatisticsSpecialityVO" resultType="egovframework.aviation.statistics.vo.StatisticsSpecialityVO">
+				SELECT
+					 row_number() over(order by ns.REG_DATE desc) as rnum	
+					,noc.ORG_NM
+					,nm.MEMBER_NM
+					,ns.REG_USER
+					,COUNT(ns.REG_USER) as count
+				FROM nam_speciality ns 
+				left join nam_item_base nib 
+				on ns.ITEM_IDX = nib.ITEM_IDX 
+				left join nam_member nm 
+				on ns.REG_USER = nm.MEMBER_ID 
+				left join nam_org_code noc 
+				on nib.ORG_CODE_IDX = noc.ORG_CODE_IDX 
+				left join nam_possession_code npc 
+				on nib.POSSESSION_CODE_IDX = npc.POSSESSION_CODE_IDX 
+				WHERE 1=1
+				<if test="org_nm != null and org_nm != ''">AND
+	                noc.org_nm = #{org_nm}
+	            </if>
+	            <if test="possession_nm != null and possession_nm != ''">AND
+	                npc.possession_nm = #{possession_nm}
+	            </if>
+	            <if test="start_item_no != null and start_item_no != '' and end_item_no != null and end_item_no != ''">AND
+	                (nib.item_no BETWEEN CONVERT(#{start_item_no}, SIGNED) and CONVERT(#{end_item_no}, SIGNED))
+	            </if>
+	            <if test="start_detail_item_no != null and start_detail_item_no != '' and end_detail_item_no != null and end_detail_item_no != ''">AND
+	                (nib.item_detail_no BETWEEN CONVERT(#{start_detail_item_no}, SIGNED) and CONVERT(#{end_detail_item_no}, SIGNED))
+	            </if>
+	            <if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+	                (ns.reg_date BETWEEN #{start_reg_date} and #{end_reg_date})
+	            </if>
+	            group by ns.REG_USER
+	</select>
 </mapper>

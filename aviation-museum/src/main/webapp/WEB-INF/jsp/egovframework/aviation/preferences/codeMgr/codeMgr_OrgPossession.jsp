@@ -370,11 +370,11 @@
 // 				    }
 				  
 // 			});
-    		$('input[type="text"]').keydown(function() {
-	  			  if (event.keyCode === 13) {
-	  			    event.preventDefault();
-	  			  };
-			});
+//     		$('input[type="text"]').keydown(function() {
+// 	  			  if (event.keyCode === 13) {
+// 	  			    event.preventDefault();
+// 	  			  };
+// 			});
     		<%-- 소장구분코드 조회 --%>
     		function orgPossessionList(value, value2) {
     			var org_code_idx = value;

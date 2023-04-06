@@ -291,11 +291,11 @@
 				});
 		}
 		
-		$('input[type="text"]').keydown(function() {
-			  if (event.keyCode === 13) {
-			    event.preventDefault();
-			  };
-		});
+// 		$('input[type="text"]').keydown(function() {
+// 			  if (event.keyCode === 13) {
+// 			    event.preventDefault();
+// 			  };
+// 		});
 		
 		<%-- 공지사항 페이지 이동 --%>
 		function goPage(value) {
