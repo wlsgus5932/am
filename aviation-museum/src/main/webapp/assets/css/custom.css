@@ -83,7 +83,7 @@ button {
 }
 
 .custom_search_input_2 {
-  width: 10% !important;
+  width: 5% !important;
 }
 
 .search_select_2 {
@@ -476,7 +476,7 @@ td {
 }
 
 .in_date {
-  width: 100%;
+  width: 15%;
 }
 
 /*  */
@@ -1467,4 +1467,92 @@ input::-webkit-inner-spin-button {
 
 .tr_bgc_2 th {
 	border-radius: 10px !important;
+}
+
+
+/* 레프트 로그인 정보 (로그아웃) */
+
+.left_log_info_wrap {
+	max-width: 254px;
+	width: 100%;
+	height: 50px;
+/* 	background-color: #fff; */
+}
+
+.left_log_info_in_wrap_1 {
+	margin-left: 10px;
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	float: left;
+}
+
+.log_info_user_img {
+	width: 50px;
+	height: 50px;
+	background-color: #fff;
+	border-radius: 50px;
+}
+
+.left_log_info_in_wrap_2 {
+	margin-left: 5px;
+	width: 50%;
+	height: 50px;
+	float: left;
+	color: #fff;
+}
+
+.left_log_info_in_wrap_2_top {
+	font-size: 14px;
+}
+
+.left_log_info_in_wrap_2_bottom {
+	font-size: 12px;
+}
+
+.left_log_info_in_wrap_2_top,
+.left_log_info_in_wrap_2_bottom {
+	height: 25px;
+	line-height: 25px;
+} 
+
+.left_log_info_in_wrap_3 {
+	width: auto;
+	height: 50px;
+	
+}
+
+.left_log_info_in_wrap_3 button {
+	background-color: #FA8409;
+	border-radius: 2px;
+	width: 50px;
+	height: 20px;
+	font-size: 10px;
+	color: #232323;
+	border: none;
+	font-weight: 700;
+	margin-top: 15px;
+	line-height: 20px;
+	transition: 0.2s;
+}
+
+.left_log_info_in_wrap_3 button:hover {
+	opacity: 0.7;
+}
+
+
+.page-item:last-child .page-link {
+	border-top-right-radius: 0.75rem !important;
+    border-bottom-right-radius: 0.75rem !important;
+}
+
+.page-link_2 {
+	border-top-right-radius: 0.75rem !important;
+    border-bottom-right-radius: 0.75rem !important;
+}
+
+
+.search_detail_modal {
+	width: 860px;
+	height: 740px;
 }

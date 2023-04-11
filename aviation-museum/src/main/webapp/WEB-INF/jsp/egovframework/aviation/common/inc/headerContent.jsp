@@ -349,6 +349,27 @@
     <!--- Sidemenu -->
     <div class="left_menu" id="sidebar-menu">
       <!-- Left Menu Start -->
+<!--       로그인 정보  (로그아웃 포함) -->
+	  <div class="left_log_info_wrap">
+	  	<div class="left_log_info_in_wrap_1">
+	  		<div class="log_info_user_img">
+	  			<img alt="" src="프로필 이미지">
+	  		</div>
+	  	</div>
+	  	<div class="left_log_info_in_wrap_2">
+	  		<div class="left_log_info_in_wrap_2_top">
+	  			홍길동님
+	  		</div>
+	  		<div class="left_log_info_in_wrap_2_bottom">
+	  			asdasd@naver.com
+	  		</div>
+	  	</div>
+	  	<div class="left_log_info_in_wrap_3">
+	  		<button class="" type="button">LOGOUT</button>
+<!-- 	  		<button class="" type="button">LOGIN</button> -->
+	  	</div>
+	  </div>
+<!--       로그인 정보  (로그아웃 포함) -->
       <ul class="metismenu list-unstyled" id="side-menu">
         <li class="dash_text menu-title" data-key="t-menu">Dashboard</li>
         <li>
