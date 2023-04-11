@@ -2599,7 +2599,7 @@
 		$('#afterChangeTd').children().remove();
 		if(val == '1') {
 			$('#itemChangeRadio1').prop('disabled', false);
-			$('#itemChangeTbody > tr:eq(2) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected>선택</option></select>')
+			$('#itemChangeTbody > tr:eq(3) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected>선택</option></select>')
 			item1.forEach(e=>{
 				$('#itemChangeSelect').append('<option value="'+e.value+'">'+e.name+'</option>')
 			});
@@ -2607,7 +2607,7 @@
 			$('#itemChangeTbody').append('<tr id="itemChangeTr2"><td>변경후값</td><td id="afterChangeTd"></td></tr>')
 		} else if(val == '2') {
 			$('#itemChangeRadio1').prop('disabled', false);
-			$('#itemChangeTbody > tr:eq(2) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected>선택</option></select>')
+			$('#itemChangeTbody > tr:eq(3) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected>선택</option></select>')
 			item2.forEach(e=> {
 				$('#itemChangeSelect').append('<option value="'+e.value+'">'+e.name+'</option>')
 			})
