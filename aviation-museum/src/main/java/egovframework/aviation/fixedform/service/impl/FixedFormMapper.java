@@ -15,4 +15,6 @@ public interface FixedFormMapper {
 	public List<FixedFormVO> getDataCardBackList(DataCardBackVO dataCardBackVO);
 	
 	public List<FixedFormVO> getDataCardBackPList(DataCardBackVO dataCardBackVO);
+	
+	public List<FixedFormVO> getDataCardFrontMeasureList(FixedFormVO fixedFormVO);
 }

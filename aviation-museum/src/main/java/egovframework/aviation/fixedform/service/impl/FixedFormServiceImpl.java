@@ -29,4 +29,9 @@ public class FixedFormServiceImpl implements FixedFormService  {
 		return fixedFormMapper.getDataCardBackPList(dataCardBackVO);
 	}
 
+	@Override
+	public List<FixedFormVO> getDataCardFrontMeasureList(FixedFormVO fixedFormVO) {
+		return fixedFormMapper.getDataCardFrontMeasureList(fixedFormVO);
+	}
+
 }

@@ -72,6 +72,22 @@
 				GROUP BY nib.ITEM_IDX
 
 	</select>
+	<select id="getDataCardFrontMeasureList" parameterType="egovframework.aviation.fixedform.vo.FixedFormVO" resultType="egovframework.aviation.fixedform.vo.FixedFormVO">
+			SELECT 
+				 nm2.ITEM_IDX 
+				,nmc3.MEASUREMENT_NM 
+				,nm2.MEASUREMENT_VALUE
+				,nmuc.MEASUREMENT_UNIT_NM 
+			FROM nam_item_base nib
+			RIGHT JOIN nam_measurement nm2 
+			ON nib.ITEM_IDX = nm2.ITEM_IDX
+			LEFT JOIN nam_measurement_code nmc3 
+			ON nm2.MEASUREMENT_CODE_IDX = nmc3.MEASUREMENT_CODE_IDX
+			LEFT JOIN nam_measurement_unit_code nmuc 
+			ON nm2.MEASUREMENT_UNIT_CODE_IDX = nmuc.MEASUREMENT_UNIT_CODE_IDX
+	
+	</select>
+	
 	<select id="getDataCardBackList" parameterType="egovframework.aviation.fixedform.vo.DataCardBackVO" resultType="egovframework.aviation.fixedform.vo.DataCardBackVO">
 	
 			SELECT 

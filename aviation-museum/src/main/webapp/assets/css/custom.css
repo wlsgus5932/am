@@ -1556,3 +1556,37 @@ input::-webkit-inner-spin-button {
 	width: 860px;
 	height: 740px;
 }
+
+.all_number_text {
+  height: 30px;
+  line-height: 30px;
+  font-size: 18px;
+  color: #3d3d3d;
+  font-weight: 700;
+}
+
+.view_Modal_data_header {
+  color: #000;
+  width: 100%;
+  height: 40px;
+  border-radius: 7px;
+  text-align: left;
+  line-height: 40px;
+  padding-left: 1%;
+}
+
+.view_Modal_data_in_wrap {
+  padding-top: 1%;
+  padding-left: 1%;
+}
+
+.view_Modal_data_wrap {
+  height: 286px;
+  border: 1px solid #d2d2d2;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+.user_in_modal_wrap_view {
+  width: 860px !important;
+}

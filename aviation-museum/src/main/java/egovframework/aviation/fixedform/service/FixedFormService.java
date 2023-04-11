@@ -13,4 +13,6 @@ public interface FixedFormService {
 
 	public List<FixedFormVO> getDataCardBackPList(DataCardBackVO dataCardBackVO);
 
+	public List<FixedFormVO> getDataCardFrontMeasureList(FixedFormVO fixedFormVO);
+
 }

@@ -52,15 +52,17 @@
 				on nib.ITEM_IDX = nce2.ITEM_IDX
 				LEFT join nam_material nm3 
 				on nib.ITEM_IDX = nm3.ITEM_IDX 
+				left join nam_keyword nk 
+				on nib.ITEM_IDX = nk.ITEM_IDX 				
 				WHERE 1=1
 				AND REG_STATE = #{reg_state}
 				<if test=" '' != research_word and null != research_word">		
 					<if test=" '' != searched_word and null != searched_word">
-						AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%')) 
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{searched_word}, '%')) 
 					</if>	
 				</if>
 				<if test=" '' != search_word and null != search_word">
-					AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%')) 
+					AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{search_word}, '%')) 
 				</if>
 				<if test=" '' != detail_search_word1 and null != detail_search_word1">
 					<if test="search_type == 'item_nm'">
@@ -72,8 +74,11 @@
 					<if test="search_type == 'item_eng_nm'">
 						AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
 					</if>
+					<if test="search_type == 'keyword'">
+						AND (nk.KEYWORD LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>					
 					<if test="search_type == '' or search_type == null">
-						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%')) 
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word1}, '%')) 
 					</if>
 				</if>
 				<if test=" '' != detail_search_word2 and null != detail_search_word2">
@@ -87,8 +92,11 @@
 						<if test="search_type2 == 'item_eng_nm'">
 							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							AND (nk.KEYWORD LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>								
 						<if test="search_type2 == '' or search_type == null">
-							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word2}, '%')) 
 						</if>
 					</if>
 					<if test="pSrchfAndOr1 == 'OR'">
@@ -101,8 +109,11 @@
 						<if test="search_type2 == 'item_eng_nm'">
 							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							OR (nk.KEYWORD LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>								
 						<if test="search_type2 == '' or search_type == null">
-							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word2}, '%')) 
 						</if>
 					</if>
 				</if>
@@ -117,8 +128,11 @@
 						<if test="search_type3 == 'item_eng_nm'">
 							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							AND (nk.KEYWORD LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>								
 						<if test="search_type3 == '' or search_type == null">
-							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word3}, '%')) 
 						</if>
 					</if>
 					<if test="pSrchfAndOr2 == 'OR'">
@@ -132,7 +146,7 @@
 							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
 						</if>
 						<if test="search_type3 == '' or search_type == null">
-							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word3}, '%')) 
 						</if>
 					</if>
 				</if>
@@ -217,15 +231,17 @@
 				on nib.ITEM_IDX = nce2.ITEM_IDX
 				LEFT join nam_material nm3 
 				on nib.ITEM_IDX = nm3.ITEM_IDX 
+				left join nam_keyword nk 
+				on nib.ITEM_IDX = nk.ITEM_IDX 					
 				WHERE 1=1
 				AND REG_STATE = #{reg_state}
 				<if test=" '' != research_word and null != research_word">		
 					<if test=" '' != searched_word and null != searched_word">
-						AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%')) 
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{searched_word}, '%')) 
 					</if>	
 				</if>
 				<if test=" '' != search_word and null != search_word">
-					AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%')) 
+					AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{search_word}, '%')) 
 				</if>
 				<if test=" '' != detail_search_word1 and null != detail_search_word1">
 					<if test="search_type == 'item_nm'">
@@ -237,8 +253,11 @@
 					<if test="search_type == 'item_eng_nm'">
 						AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
 					</if>
+					<if test="search_type == 'keyword'">
+						AND (nk.KEYWORD LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>							
 					<if test="search_type == '' or search_type == null">
-						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%')) 
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word1}, '%')) 
 					</if>
 				</if>
 				<if test=" '' != detail_search_word2 and null != detail_search_word2">
@@ -252,8 +271,11 @@
 						<if test="search_type2 == 'item_eng_nm'">
 							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							AND (nk.KEYWORD LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>								
 						<if test="search_type2 == '' or search_type == null">
-							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word2}, '%')) 
 						</if>
 					</if>
 					<if test="pSrchfAndOr1 == 'OR'">
@@ -266,8 +288,11 @@
 						<if test="search_type2 == 'item_eng_nm'">
 							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							OR (nk.KEYWORD LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>								
 						<if test="search_type2 == '' or search_type == null">
-							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word2}, '%')) 
 						</if>
 					</if>
 				</if>
@@ -282,8 +307,11 @@
 						<if test="search_type3 == 'item_eng_nm'">
 							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							AND (nk.KEYWORD LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>								
 						<if test="search_type3 == '' or search_type == null">
-							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word3}, '%')) 
 						</if>
 					</if>
 					<if test="pSrchfAndOr2 == 'OR'">
@@ -296,8 +324,11 @@
 						<if test="search_type3 == 'item_eng_nm'">
 							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							OR (nk.KEYWORD LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>								
 						<if test="search_type3 == '' or search_type == null">
-							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word3}, '%')) 
 						</if>
 					</if>
 				</if>
@@ -375,15 +406,17 @@
 				on nib.ITEM_IDX = nce2.ITEM_IDX
 				LEFT join nam_material nm3 
 				on nib.ITEM_IDX = nm3.ITEM_IDX 
+				left join nam_keyword nk 
+				on nib.ITEM_IDX = nk.ITEM_IDX 	
 				WHERE 1=1
 				AND REG_STATE = #{reg_state}
 				<if test=" '' != research_word and null != research_word">		
 					<if test=" '' != searched_word and null != searched_word">
-						AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%')) 
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{searched_word}, '%')) 
 					</if>	
 				</if>
 				<if test=" '' != search_word and null != search_word">
-					AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%')) 
+					AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{search_word}, '%')) 
 				</if>
 				<if test=" '' != detail_search_word1 and null != detail_search_word1">
 					<if test="search_type == 'item_nm'">
@@ -395,8 +428,11 @@
 					<if test="search_type == 'item_eng_nm'">
 						AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
 					</if>
+					<if test="search_type == 'keyword'">
+						AND (nk.KEYWORD LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>							
 					<if test="search_type == '' or search_type == null">
-						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%')) 
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word1}, '%')) 
 					</if>
 				</if>
 				<if test=" '' != detail_search_word2 and null != detail_search_word2">
@@ -410,8 +446,11 @@
 						<if test="search_type2 == 'item_eng_nm'">
 							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							AND (nk.KEYWORD LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>		
 						<if test="search_type2 == '' or search_type == null">
-							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word2}, '%')) 
 						</if>
 					</if>
 					<if test="pSrchfAndOr1 == 'OR'">
@@ -424,8 +463,11 @@
 						<if test="search_type2 == 'item_eng_nm'">
 							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							OR (nk.KEYWORD LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>		
 						<if test="search_type2 == '' or search_type == null">
-							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word2}, '%')) 
 						</if>
 					</if>
 				</if>
@@ -440,8 +482,11 @@
 						<if test="search_type3 == 'item_eng_nm'">
 							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							AND (nk.KEYWORD LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>								
 						<if test="search_type3 == '' or search_type == null">
-							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word3}, '%')) 
 						</if>
 					</if>
 					<if test="pSrchfAndOr2 == 'OR'">
@@ -454,8 +499,11 @@
 						<if test="search_type3 == 'item_eng_nm'">
 							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							OR (nk.KEYWORD LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>								
 						<if test="search_type3 == '' or search_type == null">
-							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nk.KEYWORD LIKE CONCAT('%', #{detail_search_word3}, '%')) 
 						</if>
 					</if>
 				</if>
@@ -527,15 +575,17 @@
 					on nib.ITEM_IDX = nce2.ITEM_IDX
 					left join nam_material nm3 
 					on nib.ITEM_IDX = nm3.ITEM_IDX 
+					left join nam_keyword nk 
+					on nib.ITEM_IDX = nk.ITEM_IDX 
 					WHERE 1=1
 					AND nib.REG_STATE = #{reg_state}
 					<if test=" '' != research_word and null != research_word">		
 						<if test=" '' != searched_word and null != searched_word">
-							AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%')) 
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%') OR nk.keyword LIKE CONCAT('%', #{searched_word}, '%')) 
 						</if>	
 					</if>
 					<if test=" '' != search_word and null != search_word">
-						AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%')) 
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%') OR nk.keyword LIKE CONCAT('%', #{search_word}, '%')) 
 					</if>
 					<if test=" '' != detail_search_word1 and null != detail_search_word1">
 						<if test="search_type == 'item_nm'">
@@ -547,8 +597,11 @@
 						<if test="search_type == 'item_eng_nm'">
 							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							AND (nk.keyword LIKE CONCAT('%', #{detail_search_word1}, '%'))
+						</if>
 						<if test="search_type == '' or search_type == null">
-							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%')) 
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word1}, '%')) 
 						</if>
 					</if>
 					<if test=" '' != detail_search_word2 and null != detail_search_word2">
@@ -562,8 +615,11 @@
 							<if test="search_type2 == 'item_eng_nm'">
 								AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
 							</if>
+							<if test="search_type == 'keyword'">
+								AND (nk.keyword LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>	
 							<if test="search_type2 == '' or search_type == null">
-								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word2}, '%')) 
 							</if>
 						</if>
 						<if test="pSrchfAndOr1 == 'OR'">
@@ -576,8 +632,11 @@
 							<if test="search_type2 == 'item_eng_nm'">
 								OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
 							</if>
+							<if test="search_type == 'keyword'">
+								OR (nk.keyword LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>
 							<if test="search_type2 == '' or search_type == null">
-								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word2}, '%')) 
 							</if>
 						</if>
 					</if>
@@ -592,8 +651,11 @@
 							<if test="search_type3 == 'item_eng_nm'">
 								AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
 							</if>
+							<if test="search_type == 'keyword'">
+								AND (nk.keyword LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
 							<if test="search_type3 == '' or search_type == null">
-								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word3}, '%')) 
 							</if>
 						</if>
 						<if test="pSrchfAndOr2 == 'OR'">
@@ -606,8 +668,11 @@
 							<if test="search_type3 == 'item_eng_nm'">
 								OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
 							</if>
+							<if test="search_type == 'keyword'">
+								OR (nk.keyword LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
 							<if test="search_type3 == '' or search_type == null">
-								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word3}, '%')) 
 							</if>
 						</if>
 					</if>
@@ -677,15 +742,17 @@
 					on nib.ITEM_IDX = nce2.ITEM_IDX
 					left join nam_material nm3 
 					on nib.ITEM_IDX = nm3.ITEM_IDX 
+					left join nam_keyword nk 
+					on nib.ITEM_IDX = nk.ITEM_IDX 
 					WHERE 1=1
 					AND nib.REG_STATE = #{reg_state}
 					<if test=" '' != research_word and null != research_word">		
 						<if test=" '' != searched_word and null != searched_word">
-							AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%')) 
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%') OR nk.keyword LIKE CONCAT('%', #{searched_word}, '%')) 
 						</if>	
 					</if>
 					<if test=" '' != search_word and null != search_word">
-						AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%')) 
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%') OR nk.keyword LIKE CONCAT('%', #{search_word}, '%')) 
 					</if>
 					<if test=" '' != detail_search_word1 and null != detail_search_word1">
 						<if test="search_type == 'item_nm'">
@@ -697,8 +764,11 @@
 						<if test="search_type == 'item_eng_nm'">
 							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							AND (nk.keyword LIKE CONCAT('%', #{detail_search_word1}, '%'))
+						</if>
 						<if test="search_type == '' or search_type == null">
-							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%')) 
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word1}, '%')) 
 						</if>
 					</if>
 					<if test=" '' != detail_search_word2 and null != detail_search_word2">
@@ -712,8 +782,11 @@
 							<if test="search_type2 == 'item_eng_nm'">
 								AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
 							</if>
+							<if test="search_type == 'keyword'">
+								AND (nk.keyword LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>
 							<if test="search_type2 == '' or search_type == null">
-								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word2}, '%')) 
 							</if>
 						</if>
 						<if test="pSrchfAndOr1 == 'OR'">
@@ -726,8 +799,11 @@
 							<if test="search_type2 == 'item_eng_nm'">
 								OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
 							</if>
+							<if test="search_type == 'keyword'">
+								OR (nk.keyword LIKE CONCAT('%', #{detail_search_word2}, '%'))
+							</if>							
 							<if test="search_type2 == '' or search_type == null">
-								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word2}, '%')) 
 							</if>
 						</if>
 					</if>
@@ -742,8 +818,11 @@
 							<if test="search_type3 == 'item_eng_nm'">
 								AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
 							</if>
+							<if test="search_type == 'keyword'">
+								AND (nk.keyword LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
 							<if test="search_type3 == '' or search_type == null">
-								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+								AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word3}, '%')) 
 							</if>
 						</if>
 						<if test="pSrchfAndOr2 == 'OR'">
@@ -756,8 +835,11 @@
 							<if test="search_type3 == 'item_eng_nm'">
 								OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
 							</if>
+							<if test="search_type == 'keyword'">
+								OR (nk.keyword LIKE CONCAT('%', #{detail_search_word3}, '%'))
+							</if>
 							<if test="search_type3 == '' or search_type == null">
-								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+								OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word3}, '%')) 
 							</if>
 						</if>
 					</if>
@@ -828,15 +910,17 @@
 					on nib.ITEM_IDX = nce2.ITEM_IDX
 					left join nam_material nm3 
 					on nib.ITEM_IDX = nm3.ITEM_IDX 
+					left join nam_keyword nk 
+					on nib.ITEM_IDX = nk.ITEM_IDX 
 					WHERE 1=1
 					AND nib.REG_STATE = #{reg_state}
 				<if test=" '' != research_word and null != research_word">		
 					<if test=" '' != searched_word and null != searched_word">
-						AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%')) 
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{searched_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{searched_word}, '%') OR nk.keyword LIKE CONCAT('%', #{searched_word}, '%')) 
 					</if>	
 				</if>
 				<if test=" '' != search_word and null != search_word">
-					AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%')) 
+					AND (nib.ITEM_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{search_word}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{search_word}, '%') OR nk.keyword LIKE CONCAT('%', #{search_word}, '%')) 
 				</if>
 				<if test=" '' != detail_search_word1 and null != detail_search_word1">
 					<if test="search_type == 'item_nm'">
@@ -848,8 +932,11 @@
 					<if test="search_type == 'item_eng_nm'">
 						AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%'))
 					</if>
+					<if test="search_type == 'keyword'">
+						AND (nk.keyword LIKE CONCAT('%', #{detail_search_word1}, '%'))
+					</if>
 					<if test="search_type == '' or search_type == null">
-						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%')) 
+						AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word1}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word1}, '%')) 
 					</if>
 				</if>
 				<if test=" '' != detail_search_word2 and null != detail_search_word2">
@@ -863,8 +950,11 @@
 						<if test="search_type2 == 'item_eng_nm'">
 							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							AND (nk.keyword LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
 						<if test="search_type2 == '' or search_type == null">
-							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word2}, '%')) 
 						</if>
 					</if>
 					<if test="pSrchfAndOr1 == 'OR'">
@@ -877,8 +967,11 @@
 						<if test="search_type2 == 'item_eng_nm'">
 							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							OR (nk.keyword LIKE CONCAT('%', #{detail_search_word2}, '%'))
+						</if>
 						<if test="search_type2 == '' or search_type == null">
-							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%')) 
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word2}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word2}, '%')) 
 						</if>
 					</if>
 				</if>
@@ -893,8 +986,11 @@
 						<if test="search_type3 == 'item_eng_nm'">
 							AND (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							AND (nk.keyword LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
 						<if test="search_type3 == '' or search_type == null">
-							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+							AND (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word3}, '%')) 
 						</if>
 					</if>
 					<if test="pSrchfAndOr2 == 'OR'">
@@ -907,8 +1003,11 @@
 						<if test="search_type3 == 'item_eng_nm'">
 							OR (nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%'))
 						</if>
+						<if test="search_type == 'keyword'">
+							OR (nk.keyword LIKE CONCAT('%', #{detail_search_word3}, '%'))
+						</if>
 						<if test="search_type3 == '' or search_type == null">
-							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%')) 
+							OR (nib.ITEM_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_SE_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nib.ITEM_ENG_NM LIKE CONCAT('%', #{detail_search_word3}, '%') OR nk.keyword LIKE CONCAT('%', #{detail_search_word3}, '%')) 
 						</if>
 					</if>
 				</if>

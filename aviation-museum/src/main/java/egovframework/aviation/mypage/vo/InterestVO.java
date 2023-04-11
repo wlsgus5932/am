@@ -12,6 +12,7 @@ public class InterestVO {
 	
 	private String image_nm;
 	private String image_path;
+	private String thumbnail_nm;
 	private String item_no;
 	private String item_detail_no;
 	private String item_nm;
@@ -162,15 +163,22 @@ public class InterestVO {
 	public void setImage_nm(String image_nm) {
 		this.image_nm = image_nm;
 	}
+	public String getThumbnail_nm() {
+		return thumbnail_nm;
+	}
+	public void setThumbnail_nm(String thumbnail_nm) {
+		this.thumbnail_nm = thumbnail_nm;
+	}
 	@Override
 	public String toString() {
 		return "InterestVO [rnum=" + rnum + ", interest_idx=" + interest_idx + ", item_idx=" + item_idx + ", expl="
 				+ expl + ", reg_user=" + reg_user + ", reg_date=" + reg_date + ", image_nm=" + image_nm
-				+ ", image_path=" + image_path + ", item_no=" + item_no + ", item_detail_no=" + item_detail_no
-				+ ", item_nm=" + item_nm + ", qty=" + qty + ", possession_nm=" + possession_nm + ", org_code_idx="
-				+ org_code_idx + ", reg_state=" + reg_state + ", possession_code_idx=" + possession_code_idx
-				+ ", result=" + result + ", group_seqList=" + group_seqList + ", search_word=" + search_word
-				+ ", search_type=" + search_type + ", perPageNum=" + perPageNum + ", pageStart=" + pageStart + "]";
+				+ ", image_path=" + image_path + ", thumbnail_nm=" + thumbnail_nm + ", item_no=" + item_no
+				+ ", item_detail_no=" + item_detail_no + ", item_nm=" + item_nm + ", qty=" + qty + ", possession_nm="
+				+ possession_nm + ", org_code_idx=" + org_code_idx + ", reg_state=" + reg_state
+				+ ", possession_code_idx=" + possession_code_idx + ", result=" + result + ", group_seqList="
+				+ group_seqList + ", search_word=" + search_word + ", search_type=" + search_type + ", perPageNum="
+				+ perPageNum + ", pageStart=" + pageStart + "]";
 	}
 
 }
