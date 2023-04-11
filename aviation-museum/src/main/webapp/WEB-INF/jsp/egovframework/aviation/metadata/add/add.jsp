@@ -2887,6 +2887,9 @@
 	const changeTabDiv = val => {
 		if(val=='one') {
 			$('#changeTable').children().remove();
+			$("#allChangeItem")[0].reset();
+			$('#beforeChangeTd').children().remove();
+			$('#afterChangeTd').children().remove();
 			$('#changeTable').append('<table class="table mb-0"><thead>' +
 														'<th>선택</th><th>자료구분</th><th>자료번호</th><th>상세번호</th><th>명칭</th>'+
 														'</thead>' +
@@ -2895,6 +2898,7 @@
 														'<td>-</td>'+
 														'</tr></tbody></table>');
 		} else if (val=='all') {
+			$("#allChangeItem")[0].reset();
 			$('#changeTable').children().remove();
 		}
 	}
