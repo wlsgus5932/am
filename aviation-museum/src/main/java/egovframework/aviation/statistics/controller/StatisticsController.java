@@ -181,6 +181,90 @@ public class StatisticsController {
 	
 	}
 	
+	/** 이미지 통계 엑셀 */
+	@RequestMapping(value = "/statisticsImagesExcelDownload.do" )
+	public void StatisticsImagesExcelDownload(@ModelAttribute("statisticsImagesVO") StatisticsImagesVO statisticsImagesVO, Model model, HttpServletRequest req, HttpServletResponse response) throws Exception {
+		 
+		List<StatisticsImagesVO> imagesList = statisticsService.getImagesList(statisticsImagesVO);
+		
+		 try (Workbook workbook = new XSSFWorkbook()) {
+	            Sheet sheet = workbook.createSheet("이미지 통계");
+	            int rowNo = 0;
+	 
+	            CellStyle headStyle = workbook.createCellStyle();
+	            headStyle.setFillForegroundColor(HSSFColor.HSSFColorPredefined.GREY_40_PERCENT.getIndex());
+	            headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+	            Font font = workbook.createFont();
+	            font.setColor(HSSFColor.HSSFColorPredefined.WHITE.getIndex());
+	            font.setFontHeightInPoints((short) 13);
+	            font.setBold(true);
+	            headStyle.setFont(font);
+	            headStyle.setAlignment(HorizontalAlignment.CENTER);
+	            headStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+	 
+	            Row headerRow = sheet.createRow(rowNo++);
+	            headerRow.createCell(0).setCellValue("연변");
+	            headerRow.createCell(1).setCellValue("이미지수량");
+	            headerRow.createCell(2).setCellValue("합계");
+	            headerRow.setHeight((short) 700);
+	            
+	            for(int i=0; i<=2; i++){
+	                headerRow.getCell(i).setCellStyle(headStyle);
+	            }
+	                    
+	            for (StatisticsImagesVO board : imagesList) {	            	
+	               		       	     
+	            	Row row = sheet.createRow(rowNo++);
+	                row.createCell(0).setCellValue(rowNo);
+	                row.createCell(1).setCellValue(board.getImagecount());
+	                if(board.getSum() != null) {
+	                	row.createCell(2).setCellValue(board.getCount()+" / "+board.getSum());
+	                }else {
+	                	row.createCell(2).setCellValue(board.getCount()+" / 0");
+	                }
+	                row.setHeight((short) 1500);
+	            }
+	 
+	            sheet.setColumnWidth(0, 4500);
+	            sheet.setColumnWidth(1, 4500);
+	            sheet.setColumnWidth(2, 4500);
+
+	            
+	            File tmpFile = File.createTempFile("TMP~", ".xlsx");
+	            try (OutputStream fos = new FileOutputStream(tmpFile);) {
+	                workbook.write(fos);
+	            }
+	            InputStream res = new FileInputStream(tmpFile) {
+	                @Override
+	                public void close() throws IOException {
+	                    super.close();
+	                    if (tmpFile.delete()) {
+	                    	System.out.println("임시 파일 삭제 완료");
+	                    }
+	                }
+	            };
+	    	    java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
+	            String today = formatter.format(new java.util.Date());
+	            
+	            String fileName = "이미지통계";
+	            
+	            // 브라우저에 따른 파일명 인코딩	         
+	            String userAgent = req.getHeader("User-Agent");
+	            if (userAgent.indexOf("MSIE") > -1) {
+	                fileName = URLEncoder.encode(fileName, "UTF-8");
+	            } else {
+	                fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+	            }
+	            
+		        response.setContentType("ms-vnd/excel");
+		        response.setHeader("Content-Disposition", "attachment;filename="+fileName+"_"+today+".xlsx");
+		 
+		        workbook.write(response.getOutputStream());
+		        workbook.close();
+	        }
+	
+	}
+	
 	/** 전문정보 등록현황 엑셀 */
 	@RequestMapping(value = "/statisticsSpecialityExcelDownload.do" )
 	public void StatisticsSpecialityExcelDownload(@ModelAttribute("statisticsSpecialityVO") StatisticsSpecialityVO statisticsSpecialityVO, Model model, HttpServletRequest req, HttpServletResponse response) throws Exception {

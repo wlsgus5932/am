@@ -109,38 +109,24 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td>김항공</td>
-                                      <td>2022.12.7</td>
-                                      <td>국립123항국립항공박물관국립항공박물관공박물관 공지 예시</td>
-                                    </tr>
-                                    <tr>
-                                      <td>김항공</td>
-                                      <td>2022.12.7</td>
-                                      <td>국립항공박물관 공지 예시</td>
-                                    </tr>
-                                    <tr>
-                                      <td>김항공</td>
-                                      <td>2022.12.7</td>
-                                      <td>국립항공박물관 공지 예시</td>
-                                    </tr>
-                                    <tr>
-                                      <td>김항공</td>
-                                      <td>2022.12.7</td>
-                                      <td>국립항공박물관 공지 예시</td>
-                                    </tr>
-                                    <tr>
-                                      <td>김항공</td>
-                                      <td>2022.12.7</td>
-                                      <td>국립항공박물관 공지 예시</td>
-                                    </tr>
+		                                <c:forEach var="noticeList" items="${noticeList}">
+		                                    <tr>
+		                                      <td>${noticeList.reg_user}</td>
+		                                      <td>${noticeList.reg_date}</td>
+		                                      <td>
+		                                      	<a class="noticeDetail" href="#myModal2" data-bs-toggle="modal" data-id="${noticeList.notice_idx}">
+		                                      		${noticeList.notice_title}
+		                                      	</a>
+		                                      </td>
+		                                    </tr>
+	                                  	</c:forEach>
                                   </tbody>
                                 </table>
                               </div>
                               <!--  -->
                               <div class="d-flex align-items-start dash_main_frist_text_margin">
                                 <div class="flex-grow-1 flex-grow-1_custom">
-                                    <h5 class="card-title mb-3 dash_text_bar_wrap">작업자별 작업량</h5>
+                                    <h5 class="card-title mb-3 dash_text_bar_wrap">기간별 작업량</h5>
 <!--                                     <div class="dash_text_bar"></div> -->
                                 </div>
                                 <div class="flex-shrink-0">
@@ -181,36 +167,14 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td>김항공</td>
-                                      <td>00%</td>
-                                      <td>00%</td>
-                                      <td>00%</td>
-                                    </tr>
-                                    <tr>
-                                      <td>김항공</td>
-                                      <td>00%</td>
-                                      <td>00%</td>
-                                      <td>00%</td>
-                                    </tr>
-                                    <tr>
-                                      <td>김항공</td>
-                                      <td>00%</td>
-                                      <td>00%</td>
-                                      <td>00%</td>
-                                    </tr>
-                                    <tr>
-                                      <td>김항공</td>
-                                      <td>00%</td>
-                                      <td>00%</td>
-                                      <td>00%</td>
-                                    </tr>
-                                    <tr>
-                                      <td>김항공</td>
-                                      <td>00%</td>
-                                      <td>00%</td>
-                                      <td>00%</td>
-                                    </tr>
+                                 	 <c:forEach var="getWorkerDataList" items="${getWorkerDataList}">
+	                                    <tr>
+	                                      <td>${getWorkerDataList.member_nm}</td>
+	                                      <td>${getWorkerDataList.month}</td>
+	                                      <td>${getWorkerDataList.week}</td>
+	                                      <td>${getWorkerDataList.day}</td>
+	                                    </tr>
+	                                 </c:forEach>  
                                   </tbody>
                                 </table>
                               </div>
@@ -253,14 +217,13 @@
                                     <!--  -->
                                     <!-- 자료 현황 내용 텍스트 영역 -->
                                     <div class="data_info_text_wrap">
-                                      <span>
-                                        자료수량 : 2000
+                                      <span id="countryDataTotal">
                                       </span>
                                       <br>
-                                      <br>
-                                      <span>
-                                        증감현황 : 1000
-                                      </span>
+<!--                                       <br> -->
+<!--                                       <span> -->
+<!--                                         증감현황 : 1000 -->
+<!--                                       </span> -->
                                     </div>
                                     <!--  -->
                                 <div class="resize-triggers"><div class="expand-trigger"><div style="width: 336px; height: 372px;"></div></div><div class="contract-trigger"></div></div></div>
@@ -297,31 +260,17 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        <tr>
-                                          <td>김항공</td>
-                                          <td>2022.12.7</td>
-                                          <td>국립항공박물관 공지 예시</td>
-                                        </tr>
-                                        <tr>
-                                          <td>김항공</td>
-                                          <td>2022.12.7</td>
-                                          <td>국립항공박물관 공지 예시</td>
-                                        </tr>
-                                        <tr>
-                                          <td>김항공</td>
-                                          <td>2022.12.7</td>
-                                          <td>국립항공박물관 공지 예시</td>
-                                        </tr>
-                                        <tr>
-                                          <td>김항공</td>
-                                          <td>2022.12.7</td>
-                                          <td>국립항공박물관 공지 예시</td>
-                                        </tr>
-                                        <tr>
-                                          <td>김항공</td>
-                                          <td>2022.12.7</td>
-                                          <td>국립항공박물관 공지 예시</td>
-                                        </tr>
+		                                <c:forEach var="noticeList" items="${noticeList}">
+		                                    <tr>
+		                                      <td>${noticeList.reg_user}</td>
+		                                      <td>${noticeList.reg_date}</td>
+		                                      <td>
+		                                      	<a class="noticeDetail" href="#myModal2" data-bs-toggle="modal" data-id="${noticeList.notice_idx}">
+		                                      		${noticeList.notice_title}
+		                                      	</a>
+		                                      </td>
+		                                    </tr>
+	                                  	</c:forEach>
                                       </tbody>
                                     </table>
                                   </div>
@@ -359,15 +308,15 @@
                                     <ul class="circel_info_inbox">
                                       <li>
                                         <span class="quantity_wrap">가등록 수량</span><br>
-                                        <span class="quantity_wrap_number">0</span>
+                                        <span class="quantity_wrap_number" id="noRegistCount1"></span>
                                       </li>
                                       <li>
                                         <span class="quantity_wrap">등록 수량</span><br>
-                                        <span class="quantity_wrap_number">0</span>
+                                        <span class="quantity_wrap_number" id="registCount1"></span>
                                       </li>
                                       <li>
                                         <span class="quantity_wrap">보유 수량</span><br>
-                                        <span class="quantity_wrap_number">0</span>
+                                        <span class="quantity_wrap_number" id="totalCount1"></span>
                                       </li>
                                     </ul>
                                     <!--  -->
@@ -397,32 +346,32 @@
                                       </div>
                                   </div>
                                   <!-- 재질별 내용 텍스트 영역 -->
-                                  <ul class="circel_info_inbox">
-                                    <li>
-                                      <span class="quantity_wrap">가등록 수량</span><br>
-                                      <span class="quantity_wrap_number">0</span>
-                                    </li>
-                                    <li>
-                                      <span class="quantity_wrap">등록 수량</span><br>
-                                      <span class="quantity_wrap_number">0</span>
-                                    </li>
-                                    <li>
-                                      <span class="quantity_wrap">보유 수량</span><br>
-                                      <span class="quantity_wrap_number">0</span>
-                                    </li>
-                                  </ul>
+                                    <ul class="circel_info_inbox">
+                                      <li>
+                                        <span class="quantity_wrap">가등록 수량</span><br>
+                                        <span class="quantity_wrap_number" id="noRegistCount2"></span>
+                                      </li>
+                                      <li>
+                                        <span class="quantity_wrap">등록 수량</span><br>
+                                        <span class="quantity_wrap_number" id="registCount2"></span>
+                                      </li>
+                                      <li>
+                                        <span class="quantity_wrap">보유 수량</span><br>
+                                        <span class="quantity_wrap_number" id="totalCount2"></span>
+                                      </li>
+                                    </ul>
                                   <!--  -->
                               <div class="resize-triggers"><div class="expand-trigger"><div style="width: 336px; height: 372px;"></div></div><div class="contract-trigger"></div></div></div>
                           </div>
                         </div>
                         <!--  -->
-                        <!-- 문의사항 -->
+                        <!-- 오류신고 / 개선사항 -->
                         <div class="col-xl-4 col-md-6">
                           <div class="card">
                               <div class="card-body" style="position: relative;">
                                   <div class="d-flex align-items-start">
                                       <div class="flex-grow-1">
-                                          <h5 class="card-title mb-3">문의사항</h5>
+                                          <h5 class="card-title mb-3">오류신고 / 개선사항</h5>
                                       </div>
                                       <div class="flex-shrink-0">
                                           <div class="dropdown">
@@ -446,31 +395,17 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        <tr>
-                                          <td>김항공</td>
-                                          <td>2022.12.7</td>
-                                          <td>국립항공박물관 공지 예시</td>
-                                        </tr>
-                                        <tr>
-                                          <td>김항공</td>
-                                          <td>2022.12.7</td>
-                                          <td>국립항공박물관 공지 예시</td>
-                                        </tr>
-                                        <tr>
-                                          <td>김항공</td>
-                                          <td>2022.12.7</td>
-                                          <td>국립항공박물관 공지 예시</td>
-                                        </tr>
-                                        <tr>
-                                          <td>김항공</td>
-                                          <td>2022.12.7</td>
-                                          <td>국립항공박물관 공지 예시</td>
-                                        </tr>
-                                        <tr>
-                                          <td>김항공</td>
-                                          <td>2022.12.7</td>
-                                          <td>국립항공박물관 공지 예시</td>
-                                        </tr>
+	                                     <c:forEach var="errorFixList" items="${errorFixList}">
+	                                        <tr>
+	                                          <td>${errorFixList.reg_user}</td>
+	                                          <td>${errorFixList.reg_date}</td>
+	                                          <td>
+												  <a class="errorFixDetail" href="#myModal3" data-bs-toggle="modal" data-id="${errorFixList.error_fix_idx}">
+									                  ${errorFixList.error_fix_title}
+					                              </a>
+											  </td>
+	                                        </tr>
+										 </c:forEach>
                                       </tbody>
                                     </table>
                                   </div>
@@ -497,123 +432,66 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- 최근 작업한 자료 슬라이드 영역 -->
-                                    <div class="dash_img_slider_wrap">
-                                      <div>
-                                      	<img src="assets/custom_img/intro-logo.png" alt="이미지1">
-                                      	<div class="dash_img_main_text">텍스트텍스트</div>
-                                      </div>
-                                      <div>
-                                      	<img src="" alt="이미지2">
-                                      	<div class="dash_img_main_text">텍스트텍스트</div>
-                                      </div>
-                                      <div>
-                                      	<img src="" alt="이미지3">
-                                      	<div class="dash_img_main_text">텍스트텍스트</div>
-                                      </div>
-                                      <div>
-                                      	<img src="" alt="이미지4">
-                                      	<div class="dash_img_main_text">텍스트텍스트</div>
-                                      </div>      
-                                      <div>
-                                      	<img src="" alt="이미지5">
-                                      	<div class="dash_img_main_text">텍스트텍스트</div>
-                                      </div>
-                                      <div>
-                                      	<img src="" alt="이미지6">
-                                      	<div class="dash_img_main_text">텍스트텍스트</div>
-                                      </div>
-                                      <div>
-                                      	<img src="" alt="이미지7">
-                                      	<div class="dash_img_main_text">텍스트텍스트</div>
-                                      </div>
-                                      <div>
-                                      	<img src="" alt="이미지8">
-                                      	<div class="dash_img_main_text">텍스트텍스트</div>
-                                      </div> 
-                                      <div>
-                                      	<img src="" alt="이미지9">
-                                      	<div class="dash_img_main_text">텍스트텍스트</div>
-                                      </div>
-                                      <div>
-                                      	<img src="" alt="이미지10">
-                                      	<div class="dash_img_main_text">텍스트텍스트</div>
-                                      </div>
-                                      <div>
-                                      	<img src="" alt="이미지11">
-                                      	<div class="dash_img_main_text">텍스트텍스트</div>
-                                      </div>
-                                      <div>
-                                      	<img src="" alt="이미지12">
-                                      	<div class="dash_img_main_text">텍스트텍스트</div>
-                                      </div>                                                                                                                                                   
-                                    </div>
+                                    <c:choose>
+		                                     <c:when test="${not empty getRecentWorkList}">
+				                                    <!-- 최근 작업한 자료 슬라이드 영역 -->
+				                                    <div class="dash_img_slider_wrap">
+				                                      	<c:forEach var="getRecentWorkList" items="${getRecentWorkList}">	                                      	
+					                                      	<c:choose>
+							                             		<c:when test="${getRecentWorkList.thumbnail_nm ne null}">
+							                             		 	 <div>
+								                             		 	 <img src="<c:url value='${getRecentWorkList.image_path}thumbnails/${getRecentWorkList.thumbnail_nm}'/>" alt="이미지" onerror="this.onerror=null; this.src='/assets/images/no_image.png';"/>
+								                            			 <div class="dash_img_main_text">${getRecentWorkList.thumbnail_nm}</div>
+							                            			 </div>
+							                            		</c:when>
+							                            		<c:otherwise>
+							                            			<div>
+								                            			<img src="/assets/images/no_image.png" alt="이미지">
+								                            			<div class="dash_img_main_text">noImage</div>
+								                            		</div>
+							                            		</c:otherwise>
+							                            	</c:choose>
+				                                      	</c:forEach>
+				                                     </div>
+                                     		</c:when>
+                                     		<c:otherwise>
+                                     			최근 작업한 자료가 없습니다.
+                                     		</c:otherwise>
+                                    </c:choose>
                                     <!--  -->
-                                    <div class="last_data_info_wrap">
-                                      <div class="table-responsive last_data_info_inbox">
-                                        <table class="table mb-0 dash_recent_work_table">
-<%-- 		                                  <colgroup> --%>
-<%-- 			                                  <col style="width:20%;"> --%>
-<%-- 			                                  <col style="width:30%;"> --%>
-<%-- 		                                  </colgroup>                                         --%>
-                                          <thead>
-                                            <tr class="tr_bgc">
-                                              <th>자료명</th>
-                                              <th>번호</th>
-                                              <th style="width: 50%">자료내용</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr>
-                                              <td>항정</td>
-                                              <td>0023</td>
-                                              <td>이동사항 수정</td>
-                                            </tr>
-                                            <tr>
-                                              <td>항정</td>
-                                              <td>0023</td>
-                                              <td>이동사항 수정</td>
-                                            </tr>
-                                            <tr>
-                                              <td>항정</td>
-                                              <td>0023</td>
-                                              <td>이동사항 수정</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div>
-                                      <div class="table-responsive last_data_info_inbox">
-                                        <table class="table mb-0 dash_recent_work_table">
-<%-- 		                                  <colgroup> --%>
-<%-- 			                                  <col style="width:20%;"> --%>
-<%-- 			                                  <col style="width:30%;"> --%>
-<%-- 		                                  </colgroup>                                         --%>
-                                          <thead>
-                                            <tr class="tr_bgc">
-                                              <th>자료명</th>
-                                              <th>번호</th>
-                                              <th style="width: 50%">자료내용</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr>
-                                              <td>항정</td>
-                                              <td>0023</td>
-                                              <td>이동사항 수정</td>
-                                            </tr>
-                                            <tr>
-                                              <td>항정</td>
-                                              <td>0023</td>
-                                              <td>이동사항 수정</td>
-                                            </tr>
-                                            <tr>
-                                              <td>항정</td>
-                                              <td>0023</td>
-                                              <td>이동사항 수정</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div>
+                                    <div class="last_data_info_wrap">                                    
+	                                   <div class="table-responsive last_data_info_inbox">
+	                                    
+	                                    <c:choose>
+		                                     <c:when test="${not empty getRecentWorkList}">
+		                                        <table class="table mb-0 dash_recent_work_table">
+		<%-- 		                                  <colgroup> --%>
+		<%-- 			                                  <col style="width:20%;"> --%>
+		<%-- 			                                  <col style="width:30%;"> --%>
+		<%-- 		                                  </colgroup>                                         --%>
+		                                          
+		                                          <thead>
+		                                            <tr class="tr_bgc">
+		                                              <th>자료명</th>
+		                                              <th>번호</th>
+		                                              <th style="width: 50%">자료내용</th>
+		                                            </tr>
+		                                          </thead>
+		                                          <tbody>
+			                                         <c:forEach var="getRecentWorkList" items="${getRecentWorkList}">
+			                                            <tr>
+			                                              <td>${getRecentWorkList.possession_nm}</td>
+			                                              <td>${getRecentWorkList.item_no}</td>
+			                                              <td>${getRecentWorkList.work_nm}</td>
+			                                            </tr>
+													 </c:forEach>
+		                                          </tbody>
+		                                        </table>
+		                                      </c:when>
+		                                      <c:otherwise>
+		                                      </c:otherwise>
+	                                     </c:choose> 
+	                                   </div>
                                     </div>
                                     <!--  -->
                                 <div class="resize-triggers"><div class="expand-trigger"><div style="width: 336px; height: 372px;"></div></div><div class="contract-trigger"></div></div></div>
@@ -637,72 +515,25 @@
                                       </div>
                                   </div>
                                   <ul class="list-unstyled mb-0 dash_ul">
-                                    <li class="py-2">
-                                        <div class="d-flex align-items-start">
-                                            <div class="flex-shrink-0 me-3">
-                                                <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
-                                                    <div class="text-center">
-                                                        <h5 class="mb-0 wrap_bgn">12월</h5>
-                                                        <div>9일</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1 pt-2 text-muted">
-                                              <p class="mb-0 rental_li">제주항공우주박물관</p>
-                                              <p class="mb-0 rental_li">OPPAV 외 6점</p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li class="py-2">
-                                        <div class="d-flex align-items-start">
-                                            <div class="flex-shrink-0 me-3">
-                                                <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
-                                                    <div class="text-center">
-                                                        <h5 class="mb-0 wrap_bgn">11월</h5>
-                                                        <div>9일</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1 pt-2 text-muted">
-                                                <p class="mb-0 rental_li">전쟁기념관</p>
-                                                <p class="mb-0 rental_li">F-51D 무스탕</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="py-2">
-                                        <div class="d-flex align-items-start">
-                                            <div class="flex-shrink-0 me-3">
-                                                <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
-                                                    <div class="text-center">
-                                                        <h5 class="mb-0 wrap_bgn">10월</h5>
-                                                        <div>9일</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1 pt-2 text-muted">
-                                              <p class="mb-0 rental_li">제주항공우주박물관</p>
-                                              <p class="mb-0 rental_li">OPPAV 외 6점</p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li class="py-2">
-                                      <div class="d-flex align-items-start">
-                                          <div class="flex-shrink-0 me-3">
-                                              <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
-                                                  <div class="text-center">
-                                                      <h5 class="mb-0 wrap_bgn">10월</h5>
-                                                      <div>9일</div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div class="flex-grow-1 pt-2 text-muted">
-                                            <p class="mb-0 rental_li">제주항공우주박물관</p>
-                                            <p class="mb-0 rental_li">OPPAV 외 6점</p>
-                                          </div>
-                                      </div>
-                                  </li>
+                                   
+                                   	<c:forEach var="getOutsideRental" items="${getOutsideRental}" >
+	                                    <li class="py-2">
+	                                        <div class="d-flex align-items-start">
+	                                            <div class="flex-shrink-0 me-3">
+	                                                <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
+	                                                    <div class="text-center">
+	                                                        <h5 class="mb-0 wrap_bgn">${getOutsideRental.month}월</h5>
+	                                                        <div>${getOutsideRental.day}일</div>
+	                                                    </div>
+	                                                </div>
+	                                            </div>
+	                                            <div class="flex-grow-1 pt-2 text-muted">
+	                                              <p class="mb-0 rental_li">${getOutsideRental.org_nm}</p>
+	                                              <p class="mb-0 rental_li">${getOutsideRental.item_nm} 외 ${getOutsideRental.qty_sum}${getOutsideRental.qty_unit_nm}</p>
+	                                            </div>
+	                                        </div>
+                                 	   </li>
+									</c:forEach>
 
                                 </ul>
                               <div class="resize-triggers"><div class="expand-trigger"><div style="width: 336px; height: 372px;"></div></div><div class="contract-trigger"></div></div></div>
@@ -723,73 +554,24 @@
                                     </div>
                                 </div>
                                 <ul class="list-unstyled mb-0 dash_ul">
-                                  <li class="py-2">
-                                      <div class="d-flex align-items-start">
-                                          <div class="flex-shrink-0 me-3">
-                                              <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
-                                                  <div class="text-center">
-                                                      <h5 class="mb-0 wrap_bgn">12월</h5>
-                                                      <div>9일</div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div class="flex-grow-1 pt-2 text-muted">
-                                            <p class="mb-0 rental_li">제주항공우주박물관</p>
-                                            <p class="mb-0 rental_li">MIG-19</p>
-                                          </div>
-                                      </div>
-                                  </li>
-
-                                  <li class="py-2">
-                                      <div class="d-flex align-items-start">
-                                          <div class="flex-shrink-0 me-3">
-                                              <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
-                                                  <div class="text-center">
-                                                      <h5 class="mb-0 wrap_bgn">11월</h5>
-                                                      <div>9일</div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div class="flex-grow-1 pt-2 text-muted">
-                                              <p class="mb-0 rental_li">전쟁기념관</p>
-                                              <p class="mb-0 rental_li">F-51D 무스탕</p>
-                                          </div>
-                                      </div>
-                                  </li>
-                                  <li class="py-2">
-                                      <div class="d-flex align-items-start">
-                                          <div class="flex-shrink-0 me-3">
-                                              <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
-                                                  <div class="text-center">
-                                                      <h5 class="mb-0 wrap_bgn">10월</h5>
-                                                      <div>9일</div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div class="flex-grow-1 pt-2 text-muted">
-                                            <p class="mb-0 rental_li">제주항공우주박물관</p>
-                                            <p class="mb-0 rental_li">OPPAV 외 6점</p>
-                                          </div>
-                                      </div>
-                                  </li>
-
-                                  <li class="py-2">
-                                    <div class="d-flex align-items-start">
-                                        <div class="flex-shrink-0 me-3">
-                                            <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
-                                                <div class="text-center">
-                                                    <h5 class="mb-0 wrap_bgn">10월</h5>
-                                                    <div>9일</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1 pt-2 text-muted">
-                                          <p class="mb-0 rental_li">제주항공우주박물관</p>
-                                          <p class="mb-0 rental_li">OPPAV 외 6점</p>
-                                        </div>
-                                    </div>
-                                </li>
-
+                                  <c:forEach var="getInsideRental" items="${getInsideRental}">
+	                                  <li class="py-2">
+	                                      <div class="d-flex align-items-start">
+	                                          <div class="flex-shrink-0 me-3">
+	                                              <div class="avatar-md h-auto p-1 py-2 bg-light rounded">
+	                                                  <div class="text-center">
+	                                                      <h5 class="mb-0 wrap_bgn">${getInsideRental.month}월</h5>
+	                                                      <div>${getInsideRental.day}일</div>
+	                                                  </div>
+	                                              </div>
+	                                          </div>
+	                                          <div class="flex-grow-1 pt-2 text-muted">
+	                                            <p class="mb-0 rental_li">${getInsideRental.org_nm}</p>
+	                                            <p class="mb-0 rental_li">${getInsideRental.item_nm} 외 ${getInsideRental.qty_sum}${getInsideRental.qty_unit_nm}</p>
+	                                          </div>
+	                                      </div>
+	                                  </li>
+								</c:forEach>
                               </ul>
                             <div class="resize-triggers"><div class="expand-trigger"><div style="width: 336px; height: 372px;"></div></div><div class="contract-trigger"></div></div></div>
                         </div>
@@ -807,6 +589,99 @@
         <!--  -->
         </div>
         <!-- End Page-content -->
+        
+              <!--  공지사항 상세보기 -->
+       <div id="myModal2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+          <div class="modal-dialog user-modal">
+              <div class="modal-content">
+                  <div class="modal-header mv-modal-header">
+                      <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="noticeInsInputClose"></button>
+                  </div>
+                  <div class="modal-body mv-modal-body">
+                      <!-- 공지사항 등록 모달 내용 -->
+                      <div class="mb-0 user-wrap">
+                        <div class="st_wrap">
+                          <label class="col-md-2 col-form-label st_title">공지사항 상세보기</label>
+                        </div>
+                        <div class="card-body">
+                          <div class="table-responsive">
+	                              <table class="table mb-0">
+	                                  <tbody>
+	                                      <tr>
+	                                        <td>제목</td>
+	                                          <td>
+	                                            <input type="text" name="notice_title" id="noticeTitle" readOnly>
+	                                      	  </td>
+	                                      </tr>
+	                                      <tr>
+	                                        <td>내용</td>
+	                                          <td>
+	                                          <textarea name="notice_content" id="noticeContent" cols="70" rows="10" readOnly></textarea>
+	                                          </td>
+	                                      </tr>
+	                                  </tbody>
+	                              </table>
+                          </div>
+                      </div>
+                    </div>
+                    <!--  -->
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!--  공지사항 상세보기 -->
+       <div id="myModal3" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+          <div class="modal-dialog user-modal">
+              <div class="modal-content">
+                  <div class="modal-header mv-modal-header">
+                      <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="errorFixInsInputClose"></button>
+                  </div>
+                  <div class="modal-body mv-modal-body">
+                      <!-- 공지사항 등록 모달 내용 -->
+                      <div class="mb-0 user-wrap">
+                        <div class="st_wrap">
+                          <label class="col-md-2 col-form-label st_title">오류신고&개선사항 상세보기</label>
+                        </div>
+                        <div class="card-body">
+                          <div class="table-responsive">
+	                              <table class="table mb-0">
+	                                  <tbody>
+	                                  	  <tr>
+	                                        <td>구분</td>
+	                                          <td>
+	                                            <input type="text" name="board_type" id="boardType" readOnly>
+	                                      	  </td>
+	                                      </tr>
+	                                      <tr>
+	                                        <td>기관명</td>
+	                                          <td>
+	                                            <input type="text" name="error_fix_org_nm" id="errorFixOrgNm" readOnly>
+	                                      	  </td>
+	                                      </tr>
+	                                      <tr>
+	                                        <td>제목</td>
+	                                          <td>
+	                                            <input type="text" name="error_fix_title" id="errorFixTitle" readOnly>
+	                                      	  </td>
+	                                      </tr>
+	                                      <tr>
+	                                        <td>내용</td>
+	                                          <td>
+	                                          <textarea name="error_fix_content" id="errorFixContent" cols="70" rows="10" readOnly></textarea>
+	                                          </td>
+	                                      </tr>
+	                                  </tbody>
+	                              </table>
+                          </div>
+                      </div>
+                    </div>
+                    <!--  -->
+                  </div>
+              </div>
+          </div>
+      </div>
         <footer class="footer">
           <div class="container-fluid">
             <div class="row">
@@ -1037,7 +912,59 @@
       <div class="offcanvas-body">...</div>
     </div>
 
-
+<script>
+	
+	//국적별 자료현황
+	var country_nm = [];
+	var country_count = [];
+	var countryDataTotal = 0; 
+	<c:forEach var="countryDataList" items="${countryDataList}">
+		country_nm.push('${countryDataList.country_nm}');
+		country_count.push('${countryDataList.country_count}');
+		countryDataTotal += ${countryDataList.country_count};
+	</c:forEach>		
+	$('#countryDataTotal').html('자료 수량 : '+countryDataTotal);
+	
+	// 주제별 자료현황
+	var class1_nm = [];
+	var class1_count = [];
+	var class1DataTotal = 0; 
+	<c:forEach var="class1DataList" items="${class1DataList}">
+		class1_nm.push('${class1DataList.class1_nm}');
+		var number = Math.round(${class1DataList.class1_count}/countryDataTotal*100*10)/10;
+		class1_count.push(number);
+	</c:forEach>
+	
+	// 재질별 자료현황 
+	var material1_nm = [];
+	var material1_count = [];
+	var material1DataTotal = 0; 
+	<c:forEach var="material1DataList" items="${material1DataList}">
+		material1_nm.push('${material1DataList.material1_nm}');
+		var number = Math.round(${material1DataList.material1_count}/countryDataTotal*100*10)/10;
+		material1_count.push(number);
+	</c:forEach>
+	
+	// 가등록, 등록 수량
+	var regStateDataTotal = 0; 
+	<c:forEach var="regStateDataList" items="${regStateDataList}" varStatus="varStatus">
+		if(${regStateDataList.reg_state != 'Y'}){
+			$('#noRegistCount1').html(${regStateDataList.reg_state_count});
+			$('#noRegistCount2').html(${regStateDataList.reg_state_count});
+		}else{
+			$('#registCount1').html(${regStateDataList.reg_state_count});
+			$('#registCount2').html(${regStateDataList.reg_state_count});
+		}
+		regStateDataTotal += ${regStateDataList.reg_state_count};
+	</c:forEach>
+	$('#totalCount1').html(regStateDataTotal);
+	$('#totalCount2').html(regStateDataTotal);
+	
+	//기간별 작업량
+	var getWorkHistoryWeek = ${getWorkHistoryWeek};
+	var getWorkHistoryMonth = ${getWorkHistoryMonth};
+	var getWorkHistoryDay = ${getWorkHistoryDay};
+</script>
     <!-- JAVASCRIPT -->
     <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/libs/metismenujs/metismenujs.min.js"></script>
@@ -1102,6 +1029,62 @@
 	    
 	    location.href="/logout.do";
 	}
+	
+	// 공지사항 상세보기(제목클릭)
+	$(document).on('click', '.noticeDetail', function() {
+		var idx = $(this).data('id');
+		$.ajax({
+			type : 'POST',                 
+			url : '/noticePopupAjax.do',   
+			data:{
+				notice_idx : idx
+			},
+			dataType : "json",           
+			contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+			error : function() {        
+				alert('통신실패!');
+			},
+			success : function(data) {  
+				$.each(data, function(index, item) { // 데이터 =item
+				
+					$('#noticeTitle').val(item.notice_title);
+					$('#noticeContent').val(item.notice_content);
+					
+				});
+			}
+		});
+	});
+	
+	// 오류신고, 개선사항 상세보기(제목클릭)
+	$(document).on('click', '.errorFixDetail', function() {
+		var idx = $(this).data('id');
+		$.ajax({
+			type : 'POST',                 
+			url : '/errorFixPopupAjax.do',   
+			data:{
+				error_fix_idx : idx
+			},
+			dataType : "json",           
+			contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+			error : function() {        
+				alert('통신실패!');
+			},
+			success : function(data) {  
+				$.each(data, function(index, item) { // 데이터 =item
+					if(item.board_type == 'E') {
+						$('#boardType').val('오류신고');
+					} else if(item.board_type == 'F') {
+						$('#boardType').val('개선사항');
+					}
+					
+					$('#errorFixOrgNm').val(item.error_fix_org_nm);
+					$('#errorFixTitle').val(item.error_fix_title);
+					$('#errorFixContent').val(item.error_fix_content);
+					
+				});
+			}
+		});
+	});
 </script>
     <!--  -->
     

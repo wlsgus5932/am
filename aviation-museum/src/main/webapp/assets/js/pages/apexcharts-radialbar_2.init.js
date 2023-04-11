@@ -20,7 +20,7 @@ var barchartColors = getChartColorsArray('basic_radialbar'),
   chart = new ApexCharts(document.querySelector('#basic_radialbar'), options)
 chart.render()
 options = {
-  series: class1_count,
+  series: material1_count,
   chart: { height: 350, type: 'radialBar' },
   plotOptions: {
     radialBar: {
@@ -37,12 +37,12 @@ options = {
       },
     },
   },
-  labels: class1_nm,
-  colors: (barchartColors = getChartColorsArray('multiple_radialbar')),
+  labels: material1_nm,
+  colors: (barchartColors = getChartColorsArray('multiple_radialbar_2')),
 }
-;(chart = new ApexCharts(document.querySelector('#multiple_radialbar'), options)).render()
+;(chart = new ApexCharts(document.querySelector('#multiple_radialbar_2'), options)).render()
 options = {
-  series: [getWorkHistoryMonth, getWorkHistoryWeek, getWorkHistoryDay],
+  series: [76, 67, 61, 55],
   chart: { height: 350, type: 'radialBar' },
   plotOptions: {
     radialBar: {
@@ -53,14 +53,14 @@ options = {
       dataLabels: { name: { show: !1 }, value: { show: !1 } },
     },
   },
-  colors: (barchartColors = getChartColorsArray('circle_radialbar')),
-  labels: ['월', '주', '일'],
+  colors: (barchartColors = getChartColorsArray('circle_radialbar_2')),
+  labels: ['월 총 작업량', '주 총 작업량', '일 총 작업량'],
   legend: {
     show: !0,
     floating: !0,
     fontSize: '16px',
     position: 'left',
-    offsetX: 160,
+    offsetX: 0,
     offsetY: 15,
     labels: { useSeriesColors: !0 },
     markers: { size: 0 },
@@ -71,7 +71,7 @@ options = {
   },
   responsive: [{ breakpoint: 480, options: { legend: { show: !1 } } }],
 }
-;(chart = new ApexCharts(document.querySelector('#circle_radialbar'), options)).render()
+;(chart = new ApexCharts(document.querySelector('#circle_radialbar_2'), options)).render()
 options = {
   series: [75],
   chart: { height: 350, type: 'radialBar', toolbar: { show: !1 } },
@@ -145,7 +145,7 @@ options = {
     radialBar: {
       startAngle: -90,
       endAngle: 90,
-      track: { background: '#e7e7e7', strokeWidth: '97%', margin: 5, dropShadow: { enabled: !0, top: 2, left: 0, color: '#999', opacity: 1, blur: 2 } },
+      //   track: { background: '#e7e7e7', strokeWidth: '97%', margin: 5, dropShadow: { enabled: !0, top: 2, left: 0, color: '#999', opacity: 1, blur: 2 } },
       dataLabels: { name: { show: !1 }, value: { offsetY: -2, fontSize: '22px' } },
     },
   },

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.aviation.dashboard.service.impl.DashBoardMapper">
+
+	<select id="getCountryDataList" parameterType="egovframework.aviation.dashboard.vo.CountryDataVO" resultType="egovframework.aviation.dashboard.vo.CountryDataVO">
+			SELECT 
+				 COUNTRY_NM
+				,COUNT(COUNTRY_NM) as COUNTRY_COUNT
+			FROM
+			(
+				SELECT 
+					IFNULL((SELECT ncc.COUNTRY_NM FROM nam_country_code ncc WHERE ncc.COUNTRY_CODE_IDX =nce.COUNTRY_CODE_IDX), '미국적') COUNTRY_NM 
+				FROM nam_item_base nib
+				LEFT JOIN nam_country_era nce
+				ON nib.ITEM_IDX = nce.ITEM_IDX
+				GROUP BY nib.ITEM_IDX 
+			)R1
+			GROUP BY COUNTRY_NM
+<!-- 			SELECT  -->
+<!-- 				 COUNTRY_NM -->
+<!-- 				,COUNT(COUNTRY_NM) as COUNTRY_COUNT -->
+<!-- 			FROM -->
+<!-- 			( -->
+<!-- 				SELECT  -->
+<!-- 					IFNULL((SELECT ncc.COUNTRY_NM FROM nam_country_code ncc WHERE ncc.COUNTRY_CODE_IDX =nce.COUNTRY_CODE_IDX), '미국적') COUNTRY_NM  -->
+<!-- 				FROM nam_item_base nib -->
+<!-- 				LEFT JOIN nam_country_era nce -->
+<!-- 				ON nib.ITEM_IDX = nce.ITEM_IDX -->
+<!-- 			)R1 -->
+<!-- 			GROUP BY COUNTRY_NM -->
+	</select>
+
+	<select id="getClass1DataList" parameterType="egovframework.aviation.dashboard.vo.Class1DataVO" resultType="egovframework.aviation.dashboard.vo.Class1DataVO">
+			SELECT 
+				 class1_nm
+				,COUNT(class1_nm) AS CLASS1_COUNT
+			FROM
+			(
+				SELECT 
+					 IFNULL((SELECT ncc.CLASS1_NM FROM nam_class1_code ncc WHERE ncc.CLASS1_CODE_IDX = nt.CLASS1_CODE_IDX ORDER BY ncc.seq desc), '미주제') as CLASS1_NM 
+					,(SELECT ncc.SEQ FROM nam_class1_code ncc WHERE ncc.CLASS1_CODE_IDX = nt.CLASS1_CODE_IDX) as SEQ 
+				FROM nam_item_base nib 
+				LEFT JOIN nam_taxonomy nt 
+				ON nib.ITEM_IDX = nt.ITEM_IDX
+			)R1
+			GROUP BY R1.class1_nm
+			ORDER BY R1.seq
+	</select>	
+	
+	<select id="getMaterial1DataList" parameterType="egovframework.aviation.dashboard.vo.Material1DataVO" resultType="egovframework.aviation.dashboard.vo.Material1DataVO">
+			SELECT 
+				 MATERIAL1_NM
+				,COUNT(MATERIAL1_NM) as MATERIAL1_COUNT
+			FROM
+			(
+				SELECT 
+					IFNULL((SELECT nmc.MATERIAL1_NM FROM nam_material1_code nmc WHERE nmc.MATERIAL1_CODE_IDX = nm.MATERIAL1_CODE_IDX ORDER BY nmc.SEQ), '미재질') AS MATERIAL1_NM
+					,(SELECT nmc.SEQ FROM nam_material1_code nmc WHERE nmc.MATERIAL1_CODE_IDX = nm.MATERIAL1_CODE_IDX) as SEQ 
+				FROM nam_item_base nib 
+				LEFT JOIN nam_material nm 
+				ON nib.ITEM_IDX = nm.ITEM_IDX
+				GROUP BY nib.ITEM_IDX 
+			)R1
+			GROUP BY R1.MATERIAL1_NM
+			ORDER BY R1.seq
+	</select>	
+	
+	<select id="getRegStateDataList" parameterType="egovframework.aviation.dashboard.vo.RegStateDataVO" resultType="egovframework.aviation.dashboard.vo.RegStateDataVO">
+			SELECT 
+				 REG_STATE
+				,COUNT(REG_STATE) AS REG_STATE_COUNT
+			FROM
+			(
+			SELECT 
+				 nib.REG_STATE 
+				,COUNT(nib.REG_STATE) AS COUNT
+			FROM nam_item_base nib 
+			GROUP BY nib.ITEM_IDX
+			)R1
+			GROUP BY REG_STATE
+	</select>
+	<select id="getWorkHistoryYear" resultType="Integer">
+			SELECT 
+				count(*)
+			FROM nam_work_history nwh
+			WHERE year(REG_DATE) = year(now())
+	</select>
+	<select id="getWorkHistoryMonth" resultType="Integer">
+			SELECT 
+				count(*)
+			FROM nam_work_history nwh
+			WHERE DATE_FORMAT(REG_DATE, '%Y-%m') = date_format(curdate(), '%Y-%m')
+	</select>
+	<select id="getWorkHistoryWeek" resultType="Integer">
+			SELECT 
+				count(*) 
+			FROM nam_work_history nwh1
+			WHERE date(REG_DATE) BETWEEN subdate(curdate(),date_format(curdate(),'%w')-1) 
+			AND subdate(curdate(),date_format(curdate(),'%w')-7)
+	</select>
+	<select id="getWorkHistoryDay" resultType="Integer">
+			SELECT 
+				count(*)
+			FROM nam_work_history nwh
+			WHERE DATE_FORMAT(REG_DATE, '%Y-%m-%d') = date_format(curdate(), '%Y-%m-%d')
+	</select>
+	
+	<select id="getWorkerDataList" parameterType="egovframework.aviation.dashboard.vo.WorkerDataVO" resultType="egovframework.aviation.dashboard.vo.WorkerDataVO">
+			SELECT
+				 (SELECT nm.MEMBER_NM FROM nam_member nm WHERE nm.MEMBER_ID = nwh.REG_USER) AS MEMBER_NM 
+				,(SELECT count(*) FROM nam_work_history nwh1 WHERE year(REG_DATE) = year(now()) and nwh1.REG_USER = nwh.REG_USER) AS YEAR
+				,(SELECT count(*) FROM nam_work_history nwh1 WHERE DATE_FORMAT(REG_DATE, '%Y-%m') = date_format(curdate(), '%Y-%m') and nwh1.REG_USER = nwh.REG_USER) AS MONTH
+				,(SELECT count(*) FROM nam_work_history nwh1 WHERE date(REG_DATE) BETWEEN subdate(curdate(),date_format(curdate(),'%w')-1) AND subdate(curdate(),date_format(curdate(),'%w')-7)) AS WEEK
+				,(SELECT count(*) FROM nam_work_history nwh1 WHERE DATE_FORMAT(REG_DATE, '%Y-%m-%d') = date_format(curdate(), '%Y-%m-%d') and nwh1.REG_USER = nwh.REG_USER) AS DAY
+			FROM nam_work_history nwh
+			GROUP BY nwh.REG_USER
+			ORDER BY nwh.REG_DATE DESC
+			limit 5
+	</select>
+
+	<select id="getRecentWorkList" parameterType="egovframework.aviation.dashboard.vo.RecentWorkVO" resultType="egovframework.aviation.dashboard.vo.RecentWorkVO">
+			SELECT 
+				 nwh.ITEM_NM 
+				,nwh.ITEM_NO 
+				,nwh.WORK_NM 
+				,(SELECT ni.IMAGE_PATH FROM nam_image ni WHERE ni.ITEM_IDX = nwh.ITEM_IDX AND REP_IMAGE ='Y') AS IMAGE_PATH
+				,(SELECT ni.THUMBNAIL_NM FROM nam_image ni WHERE ni.ITEM_IDX = nwh.ITEM_IDX AND REP_IMAGE ='Y') AS THUMBNAIL_NM
+				,nwh.POSSESSION_NM 
+			FROM nam_work_history nwh 
+			WHERE REG_USER = #{reg_user}
+			limit 5
+	</select>	
+	
+	<select id="getInsideRental" parameterType="egovframework.aviation.dashboard.vo.RentalVO" resultType="egovframework.aviation.dashboard.vo.RentalVO">
+			SELECT 
+				 nm.ITEM_IDX 
+				,nib.ITEM_NM 
+				,MONTH(nm.MOVEMENT_DATE) AS MONTH
+				,DAY(nm.MOVEMENT_DATE) AS DAY 
+				,SUM(nm.MOVEMENT_QTY)-1 AS QTY_SUM
+				,(SELECT nquc.QTY_UNIT_NM FROM nam_qty_unit_code nquc WHERE nquc.QTY_UNIT_CODE_IDX = nib.QTY_UNIT_CODE_IDX) AS QTY_UNIT_NM
+				,(SELECT noc.ORG_NM FROM nam_org_code noc WHERE noc.ORG_CODE_IDX = nib.ORG_CODE_IDX) AS ORG_NM
+			FROM nam_movement nm
+			LEFT JOIN nam_item_base nib 
+			ON nm.ITEM_IDX = nib.ITEM_IDX
+			WHERE nm.STORAGE_TYPE2_CODE_IDX != 14
+			GROUP BY nm.MOVEMENT_DATE
+			ORDER BY nm.MOVEMENT_DATE DESC
+			LIMIT 4
+	</select>	
+	
+	<select id="getOutsideRental" parameterType="egovframework.aviation.dashboard.vo.RentalVO" resultType="egovframework.aviation.dashboard.vo.RentalVO">
+			SELECT 
+				 nm.ITEM_IDX 
+				,nib.ITEM_NM 
+				,MONTH(nm.MOVEMENT_DATE) AS MONTH
+				,DAY(nm.MOVEMENT_DATE) AS DAY
+				,SUM(nm.MOVEMENT_QTY)-1 AS QTY_SUM
+				,(SELECT nquc.QTY_UNIT_NM FROM nam_qty_unit_code nquc WHERE nquc.QTY_UNIT_CODE_IDX = nib.QTY_UNIT_CODE_IDX) AS QTY_UNIT_NM
+				,(SELECT noc.ORG_NM FROM nam_org_code noc WHERE noc.ORG_CODE_IDX = nib.ORG_CODE_IDX) AS ORG_NM
+			FROM nam_movement nm
+			LEFT JOIN nam_item_base nib 
+			ON nm.ITEM_IDX = nib.ITEM_IDX
+			WHERE nm.STORAGE_TYPE2_CODE_IDX = 14
+			GROUP BY nm.MOVEMENT_DATE
+			ORDER BY nm.MOVEMENT_DATE DESC
+			LIMIT 4
+	</select>	
+</mapper>

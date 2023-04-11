@@ -55,8 +55,8 @@
                       <c:forEach var="imagesList" items="${imagesList}" varStatus="varStatus">
 	                      <tr>
 	                        <td>${varStatus.count}</td>
-	                        <td id="${varStatus.count}"></td>
-	                        <td>${imagesList.count}/
+	                        <td id="${varStatus.count}">${imagesList.imagecount}</td>
+	                        <td>${imagesList.count} /
 	                        	<c:choose>
 		                        	<c:when test="${imagesList.sum ne null}">
 		                        		${imagesList.sum}
@@ -86,42 +86,6 @@
             	orgCodeChange();
             	////////////////
   				
-            	//  이미지 수량  //
-            	if($('#1').length){
-            		$('#1').html('이미지 없음');
-            	}
-            	if($('#2').length){
-            		$('#2').html('1 ~ 2');
-            	}
-            	if($('#3').length){
-            		$('#3').html('3 ~ 5');
-            	}
-            	if($('#4').length){
-            		$('#4').html('6 ~ 10');
-            	}
-            	if($('#5').length){
-            		$('#5').html('11 ~ 20');
-            	}
-            	if($('#6').length){
-            		$('#6').html('21 ~ 30');
-            	}
-            	if($('#7').length){
-            		$('#7').html('31 ~ 50');
-            	}
-            	if($('#8').length){
-            		$('#8').html('51 ~ 100');
-            	}
-            	if($('#9').length){
-            		$('#9').html('101 ~ 200');
-            	}
-            	if($('#10').length){
-            		$('#10').html('201 ~ 300');
-            	}
-            	if($('#11').length){
-            		$('#11').html('301 이상');
-            	}
-  				////////////////
-  				
             	//   합계   //
             	var dataTotalCount = 0;
             	var ImagesTotalCount = 0;
@@ -133,7 +97,7 @@
 	  					ImagesTotalCount += ${imagesList2.sum};
 	  				</c:if>
 	  			</c:forEach>
-	  			$('#totalCount').html(dataTotalCount+'/'+ImagesTotalCount);
+	  			$('#totalCount').html(dataTotalCount+' / '+ImagesTotalCount);
             	/////////////
             })
             function orgCodeChange() {
@@ -187,7 +151,7 @@
   		function imagesExcelList() {
   			var $form = $('#specialityExcelForm');
 
-  			$form.attr("action", "/statisticsSpecialityExcelDownload.do");
+  			$form.attr("action", "/statisticsImagesExcelDownload.do");
   			$form.submit();
 
   		}
