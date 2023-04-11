@@ -592,7 +592,7 @@
         
               <!--  공지사항 상세보기 -->
        <div id="myModal2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-          <div class="modal-dialog user-modal">
+          <div class="modal-dialog user-modal notice_edit_modal_wrap">
               <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                       <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
@@ -609,15 +609,15 @@
 	                              <table class="table mb-0">
 	                                  <tbody>
 	                                      <tr>
-	                                        <td>제목</td>
+	                                        <td style="width: 15%;">제목</td>
 	                                          <td>
-	                                            <input type="text" name="notice_title" id="noticeTitle" readOnly>
+	                                            <input class="custom_search_input user_in_modal_input" type="text" name="notice_title" id="noticeTitle" readOnly>
 	                                      	  </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>내용</td>
 	                                          <td>
-	                                          <textarea name="notice_content" id="noticeContent" cols="70" rows="10" readOnly></textarea>
+	                                          <textarea class="custom_search_input user_in_modal_input" name="notice_content" id="noticeContent" cols="70" rows="10" readOnly style="height: 100px;"></textarea>
 	                                          </td>
 	                                      </tr>
 	                                  </tbody>
@@ -632,7 +632,7 @@
       </div>
       <!--  공지사항 상세보기 -->
        <div id="myModal3" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-          <div class="modal-dialog user-modal">
+          <div class="modal-dialog user-modal notice_edit_modal_wrap">
               <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                       <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
@@ -649,27 +649,27 @@
 	                              <table class="table mb-0">
 	                                  <tbody>
 	                                  	  <tr>
-	                                        <td>구분</td>
+	                                        <td style="width: 15%;">구분</td>
 	                                          <td>
-	                                            <input type="text" name="board_type" id="boardType" readOnly>
+	                                            <input class="custom_search_input user_in_modal_input" type="text" name="board_type" id="boardType" readOnly>
 	                                      	  </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>기관명</td>
 	                                          <td>
-	                                            <input type="text" name="error_fix_org_nm" id="errorFixOrgNm" readOnly>
+	                                            <input class="custom_search_input user_in_modal_input" type="text" name="error_fix_org_nm" id="errorFixOrgNm" readOnly>
 	                                      	  </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>제목</td>
 	                                          <td>
-	                                            <input type="text" name="error_fix_title" id="errorFixTitle" readOnly>
+	                                            <input class="custom_search_input user_in_modal_input" type="text" name="error_fix_title" id="errorFixTitle" readOnly>
 	                                      	  </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>내용</td>
 	                                          <td>
-	                                          <textarea name="error_fix_content" id="errorFixContent" cols="70" rows="10" readOnly></textarea>
+	                                          <textarea class="custom_search_input user_in_modal_input" name="error_fix_content" id="errorFixContent" cols="70" rows="10" readOnly style="height: 100px;"></textarea>
 	                                          </td>
 	                                      </tr>
 	                                  </tbody>
