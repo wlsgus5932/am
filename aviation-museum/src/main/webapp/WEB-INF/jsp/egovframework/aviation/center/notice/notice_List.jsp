@@ -103,7 +103,7 @@
        
        <!--  공지사항 상세보기 -->
        <div id="myModal2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-          <div class="modal-dialog user-modal">
+          <div class="modal-dialog user-modal preferences_deit_modal_wrap_2">
               <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                       <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
@@ -120,15 +120,15 @@
 	                              <table class="table mb-0">
 	                                  <tbody>
 	                                      <tr>
-	                                        <td>제목</td>
+	                                        <td style="width: 15%;">제목</td>
 	                                          <td>
-	                                            <input type="text" name="notice_title" id="noticeTitle" readOnly>
+	                                            <input class="custom_search_input user_in_modal_input" type="text" name="notice_title" id="noticeTitle" readOnly>
 	                                      	  </td>
 	                                      </tr>
 	                                      <tr>
 	                                        <td>내용</td>
 	                                          <td>
-	                                          <textarea name="notice_content" id="noticeContent" cols="70" rows="10" readOnly></textarea>
+	                                          <textarea class="custom_textarea_wrap"name="notice_content" id="noticeContent" cols="70" rows="10" readOnly></textarea>
 	                                          </td>
 	                                      </tr>
 	                                  </tbody>

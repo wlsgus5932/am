@@ -2844,7 +2844,7 @@
                     <li class="page-item" onclick="searchItemPrev()"><a class="page-link" href="#"><</a></li>
                     <li class="page-item" onclick="changePrevNext()"><a class="page-link" id="detail_prevnext" href="#">상세</a></li>
                     <li class="page-item" onclick="searchItemNext()"><a class="page-link" href="#">></a></li>
-                    <li class="page-item" onclick="searchItemNextMax()"><a class="page-link" href="#">>></a></li>
+                    <li class="page-item" onclick="searchItemNextMax()"><a class="page-link page-link_2" href="#">>></a></li>
                     <input type="hidden" id="detail_btn" value="N">
                 </ul>
             </div>

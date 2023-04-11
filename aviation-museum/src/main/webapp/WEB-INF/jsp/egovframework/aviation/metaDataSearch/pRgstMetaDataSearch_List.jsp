@@ -7,7 +7,7 @@
             <!--  -->
             <!-- 상세검색 모달 내용 -->
 <div id="TagModal-1" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
-  <div class="modal-dialog user-modal">
+  <div class="modal-dialog user-modal search_detail_modal">
     <div class="modal-content">
       <div class="modal-header mv-modal-header">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="metaDataDetailSearchListCloseBtn"></button>
@@ -25,8 +25,8 @@
 	              <table class="table mb-0">
 	                <tbody>
 	                  <tr id="keyword1">
-	                    <td>검색어</td>
-	                    <td>
+	                    <td class="detail_search_modal_width_1">검색어</td>
+	                    <td class="detail_search_modal_width_1">
 	                      <select class="form-select st_select img-select" name="search_type" id="search_type">
 	                        <option value="" selected>전체</option>
 	                        <option value="item_nm">명칭</option>
@@ -36,7 +36,7 @@
 	                      </select>
 	                    </td>
 	                    <td>
-	                      <input type="text" name="detail_search_word1" id="detail_search_word1" />
+	                      <input class="form-control st_input" type="text" name="detail_search_word1" id="detail_search_word1" />
 	                    </td>
 	                    <td>
 	                      <select class="form-select st_select img-select" id="searchOperator1" name="pSrchfAndOr1">
@@ -58,7 +58,7 @@
 	                      </select>
 	                    </td>
 	                    <td>
-	                      <input type="text" name="detail_search_word2" id="detail_search_word2" />
+	                      <input class="form-control st_input" type="text" name="detail_search_word2" id="detail_search_word2" />
 	                    </td>
 	                    <td>
 	                      <select class="form-select st_select img-select" id="searchOperator2" name="pSrchAndOr2">
@@ -96,26 +96,27 @@
 	                      </select>
 	                    </td>
 	                    <td>자료번호</td>
-	                    <td><input type="text" name="start_item_no" id="start_item_no" /><input type="text" name="end_item_no" id="end_item_no" /></td>
+	                    <td class="table_2nd_row_wrap"><input class="form-control st_input" type="text" name="start_item_no" id="start_item_no" /><input class="form-control st_input" type="text" name="end_item_no" id="end_item_no" /></td>
 	                  </tr>
 	                  <tr>
-	                    <td colspan="4">검색옵션</td>
+	                    <td colspan="1">검색옵션</td>
+	                    <td colspan="3"></td>
 	                  </tr>
 	                  <tr>
-	                    <td colspan="2">
+	                    <td colspan="1">
 	                    	<input type="checkbox" name="country" id="country" />국적
 	                    </td>
-	                    <td>
+	                    <td colspan="3">
 	                    	<c:forEach var="countryList" items="${countryList}">
 	                      		<input type="checkbox" class="country" name="country" id="c${countryList.country_code_idx}" value="${countryList.country_code_idx}"/>${countryList.country_nm}
 	                    	</c:forEach>
 	                    </td>
 	                  </tr>
 	                  <tr>
-	                    <td colspan="2">
+	                    <td colspan="1">
 	                    	<input type="checkbox" name="material1" id="material1" />재질
 	                    </td>
-	                    <td>
+	                    <td colspan="3">
 	                    	<c:forEach var="material1List" items="${material1List}">
 	                      		<input type="checkbox" class="material1" name="material1" id="m${material1List.material1_code_idx}" value="${material1List.material1_code_idx}" />${material1List.material1_nm}
 	                 		</c:forEach>
@@ -123,12 +124,14 @@
 	                  </tr>
 	                </tbody>
 	              </table>
-	              <input type="reset" class=""></button>
-                  <button type="button" onClick="metaDataDetailSearchList();" id="search">검색</button>
               	</form>      
             </div>
           </div>
         </div>
+               <div class="user_in_modal_footer_wrap">
+					<input class="custom_btn btn_707070 user_in_modal_footer_btn" type="reset" class=""></input>
+					<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" onClick="metaDataDetailSearchList();" id="search">검색</button>                                
+               </div>
       </div>
     </div>
   </div>

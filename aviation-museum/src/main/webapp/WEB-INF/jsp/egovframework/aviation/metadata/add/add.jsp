@@ -2932,12 +2932,12 @@
                                              <tr>
                                                   <td>자료구분</td>
                                                     <td>
-	                                                    <select class="search_select" name="org_code_idx">
+	                                                    <select class="search_select" name="org_code_idx" style="width: 60%; height: 38px;">
 										                    <c:forEach var="list" items="${orgList}" varStatus="status">
 										                           <option value="${list.org_code_idx}" <c:if test ="${list.org_nm eq '항공박물관'}">selected="selected"</c:if>>${list.org_nm}</option>
 										                     </c:forEach>
 										                  </select>
-										                  <select class="search_select" name="possession_code_idx">
+										                  <select class="search_select" name="possession_code_idx" style="width: 39%; height: 38px;">
 										                      <option value="" selected>선택</option>
 										                      		<c:forEach var="list" items="${posSessionList}" varStatus="status">
 												                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
@@ -2947,9 +2947,9 @@
                                                 </tr>
                                                 <tr>
                                                   <td>자료번호</td>
-                                                    <td id="item_base_td">
-                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_no" placeholder="자료번호를 입력해주세요">
-                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_detail_no" placeholder="세부번호를 입력해주세요">
+                                                    <td id="item_base_td" style="display: flex;">
+                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_no" placeholder="자료번호를 입력해주세요" style="width: auto;">
+                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_detail_no" placeholder="세부번호를 입력해주세요" style="width: auto;">
                                                       <button type="button" class="btn btn-secondary btn_save" onclick="getMetaDataInfo()">조회</button>
                                                     </td>
                                                 </tr>
@@ -2976,8 +2976,10 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <button type="button" class="btn btn-secondary btn_save" onclick="setMetaDataInfo()">가져오기</button>
-                                        <button type="button" class="btn btn-secondary btn_save"  data-bs-dismiss="modal" aria-label="Close">닫기</button>
+                                        <div class="user_in_modal_footer_wrap">
+	                                        <button type="button" class="custom_btn btn_c58672 user_in_modal_footer_btn" onclick="setMetaDataInfo()">가져오기</button>
+	                                        <button type="button" class="custom_btn btn_c58672 user_in_modal_footer_btn"  data-bs-dismiss="modal" aria-label="Close">닫기</button>                                        
+                                        </div>
                                     </div>
                             </div>
                         </div>
@@ -2990,13 +2992,16 @@
                           <div class="modal-content pro-modal-content">
                             <div class="modal-header mv-modal-header">
                                 <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
-                                <span style="color: white;">자료번호 삽입</span>
+                                
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body mv-modal-body">
-                            	<div class="mb-0">
-                            		연속된 자료번호 중간에 신규로 자료번호를 삽입할 경우 사용하는 기능입니다.
-                            	</div>
+                            <div class="st_wrap">
+					          <label class="col-md-2 col-form-label st_title">자료번호 삽입</label>
+					          <br>
+					          연속된 자료번호 중간에 신규로 자료번호를 삽입할 경우 사용하는 기능입니다.
+					        </div>
+<!--                             <span style="color: white;">자료번호 삽입</span> -->
 				                  <div class="table-responsive">
                                         <table class="table mb-0">
                                             <tbody>
@@ -3004,13 +3009,13 @@
                                              <tr>
                                                   <td>자료구분</td>
                                                     <td>
-	                                                    <select class="search_select" name="org_code_idx">
+	                                                    <select class="search_select" name="org_code_idx" style="width: 60%; height: 38px;">
 										                	<option value="" selected>선택</option>
 										                    <c:forEach var="list" items="${orgList}" varStatus="status">
 										                           <option value="${list.org_code_idx}" <c:if test ="${list.org_nm eq '항공박물관'}">selected="selected"</c:if>>${list.org_nm}</option>
 										                     </c:forEach>
 										                  </select>
-										                  <select class="search_select" name="possession_code_idx">
+										                  <select class="search_select" name="possession_code_idx" style="width: 39%; height: 38px;">
 										                      <option value="" selected>선택</option>
 										                      		<c:forEach var="list" items="${posSessionList}" varStatus="status">
 												                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
@@ -3027,7 +3032,9 @@
                                                </form>
                                             </tbody>
                                         </table>
-                                        <button type="button" class="btn btn-secondary btn_save" onclick="setItemNo()">삽입</button>
+                                        <div class="user_in_modal_footer_wrap">
+                                        <button type="button" class="custom_btn btn_c58672 user_in_modal_footer_btn"" onclick="setItemNo()">삽입</button>
+                                        </div>
                                     </div>
                             	</div>
                         	</div>
@@ -3267,7 +3274,7 @@
                     <li class="page-item" onclick="searchItemPrev()"><a class="page-link" href="#"><</a></li>
                     <li class="page-item" onclick="changePrevNext()"><a class="page-link" id="detail_prevnext" href="#">상세</a></li>
                     <li class="page-item" onclick="searchItemNext()"><a class="page-link" href="#">></a></li>
-                    <li class="page-item" onclick="searchItemNextMax()"><a class="page-link" href="#">>></a></li>
+                    <li class="page-item" onclick="searchItemNextMax()"><a class="page-link page-link_2" href="#">>></a></li>
                     <input type="hidden" id="detail_btn" value="N">
                 </ul>
             </div>
