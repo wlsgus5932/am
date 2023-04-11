@@ -2,6 +2,239 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.aviation.metadata.service.impl.MetaDataMapper">
 	
+	<select id="getItemIdx" resultType="map" parameterType="egovframework.aviation.metadata.vo.param.AllChangeItemParamVO">
+		select 
+			item_idx 
+		from 
+			nam_item_base
+		where
+			org_code_idx = #{org_code_idx}
+		and possession_code_idx = #{possession_code_idx}
+		and item_no &gt;= CONVERT(#{item_no}, SIGNED) 
+		and item_no &lt;= CONVERT(#{item_no1}, SIGNED)
+		<if test="item_detail_no != null and item_detail_no != '' ">
+			and item_detail_no <![CDATA[>]]> CONVERT(#{item_detail_no}, SIGNED)
+		</if>
+		<if test="item_detail_no1 != null and item_detail_no1 != '' ">
+			and item_detail_no <![CDATA[<]]> CONVERT(#{item_detail_no1}, SIGNED)
+		</if>
+	</select>
+	
+	<update id="changeTaxonomyItem">
+		update nam_taxonomy set
+			class1_code_idx = #{param.after_class1_code_idx},
+			class2_code_idx = #{param.after_class2_code_idx},
+			class3_code_idx = #{param.after_class3_code_idx}
+		where 
+		item_idx in
+			(
+			<foreach separator="," index="key" item="value" collection="item_idx">
+				<foreach separator="," index="idx" item="item" collection="value">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+		<if test="param.itemChangeRadio == 'one'">
+		and
+			class1_code_idx = #{param.before_class1_code_idx}
+		and
+			class2_code_idx = #{param.before_class2_code_idx}
+		and	
+			class3_code_idx = #{param.before_class3_code_idx}
+		</if>
+	
+	</update>
+	
+	<update id="changeCountryItem">
+		update nam_country_era set
+			country_code_idx = #{param.after_country_code_idx},
+			era_code_idx = #{param.after_era_code_idx}
+		where
+			item_idx in
+			(
+			<foreach separator="," index="key" item="value" collection="item_idx">
+				<foreach separator="," index="idx" item="item" collection="value">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+			<if test="param.itemChangeRadio == 'one'">
+			and country_code_idx = #{param.before_country_code_idx}
+			and era_code_idx = #{param.before_era_code_idx}
+			</if>
+	</update>
+	
+	<update id="changeMaterialItem">
+		update nam_material set
+			material1_code_idx = #{param.after_material1_code_idx},
+			material2_code_idx = #{param.after_material2_code_idx}
+		where
+			item_idx in
+			(
+			<foreach separator="," index="key" item="value" collection="item_idx">
+				<foreach separator="," index="idx" item="item" collection="value">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+			<if test="param.itemChangeRadio == 'one'">
+			and material1_code_idx = #{param.before_material1_code_idx}
+			</if>
+	</update>
+	
+	<update id="changeQtyItem">
+		update nam_item_base set
+			qty_unit_code_idx = #{param.after_qty_unit_code_idx}
+		where
+			item_idx in
+			(
+			<foreach separator="," index="key" item="value" collection="item_idx">
+				<foreach separator="," index="idx" item="item" collection="value">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+			<if test="param.itemChangeRadio == 'one'">
+			and qty_unit_code_idx = #{param.before_qty_unit_code_idx}
+			</if>
+	</update>
+	
+	<update id="changeMeasurementItem">
+		update nam_measurement set
+			measurement_code_idx = #{param.after_measurement_code_idx}
+		where
+			item_idx in
+			(
+			<foreach separator="," index="key" item="value" collection="item_idx">
+				<foreach separator="," index="idx" item="item" collection="value">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+			<if test="param.itemChangeRadio == 'one'">
+			and measurement_code_idx = #{param.before_measurement_code_idx}
+			</if>
+	</update>
+	
+	<update id="changeRankingItem">
+		update nam_item_base set
+			ranking_code_idx = #{param.after_ranking_code_idx}
+		where
+			item_idx in
+			(
+			<foreach separator="," index="key" item="value" collection="item_idx">
+				<foreach separator="," index="idx" item="item" collection="value">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+			<if test="param.itemChangeRadio == 'one'">
+			ranking_code_idx = #{param.before_ranking_code_idx}
+			</if>
+	</update>
+	
+	<update id="changeObtainmentItem">
+		update nam_obtainment set
+			obtainment_code_idx = #{param.after_obtainment_code_idx}
+		where
+			item_idx in
+			(
+			<foreach separator="," index="key" item="value" collection="item_idx">
+				<foreach separator="," index="idx" item="item" collection="value">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+			<if test="param.itemChangeRadio == 'one'">
+			and obtainment_code_idx = #{param.before_obtainment_code_idx}
+			</if>
+	</update>
+	
+	<update id="changePurchase1Item">
+		update nam_obtainment set
+			purchase1_code_idx = #{param.after_purchase1_code_idx}
+		where
+			item_idx in
+			(
+			<foreach separator="," index="key" item="value" collection="item_idx">
+				<foreach separator="," index="idx" item="item" collection="value">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+			<if test="param.itemChangeRadio == 'one'">
+			and purchase1_code_idx = #{param.before_purchase1_code_idx}
+			</if>
+	</update>
+	
+	<update id="changePurchase2Item">
+		update nam_obtainment set
+			purchase2_code_idx = #{param.after_purchase2_code_idx}
+		where
+			item_idx in
+			(
+			<foreach separator="," index="key" item="value" collection="item_idx">
+				<foreach separator="," index="idx" item="item" collection="value">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+			<if test="param.itemChangeRadio == 'one'">
+			and purchase2_code_idx = #{param.before_purchase2_code_idx}
+			</if>
+	</update>
+	
+	<update id="changePriceItem">
+		update nam_obtainment set
+			price_unit_code_idx = #{param.after_price_unit_code_idx}
+		where
+			item_idx in
+			(
+			<foreach separator="," index="key" item="value" collection="item_idx">
+				<foreach separator="," index="idx" item="item" collection="value">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+			<if test="param.itemChangeRadio == 'one'">
+			and price_unit_code_idx = #{param.before_price_unit_code_idx}
+			</if>
+	</update>
+	
+	<update id="changeDesignationItem">
+		update nam_obtainment set
+			designation = #{param.after_designation}
+		where
+			item_idx in
+			(
+			<foreach separator="," index="key" item="value" collection="item_idx">
+				<foreach separator="," index="idx" item="item" collection="value">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+			<if test="param.itemChangeRadio == 'one'">
+			and designation = #{param.before_designation}
+			</if>
+	</update>
+	
+	<update id="changeExistenceItem">
+		update nam_obtainment set
+			existence = #{param.after_existence}
+		where
+			item_idx in
+			(
+			<foreach separator="," index="key" item="value" collection="item_idx">
+				<foreach separator="," index="idx" item="item" collection="value">
+					#{item}
+				</foreach>
+			</foreach>
+			)
+			<if test="param.itemChangeRadio == 'one'">
+			and existence = #{param.before_existence}
+			</if>
+	</update>
+	
 	<select id="getSearchItemNext" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO" resultType="egovframework.aviation.metadata.vo.ItemBaseVO">
 		select * from nam_item_base 
 		where

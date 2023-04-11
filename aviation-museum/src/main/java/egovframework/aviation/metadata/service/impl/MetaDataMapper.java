@@ -45,6 +45,7 @@ import egovframework.aviation.metadata.vo.metadata.MaterialVO;
 import egovframework.aviation.metadata.vo.metadata.PreservationVO;
 import egovframework.aviation.metadata.vo.metadata.PublicServiceVO;
 import egovframework.aviation.metadata.vo.metadata.TaxonomyVO;
+import egovframework.aviation.metadata.vo.param.AllChangeItemParamVO;
 import egovframework.aviation.metadata.vo.param.DeletionParamVO;
 import egovframework.aviation.metadata.vo.param.KeywordParamVO;
 import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
@@ -236,4 +237,30 @@ public interface MetaDataMapper {
 	List<ItemBaseVO> searchItemNextMin(MetaDataParamVO param);
 
 	List<ItemBaseVO> getRankingCondition(int item_idx);
+
+	int changeTaxonomyItem(@Param("param") AllChangeItemParamVO param, @Param("item_idx") List<Map<String, Object>> dto);
+
+	List<Map<String, Object>> getItemIdx(AllChangeItemParamVO param);
+
+	int changeCountryItem(@Param("param") AllChangeItemParamVO param, @Param("item_idx") List<Map<String, Object>> dto);
+
+	int changeMaterialItem(@Param("param") AllChangeItemParamVO param, @Param("item_idx") List<Map<String, Object>> dto);
+
+	int changeQtyItem(@Param("param") AllChangeItemParamVO param, @Param("item_idx") List<Map<String, Object>> dto);
+
+	int changeMeasurementItem(@Param("param") AllChangeItemParamVO param, @Param("item_idx") List<Map<String, Object>> dto);
+
+	int changeRankingItem(@Param("param") AllChangeItemParamVO param, @Param("item_idx") List<Map<String, Object>> dto);
+
+	int changeObtainmentItem(@Param("param") AllChangeItemParamVO param, @Param("item_idx") List<Map<String, Object>> dto);
+
+	int changePurchase1Item(@Param("param") AllChangeItemParamVO param, @Param("item_idx") List<Map<String, Object>> dto);
+
+	int changePurchase2Item(@Param("param") AllChangeItemParamVO param, @Param("item_idx") List<Map<String, Object>> dto);
+
+	int changePriceItem(@Param("param") AllChangeItemParamVO param, @Param("item_idx") List<Map<String, Object>> dto);
+
+	int changeDesignationItem(@Param("param") AllChangeItemParamVO param, @Param("item_idx") List<Map<String, Object>> dto);
+
+	int changeExistenceItem(@Param("param") AllChangeItemParamVO param, @Param("item_idx") List<Map<String, Object>> dto);
 }
