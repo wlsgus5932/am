@@ -10,7 +10,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="7">입수연유코드</th>
                           </tr>
                         </thead>
@@ -74,7 +74,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="7">가격단위코드</th>
                           </tr>
                         </thead>
@@ -141,7 +141,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="7">구입구분 1코드</th>
                           </tr>
                         </thead>
@@ -205,7 +205,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="7">고입구분 2코드</th>
                           </tr>
                         </thead>

@@ -11,7 +11,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="8">ICAO</th>
                           </tr>
                         </thead>
@@ -77,7 +77,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="8">대분류</th>
                           </tr>
                         </thead>
@@ -146,7 +146,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="8">중분류</th>
                           </tr>
                         </thead>
@@ -212,7 +212,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="8">소분류</th>
                           </tr>
                         </thead>

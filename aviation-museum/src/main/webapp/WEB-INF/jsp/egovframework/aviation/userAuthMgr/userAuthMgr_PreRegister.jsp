@@ -75,8 +75,8 @@
                       <table class="table mb-0">
                         <thead>
                           <tr class="tr_bgc">
-                            <th colspan="3">소장구분 선택</th>
-                            <th colspan="3"></th>
+                            <th colspan="2">소장구분 선택</th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody class="user_control_bd user_control_bd2">

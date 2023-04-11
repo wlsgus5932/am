@@ -11,7 +11,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="7">보관처 구조</th>
                           </tr>
                         </thead>
@@ -71,7 +71,7 @@
             
             <!-- 코드등록 모달창 -->
             <div id="code_insert_modal-1" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
-              <div class="modal-dialog user-modal">
+              <div class="modal-dialog user-modal preferences_deit_modal_wrap">
                 <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="subCodeInsClose"></button>
@@ -89,9 +89,9 @@
 	                          <table class="table mb-0">
 	                            <tbody>
 	                              <tr>
-	                                <td>명칭</td>
+	                                <td style="width: 15%;">명칭</td>
 	                                <td>
-	                                  <input type="text" id="subInsNm"/>
+	                                  <input class="custom_search_input user_in_modal_input" type="text" id="subInsNm"/>
 	                                </td>
 	                              </tr>
 	                              <tr>
@@ -103,14 +103,14 @@
 		                          </tr>
 	                            </tbody>
 	                          </table>
-	                          <div class="user_in_modal_footer_wrap">
-	                          	<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="subInsBtn">저장</button>
-	                      		<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
-							</div>
 	                       </form> 
                         </div>
                       </div>
                     </div>
+							<div class="user_in_modal_footer_wrap">
+	                          	<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="subInsBtn">저장</button>
+	                      		<button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
+							</div>                    
                   </div>
                 </div>
               </div>
@@ -118,7 +118,7 @@
             
             <!-- 코드수정 모달창2 -->
             <div id="code_modify_modal-2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
-              <div class="modal-dialog user-modal">
+              <div class="modal-dialog user-modal preferences_deit_modal_wrap_2">
                 <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="subModClose"></button>
@@ -137,9 +137,9 @@
 	                          <table class="table mb-0">
 	                            <tbody>
 	                              <tr>
-	                                <td>명칭</td>
+	                                <td style="width: 15%;">명칭</td>
 	                                <td>
-	                                  <input type="text" name="" id="subModNm"/>
+	                                  <input class="custom_search_input user_in_modal_input" type="text" name="" id="subModNm"/>
 	                                </td>
 	                              </tr>
 	                              <tr>
@@ -151,14 +151,15 @@
 	                              </tr>
 	                            </tbody>
 	                          </table>
-	                        <div class="user_in_modal_footer_wrap">
-	                          <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="subModBtn">저장</button>
-                          	  <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
-							</div> 
+ 
                           </form>
                         </div>
                       </div>
                     </div>
+	                        <div class="user_in_modal_footer_wrap">
+	                          <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="subModBtn">저장</button>
+                          	  <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
+							</div>                    
                   </div>
                 </div>
               </div>

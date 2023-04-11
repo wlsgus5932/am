@@ -517,7 +517,7 @@ td {
 }
 
 .tr_bgc th:first-child {
-  border-radius: 10px 0 0 10px !important;
+  border-radius: 10px 0 0 10px;
 }
 
 .tr_bgc th:last-child {
@@ -1449,7 +1449,22 @@ input::-webkit-inner-spin-button {
 	border-radius: 6px;
 	margin: 0.25%;
 }
+
+.custom_textarea_wrap {
+	width: 430px;
+    height: 140px;
+    border: 1px solid #d2d2d2;
+    border-radius: 6px;
+    font-size: 14px;
+    padding: 0.5%;
+    color: #7d7d7d;
 }
 
+.code_year_input {
+	width: 46%;
+	height: 40px;
+}
 
-
+.tr_bgc_2 th {
+	border-radius: 10px !important;
+}

@@ -11,7 +11,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="8">기관코드</th>
                           </tr>
                         </thead>
@@ -79,7 +79,7 @@
                     <div class="table-responsive">
                       <table class="table mb-0">
                         <thead>
-                          <tr class="tr_bgc">
+                          <tr class="tr_bgc tr_bgc_2">
                             <th colspan="8">소장구분코드</th>
                           </tr>
                         </thead>
@@ -200,7 +200,7 @@
             
             <!-- 코드등록 모달창 2 -->
             <div id="code_insert_modal-2" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
-              <div class="modal-dialog user-modal">
+              <div class="modal-dialog user-modal preferences_deit_modal_wrap">
                 <div class="modal-content">
                   <div class="modal-header mv-modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="subCodeInsClose"></button>
@@ -218,21 +218,21 @@
 	                          <table class="table mb-0">
 	                            <tbody>
 	                             <tr>
-	                                <td>상위코드</td>
+	                                <td style="width: 15%;">상위코드</td>
 	                                <td id="subInsParentCodeHtml">
 									</td>
 	                              </tr>
 	                              <tr>
 	                                <td>코드</td>
 	                                <td>
-	                                  <input type="text" name="" id="subInsCode" oninput="subCodeInsInputChange();"/>
-	                                  <button type="button" id="subCodeInsCheck" subCodeInsCheck="" >중복체크</button>
+	                                  <input class="custom_search_input tag_in_modal_input" type="text" name="" id="subInsCode" oninput="subCodeInsInputChange();"/>
+	                                  <button class="custom_btn btn_707070 btn_707070_7040" type="button" id="subCodeInsCheck" subCodeInsCheck="" >중복체크</button>
 	                                </td>
 	                              </tr>
 	                              <tr>
 	                                <td>명칭</td>
 	                                <td>
-	                                  <input type="text" name="" id="subInsNm"/>
+	                                  <input class="custom_search_input tag_in_modal_input" type="text" name="" id="subInsNm"/ style="width: 425px;">
 	                                </td>
 	                              </tr>
 	                              <tr>
@@ -244,14 +244,15 @@
 	                              </tr>
 	                            </tbody>
 	                          </table>
-	                          <div class="user_in_modal_footer_wrap">
-		                          <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="subInsBtn">저장</button>
-	                          	  <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
-                          	  </div>
+
                           </form>
                         </div>
                       </div>
                     </div>
+	                          <div class="user_in_modal_footer_wrap">
+		                          <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="subInsBtn">저장</button>
+	                          	  <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
+                          	  </div>                    
                   </div>
                 </div>
               </div>
