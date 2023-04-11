@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.aviation.metadata.service.MetaDataService;
 import egovframework.aviation.metadata.service.SpecialityService;
+import egovframework.aviation.metadata.service.impl.MetaDataMapper;
 import egovframework.aviation.metadata.vo.Class1VO;
 import egovframework.aviation.metadata.vo.Class2VO;
 import egovframework.aviation.metadata.vo.Class3VO;
@@ -45,6 +47,7 @@ import egovframework.aviation.metadata.vo.RankingVO;
 import egovframework.aviation.metadata.vo.StorageType1VO;
 import egovframework.aviation.metadata.vo.StorageType2VO;
 import egovframework.aviation.metadata.vo.StorageVO;
+import egovframework.aviation.metadata.vo.param.AllChangeItemParamVO;
 import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
 import egovframework.aviation.metadata.vo.param.MovementParamVO;
 import egovframework.aviation.metadata.vo.speciality.SpecialityCodeVO;
@@ -60,6 +63,9 @@ public class AddController {
 	
 	@Autowired
 	private SpecialityService service2;
+	
+	@Autowired
+	private MetaDataMapper mapper;
 	
 	@GetMapping("/add.do")
 	public String addMetaDataForm(Model model) throws Exception {
@@ -87,7 +93,6 @@ public class AddController {
 			List<StorageVO> storage = service.getStorage(0);
 			List<SpecialityCodeVO> scCode = service2.getSpecialityCode();
 			List<ExchangeVO> exchange = service.getExchange();
-			
 			
 			model.addAttribute("countryList", country);
 			model.addAttribute("material1List", material);
@@ -490,9 +495,148 @@ public class AddController {
 			model.addAttribute("class2List", class2);
 			model.addAttribute("class3List", class3);
 			break;
+		case "qty":
+			List<QtyUnitVO> qty = service.getQtyUnit();
+			model.addAttribute("qtyUnitList", qty);
+			break;
+			
+		case "measurement":
+			List<MeasurementVO> measurement = service.getMeasurement();
+			model.addAttribute("measurementList", measurement);
+			break;
+		
+		case "ranking":
+			List<RankingVO> ranking = service.getRanking();
+			model.addAttribute("rankingList", ranking);
+			break;
+			
+		case "obtainment":
+			List<ObtainmentVO> obtainment = service.getObtainment();
+			model.addAttribute("obtainmentList", obtainment);
+			break;
+		
+		case "purchase1":
+			List<Purchase1VO> purchase1 = service.getPurchase1();
+			model.addAttribute("purchase1List", purchase1);
+			break;
+		
+		case "purchase2":
+			List<Purchase2VO> purchase2 = service.getPurchase2();
+			model.addAttribute("purchase2List", purchase2);
+			break;
+		
+		case "price_qty":
+			List<PriceUnitVO> price = service.getPriceUnit();
+			model.addAttribute("priceUnitList", price);
+			break;
+			
+		case "existence":
+			List<ExistenceVO> existence = service.getExistence();
+			model.addAttribute("existenceList", existence);
+			break;
+			
+		case "storageType":
+			List<StorageType1VO> type1 = service.getStorageType1();
+			model.addAttribute("storage1List", type1);
+			break;
 		}
 		
 		return "jsonView";
+	}
+	
+	@PostMapping("/allChangeItem.do")
+	@ResponseBody
+	public String allChangeItem(ModelMap model, @ModelAttribute AllChangeItemParamVO param) throws Exception {
+		System.out.println(param);
+		String result = "error";
+		List<Map<String, Object>> dto = mapper.getItemIdx(param);
+		int x = 0;
+		
+		switch(param.getChangeItem()) {
+			case "country":
+				x = mapper.changeCountryItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+			case "material":
+				x = mapper.changeMaterialItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+				
+			case "taxonomy":
+				x = mapper.changeTaxonomyItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+			case "qty":
+				x = mapper.changeQtyItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+				
+			case "measurement":
+				x = mapper.changeMeasurementItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+			
+			case "ranking":
+				x = mapper.changeRankingItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+			
+			case "obtainment":
+				x = mapper.changeObtainmentItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+			
+			case "purchase1":
+				x = mapper.changePurchase1Item(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+			
+			case "purchase2":
+				x = mapper.changePurchase2Item(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+				
+			case "price_qty":
+				x = mapper.changePriceItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+				
+			case "designation":
+				x = mapper.changeDesignationItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+				
+			case "existence":
+				x = mapper.changeExistenceItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+		}
+		
+		return result;
 	}
 	
 }
