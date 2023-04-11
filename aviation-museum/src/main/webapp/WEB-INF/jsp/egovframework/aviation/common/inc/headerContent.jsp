@@ -358,14 +358,13 @@
 	  	</div>
 	  	<div class="left_log_info_in_wrap_2">
 	  		<div class="left_log_info_in_wrap_2_top">
-	  			홍길동님
+	  			${userSessionId}님
 	  		</div>
 	  		<div class="left_log_info_in_wrap_2_bottom">
-	  			asdasd@naver.com
 	  		</div>
 	  	</div>
 	  	<div class="left_log_info_in_wrap_3">
-	  		<button class="" type="button">LOGOUT</button>
+	  		<button class="" type="button" onclick="location.href='/logout.do'">LOGOUT</button>
 <!-- 	  		<button class="" type="button">LOGIN</button> -->
 	  	</div>
 	  </div>
