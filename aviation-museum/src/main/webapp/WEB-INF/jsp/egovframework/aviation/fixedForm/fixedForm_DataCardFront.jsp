@@ -89,12 +89,15 @@
 		                        <td colspan="4">${dataCardFrontList.obtainment_nm}</td>
 		                      </tr>
 		                      <tr>
-		                        <td rowspan="2">크기</td>
-		                        <td colspan="4">${dataCardFrontList.measurement_nm}/${dataCardFrontList.measurement_value}${dataCardFrontList.measurement_unit_nm}</td>
-		                      </tr>
-		                      <tr>
-		                        <td colspan="4"></td>
-		                      </tr>
+		                        <td>크기</td>
+		                        <td colspan="4">
+		                        <c:forEach var="dataCardFrontMeasureList" items="${dataCardFrontMeasureList}" varStatus="varStatus">
+	                     		 	<c:if test="${dataCardFrontMeasureList.item_idx ==  dataCardFrontList.item_idx}">		                     
+		                      	  		 ${dataCardFrontMeasureList.measurement_nm}/${dataCardFrontMeasureList.measurement_value}${dataCardFrontMeasureList.measurement_unit_nm}
+					                </c:if>
+			                      </c:forEach>
+			                     </td>
+		                      </tr>			                      
 		                      <tr>
 		                        <td rowspan="1">특징</td>
 		                        <td colspan="4">${dataCardFrontList.feature}</td>

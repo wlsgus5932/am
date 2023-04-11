@@ -131,7 +131,7 @@
           </div>
         </div>
                <div class="user_in_modal_footer_wrap">
-	              <input class="custom_btn btn_707070 user_in_modal_footer_btn" type="reset" class=""></input>
+	              <input class="custom_btn btn_707070 user_in_modal_footer_btn" type="reset" class="" id="reset"></input>
                   <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" onClick="metaDataDetailSearchList();">검색</button>                                      
                </div>        
       </div>
@@ -709,4 +709,7 @@
 				$('#searchOperator2').on("change", function(){
 					$('#keyword3').css("display", "flex");
 				})
+				$("#reset").click(function(){
+				 	 $("#metaDataDetailSearchListForm")[0].reset();
+				});
     		</script>

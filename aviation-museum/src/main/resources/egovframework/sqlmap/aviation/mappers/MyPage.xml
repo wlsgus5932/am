@@ -13,6 +13,7 @@
 		           	, ni.REG_DATE
 		           	, (SELECT IMAGE_NM FROM nam_image ni2 WHERE ni2.ITEM_IDX = ni.ITEM_IDX limit 1) AS IMAGE_NM
 		           	, (SELECT IMAGE_PATH FROM nam_image ni2 WHERE ni2.ITEM_IDX = ni.ITEM_IDX limit 1) AS IMAGE_PATH
+		           	, (SELECT THUMBNAIL_NM from nam_image ni2 WHERE ni2.ITEM_IDX = ni.ITEM_IDX AND REP_IMAGE = 'Y' limit 1) as THUMBNAIL_NM
 		           	, nib.ITEM_NO 
 		           	, nib.ITEM_DETAIL_NO 
 		           	, nib.ITEM_NM 

@@ -127,7 +127,7 @@
           </div>
         </div>
                <div class="user_in_modal_footer_wrap">
-                  <input class="custom_btn btn_707070 user_in_modal_footer_btn" type="reset" class=""></input>
+                  <input class="custom_btn btn_707070 user_in_modal_footer_btn" type="reset" class="" id="reset"></input>
                   <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" onClick="metaDataDetailSearchList();" id="search">검색</button>
                </div>
       </div>
@@ -711,5 +711,8 @@
  		            }
  		        });
 		    });
+			$("#reset").click(function(){
+				  $("#metaDataDetailSearchListForm")[0].reset();
+			});
             </script>
             

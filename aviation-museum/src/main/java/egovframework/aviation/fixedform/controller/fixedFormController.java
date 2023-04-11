@@ -42,9 +42,11 @@ public class fixedFormController {
 		
 		List<OrgVO> getOrgList = metaDataService.getOrg();
 		List<FixedFormVO> dataCardFrontList = fixedFormService.getDataCardFrontList(fixedFormVO);
+		List<FixedFormVO> dataCardFrontMeasureList = fixedFormService.getDataCardFrontMeasureList(fixedFormVO);
 		model.addAttribute("userSessionOrgCodeIdx",req.getSession().getAttribute("userSessionOrgCodeIdx"));
 		model.addAttribute("getOrgList", getOrgList);
     	model.addAttribute("dataCardFrontList", dataCardFrontList);
+    	model.addAttribute("dataCardFrontMeasureList", dataCardFrontMeasureList);
     	model.addAttribute("dataCardFrontListTotal", dataCardFrontList.size());
     	if(dataCardFrontList.size() > 0) {
     		model.addAttribute("firstItemNo", dataCardFrontList.get(0).getItem_no());
