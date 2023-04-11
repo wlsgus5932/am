@@ -56,4 +56,5 @@ public class AllChangeItemParamVO {
 	
 	private String change_movement_date;
 	private String itemChangeRadio;
+	private String changeItemCheck;
 }

@@ -263,4 +263,8 @@ public interface MetaDataMapper {
 	int changeDesignationItem(@Param("param") AllChangeItemParamVO param, @Param("item_idx") List<Map<String, Object>> dto);
 
 	int changeExistenceItem(@Param("param") AllChangeItemParamVO param, @Param("item_idx") List<Map<String, Object>> dto);
+
+	List<ItemBaseVO> getItemBase2(MetaDataParamVO param);
+
+	List<Map<String, Object>> getItemIdx2(AllChangeItemParamVO param);
 }

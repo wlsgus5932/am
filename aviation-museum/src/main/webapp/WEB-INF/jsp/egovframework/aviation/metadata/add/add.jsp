@@ -2572,7 +2572,7 @@
 			$('#update_'+e+'_btn').show();
 		})
 	}
-	//여기다
+	
 	const itemChange = val => {
 		let item1 = [
 				{name: '수량단위', value:"qty"}, 
@@ -2599,7 +2599,7 @@
 		$('#afterChangeTd').children().remove();
 		if(val == '1') {
 			$('#itemChangeRadio1').prop('disabled', false);
-			$('#itemChangeTbody > tr:eq(3) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected>선택</option></select>')
+			$('#itemChangeTbody > tr:eq(3) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected value="">선택</option></select>')
 			item1.forEach(e=>{
 				$('#itemChangeSelect').append('<option value="'+e.value+'">'+e.name+'</option>')
 			});
@@ -2607,7 +2607,7 @@
 			$('#itemChangeTbody').append('<tr id="itemChangeTr2"><td>변경후값</td><td id="afterChangeTd"></td></tr>')
 		} else if(val == '2') {
 			$('#itemChangeRadio1').prop('disabled', false);
-			$('#itemChangeTbody > tr:eq(3) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected>선택</option></select>')
+			$('#itemChangeTbody > tr:eq(3) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected value="">선택</option></select>')
 			item2.forEach(e=> {
 				$('#itemChangeSelect').append('<option value="'+e.value+'">'+e.name+'</option>')
 			})
@@ -2624,7 +2624,7 @@
 			$('#itemChangeTr2').append('<td><select class="search_select" name="storage_type1_code_idx" id="storage_type1_code_idx" onchange="change_storageType2(this.value)">' +
                     '<option selected value="">선택</option>' +
                     '<c:forEach var="list" items="${storage1List}" varStatus="status"><option value="${list.storage_type1_code_idx}">${list.storage_type1_nm}</option></c:forEach></td>' +
-                  '<td><select class="search_select" name="storage_type2_code_idx" id="storage_type2_code_idx"><option selected value="0">선택</option></select></td>')
+                  '<td><select class="search_select" name="storage_type2_code_idx" id="storage_type2_code_idx"><option selected value="">선택</option></select></td>')
 			$('#itemChangeTr3').append('<td><select class="search_select" name="storage1_code_idx" id="change_storage1_code1" onchange="itemChangeStorage(this.value, 1)">' +
                     '<option selected value="">선택</option><c:forEach var="list" items="${storageCodeList}" varStatus="status"><option value="${list.storage_code_idx}">${list.storage_nm}</option>' +
                     '</c:forEach></select></td>')
@@ -2642,8 +2642,8 @@
 		case "country":
 			$('#changeItem').val('country');
 			$('input[name=itemChangeRadio]:checked').val() == 'one' ? $('#beforeChangeTd').css('display', 'block') : $('#beforeChangeTd').css('display', 'none');
-			$('#beforeChangeTd').append('<select id="beforeChange" name="before_country_code_idx" class="search_select" onchange="change_item_country_before(this.value)"><option selected>선택</option></select>');
-			$('#afterChangeTd').append('<select id="afterChange" name="after_country_code_idx" class="search_select" onchange="change_item_country_after(this.value)"><option selected>선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange" name="before_country_code_idx" class="search_select" onchange="change_item_country_before(this.value)"><option selected value="">선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange" name="after_country_code_idx" class="search_select" onchange="change_item_country_after(this.value)"><option selected value="">선택</option></select>');
 			const { countryList } = await res.json();
 			countryList.forEach(e=> {
 				$('#beforeChange').append('<option value="'+e.country_code_idx+'">'+e.country_nm+'</option>');
@@ -2654,8 +2654,8 @@
 		case "material":
 			$('#changeItem').val('material');
 			$('input[name=itemChangeRadio]:checked').val() == 'one' ? $('#beforeChangeTd').css('display', 'block') : $('#beforeChangeTd').css('display', 'none');
-			$('#beforeChangeTd').append('<select id="beforeChange" name="before_material1_code_idx" class="search_select" onchange="change_item_material_before(this.value)"><option selected>선택</option></select>');
-			$('#afterChangeTd').append('<select id="afterChange" name="after_material1_code_idx" class="search_select" onchange="change_item_material_after(this.value)"><option selected>선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange" name="before_material1_code_idx" class="search_select" onchange="change_item_material_before(this.value)"><option selected value="">선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange" name="after_material1_code_idx" class="search_select" onchange="change_item_material_after(this.value)"><option selected value="">선택</option></select>');
 			const { material1List } = await res.json();
 			material1List.forEach(e=> {
 				$('#beforeChange').append('<option value="'+e.material1_code_idx+'">'+e.material1_nm+'</option>');
@@ -2667,12 +2667,12 @@
 			$('#changeItem').val('taxonomy');
 			const { class1List, class2List, class3List } = await res.json();
 			$('input[name=itemChangeRadio]:checked').val() == 'one' ? $('#beforeChangeTd').css('display', 'block') : $('#beforeChangeTd').css('display', 'none');
-			$('#beforeChangeTd').append('<select id="beforeChange" class="search_select" name="before_class1_code_idx"><option selected>선택</option></select>');
-			$('#beforeChangeTd').append('<select id="beforeChange1" class="search_select" name="before_class2_code_idx"><option selected>선택</option></select>');
-			$('#beforeChangeTd').append('<select id="beforeChange2" class="search_select" name="before_class3_code_idx"><option selected>선택</option></select>');
-			$('#afterChangeTd').append('<select id="afterChange" class="search_select" name="after_class1_code_idx"><option selected>선택</option></select>');
-			$('#afterChangeTd').append('<select id="afterChange1" class="search_select" name="after_class2_code_idx"><option selected>선택</option></select>');
-			$('#afterChangeTd').append('<select id="afterChange2" class="search_select" name="after_class3_code_idx"><option selected>선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange" class="search_select" name="before_class1_code_idx"><option selected value="">선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange1" class="search_select" name="before_class2_code_idx"><option selected value="">선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange2" class="search_select" name="before_class3_code_idx"><option selected value="">선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange" class="search_select" name="after_class1_code_idx"><option selected value="">선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange1" class="search_select" name="after_class2_code_idx"><option selected value="">선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange2" class="search_select" name="after_class3_code_idx"><option selected value="">선택</option></select>');
 			
 			class1List.forEach(e=> {
 				$('#beforeChange').append('<option value="'+e.class1_code_idx+'">'+e.class1_nm+'</option>');
@@ -2692,8 +2692,8 @@
 			$('#changeItem').val('qty');
 			const { qtyUnitList } = await res.json();
 			$('input[name=itemChangeRadio]:checked').val() == 'one' ? $('#beforeChangeTd').css('display', 'block') : $('#beforeChangeTd').css('display', 'none');
-			$('#beforeChangeTd').append('<select id="beforeChange" name="before_qty_unit_code_idx" class="search_select"><option selected>선택</option></select>');
-			$('#afterChangeTd').append('<select id="afterChange" name="after_qty_unit_code_idx" class="search_select"><option selected>선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange" name="before_qty_unit_code_idx" class="search_select"><option selected value="">선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange" name="after_qty_unit_code_idx" class="search_select"><option selected value="">선택</option></select>');
 			qtyUnitList.forEach(e=> {
 				$('#beforeChange').append('<option value="'+e.qty_unit_code_idx+'">'+e.qty_unit_nm+'</option>');
 				$('#afterChange').append('<option value="'+e.qty_unit_code_idx+'">'+e.qty_unit_nm+'</option>');
@@ -2704,8 +2704,8 @@
 			$('#changeItem').val('measurement');
 			const { measurementList } = await res.json();
 			$('input[name=itemChangeRadio]:checked').val() == 'one' ? $('#beforeChangeTd').css('display', 'block') : $('#beforeChangeTd').css('display', 'none');
-			$('#beforeChangeTd').append('<select id="beforeChange" name="before_measurement_code_idx" class="search_select"><option selected>선택</option></select>');
-			$('#afterChangeTd').append('<select id="afterChange" name="after_measurement_code_idx" class="search_select"><option selected>선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange" name="before_measurement_code_idx" class="search_select"><option selected value="">선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange" name="after_measurement_code_idx" class="search_select"><option selected value="">선택</option></select>');
 			measurementList.forEach(e=> {
 				$('#beforeChange').append('<option value="'+e.measurement_code_idx+'">'+e.measurement_nm+'</option>');
 				$('#afterChange').append('<option value="'+e.measurement_code_idx+'">'+e.measurement_nm+'</option>');
@@ -2716,8 +2716,8 @@
 			$('#changeItem').val('ranking');
 			const { rankingList } = await res.json();
 			$('input[name=itemChangeRadio]:checked').val() == 'one' ? $('#beforeChangeTd').css('display', 'block') : $('#beforeChangeTd').css('display', 'none');
-			$('#beforeChangeTd').append('<select id="beforeChange" name="before_ranking_code_idx" class="search_select"><option selected>선택</option></select>');
-			$('#afterChangeTd').append('<select id="afterChange" name="after_ranking_code_idx" class="search_select"><option selected>선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange" name="before_ranking_code_idx" class="search_select"><option selected value="">선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange" name="after_ranking_code_idx" class="search_select"><option selected value="">선택</option></select>');
 			rankingList.forEach(e=> {
 				$('#beforeChange').append('<option value="'+e.ranking_code_idx+'">'+e.ranking_nm+'</option>');
 				$('#afterChange').append('<option value="'+e.ranking_code_idx+'">'+e.ranking_nm+'</option>');
@@ -2728,8 +2728,8 @@
 			$('#changeItem').val('obtainment');
 			const { obtainmentList } = await res.json();
 			$('input[name=itemChangeRadio]:checked').val() == 'one' ? $('#beforeChangeTd').css('display', 'block') : $('#beforeChangeTd').css('display', 'none');
-			$('#beforeChangeTd').append('<select id="beforeChange" name="before_obtainment_code_idx" class="search_select"><option selected>선택</option></select>');
-			$('#afterChangeTd').append('<select id="afterChange" name="after_obtainment_code_idx" class="search_select"><option selected>선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange" name="before_obtainment_code_idx" class="search_select"><option selected value="">선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange" name="after_obtainment_code_idx" class="search_select"><option selected value="">선택</option></select>');
 			obtainmentList.forEach(e=> {
 				$('#beforeChange').append('<option value="'+e.obtainment_code_idx+'">'+e.obtainment_nm+'</option>');
 				$('#afterChange').append('<option value="'+e.obtainment_code_idx+'">'+e.obtainment_nm+'</option>');
@@ -2740,8 +2740,8 @@
 			$('#changeItem').val('purchase1');
 			const { purchase1List } = await res.json();
 			$('input[name=itemChangeRadio]:checked').val() == 'one' ? $('#beforeChangeTd').css('display', 'block') : $('#beforeChangeTd').css('display', 'none');
-			$('#beforeChangeTd').append('<select id="beforeChange" name="before_purchase1_code_idx" class="search_select"><option selected>선택</option></select>');
-			$('#afterChangeTd').append('<select id="afterChange" name="after_purchase1_code_idx" class="search_select"><option selected>선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange" name="before_purchase1_code_idx" class="search_select"><option selected value="">선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange" name="after_purchase1_code_idx" class="search_select"><option selected value="">선택</option></select>');
 			purchase1List.forEach(e=> {
 				$('#beforeChange').append('<option value="'+e.purchase1_code_idx+'">'+e.purchase1_nm+'</option>');
 				$('#afterChange').append('<option value="'+e.purchase1_code_idx+'">'+e.purchase1_nm+'</option>');
@@ -2752,8 +2752,8 @@
 			$('#changeItem').val('purchase2');
 			const { purchase2List } = await res.json();
 			$('input[name=itemChangeRadio]:checked').val() == 'one' ? $('#beforeChangeTd').css('display', 'block') : $('#beforeChangeTd').css('display', 'none');
-			$('#beforeChangeTd').append('<select id="beforeChange" name="before_purchase2_code_idx" class="search_select"><option selected>선택</option></select>');
-			$('#afterChangeTd').append('<select id="afterChange" name="after_purchase2_code_idx" class="search_select"><option selected>선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange" name="before_purchase2_code_idx" class="search_select"><option selected value="">선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange" name="after_purchase2_code_idx" class="search_select"><option selected value="">선택</option></select>');
 			purchase2List.forEach(e=> {
 				$('#beforeChange').append('<option value="'+e.purchase2_code_idx+'">'+e.purchase2_nm+'</option>');
 				$('#afterChange').append('<option value="'+e.purchase2_code_idx+'">'+e.purchase2_nm+'</option>');
@@ -2764,8 +2764,8 @@
 			$('#changeItem').val('price_qty');
 			const { priceUnitList } = await res.json();
 			$('input[name=itemChangeRadio]:checked').val() == 'one' ? $('#beforeChangeTd').css('display', 'block') : $('#beforeChangeTd').css('display', 'none');
-			$('#beforeChangeTd').append('<select id="beforeChange" name="before_price_unit_code_idx" class="search_select"><option selected>선택</option></select>');
-			$('#afterChangeTd').append('<select id="afterChange" name="after_price_unit_code_idx" class="search_select"><option selected>선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange" name="before_price_unit_code_idx" class="search_select"><option selected value="">선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange" name="after_price_unit_code_idx" class="search_select"><option selected value="">선택</option></select>');
 			priceUnitList.forEach(e=> {
 				$('#beforeChange').append('<option value="'+e.price_unit_code_idx+'">'+e.price_unit_nm+'</option>');
 				$('#afterChange').append('<option value="'+e.price_unit_code_idx+'">'+e.price_unit_nm+'</option>');
@@ -2785,8 +2785,8 @@
 			const { existenceList } = await res.json();
 			$('input[name=itemChangeRadio]:checked').val() == 'one' ? $('#beforeChangeTd').css('display', 'block') : $('#beforeChangeTd').css('display', 'none');
 			
-			$('#beforeChangeTd').append('<select id="beforeChange" name="before_existence_code_idx" class="search_select"><option selected>선택</option></select>');
-			$('#afterChangeTd').append('<select id="afterChange" name="after_existence_code_idx" class="search_select"><option selected>선택</option></select>');
+			$('#beforeChangeTd').append('<select id="beforeChange" name="before_existence_code_idx" class="search_select"><option selected value="">선택</option></select>');
+			$('#afterChangeTd').append('<select id="afterChange" name="after_existence_code_idx" class="search_select"><option selected value="">선택</option></select>');
 			existenceList.forEach(e=> {
 				$('#beforeChange').append('<option value="'+e.existence_code_idx+'">'+e.existence_nm+'</option>');
 				$('#afterChange').append('<option value="'+e.existence_code_idx+'">'+e.existence_nm+'</option>');
@@ -2819,7 +2819,7 @@
 		const res = await fetch('/getEraData.do?country=' + val);
 	    const { eraList } = await res.json();
 	    $('#beforeChange1').remove();
-	    $('#beforeChangeTd').append('<select id="beforeChange1" name="before_era_code_idx" class="search_select"><option selected>선택</option></select>');
+	    $('#beforeChangeTd').append('<select id="beforeChange1" name="before_era_code_idx" class="search_select"><option selected  value="">선택</option></select>');
 		
 		eraList.forEach(e=> {
 			$('#beforeChange1').append('<option value="'+e.era_code_idx+'">'+e.era_nm+'</option>');
@@ -2830,7 +2830,7 @@
 		const res = await fetch('/getEraData.do?country=' + val);
 	    const { eraList } = await res.json();
 		$('#afterChange1').remove();
-		$('#afterChangeTd').append('<select id="afterChange1" name="after_era_code_idx" class="search_select"><option selected>선택</option></select>');
+		$('#afterChangeTd').append('<select id="afterChange1" name="after_era_code_idx" class="search_select"><option selected value="">선택</option></select>');
 		
 		eraList.forEach(e=> {
 			$('#afterChange1').append('<option value="'+e.era_code_idx+'">'+e.era_nm+'</option>');
@@ -2842,7 +2842,7 @@
     	 const { material2List } = await res.json();
     	 
     	 $('#beforeChange1').remove();
- 	     $('#beforeChangeTd').append('<select id="beforeChange1" name="before_material2_code_idx" class="search_select"><option selected>선택</option></select>');
+ 	     $('#beforeChangeTd').append('<select id="beforeChange1" name="before_material2_code_idx" class="search_select"><option selected value="">선택</option></select>');
  		
  	    material2List.forEach(e=> {
  			 $('#beforeChange1').append('<option value="'+e.material2_code_idx+'">'+e.material2_nm+'</option>');
@@ -2855,7 +2855,7 @@
 	   	const { material2List } = await res.json();
 	   	
 	   	$('#afterChange1').remove();
-		$('#afterChangeTd').append('<select id="afterChange1" name="after_material2_code_idx" class="search_select"><option selected>선택</option></select>');
+		$('#afterChangeTd').append('<select id="afterChange1" name="after_material2_code_idx" class="search_select"><option selected value="">선택</option></select>');
 		
 		material2List.forEach(e=> {
 			$('#afterChange1').append('<option value="'+e.material2_code_idx+'">'+e.material2_nm+'</option>');
@@ -2863,6 +2863,14 @@
 	}
 	
 	const doAllChangeItem = () => {
+		if(!$('#itemChangePossession').val() && $('#itemChangePossession').val() == 0) {
+			alert('자료구분 항목을 선택해주세요.');
+			return;
+		}
+		if(!$('#itemChangeItemNo').val() && $('#itemChangeItemNo').val() != 0) {
+			alert('자료번호를 입력해주세요.');
+			return;
+		}
 		let formData = $('#allChangeItem').serialize();
 		
 		$.ajax({
@@ -2872,10 +2880,10 @@
 				dataType : "text",
 				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
 				error : function() {
-					alert('통신실패!');
+					alert('오류가 발생했습니다. 다시 시도해주세요.');
 				},
 				success : function(data) {
-					console.log(data);
+					alert('수정 완료');
 				}
 			});
 	}
@@ -2886,6 +2894,11 @@
 	
 	const changeTabDiv = val => {
 		if(val=='one') {
+			$('#changeItemCheck').val("N");
+			$('#getChangeDataBtn').show();
+			$('input[name=item_no1]').hide();
+			$('input[name=item_detail_no1]').hide();
+			$('#changeSpan').hide();
 			$('#changeTable').children().remove();
 			$("#allChangeItem")[0].reset();
 			$('#beforeChangeTd').children().remove();
@@ -2894,13 +2907,50 @@
 														'<th>선택</th><th>자료구분</th><th>자료번호</th><th>상세번호</th><th>명칭</th>'+
 														'</thead>' +
 														'<tbody><tr>' +
-														'<td>-</td>'+
-														'<td>-</td>'+
+														'<td>-</td>' +
+														'<td>-</td>' + 
+														'<td>-</td>' + 
+														'<td>-</td>' + 
+														'<td>-</td>' + 
 														'</tr></tbody></table>');
 		} else if (val=='all') {
+			$('#changeItemCheck').val("Y");
+			$('#getChangeDataBtn').hide();
+			$('input[name=item_no1]').show();
+			$('input[name=item_detail_no1]').show();
+			$('#changeSpan').show();
 			$("#allChangeItem")[0].reset();
 			$('#changeTable').children().remove();
 		}
+	}
+	
+	//여기다
+	const getChangeData = async () => {
+		
+		let formData = new FormData(document.getElementById('allChangeItem'));
+
+		const form = await fetch('/searchItemBase2.do', {
+	    		method:'POST',
+	    		headers: {
+	                "Content-Type": "application/x-www-form-urlencoded",
+	            },
+	            body: new URLSearchParams(formData)
+	    	})
+
+			const { itemBaseList } = await form.json();
+			console.log(itemBaseList);
+			
+			$('#changeTable').children().remove();
+			$('#changeTable').append('<table class="table mb-0"><thead>' +
+					'<th>자료구분</th><th>자료번호</th><th>상세번호</th><th>명칭</th>'+
+					'</thead>' +
+					'<tbody><tr>' +
+					'<td>'+itemBaseList[0].possession_nm+'</td>' + 
+					'<td>'+itemBaseList[0].item_no+'</td>' + 
+					'<td>'+itemBaseList[0].item_detail_no+'</td>' + 
+					'<td>'+itemBaseList[0].item_nm+'</td>' + 
+					'</tr></tbody></table>');
+			
 	}
 	
   </script>
@@ -3150,6 +3200,7 @@
                             <div class="modal-body mv-modal-body">
 				                  <div class="table-responsive">
                                       <form id="allChangeItem" name="allChangeItem">
+                                      <input type="hidden" id="changeItemCheck" name="changeItemCheck"/>
                                         <table class="table mb-0">
                                             <tbody id="itemChangeTbody">
                                              <tr>
@@ -3160,7 +3211,7 @@
 										                           <option value="${list.org_code_idx}" <c:if test ="${list.org_nm eq '항공박물관'}">selected="selected"</c:if>>${list.org_nm}</option>
 										                     </c:forEach>
 										                  </select>
-										                  <select class="search_select" name="possession_code_idx">
+										                  <select class="search_select" name="possession_code_idx" id="itemChangePossession">
 										                      <option value="" selected>선택</option>
 										                      		<c:forEach var="list" items="${posSessionList}" varStatus="status">
 												                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
@@ -3172,12 +3223,12 @@
                                                 <tr>
                                                   <td>자료번호</td>
                                                     <td id="item_base_td">
-                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_no" placeholder="자료번호" style="width:100px;">
+                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="itemChangeItemno" name="item_no" placeholder="자료번호" style="width:100px;">
                                                       <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_detail_no" placeholder="세부번호" style="width:100px;">
-                                                      ~
+                                                      <span id="changeSpan">~</span>
                                                       <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_no1" placeholder="자료번호" style="width:100px;">
                                                       <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_detail_no1" placeholder="세부번호" style="width:100px;">
-                                                      <!-- <button type="button" class="btn btn-secondary btn_save" onclick="getMetaDataInfo()">조회</button> -->
+                                                      <button type="button" id="getChangeDataBtn" style="display:none;" class="btn btn-secondary btn_save" onclick="getChangeData()">조회</button>
                                                     </td>
                                                 </tr>
                                                 <tr id="changeTable"></tr>

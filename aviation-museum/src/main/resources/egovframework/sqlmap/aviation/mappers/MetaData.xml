@@ -20,6 +20,20 @@
 		</if>
 	</select>
 	
+	<select id="getItemIdx2" resultType="map" parameterType="egovframework.aviation.metadata.vo.param.AllChangeItemParamVO">
+		select 
+			item_idx 
+		from 
+			nam_item_base
+		where
+			org_code_idx = #{org_code_idx}
+		and possession_code_idx = #{possession_code_idx}
+		and item_no = #{item_no}
+		<if test="item_detail_no != null and item_detail_no != '' ">
+			and item_detail_no = #{item_detail_no}
+		</if>
+	</select>
+	
 	<update id="changeTaxonomyItem">
 		update nam_taxonomy set
 			class1_code_idx = #{param.after_class1_code_idx},
@@ -427,6 +441,24 @@
 		</if>
 		<if test="org_code_idx != '' ">
 			and org_code_idx = #{org_code_idx}
+		</if>
+	</select>
+	
+	<select id="getItemBase2" resultType="egovframework.aviation.metadata.vo.ItemBaseVO">
+		select * from nam_item_base ib, nam_possession_code npc 
+		where ib.item_no = #{item_no} 
+		and ib.possession_code_idx = npc.possession_code_idx
+		<if test="reg_state != '' and reg_state != null">
+			and ib.reg_state = #{reg_state}
+		</if>
+		<if test="item_detail_no != '' ">
+			and ib.item_detail_no = #{item_detail_no}
+		</if>
+		<if test="possession_code_idx != '' ">
+			and ib.possession_code_idx = #{possession_code_idx}
+		</if>
+		<if test="org_code_idx != '' ">
+			and ib.org_code_idx = #{org_code_idx}
 		</if>
 	</select>
 	

@@ -29,6 +29,7 @@ public class ItemBaseVO {
 	private String mod_date;
 	private String condition_nm;
 	private String ranking_nm;
+	private String possession_nm;
 	
 	
 }

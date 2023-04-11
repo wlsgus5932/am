@@ -31,6 +31,7 @@ import egovframework.aviation.metadata.vo.ExchangeVO;
 import egovframework.aviation.metadata.vo.ExistenceVO;
 import egovframework.aviation.metadata.vo.GgnuriVO;
 import egovframework.aviation.metadata.vo.IcaoVO;
+import egovframework.aviation.metadata.vo.ItemBaseVO;
 import egovframework.aviation.metadata.vo.Material1VO;
 import egovframework.aviation.metadata.vo.Material2VO;
 import egovframework.aviation.metadata.vo.MeasurementUnitVO;
@@ -476,8 +477,6 @@ public class AddController {
 	
 	@GetMapping("/getChangeItem.do")
 	public String getChangeItem(ModelMap model, @RequestParam("idx") String idx) throws Exception {
-		System.out.println(idx);
-		
 		switch(idx) {
 		case "country":
 			List<CountryVO> country = service.getCountry();
@@ -547,6 +546,105 @@ public class AddController {
 	@PostMapping("/allChangeItem.do")
 	@ResponseBody
 	public String allChangeItem(ModelMap model, @ModelAttribute AllChangeItemParamVO param) throws Exception {
+		System.out.println(param);
+		String result = "error";
+		List<Map<String, Object>> dto = null;
+		if(param.getChangeItemCheck().equals("Y")) {
+			dto = mapper.getItemIdx(param);
+		} else {
+			dto = mapper.getItemIdx2(param);
+		}
+		int x = 0;
+		
+		switch(param.getChangeItem()) {
+			case "country":
+				x = mapper.changeCountryItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+			case "material":
+				x = mapper.changeMaterialItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+				
+			case "taxonomy":
+				x = mapper.changeTaxonomyItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+			case "qty":
+				x = mapper.changeQtyItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+				
+			case "measurement":
+				x = mapper.changeMeasurementItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+			
+			case "ranking":
+				x = mapper.changeRankingItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+			
+			case "obtainment":
+				x = mapper.changeObtainmentItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+			
+			case "purchase1":
+				x = mapper.changePurchase1Item(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+			
+			case "purchase2":
+				x = mapper.changePurchase2Item(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+				
+			case "price_qty":
+				x = mapper.changePriceItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+				
+			case "designation":
+				x = mapper.changeDesignationItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+				
+			case "existence":
+				x = mapper.changeExistenceItem(param, dto);
+				if(x > 0) {
+					result = "success";
+				}
+				break;
+		}
+		return result;
+	}
+	
+	@PostMapping("/oneChangeItem.do")
+	@ResponseBody
+	public String oneChangeItem(ModelMap model, @ModelAttribute AllChangeItemParamVO param) throws Exception {
 		System.out.println(param);
 		String result = "error";
 		List<Map<String, Object>> dto = mapper.getItemIdx(param);
@@ -635,8 +733,19 @@ public class AddController {
 				}
 				break;
 		}
-		
 		return result;
 	}
+	
+	@PostMapping("/searchItemBase2.do")
+	public String getMetadata(ModelMap model, @ModelAttribute MetaDataParamVO param) throws Exception {
+		List<ItemBaseVO> list = mapper.getItemBase2(param);
+		model.addAttribute("itemBaseList", list);
+		System.out.println(param);
+		
+		return "jsonView";
+		
+	}
+	
+	
 	
 }
