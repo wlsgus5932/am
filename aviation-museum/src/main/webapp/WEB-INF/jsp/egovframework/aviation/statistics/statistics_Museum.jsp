@@ -32,8 +32,8 @@
 	                     <label class="col-md-2 col-form-label">날짜</label>
 	                     <input type="radio" name="chk_info" value="reg_date" id="chk_reg_date">
 					     
-	                     <select id="select_year" onchange="javascript:lastday();" name="start_reg_date"></select>
-						 <select id="select_month" onchange="javascript:lastday();" name="end_reg_date">
+	                     <select class="search_select" id="select_year" onchange="javascript:lastday();" name="start_reg_date"></select>
+						 <select class="search_select" id="select_month" onchange="javascript:lastday();" name="end_reg_date">
 						 	<option value="01">01</option>
 						 	<option value="02">02</option>
 						 	<option value="03">03</option>
