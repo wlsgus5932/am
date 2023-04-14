@@ -2863,12 +2863,29 @@
 	}
 	
 	const doAllChangeItem = () => {
+		console.log($('#itemChangeItemNo').val())
 		if(!$('#itemChangePossession').val() && $('#itemChangePossession').val() == 0) {
 			alert('자료구분 항목을 선택해주세요.');
 			return;
 		}
-		if(!$('#itemChangeItemNo').val() && $('#itemChangeItemNo').val() != 0) {
+		if(!$('#itemChangeItemNo').val()) {
 			alert('자료번호를 입력해주세요.');
+			return;
+		}
+		if(!$('#firstChangeSelect').val() && $('#firstChangeSelect').val() == 0 ) {
+			alert('첫번째 변경항목을 선택해주세요');
+			return;
+		}
+		if(!$('#itemChangeSelect').val() && $('#itemChangeSelect').val() == 0 ) {
+			alert('두번째 변경항목을 선택해주세요')
+			return;
+		}
+		if(!$('#beforeChange').val() && $('#beforeChange').val() == 0 && $("input[name='itemChangeRadio']:checked").val() == 'one') {
+			alert('변경전값 항목을 선택해주세요.')
+			return;
+		}
+		if(!$('#afterChange').val() && $('#afterChange').val() == 0) {
+			alert('변경후값 항목을 선택해주세요.')
 			return;
 		}
 		let formData = $('#allChangeItem').serialize();
@@ -3223,7 +3240,7 @@
                                                 <tr>
                                                   <td>자료번호</td>
                                                     <td id="item_base_td">
-                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="itemChangeItemno" name="item_no" placeholder="자료번호" style="width:100px;">
+                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="itemChangeItemNo" name="item_no" placeholder="자료번호" style="width:100px;">
                                                       <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_detail_no" placeholder="세부번호" style="width:100px;">
                                                       <span id="changeSpan">~</span>
                                                       <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_no1" placeholder="자료번호" style="width:100px;">
@@ -3235,14 +3252,14 @@
                                                 <tr>
                                                   <td>변경항목</td>
                                                     <td>
-                                                    	<select class="search_select" name="" onchange="itemChange(this.value)">
-                                                    		<option selected>선택</option>
+                                                    	<select class="search_select" id="firstChangeSelect" onchange="itemChange(this.value)">
+                                                    		<option value="" selected>선택</option>
                                                     		<option value="1">필수항목</option>
                                                     		<option value="2">관리항목</option>
                                                     		<option value="3">이동항목</option>
                                                     	</select>
                                                     	<select class="search_select" id="itemChangeSelect" onchange="itemChange2(this.value)">
-                                                    		<option selected>선택</option>
+                                                    		<option value="" selected>선택</option>
                                                     	</select>
                                                     </td>
                                                 </tr>
