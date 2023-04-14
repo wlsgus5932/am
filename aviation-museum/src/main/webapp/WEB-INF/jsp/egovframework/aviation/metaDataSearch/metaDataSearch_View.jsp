@@ -2815,7 +2815,7 @@
                             <td>
                               입수일자
                               <td>
-                                <input class="form-control in_date" type="date" id="obt_obtainment_date" name="obt_obtainment_date">
+                                <input class="form-control in_date in_date_2" type="date" id="obt_obtainment_date" name="obt_obtainment_date">
                               </td>
                               <td>
                                 입수연유
@@ -2907,7 +2907,7 @@
                               등록일자
                             </td>
                               <td>
-                                <input class="form-control in_date" type="date" id="obt_record_date" name="obt_record_date">
+                                <input class="form-control in_date in_date_2" type="date" id="obt_record_date" name="obt_record_date">
                               </td>
                               <td>
                                 문화재 지정

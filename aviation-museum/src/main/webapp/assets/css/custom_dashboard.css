@@ -9,6 +9,7 @@ td {
 
 .col-lg-6 {
   width: 100%;
+  margin: 2% 0 0 0;
 }
 
 .dash_ul li {
@@ -137,7 +138,7 @@ td {
 
 .slick-slide {
 	border-radius: 20px 0px 20px 0px;
-    background-color: black;
+/*     background-color: black; */
     margin-right: 0.3%;
 }
 

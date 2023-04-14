@@ -62,9 +62,9 @@
 	                        <td>${specialityList.count}</td>
 	                      </tr>
                       </c:forEach>
-                      <tr>
-                        <td colspan="4">합계</td>
-                        <td id="totalCount"></td>
+                      <tr class="tr_bgc">
+                        <th colspan="4">합계</th>
+                        <th id="totalCount"></th>
                       </tr>
                     </tbody>
                   </table>

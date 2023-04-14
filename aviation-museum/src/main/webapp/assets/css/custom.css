@@ -83,7 +83,7 @@ button {
 }
 
 .custom_search_input_2 {
-  width: 5% !important;
+  width: 7% !important;
 }
 
 .search_select_2 {
@@ -477,6 +477,10 @@ td {
 
 .in_date {
   width: 15%;
+}
+
+.in_date_2 {
+	width: 100%;
 }
 
 /*  */
@@ -1496,9 +1500,10 @@ input::-webkit-inner-spin-button {
 
 .left_log_info_in_wrap_2 {
 	margin-left: 5px;
-	width: 50%;
+	width: 70%;
 	height: 50px;
 	float: left;
+	padding-left: 10px;
 	color: #fff;
 }
 
@@ -1512,8 +1517,8 @@ input::-webkit-inner-spin-button {
 
 .left_log_info_in_wrap_2_top,
 .left_log_info_in_wrap_2_bottom {
-	height: 25px;
-	line-height: 25px;
+	height: 50px;
+	line-height: 50px;
 } 
 
 .left_log_info_in_wrap_3 {
@@ -1589,4 +1594,8 @@ input::-webkit-inner-spin-button {
 
 .user_in_modal_wrap_view {
   width: 860px !important;
+}
+
+.custom_search_input_100 {
+	width: 100%;
 }

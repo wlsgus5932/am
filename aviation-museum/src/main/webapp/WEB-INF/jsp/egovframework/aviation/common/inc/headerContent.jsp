@@ -351,17 +351,17 @@
       <!-- Left Menu Start -->
 <!--       로그인 정보  (로그아웃 포함) -->
 	  <div class="left_log_info_wrap">
-	  	<div class="left_log_info_in_wrap_1">
-	  		<div class="log_info_user_img">
-	  			<img alt="" src="프로필 이미지">
-	  		</div>
-	  	</div>
+<!-- 	  	<div class="left_log_info_in_wrap_1"> -->
+<!-- 	  		<div class="log_info_user_img"> -->
+<!-- 	  			<img alt="" src="프로필 이미지"> -->
+<!-- 	  		</div> -->
+<!-- 	  	</div> -->
 	  	<div class="left_log_info_in_wrap_2">
 	  		<div class="left_log_info_in_wrap_2_top">
 	  			${userSessionId}님
 	  		</div>
-	  		<div class="left_log_info_in_wrap_2_bottom">
-	  		</div>
+<!-- 	  		<div class="left_log_info_in_wrap_2_bottom"> -->
+<!-- 	  		</div> -->
 	  	</div>
 	  	<div class="left_log_info_in_wrap_3">
 	  		<button class="" type="button" onclick="location.href='/logout.do'">LOGOUT</button>

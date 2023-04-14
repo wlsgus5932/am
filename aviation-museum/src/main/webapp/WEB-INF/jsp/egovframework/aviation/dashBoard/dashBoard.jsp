@@ -61,25 +61,25 @@
                   <div class="user-sidebar">
                       <div class="card dash_main_frist_wrap">
                           <div class="card-body p-0">
-                              <div class="user-profile-img">
-                                  <img src="" class="profile-img profile-foreground-img rounded-top" style="height: 120px;" alt="">
-                                  <div class="overlay-content rounded-top">
-                                      <div>
-                                      </div>
-                                  </div>
-                              </div>
+<!--                               <div class="user-profile-img"> -->
+<!--                                   <img src="" class="profile-img profile-foreground-img rounded-top" style="height: 120px;" alt=""> -->
+<!--                                   <div class="overlay-content rounded-top"> -->
+<!--                                       <div> -->
+<!--                                       </div> -->
+<!--                                   </div> -->
+<!--                               </div> -->
                               <!-- end user-profile-img -->
 
-                              <div class="mt-n5 position-relative">
-                                  <div class="text-center">
-                                      <img src="" alt="" class="avatar-xl rounded-circle img-thumbnail">
+<!--                               <div class="mt-n5 position-relative"> -->
+<!--                                   <div class="text-center"> -->
+<!--                                       <img src="" alt="" class="avatar-xl rounded-circle img-thumbnail"> -->
 
-                                      <div class="mt-3">
-                                          <h5 class="mb-1"><span class="dash_main_name">${userSessionId}</span>님</h5>
+<!--                                       <div class="mt-3"> -->
+<%--                                           <h5 class="mb-1"><span class="dash_main_name">${userSessionId}</span>님</h5> --%>
 <!--                                           <p class="text-muted">자료관리팀</p> -->
-                                      </div>
-                                  </div>
-                              </div>
+<!--                                       </div> -->
+<!--                                   </div> -->
+<!--                               </div> -->
                               <!-- 팀공지 -->
                               <div class="d-flex align-items-start dash_main_frist_text_margin">
                                 <div class="flex-grow-1">
