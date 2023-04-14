@@ -87,6 +87,7 @@
 				AND (member_id LIKE CONCAT('%', #{search_word}, '%') OR member_nm LIKE CONCAT('%', #{search_word}, '%')) 
 			</if>
 		</if>        
+		ORDER BY ACCESS_DATE
 	</select>
 	<select id="getMovementDetailLogList" parameterType="egovframework.aviation.preferences.vo.MovementDetailLogVO" resultType="egovframework.aviation.preferences.vo.MovementDetailLogVO">
 		SELECT 
@@ -95,5 +96,6 @@
 		FROM nam_movement_detail_log nmdl
 		WHERE 1=1
 		AND ITEM_IDX = #{item_idx}
+		ORDER BY ACCESS_DATE
 	</select>
 </mapper>

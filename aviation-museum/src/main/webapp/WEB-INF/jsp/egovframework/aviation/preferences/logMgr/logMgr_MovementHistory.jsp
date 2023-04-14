@@ -451,31 +451,44 @@
 	    				success : function(data) {  
 							
 	    					 $.each(data.getMovementDetailLogList, function(idx, item){
+	    						
 	    						 var new_dataEtc = [];
 	    						 var step = 0;
-	    						 jold_data =JSON.parse(item.old_data)
+	    						 var jold_data = '';
+	    						 var jnew_data = '';
+	    						 
+	    						 if(item.old_data != ''){
+	    							 jold_data =JSON.parse(item.old_data)
+	    						 }
 								 jnew_data =JSON.parse(item.new_data)
-								 
-	    						 $.each(jold_data, function(idx, item){
-	    				              var old_dataJson = jold_data[idx];
-	    				              var new_dataJson = jnew_data[idx];
-	    				              console.log(old_dataJson);
-	    				              console.log(new_dataJson);
-
-	    				              $.each(new_dataJson, function (idx3, item3) {
-
-	    				            	  new_dataEtc.push(item3);
-			    	                  });	    				              
-	    				              
-	    				              $.each(old_dataJson, function (idx2, item2) {
-		    				            	
-	 		    	                        $('#tblList').append("<tr><td>" + idx2 + "</td><td>"
-	 		    	                            + item2 + "</td><td>"+new_dataEtc[step]+"</td></tr>");
-	 		    	                        step++;
-			    	                  });
-
-	    						 })
-
+								 	
+								 if(item.old_data != '' && item.old_data != null){
+		    						 $.each(jold_data, function(idx, item){
+		    				              var old_dataJson = jold_data[idx];
+		    				              var new_dataJson = jnew_data[idx];
+	
+		    				              $.each(new_dataJson, function (idx3, item3) {
+		    				            	  new_dataEtc.push(item3);
+				    	                  });	    				              
+		    				              
+		    				              $.each(old_dataJson, function (idx2, item2) {			    				            	
+		 		    	                        $('#tblList').append("<tr><td>" + idx2 + "</td><td>"
+		 		    	                            + item2 + "</td><td>"+new_dataEtc[step]+"</td></tr>");
+		 		    	                        step++;
+				    	                  });
+		    						 })
+								 }else{
+									 $.each(jnew_data, function(idx, item){
+		    				              var new_dataJson = jnew_data[idx];
+	
+		    				              $.each(new_dataJson, function (idx3, item3) {
+		    				            	  
+		    				            	  $('#tblList').append("<tr><td>" + idx3 + "</td><td></td><td>"+item3+"</td></tr>");
+			 		    	                      
+				    	                  });	    				              
+	
+		    						 })
+								 }
 		    					 
 	    					 })
 	    				}
