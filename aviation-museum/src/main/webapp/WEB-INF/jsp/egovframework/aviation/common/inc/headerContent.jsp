@@ -403,6 +403,7 @@
             <li><a href="/notRegister.do" data-key="t-orders">가등록 자료 정보조회</a></li>
             <li><a href="/pRgstMetaDataSearch.do" data-key="t-customers">가등록 자료 정보검색</a></li>
             <li><a href="/getTransform.do" data-key="t-checkout">자료관리전환</a></li>
+            <li><a href="/autoAdd.do" data-key="t-checkout">신규자료 자동등록</a></li>
 <!--             <li><a href="ecommerce-add-product.html" data-key="t-add-product">신규자료 자동등록</a></li> -->
           </ul>
         </li>
@@ -447,7 +448,7 @@
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="/codeMgr.do" data-key="t-products">코드관리</a></li>
             <li><a href="/otherMgr.do" data-key="t-product-detail">기타관리</a></li>
-<!--             <li><a href="ecommerce-orders.html" data-key="t-orders">로그관리</a></li> -->
+            <li><a href="/logMgr.do" data-key="t-orders">로그관리</a></li>
             <li><a href="/approvalMgr.do" data-key="t-cart">승인관리</a></li>
           </ul>
         </li>
