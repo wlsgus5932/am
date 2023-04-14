@@ -1,13 +1,21 @@
 package egovframework.aviation.metadata.controller.add;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import egovframework.aviation.metadata.service.MetaDataService;
 import egovframework.aviation.metadata.service.SpecialityService;
@@ -371,7 +380,7 @@ public class AddController {
 	
 	@PostMapping("/getMovementList.do")
 	public String getMovementList(ModelMap model, @ModelAttribute MovementParamVO param, @ModelAttribute Criteria cri) throws Exception {
-		int perPageNum = service.getMovementListCnt(param);		
+		int perPageNum = service.getMovementListCnt(param);
 		if(param.getPerPageNum() != 0) {
 			int criPerPageNum = param.getPerPageNum();
 			cri.setPerPageNum(criPerPageNum);
@@ -741,11 +750,80 @@ public class AddController {
 		List<ItemBaseVO> list = mapper.getItemBase2(param);
 		model.addAttribute("itemBaseList", list);
 		System.out.println(param);
-		
 		return "jsonView";
-		
 	}
 	
+	@GetMapping("/autoAdd.do")
+	public String autoAdd() throws Exception {
+		return "metadata/add/autoAdd";
+	}
 	
-	
+	@PostMapping("/uploadMetaDataExcel.do")
+	public String uploadMetaDataExcel(ModelMap model, @RequestParam("uploadExcel") MultipartFile file) throws Exception {
+		System.out.println(file);
+		
+		InputStream fileInputStream = file.getInputStream();
+		Workbook workbook = new HSSFWorkbook(file.getInputStream());
+
+        Sheet sheet = workbook.getSheetAt(0);
+
+//        String atchFileId = null;
+//        List<Object> list = new ArrayList<>();
+//        List<String> cellList = new ArrayList<>();
+        
+        Map<Integer, List<String>> data = new HashMap<>();
+        int i = 0;
+        
+        for (Row row : sheet) {
+            data.put(i, new ArrayList<String>());
+            for (Cell cell : row) {
+                switch (cell.getCellType()) {
+                case STRING: {
+                    data.get(i).add(cell.getRichStringCellValue().getString());
+                    break;
+                }
+                case NUMERIC: {
+                    if (DateUtil.isCellDateFormatted(cell)) {
+                	    data.get(i).add(cell.getDateCellValue() + "");
+                    } else {
+                    	data.get(i).add(cell.getNumericCellValue() + "");
+                    }
+                    break;
+                }
+                case BOOLEAN: {
+                    data.get(i).add(cell.getBooleanCellValue() + "");
+                    break;
+                }
+                case FORMULA: {
+                    data.get(i).add(cell.getCellFormula() + "");
+                    break;
+                }
+                default:
+                    data.get(i).add(" ");
+        		}
+        	}
+        	i++;
+        }
+        
+        Set<Integer> keySet = data.keySet();
+        for (Integer key : keySet) {
+            System.out.println(key + " : " + data.get(key));
+        }
+
+//        for (int i = 2; i < worksheet.getPhysicalNumberOfRows(); i++) {
+//            Row row = worksheet.getRow(i);
+//            int cells = row.getPhysicalNumberOfCells();
+//            for(int j=0; j <= cells; j++) {
+//            	Cell cell=row.getCell(j);
+//            	cellList.add(cell.getRichStringCellValue());
+//            	System.out.println(cellList.get(i));
+//            }
+//        }
+        
+//        for(String d : data) {
+//			System.out.println("forEach 전체 출력: "+data);
+//		}
+		
+		return "jsonView";
+	}
 }

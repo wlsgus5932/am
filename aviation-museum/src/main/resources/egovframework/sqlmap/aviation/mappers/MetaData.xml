@@ -257,6 +257,7 @@
 		and reg_state = #{reg_state}
 		<if test='detail_btn == "N" '>
 		and item_no > CONVERT(#{item_no}, SIGNED)
+		and item_detail_no = ""
 		</if>
 		<if test='detail_btn == "Y" '>
 		and item_no = CONVERT(#{item_no}, SIGNED)
@@ -273,6 +274,7 @@
 		and reg_state = #{reg_state}
 		<if test='detail_btn == "N" '>
 		and item_no <![CDATA[<]]> CONVERT(#{item_no}, SIGNED)
+		and item_detail_no = ""
 		</if>
 		<if test='detail_btn == "Y" '>
 		and item_no = CONVERT(#{item_no}, SIGNED)
@@ -295,6 +297,7 @@
 		and possession_code_idx = #{possession_code_idx}
 		and reg_state = #{reg_state}
 		)
+		and item_detail_no = ""
 		</if>
 		<if test='detail_btn == "Y" '>
 		and item_no = CONVERT(#{item_no}, SIGNED)
@@ -322,6 +325,7 @@
 		and possession_code_idx = #{possession_code_idx}
 		and reg_state = #{reg_state}
 		)
+		and item_detail_no = ""
 		</if>
 		<if test='detail_btn == "Y" '>
 		and item_no = CONVERT(#{item_no}, SIGNED)
@@ -433,9 +437,14 @@
 		<if test="reg_state != '' and reg_state != null">
 			and reg_state = #{reg_state}
 		</if>
-		<if test="item_detail_no != '' ">
-			and item_detail_no = #{item_detail_no}
-		</if>
+		<choose>
+			<when test="item_detail_no != '' and item_detail_no != null ">
+				and item_detail_no = #{item_detail_no}
+			</when>
+			<otherwise> 
+				and item_detail_no = "" 
+			</otherwise>
+		</choose>
 		<if test="possession_code_idx != '' ">
 			and possession_code_idx = #{possession_code_idx}
 		</if>
@@ -707,6 +716,9 @@
 	
 	<select id="searchItemNo" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO" resultType="String">
 		select item_no from nam_item_base where org_code_idx = #{org_code_idx} and possession_code_idx = #{possession_code_idx} and item_no = #{item_no}
+		<if test="item_detail_no != '' and item_detail_no != null">
+			and item_detail_no = #{item_detail_no}
+		</if>
 	</select>
 	
 	<update id="setItemNo" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
