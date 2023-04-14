@@ -109,7 +109,7 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-		                                <c:forEach var="noticeList" items="${noticeList}">
+		                                <c:forEach var="noticeList" items="${noticeList}" end="2">
 		                                    <tr>
 		                                      <td>${noticeList.reg_user}</td>
 		                                      <td>${noticeList.reg_date}</td>
@@ -260,7 +260,7 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-		                                <c:forEach var="noticeList" items="${noticeList}">
+		                                <c:forEach var="noticeList" items="${noticeList}" end="9">
 		                                    <tr>
 		                                      <td>${noticeList.reg_user}</td>
 		                                      <td>${noticeList.reg_date}</td>
@@ -395,7 +395,7 @@
                                         </tr>
                                       </thead>
                                       <tbody>
-	                                     <c:forEach var="errorFixList" items="${errorFixList}">
+	                                     <c:forEach var="errorFixList" items="${errorFixList}" end="9">
 	                                        <tr>
 	                                          <td>${errorFixList.reg_user}</td>
 	                                          <td>${errorFixList.reg_date}</td>

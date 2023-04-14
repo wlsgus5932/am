@@ -447,7 +447,7 @@
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="/codeMgr.do" data-key="t-products">코드관리</a></li>
             <li><a href="/otherMgr.do" data-key="t-product-detail">기타관리</a></li>
-<!--             <li><a href="ecommerce-orders.html" data-key="t-orders">로그관리</a></li> -->
+            <li><a href="/logMgr.do" data-key="t-orders">로그관리</a></li>
             <li><a href="/approvalMgr.do" data-key="t-cart">승인관리</a></li>
           </ul>
         </li>
