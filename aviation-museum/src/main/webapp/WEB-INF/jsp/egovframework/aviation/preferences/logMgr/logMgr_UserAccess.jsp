@@ -35,7 +35,7 @@
               </div>
               <!-- -->
               <div class="st_wrap st_mv_wrap">
-                <button class="custom_btn btn_ex" type="button">엑셀파일</button>
+                <button class="custom_btn btn_ex" type="button" onclick="userAccessExcelList()">엑셀파일</button>
                 <div class="all_number_text">총 건수: ${totalCount}건</div>
               </div>
               <!--  -->
@@ -295,7 +295,7 @@
     		
 				$.ajax({
     				type : 'POST',                 
-    				url : '/specialityRegisterAjax.do',   
+    				url : '/userAccessAjax.do',   
     				data: queryString,
     				dataType : "html",           
     				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -307,5 +307,13 @@
 
     				}
     			});
+    		}
+    		
+    		function userAccessExcelList() {
+    			var $form = $('#ExcelForm');
+    				$('#search_page').val(1);
+    				
+    				$form.attr("action", "/userAccessExcelDownload.do");
+    				$form.submit();
     		}
             </script>

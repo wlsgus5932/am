@@ -3,91 +3,100 @@
 <mapper namespace="egovframework.aviation.preferences.service.impl.LogMgrMapper">
 
     <select id="getAccessLogList" parameterType="egovframework.aviation.preferences.vo.AccessLogVO" resultType="egovframework.aviation.preferences.vo.AccessLogVO">
-		SELECT
-			*
-		FROM nam_access_log
-		WHERE 1=1
-         <if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
-             (access_date BETWEEN #{start_reg_date} and #{end_reg_date})
-        </if>
-        <if test=" '' != access_type and null != access_type">
-      	    AND access_type = ${access_type}
-        </if>
-		<if test=" '' != search_word and null != search_word">
-			<if test="search_type == 'member_nm'">
-				AND (member_nm LIKE CONCAT('%', #{search_word}, '%')) 
+		SELECT R1.* FROM( 
+			SELECT
+				*
+			FROM nam_access_log
+			WHERE 1=1
+	         <if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+	             (access_date BETWEEN #{start_reg_date} and #{end_reg_date})
+	        </if>
+	        <if test=" '' != access_type and null != access_type">
+	      	    AND access_type = ${access_type}
+	        </if>
+			<if test=" '' != search_word and null != search_word">
+				<if test="search_type == 'member_nm'">
+					AND (member_nm LIKE CONCAT('%', #{search_word}, '%')) 
+				</if>
+				<if test="search_type == '' or search_type == null">
+					AND (member_nm LIKE CONCAT('%', #{search_word}, '%') OR org_nm LIKE CONCAT('%', #{search_word}, '%')) 
+				</if>
 			</if>
-			<if test="search_type == '' or search_type == null">
-				AND (member_nm LIKE CONCAT('%', #{search_word}, '%') OR org_nm LIKE CONCAT('%', #{search_word}, '%')) 
-			</if>
-		</if>
+		) R1
+        LIMIT #{perPageNum} OFFSET #{pageStart}  
 	</select>
    
     <select id="getSpecialityLogList" parameterType="egovframework.aviation.preferences.vo.SpecialityLogVO" resultType="egovframework.aviation.preferences.vo.SpecialityLogVO">
-		SELECT
-			*
-		FROM nam_speciality_log
-		WHERE 1=1
-		<if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
-             (access_date BETWEEN #{start_reg_date} and #{end_reg_date})
-        </if>
-  		<if test="org_nm != null and org_nm != ''">AND
-            org_nm = #{org_nm}
-        </if>
-        <if test="possession_nm != null and possession_nm != ''">AND
-            possession_nm = #{possession_nm}
-        </if>
-        <if test="item_no != null and item_no != ''">AND
-            item_no = #{item_no}
-        </if>
-        <if test="item_detail_no != null and item_detail_no != ''">AND
-            item_detail_no = #{item_detail_no}
-        </if>
-        <if test=" '' != search_word and null != search_word">
-			<if test="search_type == 'speciality_title'">
-				AND (speciality_title LIKE CONCAT('%', #{search_word}, '%')) 
-			</if>
-			<if test="search_type == 'speciality_title'">
-				AND (member_nm LIKE CONCAT('%', #{search_word}, '%')) 
-			</if>			
-			<if test="search_type == '' or search_type == null">
-				AND (speciality_title LIKE CONCAT('%', #{search_word}, '%') OR member_nm LIKE CONCAT('%', #{search_word}, '%')) 
-			</if>
-		</if>        
+		SELECT R1.* FROM( 
+			SELECT
+				*
+			FROM nam_speciality_log
+			WHERE 1=1
+			<if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+	             (access_date BETWEEN #{start_reg_date} and #{end_reg_date})
+	        </if>
+	  		<if test="org_nm != null and org_nm != ''">AND
+	            org_nm = #{org_nm}
+	        </if>
+	        <if test="possession_nm != null and possession_nm != ''">AND
+	            possession_nm = #{possession_nm}
+	        </if>
+	        <if test="item_no != null and item_no != ''">AND
+	            item_no = #{item_no}
+	        </if>
+	        <if test="item_detail_no != null and item_detail_no != ''">AND
+	            item_detail_no = #{item_detail_no}
+	        </if>
+	        <if test=" '' != search_word and null != search_word">
+				<if test="search_type == 'speciality_title'">
+					AND (speciality_title LIKE CONCAT('%', #{search_word}, '%')) 
+				</if>
+				<if test="search_type == 'speciality_title'">
+					AND (member_nm LIKE CONCAT('%', #{search_word}, '%')) 
+				</if>			
+				<if test="search_type == '' or search_type == null">
+					AND (speciality_title LIKE CONCAT('%', #{search_word}, '%') OR member_nm LIKE CONCAT('%', #{search_word}, '%')) 
+				</if>
+			</if> 
+		  ) R1
+      	  LIMIT #{perPageNum} OFFSET #{pageStart}       
 	</select>
 	
 	<select id="getMovementLogList" parameterType="egovframework.aviation.preferences.vo.MovementLogVO" resultType="egovframework.aviation.preferences.vo.MovementLogVO">
-		SELECT
-			*
-		FROM nam_movement_log
-		WHERE 1=1
-		<if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
-             (access_date BETWEEN #{start_reg_date} and #{end_reg_date})
-        </if>
-  		<if test="org_nm != null and org_nm != ''">AND
-            org_nm = #{org_nm}
-        </if>
-        <if test="possession_nm != null and possession_nm != ''">AND
-            possession_nm = #{possession_nm}
-        </if>
-        <if test="item_no != null and item_no != ''">AND
-            item_no = #{item_no}
-        </if>
-        <if test="item_detail_no != null and item_detail_no != ''">AND
-            item_detail_no = #{item_detail_no}
-        </if>
-        <if test=" '' != search_word and null != search_word">
-			<if test="search_type == 'member_id'">
-				AND (member_id LIKE CONCAT('%', #{search_word}, '%')) 
-			</if>
-			<if test="search_type == 'speciality_title'">
-				AND (member_nm LIKE CONCAT('%', #{search_word}, '%')) 
-			</if>				
-			<if test="search_type == '' or search_type == null">
-				AND (member_id LIKE CONCAT('%', #{search_word}, '%') OR member_nm LIKE CONCAT('%', #{search_word}, '%')) 
-			</if>
-		</if>        
-		ORDER BY ACCESS_DATE
+		SELECT R1.* FROM( 
+			SELECT
+				*
+			FROM nam_movement_log
+			WHERE 1=1
+			<if test="start_reg_date != null and start_reg_date != '' and end_reg_date != null and end_reg_date != ''">AND
+	             (access_date BETWEEN #{start_reg_date} and #{end_reg_date})
+	        </if>
+	  		<if test="org_nm != null and org_nm != ''">AND
+	            org_nm = #{org_nm}
+	        </if>
+	        <if test="possession_nm != null and possession_nm != ''">AND
+	            possession_nm = #{possession_nm}
+	        </if>
+	        <if test="item_no != null and item_no != ''">AND
+	            item_no = #{item_no}
+	        </if>
+	        <if test="item_detail_no != null and item_detail_no != ''">AND
+	            item_detail_no = #{item_detail_no}
+	        </if>
+	        <if test=" '' != search_word and null != search_word">
+				<if test="search_type == 'member_id'">
+					AND (member_id LIKE CONCAT('%', #{search_word}, '%')) 
+				</if>
+				<if test="search_type == 'speciality_title'">
+					AND (member_nm LIKE CONCAT('%', #{search_word}, '%')) 
+				</if>				
+				<if test="search_type == '' or search_type == null">
+					AND (member_id LIKE CONCAT('%', #{search_word}, '%') OR member_nm LIKE CONCAT('%', #{search_word}, '%')) 
+				</if>
+			</if>        
+			ORDER BY ACCESS_DATE
+	  ) R1
+      LIMIT #{perPageNum} OFFSET #{pageStart}       
 	</select>
 	<select id="getMovementDetailLogList" parameterType="egovframework.aviation.preferences.vo.MovementDetailLogVO" resultType="egovframework.aviation.preferences.vo.MovementDetailLogVO">
 		SELECT 

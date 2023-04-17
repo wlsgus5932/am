@@ -113,7 +113,7 @@
               </div>
               <!-- -->
               <div class="st_wrap st_mv_wrap">
-                <button class="custom_btn btn_ex" type="button">엑셀파일</button>
+                <button class="custom_btn btn_ex" type="button" onclick="movementHistoryExcelList()">엑셀파일</button>
                 <div class="all_number_text">총 건수: ${totalCount}건</div>
               </div>
               <!--  -->
@@ -295,6 +295,7 @@
 	                                <td>${getMovementLogList.item_detail_no}</td>
 	                                <td>${getMovementLogList.member_nm}</td>
 	                                <td>${getMovementLogList.access_ip}</td>
+	                                <td>
 	                                	<c:choose>
 		                                	<c:when test="${getMovementLogList.access_type eq 0}">
 		                               			 삽입
@@ -306,6 +307,7 @@
 		                               			 삭제
 		                               		</c:when>		                               				                               		
 	                               		</c:choose>
+	                               	</td>
 	                                <td><button class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#view_Modal_2" type="button" onclick="movementLogView('${getMovementLogList.item_idx}')">보기</button></td>
 	                              </tr>
                              </c:forEach>
@@ -493,5 +495,13 @@
 	    					 })
 	    				}
 	    			});
+	    		}
+	    		
+	    		function movementHistoryExcelList() {
+	    			var $form = $('#ExcelForm');
+	    				$('#search_page').val(1);
+	    				
+	    				$form.attr("action", "/movementHistoryExcelDownload.do");
+	    				$form.submit();
 	    		}
             </script>
