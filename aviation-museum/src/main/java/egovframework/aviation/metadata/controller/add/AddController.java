@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -754,7 +754,55 @@ public class AddController {
 	}
 	
 	@GetMapping("/autoAdd.do")
-	public String autoAdd() throws Exception {
+	public String autoAdd(Model model) throws Exception {
+		List<CountryVO> country = service.getCountry();
+		List<Material1VO> material = service.getMaterial1();
+		List<IcaoVO> icao = service.getIcao();
+		List<ExistenceVO> existence = service.getExistence();
+		List<MeasurementVO> measurement = service.getMeasurement();
+		List<MeasurementUnitVO> measurementUnit = service.getMeasurementUnit();
+		List<Class1VO> class1 = service.getClass1();
+		List<Class2VO> class2 = service.getClass2();
+		List<Class3VO> class3 = service.getClass3();
+		List<ObtainmentVO> obtainment = service.getObtainment();
+		List<Purchase1VO> purchase1 = service.getPurchase1();
+		List<Purchase2VO> purchase2 = service.getPurchase2();
+		List<PriceUnitVO> price = service.getPriceUnit();
+		List<QtyUnitVO> qty = service.getQtyUnit();
+		List<ConditionVO> condition = service.getCondition();
+		List<RankingVO> ranking = service.getRanking();
+		List<PosSessionVO> possession = service.getPosSession();
+		List<GgnuriVO> ggnuri = service.getGgnuri();
+		List<OrgVO> org = service.getOrg();
+		List<StorageType1VO> type1 = service.getStorageType1();
+		List<StorageVO> storage = service.getStorage(0);
+		List<SpecialityCodeVO> scCode = service2.getSpecialityCode();
+		List<ExchangeVO> exchange = service.getExchange();
+		
+		model.addAttribute("countryList", country);
+		model.addAttribute("material1List", material);
+		model.addAttribute("IcaoList", icao);
+		model.addAttribute("existenceList", existence);
+		model.addAttribute("measurementList", measurement);
+		model.addAttribute("measurementUnitList", measurementUnit);
+		model.addAttribute("class1List", class1);
+		model.addAttribute("class2List", class2);
+		model.addAttribute("class3List", class3);
+		model.addAttribute("obtainmentList", obtainment);
+		model.addAttribute("purchase1List", purchase1);
+		model.addAttribute("purchase2List", purchase2);
+		model.addAttribute("priceUnitList", price);
+		model.addAttribute("qtyUnitList", qty);
+		model.addAttribute("conditionList", condition);
+		model.addAttribute("rankingList", ranking);
+		model.addAttribute("posSessionList", possession);
+		model.addAttribute("ggnuriList", ggnuri);
+		model.addAttribute("orgList", org);
+		model.addAttribute("storage1List", type1);
+		model.addAttribute("storageCodeList", storage);
+		model.addAttribute("specialityCodeList", scCode);
+		model.addAttribute("exchangeList", exchange);
+		
 		return "metadata/add/autoAdd";
 	}
 	
@@ -766,64 +814,138 @@ public class AddController {
 		Workbook workbook = new HSSFWorkbook(file.getInputStream());
 
         Sheet sheet = workbook.getSheetAt(0);
-
-//        String atchFileId = null;
-//        List<Object> list = new ArrayList<>();
-//        List<String> cellList = new ArrayList<>();
         
-        Map<Integer, List<String>> data = new HashMap<>();
+//        Map<Integer, List<String>> data = new HashMap<>();
+        
         int i = 0;
+        int j = 0;
+        
+        String[] names = {
+        		"possession_nm", 
+        		"item_no", 
+        		"item_detail_no", 
+        		"qty", 
+        		"qty_unit_nm", 
+        		"item_nm", 
+        		"item_se_nm", 
+        		"country_nm", 
+        		"era_nm", 
+        		"material1_nm", 
+        		"material2_nm", 
+        		"feature", 
+        		"obtainment_date", 
+        		"obtainment_nm", 
+        		"obtainment_price", 
+        		"price_unit_nm", 
+        		"obtainment_reg_date",
+        		"not",
+        		"obtainment_place",
+        		"obtainment_addr",
+        		"not",
+        		"not",
+        		"not",
+        		"not",
+        		"not",
+        		"not",
+        		"not",
+        		"not",
+        		"not",
+        		"not",
+        		"not",
+        		"not",
+        		"not",
+        		"agreed_value", 
+        		"insurance_price_unit_nm",
+        		"start_date",
+        		"end_date",
+        		"rental_org",
+        		"rental_remark",
+        		"data_recorder",
+        		"reg_user",
+        		"remark",
+        		"reference",
+        		"item_eng_nm"
+        };
+        List<Map<String, String>> data = new ArrayList<>();
         
         for (Row row : sheet) {
-            data.put(i, new ArrayList<String>());
-            for (Cell cell : row) {
-                switch (cell.getCellType()) {
-                case STRING: {
-                    data.get(i).add(cell.getRichStringCellValue().getString());
-                    break;
-                }
-                case NUMERIC: {
-                    if (DateUtil.isCellDateFormatted(cell)) {
-                	    data.get(i).add(cell.getDateCellValue() + "");
-                    } else {
-                    	data.get(i).add(cell.getNumericCellValue() + "");
-                    }
-                    break;
-                }
-                case BOOLEAN: {
-                    data.get(i).add(cell.getBooleanCellValue() + "");
-                    break;
-                }
-                case FORMULA: {
-                    data.get(i).add(cell.getCellFormula() + "");
-                    break;
-                }
-                default:
-                    data.get(i).add(" ");
-        		}
-        	}
-        	i++;
+          Map<String, String> map = new HashMap<>();
+          j = 0;
+          for (Cell cell : row) {
+        	  if(i != 0 && i != 1) {
+              switch (cell.getCellType()) {
+	                case STRING: {
+	                	map.put(names[j], cell.getRichStringCellValue().getString());
+	                    break;
+	                }
+	                case NUMERIC: {
+	                    if (DateUtil.isCellDateFormatted(cell)) {
+	                    	map.put(names[j], cell.getDateCellValue() + "");
+	                    } else {
+	                    	map.put(names[j], cell.getNumericCellValue() + "");
+	                    }
+	                    break;
+	                }
+	                case BOOLEAN: {
+	                	map.put(names[j], cell.getBooleanCellValue() + "");
+	                    break;
+	                }
+	                case FORMULA: {
+	                	map.put(names[j], cell.getCellFormula() + "");
+	                    break;
+	                }
+	                default:
+	                	map.put(names[j], " ");
+	        		}
+              j++;
+          	}
+      	}
+          data.add(map);
+          i++;
+      	System.out.println(map);
+      }
+        
+        for(int k=0; k<=1; k++) {
+        	data.remove(0);
         }
         
-        Set<Integer> keySet = data.keySet();
-        for (Integer key : keySet) {
-            System.out.println(key + " : " + data.get(key));
-        }
-
-//        for (int i = 2; i < worksheet.getPhysicalNumberOfRows(); i++) {
-//            Row row = worksheet.getRow(i);
-//            int cells = row.getPhysicalNumberOfCells();
-//            for(int j=0; j <= cells; j++) {
-//            	Cell cell=row.getCell(j);
-//            	cellList.add(cell.getRichStringCellValue());
-//            	System.out.println(cellList.get(i));
-//            }
+//        for (Row row : sheet) {
+//        	data.put(i, new ArrayList<String>());
+//            for (Cell cell : row) {
+//            	if(i != 0 && i != 1) {
+//                switch (cell.getCellType()) {
+//	                case STRING: {
+//	                    data.get(i).add(cell.getRichStringCellValue().getString());
+//	                    break;
+//	                }
+//	                case NUMERIC: {
+//	                    if (DateUtil.isCellDateFormatted(cell)) {
+//	                	    data.get(i).add(cell.getDateCellValue() + "");
+//	                    } else {
+//	                    	data.get(i).add(cell.getNumericCellValue() + "");
+//	                    }
+//	                    break;
+//	                }
+//	                case BOOLEAN: {
+//	                    data.get(i).add(cell.getBooleanCellValue() + "");
+//	                    break;
+//	                }
+//	                case FORMULA: {
+//	                    data.get(i).add(cell.getCellFormula() + "");
+//	                    break;
+//	                }
+//	                default:
+//	                    data.get(i).add(" ");
+//	        		}
+//            	}
+//        	}
+//        	i++;
 //        }
         
-//        for(String d : data) {
-//			System.out.println("forEach 전체 출력: "+data);
-//		}
+        
+        model.addAttribute("excelList", data);
 		
+//		return "metadata/add/autoAddList";
 		return "jsonView";
 	}
 }

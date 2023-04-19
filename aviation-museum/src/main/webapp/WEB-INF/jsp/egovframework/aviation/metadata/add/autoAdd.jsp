@@ -28,7 +28,10 @@
   </head>
   
   <script>
+  
+  let excelData = [];
   const uploadMetaDataExcel = () => {
+	  $('#excel_tbody').children().remove();
 	  let form = $('#uploadMetaDataExcelForm')[0];
 	  let frmData = new FormData(form);
 
@@ -40,14 +43,98 @@
 	        contentType: false,
 	        cache: false,
 	        data: frmData,
+	        dataType: 'json',
 	        success: function(data) {
-	            console.log(data);
+	            excelData = data.excelList;
+	            console.log(excelData);
+	            data.excelList.forEach((e, i) => {
+		            $('#excel_tbody').append('<tr>' +
+	                       '<td><input type="checkbox" name="" id=""></td>' +
+	                        '<td>'+(i+1)+'</td>' +
+	                        '<td>'+e.possession_nm+'</td>' +
+	                        '<td>'+e.item_no+'</td>' +
+	                        '<td>'+e.item_detail_no+'</td>' +
+	                        '<td>'+e.qty+'</td>' +
+	                        '<td>'+e.qty_unit_nm+'</td>' +
+	                        '<td>'+e.item_nm+'</td>' +
+	                        '<td>'+e.item_se_nm+'</td>' +
+	                        '<td>정상</td>'+
+	                        '<td><button onclick="clickModify('+i+')">수정</button></td></tr>');
+	            })
 	        },
 	        error: function(e) {
 	            console.log(e);
 	            alert('파일업로드 실패');
 	        }
 	    });
+  }
+  
+  const changeCountry = async (r) => {
+	  $('#modal_era_code_idx').children('option:not(:first)').remove();
+  	 const res = await fetch('/getEraData.do?country=' + r);
+
+  	  if (res.status === 200) {
+  	     const { eraList } = await res.json();
+  	     if(eraList.length) {
+	  	     eraList.forEach(e => {
+	  	    	 $('#modal_era_code_idx').append("<option value="+e.era_code_idx+">"+e.era_nm+"</option>");
+	  	     })
+  	     } else {
+  	    	 $('#modal_era_code_idx').val('0');
+  	     }
+  	 }
+  }
+  
+  const changeMaterial = async r => {
+  	 $('#modal_material2_code_idx').children('option:not(:first)').remove();
+  	 const res = await fetch('/getMaterialData.do?material=' + r);
+
+  	 if (res.status === 200) {
+  	     const { material2List } = await res.json();
+  	     material2List.forEach(e => {
+  	    	 $('#modal_material2_code_idx').append("<option value="+e.material2_code_idx+">"+e.material2_nm+"</option>");
+  	     })
+  	 }
+   };
+  
+  const clickModify = async val => {
+	  console.log(excelData[val])
+	  let fff = false;
+	  let mateTF = false;
+	  
+	  $('#modal_item_nm').val(excelData[val].item_nm);
+	  $('#modal_item_se_nm').val(excelData[val].item_se_nm);
+	  $('#modal_item_no').val(excelData[val].item_no);
+	  $('#modal_item_detail_no').val(excelData[val].item_detail_no);
+	  $('#modal_qty').val(excelData[val].qty);
+	  $('#modal_agreed_value').val(excelData[val].agreed_value);
+	  
+	  let pos = $('#modal_possession_code_idx option:contains(' + excelData[val].possession_nm + ')').val();
+	  let qty  = $('#modal_qty_unit_code_idx option:contains(' + excelData[val].qty_unit_nm + ')').val();
+	  let country  = $('#modal_country_code_idx option:contains(' + excelData[val].country_nm + ')').val();
+	  let mate = $('#modal_material1_code_idx option:contains(' + excelData[val].material1_nm + ')').val();
+	  $('#modal_possession_code_idx').val(pos);
+	  $('#modal_qty_unit_code_idx').val(qty);
+	  $('#modal_country_code_idx').val(country);
+	  $('#modal_material1_code_idx').val(mate);
+	  await changeCountry(country);
+	  await changeMaterial(mate);
+	  let era  = $('#modal_era_code_idx option:contains(' + excelData[val].era_nm + ')').val();
+	  let mate2  = $('#modal_material2_code_idx option:contains(' + excelData[val].material2_nm + ')').val();
+	  
+	  $('#modal_era_code_idx option').each(function() {
+		  this.text == excelData[val].era_nm ? fff = true : '';
+	   });
+	  fff ? $('#modal_era_code_idx').val(era) : $('#modal_era_code_idx').val('0');
+	  
+	  $('#modal_material2_code_idx option').each(function() {
+		  this.text == excelData[val].material2_nm ? mateTF = true : '';
+	   });
+	  mateTF ? $('#modal_material2_code_idx').val(mate2) : $('#modal_material2_code_idx').val();
+	  
+	  
+	  
+	  $('#data_edit_modal_1').modal('show');
   }
   </script>
 
@@ -313,98 +400,22 @@
                               <tr class="tr_bgc">
                                   <th>선택</th>
                                   <th>번호</th>
-                                  <th>자료구분코드C</th>
                                   <th>자료구분명</th>
                                   <th>자료번호</th>
                                   <th>세부번호</th>
                                   <th>주수량</th>
-                                  <th>수량단위C</th>
-                                  <th>주수량단위C_명칭</th>
+                                  <th>수량단위</th>
                                   <th>명칭</th>
                                   <th>이명칭</th>
                                   <th>오류체크</th>
                                   <th>수정</th>
                               </tr>
                           </thead>
-                          <tbody>
-                              <tr>
-                                  <td><input type="checkbox" name="" id=""></td>
-                                  <td>1</td>
-                                  <td>
-                                    더미
-                                  </td>
-                                  <td>
-                                    국립항공박물관 - ㅇㅇ - ㅇㅇ
-                                   </td>
-                                   <td>
-                                    항공역사:물품:기체(더미)
-                                   </td>
-                                   <td>
-                                    AHA01A001
-                                   </td>
-                                   <td>
-                                    0000
-                                   </td>
-                                   <td>
-                                    0
-                                   </td>
-                                   <td>
-                                    -
-                                   </td>
-                                   <td>
-                                    -
-                                   </td>
-                                   <td>
-                                    -
-                                   </td>
-                                   <td>
-                                    정상
-                                   </td>
-                                   <td>
-                                    <button>수정</button>
-                                   </td>
-                              </tr>
+                          <tbody id="excel_tbody">
+                              
                           </tbody>
                       </table>
                   </div>
-              </div>
-            </div>
-            </div>
-            <!-- 자연사 탭 시작 -->
-            <div class="tab-pane" id="messages" role="tabpanel">
-              <!-- 데이터 전환 모달 -->
-              <div id="NatModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <p>조회된 모든 소장품 데이터를 전환 하시겠습니까</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary waves-effect waves-light">확인</button>
-                      <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">취소</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- -->
-              <div class="mb-0">
-                <!-- 자연사 탭 내용 시작 -->
-                <div class="st_wrap st_mv_wrap">
-                  <div class="auto_btn_left">
-	                  <button>선택 삭제</button>
-	                  <button>전체 삭제</button>
-                  </div>
-                  <div class="auto_btn_right">
-	                  <button>엑셀 양식 다운로드</button>
-	                  <button>dddd</button>
-	                  <input type="file"/>
-	                  <button data-bs-toggle="modal" data-bs-target="#NatModal">데이터전환</button>
-                  </div>
-                </div>
-                <div class="form-control card-body nat_form">
               </div>
             </div>
             </div>
@@ -454,7 +465,7 @@
                           <th>수정</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody id="excel_movement_tbody">
                         <tr>
                           <td><input type="checkbox" name="" id="" /></td>
                           <td>1</td>
@@ -481,6 +492,131 @@
           <!--  -->
         <button>저장</button>
         <!-- End Page-content -->
+        
+        <div id="data_edit_modal_1" class="modal fade hide" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-modal="true" role="dialog">
+		  <div class="modal-dialog user-modal user_in_modal_wrap">
+		    <div class="modal-content">
+		      <div class="modal-header mv-modal-header">
+		        <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="userModInputClose"></button>
+		      </div>
+		      <div class="modal-body mv-modal-body">
+		        <div class="mb-0 user-wrap">
+		          <div class="st_wrap">
+		            <label class="col-md-2 col-form-label st_title">데이터 수정하기</label>
+		          </div>
+		          <!-- 데이터 수정하기 모달 테이블 -->
+		          <div class="card-body">
+		            <div class="table-responsive">
+		              <table class="table mb-0">
+		                <tbody>
+		                  <tr>
+		                    <td style="width: 30%">자료구분</td>
+		                    <td>
+								<select class="search_select" name="modal_org_code_idx" id="modal_org_code_idx" style="width: 60%; height: 38px;">
+									<c:forEach var="list" items="${orgList}" varStatus="status">
+										<option value="${list.org_code_idx}" <c:if test ="${list.org_nm eq '항공박물관'}">selected="selected"</c:if>>${list.org_nm}</option>
+									</c:forEach>
+								</select>
+								<select class="search_select" name="modal_possession_code_idx" id="modal_possession_code_idx" style="width: 39%; height: 38px;">
+									<option value="" selected>선택</option>
+									<c:forEach var="list" items="${posSessionList}" varStatus="status">
+										<option value="${list.possession_code_idx}">${list.possession_nm}</option>
+									</c:forEach>
+								</select>
+		                    </td>
+		                  </tr>
+		                  <tr>
+		                    <td>자료번호</td>
+		                    <td><input class="custom_search_input custom_search_input_100" type="text" name="modal_item_no" id="modal_item_no" placeholder="" /></td>
+		                  </tr>
+		                  <tr>
+		                    <td>세부번호</td>
+		                    <td><input class="custom_search_input custom_search_input_100" type="text" name="modal_item_detail_no" id="modal_item_detail_no" placeholder="" /></td>
+		                  </tr>
+		                  <tr>
+		                    <td>주수량</td>
+		                    <td><input class="custom_search_input custom_search_input_100" type="text" name="modal_qty" id="modal_qty" placeholder="" /></td>
+		                  </tr>
+		                  <tr>
+		                    <td>주수량단위</td>
+		                    <td>
+		                      <select class="search_select" name="modal_qty_unit_code_idx" id="modal_qty_unit_code_idx" style="min-width:auto !important; width:50% !important;">
+                                      <option value="" selected>단위선택</option>
+                                      	<c:forEach var="list" items="${qtyUnitList}" varStatus="status">
+		                                    <option value="${list.qty_unit_code_idx}">${list.qty_unit_nm}</option>
+		                                </c:forEach>
+                                    </select>
+		                    </td>
+		                  </tr>
+		                  <tr>
+		                    <td>명칭</td>
+		                    <td><input class="custom_search_input custom_search_input_100" type="text" name="modal_item_nm" id="modal_item_nm" placeholder="" /></td>
+		                  </tr>
+		                  <tr>
+		                    <td>이명칭</td>
+		                    <td><input class="custom_search_input custom_search_input_100" type="text" name="modal_item_se_nm" id="modal_item_se_nm" placeholder="" /></td>
+		                  </tr>
+		                  <tr>
+		                    <td>국적/시대</td>
+		                    <td>
+		                      <select class="search_select" id="modal_country_code_idx" onchange="changeCountry(this.value, 0)" name="modal_country_code_idx">
+                                      <option value="0" selected>선택</option>
+		                               <c:forEach var="list" items="${countryList}" varStatus="status">
+		                                    <option value="${list.country_code_idx}">${list.country_nm}</option>
+		                                </c:forEach>
+                              </select>
+                              <select class="search_select" id="modal_era_code_idx" name="modal_era_code_idx">
+                                      <option value="0" selected>선택</option>
+                              </select>
+		                    </td>
+		                  </tr>
+		                  <tr>
+		                    <td>재질</td>
+		                    <td>
+                                  <select class="form-select st_select" id="modal_material1_code_idx" onchange="changeMaterial(this.value, 0)" name="modal_material1_code_idx">
+                                    <option value="0" selected>선택</option>
+                                    	<c:forEach var="list" items="${material1List}" varStatus="status">
+		                                    <option value="${list.material1_code_idx}">${list.material1_nm}</option>
+		                                </c:forEach>
+                                  </select>
+                                  <select class="form-select st_select" id="modal_material2_code_idx" name="modal_material2_code_idx">
+                                    <option value="0" selected>선택</option>
+                                  </select>
+                            </td>
+		                  </tr>
+		                  <tr>
+		                    <td>보험평가액</td>
+		                    <td><input class="custom_search_input custom_search_input_100" type="text" name="modal_agreed_value" id="modal_agreed_value" placeholder="" /></td>
+		                  </tr>
+		                  <tr>
+		                    <td>평가액단위</td>
+                            <td>
+                            	<select class="form-select st_select" name="modal_insu_price_unit_code_idx" id="modal_insu_price_unit_code_idx">
+                            		<option value="0" selected>선택</option>
+                            			<c:forEach var="list" items="${priceUnitList}" varStatus="status">
+                            				<option value="${list.price_unit_code_idx}">${list.price_unit_nm}</option>
+                            			</c:forEach>
+                            	</select>
+                            </td>
+		                  </tr>
+		                </tbody>
+		              </table>
+		            </div>
+		          </div>
+		          <!--  -->
+		        </div>
+		        <div class="user_in_modal_footer_wrap">
+		          <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="userModBtn">저장</button>
+		          <button class="custom_btn btn_c58672 user_in_modal_footer_btn" type="button" id="" data-bs-dismiss="modal">닫기</button>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+        
+        
+        
         <footer class="footer">
           <div class="container-fluid">
             <div class="row">

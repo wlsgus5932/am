@@ -46,10 +46,7 @@
 			      .animate({ 'top': position + currentPosition + 'px' }, 500)
 			  })
 		  });
-
-
-
-</script>
+	</script>
   </head>
   <script>
   let count = 0;
@@ -152,7 +149,6 @@
                      console.log(thrownError);
                   }
              });
-
           },
           error: function(xhr, ajaxOptions, thrownError) {
              console.log(xhr.status);
