@@ -574,6 +574,9 @@ public class MyPageController {
 	    workHistoryVO.setPageStart(cri.getPageStart());
 	    workHistoryVO.setPerPageNum(cri.getPerPageNum());
 
+	    workHistoryVO.setPageStart(0);
+	    workHistoryVO.setPerPageNum(100000);
+	    
 	    List<WorkHistoryVO> workHistoryList = myPageService.getWorkHistoryList(workHistoryVO);
 		
 		 try (Workbook workbook = new XSSFWorkbook()) {
@@ -678,6 +681,9 @@ public class MyPageController {
 	    workHistoryVO.setPageStart(cri.getPageStart());
 	    workHistoryVO.setPerPageNum(cri.getPerPageNum());
 
+	    workHistoryVO.setPageStart(0);
+	    workHistoryVO.setPerPageNum(100000);
+	    
 	    List<WorkHistoryVO> workHistoryViewList = myPageService.getWorkHistoryViewList(workHistoryVO);
 		
 		 try (Workbook workbook = new XSSFWorkbook()) {

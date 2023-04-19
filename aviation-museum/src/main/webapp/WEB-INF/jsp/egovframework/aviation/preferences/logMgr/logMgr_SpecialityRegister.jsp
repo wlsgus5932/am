@@ -44,7 +44,7 @@
               </div>
               <!-- -->
               <div class="st_wrap st_mv_wrap">
-                <button class="custom_btn btn_ex" type="button">엑셀파일</button>
+                <button class="custom_btn btn_ex" type="button" onclick="specialityRegisterExcelList()">엑셀파일</button>
                 <div class="all_number_text">총 건수 : ${totalCount}건</div>
               </div>
               <!--  -->
@@ -224,6 +224,7 @@
 	                                <td>${getSpecialityLogList.possession_nm}</td>
 	                                <td>${getSpecialityLogList.item_no}</td>
 	                                <td>${getSpecialityLogList.item_detail_no}</td>
+	                                <td>	
 	                                	<c:choose>
 		                                	<c:when test="${getSpecialityLogList.access_type eq 0}">
 		                               			 삽입
@@ -235,9 +236,10 @@
 		                               			 삭제
 		                               		</c:when>		                               				                               		
 	                               		</c:choose>
+	                               	</td>
 	                                <td>${getSpecialityLogList.speciality_title}</td>
 	                                <td>${getSpecialityLogList.speciality_file_nm}</td>
-	                                <td>-</td>
+	                                <td>${getSpecialityLogList.member_nm}</td>
 	                              </tr>
                               </c:forEach>
                           </tbody>
@@ -365,5 +367,13 @@
 
     				}
     			});
+    		}
+    		
+    		function specialityRegisterExcelList() {
+    			var $form = $('#ExcelForm');
+    				$('#search_page').val(1);
+    				
+    				$form.attr("action", "/specialityRegisterExcelDownload.do");
+    				$form.submit();
     		}
             </script>

@@ -918,7 +918,7 @@
 	var country_nm = [];
 	var country_count = [];
 	var countryDataTotal = 0; 
-	<c:forEach var="countryDataList" items="${countryDataList}">
+	<c:forEach var="countryDataList" items="${countryDataList}" end="9">
 		country_nm.push('${countryDataList.country_nm}');
 		country_count.push('${countryDataList.country_count}');
 		countryDataTotal += ${countryDataList.country_count};
@@ -929,7 +929,7 @@
 	var class1_nm = [];
 	var class1_count = [];
 	var class1DataTotal = 0; 
-	<c:forEach var="class1DataList" items="${class1DataList}">
+	<c:forEach var="class1DataList" items="${class1DataList}" end="9">
 		class1_nm.push('${class1DataList.class1_nm}');
 		var number = Math.round(${class1DataList.class1_count}/countryDataTotal*100*10)/10;
 		class1_count.push(number);
@@ -939,7 +939,7 @@
 	var material1_nm = [];
 	var material1_count = [];
 	var material1DataTotal = 0; 
-	<c:forEach var="material1DataList" items="${material1DataList}">
+	<c:forEach var="material1DataList" items="${material1DataList}" end="9">
 		material1_nm.push('${material1DataList.material1_nm}');
 		var number = Math.round(${material1DataList.material1_count}/countryDataTotal*100*10)/10;
 		material1_count.push(number);

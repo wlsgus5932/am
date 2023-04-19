@@ -113,7 +113,7 @@
               </div>
               <!-- -->
               <div class="st_wrap st_mv_wrap">
-                <button class="custom_btn btn_ex" type="button">엑셀파일</button>
+                <button class="custom_btn btn_ex" type="button" onclick="movementHistoryExcelList()">엑셀파일</button>
                 <div class="all_number_text">총 건수: ${totalCount}건</div>
               </div>
               <!--  -->
@@ -295,6 +295,7 @@
 	                                <td>${getMovementLogList.item_detail_no}</td>
 	                                <td>${getMovementLogList.member_nm}</td>
 	                                <td>${getMovementLogList.access_ip}</td>
+	                                <td>
 	                                	<c:choose>
 		                                	<c:when test="${getMovementLogList.access_type eq 0}">
 		                               			 삽입
@@ -306,6 +307,7 @@
 		                               			 삭제
 		                               		</c:when>		                               				                               		
 	                               		</c:choose>
+	                               	</td>
 	                                <td><button class="custom_btn btn_edit" data-bs-toggle="modal" data-bs-target="#view_Modal_2" type="button" onclick="movementLogView('${getMovementLogList.item_idx}')">보기</button></td>
 	                              </tr>
                              </c:forEach>
@@ -451,34 +453,55 @@
 	    				success : function(data) {  
 							
 	    					 $.each(data.getMovementDetailLogList, function(idx, item){
+	    						
 	    						 var new_dataEtc = [];
 	    						 var step = 0;
-	    						 jold_data =JSON.parse(item.old_data)
+	    						 var jold_data = '';
+	    						 var jnew_data = '';
+	    						 
+	    						 if(item.old_data != ''){
+	    							 jold_data =JSON.parse(item.old_data)
+	    						 }
 								 jnew_data =JSON.parse(item.new_data)
-								 
-	    						 $.each(jold_data, function(idx, item){
-	    				              var old_dataJson = jold_data[idx];
-	    				              var new_dataJson = jnew_data[idx];
-	    				              console.log(old_dataJson);
-	    				              console.log(new_dataJson);
-
-	    				              $.each(new_dataJson, function (idx3, item3) {
-
-	    				            	  new_dataEtc.push(item3);
-			    	                  });	    				              
-	    				              
-	    				              $.each(old_dataJson, function (idx2, item2) {
-		    				            	
-	 		    	                        $('#tblList').append("<tr><td>" + idx2 + "</td><td>"
-	 		    	                            + item2 + "</td><td>"+new_dataEtc[step]+"</td></tr>");
-	 		    	                        step++;
-			    	                  });
-
-	    						 })
-
+								 	
+								 if(item.old_data != '' && item.old_data != null){
+		    						 $.each(jold_data, function(idx, item){
+		    				              var old_dataJson = jold_data[idx];
+		    				              var new_dataJson = jnew_data[idx];
+	
+		    				              $.each(new_dataJson, function (idx3, item3) {
+		    				            	  new_dataEtc.push(item3);
+				    	                  });	    				              
+		    				              
+		    				              $.each(old_dataJson, function (idx2, item2) {			    				            	
+		 		    	                        $('#tblList').append("<tr><td>" + idx2 + "</td><td>"
+		 		    	                            + item2 + "</td><td>"+new_dataEtc[step]+"</td></tr>");
+		 		    	                        step++;
+				    	                  });
+		    						 })
+								 }else{
+									 $.each(jnew_data, function(idx, item){
+		    				              var new_dataJson = jnew_data[idx];
+	
+		    				              $.each(new_dataJson, function (idx3, item3) {
+		    				            	  
+		    				            	  $('#tblList').append("<tr><td>" + idx3 + "</td><td></td><td>"+item3+"</td></tr>");
+			 		    	                      
+				    	                  });	    				              
+	
+		    						 })
+								 }
 		    					 
 	    					 })
 	    				}
 	    			});
+	    		}
+	    		
+	    		function movementHistoryExcelList() {
+	    			var $form = $('#ExcelForm');
+	    				$('#search_page').val(1);
+	    				
+	    				$form.attr("action", "/movementHistoryExcelDownload.do");
+	    				$form.submit();
 	    		}
             </script>

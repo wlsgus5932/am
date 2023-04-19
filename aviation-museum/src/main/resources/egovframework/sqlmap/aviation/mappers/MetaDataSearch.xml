@@ -46,7 +46,7 @@
 					,(SELECT ncc.CLASS1_NM from nam_taxonomy nt join nam_class1_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS1_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS1_NM
 					,(SELECT ncc.CLASS2_NM from nam_taxonomy nt join nam_class2_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS2_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS2_NM
 					,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS3_NM
-					,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
+					,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE WHERE a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 				from nam_item_base nib
 				LEFT join nam_country_era nce2 
 				on nib.ITEM_IDX = nce2.ITEM_IDX
@@ -225,7 +225,7 @@
 					,(SELECT ncc.CLASS1_NM from nam_taxonomy nt join nam_class1_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS1_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS1_NM
 					,(SELECT ncc.CLASS2_NM from nam_taxonomy nt join nam_class2_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS2_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS2_NM
 					,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS3_NM
-					,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
+					,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE WHERE a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 				from nam_item_base nib
 				LEFT join nam_country_era nce2 
 				on nib.ITEM_IDX = nce2.ITEM_IDX
@@ -400,7 +400,7 @@
 					,(SELECT ncc.CLASS1_NM from nam_taxonomy nt join nam_class1_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS1_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS1_NM
 					,(SELECT ncc.CLASS2_NM from nam_taxonomy nt join nam_class2_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS2_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS2_NM
 					,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = nib.item_idx limit 1) as CLASS3_NM
-					,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
+					,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE WHERE a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 				from nam_item_base nib
 				LEFT join nam_country_era nce2 
 				on nib.ITEM_IDX = nce2.ITEM_IDX
@@ -566,7 +566,7 @@
 						,(SELECT ncc.CLASS1_NM from nam_taxonomy nt join nam_class1_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS1_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS1_NM
 						,(SELECT ncc.CLASS2_NM from nam_taxonomy nt join nam_class2_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS2_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS2_NM
 						,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS3_NM
-						,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
+						,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE WHERE a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 					FROM 
 						nam_image ni
 					left join nam_item_base nib 
@@ -733,7 +733,7 @@
 						,(SELECT ncc.CLASS1_NM from nam_taxonomy nt join nam_class1_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS1_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS1_NM
 						,(SELECT ncc.CLASS2_NM from nam_taxonomy nt join nam_class2_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS2_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS2_NM
 						,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS3_NM
-						,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
+						,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE WHERE a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 					FROM 
 						nam_image ni
 					left join nam_item_base nib 
@@ -901,7 +901,7 @@
 						,(SELECT ncc.CLASS1_NM from nam_taxonomy nt join nam_class1_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS1_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS1_NM
 						,(SELECT ncc.CLASS2_NM from nam_taxonomy nt join nam_class2_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS2_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS2_NM
 						,(SELECT ncc.CLASS3_NM from nam_taxonomy nt join nam_class3_code ncc on nt.CLASS1_CODE_IDX = ncc.CLASS3_CODE_IDX WHERE nt.item_idx = ni.ITEM_IDX limit 1) as CLASS3_NM
-						,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE AND a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
+						,(SELECT a.CURRENT_QTY FROM nam_movement AS a INNER JOIN (SELECT ITEM_IDX, MAX(REG_DATE) AS REG_DATE FROM nam_movement GROUP BY ITEM_IDX) AS b ON a.REG_DATE = b.REG_DATE WHERE a.ITEM_IDX = b.ITEM_IDX AND a.ITEM_IDX = nib.ITEM_IDX) as CURRENT_QTY
 					FROM 
 						nam_image ni
 					left join nam_item_base nib 
