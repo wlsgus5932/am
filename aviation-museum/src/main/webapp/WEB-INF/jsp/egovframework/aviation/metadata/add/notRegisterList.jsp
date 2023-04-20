@@ -2859,31 +2859,31 @@
           </div>
           <!-- 내용물 -->
           <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item">
+            <li class="nav-item" style="width: 20%;">
                 <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                     <span class="d-none d-sm-block">기본 사항</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="width: 20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                     <span class="d-none d-sm-block">이동 사항(0)</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="width: 20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#messages" role="tab">
                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                     <span class="d-none d-sm-block">이미지(0)</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="width: 20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#settings" role="tab">
                     <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
                     <span class="d-none d-sm-block">보존처리(0)</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="width: 20%;">
               <a class="nav-link" data-bs-toggle="tab" href="#settings22" role="tab">
                   <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
                   <span class="d-none d-sm-block">전문정보(0)</span>

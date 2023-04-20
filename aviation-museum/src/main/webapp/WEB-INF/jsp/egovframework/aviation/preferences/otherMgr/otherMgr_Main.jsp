@@ -939,7 +939,7 @@
             <!--  -->
           </div>
           <!-- 내용물 -->
-          <ul class="nav nav-tabs" role="tablist">
+          <ul class="nav nav-tabs" role="tablist" style="max-width: 234px;">
             <li class="nav-item">
                 <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab" id="tagMgr">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
