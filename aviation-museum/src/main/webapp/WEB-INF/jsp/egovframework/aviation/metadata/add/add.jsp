@@ -2595,7 +2595,7 @@
 		$('#afterChangeTd').children().remove();
 		if(val == '1') {
 			$('#itemChangeRadio1').prop('disabled', false);
-			$('#itemChangeTbody > tr:eq(3) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected value="">선택</option></select>')
+			$('#itemChangeTbody > tr:eq(2) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected value="">선택</option></select>')
 			item1.forEach(e=>{
 				$('#itemChangeSelect').append('<option value="'+e.value+'">'+e.name+'</option>')
 			});
@@ -2603,7 +2603,7 @@
 			$('#itemChangeTbody').append('<tr id="itemChangeTr2"><td>변경후값</td><td id="afterChangeTd"></td></tr>')
 		} else if(val == '2') {
 			$('#itemChangeRadio1').prop('disabled', false);
-			$('#itemChangeTbody > tr:eq(3) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected value="">선택</option></select>')
+			$('#itemChangeTbody > tr:eq(2) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected value="">선택</option></select>')
 			item2.forEach(e=> {
 				$('#itemChangeSelect').append('<option value="'+e.value+'">'+e.name+'</option>')
 			})
@@ -2619,8 +2619,8 @@
 			$('#itemChangeTr1').append('<td><input class="form-control st_input" type="date" name="change_movement_date"></td>')
 			$('#itemChangeTr2').append('<td><select class="search_select" name="storage_type1_code_idx" id="storage_type1_code_idx" onchange="change_storageType2(this.value)">' +
                     '<option selected value="">선택</option>' +
-                    '<c:forEach var="list" items="${storage1List}" varStatus="status"><option value="${list.storage_type1_code_idx}">${list.storage_type1_nm}</option></c:forEach></td>' +
-                  '<td><select class="search_select" name="storage_type2_code_idx" id="storage_type2_code_idx"><option selected value="">선택</option></select></td>')
+                    '<c:forEach var="list" items="${storage1List}" varStatus="status"><option value="${list.storage_type1_code_idx}">${list.storage_type1_nm}</option></c:forEach></select>' +
+                  '<select class="search_select" name="storage_type2_code_idx" id="storage_type2_code_idx"><option selected value="">선택</option></select></td>')
 			$('#itemChangeTr3').append('<td><select class="search_select" name="storage1_code_idx" id="change_storage1_code1" onchange="itemChangeStorage(this.value, 1)">' +
                     '<option selected value="">선택</option><c:forEach var="list" items="${storageCodeList}" varStatus="status"><option value="${list.storage_code_idx}">${list.storage_nm}</option>' +
                     '</c:forEach></select></td>')
