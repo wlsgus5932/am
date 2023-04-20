@@ -76,7 +76,7 @@
 	                      </select>
 	                    </td>
 	                    <td>
-	                      <input type="text" name="detail_search_word3" id="detail_search_word3" />
+	                      <input class="form-control st_input" type="text" name="detail_search_word3" id="detail_search_word3" />
 	                    </td>
 	                    <td>
 	                    </td>
@@ -703,11 +703,11 @@
 // 	    		}
 	    		 
 	 			$('#searchOperator1').on("change", function(){
-					$('#keyword2').css("display", "flex");
+					$('#keyword2').css("display", "revert");
 					
 				})
 				$('#searchOperator2').on("change", function(){
-					$('#keyword3').css("display", "flex");
+					$('#keyword3').css("display", "revert");
 				})
 				$("#reset").click(function(){
 				 	 $("#metaDataDetailSearchListForm")[0].reset();

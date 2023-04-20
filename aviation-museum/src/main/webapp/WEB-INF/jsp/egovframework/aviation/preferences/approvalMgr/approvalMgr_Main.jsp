@@ -272,7 +272,7 @@
 	          </div>
           </form>
           <!-- 탭 -->
-          <ul class="nav nav-tabs" role="tablist">
+          <ul class="nav nav-tabs" role="tablist" style="max-width: 228px;">
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab" id="erasureMgr">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>

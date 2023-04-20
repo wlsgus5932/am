@@ -2595,7 +2595,7 @@
 		$('#afterChangeTd').children().remove();
 		if(val == '1') {
 			$('#itemChangeRadio1').prop('disabled', false);
-			$('#itemChangeTbody > tr:eq(3) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected value="">선택</option></select>')
+			$('#itemChangeTbody > tr:eq(2) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected value="">선택</option></select>')
 			item1.forEach(e=>{
 				$('#itemChangeSelect').append('<option value="'+e.value+'">'+e.name+'</option>')
 			});
@@ -2603,7 +2603,7 @@
 			$('#itemChangeTbody').append('<tr id="itemChangeTr2"><td>변경후값</td><td id="afterChangeTd"></td></tr>')
 		} else if(val == '2') {
 			$('#itemChangeRadio1').prop('disabled', false);
-			$('#itemChangeTbody > tr:eq(3) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected value="">선택</option></select>')
+			$('#itemChangeTbody > tr:eq(2) > td:eq(1)').append('<select id="itemChangeSelect" class="search_select" onchange="itemChange2(this.value)"><option selected value="">선택</option></select>')
 			item2.forEach(e=> {
 				$('#itemChangeSelect').append('<option value="'+e.value+'">'+e.name+'</option>')
 			})
@@ -2619,8 +2619,8 @@
 			$('#itemChangeTr1').append('<td><input class="form-control st_input" type="date" name="change_movement_date"></td>')
 			$('#itemChangeTr2').append('<td><select class="search_select" name="storage_type1_code_idx" id="storage_type1_code_idx" onchange="change_storageType2(this.value)">' +
                     '<option selected value="">선택</option>' +
-                    '<c:forEach var="list" items="${storage1List}" varStatus="status"><option value="${list.storage_type1_code_idx}">${list.storage_type1_nm}</option></c:forEach></td>' +
-                  '<td><select class="search_select" name="storage_type2_code_idx" id="storage_type2_code_idx"><option selected value="">선택</option></select></td>')
+                    '<c:forEach var="list" items="${storage1List}" varStatus="status"><option value="${list.storage_type1_code_idx}">${list.storage_type1_nm}</option></c:forEach></select>' +
+                  '<select class="search_select" name="storage_type2_code_idx" id="storage_type2_code_idx"><option selected value="">선택</option></select></td>')
 			$('#itemChangeTr3').append('<td><select class="search_select" name="storage1_code_idx" id="change_storage1_code1" onchange="itemChangeStorage(this.value, 1)">' +
                     '<option selected value="">선택</option><c:forEach var="list" items="${storageCodeList}" varStatus="status"><option value="${list.storage_code_idx}">${list.storage_nm}</option>' +
                     '</c:forEach></select></td>')
@@ -3196,7 +3196,7 @@
                                 <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <ul class="nav nav-tabs" role="tablist">
+                            <ul class="nav nav-tabs" role="tablist" style="width: 42%;">
 					            <li class="nav-item">
 					                <a class="nav-link active" data-bs-toggle="tab" onclick="changeTabDiv('all')">
 					                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
@@ -3217,14 +3217,14 @@
                                         <table class="table mb-0">
                                             <tbody id="itemChangeTbody">
                                              <tr>
-                                                <td>자료구분</td>
+                                                <td style="width: 15%;">자료구분</td>
                                                     <td>
-	                                                    <select class="search_select" name="org_code_idx">
+	                                                    <select class="search_select" name="org_code_idx" style="width: 49%;">
 										                    <c:forEach var="list" items="${orgList}" varStatus="status">
 										                           <option value="${list.org_code_idx}" <c:if test ="${list.org_nm eq '항공박물관'}">selected="selected"</c:if>>${list.org_nm}</option>
 										                     </c:forEach>
 										                  </select>
-										                  <select class="search_select" name="possession_code_idx" id="itemChangePossession">
+										                  <select class="search_select" name="possession_code_idx" id="itemChangePossession" style="width: 49%;">
 										                      <option value="" selected>선택</option>
 										                      		<c:forEach var="list" items="${posSessionList}" varStatus="status">
 												                           <option value="${list.possession_code_idx}">${list.possession_nm}</option>
@@ -3235,26 +3235,26 @@
                                                 </tr>
                                                 <tr>
                                                   <td>자료번호</td>
-                                                    <td id="item_base_td">
-                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="itemChangeItemNo" name="item_no" placeholder="자료번호" style="width:100px;">
-                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_detail_no" placeholder="세부번호" style="width:100px;">
-                                                      <span id="changeSpan">~</span>
-                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_no1" placeholder="자료번호" style="width:100px;">
-                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_detail_no1" placeholder="세부번호" style="width:100px;">
+                                                    <td id="item_base_td" style="display: flex; justify-content: space-around;">
+                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id="itemChangeItemNo" name="item_no" placeholder="자료번호" style="width:23%;">
+                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_detail_no" placeholder="세부번호" style="width:23%">
+                                                      <span id="changeSpan" style="line-height: 38px;">~</span>
+                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_no1" placeholder="자료번호" style="width:23%">
+                                                      <input class="form-control st_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="item_detail_no1" placeholder="세부번호" style="width:23%">
                                                       <button type="button" id="getChangeDataBtn" style="display:none;" class="btn btn-secondary btn_save" onclick="getChangeData()">조회</button>
                                                     </td>
                                                 </tr>
-                                                <tr id="changeTable"></tr>
+<!--                                                 <tr id="changeTable"></tr> -->
                                                 <tr>
                                                   <td>변경항목</td>
                                                     <td>
-                                                    	<select class="search_select" id="firstChangeSelect" onchange="itemChange(this.value)">
+                                                    	<select class="search_select" id="firstChangeSelect" onchange="itemChange(this.value)" style="width: 49%;">
                                                     		<option value="" selected>선택</option>
                                                     		<option value="1">필수항목</option>
                                                     		<option value="2">관리항목</option>
                                                     		<option value="3">이동항목</option>
                                                     	</select>
-                                                    	<select class="search_select" id="itemChangeSelect" onchange="itemChange2(this.value)">
+                                                    	<select class="search_select" id="itemChangeSelect" onchange="itemChange2(this.value)" style="width: 49%;">
                                                     		<option value="" selected>선택</option>
                                                     	</select>
                                                     </td>
@@ -3274,17 +3274,22 @@
                                                 </tr>
                                                 <tr id="itemChangeTr1">
                                                   <td>변경전값</td>
-                                                  <td id="beforeChangeTd"></td>
+                                                  <td id="beforeChangeTd" style="width: 100%"></td>
                                                 </tr>
                                                 <tr id="itemChangeTr2">
                                                   <td>변경후값</td>
-                                                  <td id="afterChangeTd"></td>
+                                                  <td id="afterChangeTd" style="width: 100%"></td>
                                                 </tr>
                                             </tbody>
+                                            
                                         </table>
+                                        	<div id="changeTable"></div>
                                         	</form>
-                                        <button type="button" class="btn btn-secondary btn_save" onclick="doAllChangeItem()">변경</button>
-                                        <button type="button" class="btn btn-secondary btn_save" data-bs-dismiss="modal" aria-label="Close">닫기</button>
+										<div class="user_in_modal_footer_wrap">
+                                        	<button type="button" class="custom_btn btn_c58672 user_in_modal_footer_btn" onclick="doAllChangeItem()">변경</button>
+                                        	<button type="button" class="custom_btn btn_c58672 user_in_modal_footer_btn" data-bs-dismiss="modal" aria-label="Close">닫기</button>
+										</div>                                        	
+
                                     </div>
                             	</div>
                             	</div>
@@ -3352,31 +3357,31 @@
           </div>
           <!-- 내용물 -->
           <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item">
+            <li class="nav-item" style="width: 20%;">
                 <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                     <span class="d-none d-sm-block">기본 사항</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="width: 20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                     <span class="d-none d-sm-block">이동 사항(0)</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="width: 20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#messages" role="tab">
                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                     <span class="d-none d-sm-block">이미지(0)</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="width: 20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#settings" role="tab">
                     <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
                     <span class="d-none d-sm-block">보존처리(0)</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="width: 20%;">
               <a class="nav-link" data-bs-toggle="tab" href="#settings22" role="tab">
                   <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
                   <span class="d-none d-sm-block">전문정보(0)</span>

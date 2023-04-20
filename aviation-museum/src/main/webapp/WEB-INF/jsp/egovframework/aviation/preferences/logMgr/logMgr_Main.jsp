@@ -164,7 +164,7 @@
             <p>환경설정 > <span>로그관리</span></p>
           </div>
           <!-- 탭 -->
-          <ul class="nav nav-tabs" role="tablist">
+          <ul class="nav nav-tabs" role="tablist" style="max-width: 729px;">
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#datareview_1" role="tab" id="dataHistory">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>

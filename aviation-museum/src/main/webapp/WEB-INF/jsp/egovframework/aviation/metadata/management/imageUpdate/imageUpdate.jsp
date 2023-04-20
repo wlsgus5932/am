@@ -297,7 +297,7 @@
           </div>
           <!--  -->
           <div class="search_top_wrap">
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="nav nav-tabs" role="tablist" style="max-width: 139px;">
               <li class="nav-item">
                 <a class="nav-link active" data-bs-toggle="tab" href="#imageUpdateList" role="tab" id="imageUpdate">
                   <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
