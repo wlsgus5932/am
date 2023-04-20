@@ -24,12 +24,14 @@
     <!-- 커스텀 css -->
     <link href="assets/css/custom.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="assets/css/custom_auto_upload.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.5/xlsx.full.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
   
   <script>
   
   let excelData = [];
+  let xlsxRow = [];
   const uploadMetaDataExcel = () => {
 	  $('#excel_tbody').children().remove();
 	  let form = $('#uploadMetaDataExcelForm')[0];
@@ -97,7 +99,7 @@
   	 }
    };
   
-  const clickModify = async val => {
+  /* const clickModify = async val => {
 	  console.log(excelData[val])
 	  let fff = false;
 	  let mateTF = false;
@@ -140,7 +142,87 @@
 	  mateTF ? $('#modal_insu_price_unit_code_idx').val(priceUnit) : $('#modal_insu_price_unit_code_idx').val();
 	  
 	  $('#data_edit_modal_1').modal('show');
+  } */
+  
+  const clickModify = async val => {
+	  console.log(xlsxRow[val])
+	  let fff = false;
+	  let mateTF = false;
+	  let priceUnitTF = false;
+	  
+	  $('#modal_item_nm').val(excelData[val].명칭);
+	  $('#modal_item_se_nm').val(excelData[val].이명칭);
+	  $('#modal_item_no').val(excelData[val].소장품번호);
+	  $('#modal_item_detail_no').val(excelData[val].세부번호);
+	  $('#modal_qty').val(excelData[val].주수량);
+	  $('#modal_agreed_value').val(excelData[val].보험관계기록평가액);
+	  
+	  let pos = $('#modal_possession_code_idx option:contains(' + excelData[val].possession_nm + ')').val();
+	  let qty  = $('#modal_qty_unit_code_idx option:contains(' + excelData[val].qty_unit_nm + ')').val();
+	  let country  = $('#modal_country_code_idx option:contains(' + excelData[val].country_nm + ')').val();
+	  let mate = $('#modal_material1_code_idx option:contains(' + excelData[val].material1_nm + ')').val();
+	  $('#modal_possession_code_idx').val(pos);
+	  $('#modal_qty_unit_code_idx').val(qty);
+	  $('#modal_country_code_idx').val(country);
+	  $('#modal_material1_code_idx').val(mate);
+	  await changeCountry(country);
+	  await changeMaterial(mate);
+	  let era  = $('#modal_era_code_idx option:contains(' + excelData[val].era_nm + ')').val();
+	  let mate2  = $('#modal_material2_code_idx option:contains(' + excelData[val].material2_nm + ')').val();
+	  let priceUnit  = $('#modal_insu_price_unit_code_idx option:contains(' + excelData[val].price_unit_nm + ')').val();
+	  
+	  $('#modal_era_code_idx option').each(function() {
+		  this.text == excelData[val].era_nm ? fff = true : '';
+	   });
+	  fff ? $('#modal_era_code_idx').val(era) : $('#modal_era_code_idx').val('0');
+	  
+	  $('#modal_material2_code_idx option').each(function() {
+		  this.text == excelData[val].material2_nm ? mateTF = true : '';
+	   });
+	  mateTF ? $('#modal_material2_code_idx').val(mate2) : $('#modal_material2_code_idx').val();
+	  
+	  $('#modal_insu_price_unit_code_idx option').each(function() {
+		  this.text == excelData[val].price_unit_nm ? priceUnitTF = true : '';
+	   });
+	  mateTF ? $('#modal_insu_price_unit_code_idx').val(priceUnit) : $('#modal_insu_price_unit_code_idx').val();
+	  
+	  $('#data_edit_modal_1').modal('show');
   }
+  
+  
+  const readExcel = () => {
+	    let input = event.target;
+	    let reader = new FileReader();
+	    let cnt = 0;
+	    reader.onload = () => {
+	        let data = reader.result;
+	        let workBook = XLSX.read(data, { type: 'binary' });
+	        workBook.SheetNames.forEach(sheetName => {
+	            if(sheetName == 'code') return;
+	            console.log('SheetName: ' + sheetName);
+	            excelData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
+	            /* xlsxRow = rows; */
+	           excelData.splice(excelData.length-1);
+	        })
+		    excelData.forEach((e, i)=> {
+		    	$('#excel_tbody').append('<tr>' +
+	                    '<td><input type="checkbox" name="" id=""></td>' +
+	                     '<td>'+(i+1)+'</td>' +
+	                     '<td>'+e.소장구분명+'</td>' +
+	                     '<td>'+e.소장품번호+'</td>' +
+	                     '<td>'+e.세부번호+'</td>' +
+	                     '<td>'+e.주수량+'</td>' +
+	                     '<td>'+e.주수량단위+'</td>' +
+	                     '<td>'+e.명칭+'</td>' +
+	                     '<td>'+e.이명칭+'</td>' +
+	                     '<td>정상</td>'+
+	                     '<td><button onclick="clickModify('+i+')">수정</button></td></tr>');
+		    })
+		    console.log(excelData[0].보험정보_평가액)
+		    console.log(excelData[0])
+	    };
+	    reader.readAsBinaryString(input.files[0]);
+	}
   </script>
 
   <body data-sidebar="dark">
@@ -237,9 +319,10 @@
                 </div>
                 <div class="auto_btn_right">
 	                <button>엑셀 양식 다운로드</button>
-	                <form id="uploadMetaDataExcelForm" method="post" action="/uploadMetaDataExcel.do" enctype="multipart/form-data">
+	                <%-- <form id="uploadMetaDataExcelForm" method="post" action="/uploadMetaDataExcel.do" enctype="multipart/form-data">
 		                <input type="file" name="uploadExcel" onchange="uploadMetaDataExcel()" accept=".xlsx, .xls"/>
-	                </form>
+	                </form> --%>
+	                <input type="file" onchange="readExcel()" accept=".xlsx, .xls"/>
 	                <button>양식업로드</button>
 	                <button data-bs-toggle="modal" data-bs-target="#NomalModal">데이터전환</button>
                 </div>

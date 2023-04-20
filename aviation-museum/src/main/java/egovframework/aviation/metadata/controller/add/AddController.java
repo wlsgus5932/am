@@ -1,18 +1,18 @@
 package egovframework.aviation.metadata.controller.add;
 
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -866,10 +866,10 @@ public class AddController {
         		"reference",
         		"item_eng_nm"
         };
-        List<Map<String, Object>> data = new ArrayList<>();
+        List<Map<String, String>> data = new ArrayList<>();
         
         for (Row row : sheet) {
-          Map<String, Object> map = new HashMap<>();
+          Map<String, String> map = new HashMap<>();
           j = 0;
           for (Cell cell : row) {
         	  if(i != 0 && i != 1) {
@@ -879,18 +879,11 @@ public class AddController {
 	                    break;
 	                }
 	                case NUMERIC: {
-	                	System.out.println("format1:::"+cell.getNumericCellValue() + "");
-	                	
-//	                		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-mm-dd");
-//	                		Date format1 = sdf1.parse(cell.getNumericCellValue() + "");
-//	                		map.put(names[j], format1);
-//	                	} else {
-//	                		map.put(names[j], cell.getNumericCellValue() + "");
-//	                	}
-	                   /* if (DateUtil.isCellDateFormatted(cell)) {
+	                    if (DateUtil.isCellDateFormatted(cell)) {
 	                    	map.put(names[j], cell.getDateCellValue() + "");
 	                    } else {
-	                    }*/
+	                    	map.put(names[j], cell.getNumericCellValue() + "");
+	                    }
 	                    break;
 	                }
 	                case BOOLEAN: {
