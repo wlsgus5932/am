@@ -101,6 +101,7 @@
 	  console.log(excelData[val])
 	  let fff = false;
 	  let mateTF = false;
+	  let priceUnitTF = false;
 	  
 	  $('#modal_item_nm').val(excelData[val].item_nm);
 	  $('#modal_item_se_nm').val(excelData[val].item_se_nm);
@@ -121,6 +122,7 @@
 	  await changeMaterial(mate);
 	  let era  = $('#modal_era_code_idx option:contains(' + excelData[val].era_nm + ')').val();
 	  let mate2  = $('#modal_material2_code_idx option:contains(' + excelData[val].material2_nm + ')').val();
+	  let priceUnit  = $('#modal_insu_price_unit_code_idx option:contains(' + excelData[val].price_unit_nm + ')').val();
 	  
 	  $('#modal_era_code_idx option').each(function() {
 		  this.text == excelData[val].era_nm ? fff = true : '';
@@ -132,7 +134,10 @@
 	   });
 	  mateTF ? $('#modal_material2_code_idx').val(mate2) : $('#modal_material2_code_idx').val();
 	  
-	  
+	  $('#modal_insu_price_unit_code_idx option').each(function() {
+		  this.text == excelData[val].price_unit_nm ? priceUnitTF = true : '';
+	   });
+	  mateTF ? $('#modal_insu_price_unit_code_idx').val(priceUnit) : $('#modal_insu_price_unit_code_idx').val();
 	  
 	  $('#data_edit_modal_1').modal('show');
   }
@@ -599,6 +604,38 @@
                             			</c:forEach>
                             	</select>
                             </td>
+		                  </tr>
+		                  <tr>
+		                  	<td>보험 대여기간</td>
+		                  	<td><input class="form-control st_input" type="date" name="movement_date">~<input class="form-control st_input" type="date" name="movement_date"></td>
+		                  </tr>
+		                  <tr>
+		                  	<td>보험 대여기관</td>
+		                  	<td><input class="custom_search_input custom_search_input_100" type="text" name="modal_rental_org" id="modal_rental_org" placeholder="" /></td>
+		                  </tr>
+		                  <tr>
+		                  	<td>보험정보 비고</td>
+		                  	<td><input class="custom_search_input custom_search_input_100" type="text" name="modal_rental_remark" id="modal_rental_remark" placeholder="" /></td>
+		                  </tr>
+		                  <tr>
+		                  	<td>자료기록자</td>
+		                  	<td><input class="custom_search_input custom_search_input_100" type="text" name="modal_data_recorder" id="modal_data_recorder" placeholder="" /></td>
+		                  </tr>
+		                  <tr>
+		                  	<td>자료입력자</td>
+		                  	<td><input class="custom_search_input custom_search_input_100" type="text" name="modal_reg_user" id="modal_reg_user" placeholder="" /></td>
+		                  </tr>
+		                  <tr>
+		                  	<td>비고</td>
+		                  	<td><input class="custom_search_input custom_search_input_100" type="text" name="modal_remark" id="modal_remark" placeholder="" /></td>
+		                  </tr>
+		                  <tr>
+		                  	<td>참고자료</td>
+		                  	<td><input class="custom_search_input custom_search_input_100" type="text" name="modal_reference" id="modal_reference" placeholder="" /></td>
+		                  </tr>
+		                  <tr>
+		                  	<td>영문명칭</td>
+		                  	<td><input class="custom_search_input custom_search_input_100" type="text" name="modal_item_eng_nm" id="modal_item_eng_nm" placeholder="" /></td>
 		                  </tr>
 		                </tbody>
 		              </table>
