@@ -86,7 +86,7 @@
             </div>
           </div>
           <!-- 탭 -->
-          <ul class="nav nav-tabs" role="tablist">
+          <ul class="nav nav-tabs" role="tablist" style="max-width: 408px;">
             <li class="nav-item" onclick="changeTabName('P')">
                 <a class="nav-link active" data-bs-toggle="tab" href="#profile" role="tab">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>

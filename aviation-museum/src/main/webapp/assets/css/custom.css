@@ -443,7 +443,7 @@ td {
 }
 
 .nav-item {
-  width: 20%;
+  width: auto;
   text-align: center;
 }
 
@@ -1597,5 +1597,5 @@ input::-webkit-inner-spin-button {
 }
 
 .custom_search_input_100 {
-	width: 100%;
+	width: 100% !important;
 }
