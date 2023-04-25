@@ -295,7 +295,7 @@
                       </thead>
                       <tbody id="gallery">
 	                       <c:forEach var="metaDataSearchList" items="${metaDataSearchList}">
-		                        <tr>
+		                        <tr onclick="quickView('${metaDataSearchList.item_idx}');">
 		                          <td id="checkbox2">
 		                             <input type="checkbox" name="group_seqList" class="check_temp" id="" value="${metaDataSearchList.item_idx}">
 		                          </td>
@@ -312,7 +312,7 @@
 		                            	</c:choose>
 		                            </div>
 		                          </td>
-		                          <td onclick="quickView('${metaDataSearchList.item_idx}');">${metaDataSearchList.possession_nm}</td>
+		                          <td>${metaDataSearchList.possession_nm}</td>
 		                          <td>${metaDataSearchList.item_no}</td>
 		                          <td>${metaDataSearchList.item_detail_no}</td>
 		                          <td><a onclick="metaDataListView('${metaDataSearchList.possession_code_idx}','${metaDataSearchList.org_code_idx}','${metaDataSearchList.item_no}','${metaDataSearchList.item_detail_no}','Y')">${metaDataSearchList.item_nm}</a></td>
