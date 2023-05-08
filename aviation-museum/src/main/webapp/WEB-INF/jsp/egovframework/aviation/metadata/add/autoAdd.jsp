@@ -31,7 +31,8 @@
   <script>
   
   let excelData = [];
-  let xlsxRow = [];
+  let movementData = [];
+  
   const uploadMetaDataExcel = () => {
 	  $('#excel_tbody').children().remove();
 	  let form = $('#uploadMetaDataExcelForm')[0];
@@ -48,7 +49,7 @@
 	        dataType: 'json',
 	        success: function(data) {
 	            excelData = data.excelList;
-	            console.log(excelData);
+	            console.log("excelDAta::::",excelData);
 	            data.excelList.forEach((e, i) => {
 		            $('#excel_tbody').append('<tr>' +
 	                       '<td><input type="checkbox" name="" id=""></td>' +
@@ -66,7 +67,46 @@
 	        },
 	        error: function(e) {
 	            console.log(e);
-	            alert('파일업로드 실패');
+	            alert('엑셀 업로드 실패');
+	        }
+	    });
+  }
+  
+  const uploadMovementDataExcel = () => {
+	  $('#excel_movement_tbody').children().remove();
+	  let form = $('#uploadMovementDataExcelForm')[0];
+	  let frmData = new FormData(form);
+
+	    $.ajax({
+	        enctype: 'multipart/form-data',
+	        type: 'POST',
+	        url: '/uploadMetaDataExcel.do',
+	        processData: false,   
+	        contentType: false,
+	        cache: false,
+	        data: frmData,
+	        dataType: 'json',
+	        success: function(data) {
+	            excelData = data.excelList;
+	            console.log("excelDAta::::",excelData);
+	            data.excelList.forEach((e, i) => {
+		            $('#excel_tbody').append('<tr>' +
+	                       '<td><input type="checkbox" name="" id=""></td>' +
+	                        '<td>'+(i+1)+'</td>' +
+	                        '<td>'+e.possession_nm+'</td>' +
+	                        '<td>'+e.item_no+'</td>' +
+	                        '<td>'+e.item_detail_no+'</td>' +
+	                        '<td>'+e.qty+'</td>' +
+	                        '<td>'+e.qty_unit_nm+'</td>' +
+	                        '<td>'+e.item_nm+'</td>' +
+	                        '<td>'+e.item_se_nm+'</td>' +
+	                        '<td>정상</td>'+
+	                        '<td><button onclick="clickModify('+i+')">수정</button></td></tr>');
+	            })
+	        },
+	        error: function(e) {
+	            console.log(e);
+	            alert('엑셀 업로드 실패');
 	        }
 	    });
   }
@@ -99,8 +139,7 @@
   	 }
    };
   
-  /* const clickModify = async val => {
-	  console.log(excelData[val])
+  const clickModify = async val => {
 	  let fff = false;
 	  let mateTF = false;
 	  let priceUnitTF = false;
@@ -111,51 +150,15 @@
 	  $('#modal_item_detail_no').val(excelData[val].item_detail_no);
 	  $('#modal_qty').val(excelData[val].qty);
 	  $('#modal_agreed_value').val(excelData[val].agreed_value);
-	  
-	  let pos = $('#modal_possession_code_idx option:contains(' + excelData[val].possession_nm + ')').val();
-	  let qty  = $('#modal_qty_unit_code_idx option:contains(' + excelData[val].qty_unit_nm + ')').val();
-	  let country  = $('#modal_country_code_idx option:contains(' + excelData[val].country_nm + ')').val();
-	  let mate = $('#modal_material1_code_idx option:contains(' + excelData[val].material1_nm + ')').val();
-	  $('#modal_possession_code_idx').val(pos);
-	  $('#modal_qty_unit_code_idx').val(qty);
-	  $('#modal_country_code_idx').val(country);
-	  $('#modal_material1_code_idx').val(mate);
-	  await changeCountry(country);
-	  await changeMaterial(mate);
-	  let era  = $('#modal_era_code_idx option:contains(' + excelData[val].era_nm + ')').val();
-	  let mate2  = $('#modal_material2_code_idx option:contains(' + excelData[val].material2_nm + ')').val();
-	  let priceUnit  = $('#modal_insu_price_unit_code_idx option:contains(' + excelData[val].price_unit_nm + ')').val();
-	  
-	  $('#modal_era_code_idx option').each(function() {
-		  this.text == excelData[val].era_nm ? fff = true : '';
-	   });
-	  fff ? $('#modal_era_code_idx').val(era) : $('#modal_era_code_idx').val('0');
-	  
-	  $('#modal_material2_code_idx option').each(function() {
-		  this.text == excelData[val].material2_nm ? mateTF = true : '';
-	   });
-	  mateTF ? $('#modal_material2_code_idx').val(mate2) : $('#modal_material2_code_idx').val();
-	  
-	  $('#modal_insu_price_unit_code_idx option').each(function() {
-		  this.text == excelData[val].price_unit_nm ? priceUnitTF = true : '';
-	   });
-	  mateTF ? $('#modal_insu_price_unit_code_idx').val(priceUnit) : $('#modal_insu_price_unit_code_idx').val();
-	  
-	  $('#data_edit_modal_1').modal('show');
-  } */
-  
-  const clickModify = async val => {
-	  console.log(xlsxRow[val])
-	  let fff = false;
-	  let mateTF = false;
-	  let priceUnitTF = false;
-	  
-	  $('#modal_item_nm').val(excelData[val].명칭);
-	  $('#modal_item_se_nm').val(excelData[val].이명칭);
-	  $('#modal_item_no').val(excelData[val].소장품번호);
-	  $('#modal_item_detail_no').val(excelData[val].세부번호);
-	  $('#modal_qty').val(excelData[val].주수량);
-	  $('#modal_agreed_value').val(excelData[val].보험관계기록평가액);
+	  $('#modal_rental_org').val(excelData[val].rental_org);
+	  $('#modal_rental_remark').val(excelData[val].rental_remark);
+	  $('#modal_data_recorder').val(excelData[val].data_recorder);
+	  $('#modal_reg_user').val(excelData[val].reg_user);
+	  $('#modal_remark').val(excelData[val].remark);
+	  $('#modal_reference').val(excelData[val].reference);
+	  $('#modal_insu_start_date').val(excelData[val].start_date);
+	  $('#modal_insu_end_date').val(excelData[val].end_date);
+	  $('#modal_item_eng_nm').val(excelData[val].item_eng_nm);
 	  
 	  let pos = $('#modal_possession_code_idx option:contains(' + excelData[val].possession_nm + ')').val();
 	  let qty  = $('#modal_qty_unit_code_idx option:contains(' + excelData[val].qty_unit_nm + ')').val();
@@ -189,40 +192,21 @@
 	  $('#data_edit_modal_1').modal('show');
   }
   
-  
-  const readExcel = () => {
-	    let input = event.target;
-	    let reader = new FileReader();
-	    let cnt = 0;
-	    reader.onload = () => {
-	        let data = reader.result;
-	        let workBook = XLSX.read(data, { type: 'binary' });
-	        workBook.SheetNames.forEach(sheetName => {
-	            if(sheetName == 'code') return;
-	            console.log('SheetName: ' + sheetName);
-	            excelData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName]);
-	            /* xlsxRow = rows; */
-	           excelData.splice(excelData.length-1);
-	        })
-		    excelData.forEach((e, i)=> {
-		    	$('#excel_tbody').append('<tr>' +
-	                    '<td><input type="checkbox" name="" id=""></td>' +
-	                     '<td>'+(i+1)+'</td>' +
-	                     '<td>'+e.소장구분명+'</td>' +
-	                     '<td>'+e.소장품번호+'</td>' +
-	                     '<td>'+e.세부번호+'</td>' +
-	                     '<td>'+e.주수량+'</td>' +
-	                     '<td>'+e.주수량단위+'</td>' +
-	                     '<td>'+e.명칭+'</td>' +
-	                     '<td>'+e.이명칭+'</td>' +
-	                     '<td>정상</td>'+
-	                     '<td><button onclick="clickModify('+i+')">수정</button></td></tr>');
-		    })
-		    console.log(excelData[0].보험정보_평가액)
-		    console.log(excelData[0])
-	    };
-	    reader.readAsBinaryString(input.files[0]);
-	}
+  const autoAddMetaData = async () => {
+	   $.ajax({
+	        type: 'POST',
+	        url: '/autoAddMetaData.do',
+	        data: JSON.stringify(excelData),
+	        dataType: 'text',
+	        contentType: 'application/json; charset=UTF-8',
+	        success: function(data) {
+	        	data == 'success' ? (alert('등록완료'), $('#excel_tbody').children().remove()) : alert('오류가 발생했습니다');
+	        },
+	        error: function(e) {
+	            alert('엑셀 업로드 실패하였습니다 다시 시도해주세요');
+	        }
+	    });
+  }
   </script>
 
   <body data-sidebar="dark">
@@ -276,7 +260,7 @@
             </div>
           </div>
           <!-- 탭 -->
-          <ul class="nav nav-tabs" role="tablist" style="max-width: 205px;">
+          <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" data-bs-toggle="tab" href="#profile" role="tab">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
@@ -319,12 +303,13 @@
                 </div>
                 <div class="auto_btn_right">
 	                <button>엑셀 양식 다운로드</button>
-	                <%-- <form id="uploadMetaDataExcelForm" method="post" action="/uploadMetaDataExcel.do" enctype="multipart/form-data">
-		                <input type="file" name="uploadExcel" onchange="uploadMetaDataExcel()" accept=".xlsx, .xls"/>
-	                </form> --%>
-	                <input type="file" onchange="readExcel()" accept=".xlsx, .xls"/>
-	                <button>양식업로드</button>
-	                <button data-bs-toggle="modal" data-bs-target="#NomalModal">데이터전환</button>
+	                <form id="uploadMetaDataExcelForm" method="post" action="/uploadMetaDataExcel.do" enctype="multipart/form-data">
+	                	<label for="uploadExcel">
+						  	<div class="btn-upload">양식업로드</div>
+						</label>
+		                <input type="file" id="uploadExcel" name="uploadExcel" onchange="uploadMetaDataExcel()" accept=".xlsx, .xls" style="display:none;"/>
+	                </form>
+	                <button data-bs-toggle="modal" data-bs-target="#NomalModal" onclick="autoAddMetaData()">데이터전환</button>
                 </div>
               </div>
               <div class="mb-0">
@@ -528,8 +513,18 @@
               </div>
               <!-- -->
               <div class="st_wrap st_mv_wrap">
-                <div class="auto_btn_left"><button>선택 삭제</button><button>전체 삭제</button></div>
-                <div class="auto_btn_right"><button>엑셀 양식 다운로드</button><button>양식업로드</button><button data-bs-toggle="modal" data-bs-target="#MoveModal">데이터전환</button></div>
+                <div class="auto_btn_left">
+                	<button>선택 삭제</button>
+                	<button>전체 삭제</button>
+                </div>
+                <div class="auto_btn_right">
+                	<button>엑셀 양식 다운로드</button>
+                	<button>양식업로드</button>
+                	<form id="uploadMetaDataExcelForm" method="post" action="/uploadMovementDataExcel.do" enctype="multipart/form-data">
+		                <input type="file" name="uploadExcel" onchange="uploadMovementExcel()" accept=".xlsx, .xls"/>
+	                </form>
+                	<button data-bs-toggle="modal" data-bs-target="#MoveModal">데이터전환</button>
+                </div>
               </div>
               <div class="mb-0">
                 <!-- 이동사항 탭 내용 시작 -->
@@ -690,7 +685,7 @@
 		                  </tr>
 		                  <tr>
 		                  	<td>보험 대여기간</td>
-		                  	<td><input class="form-control st_input" type="date" name="movement_date">~<input class="form-control st_input" type="date" name="movement_date"></td>
+		                  	<td><input class="form-control st_input" type="date" name="modal_insu_start_date" id="modal_insu_start_date">~<input class="form-control st_input" type="date" name="modal_insu_end_date" id="modal_insu_end_date"></td>
 		                  </tr>
 		                  <tr>
 		                  	<td>보험 대여기관</td>
@@ -734,9 +729,6 @@
 		    </div>
 		  </div>
 		</div>
-        
-        
-        
         <footer class="footer">
           <div class="container-fluid">
             <div class="row">

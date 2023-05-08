@@ -781,55 +781,47 @@
 				now(),
 				#{mod_user}, 
 				#{mod_date}
-				<!-- <include refid="metadata_columns2"><property name="alias" value=""/></include> -->
-				<!-- #{org_code_idx}, 
-			    #{possession_code_idx}, 
-			    #{item_no}, 
-				#{item_nm}, 
-				#{qty}, 
-				#{qty_unit_code_idx}, 
-				#{reg_state}, 
-				#{reg_user}, 
-				now(),
-				#{condition_code_idx}, 
-			    <if test=" item_detail_no != null and item_detail_no != '' ">
-			    	#{item_detail_no},
-			    </if>
-			    <if test=" item_se_nm != null and item_se_nm != '' ">
-					#{item_se_nm}, 
-				</if>
-				<if test=" item_eng_nm != null and item_eng_nm != '' ">
-				#{item_eng_nm},
-				</if>
-				<if test=" author != null and author != '' ">
-				#{author}, 
-				</if>
-				<if test=" icao_code_idx != null and icao_code_idx != '' ">
-				#{icao_code_idx}, 
-				</if>
-				<if test=" existence_code_idx != null and existence_code_idx != '' ">
-				#{existence_code_idx}, 
-				</if>
-				<if test=" management_no != null and management_no != '' ">
-				#{management_no}, 
-				</if>
-				<if test=" preservation_need != null and preservation_need != '' ">
-				#{preservation_need},
-				</if>
-				<if test=" feature != null and feature != '' ">
-				#{feature}, 
-				</if>
-				<if test=" ranking_code_idx != null and ranking_code_idx != '' ">
-				#{ranking_code_idx}, 
-				</if>
-				<if test=" remark != null and remark != '' ">
-				#{remark}
-				</if> -->
 			);
 			
 			<selectKey resultType="int" keyProperty="item_idx" order="AFTER">
 		        SELECT LAST_INSERT_ID()
 		    </selectKey>
+	</insert>
+	
+	<insert id="setExcelMetaData" parameterType="java.util.Map">
+			insert into nam_item_base (
+				org_code_idx, 
+				possession_code_idx, 
+				item_no, 
+				item_detail_no, 
+				item_nm, 
+				item_se_nm,
+				qty, 
+				qty_unit_code_idx, 
+				feature,
+				remark,
+				reg_state, 
+				reg_user, 
+				reg_date
+			)
+			values 
+			<foreach separator="," item="value" collection="maps">
+			(
+			'1',
+			(select possession_code_idx from nam_possession_code where possession_nm = #{value.possession_nm}),
+			#{value.item_no},
+			#{value.item_detail_no},
+			#{value.item_nm},
+			#{value.item_se_nm},
+			#{value.qty},
+			(select qty_unit_code_idx from nam_qty_unit_code where qty_unit_nm = #{value.qty_unit_nm}),
+			#{value.feature},
+			#{value.remark},
+			'N',
+			#{value.reg_user},
+			now()
+			) 
+			</foreach>
 	</insert>
 	
 	<update id="updateItemBase" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">
@@ -959,6 +951,39 @@
 				#{obt_obtainment_addr}, #{obt_obtainment_detail}, #{obt_record_date}, #{obt_designation}, #{obt_redemption}, #{obt_country_code_idx},
 				#{obt_qty}, #{obt_qty_unit_code_idx}, #{obt_redemption_date}
 			)
+	</insert>
+	
+	<insert id="setObtainmentExcel" parameterType="java.util.Map">
+			insert into nam_obtainment (
+				item_idx, 
+				obtainment_date, 
+				obtainment_code_idx, 
+				obtainment_price, 
+				price_unit_code_idx, 
+				obtainment_place,
+				obtainment_addr,
+				record_date
+			) 
+			values 
+				<foreach separator="," item="item" collection="maps">
+				(
+					(
+					select item_idx from nam_item_base where item_no = #{item.item_no}
+					<if test="item.item_detail_no != null and item.item_detail_no != '' ">
+						and item_detail_no = #{item.item_detail_no}
+					</if>
+					limit 1
+					),
+					<!-- (SELECT MAX(ITEM_IDX) FROM nam_item_base as nm),  -->
+					#{item.obtainment_date},
+					(select obtainment_code_idx from nam_obtainment_code where obtainment_nm = #{item.obtainment_nm}),
+					#{item.obtainment_price},
+					(select price_unit_code_idx from nam_price_unit_code where price_unit_nm = #{item.price_unit_nm}),
+					#{item.obtainment_place},
+					#{item.obtainment_addr},
+					#{item.obtainment_reg_date}
+				)
+				</foreach>
 	</insert>
 	
 	<update id="updateObtainment" parameterType="egovframework.aviation.metadata.vo.param.MetaDataParamVO">

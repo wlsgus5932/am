@@ -267,4 +267,8 @@ public interface MetaDataMapper {
 	List<ItemBaseVO> getItemBase2(MetaDataParamVO param);
 
 	List<Map<String, Object>> getItemIdx2(AllChangeItemParamVO param);
+
+	int setExcelMetaData(@Param("maps") List<Map<String, Object>> param);
+
+	int setObtainmentExcel(@Param("maps") List<Map<String, Object>> param);
 }
