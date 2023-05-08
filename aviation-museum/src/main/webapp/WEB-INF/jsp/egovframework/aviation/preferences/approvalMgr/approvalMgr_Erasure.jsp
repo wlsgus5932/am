@@ -264,6 +264,10 @@
                             </c:forEach>
                           </tbody>
                       </table>
+
+                  </div>
+              </div>
+            </div>
                       <ul class="btn-group pagination">
 						    <c:if test="${pageMaker.prev }">
 						    <li class="page-item">
@@ -280,10 +284,7 @@
 						        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 						    </li>
 						    </c:if>
-						</ul> 
-                  </div>
-              </div>
-            </div>
+						</ul>             
             </div>
             
             <script>

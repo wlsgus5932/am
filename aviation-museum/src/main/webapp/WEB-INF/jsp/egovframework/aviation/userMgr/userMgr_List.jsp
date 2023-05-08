@@ -14,7 +14,7 @@
 		        <option value="remark">비고</option>
 		        <option value="enabled">사용여부</option>
 	          </select>
-	            <input class="custom_search_input" type="text" id="search_word" name="search_word" onkeypress="if( event.keyCode == 13 ){userSearchList();}">
+	            <input class="custom_search_input" type="text" id="search_word" name="search_word" onkeypress="if( event.keyCode == 13 ){userSearchList();}" style="width: 65.5%">
 	            <button class="custom_btn btn_inquiry"  type="button" onClick="userSearchList();">조회</button>
 	      </div>
       </form>
@@ -225,6 +225,26 @@
 					</c:forEach>
                   </tbody>
               </table>
+<!--               <ul class="btn-group pagination"> -->
+<%-- 			    <c:if test="${pageMaker.prev }"> --%>
+<!-- 			    <li class="page-item"> -->
+<%-- 			        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a> --%>
+<!-- 			    </li> -->
+<%-- 			    </c:if> --%>
+<%-- 			    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum"> --%>
+<!-- 			    <li class="page-item"> -->
+<%-- 			        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a> --%>
+<!-- 			    </li> -->
+<%-- 			    </c:forEach> --%>
+<%-- 			    <c:if test="${pageMaker.next && pageMaker.endPage >0 }"> --%>
+<!-- 			    <li class="page-item"> -->
+<%-- 			        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a> --%>
+<!-- 			    </li> -->
+<%-- 			    </c:if> --%>
+<!-- 			</ul>             -->
+          </div>
+      </div>
+    </div>
               <ul class="btn-group pagination">
 			    <c:if test="${pageMaker.prev }">
 			    <li class="page-item">
@@ -241,10 +261,7 @@
 			        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 			    </li>
 			    </c:if>
-			</ul>            
-          </div>
-      </div>
-    </div>
+			</ul>         
     </div>	
 	<script>	
 		<%-- 사용자 등록 유효성체크 --%>

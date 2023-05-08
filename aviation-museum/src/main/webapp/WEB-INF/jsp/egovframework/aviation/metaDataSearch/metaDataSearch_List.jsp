@@ -23,7 +23,7 @@
 	              <table class="table mb-0">
 	                <tbody>
 	                  <tr id="keyword1">
-	                    <td class="detail_search_modal_width_1">검색어</td>
+	                    <td class="detail_search_modal_width_1 detail_search_modal_bold detail_search_modal_left detail_search_modal_width_11">검색어</td>
 	                    <td class="detail_search_modal_width_1">
 	                      <select class="form-select st_select img-select" name="search_type" id="search_type">
 	                        <option value="" selected>전체</option>
@@ -45,7 +45,7 @@
 	                    </td>
 	                  </tr>
 	                  <tr id="keyword2" style="display:none;">
-	                    <td>검색어</td>
+	                    <td class="detail_search_modal_width_1 detail_search_modal_bold detail_search_modal_left detail_search_modal_width_11">검색어</td>
 	                    <td>
 	                      <select class="form-select st_select img-select" name="search_type2" id="search_type2">
 	                        <option value="" selected>전체</option>
@@ -67,7 +67,7 @@
 	                    </td>
 	                  </tr>
 	                  <tr id="keyword3" style="display:none;">
-	                    <td>검색어</td>
+	                    <td class="detail_search_modal_width_1 detail_search_modal_bold detail_search_modal_left detail_search_modal_width_11">검색어</td>
 	                    <td>
 	                      <select class="form-select st_select img-select" name="search_type3" id="search_type3">
 	                        <option value="" selected>전체</option>
@@ -84,7 +84,7 @@
 	                    </td>
 	                  </tr>
 	                  <tr>
-	                    <td>검색 범위</td>
+	                    <td class="detail_search_modal_bold detail_search_modal_left">검색 범위</td>
 	                    <td>
 	                      <select class="form-select st_select img-select" name="search_range" id="search_range">
 	                        <option value="" selected>전체</option>
@@ -93,28 +93,28 @@
 	                        </c:forEach>
 	                      </select>
 	                    </td>
-	                    <td>자료번호</td>
+	                    <td class="detail_search_modal_bold">자료번호</td>
 	                    <td class="table_2nd_row_wrap"><input class="form-control st_input" type="text" name="start_item_no" id="start_item_no" /><input class="form-control st_input" type="text" name="end_item_no" id="end_item_no" /></td>
 	                  </tr>
 	                  <tr>
-	                    <td colspan="1">검색옵션</td>
-	                    <td colspan="3"></td>
+	                    <td class="detail_search_modal_bold detail_search_modal_left" colspan="1">검색옵션</td>
+	                    <td class="keword_center_line" colspan="3"></td>
 	                  </tr>
 	                  <tr>
-	                    <td colspan="1">
+	                    <td class="detail_search_modal_bold detail_search_modal_left" colspan="1">
 	                    	<input type="checkbox" name="country" id="country" />국적
 	                    </td>
-	                    <td colspan="3">
+	                    <td class="detail_search_modal_left" colspan="3">
 	                    	<c:forEach var="countryList" items="${countryList}">
 	                      		<input type="checkbox" class="country" name="country" id="c${countryList.country_code_idx}" value="${countryList.country_code_idx}"/>${countryList.country_nm}
 	                    	</c:forEach>
 	                    </td>
 	                  </tr>
 	                  <tr>
-	                    <td colspan="1">
+	                    <td class="detail_search_modal_bold detail_search_modal_left" colspan="1">
 	                    	<input type="checkbox" name="material1" id="material1" />재질
 	                    </td>
-	                    <td colspan="3">
+	                    <td class="detail_search_modal_left" colspan="3">
 	                    	<c:forEach var="material1List" items="${material1List}">
 	                      		<input type="checkbox" class="material1" name="material1" id="m${material1List.material1_code_idx}" value="${material1List.material1_code_idx}" />${material1List.material1_nm}
 	                 		</c:forEach>
@@ -217,7 +217,7 @@
                 </div>
               </div>
               <!--  -->
-              <div class="mb-0" style="width: 1200px;">
+              <div class="mb-0" style="width: 1200px; float: left;">
                 <div id="UserModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
                   <div class="modal-dialog user-modal">
                     <div class="modal-content">
@@ -295,7 +295,7 @@
                       </thead>
                       <tbody id="gallery">
 	                       <c:forEach var="metaDataSearchList" items="${metaDataSearchList}">
-		                        <tr>
+		                        <tr class="table_bd">
 		                          <td id="checkbox2">
 		                             <input type="checkbox" name="group_seqList" class="check_temp" id="" value="${metaDataSearchList.item_idx}">
 		                          </td>
@@ -322,7 +322,7 @@
 		                    </c:forEach>
                       </tbody>
                     </table>
-                    <ul class="btn-group pagination">
+                    <ul class="btn-group pagination btn-group_2">
 					    <c:if test="${pageMaker.prev }">
 					    <li class="page-item">
 					        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
@@ -342,6 +342,27 @@
                   </div>
                 </div>
               </div>
+              
+<!-- 				<div class="btn-group_list_wrap_2"> -->
+<!--                     <ul class="btn-group pagination btn-group_2"> -->
+<%-- 					    <c:if test="${pageMaker.prev }"> --%>
+<!-- 					    <li class="page-item"> -->
+<%-- 					        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a> --%>
+<!-- 					    </li> -->
+<%-- 					    </c:if> --%>
+<%-- 					    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum"> --%>
+<!-- 					    <li class="page-item"> -->
+<%-- 					        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a> --%>
+<!-- 					    </li> -->
+<%-- 					    </c:forEach> --%>
+<%-- 					    <c:if test="${pageMaker.next && pageMaker.endPage >0 }"> --%>
+<!-- 					    <li class="page-item"> -->
+<%-- 					        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a> --%>
+<!-- 					    </li> -->
+<%-- 					    </c:if> --%>
+<!-- 					</ul> -->
+<!-- 				</div>               -->
+              
               <!-- 숫자 버튼  -->
 <!--               <nav aria-label="Page navigation example"> -->
 <!--                 <ul class="pagination"> -->

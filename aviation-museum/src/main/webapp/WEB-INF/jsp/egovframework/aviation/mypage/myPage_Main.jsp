@@ -341,32 +341,32 @@
             <!--  -->
           </div>
           <!-- 내용물 -->
-          <ul class="nav nav-tabs" role="tablist" style="max-width: 649px;">
-            <li class="nav-item">
+          <ul class="nav nav-tabs" role="tablist" style="max-width: 1320px; width: 100%;">
+            <li class="nav-item" style="width:20%;">
                 <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab" id="interest">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                     <span class="d-none d-sm-block">관심자료관리</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="width:20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab" id="requestHistory">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                     <span class="d-none d-sm-block">요청내역조회</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="width:20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#messages" role="tab" id="rgstrSpeciality">
                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                     <span class="d-none d-sm-block">등록 전문정보</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="width:20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#settings" role="tab" id="changePrivacy">
                     <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
                     <span class="d-none d-sm-block">개인정보 변경</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="width:20%;">
               <a class="nav-link" data-bs-toggle="tab" href="#settings22" role="tab" id="workHistory">
                   <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
                   <span class="d-none d-sm-block">작업 내역</span>

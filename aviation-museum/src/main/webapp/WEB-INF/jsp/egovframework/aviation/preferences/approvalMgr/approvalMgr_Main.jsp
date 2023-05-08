@@ -266,13 +266,13 @@
 	                    <input class="form-control" list="datalistOptions" placeholder="" name="start_item_no" id="start_item_no">
 	                    ~
 	                    <input class="form-control" list="datalistOptions" placeholder="" name="end_item_no" id="end_item_no">
-	                    <button class="btn btn-secondary waves-effect waves-light btn_ml" type="button" onClick="searchList();">조회</button>
+	                    <button class="custom_btn btn_707070" type="button" onClick="searchList();">조회</button>
 	              </div>
 	            </div>
 	          </div>
           </form>
           <!-- 탭 -->
-          <ul class="nav nav-tabs" role="tablist" style="max-width: 228px;">
+          <ul class="nav nav-tabs" role="tablist" style="max-width: 240px;">
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab" id="erasureMgr">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>

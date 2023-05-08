@@ -13,7 +13,7 @@
            <option value="remark">비고</option>
            <option value="admin">관리자 여부</option>
          </select>
-           <input class="custom_search_input" type="text" id="search_word" name="search_word" onkeypress="if( event.keyCode == 13 ){groupSearchList();}" >
+           <input class="custom_search_input" type="text" id="search_word" name="search_word" onkeypress="if( event.keyCode == 13 ){groupSearchList();}" style="width: 65%;">
            <button class="custom_btn btn_inquiry" type="button" onClick="groupSearchList();">조회</button>
        </div>
       </form>
@@ -71,25 +71,25 @@
 						</c:forEach>	
                    </tbody>
                </table>
-              <nav aria-label="Page navigation example">
-               <ul class="btn-group pagination">
-				    <c:if test="${pageMaker.prev }">
-				    <li class="page-item">
-				        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
-				    </li>
-				    </c:if>
-				    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-				    <li class="page-item">
-				        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
-				    </li>
-				    </c:forEach>
-				    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-				    <li class="page-item">
-				        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
-				    </li>
-				    </c:if>
-				</ul>   
-				</nav>
+<!--               <nav aria-label="Page navigation example"> -->
+<!--                <ul class="btn-group pagination"> -->
+<%-- 				    <c:if test="${pageMaker.prev }"> --%>
+<!-- 				    <li class="page-item"> -->
+<%-- 				        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a> --%>
+<!-- 				    </li> -->
+<%-- 				    </c:if> --%>
+<%-- 				    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum"> --%>
+<!-- 				    <li class="page-item"> -->
+<%-- 				        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a> --%>
+<!-- 				    </li> -->
+<%-- 				    </c:forEach> --%>
+<%-- 				    <c:if test="${pageMaker.next && pageMaker.endPage >0 }"> --%>
+<!-- 				    <li class="page-item"> -->
+<%-- 				        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a> --%>
+<!-- 				    </li> -->
+<%-- 				    </c:if> --%>
+<!-- 				</ul>    -->
+<!-- 				</nav> -->
            </div>
        </div>
          <!-- 그룹 등록 모달 -->
@@ -150,6 +150,25 @@
                </div>
            </div>
        </div>
+              <nav aria-label="Page navigation example">
+               <ul class="btn-group pagination">
+				    <c:if test="${pageMaker.prev }">
+				    <li class="page-item">
+				        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
+				    </li>
+				    </c:if>
+				    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+				    <li class="page-item">
+				        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
+				    </li>
+				    </c:forEach>
+				    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+				    <li class="page-item">
+				        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
+				    </li>
+				    </c:if>
+				</ul>   
+				</nav>       
 <!-- 			///cccc -->
 
        <!-- 그룹 수정 모달 -->

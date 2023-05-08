@@ -69,24 +69,24 @@
                     <input class="custom_search_input" list="datalistOptions" id="item_no2" name="item_no2" placeholder="자료 번호" type="text">
                     <input class="custom_search_input" list="datalistOptions" id="item_detail_no2" name="item_detail_no2" placeholder="세부 번호" type="text">
                     <button type="button" class="custom_btn btn_707070" onclick="getTransformList()">조회</button>
-                    <div class="st_wrap st_mv_wrap">
+                    <div class="st_wrap st_mv_wrap" style="justify-content: right;">
 
-                <div class="auto_btn_right">
-                   리스트 출력 갯수 :
-                  <select class="search_select" name="perPageNum" id="perpage">
-                    <option selected value="10">10개</option>
-                    <option value="20">20개</option>
-                    <option value="30">30개</option>
-                    <option value="50">50개</option>
-                  </select>
-                  <button class="custom_btn btn_ex" type="button" onclick="excelDownload()">엑셀파일</button>
-                </div>
+<!-- 		                <div class="auto_btn_right"> -->
+		                   <div style="line-height: 35px; margin-right: 0.1rem;">리스트 출력 갯수 :</div>
+		                  <select class="search_select" name="perPageNum" id="perpage">
+		                    <option selected value="10">10개</option>
+		                    <option value="20">20개</option>
+		                    <option value="30">30개</option>
+		                    <option value="50">50개</option>
+		                  </select>
+		                  <button class="custom_btn btn_ex" type="button" onclick="excelDownload()">엑셀파일</button>
+<!-- 		                </div> -->
               </div>
               </div>
             </div>
           </div>
           <!-- 탭 -->
-          <ul class="nav nav-tabs" role="tablist" style="max-width: 408px;">
+          <ul class="nav nav-tabs nav_2" role="tablist" style="max-width: 426px;">
             <li class="nav-item" onclick="changeTabName('P')">
                 <a class="nav-link active" data-bs-toggle="tab" href="#profile" role="tab">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>

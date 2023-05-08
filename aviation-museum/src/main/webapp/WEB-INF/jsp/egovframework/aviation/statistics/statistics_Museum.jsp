@@ -48,7 +48,7 @@
 						 	<option value="12">12</option>
 						 </select>
 
-	                     <input type="radio" name="chk_info" value="reg_date2" id="chk_reg_date2">
+	                     <input type="radio" name="chk_info" value="reg_date2" id="chk_reg_date2" style="margin-left: 1%;">
 	                     <input class="form-control in_date" type="date" id="start_reg_date2" name="start_reg_date2">
 	                     <input class="form-control in_date" type="date" id="end_reg_date2" name="end_reg_date2">
 	                   
@@ -70,14 +70,14 @@
                           <th>구분</th>
                           <th colspan="2">등록수량
                             <br>
-                            <div style="display: flex; justify-content: space-around;">
+                            <div style="display: flex; justify-content: space-around; margin: 5% auto;">
                               <div>건</div>
                               <div>점</div>
                             </div>
                           </th>
                           <th colspan="2">대국민서비스
                             <br>
-                            <div style="display: flex; justify-content: space-around;">
+                            <div style="display: flex; justify-content: space-around; margin: 5% auto;"">
                               <div>건</div>
                               <div>점</div>
                             </div>

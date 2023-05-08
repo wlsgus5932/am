@@ -107,7 +107,7 @@
             <p>자료통계 > <span>통계</span></p>
           </div>
           <!-- 탭 -->
-          <ul class="nav nav-tabs" role="tablist" style="max-width: 446px;">
+          <ul class="nav nav-tabs" role="tablist" style="max-width: 464px;">
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#tap-1" role="tab" id="museum">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>

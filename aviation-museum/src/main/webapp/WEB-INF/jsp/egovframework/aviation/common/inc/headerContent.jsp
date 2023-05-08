@@ -3,7 +3,7 @@
             <form class="p-2" action="/metaDataSearchMain.do" id="metaDataAllSearchListForm" name="metaDataAllSearchListForm" method="POST">
               <div class="search-box">
                 <div class="position-relative">
-                  <input type="text" class="form-control bg-light border-0" placeholder="검색" name="all_search_word" id="all_search_word" style="width: 100% !important;">
+                  <input type="text" class="form-control bg-light border-0" placeholder="검색" name="all_search_word" id="all_search_word" style="width: 100% !important; background-color: #fff !important;">
                   <i class="search-icon" data-eva="search-outline" data-eva-height="26" data-eva-width="26"></i>
                 </div>
               </div>

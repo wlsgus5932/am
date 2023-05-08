@@ -126,6 +126,26 @@
                         </c:forEach>
                       </tbody>
                     </table>
+<!--                     <ul class="btn-group pagination"> -->
+<%-- 					    <c:if test="${pageMaker.prev }"> --%>
+<!-- 					    <li class="page-item"> -->
+<%-- 					        <a class="page-link" href='javascript:;' onclick="goPage1('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a> --%>
+<!-- 					    </li> -->
+<%-- 					    </c:if> --%>
+<%-- 					    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum"> --%>
+<!-- 					    <li class="page-item"> -->
+<%-- 					        <a class="page-link" href='javascript:;' onclick="goPage1('${pageNum}');"><i class="fa">${pageNum }</i></a> --%>
+<!-- 					    </li> -->
+<%-- 					    </c:forEach> --%>
+<%-- 					    <c:if test="${pageMaker.next && pageMaker.endPage >0 }"> --%>
+<!-- 					    <li class="page-item"> -->
+<%-- 					        <a class="page-link" href="javascript:;" onclick="goPage1('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a> --%>
+<!-- 					    </li> -->
+<%-- 					    </c:if> --%>
+<!-- 					</ul> -->
+                  </div>
+                </div>
+              </div>
                     <ul class="btn-group pagination">
 					    <c:if test="${pageMaker.prev }">
 					    <li class="page-item">
@@ -142,10 +162,7 @@
 					        <a class="page-link" href="javascript:;" onclick="goPage1('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 					    </li>
 					    </c:if>
-					</ul>
-                  </div>
-                </div>
-              </div>
+					</ul>              
               </form>
             <form action="" name="metaDataListViewForm" id="metaDataListViewForm" method="post">
 				<input type="hidden" name="possession_code_idx" id="possession_code_idx" />

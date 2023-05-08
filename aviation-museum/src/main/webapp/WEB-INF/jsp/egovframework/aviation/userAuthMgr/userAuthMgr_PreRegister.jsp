@@ -63,7 +63,7 @@
                 <!--  -->
                 <div class="user_control_right col-xl-6">
                   <h5 class="user_control_text">권한설정
-                   <form action="/menuAuthUpdate.do" method="post" name="menuAuthModform" id="menuAuthModform" style="width: 20%;"> 
+                   <form action="/menuAuthUpdate.do" method="post" name="menuAuthModform" id="menuAuthModform" style="width: 22%;"> 
 				  	<input type="hidden" id="pGroup_idx" name="group_idx"/>   
 				  	<input type="hidden" id="pMenu_code_idx" name="possession_code_idx"/>
 				  	<button class="custom_btn btn_707070 user_mgt_btn" type="button" id="allCheck">전체선택</button>  

@@ -170,7 +170,7 @@
             <p>자료통계 > <span>고정양식</span></p>
           </div>
           <!-- 탭 -->
-          <ul class="nav nav-tabs" role="tablist" style="max-width: 359px;">
+          <ul class="nav nav-tabs" role="tablist" style="max-width: 377px;">
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#tap-1" role="tab" id="dataCardFront">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
