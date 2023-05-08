@@ -1,18 +1,18 @@
 package egovframework.aviation.metadata.controller.add;
 
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -23,6 +23,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -808,15 +810,10 @@ public class AddController {
 	
 	@PostMapping("/uploadMetaDataExcel.do")
 	public String uploadMetaDataExcel(ModelMap model, @RequestParam("uploadExcel") MultipartFile file) throws Exception {
-		System.out.println(file);
-		
 		InputStream fileInputStream = file.getInputStream();
 		Workbook workbook = new HSSFWorkbook(file.getInputStream());
 
         Sheet sheet = workbook.getSheetAt(0);
-        
-//        Map<Integer, List<String>> data = new HashMap<>();
-        
         int i = 0;
         int j = 0;
         
@@ -866,24 +863,29 @@ public class AddController {
         		"reference",
         		"item_eng_nm"
         };
-        List<Map<String, String>> data = new ArrayList<>();
+        List<Map<String, Object>> data = new ArrayList<>();
         
         for (Row row : sheet) {
-          Map<String, String> map = new HashMap<>();
+          Map<String, Object> map = new HashMap<>();
           j = 0;
           for (Cell cell : row) {
-        	  if(i != 0 && i != 1) {
               switch (cell.getCellType()) {
 	                case STRING: {
-	                	map.put(names[j], cell.getRichStringCellValue().getString());
+	                	if(cell.getRichStringCellValue().getString().matches("[+-]?\\d*(\\.\\d+)?") 
+	                		&& cell.getRichStringCellValue().getString().length() == 8) {
+	                			SimpleDateFormat dtFormat = new SimpleDateFormat("yyyyMMdd");
+	                			SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
+	                			Date formatDate = dtFormat.parse(cell.getRichStringCellValue().getString());
+	                			String strNewDtFormat = newDtFormat.format(formatDate);
+	                			map.put(names[j], strNewDtFormat);
+	                	} else {
+	                		map.put(names[j], cell.getRichStringCellValue().getString());
+	                	}
 	                    break;
 	                }
 	                case NUMERIC: {
-	                    if (DateUtil.isCellDateFormatted(cell)) {
-	                    	map.put(names[j], cell.getDateCellValue() + "");
-	                    } else {
-	                    	map.put(names[j], cell.getNumericCellValue() + "");
-	                    }
+	                	int number = (int)cell.getNumericCellValue();
+	                	map.put(names[j], number);
 	                    break;
 	                }
 	                case BOOLEAN: {
@@ -899,53 +901,126 @@ public class AddController {
 	        		}
               j++;
           	}
-      	}
+      	
           data.add(map);
           i++;
-      	System.out.println(map);
       }
-        
         for(int k=0; k<=1; k++) {
         	data.remove(0);
         }
-        
-//        for (Row row : sheet) {
-//        	data.put(i, new ArrayList<String>());
-//            for (Cell cell : row) {
-//            	if(i != 0 && i != 1) {
-//                switch (cell.getCellType()) {
-//	                case STRING: {
-//	                    data.get(i).add(cell.getRichStringCellValue().getString());
-//	                    break;
-//	                }
-//	                case NUMERIC: {
-//	                    if (DateUtil.isCellDateFormatted(cell)) {
-//	                	    data.get(i).add(cell.getDateCellValue() + "");
-//	                    } else {
-//	                    	data.get(i).add(cell.getNumericCellValue() + "");
-//	                    }
-//	                    break;
-//	                }
-//	                case BOOLEAN: {
-//	                    data.get(i).add(cell.getBooleanCellValue() + "");
-//	                    break;
-//	                }
-//	                case FORMULA: {
-//	                    data.get(i).add(cell.getCellFormula() + "");
-//	                    break;
-//	                }
-//	                default:
-//	                    data.get(i).add(" ");
-//	        		}
-//            	}
-//        	}
-//        	i++;
-//        }
-        
-        
         model.addAttribute("excelList", data);
-		
-//		return "metadata/add/autoAddList";
 		return "jsonView";
 	}
+	
+	@PostMapping("/uploadMovementDataExcel.do")
+	public String uploadMovementDataExcel(ModelMap model, @RequestParam("uploadExcel") MultipartFile file) throws Exception {
+		InputStream fileInputStream = file.getInputStream();
+		Workbook workbook = new HSSFWorkbook(file.getInputStream());
+
+        Sheet sheet = workbook.getSheetAt(0);
+        int i = 0;
+        int j = 0;
+        
+        String[] names = {
+        		"d",
+        };
+        List<Map<String, Object>> data = new ArrayList<>();
+        
+        for (Row row : sheet) {
+          Map<String, Object> map = new HashMap<>();
+          j = 0;
+          for (Cell cell : row) {
+              switch (cell.getCellType()) {
+	                case STRING: {
+	                	if(cell.getRichStringCellValue().getString().matches("[+-]?\\d*(\\.\\d+)?") 
+	                		&& cell.getRichStringCellValue().getString().length() == 8) {
+	                			SimpleDateFormat dtFormat = new SimpleDateFormat("yyyyMMdd");
+	                			SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
+	                			Date formatDate = dtFormat.parse(cell.getRichStringCellValue().getString());
+	                			String strNewDtFormat = newDtFormat.format(formatDate);
+	                			map.put(names[j], strNewDtFormat);
+	                	} else {
+	                		map.put(names[j], cell.getRichStringCellValue().getString());
+	                	}
+	                    break;
+	                }
+	                case NUMERIC: {
+	                	int number = (int)cell.getNumericCellValue();
+	                	map.put(names[j], number);
+	                    break;
+	                }
+	                case BOOLEAN: {
+	                	map.put(names[j], cell.getBooleanCellValue() + "");
+	                    break;
+	                }
+	                case FORMULA: {
+	                	map.put(names[j], cell.getCellFormula() + "");
+	                    break;
+	                }
+	                default:
+	                	map.put(names[j], " ");
+	        		}
+              j++;
+          	}
+      	
+          data.add(map);
+          i++;
+      }
+        for(int k=0; k<=1; k++) {
+        	data.remove(0);
+        }
+        model.addAttribute("excelList", data);
+		return "jsonView";
+	}
+	
+	
+	@RequestMapping("/autoAddMetaData.do")
+	@ResponseBody
+	public String autoAddMetaData(ModelMap model, @RequestBody List<Map<String, Object>> param) throws Exception {
+		System.out.println(param);
+		String result = "error";
+		for(Map<String, Object> strMap : param) {
+		    System.out.print(strMap.get("end_date") + " ");
+		    System.out.print(strMap.get("material2_nm") + " ");
+		    System.out.print(strMap.get("obtainment_nm") + " ");
+		    System.out.print(strMap.get("reg_user") + " ");
+		    System.out.println(strMap.get("item_nm"));
+		}
+		
+		System.out.println("param:::"+param.size());
+		int x = mapper.setExcelMetaData(param);
+		int y = mapper.setObtainmentExcel(param);
+		if(x > 0 ) {
+			result = "success";
+		}
+		
+		return result;
+	}
+	
+	@RequestMapping("/autoMovementMetaData.do")
+	@ResponseBody
+	public String autoMovementMetaData(ModelMap model, @RequestBody List<Map<String, Object>> param) throws Exception {
+//		List<ItemBaseVO> list = mapper.getItemBase2(param);
+//		Map<String, Object> param
+//		model.addAttribute("itemBaseList", list);
+		for(Map<String, Object> strMap : param) {
+		    //System.out.println(strMap);
+		    System.out.print(strMap.get("end_date") + " ");
+		    System.out.print(strMap.get("material2_nm") + " ");
+		    System.out.print(strMap.get("obtainment_nm") + " ");
+		    System.out.print(strMap.get("reg_user") + " ");
+		    System.out.println(strMap.get("item_nm"));
+		}
+		
+		for(int i=0; i<param.size(); i++) {
+			System.out.println(param.get(i));
+			int x = mapper.setExcelMetaData(param);
+			if(x > 0) {
+				int y = mapper.setObtainmentExcel(param);
+			}
+		}
+		
+		return "dd";
+	}
+	
 }
