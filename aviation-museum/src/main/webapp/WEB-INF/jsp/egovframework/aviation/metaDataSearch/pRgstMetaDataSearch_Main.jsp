@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+class="tab-content p-3 text-muted"<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -394,9 +394,7 @@
             <p>자료 검색 > <span>자료 검색</span></p>
           </div>
           <!-- 간략보기 창 -->
-          <div class="simple_view_wrap" id="simple_view_wrap">
-
-          </div>
+<!--           <div class="simple_view_wrap" id="simple_view_wrap"></div> -->
           <!--  -->
           <div class="search_top_wrap">
             <ul class="nav nav-tabs" role="tablist">
@@ -420,9 +418,8 @@
             </div>
           </div>
           <!-- Tab panes -->
-          <div class="tab-content p-3 text-muted" id="tab-content">
-
-          </div>
+          <div class="tab-content p-3 text-muted" id="tab-content" style="max-width: 1200px; width: 100%;"></div>
+          <div class="simple_view_wrap" id="simple_view_wrap"></div>
           <!--  -->
         </div>
         <!-- End Page-content -->

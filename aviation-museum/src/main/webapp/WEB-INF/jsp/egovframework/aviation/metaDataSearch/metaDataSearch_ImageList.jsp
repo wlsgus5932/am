@@ -21,7 +21,7 @@
 	              <table class="table mb-0">
 	                <tbody>
 	                  <tr id="keyword1">
-	                    <td class="detail_search_modal_width_1">검색어</td>
+	                    <td class="detail_search_modal_width_1 detail_search_modal_bold detail_search_modal_left detail_search_modal_width_11">검색어</td>
 	                    <td class="detail_search_modal_width_1">
 	                      <select class="form-select st_select img-select" name="search_type" id="search_type">
 	                        <option value="" selected>전체</option>
@@ -43,7 +43,7 @@
 	                    </td>
 	                  </tr>
 	                  <tr id="keyword2" style="display:none;">
-	                    <td>검색어</td>
+	                    <td class="detail_search_modal_width_1 detail_search_modal_bold detail_search_modal_left detail_search_modal_width_11">검색어</td>
 	                    <td>
 	                      <select class="form-select st_select img-select" name="search_type2" id="search_type2">
 	                        <option value="" selected>전체</option>
@@ -65,7 +65,7 @@
 	                    </td>
 	                  </tr>
 	                  <tr id="keyword3" style="display:none;">
-	                    <td>검색어</td>
+	                    <td class="detail_search_modal_width_1 detail_search_modal_bold detail_search_modal_left detail_search_modal_width_11">검색어</td>
 	                    <td>
 	                      <select class="form-select st_select img-select" name="search_type3" id="search_type3">
 	                        <option value="" selected>전체</option>
@@ -88,8 +88,8 @@
 <%-- 	                  	<col width="15%"> --%>
 <%-- 	                  	<col width="55%">                  --%>
 <%-- 	                  </colgroup> --%>
-	                    <td class="detail_search_modal_width_1">검색범위</td>
-	                    <td>
+	                    <td class="detail_search_modal_bold detail_search_modal_left">검색범위</td>
+	                    <td>	
 	                      <select class="form-select st_select img-select" name="search_range" id="search_range">
 	                        <option value="" selected>전체</option>
 	                        <c:forEach var="possesionList" items="${possesionList}">
@@ -97,28 +97,28 @@
 	                        </c:forEach>
 	                      </select>
 	                    </td>
-	                    <td>자료번호</td>
+	                    <td class="detail_search_modal_bold">자료번호</td>
 	                    <td class="table_2nd_row_wrap"><input class="form-control st_input" type="text" name="start_item_no" id="start_item_no" /><input class="form-control st_input" type="text" name="end_item_no" id="end_item_no" /></td>
 	                  </tr>
 	                  <tr>
-	                    <td colspan="1">검색옵션</td>
-	                    <td colspan="3"></td>
+	                    <td class="detail_search_modal_bold detail_search_modal_left" colspan="1">검색옵션</td>
+	                    <td class="keword_center_line" colspan="3"></td>
 	                  </tr>
 	                  <tr>
-	                    <td colspan="1">
+	                    <td class="detail_search_modal_bold detail_search_modal_left" colspan="1">
 	                    	<input type="checkbox" name="country" id="country" />국적
 	                    </td>
-	                    <td colspan="3">
+	                    <td class="detail_search_modal_left" colspan="3">
 	                    	<c:forEach var="countryList" items="${countryList}">
 	                      		<input type="checkbox" class="country" name="country" id="country_code_idx" value="${countryList.country_code_idx}"/>${countryList.country_nm}
 	                    	</c:forEach>
 	                    </td>
 	                  </tr>
 	                  <tr>
-	                    <td colspan="1">
+	                    <td class="detail_search_modal_bold detail_search_modal_left" colspan="1">
 	                    	<input type="checkbox" name="material1" id="material1" />재질
 	                    </td>
-	                    <td colspan="3">
+	                    <td class="detail_search_modal_left" colspan="3">
 	                    	<c:forEach var="material1List" items="${material1List}">
 	                      		<input type="checkbox" class="material1" name="material1" id="material1_code_idx" value="${material1List.material1_code_idx}" />${material1List.material1_nm}
 	                 		</c:forEach>
@@ -191,7 +191,7 @@
             	  </div>	
               </form>
               <!--  -->
-              <div class="search_btn_wrap">
+              <div class="search_btn_wrap" style="width: 1200px;">
                 <div class="search_btn_left">
 <!--                   <button class="custom_btn btn_707070" type="button">전체선택</button> -->
 <!--                   <button class="custom_btn btn_707070" type="button">선택해지</button> -->
@@ -220,7 +220,7 @@
                 </div>
               </div>
               <!--  -->
-              <div class="mb-0">
+              <div class="mb-0" style="width: 1200px;">
                 <!--  -->
 <!--                 <div class="st_wrap st_mv_wrap"> -->
 <!--                    -->
@@ -263,7 +263,7 @@
                                       <label class="col-md-2 col-form-label st_title">이미지 설명 등록 및 수정</label>
                                     </div>
                                     <div class="card-body">
-                                      <input type="text" />
+                                      <input class="custom_search_input" type="text" / style="width: 100%;">
                                     </div>
                                   </div>
                                   <button class="btn btn-secondary btn_save">저장</button>
@@ -336,7 +336,7 @@
 	                          <div class="img-col-info">
 	                            <dl onclick="imageQuickView('${metaDataSearchImageList.image_idx}');">
 	                              <dt>명칭:</dt>
-	                              <dd>${metaDataSearchImageList.item_nm}</dd>
+	                              <dd style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 190px; text-align: left;">${metaDataSearchImageList.item_nm}</dd>
 	                            </dl>
 	                            <dl>
 	                              <dt>시간:</dt>
@@ -372,23 +372,7 @@
 
                 </div>
               </div>
-	           	<ul class="btn-group pagination">
-				    <c:if test="${pageMaker.prev }">
-				    <li class="page-item">
-				        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a>
-				    </li>
-				    </c:if>
-				    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-				    <li class="page-item">
-				        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a>
-				    </li>
-				    </c:forEach>
-				    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-				    <li class="page-item">
-				        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
-				    </li>
-				    </c:if>
-				</ul> 
+ 
               <!-- 숫자 버튼  -->
 <!--               <nav aria-label="Page navigation example"> -->
 <!--                 <ul class="pagination"> -->

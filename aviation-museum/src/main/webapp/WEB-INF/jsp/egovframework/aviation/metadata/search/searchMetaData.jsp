@@ -4088,7 +4088,7 @@
           <!--  -->
           <div id="keyword_modal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none" aria-hidden="true">
           <input type="hidden" id="keywordPage" value="1"/>
-            <div class="modal-dialog">
+            <div class="modal-dialog preferences_deit_modal_wrap_2">
               <div class="modal-content">
                 <div class="modal-header mv-modal-header">
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -4101,7 +4101,7 @@
                     </div>
                     <!--  -->
                     <div class="">
-                      <input type="text" id="searchKeyword"><button type="button" onclick="searchKeyword()">조회</button>
+                      <input class="custom_search_input user_in_modal_input_5" type="text" id="searchKeyword"><button class="custom_btn btn_707070 btn_707070_7040" type="button" onclick="searchKeyword()">조회</button>
                     </div>
                     <!--  -->
                     <div class="card-body" id="keywordZone">
@@ -4110,7 +4110,7 @@
                         <table class="table mb-0">
                           <thead>
                             <tr class="tr_bgc">
-                              <th>번호</th>
+                              <th style="width: 15%;">번호</th>
                               <th>키워드</th>
                             </tr>
                           </thead>
@@ -4122,14 +4122,14 @@
 
                     </div>
                     <!--  -->
-                    <div class="" style="border-top: 1px solid;">
-                      추가키워드<input type="text" id="addKeyword"><button type="button" onclick="addKeyword()">+ 추가</button>
+                    <div class="keyword_bd">
+                      추가키워드<input class="custom_search_input user_in_modal_input_6" type="text" id="addKeyword"><button class="custom_btn btn_707070 btn_707070_7040" type="button" onclick="addKeyword()">+ 추가</button>
                     </div>
                   </div>
                   <!--  -->
-                  <div class="custom_modal_footer">
-                    <button type="button">닫기</button>
-                  </div>
+<!--                   <div class="custom_modal_footer"> -->
+<!--                     <button type="button">닫기</button> -->
+<!--                   </div> -->
                 </div>
               </div>
             </div>

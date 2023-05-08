@@ -290,7 +290,7 @@
                     ~
                     <input class="form-control imageRegister_input" list="datalistOptions" id="item_no2" placeholder="자료 번호" name="item_no2">
                     <input class="form-control imageRegister_input" list="datalistOptions" id="item_detail_no2" placeholder="세부" name="item_detail_no2">
-                    <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml" onclick="getImageUpdateList()">조회</button>
+                    <button type="button" class="custom_btn btn_707070" onclick="getImageUpdateList()">조회</button>
                     <!--  -->
                     </form>
             </div>
@@ -340,8 +340,8 @@
           	<div class="tab-pane active" role="tabpanel" id="imageUpdateList">
           	<div class="mb-0">
                 <div class="st_wrap">
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="downloadImageChecked()">다운로드</button>
-                         <button type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2" onclick="deleteImageChecked()">선택삭제</button>
+                         <button type="button" class="custom_btn btn_707070" onclick="downloadImageChecked()">다운로드</button>
+                         <button type="button" class="custom_btn btn_707070" onclick="deleteImageChecked()">선택삭제</button>
                 <div id="imageUpdateZone">
                   <table class="table mb-0">
                         <thead>

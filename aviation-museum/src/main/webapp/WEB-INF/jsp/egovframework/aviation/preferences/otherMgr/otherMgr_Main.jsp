@@ -931,7 +931,7 @@
       <!-- ============================================================== -->
       <div class="main-content">
         <!-- 환경설정 기타관리 시작 -->
-        <div class="page-content">
+        <div class="page-content" style="padding: calc(12px + 24px) calc(24px / 2) 0 calc(45px / 2);">
           <div class="tap_text">
             <h2>환경설정</h2>
             <p>환경설정 > <span>기타관리</span></p>
@@ -939,7 +939,7 @@
             <!--  -->
           </div>
           <!-- 내용물 -->
-          <ul class="nav nav-tabs" role="tablist" style="max-width: 234px;">
+          <ul class="nav nav-tabs" role="tablist" style="max-width: 246px;">
             <li class="nav-item">
                 <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab" id="tagMgr">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>

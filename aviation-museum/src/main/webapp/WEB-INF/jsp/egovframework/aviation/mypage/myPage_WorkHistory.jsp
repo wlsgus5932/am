@@ -72,12 +72,32 @@
 	                                      ${workHistoryList.reg_date}
 	                                     </td>	                                                                         
 	                                     <td>
-	                                      <button class="btn btn-secondary waves-effect waves-light btn_ml btn_wh" onclick="workHistoryViewModal('${workHistoryList.item_idx}')">상세보기</button>
+	                                      <button class="custom_btn btn_edit" onclick="workHistoryViewModal('${workHistoryList.item_idx}')">상세보기</button>
 	                                     </td>
 	                                </tr>
 								</c:forEach>
                             </tbody>
                         </table>
+<!--                         <ul class="btn-group pagination"> -->
+<%-- 						    <c:if test="${pageMaker.prev }"> --%>
+<!-- 						    <li class="page-item"> -->
+<%-- 						        <a class="page-link" href='javascript:;' onclick="goPage('${pageMaker.startPage-1 }');"><i class="fa fa-chevron-left"></i></a> --%>
+<!-- 						    </li> -->
+<%-- 						    </c:if> --%>
+<%-- 						    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum"> --%>
+<!-- 						    <li class="page-item"> -->
+<%-- 						        <a class="page-link" href='javascript:;' onclick="goPage('${pageNum}');"><i class="fa">${pageNum }</i></a> --%>
+<!-- 						    </li> -->
+<%-- 						    </c:forEach> --%>
+<%-- 						    <c:if test="${pageMaker.next && pageMaker.endPage >0 }"> --%>
+<!-- 						    <li class="page-item"> -->
+<%-- 						        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a> --%>
+<!-- 						    </li> -->
+<%-- 						    </c:if> --%>
+<!-- 						</ul>  -->
+                    </div>
+                </div>
+              </div>
                         <ul class="btn-group pagination">
 						    <c:if test="${pageMaker.prev }">
 						    <li class="page-item">
@@ -94,10 +114,7 @@
 						        <a class="page-link" href="javascript:;" onclick="goPage('${pageMaker.endPage+1 }');"><i class="fa fa-chevron-right"></i></a>
 						    </li>
 						    </c:if>
-						</ul> 
-                    </div>
-                </div>
-              </div>
+						</ul>               
           </div>
           
           <script>
