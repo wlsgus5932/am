@@ -3,6 +3,8 @@ package egovframework.aviation.metadata.controller.add;
 import java.io.File;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +34,7 @@ public class specialityController {
 	String DB_filepath = "/files/speciality/";
 	//String filePath = "/files/";
 	
+	//전문정보 리스트
 	@GetMapping("/getSpeciality.do")
 	public String getSpeciality(ModelMap model, @ModelAttribute SpecialityParamVO param, @ModelAttribute Criteria cri) throws Exception {
 		try {
@@ -56,6 +59,7 @@ public class specialityController {
 		return "metadata/add/speciality/specialityList";
 	}
 	
+	//전문정보 검색
 	@GetMapping("/getSpecialitySearch.do")
 	public String getSpecialitySearch(ModelMap model, @ModelAttribute SpecialityParamVO param, @ModelAttribute Criteria cri) throws Exception {
 		try {
@@ -80,12 +84,11 @@ public class specialityController {
 		return "metadata/add/speciality/specialitySearchList";
 	}
 	
+	//전문정보 개별
 	@GetMapping("/getSpecialityData.do")
 	public String getSpecialityData(ModelMap model, @RequestParam("speciality_idx") int speciality_idx) throws Exception {
-		System.out.println(speciality_idx);
 		try {
 			List<SpecialityVO> list = service.getSpecialityData(speciality_idx);
-			
 			model.addAttribute("specialityList", list);
 		} catch (Exception e) {
 			
@@ -93,17 +96,19 @@ public class specialityController {
 		return "jsonView";
 	}
 	
+	//전문정보 등록
 	@PostMapping("/setSpeciality.do")
 	@ResponseBody
-	public String setSpecaility(@ModelAttribute SpecialityParamVO param) throws Exception {
+	public String setSpecaility(@ModelAttribute SpecialityParamVO param, HttpServletRequest req) throws Exception {
 		try {
 			System.out.println("param::"+param);
 			String fileName = null;
 	        MultipartFile uploadFile = param.getSpc_uploadFile();
+	        String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
+	        param.setReg_user(userSessionId);
 	        
 	        if (!uploadFile.isEmpty()) {
 	            fileName = uploadFile.getOriginalFilename();
-	            System.out.println("ori:::"+fileName);
 	            //String ext = FilenameUtils.getExtension(originalFileName); // 확장자 구하기
 	            //UUID uuid = UUID.randomUUID(); // UUID 구하기
 	            //fileName = uuid + "." + ext;
@@ -111,7 +116,6 @@ public class specialityController {
 	            param.setSpc_file_nm(fileName);
 	            param.setSpc_file_path(DB_filepath);
 	        }
-	        
 	        
 	        int x = service.setSpeciality(param);
 	        
@@ -121,6 +125,7 @@ public class specialityController {
 		}
 	}
 	
+	//전문정보 수정
 	@PostMapping("/updateSpeciality.do")
 	@ResponseBody
 	public String updateSpecaility(@ModelAttribute SpecialityParamVO param) throws Exception {
@@ -139,19 +144,17 @@ public class specialityController {
 	            param.setSpc_file_nm(fileName);
 	            param.setSpc_file_path(DB_filepath);
 	        }
-	        
-	        
 	        int x = service.updateSpeciality(param);
 	        if(x != 0) {
 	        	result = "success";
 	        }
-	        
 	        return result;
 		} catch (Exception e) {
 			return result;
 		}
 	}
 	
+	//전문정보 삭제
 	@PostMapping("/deleteSpeciality.do")
 	@ResponseBody
 	public String deleteSpecialityCode(@ModelAttribute SpecialityParamVO param) throws Exception {

@@ -16,7 +16,7 @@ public class ImageVO {
 	private String rep_image;
 	private long file_size;
 	private String public_service;
-	private String reg_user = "jinhyun";
+	private String reg_user;
 	private String reg_date;
 	private String mod_user;
 	private String mod_date;

@@ -99,6 +99,8 @@
   						},
   						success : function(data) {
   							$('#imageInfoListZone').empty().append(data);
+  							let lth = $('#image_tbody > tr').length;
+  							$('#image_cnt').text('이미지('+lth+')');
   						}
   					});
   	$.ajax({
@@ -791,6 +793,8 @@
                 async : false,
                 success: function(data) {
                    $('#movementZone').empty().append(data);
+                   let lth = $('#movement_tbody > tr').length;
+                   $('#movement_cnt').text('이동사항('+lth+')')
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                    console.log(xhr.status);
@@ -1484,8 +1488,9 @@
   						alert('통신실패!');
   				},
   				success : function(data) {
-  					console.log(data);
   					$('#settings').empty().append(data);
+  					let lth = $('#preservation_tbody > tr').length;
+  					$('#preservation_cnt').text('보존처리('+lth+')');
   				}
   			});
   	}
@@ -1547,6 +1552,8 @@
                 async : false,
                 success: function(data) {
   				$('#specialityZone').empty().append(data);
+  				let lth = $('#speciality-tbody > tr').length;
+  				$('#speciality_cnt').text('전문정보('+lth+')');
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                    console.log(xhr.status);
@@ -2849,34 +2856,34 @@
           </div>
           <!-- 내용물 -->
           <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item" style="width:20%;">
+            <li class="nav-item" style="width: 20%;">
                 <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                     <span class="d-none d-sm-block">기본 사항</span>
                 </a>
             </li>
-            <li class="nav-item" style="width:20%;">
+            <li class="nav-item" style="width: 20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                    <span class="d-none d-sm-block">이동 사항(0)</span>
+                    <span class="d-none d-sm-block" id="movement_cnt">이동사항(0)</span>
                 </a>
             </li>
-            <li class="nav-item" style="width:20%;">
+            <li class="nav-item" style="width: 20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#messages" role="tab">
                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                    <span class="d-none d-sm-block">이미지(0)</span>
+                    <span class="d-none d-sm-block" id="image_cnt">이미지(0)</span>
                 </a>
             </li>
-            <li class="nav-item" style="width:20%;">
+            <li class="nav-item" style="width: 20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#settings" role="tab">
                     <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
-                    <span class="d-none d-sm-block">보존처리(0)</span>
+                    <span class="d-none d-sm-block" id="preservation_cnt">보존처리(0)</span>
                 </a>
             </li>
-            <li class="nav-item" style="width:20%;">
+            <li class="nav-item" style="width: 20%;">
               <a class="nav-link" data-bs-toggle="tab" href="#settings22" role="tab">
                   <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
-                  <span class="d-none d-sm-block">전문정보(0)</span>
+                  <span class="d-none d-sm-block" id="speciality_cnt">전문정보(0)</span>
               </a>
           </li>
         </ul>

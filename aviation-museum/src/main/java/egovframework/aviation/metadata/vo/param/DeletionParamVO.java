@@ -22,7 +22,7 @@ public class DeletionParamVO {
 	private String org_nm;
 	private String possession_nm;
 	private String aproval_state;
-	private String reg_user = "jinhyun";
+	private String reg_user;
 	
 	
 

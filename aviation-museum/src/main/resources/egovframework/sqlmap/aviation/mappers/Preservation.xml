@@ -93,4 +93,13 @@
 		delete from nam_preservation_image where preservation_idx = #{preservation_idx}
 	</delete>
 	
+	<select id="getPreservationItemBase" resultType="egovframework.aviation.metadata.vo.ItemBaseVO">
+		select * from nam_item_base where item_idx = #{item_idx}
+	</select>
+	
+	<select id="getPreservationItemBase2" resultType="egovframework.aviation.metadata.vo.ItemBaseVO">
+		select * from nam_item_base where item_idx = 
+		(select item_idx from nam_preservation where preservation_idx = #{preservation_idx})
+	</select>
+	
 </mapper>

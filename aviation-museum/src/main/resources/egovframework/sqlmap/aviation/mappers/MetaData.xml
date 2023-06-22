@@ -20,6 +20,21 @@
 		</if>
 	</select>
 	
+	<select id="deduplication" resultType="String">
+		select 
+			* 
+		from 
+			nam_item_base
+		where
+			org_code_idx = 1
+		and 
+			possession_code_idx = (select possession_code_idx from nam_possession_code where possession_nm = #{possession_nm})
+		and
+			item_no = #{item_no}	
+		and
+			item_detail_no = #{item_detail_no}
+	</select>
+	
 	<select id="getItemIdx2" resultType="map" parameterType="egovframework.aviation.metadata.vo.param.AllChangeItemParamVO">
 		select 
 			item_idx 
@@ -796,13 +811,21 @@
 				item_detail_no, 
 				item_nm, 
 				item_se_nm,
+				item_eng_nm,
 				qty, 
 				qty_unit_code_idx, 
 				feature,
 				remark,
 				reg_state, 
 				reg_user, 
-				reg_date
+				reg_date,
+				ICAO_CODE_IDX,
+				EXISTENCE_CODE_IDX,
+				MANAGEMENT_NO,
+				PRESERVATION_NEED,
+				CONDITION_CODE_IDX,
+				RANKING_CODE_IDX
+				
 			)
 			values 
 			<foreach separator="," item="value" collection="maps">
@@ -813,13 +836,21 @@
 			#{value.item_detail_no},
 			#{value.item_nm},
 			#{value.item_se_nm},
+			#{value.item_eng_nm},
 			#{value.qty},
 			(select qty_unit_code_idx from nam_qty_unit_code where qty_unit_nm = #{value.qty_unit_nm}),
 			#{value.feature},
 			#{value.remark},
 			'N',
 			#{value.reg_user},
-			now()
+			now(),
+			'0',
+			'0',
+			#{value.management_no},
+			'N',
+			'0',
+			'0'
+			
 			) 
 			</foreach>
 	</insert>
@@ -887,6 +918,23 @@
 			</foreach>
 	</insert>
 	
+	<insert id="setCountryExcel" parameterType="java.util.HashMap">
+		insert into nam_country_era (
+				item_idx, reg_user, country_code_idx, era_code_idx, detail_year, reg_date
+			) 
+			values 
+			<foreach separator="," item="value" collection="maps">
+			(
+			(select item_idx from nam_item_base where item_no = #{value.item_no} limit 1),
+			#{value.reg_user},
+			(select ifnull(min(country_code_idx), 0) as country_code_idx from nam_country_code where country_nm = #{value.country_nm}),
+			(select ifnull(min(era_code_idx), 0) as era_code_idx from nam_era_code where era_nm = #{value.era_nm}),
+			"",
+			now()
+			) 
+			</foreach>
+	</insert>
+	
 	<delete id="deleteCountry">
 		delete from nam_country_era where country_era_idx in
 		<foreach collection="arr" item="item" index="index" separator="," open="(" close=")"> 
@@ -905,6 +953,23 @@
 				<foreach separator="," index="idx" item="item" collection="value">
 					#{item} 
 				</foreach>
+			) 
+			</foreach>
+	</insert>
+	
+	<insert id="setMaterialExcel" parameterType="java.util.HashMap">
+			insert into nam_material (
+				item_idx, reg_user, material1_code_idx, material2_code_idx, material_detail, reg_date
+			) 
+			values 
+			<foreach separator="," item="value" collection="maps">
+			(
+			(select item_idx from nam_item_base where item_no = #{value.item_no} limit 1),
+			#{value.reg_user},
+			(select ifnull(min(material1_code_idx), 0) as material1_code_idx from nam_material1_code where material1_nm = #{value.material1_nm}),
+			(select ifnull(min(material2_code_idx), 0) as material2_code_idx from nam_material2_code where material2_nm = #{value.material2_nm}),
+			"",
+			now()
 			) 
 			</foreach>
 	</insert>
@@ -1046,6 +1111,26 @@
 			</foreach>
 	</insert>
 	
+	<insert id="setInsuranceExcel" parameterType="java.util.HashMap">
+			insert into nam_insurance (
+				item_idx, reg_user, agreed_value, price_unit_code_idx, start_date, end_date, rental_org, remark, reg_date
+			) 
+			values 
+			<foreach separator="," item="value" collection="maps">
+			(
+			(select item_idx from nam_item_base where item_no = #{value.item_no} limit 1),
+			#{value.reg_user},
+			#{value.agreed_value},
+			(select ifnull(min(price_unit_code_idx), 0) as price_unit_code_idx from nam_price_unit_code where price_unit_nm = #{value.insurance_price_unit_nm}),
+			#{value.start_date},
+			#{value.end_date},
+			#{value.rental_org},
+			#{value.rental_remark},
+			now()
+			) 
+			</foreach>
+	</insert>
+	
 	<delete id="deleteInsurance">
 		delete from nam_insurance where insurance_idx in
 		<foreach collection="arr" item="item" index="index" separator="," open="(" close=")"> 
@@ -1142,6 +1227,66 @@
 				#{reg_user}, 
 				now()
 			)
+			<selectKey resultType="int" keyProperty="movement_idx" order="AFTER">
+		        SELECT LAST_INSERT_ID()
+		    </selectKey>
+	</insert>
+	
+	<insert id="setMovementExcel" parameterType="egovframework.aviation.metadata.vo.param.MovementExcelParamVO">
+			insert into nam_movement (
+				item_idx, 
+				storage_type1_code_idx, 
+				storage_type2_code_idx, 
+				movement_date,
+				movement_qty, 
+				requester, 
+				remark, 
+				reg_user, 
+				reg_date
+			) 
+			values 
+				(
+					(select 
+						item_idx 
+					from 
+						nam_item_base 
+					where 
+						possession_code_idx = (select possession_code_idx from nam_possession_code where possession_nm = #{possession_nm})
+					and 
+						item_no = #{item_no}
+					<if test="item_detail_no != null and item_detail_no != '' ">
+						and item_detail_no = #{item_detail_no}
+					</if>
+					limit 1
+				),
+				(select storage_type1_code_idx from nam_storage_type1_code where storage_type1_nm = #{storage_type1_nm}),
+				(select storage_type2_code_idx from nam_storage_type2_code where storage_type2_nm = #{storage_type2_nm}),
+				#{movement_date},
+				#{movement_qty},
+				#{requester},
+				#{remark},
+				#{reg_user},
+				now()
+				)
+			<!-- <foreach collection="maps" item="item" index="index" separator=",">
+				(
+					(select item_idx from nam_item_base where item_no = #{item.item_no}
+					<if test="item.item_detail_no != null and item.item_detail_no != '' ">
+						and item_detail_no = #{item.item_detail_no}
+					</if>
+					limit 1
+				),
+				(select storage_type1_code_idx from nam_storage_type1_code where storage_type1_nm = #{item.storage_type1_nm}),
+				(select storage_type2_code_idx from nam_storage_type2_code where storage_type2_nm = #{item.storage_type2_nm}),
+				#{item.movement_date},
+				#{item.movement_qty},
+				#{item.requester},
+				#{item.remark},
+				#{item.reg_user},
+				now()
+				)
+			</foreach> -->
+			
 			<selectKey resultType="int" keyProperty="movement_idx" order="AFTER">
 		        SELECT LAST_INSERT_ID()
 		    </selectKey>
@@ -1247,6 +1392,34 @@
 				#{movement_idx},
 				'OUT',
 				#{item}
+			) 
+			</foreach>
+	</insert>
+	
+	<insert id="setStorageExcel1">
+			insert into nam_storage (
+				movement_idx, storage_type, storage_code_idx
+			) 
+			values 
+			<foreach separator=","  item="item" collection="list">
+			(
+				#{movement_idx},
+				'IN',
+				(select storage_code_idx from nam_storage_code where storage_nm = #{item})
+			) 
+			</foreach>
+	</insert>
+	
+	<insert id="setStorageExcel2">
+			insert into nam_storage (
+				movement_idx, storage_type, storage_code_idx
+			) 
+			values 
+			<foreach separator=","  item="item" collection="list">
+			(
+				#{movement_idx},
+				'OUT',
+				(select storage_code_idx from nam_storage_code where storage_nm = #{item})
 			) 
 			</foreach>
 	</insert>
@@ -1382,7 +1555,17 @@
 	</select>
 	
 	<select id="getCountryEra" resultType="egovframework.aviation.metadata.vo.metadata.CountryEraVO">
-			select 
+		select 
+			nce.*, 
+			ncc.COUNTRY_NM, 
+			nec.ERA_NM 
+		from nam_country_era nce
+			left join nam_country_code ncc 
+			on ncc.COUNTRY_CODE_IDX = nce.COUNTRY_CODE_IDX 
+			left join nam_era_code nec 
+			on nec.ERA_CODE_IDX = nce.ERA_CODE_IDX 
+		where nce.ITEM_IDX = #{item_idx}
+			<!-- select 
 				nce.*,
 				ncc.COUNTRY_NM,
 				nec.ERA_NM,
@@ -1393,7 +1576,7 @@
 				nam_era_code nec
 			where nce.ITEM_IDX = #{item_idx}
 				and nce.COUNTRY_CODE_IDX = ncc.COUNTRY_CODE_IDX
-				and nce.ERA_CODE_IDX = nec.ERA_CODE_IDX
+				and nce.ERA_CODE_IDX = nec.ERA_CODE_IDX -->
 	</select>
 	
 	<select id="getMaterial" resultType="egovframework.aviation.metadata.vo.metadata.MaterialVO">
@@ -1461,7 +1644,7 @@
 			FROM 
 			nam_insurance ni,
 			nam_price_unit_code npuc 
-			where ni.ITEM_IDX = 465
+			where ni.ITEM_IDX = #{item_idx}
 			and ni.PRICE_UNIT_CODE_IDX = npuc.PRICE_UNIT_CODE_IDX ;
 	</select>
 	

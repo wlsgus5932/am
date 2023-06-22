@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import egovframework.aviation.metadata.service.PreservationService;
+import egovframework.aviation.metadata.service.impl.PreservationMapper;
+import egovframework.aviation.metadata.vo.ItemBaseVO;
 import egovframework.aviation.metadata.vo.metadata.PreservationImageVO;
 import egovframework.aviation.metadata.vo.metadata.PreservationVO;
 import egovframework.aviation.metadata.vo.param.PreservationParamVO;
@@ -29,27 +30,35 @@ public class PreservationController {
 	@Autowired
 	private PreservationService service;
 	
-	String result_path = "D:/uploadtest/images/preservation/result-img/";
-//	String result_path = "/images/preservation/result-img/";
-	String db_result_path = "/images/preservation/result-img/";
+	@Autowired
+	private PreservationMapper mapper;
 	
-	String before_path = "D:/uploadtest/images/preservation/before-img/";
-//	String before_path = "/images/preservation/before-img/";
-	String db_before_path = "/images/preservation/before-img/";
+//	String result_path = "D:/uploadtest/images/preservation/result-img/";
+////	String result_path = "/images/preservation/result-img/";
+//	String db_result_path = "/images/preservation/result-img/";
+//	
+//	String before_path = "D:/uploadtest/images/preservation/before-img/";
+////	String before_path = "/images/preservation/before-img/";
+//	String db_before_path = "/images/preservation/before-img/";
+//	
+//	String after_path = "D:/uploadtest/images/preservation/after-img/";
+////	String after_path = "/images/preservation/after-img/";
+//	String db_after_path = "/images/preservation/after-img/";
 	
-	String after_path = "D:/uploadtest/images/preservation/after-img/";
-//	String after_path = "/images/preservation/after-img/";
-	String db_after_path = "/images/preservation/after-img/";
 	
+	//보존처리 등록
 	@PostMapping("/addPreservation.do")
 	@ResponseBody
 	public String addPreservation(@ModelAttribute PreservationParamVO param, HttpServletRequest req) throws Exception {
-		System.out.println(param);
 		MultipartFile uploadFile = null;
 		String fileName = null;
 		
+		List<ItemBaseVO> dsf = mapper.getPreservationItemBase(param.getItem_idx());
+		String result_path = "/images/" + dsf.get(0).getOrg_code_idx() + "/" + dsf.get(0).getPossession_code_idx() + "/preservation/result-img/";
+		String before_path = "/images/" + dsf.get(0).getOrg_code_idx() + "/" + dsf.get(0).getPossession_code_idx() + "/preservation/before-img/";
+		String after_path = "/images/" + dsf.get(0).getOrg_code_idx() + "/" + dsf.get(0).getPossession_code_idx() + "/preservation/after-img/";
+		
 		String result = "error";
-		System.out.println(param.getBefore_uploadFile() +","+ param.getAfter_uploadFile() + "," + param.getResult_uploadFile());
 		
 		uploadFile = param.getResult_uploadFile();
 		fileName = uploadFile.getOriginalFilename();
@@ -68,7 +77,7 @@ public class PreservationController {
 			file.mkdirs();
 		}
 		
-		param.setFile_path(db_result_path);
+		param.setFile_path(result_path);
 			if(!uploadFile.isEmpty()) {
 				uploadFile.transferTo(new File(result_path + fileName));
 			}
@@ -90,7 +99,7 @@ public class PreservationController {
 							
 						list.add(param.getPreservation_idx());
 						list.add(fileName);
-						list.add(db_before_path);
+						list.add(before_path);
 						list.add("B");
 						list.add(param.getReg_user());
 						map.put(i, list);
@@ -111,7 +120,7 @@ public class PreservationController {
 							
 						list.add(param.getPreservation_idx());
 						list.add(fileName);
-						list.add(db_after_path);
+						list.add(after_path);
 						list.add("A");
 						list.add(param.getReg_user());
 						map.put(i, list);
@@ -123,6 +132,7 @@ public class PreservationController {
 		return result;
 	}
 	
+	//보존처리 수정
 	@PostMapping("/updatePreservation.do")
 	@ResponseBody
 	public String updatePreservation(@ModelAttribute PreservationParamVO param,  HttpServletRequest req) throws Exception {
@@ -131,12 +141,18 @@ public class PreservationController {
 		String fileName = null;
 		String result = "error";
 		
+		List<ItemBaseVO> dsf = mapper.getPreservationItemBase(param.getItem_idx());
+		String result_path = "/images/" + dsf.get(0).getOrg_code_idx() + "/" + dsf.get(0).getPossession_code_idx() + "/preservation/result-img/";
+		String before_path = "/images/" + dsf.get(0).getOrg_code_idx() + "/" + dsf.get(0).getPossession_code_idx() + "/preservation/before-img/";
+		String after_path = "/images/" + dsf.get(0).getOrg_code_idx() + "/" + dsf.get(0).getPossession_code_idx() + "/preservation/after-img/";
+		
+		
 		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 		param.setMod_user(userSessionId);
 		uploadFile = param.getResult_uploadFile();
 		fileName = uploadFile.getOriginalFilename();
 		param.setFile_nm(fileName);
-		param.setFile_path(db_result_path);
+		param.setFile_path(result_path);
 		int x = service.updatePreservation(param);
 		
 		if(!uploadFile.isEmpty()) {
@@ -155,7 +171,7 @@ public class PreservationController {
 						
 						list.add(param.getPreservation_idx());
 						list.add(fileName);
-						list.add(db_before_path);
+						list.add(before_path);
 						list.add("B");
 						list.add(param.getReg_user());
 						
@@ -178,7 +194,7 @@ public class PreservationController {
 						
 						list.add(param.getPreservation_idx());
 						list.add(fileName);
-						list.add(db_after_path);
+						list.add(after_path);
 						list.add("A");
 						list.add(param.getReg_user());
 						
@@ -192,6 +208,7 @@ public class PreservationController {
 		return result;
 	}
 	
+	//보존처리 리스트
 	@GetMapping("/getPreservation.do")
 	public String getPreservation(Model model, @RequestParam("item_idx") int item_idx) throws Exception {
 		List<PreservationVO> list = service.getPreservationList(item_idx);
@@ -203,6 +220,7 @@ public class PreservationController {
 		return "metadata/add/preservation/preservationList";
 	}
 	
+	//보존처리 리스트
 	@GetMapping("/getPreservationSc.do")
 	public String getPreservationSc(Model model, @RequestParam("item_idx") int item_idx) throws Exception {
 		List<PreservationVO> list = service.getPreservationList(item_idx);
@@ -211,34 +229,35 @@ public class PreservationController {
 			list.get(i).setImage(vo);
 		}
 		model.addAttribute("preservationList", list);
-		System.out.println(list);
 		
 		return "metadata/add/preservation/preservationListSc";
 	}
 	
+	//보존처리 이미지 삭제
 	@PostMapping("/deletePreservationImage.do")
 	@ResponseBody
 	public String deletePreservationImage(Model model, @RequestParam("image_idx[]") List<String> image_idx) throws Exception {
 		String result = "error";
-		System.out.println(image_idx);
 		int x = service.deletePreservationImage(image_idx);
-		
-		//이미지 삭제
-		
-		
 		if(x > 0) result = "success";
 		
 		return result;
 	}
 	
+	//보존처리 삭제
 	@GetMapping("/deletePreservation.do")
 	@ResponseBody
 	public String deletePreservationImage(Model model, @RequestParam("idx") String preservation_idx) throws Exception {
 		String result = "error";
+		List<ItemBaseVO> ibVO = mapper.getPreservationItemBase2(preservation_idx);
 		List<PreservationImageVO> vo = service.getPreservationImageList(preservation_idx);
 		int x = service.deletePreservation(preservation_idx);
 		int y = service.deleteImageAll(preservation_idx);
-		System.out.println(vo);
+		
+		String result_path = "/images/" + ibVO.get(0).getOrg_code_idx() + "/" + ibVO.get(0).getPossession_code_idx() + "/preservation/result-img/";
+		String before_path = "/images/" + ibVO.get(0).getOrg_code_idx() + "/" + ibVO.get(0).getPossession_code_idx() + "/preservation/before-img/";
+		String after_path = "/images/" + ibVO.get(0).getOrg_code_idx() + "/" + ibVO.get(0).getPossession_code_idx() + "/preservation/after-img/";
+		
 		File file = null;
 		for(int i=0; i<vo.size(); i++) {
 			switch (vo.get(i).getImage_state()) {
@@ -249,11 +268,6 @@ public class PreservationController {
 					
 				case "B":
 					file = new File(before_path+vo.get(i).getImage_nm());
-					file.delete();
-					break;
-					
-				default:
-					file = new File(result_path+vo.get(i).getImage_nm());
 					file.delete();
 					break;
 			}

@@ -44,7 +44,6 @@ const search_item_base_html = () => {
 							alert('자료가 없습니다!');
 						},
 						success : function(data) {
-							console.log(data)
 							$('#home').empty().append(data);
 							let num = $('#item_idx').val()
 							sessionStorage.setItem("item_idx", num);

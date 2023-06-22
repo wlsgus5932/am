@@ -74,7 +74,7 @@
                 data : form,
   			  async: false,
                 success: function(data) {
-  				$('#imageUpdateZone').empty().append(data);
+  					$('#imageUpdateZone').empty().append(data);
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                 }
@@ -117,60 +117,6 @@
   const imageAllCheck = box => {
      	box.checked ? $('input[name=imageUpdateListCheckbox]').prop("checked", true) : $('input[name=imageUpdateListCheckbox]').prop("checked", false);
   }
-
-   // 멀티 모듈은 mode를 "multi"로 설정하며, id 속성으로 컴포넌트 DOM 아이디를 부여한다.
-   // parentId는 컨테이너 아이디를 지정한다.
-    dx5.create({ mode: "multi", id: "dext5", parentId: "dext5-container" });
-
-    function addTo(id) {
-  	    var dx = dx5.get("dext5");
-  		// ORAF, OROF, EXNJ로 업로드 모드를 설정한다.
-  		dx.setUploadMode("EXNJ");
-  	   	dx5.get(id).openFileDialog();
-  	 }
-
-  	 function uploadFrom(id) {
-  	   var dx = dx5.get(id);
-  	   if (dx.hasUploadableItems()) {
-  	     // 추가된 모든 로컬 파일을 주어진 경로(웹)로 업로드한다.
-  	     dx.setUploadURL("http://localhost:8080/addImage.do");
-  	     dx.upload("AUTO");
-  	   } else {
-  	     alert("업로드할 대상이 없다.");
-  	   }
-  	 }
-
-    	/** 일반 업로드 **/
-      /** DEXTUPLOADX5 설정 **/
-      dx5.create({
-         mode: "multi", id: "dext5", parentId: "dext5-container" , btnFile: "btn-add-files",
-         btnUploadAuto: "btn-upload-auto"
-      });
-
-  	 /** 대용량 업로드 **/
-  	 function onDX5Error(id, code, msg) {
-  	//     alert(id + " => " +  code + "\n" + msg);
-  	 }
-
-  	 function onDX5Created(id) {
-  	    var dx = dx5.get(id);
-
-  	    // 대용량 파일 업로드 방식으로 설정한다.
-  	    dx.setUploadURL(dx5.canonicalize('./extension-upload.ext?item_idx='+sessionStorage.getItem('item_idx')));
-  	    dx.setUploadMode("EXNJ");
-  	    dx.setUploadBlockSize(10 * 1024 * 1024);
-  	 }
-
-  	 function onDX5UploadStopped(id) { alert("업로드가 중단되었습니다."); }
-
-  	 function onDX5UploadCompleted(id) {
-  	    // 대용량 업로드는 개별 파일마다 응답 데이터를 따로 받으므로, ';' 문자를 구분자로 하는 하나의 문자열로 생성하여 전달한다.
-  	    var responses = dx5.get(id).getResponses();
-  	    for(var i = 0, len = responses.length; i < len; i++) {
-  	       console.log(responses[i]);
-  	    }
-  	    getImageUpdateList()
-  	 }
 
   const downloadImageChecked = async () => {
           let path_arr = [];
@@ -245,6 +191,51 @@
              return false;
          }
      }
+  
+  /** 일반 업로드 **/
+	const createdx5 = () => {
+		/** DEXTUPLOADX5 설정 **/
+	      dx5.create({
+	         mode: "multi", id: "dext5", parentId: "dext5-container" , btnFile: "btn-add-files",
+	         btnUploadAuto: "btn-upload-auto", btnDeleteChecked: "btn-delete-auto"
+	      });
+	}
+	function onDX5Created(id) {
+	    	    var dx = dx5.get(id);
+	    	    // 대용량 파일 업로드 방식으로 설정한다.
+	    	    console.log("id: " + id);
+	    	    dx.setUploadURL(dx5.canonicalize('./extension-upload2.ext'));
+	    	    //dx.setUploadURL(dx5.canonicalize('./extension-upload2.ext'));
+	    	    dx.setUploadMode("EXNJ");
+	    	    dx.setUploadBlockSize(10 * 1024 * 1024);
+	    		//dx.setPreviewEnable(true);
+	    		// 내장 뷰어를 사용하여 미리보기를 수행하도록 설정한다. (기본값 1)
+	    		//dx.setPreviewMethod(2);
+	    		// 첫 번째 파일이 로컬 이미지 파일이라면 내장 뷰어를 실행한다.
+   	 }
+	
+ /** 대용량 업로드 **/
+ function onDX5Error(id, code, msg) {
+     alert('업로드에 실패하였습니다. 자료번호 혹은 이미지 이름의 규칙을 확인해주세요.');
+ }
+
+ function onDX5UploadStopped(id) { alert("업로드가 중단되었습니다."); }
+
+ function onDX5UploadCompleted(id) {
+    // 대용량 업로드는 개별 파일마다 응답 데이터를 따로 받으므로, ';' 문자를 구분자로 하는 하나의 문자열로 생성하여 전달한다.
+    let responses = dx5.get(id).getResponses();
+    for(var i = 0, len = responses.length; i < len; i++) {
+		    let arr = responses[i].split('-');
+		    let pos = arr[0].substr(0,3);
+		    let item_no = arr[0].substr(3);
+		    let item_detail_no = arr[1];
+		    let serial_no = arr[2].substr(0,5);
+		    $('#excel_movement_tbody').append('<tr><td>'+(i+1)+'</td>' +
+		    		'<td>'+pos+'</td>' + '<td>'+item_no+'</td>' +
+		    		'<td>'+item_detail_no+'</td>' + '<td>'+serial_no+'</td>' +
+		    		'<td>'+responses[i]+'</td></tr>');
+    }
+ }
   </script>
 
   <body data-sidebar="dark">
@@ -304,12 +295,12 @@
                   <span class="d-none d-sm-block">이미지 리스트</span>
                 </a>
               </li>
-              <!-- <li class="nav-item">
-                <a class="nav-link " data-bs-toggle="tab" href="#addAllImage" role="tab" id="addAllImage">
+              <li class="nav-item">
+                <a class="nav-link " data-bs-toggle="tab" href="#addAllImageList" role="tab" id="addAllImage">
                   <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                   <span class="d-none d-sm-block">일괄등록</span>
                 </a>
-              </li> -->
+              </li>
             </ul>
             <div class="search_top_text">
               <label class="col-md-2 col-form-label st_title" id="totalNum"></label>
@@ -319,24 +310,7 @@
           </div>
           <!-- Tab panes -->
           <div class="tab-content p-3 text-muted" id="tab-content">
-						 <div class="modal fade imageUploadModal" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
-                        <div class="modal-dialog modal-xl">
-                          <div class="modal-content pro-modal-content">
-                            <div class="modal-header mv-modal-header">
-                                <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body mv-modal-body">
-                                <!-- 엑셀 모달 내용 -->
-			                      	<div id="dext5-container" style="width:100%; height:300px;"></div>
-			                      	<div id="dext5-btn" style="text-align: center; margin: 10px 10px 10px 10px;">
-			                         	<button id="btn-add-files" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">파일추가</button>
-			                    	 	<button id="btn-upload-auto" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">저장</button>
-			                    	 </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
+						 
           	<div class="tab-pane active" role="tabpanel" id="imageUpdateList">
           	<div class="mb-0">
                 <div class="st_wrap">
@@ -368,10 +342,53 @@
           </div>
           <!--  -->
         </div>
-        <div class="tab-pane" role="tabpanel" id="addAllImage">
-        <div class="mb-0">
-        dd
-        </div></div>
+        <div class="tab-pane" role="tabpanel" id="addAllImageList">
+        <!-- 이미지 모달 -->
+            <div id="imageUploadModal" class="modal fade" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                          <div class="modal-content pro-modal-content">
+                            <div class="modal-header mv-modal-header">
+                                <!-- <h5 class="modal-title" id="myModalLabel">Default Modal</h5> -->
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body mv-modal-body">
+                            <div style="text-align: right; margin-bottom: 10px">
+			                        <button id="btn-add-files" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">파일추가</button>
+                             </div>
+                                <!-- 엑셀 모달 내용 -->
+			                      	<div id="dext5-container" style="width:100%; height:300px;"></div>
+			                      	<div id="dext5-btn" style="text-align: center; margin: 10px 10px 10px 10px;">
+			                    	 	<button id="btn-upload-auto" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">저장</button>
+			                    	 	<button id="btn-delete-auto" type="button" class="btn btn-secondary waves-effect waves-light btn_ml btn_m2">삭제</button>
+			                    	 </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- 이미지모달끝 -->
+	        <div class="mb-0">
+                         <button type="button" class="custom_btn btn_6466ab" data-bs-toggle="modal" data-bs-target="#imageUploadModal" onclick="createdx5()">업로드</button>
+	        	<div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table mb-0">
+                      <thead>
+                        <tr class="tr_bgc">
+                          <th>번호</th>
+                          <th>자료구분</th>
+                          <th>자료번호</th>
+                          <th>세부번호</th>
+                          <th>일련번호</th>
+                          <th>파일명</th>
+                        </tr>
+                      </thead>
+                      <tbody id="excel_movement_tbody">
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+	        </div>
+        </div>
         <!-- End Page-content -->
         <footer class="footer">
           <div class="container-fluid">

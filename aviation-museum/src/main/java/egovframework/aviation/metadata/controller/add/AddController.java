@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -61,6 +62,7 @@ import egovframework.aviation.metadata.vo.StorageType2VO;
 import egovframework.aviation.metadata.vo.StorageVO;
 import egovframework.aviation.metadata.vo.param.AllChangeItemParamVO;
 import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
+import egovframework.aviation.metadata.vo.param.MovementExcelParamVO;
 import egovframework.aviation.metadata.vo.param.MovementParamVO;
 import egovframework.aviation.metadata.vo.speciality.SpecialityCodeVO;
 import egovframework.aviation.paging.Criteria;
@@ -79,6 +81,7 @@ public class AddController {
 	@Autowired
 	private MetaDataMapper mapper;
 	
+	//자료신규등록 진입
 	@GetMapping("/add.do")
 	public String addMetaDataForm(Model model) throws Exception {
 		try {
@@ -139,6 +142,7 @@ public class AddController {
 		
 	}
 	
+	//자료 기본정보 등록시
 	@PostMapping("/add.do")
 	public String addMetaForm(@ModelAttribute MetaDataParamVO param, Model model, HttpServletRequest req) throws Exception {
 		try {
@@ -146,8 +150,7 @@ public class AddController {
 			if(searchItemNo == null) {
 				String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 				param.setReg_user(userSessionId);
-				 int x = service.setItemBase(param);
-				 System.out.println(param);
+				int x = service.setItemBase(param);
 				 
 				 if(x == 1) {
 					 HashMap<Integer, Object> classMap = new HashMap<Integer, Object>();
@@ -155,8 +158,6 @@ public class AddController {
 					 HashMap<Integer, Object> materialMap = new HashMap<Integer, Object>();
 					 HashMap<Integer, Object> measureMap = new HashMap<Integer, Object>();
 					 
-					 //필수
-					 System.out.println("ddd:::"+param.getClass1_code_idx().get(0));
 					 if(param.getClass1_code_idx() != null && !param.getClass1_code_idx().get(0).isEmpty() && !param.getClass1_code_idx().get(0).equals("0")) {
 						 for (int i = 0; i < param.getClass1_code_idx().size(); i++) {
 								List<Object> item = new ArrayList<>();
@@ -174,7 +175,6 @@ public class AddController {
 								List<Object> item = new ArrayList<>();
 								item.add(param.getItem_idx());
 								item.add(param.getReg_user());
-								 
 								item.add(param.getCountry_code_idx().get(i));
 								item.add(param.getEra_code_idx().get(i));
 								item.add(param.getDetail_year().get(i));
@@ -296,15 +296,13 @@ public class AddController {
 		
 	}
 	
+	//자료 이동사항 등록
 	@PostMapping("/addMovement.do")
 	public String addMovementForm(Model model, @ModelAttribute MovementParamVO param) throws Exception {
 		try {
 			 int v = service.setMovement(param);
 			 
 			 if(v > 0) {
-//				 param.getStorage1_code_idx().removeAll(Arrays.asList("", null));
-//				 param.getStorage2_code_idx().removeAll(Arrays.asList("", null));
-				 
 				 service.setStorage(param);
 				 service.setStorage2(param);
 			 }
@@ -317,6 +315,7 @@ public class AddController {
 		 }
 	}
 	
+	//이동사항 수정
 	@PostMapping("/modifyMovement.do")
 	@ResponseBody
 	public String modifyMovementForm(@ModelAttribute MovementParamVO param) throws Exception {
@@ -340,6 +339,7 @@ public class AddController {
 		 }
 	}
 	
+	//이동사항 삭제
 	@GetMapping("/deleteMovement.do")
 	@ResponseBody
 	public String deleteMovement(@RequestParam("movement") int movement_idx) throws Exception {
@@ -356,6 +356,7 @@ public class AddController {
 		
 	}
 	
+	//국적 코드 리스트
 	@GetMapping("/getEraData.do")
 	public String getEraData(@RequestParam("country") int country, ModelMap model) throws Exception {
 		List<EraVO> list = service.getEra(country);
@@ -364,6 +365,7 @@ public class AddController {
 		return "jsonView";
 	}
 	
+	//재질 코드 리스트
 	@GetMapping("/getMaterialData.do")
 	public String getMaterialData(@RequestParam("material") int material, ModelMap model) throws Exception {
 		List<Material2VO> list = service.getMaterial2(material);
@@ -372,6 +374,7 @@ public class AddController {
 		return "jsonView";
 	}
 	
+	//보관구분 리스트
 	@GetMapping("/getStorageType2.do")
 	public String getStorageType2(@RequestParam("type2") int type2, ModelMap model) throws Exception {
 		List<StorageType2VO> list = service.getStorageType2(type2);
@@ -380,6 +383,7 @@ public class AddController {
 		return "jsonView";
 	}
 	
+	//이동사항 정보 가져오기
 	@PostMapping("/getMovementList.do")
 	public String getMovementList(ModelMap model, @ModelAttribute MovementParamVO param, @ModelAttribute Criteria cri) throws Exception {
 		int perPageNum = service.getMovementListCnt(param);
@@ -402,6 +406,7 @@ public class AddController {
 		return "metadata/add/movement/movementList";
 	}
 	
+	//이동사항 엑셀 다운로드
 	@PostMapping("/getMovemenExceltList.do")
 	public String getMovemenExceltList(ModelMap model, @ModelAttribute MovementParamVO param) throws Exception {
 		List<MovementVO> list = service.getMovementExcel(param);
@@ -410,6 +415,7 @@ public class AddController {
 		return "metadata/add/movement/movementExcel";
 	}
 	
+	//이동사항 상세 창 정보 가져오기
 	@PostMapping("/getPastMovementList.do")
 	public String getPastMovementList(ModelMap model, @ModelAttribute MovementParamVO param) throws Exception {
 		List<MovementVO> list = service.getMovement(param);
@@ -418,6 +424,7 @@ public class AddController {
 		return "metadata/add/movement/pastMovement";
 	}
 	
+	//이동사항 정보 가져오기
 	@GetMapping("/getMovementData.do")
 	public String getMovementData(ModelMap model, @RequestParam("movement_idx") int movement_idx) throws Exception {
 		List<MovementVO> list = service.getMovementData(movement_idx);
@@ -426,6 +433,7 @@ public class AddController {
 		return "jsonView";
 	}
 	
+	//보관처 코드 리스트
 	@GetMapping("/getStorageCode.do")
 	public String getStorageData(ModelMap model, @RequestParam("storage") int stroage) throws Exception {
 		List<StorageVO> list = service.getStorage(stroage);
@@ -434,13 +442,13 @@ public class AddController {
 		return "jsonView";
 	}
 	
+	//자료번호 삽입
 	@PostMapping("/setItemNo.do")
 	@ResponseBody
 	public String setItemNo(ModelMap model, @ModelAttribute MetaDataParamVO param) throws Exception {
 		String result = "error";
 		try {
 			String searchItemNo = service.searchItemNo(param);
-			System.out.println("search:::"+ searchItemNo);
 			if(searchItemNo != null) {
 				int x = service.setItemNo(param);
 				if(x > 0) {
@@ -455,6 +463,7 @@ public class AddController {
 		
 		return result;
 	}
+	
 	
 	@PostMapping("/getMovementListSc.do")
 	public String getMovementListSc(ModelMap model, @ModelAttribute MovementParamVO param, @ModelAttribute Criteria cri) throws Exception {
@@ -486,6 +495,7 @@ public class AddController {
 		return "metadata/add/movement/pastMovementSc";
 	}
 	
+	//자료정보 일괄변경 - 개별변경
 	@GetMapping("/getChangeItem.do")
 	public String getChangeItem(ModelMap model, @RequestParam("idx") String idx) throws Exception {
 		switch(idx) {
@@ -554,10 +564,10 @@ public class AddController {
 		return "jsonView";
 	}
 	
+	//자료정보일괄변경 - 일괄변경
 	@PostMapping("/allChangeItem.do")
 	@ResponseBody
 	public String allChangeItem(ModelMap model, @ModelAttribute AllChangeItemParamVO param) throws Exception {
-		System.out.println(param);
 		String result = "error";
 		List<Map<String, Object>> dto = null;
 		if(param.getChangeItemCheck().equals("Y")) {
@@ -653,6 +663,7 @@ public class AddController {
 		return result;
 	}
 	
+	//자료정보일괄변경 - 개별변경
 	@PostMapping("/oneChangeItem.do")
 	@ResponseBody
 	public String oneChangeItem(ModelMap model, @ModelAttribute AllChangeItemParamVO param) throws Exception {
@@ -747,14 +758,15 @@ public class AddController {
 		return result;
 	}
 	
+	//자료검색
 	@PostMapping("/searchItemBase2.do")
 	public String getMetadata(ModelMap model, @ModelAttribute MetaDataParamVO param) throws Exception {
 		List<ItemBaseVO> list = mapper.getItemBase2(param);
 		model.addAttribute("itemBaseList", list);
-		System.out.println(param);
 		return "jsonView";
 	}
 	
+	//자료일괄등록 페이지 진입
 	@GetMapping("/autoAdd.do")
 	public String autoAdd(Model model) throws Exception {
 		List<CountryVO> country = service.getCountry();
@@ -808,6 +820,7 @@ public class AddController {
 		return "metadata/add/autoAdd";
 	}
 	
+	//자료기본정보 엑셀업로드
 	@PostMapping("/uploadMetaDataExcel.do")
 	public String uploadMetaDataExcel(ModelMap model, @RequestParam("uploadExcel") MultipartFile file) throws Exception {
 		InputStream fileInputStream = file.getInputStream();
@@ -846,7 +859,7 @@ public class AddController {
         		"not",
         		"not",
         		"not",
-        		"not",
+        		"management_no",
         		"not",
         		"not",
         		"not",
@@ -863,133 +876,204 @@ public class AddController {
         		"reference",
         		"item_eng_nm"
         };
-        List<Map<String, Object>> data = new ArrayList<>();
+        List<Map<String, String>> data = new ArrayList<>();
         
         for (Row row : sheet) {
-          Map<String, Object> map = new HashMap<>();
-          j = 0;
-          for (Cell cell : row) {
-              switch (cell.getCellType()) {
-	                case STRING: {
-	                	if(cell.getRichStringCellValue().getString().matches("[+-]?\\d*(\\.\\d+)?") 
-	                		&& cell.getRichStringCellValue().getString().length() == 8) {
-	                			SimpleDateFormat dtFormat = new SimpleDateFormat("yyyyMMdd");
-	                			SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
-	                			Date formatDate = dtFormat.parse(cell.getRichStringCellValue().getString());
-	                			String strNewDtFormat = newDtFormat.format(formatDate);
-	                			map.put(names[j], strNewDtFormat);
-	                	} else {
-	                		map.put(names[j], cell.getRichStringCellValue().getString());
-	                	}
-	                    break;
-	                }
-	                case NUMERIC: {
-	                	int number = (int)cell.getNumericCellValue();
-	                	map.put(names[j], number);
-	                    break;
-	                }
-	                case BOOLEAN: {
-	                	map.put(names[j], cell.getBooleanCellValue() + "");
-	                    break;
-	                }
-	                case FORMULA: {
-	                	map.put(names[j], cell.getCellFormula() + "");
-	                    break;
-	                }
-	                default:
-	                	map.put(names[j], " ");
-	        		}
-              j++;
-          	}
-      	
-          data.add(map);
-          i++;
-      }
-        for(int k=0; k<=1; k++) {
-        	data.remove(0);
+        	if(i>1) {
+        		Map<String, String> map = new HashMap<>();
+        		map.put("check", "성공");
+		          j = 0;
+		          for (Cell cell : row) {
+		              switch (cell.getCellType()) {
+			                case STRING: {
+			                	if(cell.getRichStringCellValue().getString().matches("[+-]?\\d*(\\.\\d+)?") 
+			                		&& cell.getRichStringCellValue().getString().length() == 8) {
+			                			SimpleDateFormat dtFormat = new SimpleDateFormat("yyyyMMdd");
+			                			SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
+			                			Date formatDate = dtFormat.parse(cell.getRichStringCellValue().getString());
+			                			String strNewDtFormat = newDtFormat.format(formatDate);
+			                			map.put(names[j], strNewDtFormat);
+			                	} else {
+			                		map.put(names[j], cell.getRichStringCellValue().getString());
+			                	}
+			                    break;
+			                }
+			                case NUMERIC: {
+			                	int number = (int)cell.getNumericCellValue();
+			                	map.put(names[j], String.valueOf(number));
+			                    break;
+			                }
+			                case BOOLEAN: {
+			                	map.put(names[j], cell.getBooleanCellValue() + "");
+			                    break;
+			                }
+			                case FORMULA: {
+			                	map.put(names[j], cell.getCellFormula() + "");
+			                    break;
+			                }
+			                default:
+			                	map.put(names[j], " ");
+			        		}
+		              j++;
+		          	}
+		          data.add(map);
+        	}
+        	i++;
         }
+        
+        for (Map<String, String> row : data) {
+        	if(row.get("possession_nm").equals(" ")) {
+        		row.put("check", "실패");
+        	} else if (row.get("item_no").equals(" ") && row.get("item_no").length() != 6) {
+        		row.put("check", "실패");
+        	} else if (row.get("item_detail_no").equals(" ") && row.get("item_detail_no").length() != 5) {
+        		row.put("check", "실패");
+        	} else if (row.get("qty").equals(" ")) {
+        		row.put("check", "실패");
+        	} else if (row.get("qty_unit_nm").equals(" ")) {
+        		row.put("check", "실패");
+        	} else if (row.get("item_nm").equals(" ")) {
+                row.put("check", "실패");
+            }
+        	
+        	List<ItemBaseVO> x = mapper.deduplication(row.get("possession_nm"), row.get("item_no").replaceAll("^0+",""), row.get("item_detail_no").replaceAll("^0+",""));
+        	System.out.println("x:::"+x);
+        	if(x.size() > 0) {
+        		row.put("check", "자료번호중복");
+        	}
+        }
+        
         model.addAttribute("excelList", data);
 		return "jsonView";
 	}
 	
+	//자료일괄등록 이동사항 엑셀 업로드
 	@PostMapping("/uploadMovementDataExcel.do")
-	public String uploadMovementDataExcel(ModelMap model, @RequestParam("uploadExcel") MultipartFile file) throws Exception {
+	public String uploadMovementDataExcel(ModelMap model, @RequestParam("uploadExcel2") MultipartFile file, HttpServletRequest req) throws Exception {
 		InputStream fileInputStream = file.getInputStream();
 		Workbook workbook = new HSSFWorkbook(file.getInputStream());
+		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 
         Sheet sheet = workbook.getSheetAt(0);
         int i = 0;
         int j = 0;
         
         String[] names = {
-        		"d",
+        		"possession_nm",
+        		"item_no",
+        		"item_detail_no",
+        		"movement_date",
+        		"storage_type1_nm",
+        		"storage_type2_nm",
+        		"storage_in1",
+        		"storage_in2",
+        		"storage_in3",
+        		"storage_in4",
+        		"storage_in5",
+        		"storage_in6",
+        		"not",
+        		"movement_qty",
+        		"requester",
+        		"not",
+        		"remark",
+        		"storage_out1",
+        		"storage_out2",
+        		"storage_out3",
+        		"storage_out4",
+        		"storage_out5",
+        		"storage_out6",
+        		"not",
         };
         List<Map<String, Object>> data = new ArrayList<>();
+        ArrayList<String> storageList = new ArrayList<String>();
+        ArrayList<String> storageList2 = new ArrayList<String>();
         
         for (Row row : sheet) {
-          Map<String, Object> map = new HashMap<>();
-          j = 0;
-          for (Cell cell : row) {
-              switch (cell.getCellType()) {
-	                case STRING: {
-	                	if(cell.getRichStringCellValue().getString().matches("[+-]?\\d*(\\.\\d+)?") 
-	                		&& cell.getRichStringCellValue().getString().length() == 8) {
-	                			SimpleDateFormat dtFormat = new SimpleDateFormat("yyyyMMdd");
-	                			SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
-	                			Date formatDate = dtFormat.parse(cell.getRichStringCellValue().getString());
-	                			String strNewDtFormat = newDtFormat.format(formatDate);
-	                			map.put(names[j], strNewDtFormat);
-	                	} else {
-	                		map.put(names[j], cell.getRichStringCellValue().getString());
-	                	}
-	                    break;
-	                }
-	                case NUMERIC: {
-	                	int number = (int)cell.getNumericCellValue();
-	                	map.put(names[j], number);
-	                    break;
-	                }
-	                case BOOLEAN: {
-	                	map.put(names[j], cell.getBooleanCellValue() + "");
-	                    break;
-	                }
-	                case FORMULA: {
-	                	map.put(names[j], cell.getCellFormula() + "");
-	                    break;
-	                }
-	                default:
-	                	map.put(names[j], " ");
-	        		}
-              j++;
+        	storageList = new ArrayList<String>();
+        	storageList2 = new ArrayList<String>();
+        	Map<String, Object> map = new HashMap<>();
+        	map.put("check", "성공");
+	          j = 0;
+	          for (Cell cell : row) {
+	              switch (cell.getCellType()) {
+		                case STRING: {
+		                	if(i > 1 && j==6 || j==7 || j==8 || j==9 || j==10) {
+		                		storageList.add(cell.getRichStringCellValue().getString());
+		                	} else if(i > 1 && j >= 17 && j <= 24) {
+		                		storageList2.add(cell.getRichStringCellValue().getString());
+		                	} else {
+		                		map.put(names[j], cell.getRichStringCellValue().getString());
+		                	}
+		                    break;
+		                }
+		                case NUMERIC: {
+		                	int number = (int)cell.getNumericCellValue();
+		                	String text = String.valueOf(number);
+		                	if(text.length() == 8) {
+			                	SimpleDateFormat dtFormat = new SimpleDateFormat("yyyyMMdd");
+		            			SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
+		            			Date formatDate = dtFormat.parse(text);
+		            			String strNewDtFormat = newDtFormat.format(formatDate);
+		            			map.put(names[j], strNewDtFormat);
+		                	} else {
+		                		map.put(names[j], number);
+		                	}
+	            			
+		                    break;
+		                }
+		                case BOOLEAN: {
+		                	map.put(names[j], cell.getBooleanCellValue() + "");
+		                    break;
+		                }
+		                case FORMULA: {
+		                	map.put(names[j], cell.getCellFormula() + "");
+		                    break;
+		                }
+		                default:
+		                	map.put(names[j], " ");
+		        		}
+	              j++;
           	}
-      	
+      	  map.put("storage_in", storageList);
+      	  map.put("storage_out", storageList2);
+      	  map.put("reg_user", userSessionId);
+      	  
           data.add(map);
           i++;
       }
         for(int k=0; k<=1; k++) {
         	data.remove(0);
         }
+        
+        for (Map<String, Object> row : data) {
+        	if(row.get("possession_nm").equals(" ")) {
+        		row.put("check", "실패");
+        	} else if (row.get("item_no").toString().equals(" ") && row.get("item_no").toString().length() != 6) {
+        		row.put("check", "실패");
+        	} else if (row.get("item_detail_no").toString().equals(" ") && row.get("item_detail_no").toString().length() != 5) {
+        		row.put("check", "실패");
+        	} 
+        }
         model.addAttribute("excelList", data);
 		return "jsonView";
 	}
 	
-	
+	//자료일괄등록 - 기본정보 저장
 	@RequestMapping("/autoAddMetaData.do")
 	@ResponseBody
-	public String autoAddMetaData(ModelMap model, @RequestBody List<Map<String, Object>> param) throws Exception {
-		System.out.println(param);
+	public String autoAddMetaData(ModelMap model, @RequestBody List<Map<String, String>> param) throws Exception {
 		String result = "error";
-		for(Map<String, Object> strMap : param) {
-		    System.out.print(strMap.get("end_date") + " ");
-		    System.out.print(strMap.get("material2_nm") + " ");
-		    System.out.print(strMap.get("obtainment_nm") + " ");
-		    System.out.print(strMap.get("reg_user") + " ");
-		    System.out.println(strMap.get("item_nm"));
+		System.out.println(param.toString());
+		for(Map<String, String> strMap : param) {
+		    strMap.put("item_no", strMap.get("item_no").replaceAll("^0+",""));
+		    strMap.put("item_detail_no", strMap.get("item_detail_no").replaceAll("^0+",""));
 		}
 		
-		System.out.println("param:::"+param.size());
 		int x = mapper.setExcelMetaData(param);
 		int y = mapper.setObtainmentExcel(param);
+		mapper.setCountryExcel(param);
+		mapper.setMaterialExcel(param);
+		mapper.setInsuranceExcel(param);
 		if(x > 0 ) {
 			result = "success";
 		}
@@ -997,30 +1081,47 @@ public class AddController {
 		return result;
 	}
 	
+	//자료일괄등록 이동사항 저장
 	@RequestMapping("/autoMovementMetaData.do")
 	@ResponseBody
-	public String autoMovementMetaData(ModelMap model, @RequestBody List<Map<String, Object>> param) throws Exception {
-//		List<ItemBaseVO> list = mapper.getItemBase2(param);
-//		Map<String, Object> param
-//		model.addAttribute("itemBaseList", list);
-		for(Map<String, Object> strMap : param) {
-		    //System.out.println(strMap);
-		    System.out.print(strMap.get("end_date") + " ");
-		    System.out.print(strMap.get("material2_nm") + " ");
-		    System.out.print(strMap.get("obtainment_nm") + " ");
-		    System.out.print(strMap.get("reg_user") + " ");
-		    System.out.println(strMap.get("item_nm"));
-		}
-		
-		for(int i=0; i<param.size(); i++) {
-			System.out.println(param.get(i));
-			int x = mapper.setExcelMetaData(param);
-			if(x > 0) {
-				int y = mapper.setObtainmentExcel(param);
+	public String autoMovementMetaData(ModelMap model, @RequestBody List<MovementExcelParamVO> param) throws Exception {
+		String result = "error";
+		try {
+			for(int i=0; i<param.size(); i++) {
+				param.get(i).setItem_no(param.get(i).getItem_no().replaceAll("^0+",""));
+				param.get(i).setItem_detail_no(param.get(i).getItem_detail_no().replaceAll("^0+",""));
+				
+				mapper.setMovementExcel(param.get(i));
+				mapper.setStorageExcel1(param.get(i).getMovement_idx(), param.get(i).getStorage_in());
+				mapper.setStorageExcel2(param.get(i).getMovement_idx(), param.get(i).getStorage_out());
 			}
+			
+			result = "success";
+		} catch (Exception e) {
+			result = "error";
 		}
 		
-		return "dd";
+		return result;
+	}
+	
+	//자료일괄등록 - 자료번호 중복 검사
+	@RequestMapping("/duplicateItemNo.do")
+	@ResponseBody
+	public String duplicateItemNo(ModelMap model, @RequestBody Map<String, String> param) throws Exception {
+		String result = "error";
+		try {
+			List<ItemBaseVO> x = mapper.deduplication(param.get("possession_nm"), param.get("item_no").replaceAll("^0+",""), param.get("item_detail_no").replaceAll("^0+",""));
+			System.out.println("x:::"+x);
+			if(x.size() > 0) {
+				result = "자료번호중복";
+			} else {
+				result = "성공";
+			}
+		} catch (Exception e) {
+			result = "error";
+		}
+		
+		return result;
 	}
 	
 }

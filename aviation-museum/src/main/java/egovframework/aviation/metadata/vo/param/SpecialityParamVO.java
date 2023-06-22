@@ -15,8 +15,8 @@ public class SpecialityParamVO {
 	private MultipartFile spc_uploadFile;
 	private String spc_copyright;
 	private String spc_content;
-	private String reg_user = "jinhyun";
-	private String mod_user = "jinhyun2";
+	private String reg_user;
+	private String mod_user;
 	private int pageStart;
 	private int perPageNum = 10;
 	private String speciality_title_search;

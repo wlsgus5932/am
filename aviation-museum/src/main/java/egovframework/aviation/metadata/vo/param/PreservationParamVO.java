@@ -22,7 +22,7 @@ public class PreservationParamVO {
 	private List<MultipartFile> after_uploadFile;
 	private String file_path;
 	private String file_local_path;
-	private String reg_user = "jinhyun";
+	private String reg_user;
 	private String mod_user;
 	
 	private List<String> image_nm;

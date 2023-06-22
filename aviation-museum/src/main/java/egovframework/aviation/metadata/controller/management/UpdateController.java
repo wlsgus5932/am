@@ -54,9 +54,9 @@ public class UpdateController {
 	@Autowired
 	private SpecialityService service2;
 	
+	//자료정보 수정
 	@PostMapping("/update.do")
 	public String updateData(@ModelAttribute MetaDataParamVO param, Model model, HttpServletRequest req) throws Exception {
-		System.out.println(param);
 		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
 		param.setReg_user(userSessionId);
 		try {
@@ -287,7 +287,8 @@ public class UpdateController {
 			return "jsonView";
 		}
 	}
-		
+	
+	//분류체계 삭제
 	@PostMapping("/deleteTaxonomy.do")
 	@ResponseBody
 	public String deleteTaxonomy(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
@@ -304,150 +305,8 @@ public class UpdateController {
 			return result;
 		}
 	}
-	
-//	@PostMapping("/update.do")
-//	@ResponseBody
-//	public String updateData(@ModelAttribute MetaDataParamVO param, Model model, HttpServletRequest req) throws Exception {
-//		System.out.println(param);
-//		String result = "error";
-//		String userSessionId =  (String) req.getSession().getAttribute("userSessionId");
-//		param.setReg_user(userSessionId);
-//		try {
-//			int x = service.updateItemBase(param);
-//			service.updateObtainment(param);
-//			service.updateGgnuri(param);
-//			//service.updateKeyword(param);
-//			HashMap<Integer, Object> classMap = new HashMap<Integer, Object>();
-//			HashMap<Integer, Object> countryMap = new HashMap<Integer, Object>();
-//			HashMap<Integer, Object> materialMap = new HashMap<Integer, Object>();
-//			HashMap<Integer, Object> measurementMap = new HashMap<Integer, Object>();
-//			HashMap<Integer, Object> involMap = new HashMap<Integer, Object>();
-//			HashMap<Integer, Object> insuMap = new HashMap<Integer, Object>();
-//			HashMap<Integer, Object> copyMap = new HashMap<Integer, Object>();
-//			
-//			if(param.getUpdate_class1_code_idx() != null) {
-//				for (int i = 0; i < param.getUpdate_class1_code_idx().size(); i++) {
-//					List<Object> item = new ArrayList<>();
-//					item.add(param.getItem_idx());
-//					item.add(param.getReg_user());
-//					item.add(param.getUpdate_class1_code_idx().get(i));
-//					item.add(param.getUpdate_class2_code_idx().get(i));
-//					item.add(param.getUpdate_class3_code_idx().get(i));
-//					classMap.put(i, item);
-//				}
-//				service.setTaxonomy(classMap);
-//			}
-//			
-//			if(param.getUpdate_country_code_idx() != null) {
-//				for (int i = 0; i < param.getUpdate_country_code_idx().size(); i++) {
-//					List<Object> item = new ArrayList<>();
-//					item.add(param.getItem_idx());
-//					item.add(param.getReg_user());
-//					item.add(param.getUpdate_country_code_idx().get(i));
-//					item.add(param.getUpdate_era_code_idx().get(i));
-//					item.add(param.getUpdate_detail_year().get(i));
-//					countryMap.put(i, item);
-//				}
-//				service.setCountry(countryMap);
-//			}
-//			
-//			if(param.getUpdate_material1_code_idx() != null) {
-//				for (int i = 0; i < param.getUpdate_material1_code_idx().size(); i++) {
-//					List<Object> item = new ArrayList<>();
-//					item.add(param.getItem_idx());
-//					item.add(param.getReg_user());
-//					item.add(param.getUpdate_material1_code_idx().get(i));
-//					item.add(param.getUpdate_material2_code_idx().get(i));
-//					item.add(param.getUpdate_material_detail().get(i));
-//					materialMap.put(i, item);
-//				}
-//				service.setMaterial(materialMap);
-//			}
-//			
-//			if(param.getUpdate_measurement_item_type() != null) {
-//				for (int i = 0; i < param.getUpdate_measurement_item_type().size(); i++) {
-//					List<Object> item = new ArrayList<>();
-//					item.add(param.getItem_idx());
-//					item.add(param.getReg_user());
-//					item.add(param.getUpdate_measurement_item_type().get(i));
-//					item.add(param.getUpdate_measurement_code_idx().get(i));
-//					item.add(param.getUpdate_measurement_value().get(i));
-//					item.add(param.getUpdate_measurement_unit_code_idx().get(i));
-//					measurementMap.put(i, item);
-//				}
-//				service.setMeasurement(measurementMap);
-//			}
-//			
-//			if(param.getUpdate_invol_possession_code_idx() != null) {
-//				for (int i = 0; i < param.getUpdate_invol_possession_code_idx().size(); i++) {
-//					List<Object> item = new ArrayList<>();
-//					item.add(param.getItem_idx());
-//					item.add(param.getReg_user());
-//					item.add(param.getOrg_code_idx());
-//					item.add(param.getUpdate_invol_possession_code_idx().get(i));
-//					item.add(param.getUpdate_invol_item_no().get(i));
-//					item.add(param.getUpdate_invol_remark().get(i));
-//					involMap.put(i, item);
-//				}
-//				service.setInvolvement(involMap);
-//			}
-//			
-//			if(param.getUpdate_insu_agreed_value() != null) {
-//				for (int i = 0; i < param.getUpdate_insu_agreed_value().size(); i++) {
-//					List<Object> item = new ArrayList<>();
-//					item.add(param.getItem_idx());
-//					item.add(param.getReg_user());
-//					item.add(param.getUpdate_insu_agreed_value().get(i));
-//					item.add(param.getUpdate_insu_price_unit_code_idx().get(i));
-//					item.add(param.getUpdate_insu_start_date().get(i));
-//					item.add(param.getUpdate_insu_end_date().get(i));
-//					item.add(param.getUpdate_insu_rental_org().get(i));
-//					item.add(param.getUpdate_insu_remark().get(i));
-//					insuMap.put(i, item);
-//				}
-//				service.setInsurance(insuMap);
-//			}
-//			
-//			if(param.getUpdate_copy_copyright() != null) {
-//				System.out.println(param.getUpdate_copy_copyright().size());
-//				for (int i = 0; i < param.getUpdate_copy_copyright().size(); i++) {
-//					List<Object> item = new ArrayList<>();
-//					item.add(param.getItem_idx());
-//					item.add(param.getReg_user());
-//					item.add(param.getUpdate_copy_copyright().get(i));
-//					item.add(param.getUpdate_copy_owner().get(i));
-//					item.add(param.getUpdate_copy_expiry_date().get(i));
-//					item.add(param.getUpdate_copy_usage_permission().get(i));
-//					item.add(param.getUpdate_copy_copyright_transfer().get(i));
-//					item.add(param.getUpdate_copy_remark().get(i));
-//					copyMap.put(i, item);
-//				}
-//				service.setCopyright(copyMap);
-//			}
-//			result = "success";
-//			return result;
-//		} catch (Exception e) {
-//			return result;
-//		}
-//	}
-//		
-//	@PostMapping("/deleteTaxonomy.do")
-//	@ResponseBody
-//	public String deleteTaxonomy(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
-//		String result = "error";
-//		try {
-//			String[] arr = param.getTaxonomy_idx().get(0).split(",");
-//			int x = service.deleteTaxonomy(arr);
-//			System.out.println(x);
-//			if(x!=0) {
-//				result = "success";
-//			}
-//			return result;
-//		} catch (Exception e) {
-//			return result;
-//		}
-//	}
 		
+	//국적 삭제
 	@PostMapping("/deleteCountry.do")
 	@ResponseBody
 	public String deleteCountry(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
@@ -464,6 +323,7 @@ public class UpdateController {
 		}
 	}
 	
+	//재질 삭제
 	@PostMapping("/deleteMaterial.do")
 	@ResponseBody
 	public String deleteMaterial(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
@@ -480,6 +340,7 @@ public class UpdateController {
 		}
 	}
 	
+	//크기 삭제
 	@PostMapping("/deleteMeasurement.do")
 	@ResponseBody
 	public String deleteMeasurement(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
@@ -496,6 +357,7 @@ public class UpdateController {
 		}
 	}
 	
+	//관련자료 삭제
 	@PostMapping("/deleteInvolvement.do")
 	@ResponseBody
 	public String deleteInvolvement(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
@@ -512,6 +374,7 @@ public class UpdateController {
 		}
 	}
 	
+	//보험 삭제
 	@PostMapping("/deleteInsurance.do")
 	@ResponseBody
 	public String deleteInsurance(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
@@ -528,6 +391,7 @@ public class UpdateController {
 		}
 	}
 	
+	//저작권 삭제
 	@PostMapping("/deleteCopyright.do")
 	@ResponseBody
 	public String deleteCopyright(@ModelAttribute MetaDataParamVO param, Model model) throws Exception {
@@ -544,6 +408,7 @@ public class UpdateController {
 		}
 	}
 	
+	//자료관리 -> 자료정보수정 페이지 진입
 	@GetMapping("/dataUpdate.do")
 	public String dataUpdate(Model model) {
 		
@@ -597,13 +462,11 @@ public class UpdateController {
 		return "metadata/management/update/update";
 	}
 	
+	//자료정보 삭제신청 리스트
 	@PostMapping("/getDeletionList.do")
 	public String getDeletionList(@ModelAttribute DeletionParamVO param, @ModelAttribute Criteria cri, Model model) throws Exception {
-		System.out.println(cri.getPerPageNum() + ","+ param.getPerPageNum());
-		System.out.println(param);
 		String result = "metadata/management/update/deletion";
 		int perPageNum = service.getDeletionCnt(param);
-		System.out.println("perPageNum:::"+ perPageNum);
 		PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
 	    pageMaker.setTotalCount(perPageNum);
@@ -620,10 +483,10 @@ public class UpdateController {
 		return result;
 	}
 	
+	//자료정보 삭제신청
 	@PostMapping("/deleteDeletion.do")
 	@ResponseBody
 	public String deleteDeletion(@ModelAttribute DeletionParamVO param, Model model) throws Exception {
-		System.out.println(param);
 		String result = "error";
 		try {
 			Map<Integer, Object> map = new HashMap<Integer, Object>();

@@ -18,7 +18,7 @@
 				                                  <th>삭제</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="movement_tbody">
 												<c:choose>
 														<c:when test="${movementList.size() > 0 }">
 													               <c:forEach var="list" items="${movementList}" varStatus="status">

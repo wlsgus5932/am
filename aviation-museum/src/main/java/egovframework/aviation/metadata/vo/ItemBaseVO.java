@@ -30,6 +30,7 @@ public class ItemBaseVO {
 	private String condition_nm;
 	private String ranking_nm;
 	private String possession_nm;
+	private String possession_code_idx;
 	
 	
 }

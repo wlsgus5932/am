@@ -82,7 +82,7 @@
   							$('#imageInfoZone').empty().append(data);
   						}
   					});
-  	$.ajax({
+  		$.ajax({
   						type : 'POST',
   						url : '/getImageList.do',
   						data: {
@@ -96,9 +96,11 @@
   						},
   						success : function(data) {
   							$('#imageInfoListZone').empty().append(data);
+  							let lth = $('#image_tbody > tr').length;
+  							$('#image_cnt').text('이미지('+lth+')');
   						}
   					});
-  	$.ajax({
+  		$.ajax({
 			type : 'POST',
 			url : '/getMainImageList.do',
 			data: {
@@ -507,177 +509,6 @@
            count++;
         };
 
-        /* const addClassTd2 = (r, b) => {
-          	 count2 = document.getElementById(r).querySelectorAll("tr").length;
-          	 let cell = '';
-          	 switch (r) {
-          	  case 'class-table':
-          	  	 cell =  '<tr id="class-tr"><td><input type="checkbox" name="class-checkbox"></td>' +
-       			 '<th scope="row">'+count2+'</th>' +
-       			 '<td><select class="form-select st_select" id="update_class1_code_idx'+count2+'" name="update_class1_code_idx"><option value="" selected>선택</option>' +
-       			 '<c:forEach var="list" items="${class1List}" varStatus="status"><option value="${list.class1_code_idx}">${list.class1_nm}</option></c:forEach></select></td>' +
-       			 '<td><select class="form-select st_select" id="update_class2_code_idx'+count2+'" name="update_class2_code_idx"><option value="" selected>선택</option>' +
-       			 '<c:forEach var="list" items="${class2List}" varStatus="status"><option value="${list.class2_code_idx}">${list.class2_nm}</option></c:forEach></select></td>' +
-       			 '<td><select class="form-select st_select" id="update_class3_code_idx'+count2+'" name="update_class3_code_idx"><option value="" selected>선택</option> ' +
-       			 '<c:forEach var="list" items="${class3List}" varStatus="status"><option value="${list.class3_code_idx}">${list.class3_nm}</option></c:forEach></select></td></tr>';
-          	    break;
-
-          	  case 'country-table':
-          	    cell = '<tr><td><input type="checkbox" name="country-checkbox"></td>' +
-          	    '<th scope="row">'+count2+'</th>'+
-                  '<td><select class="form-select st_select" id="update_country-select'+count2+'" onchange="udtchangeCountry(this.value, '+count2+')" name="update_country_code_idx"><option value="" selected>선택</option>' +
-                  '<c:forEach var="list" items="${countryList}" varStatus="status"><option value="${list.country_code_idx}">${list.country_nm}</option></c:forEach></select></td>'+
-                  '<td><select class="form-select st_select" id="update_era-select'+count2+'" name="update_era_code_idx"><option value="" selected>선택</option></select></td>' +
-                  '<td><input class="form-control st_input" list="datalistOptions" name="update_detail_year" placeholder="상세 시대를 입력해 주세요." id=detail_year'+count2+'></td></tr>';
-          	    break;
-
-          	  case 'material-table':
-          		  cell =  '<tr><td><input type="checkbox" name="material-checkbox"></td>' +
-                    '<th scope="row">'+count2+'</th>' +
-                    '<td><select class="form-select st_select" onchange="udtchangeMaterial(this.value, '+count2+')" id="update_material1_code_idx'+count2+'" name="update_material1_code_idx"><option value="" selected>선택</option>' +
-                    '<c:forEach var="list" items="${material1List}" varStatus="status"><option value="${list.material1_code_idx}">${list.material1_nm}</option></c:forEach></select></td>' +
-                    '<td><select class="form-select st_select" id="update_material2_code_idx'+count2+'" name="update_material2_code_idx"><option value="" selected>선택</option></select></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" placeholder="상세 재질을 입력해 주세요." id="update_material_detail'+count2+'" name="update_material_detail"></td></tr>';
-                    break;
-
-          	  case 'measurement-table':
-          		  cell = '<tr><td><input type="checkbox" name="measurement-checkbox"></td>' +
-                    '<th scope="row">'+count2+'</th>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" id="update_measurement_item_type'+count2+'" placeholder="소장구분을 입력해 주세요." name="update_measurement_item_type"></td>' +
-                    '<td><select class="form-select st_select" id="update_measurement_code_idx'+count2+'" name="update_measurement_code_idx"><option value="" selected>선택</option>' +
-                    '<c:forEach var="list" items="${measurementList}" varStatus="status"><option value="${list.measurement_code_idx}">${list.measurement_nm}</option></c:forEach></select></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" id="update_measurement_value'+count2+'" placeholder="실측치를 입력해 주세요." name="update_measurement_value" type="number"><td>' +
-                    '<select class="form-select st_select" id="update_measurement_unit_code_idx'+count2+'" name="update_measurement_unit_code_idx"><option value="" selected>선택</option>' +
-                    '<c:forEach var="list" items="${measurementUnitList}" varStatus="status"><option value="${list.measurement_unit_code_idx}">${list.measurement_unit_nm}</option></c:forEach>' +
-                    '</select></td></tr>';
-                    break;
-
-          	  case 'possession-table':
-          		  cell = '<tr><td><input type="checkbox" name="possession-checkbox">' +
-                    '<th scope="row">'+count2+'</th>' +
-                    '<td><select class="form-select st_select" name="update_invol_possession_code_idx" id="update_invol_possession_code_idx'+count2+'"><option value="" selected>선택</option>' +
-                    '<c:forEach var="list" items="${posSessionList}" varStatus="status"><option value="${list.possession_code_idx}">${list.possession_nm}</option></c:forEach></select>' +
-                    '</td><td><input class="form-control st_input" list="datalistOptions" name="update_invol_item_no" placeholder="자료번호를 입력해 주세요." id="update_invol_item_no'+count2+'"></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" name="update_invol_remark" placeholder="참고사항을 입력해 주세요." id="update_invol_remark'+count2+'"></td></tr>';
-                    break;
-
-          	  case 'insurance-table':
-          		cell = '<tr><td><input type="checkbox" name="insurance-checkbox"></td>' +
-                '<th scope="row">'+count2+'</th> ' +
-                '<td><input class="form-control st_input" list="datalistOptions" name="update_insu_agreed_value" id="update_insu_agreed_value'+count2+'" placeholder="평가액을 입력해 주세요." ></td>' +
-                '<td><select class="form-select st_select" name="update_insu_price_unit_code_idx" id="update_insu_price_unit_code_idx'+count2+'"><option value="" selected>선택</option>' +
-                '<c:forEach var="list" items="${priceUnitList}" varStatus="status"><option value="${list.price_unit_code_idx}">${list.price_unit_nm}</option></c:forEach></select></td>' +
-                '<td><input class="form-control" type="date" name="update_insu_start_date" id="update_insu_start_date'+count2+'"> ~ <input class="form-control" type="date" name="update_insu_end_date" id="update_insu_end_date'+count2+'"></td>' +
-                '<td><input class="form-control st_input" list="datalistOptions" placeholder="대여기관을 입력해 주세요." id="update_insu_rental_org'+count2+'" name="update_insu_rental_org"></td>' +
-                '<td><input class="form-control st_input" list="datalistOptions" placeholder="참고사항을 입력해 주세요." id=update_"insu_remark'+count2+'" name="update_insu_remark"></td></tr>';
-                break;
-
-          	  case 'copyright-table':
-          		  cell = '<tr><td><input type="checkbox" name="copyright-checkbox"></td>' +
-                    '<th scope="row">'+count2+'</th>' +
-                    '<td><select class="form-select st_select" name="update_copy_copyright" id="update_copy_copyright'+count2+'"><option value="" selected>선택</option><option value="Y">예</option>' +
-                    '<option value="N">아니요</option></select></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" name="update_copy_owner" placeholder="" id="update_copy_owner'+count2+'"></td>' +
-                    '<td><input class="form-control" type="date" name="update_copy_expiry_date" id="update_copy_expiry_date'+count2+'"></td>' +
-                    '<td><select class="form-select st_select" name="update_copy_usage_permission" id="update_copy_usage_permission'+count2+'"><option value="" selected>선택</option><option value="Y">예</option><option value="N">아니요</option>' +
-                    '</select></td><td><select class="form-select st_select" name="update_copy_copyright_transfer" id="update_copy_copyright_transfer'+count2+'"><option value="" selected>선택</option><option value="Y">예</option>' +
-                    '<option value="N">아니요</option></select></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" name="update_copy_remark" placeholder="참고사항을 입력해 주세요." id="update_copy_remark'+count2+'"></td></tr>';
-                    break;
-
-          	  default:
-          	    '';
-          	}
-
-              $("#"+b).append(cell);
-              count++;
-           }; */
-
-        /* const addUpdateTd = (r, b) => {
-          	 let cell = '';
-          	 switch (r) {
-          	  case 'class-table':
-          	  	 cell =  '<tr id="class-tr"><td><input type="checkbox" name="class-checkbox"></td>' +
-       			 '<th scope="row">1</th>' +
-       			 '<td><select class="form-select st_select" id="class1_code_idx0" name="update_class1_code_idx"><option value="0" selected>선택</option>' +
-       			 '<c:forEach var="list" items="${class1List}" varStatus="status"><option value="${list.class1_code_idx}">${list.class1_nm}</option></c:forEach></select></td>' +
-       			 '<td><select class="form-select st_select" id="class2_code_idx0" name="update_class2_code_idx"><option value="0" selected>선택</option>' +
-       			 '<c:forEach var="list" items="${class2List}" varStatus="status"><option value="${list.class2_code_idx}">${list.class2_nm}</option></c:forEach></select></td>' +
-       			 '<td><select class="form-select st_select" id="class3_code_idx0" name="update_class3_code_idx"><option value="0" selected>선택</option> ' +
-       			 '<c:forEach var="list" items="${class3List}" varStatus="status"><option value="${list.class3_code_idx}">${list.class3_nm}</option></c:forEach></select></td></tr>';
-          	    break;
-
-          	  case 'country-table':
-          	    cell = '<tr><td><input type="checkbox" name="country-checkbox"></td>' +
-          	    '<th scope="row">1</th>'+
-                  '<td><select class="form-select st_select" id="country-select0" onchange="udtchangeCountry(this.value, 0)" name="update_country_code_idx"><option value="0" selected>선택</option>' +
-                  '<c:forEach var="list" items="${countryList}" varStatus="status"><option value="${list.country_code_idx}">${list.country_nm}</option></c:forEach></select></td>'+
-                  '<td><select class="form-select st_select" id="era-select0" name="update_era_code_idx"><option value="0" selected>선택</option></select></td>' +
-                  '<td><input class="form-control st_input" list="datalistOptions" name="update_detail_year" placeholder="상세 시대를 입력해 주세요." id=detail_year0></td></tr>';
-          	    break;
-
-          	  case 'material-table':
-          		  cell =  '<tr><td><input type="checkbox" name="material-checkbox"></td>' +
-                    '<th scope="row">1</th>' +
-                    '<td><select class="form-select st_select" onchange="udtchangeMaterial(this.value, 0)" id="material1_code_idx0" name="update_material1_code_idx"><option value="0" selected>선택</option>' +
-                    '<c:forEach var="list" items="${material1List}" varStatus="status"><option value="${list.material1_code_idx}">${list.material1_nm}</option></c:forEach></select></td>' +
-                    '<td><select class="form-select st_select" id="material2_code_idx0" name="update_material2_code_idx"><option value="0" selected>선택</option></select></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" placeholder="상세 재질을 입력해 주세요." id="material_detail0" name="update_material_detail"></td></tr>';
-                    break;
-
-          	  case 'measurement-table':
-          		  cell = '<tr><td><input type="checkbox" name="measurement-checkbox"></td>' +
-                    '<th scope="row">1</th>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" id="measurement_item_type0" placeholder="소장구분을 입력해 주세요." name="update_measurement_item_type"></td>' +
-                    '<td><select class="form-select st_select" id="measurement_code_idx0" name="update_measurement_code_idx"><option value="0" selected>선택</option>' +
-                    '<c:forEach var="list" items="${measurementList}" varStatus="status"><option value="${list.measurement_code_idx}">${list.measurement_nm}</option></c:forEach></select></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" id="measurement_value0" placeholder="실측치를 입력해 주세요." name="update_measurement_value" type="number"><td>' +
-                    '<select class="form-select st_select" id="measurement_unit_code_idx0" name="update_measurement_unit_code_idx"><option value="0" selected>선택</option>' +
-                    '<c:forEach var="list" items="${measurementUnitList}" varStatus="status"><option value="${list.measurement_unit_code_idx}">${list.measurement_unit_nm}</option></c:forEach>' +
-                    '</select></td></tr>';
-                    break;
-
-          	  case 'possession-table':
-          		  cell = '<tr><td><input type="checkbox" name="possession-checkbox">' +
-                    '<th scope="row">1</th>' +
-                    '<td><select class="form-select st_select" name="update_invol_possession_code_idx" id="invol_possession_code_idx0"><option value="0" selected>선택</option>' +
-                    '<c:forEach var="list" items="${posSessionList}" varStatus="status"><option value="${list.possession_code_idx}">${list.possession_nm}</option></c:forEach></select>' +
-                    '</td><td><input class="form-control st_input" list="datalistOptions" name="update_invol_item_no" placeholder="자료번호를 입력해 주세요." id="invol_item_no0"></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" name="update_invol_remark" placeholder="참고사항을 입력해 주세요." id="invol_remark0"></td></tr>';
-                    break;
-
-          	  case 'insurance-table':
-          		cell = '<tr><td><input type="checkbox" name="insurance-checkbox"></td>' +
-                '<th scope="row">1</th> ' +
-                '<td><input class="form-control st_input" list="datalistOptions" name="update_insu_agreed_value" id="insu_agreed_value0" placeholder="평가액을 입력해 주세요." ></td>' +
-                '<td><select class="form-select st_select" name="update_insu_price_unit_code_idx" id="insu_price_unit_code_idx0"><option value="0" selected>선택</option>' +
-                '<c:forEach var="list" items="${priceUnitList}" varStatus="status"><option value="${list.price_unit_code_idx}">${list.price_unit_nm}</option></c:forEach></select></td>' +
-                '<td><input class="form-control" type="date" name="update_insu_start_date" id="insu_start_date0"> ~ <input class="form-control" type="date" name="update_insu_end_date" id="insu_end_date0"></td>' +
-                '<td><input class="form-control st_input" list="datalistOptions" placeholder="대여기관을 입력해 주세요." id="insu_rental_org0" name="update_insu_rental_org"></td>' +
-                '<td><input class="form-control st_input" list="datalistOptions" placeholder="참고사항을 입력해 주세요." id=update_"insu_remark0" name="update_insu_remark"></td></tr>';
-                break;
-
-          	  case 'copyright-table':
-          		  cell = '<tr><td><input type="checkbox" name="copyright-checkbox"></td>' +
-                    '<th scope="row">1</th>' +
-                    '<td><select class="form-select st_select" name="update_copy_copyright" id="copy_copyright0"><option value="0" selected>선택</option><option value="Y">예</option>' +
-                    '<option value="N">아니요</option></select></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" name="update_copy_owner" placeholder="" id="copy_owner0"></td>' +
-                    '<td><input class="form-control" type="date" name="update_copy_expiry_date" id="copy_expiry_date0"></td>' +
-                    '<td><select class="form-select st_select" name="update_copy_usage_permission" id="copy_usage_permission0"><option value="0" selected>선택</option><option value="Y">예</option><option value="N">아니요</option>' +
-                    '</select></td><td><select class="form-select st_select" name="update_copy_copyright_transfer" id="copy_copyright_transfer0"><option value="0" selected>선택</option><option value="Y">예</option>' +
-                    '<option value="N">아니요</option></select></td>' +
-                    '<td><input class="form-control st_input" list="datalistOptions" name="update_copy_remark" placeholder="참고사항을 입력해 주세요." id="copy_remark0"></td></tr>';
-                    break;
-
-          	  default:
-          	    '';
-          	}
-
-              $("#"+b).append(cell);
-              count++;
-           }; */
-
       const deleteClassTd = async (e, v, name) => {
     	  let idxArr = [];
     	  $('input:checkbox[name='+v+']:checked').each(function(){
@@ -699,29 +530,9 @@
     		             body: new URLSearchParams(formData)
     		     	})
     		     	const res = form.text();
-    		     	search_item_base()
-
-    			  	/* const check = 'input[name='+v+']:checked';
-    	  	   		const selected = document.querySelectorAll(check);
-
-    	  	        for(let i =0;i<selected.length;i++) {
-    	  	            selected[i].parentElement.parentElement.remove();
-    	  	        }
-    	  	    	count -= selected.length;
-    	  	    	sortNumber(e); */
+    		     	search_item_base();
     		  }
     	  }
-    	  /* else {
-  	    	const check = 'input[name='+v+']:checked';
-  	   		const selected = document.querySelectorAll(check);
-
-  	        for(let i =0;i<selected.length;i++) {
-  	            selected[i].parentElement.parentElement.remove();
-  	        }
-  	    	count -= selected.length;
-  	    	sortNumber(e);
-
-    	  } */
     };
 
     const sortNumber = e => {
@@ -787,6 +598,8 @@
                 async : false,
                 success: function(data) {
                    $('#movementZone').empty().append(data);
+                   let lth = $('#movement_tbody > tr').length;
+                   $('#movement_cnt').text('이동사항('+lth+')')
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                    console.log(xhr.status);
@@ -1486,6 +1299,8 @@
   				success : function(data) {
   					updateTransfer = [];
   					$('#settings').empty().append(data);
+  					let lth = $('#preservation_tbody > tr').length;
+  					$('#preservation_cnt').text('보존처리('+lth+')');
   				}
   			});
   	}
@@ -1547,6 +1362,8 @@
                 async : false,
                 success: function(data) {
   				$('#specialityZone').empty().append(data);
+  				let lth = $('#speciality-tbody > tr').length;
+  				$('#speciality_cnt').text('전문정보('+lth+')');
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                    console.log(xhr.status);
@@ -1721,7 +1538,7 @@
 
   	 /** 대용량 업로드 **/
   	 function onDX5Error(id, code, msg) {
-  	//     alert(id + " => " +  code + "\n" + msg);
+  	     alert(id + " => " +  code + "\n" + msg);
   	 }
 
   	 function onDX5UploadStopped(id) { alert("업로드가 중단되었습니다."); }
@@ -2161,10 +1978,6 @@
 				item_no.push(td.eq(3).text());
 				item_detail_no.push(td.eq(4).text());
 				item_nm.push(td.eq(5).text());
-			/*for(let i=3; i<tr.children().length; i++) {
-				console.log(i+'::::'+td.eq(i).text());
-			}*/
-			console.log(item_idx, item_no, item_detail_no, item_nm);
 		})
 
 				$.ajax({
@@ -3366,25 +3179,25 @@
             <li class="nav-item" style="width: 20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab">
                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                    <span class="d-none d-sm-block">이동 사항(0)</span>
+                    <span class="d-none d-sm-block" id="movement_cnt">이동사항(0)</span>
                 </a>
             </li>
             <li class="nav-item" style="width: 20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#messages" role="tab">
                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                    <span class="d-none d-sm-block">이미지(0)</span>
+                    <span class="d-none d-sm-block" id="image_cnt">이미지(0)</span>
                 </a>
             </li>
             <li class="nav-item" style="width: 20%;">
                 <a class="nav-link" data-bs-toggle="tab" href="#settings" role="tab">
                     <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
-                    <span class="d-none d-sm-block">보존처리(0)</span>
+                    <span class="d-none d-sm-block" id="preservation_cnt">보존처리(0)</span>
                 </a>
             </li>
             <li class="nav-item" style="width: 20%;">
               <a class="nav-link" data-bs-toggle="tab" href="#settings22" role="tab">
                   <span class="d-block d-sm-none"><i class="fas fa-cog"></i></span>
-                  <span class="d-none d-sm-block">전문정보(0)</span>
+                  <span class="d-none d-sm-block" id="speciality_cnt">전문정보(0)</span>
               </a>
           </li>
         </ul>
@@ -4276,7 +4089,7 @@
                   </div>
                 </div>
               <div class="mb-0">
-                <!-- 이동사항 등록 및 수정 모달 -->
+              <!-- 이동사항 등록 및 수정 모달 -->
                 <div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
                   <div class="modal-dialog">
                       <div class="modal-content">
@@ -4292,6 +4105,7 @@
                                 <div class="card-body">
                                   <div class="table-responsive">
                                       <form id="addMovement">
+
                                       <table class="table mb-0">
                                           <tbody>
                                               <tr>
@@ -4395,6 +4209,7 @@
                       </div>
                   </div>
               </div>
+                
                 <!-- 이동사항 -->
 
                 <div class="card-body">

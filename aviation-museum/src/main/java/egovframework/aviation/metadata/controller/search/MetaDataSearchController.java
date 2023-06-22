@@ -103,7 +103,8 @@ public class MetaDataSearchController {
 
 	   @Autowired
 	   private MetaDataMapper mapper;
-
+	   
+	   //검색 다음페이지
 	   @PostMapping("/searchItemNext.do")
 	   public String searchItemNext(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
 		      List<ItemBaseVO> list = metaDataService.getSearchItemNext(param);
@@ -111,6 +112,7 @@ public class MetaDataSearchController {
 
 		      return "jsonView";
 		   }
+	   //검색 이전페이지
 	   @PostMapping("/searchItemPrev.do")
 	   public String searchItemPrev(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
 		      List<ItemBaseVO> list = mapper.getSearchItemPrev(param);
@@ -118,7 +120,7 @@ public class MetaDataSearchController {
 
 		      return "jsonView";
 		   }
-
+	   //검색 맨마지막
 	   @PostMapping("/searchItemNextMax.do")
 	   public String searchItemNextMax(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
 		      List<ItemBaseVO> list = mapper.searchItemNextMax(param);
@@ -126,7 +128,7 @@ public class MetaDataSearchController {
 
 		      return "jsonView";
 		   }
-
+	   //검색 맨처음
 	   @PostMapping("/searchItemNextMin.do")
 	   public String searchItemNextMin(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
 		      List<ItemBaseVO> list = mapper.searchItemNextMin(param);
@@ -134,7 +136,8 @@ public class MetaDataSearchController {
 
 		      return "jsonView";
 		   }
-
+	   
+	   //자료기본정보
 	   @GetMapping("/searchItemBaseChild.do")
 	   public String searchClassCode(Model model, @RequestParam("item_idx") int item_idx) throws Exception {
 	      List<TaxonomyVO> taxo = service.getTaxonomy(item_idx);
@@ -162,7 +165,8 @@ public class MetaDataSearchController {
 
 	      return "jsonView";
 	   }
-
+	   
+	   //자료 검색
 	   @PostMapping("/searchItemBase.do")
 	   public String searchItemBase(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
 	      List<ItemBaseVO> list = service.getItemBase(param);
@@ -170,7 +174,8 @@ public class MetaDataSearchController {
 
 	      return "jsonView";
 	   }
-
+	   
+	   //자료 검색
 	   @PostMapping("/searchItemBaseHtml.do")
 	   public String searchItemBaseHtml(Model model, @ModelAttribute MetaDataParamVO param) throws Exception {
 		   System.out.println(param);
@@ -212,7 +217,8 @@ public class MetaDataSearchController {
 
 	      return "metadata/search/searchMetaDataList";
 	   }
-
+	   
+	   //키워드 리스트
 	   @PostMapping("/getKeywordList.do")
 	   public String getKeywordList(Model model, @ModelAttribute KeywordParamVO param) throws Exception {
 	      List<KeywordVO> list = metaDataSearchService.getKeywordList(param);
@@ -220,7 +226,7 @@ public class MetaDataSearchController {
 
 	      return "metadata/search/keywordList";
 	   }
-
+	   //키워드 모달
 	   @PostMapping("/getKeyword.do")
 	   public String getKeyword(Model model, @ModelAttribute KeywordParamVO param) throws Exception {
 	      List<KeywordVO> list = metaDataSearchService.getKeywordList(param);
@@ -228,7 +234,8 @@ public class MetaDataSearchController {
 
 	      return "jsonView";
 	   }
-
+	   
+	   //키워드 추가
 	   @PostMapping("/addKeyword.do")
 	   @ResponseBody
 	   public String addKeyword(Model model, @ModelAttribute KeywordParamVO param, HttpServletRequest req) throws Exception {
@@ -246,7 +253,8 @@ public class MetaDataSearchController {
 		   }
 		   return result;
 	   }
-
+	   
+	   //기본정보 selectbox 코드리스트
 	   @GetMapping("/metaDataList.do")
 	   public String getMetaDataList(Model model) throws Exception {
 	      try {

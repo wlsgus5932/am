@@ -41,6 +41,8 @@ public class NotRegisterController {
 	@Autowired
 	private SpecialityService service2;
 		
+	
+	//가등록 자료 정보조회 진입
 		@GetMapping("/notRegister.do")
 		public String notRegister(Model model) throws Exception {
 				List<CountryVO> country = service.getCountry();

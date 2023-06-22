@@ -49,6 +49,7 @@ import egovframework.aviation.metadata.vo.param.AllChangeItemParamVO;
 import egovframework.aviation.metadata.vo.param.DeletionParamVO;
 import egovframework.aviation.metadata.vo.param.KeywordParamVO;
 import egovframework.aviation.metadata.vo.param.MetaDataParamVO;
+import egovframework.aviation.metadata.vo.param.MovementExcelParamVO;
 import egovframework.aviation.metadata.vo.param.MovementParamVO;
 
 @Mapper
@@ -268,7 +269,24 @@ public interface MetaDataMapper {
 
 	List<Map<String, Object>> getItemIdx2(AllChangeItemParamVO param);
 
-	int setExcelMetaData(@Param("maps") List<Map<String, Object>> param);
+	int setExcelMetaData(@Param("maps") List<Map<String, String>> param);
 
-	int setObtainmentExcel(@Param("maps") List<Map<String, Object>> param);
+	int setObtainmentExcel(@Param("maps") List<Map<String, String>> param);
+
+	void setCountryExcel(@Param("maps") List<Map<String, String>> param);
+
+	void setMaterialExcel(@Param("maps") List<Map<String, String>> param);
+
+	void setInsuranceExcel(@Param("maps") List<Map<String, String>> param);
+
+	void setMovementExcel(MovementExcelParamVO movementExcelParamVO);
+
+	void setStorageExcel1(@Param("movement_idx") int i, @Param("list") List<String> list);
+	void setStorageExcel2(@Param("movement_idx") int i, @Param("list") List<String> list);
+
+	String deduplication(Map<String, String> map);
+
+	List<ItemBaseVO> deduplication(@Param("possession_nm") String possession_nm, @Param("item_no") String item_no, @Param("item_detail_no") String item_detail_no);
+
+
 }

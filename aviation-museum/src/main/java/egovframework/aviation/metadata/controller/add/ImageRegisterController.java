@@ -26,6 +26,7 @@ public class ImageRegisterController {
 	@Autowired
 	private ImageService imageService;
 	
+	//이미지 신규등록 진입
 	@GetMapping("/imageRegister.do")
 	public String imageRegister(Model model) throws Exception {
 		List<PosSessionVO> possession = metaDataService.getPosSession();
@@ -36,10 +37,10 @@ public class ImageRegisterController {
 			return "metadata/add/imageRegister";
 	}
 	
+	//이미지 신규등록 리스트 검색
 	@PostMapping("/getImageRegisterList.do")
 	public String getImageList(Model model, @ModelAttribute ImageParamVO param, @ModelAttribute Criteria cri) throws Exception {
 		int perPageNum = imageService.getImageIUpdateListCnt(param);
-		System.out.println(perPageNum);
 		if(param.getPerPageNum() != 0) {
 			int criPerPageNum = param.getPerPageNum();
 			cri.setPerPageNum(criPerPageNum);
@@ -52,7 +53,6 @@ public class ImageRegisterController {
 	    param.setPageStart(cri.getPageStart());
 	    param.setPerPageNum(cri.getPerPageNum());
 		List<ImageVO> list = imageService.getImageIUpdateList(param);
-		System.out.println(pageMaker);
 		model.addAttribute("imageList", list);
 		model.addAttribute("perPageNum", perPageNum);
 		model.addAttribute("pageMaker", pageMaker);

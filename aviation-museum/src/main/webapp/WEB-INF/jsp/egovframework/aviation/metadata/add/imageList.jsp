@@ -16,7 +16,7 @@
                                 <th style="width: 10%;">기능</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="image_tbody">
 						<c:choose>
 							<c:when test="${imageList.size() > 0 }">
 	                          	<c:forEach var="list" items="${imageList}" varStatus="status">
@@ -37,9 +37,6 @@
 				                   </c:forEach>
 	                         </c:when>
 							<c:otherwise>
-									<tr>
-										<td colspan="6">검색된 결과가 없습니다.</td>
-									</tr>
 								</c:otherwise>
 							</c:choose>
 							</tbody>

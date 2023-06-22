@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import egovframework.aviation.metadata.vo.ItemBaseVO;
 import egovframework.aviation.metadata.vo.metadata.PreservationImageVO;
 import egovframework.aviation.metadata.vo.metadata.PreservationVO;
 import egovframework.aviation.metadata.vo.param.PreservationParamVO;
@@ -28,5 +29,9 @@ public interface PreservationMapper {
 	int updatePreservation(PreservationParamVO param);
 
 	int deleteImageAll(String preservation_idx);
+
+	List<ItemBaseVO> getPreservationItemBase(@Param("item_idx") String item_idx);
+
+	List<ItemBaseVO> getPreservationItemBase2(@Param("preservation_idx") String preservation_idx);
 
 }

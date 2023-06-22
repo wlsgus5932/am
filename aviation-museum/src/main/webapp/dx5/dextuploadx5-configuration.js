@@ -6,8 +6,8 @@
 
     win.dextuploadx5Configuration = {
         // authkey: Authentication Key string
-        authkey: "VsS676g6Q3KToiqH2hYahZEYycSNF3y/XG6ms8STPxbWAClJ/yDs0V0NCnswb8kYKg+SdfYFBqXcwC5nBsEeCT+xzoZVdbj0DDKT0p8iP6oURAxtDFNlG/ESqZPGl3OUgQTelPYDWlJ2zf4iRlwvLSzsEIUT0lYDI+sgpsqNUcs=",
-
+        authkey: "ZJaUD2VrXKTyQHf9lEWL/XzBMtXAOaS6epWA2264mKsE/YRrbS4hN7kh8xlhYk/gBPa1S93ipfPLdDHn7eL5n1AusTjM+b1e2dKTwkvzytHksf/jPIYlnC9NU+HBTVb9qB9eIH08fIMQRq0K6UbTUB3wyYht+4BUH0iQpgkvDOE=",
+        //authkey: "t15HdhLKJ6jZW0ZmAtCEwX58mONf1Ar2enY5t7auYqYSZxcrTCtvbE8e22UFfmr1X1Yd/VQtopUBhZt3SUURWgZhS/lquX7IOICSQR0aEclJtTwuLk8RixEpKHoKYYSqiw4/ov3YoiXIipTWd4arLB1KuU6OfbmvY5vKy9wueUI=",
         version: "3.6.0.0",
 
         // productPath: DEXTUploadX5 location path (It MUST be a web address started with http or https.)

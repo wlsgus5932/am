@@ -10,7 +10,7 @@
       <div class="preservation_into_wrap_left">
             <div class="card-body"><div class="table-responsive">
                <table class="table mb-0">
-                  <tbody>
+                  <tbody id="preservation_tbody">
                            <tr>
                               <td>처리기관</td>
                               <td><input class="form-control st_input" list="datalistOptions" id="treatment_org${status.index}" name="treatment_org" placeholder="처리기관을 입력해 주세요." value="${list.treatment_org}"></td>

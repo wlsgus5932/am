@@ -29,6 +29,7 @@ public class TransformController {
 	@Autowired
 	private TransformService service2;
 	
+	//자료관리전환 페이지 진입
 	@GetMapping("/getTransform.do")
 	public String getTransform(Model model) throws Exception {
 		List<PosSessionVO> possession = service.getPosSession();
@@ -40,9 +41,9 @@ public class TransformController {
 		return "metadata/management/transform/transform";
 	}
 	
+	//자료관리전환 리스트
 	@PostMapping("/getTransformList.do")
 	public String getTransformList(Model model, @ModelAttribute TransformParamVO param, @ModelAttribute Criteria cri) throws Exception {
-		System.out.println(param);
 		String result = "metadata/management/transform/transformList";
 		
 		if(param.getReg_state().equals("Y")) {
@@ -76,18 +77,17 @@ public class TransformController {
 		return result;
 	}
 	
+	//자료관리 엑셀 다운로드
 	@PostMapping("/transformListExcel.do")
 	public String transformListExcel(Model model, @ModelAttribute TransformParamVO param) throws Exception {
-		System.out.println(param);
 		String result = "metadata/management/transform/transformExcel";
-		
 		List<TransformVO> list = service2.getTransformAllList(param);
-		
-			model.addAttribute("transformList", list);
+		model.addAttribute("transformList", list);
 		
 		return result;
 	}
 	
+	//자료관리 개별 변환
 	@PostMapping("/changeTransformReg.do")
 	@ResponseBody
 	public String changeTransformReg(Model model, @ModelAttribute TransformParamVO param) throws Exception {
@@ -105,11 +105,11 @@ public class TransformController {
 		return result;
 	}
 	
+	//자료관리 전체 변환
 	@PostMapping("/changeTransformRegAll.do")
 	@ResponseBody
 	public String changeTransformRegAll(Model model, @ModelAttribute TransformParamVO param) throws Exception {
 		String result = "error";
-		System.out.println(param);
 		List<TransformVO> list = service2.getTransformAllList(param);
 		List<String> list3 = new ArrayList<>();
 		for(int i=0; i<list.size(); i++) {

@@ -2,6 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.aviation.metadata.service.impl.ImageMapper">
 
+	<select id="getImageItemIdx" resultType="String">
+		select 
+			item_idx 
+		from 
+			nam_item_base 
+		where 
+			org_code_idx = 1 
+		and 
+			possession_code_idx = (select possession_code_idx from nam_possession_code where possession_nm = #{possession}) 
+		and
+			item_no = #{item_no}
+		<if test="item_detail_no != null and item_detail_no != '' ">
+		and 
+			item_detail_no = #{item_detail_no}
+		</if>
+	</select>
+
 	<select id="getImage" resultType="egovframework.aviation.metadata.vo.image.ImageVO" parameterType="egovframework.aviation.metadata.vo.param.ImageParamVO">
 		select 
 			row_number() over(order by reg_date, image_nm) as rownum,
@@ -107,7 +124,8 @@
 					ni.IMAGE_NM,
 					ni.IMAGE_PATH,
 					ni.PUBLIC_SERVICE ,
-					ni.image_idx
+					ni.image_idx,
+					ni.thumbnail_nm
 		from nam_item_base nib, nam_image ni, nam_org_code noc, nam_possession_code npc 
 		where nib.REG_STATE = #{reg_state}
 		and nib.org_code_idx = #{org_code_idx}

@@ -37,4 +37,6 @@ public interface ImageMapper {
 
 	int updateNoRep(int item_idx);
 
+	String getImageItemIdx(@Param("possession") String possession, @Param("item_no") String item_no, @Param("item_detail_no") String item_detail_no);
+
 }
